@@ -239,11 +239,11 @@
 
 
 			$(function(){
-		    var search = sct;
-		    $("table tr td").filter(function() {
-		        return $(this).text() == search;
-		    }).parent('tr').css('color','red');
-		});
+			    var search = sct;
+			    $("table tr td").filter(function() {
+			        return $(this).text() == search;
+			    }).parent('tr').css('color','red');
+			});
 
 
 
@@ -265,8 +265,8 @@
 				($(this)).addClass('evenRow');
 				p1.addClass('highlightedEventRelated');
 
-				*/
-			});
+
+			});	*/
 				//closest("tr").addClass('evenRow');
 
 
