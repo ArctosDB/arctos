@@ -248,7 +248,7 @@
 				console.log(p3);
 
 				($(this)).addClass('evenRow');
-				($(this)).parent().addClass('oddRow');
+				$(p3).addClass('oddRow');
 			});
 				//closest("tr").addClass('evenRow');
 
