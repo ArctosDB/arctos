@@ -222,11 +222,11 @@
 					},
 						function (data) {
 							console.log(data);
-							alert('return: ' + JSON.stringify(data);
+							alert('return: ' + JSON.stringify(data));
 							if (data.RECORDCOUNT==1){
 								madeSpecimenEventLink('',thing,key);
 							} else {
-								alert('An error may have occurred: ' + JSON.stringify(data);
+								alert('An error may have occurred: ' + JSON.stringify(data));
 							}
 
 
