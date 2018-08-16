@@ -236,18 +236,22 @@
 			console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
 			var sct='linkedEvent:' + seid ;
+			$( "span:contains(" + sct + ")").each(function(e){
+				$(this),addClass('highlightedEventRelated');
+			});
 
 
-			$(function(){
+
+
+			/*
+
+				$(function(){
 			    var search = sct;
 			    $("table tr td div span").filter(function() {
 			        return $(this).text() == search;
 			    }).parent('tr').css('color','red');
 			});
 
-
-
-			/*
 			$( "span:contains(" + sct + ")").each(function(e){
 				// this is a span
 				//.parent is a div
@@ -262,7 +266,6 @@
 				var p3=p2.parent();
 				console.log(p3);
 
-				($(this)).addClass('evenRow');
 				p1.addClass('highlightedEventRelated');
 
 
