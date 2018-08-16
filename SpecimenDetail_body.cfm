@@ -225,7 +225,7 @@
 				}
 			);
 		}
-		function highlightSpecimenEvent(seid,pid){
+		function highlightSpecimenEvent(seid,typ,id){
 			$(".highlightSEID").removeClass("highlightSEID");
 			$(".highlightedEventRelated").removeClass("highlightedEventRelated");
 
@@ -236,7 +236,13 @@
 	    	// highlight the event
 	    	$("##seidd_" + seid).parent().addClass('highlightedEventRelated').show();
 	    	// highlight this row
-	    	$("##eventPartLink_' + pid").parent().parent().parent().addClass('highlightedEventRelated');
+	    	if (typ=='specimen_part'){
+	    		$("##eventPartLink_' + id").parent().parent().parent().addClass('highlightedEventRelated');
+	    	}
+
+
+
+
 
 
 		}
