@@ -232,7 +232,7 @@
 		function highlightEventDerivedJunk(seid){
 			console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
-			$("div[id^='eventPartLink_']").each(function(e){
+			$("##eventPartLink_" + seid).each(function(e){
 				console.log($(this));
 				$(this).closest("tr").addClass('evenRow');
 			});
