@@ -34,7 +34,7 @@
 	}
 
 	.highlightedEventRelated{
-		color:red;
+		background:#daf10d33;
 	}
 
 
