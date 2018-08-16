@@ -240,7 +240,7 @@
 
 			$(function(){
 			    var search = sct;
-			    $("table tr td").filter(function() {
+			    $("table tr td div span").filter(function() {
 			        return $(this).text() == search;
 			    }).parent('tr').css('color','red');
 			});
