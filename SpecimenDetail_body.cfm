@@ -231,7 +231,11 @@
 	    	// collapse the locality pane so we've got something to scroll to
 	    	rescrollify('locality_pane');
 	    	$("##locality_pane").scrollTo( $("##seidd_" + seid), 800 );
+	    	// and highlight the event
+	    	$("##seidd_" + seid).parent().addClass('highlightedEventRelated').show();
 		}
+
+
 		function highlightEventDerivedJunk(seid){
 			console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
