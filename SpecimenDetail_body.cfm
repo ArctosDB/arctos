@@ -133,7 +133,7 @@
 							addSpecEvtLnkLnks('specimen_part',spid,seid);
 
 							//if (data.ROWCOUNT>0){
-							//	$( "##" + thisid).prepend('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  data.DATA.SPECIMEN_EVENT_ID[0] + "'" + ');">linked event:' + data.DATA.SPECIMEN_EVENT_ID[0] + '</span>');
+							//	$( "##" + thisid).prepend('<span class="infoLink" onclick="highlightSpecimenEvent(' + "'" +  data.DATA.SPECIMEN_EVENT_ID[0] + "'" + ',' + "'" + spid + '"');">linked event:' + data.DATA.SPECIMEN_EVENT_ID[0] + '</span>');
 							//} else {
 							//	$( "##" + thisid).prepend('partID: ' + spid + '; notlinked ');
 							//}
@@ -225,14 +225,20 @@
 				}
 			);
 		}
-		function highlightSpecimenEvent(seid){
+		function highlightSpecimenEvent(seid,pid){
 			$(".highlightSEID").removeClass("highlightSEID");
+			$(".highlightedEventRelated").removeClass("highlightedEventRelated");
+
 	    	$("##seidd_" + seid).addClass('highlightSEID').show();
 	    	// collapse the locality pane so we've got something to scroll to
 	    	rescrollify('locality_pane');
 	    	$("##locality_pane").scrollTo( $("##seidd_" + seid), 800 );
-	    	// and highlight the event
+	    	// highlight the event
 	    	$("##seidd_" + seid).parent().addClass('highlightedEventRelated').show();
+	    	// highlight this row
+	    	$("##eventPartLink_' + pid").parent().parent().parent().addClass('highlightedEventRelated');
+
+
 		}
 
 
