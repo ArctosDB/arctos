@@ -237,6 +237,8 @@
 			// parts
 			var sct='linkedEvent:' + seid ;
 			$( "span:contains(" + sct + ")").each(function(e){
+				console.log($(this));
+
 				$(this).addClass('highlightedEventRelated');
 			});
 
