@@ -21,7 +21,21 @@
 	</cfquery>
 	<cfreturn r>
 </cffunction>
-
+<!--------------------------------------------------------------------------------------------------------->
+<cffunction name="deLinkSpecEvent" access="remote" returnformat="plain" queryFormat="column">
+	<cfparam name="related_key_type" type="string" >
+	<cfparam name="related_key_value" type="numeric" >
+	<cfquery name="d" result="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from	specimen_event_links where
+			 <cfif related_key_type is "specimen_part">
+				specimen_event_links.part_id=#related_key_value#
+			<cfelse>
+				<!--- not handled --->
+				1=2
+			</cfif>
+	</cfquery>
+	<cfreturn r>
+</cffunction>
 
 <!--------------------------------------------------------------------------------------------------------->
 <cffunction name="getSpecimenSummary" access="remote" returnformat="plain" queryFormat="column">

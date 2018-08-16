@@ -153,11 +153,11 @@
 					console.log('seid isnot null');
 					// there is a linked event
 					// show the ID, allow highlight
-					theHTML+="<span class=\"infoLink\" onclick=\"highlightSpecimenEvent('" +  seid + "');\">linked event:" + seid + "</span>";
+					theHTML+="<span class=\"infoLink\" onclick=\"highlightSpecimenEvent('" +  seid + "');\">linkedEvent:" + seid + "</span>";
 
 				console.log('part1' + theHTML);
 					// and add a delete button
-					theHTML+="<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + id + "');\">Remove Link</span>";
+					theHTML+="<br><span class=\"infoLink\" onclick=\"delinkSpecEvt('specimen_part','" + id + "');\">removeLink</span>";
 				console.log('part3' + theHTML);
 				}
 				// always include the pick link; it'll just over-write any existing
@@ -204,8 +204,28 @@
 		}
 
 		function delinkSpecEvt(thing,key){
+
 			console.log(thing);
 			console.log(key);
+
+			$.getJSON("/component/SpecimenResults.cfc",
+					{
+						method : "deLinkSpecEvent",
+						returnformat : "json",
+						queryformat : 'column',
+						collection_object_id      : #collection_object_id#,
+						related_key_type : thing,
+						related_key_value: key
+					},
+						function (data) {
+							console.log(data);
+
+
+					}
+				);
+
+
+
 		}
 		function highlightSpecimenEvent(seid){
 			$(".highlightSEID").removeClass("highlightSEID");
