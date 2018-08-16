@@ -240,7 +240,7 @@
 				//.parent is a row
 				console.log($(this));
 				($(this)).addClass('evenRow');
-				($(this)).parent().parent().addClass('oddRow');
+				($(this)).parent().addClass('oddRow');
 			});
 				//closest("tr").addClass('evenRow');
 
