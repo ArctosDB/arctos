@@ -246,7 +246,7 @@
 
 			// and hte caller
 
-			$("##seidd_" + seid).addClass('highlightedEventRelated').show();
+			$("##seidd_" + seid).parent().addClass('highlightedEventRelated').show();
 
 			/*
 			$( "span:contains(" + sct + ")").each(function(e){
