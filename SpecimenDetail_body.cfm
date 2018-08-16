@@ -232,10 +232,13 @@
 		function highlightEventDerivedJunk(seid){
 			console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
-			$("##eventPartLink_" + seid).each(function(e){
-				console.log($(this));
-				$(this).closest("tr").addClass('evenRow');
-			});
+			$( "span:contains('linkedEvent:" + seid + "'" ).addClass('evenRow');
+
+
+			//$("##eventPartLink_" + seid).each(function(e){
+			//	console.log($(this));
+			//	$(this).closest("tr").addClass('evenRow');
+			//});
 
 
 
