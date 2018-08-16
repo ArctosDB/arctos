@@ -33,6 +33,9 @@
 		margin:1em;
 	}
 
+	.highlightedEventRelated{
+		color:red;
+	}
 
 
 
@@ -248,7 +251,7 @@
 				console.log(p3);
 
 				($(this)).addClass('evenRow');
-				$(p3).addClass('oddRow');
+				p3.addClass('highlightedEventRelated');
 			});
 				//closest("tr").addClass('evenRow');
 
