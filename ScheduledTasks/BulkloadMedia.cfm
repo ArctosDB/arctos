@@ -758,19 +758,22 @@
 								</cftry>
 							</cfif>
 
-
-
 						<cfelseif table_name is "project">
-							<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-								select distinct(project_id) project_id from project where project_id ='#rt#'
-							</cfquery>
-							<cfif c.recordcount is 1 and len(c.project_id) gt 0>
-								<cfquery name="i" datasource="uam_god">
-									update cf_temp_media set media_related_key_#i#=#c.project_id# where key=#key#
+							<cftry>
+								<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+									select distinct(project_id) project_id from project where project_id ='#rt#'
 								</cfquery>
-							<cfelse>
-								<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
-							</cfif>
+								<cfif c.recordcount is 1 and len(c.project_id) gt 0>
+									<cfquery name="i" datasource="uam_god">
+										update cf_temp_media set media_related_key_#i#=#c.project_id# where key=#key#
+									</cfquery>
+								<cfelse>
+									<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
+								</cfif>
+								<cfcatch>
+									<cfset rec_stat=listappend(rec_stat,'Project #lv# error: #cfcatch.Message#',";")>
+								</cfcatch>
+							</cftry>
 						<cfelseif table_name is "media">
 							<cfquery name="c" datasource="uam_god">
 								select distinct(media_id) media_id from media where media_uri ='#rt#'
