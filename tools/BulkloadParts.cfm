@@ -535,6 +535,11 @@ grant all on cf_temp_parts to manage_collection;
 			<p>
 				The data should load. Check them one more time, then <a href="BulkloadParts.cfm?action=loadToDb">proceed to load</a>
 			</p>
+		<cfelse>
+			<p>
+				Load isn't available until all records validate.
+			</p>
+
 		</cfif>
 		<form name="d" method="post" action="BulkloadParts.cfm">
 		<input type="hidden" name="action" value="deleteChecked">
