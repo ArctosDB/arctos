@@ -133,8 +133,7 @@
 
 <cfset l=1>
 <cfsavecontent variable = "sauths">
-	<cfloop query="sqa">
-        {
+	<cfloop query="sqa">{
             name name {
                 last "#LAST_NAME#",
                 first "#FIRST_NAME#",
@@ -149,8 +148,7 @@
 </cfsavecontent>
 <cfset l=1>
 <cfsavecontent variable = "pauths">
-	<cfloop query="srefa">
-            {
+	<cfloop query="srefa">{
             name name {
                 last "#LAST_NAME#",
                 first "#FIRST_NAME#",
@@ -194,7 +192,8 @@ Submit-block ::= {
 },
 cit {
     authors {
-        names std {#sauths#
+        names std {
+			#sauths#
         }
     },
     affil std {
