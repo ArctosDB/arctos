@@ -337,6 +337,8 @@ Seqdesc ::= user {
 <cfdump var=#sbt#>
 
 ---->
+
+<cfset rstr=replace(rstr,chr(10),"  ","all")>
 <cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
 		<a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.sbt</a>
