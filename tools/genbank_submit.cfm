@@ -142,7 +142,7 @@
                             suffix "",
                             title ""
                         }
-                    }<cfif l lt sqa.recordcount>,</cfif>
+                    }<cfif l lt sqa.recordcount>,#chr(10)#</cfif>
   		<cfset l=l+1>
 	</cfloop>
 </cfsavecontent>
@@ -157,7 +157,7 @@
                             suffix "",
                             title ""
                         }
-                    }<cfif l lt srefa.recordcount>,</cfif>
+                    }<cfif l lt srefa.recordcount>,#chr(10)#</cfif>
   		<cfset l=l+1>
 	</cfloop>
 </cfsavecontent>
