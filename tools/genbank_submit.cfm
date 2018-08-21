@@ -49,11 +49,13 @@
 			insert into genbank_people (
 				genbank_people_id,
 				genbank_batch_id,
-				agent_id
+				agent_id,
+				person_role
 			) values (
 				someRandomSequence.nextval,
 				#batch_id#,
-				'#new_agent_id#'
+				'#new_agent_id#',
+				'#person_role#'
 			)
 		</cfquery>
 		<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
@@ -67,8 +69,66 @@
 		</p>
 		<form name="f" method="post" action="genbank_submit.cfm">
 			<input type="hidden" name="action" value="create_batch">
-			<label for="batch_name">batch_name</label>
-			<input type="text" name="batch_name" id="batch_name" size="80">
+			<label for="batch_name">batch_name (must be unique; local label, usually for publication)</label>
+			<input type="text" name="batch_name" id="batch_name" size="80" class="reqdClr">
+
+			<h3>Contact Agent details</h3>
+			<label for="contact_agent">contact agent (pick Arctos agent)</label>
+			<input type="hidden" name="contact_agent_id" id="contact_agent_id" value="">
+			<input type="text" name="contact_agent" id="contact_agent" value=""
+				onchange="pickAgentModal('contact_agent_id',this.id,this.value); return false;"
+				onKeyPress="return noenter(event);" placeholder="contact agent" class="reqdClr minput">
+
+
+
+			<label for="first_name">first_name</label>
+			<input type="text" name="first_name" id="first_name" size="80" class="reqdClr">
+
+			<label for="xxxx">last_name</label>
+			<input type="text" name="last_name" id="last_name" size="80" class="reqdClr">
+
+			<label for="xxxx">middle_initial</label>
+			<input type="text" name="middle_initial" id="middle_initial" size="80" class="reqdClr">
+
+			<label for="email">email</label>
+			<input type="text" name="email" id="email" size="80" class="reqdClr">
+
+			<label for="organization">organization</label>
+			<input type="text" name="organization" id="organization" size="80" class="reqdClr">
+
+			<label for="department">department</label>
+			<input type="text" name="department" id="department" size="80" class="reqdClr">
+
+			<label for="phone">phone</label>
+			<input type="text" name="phone" id="phone" size="80" class="reqdClr">
+
+			<label for="fax">fax</label>
+			<input type="text" name="fax" id="fax" size="80" class="reqdClr">
+
+			<label for="street">street</label>
+			<input type="text" name="street" id="street" size="80" class="reqdClr">
+
+			<label for="city">city</label>
+			<input type="text" name="city" id="xxxx" size="80" class="reqdClr">
+
+			<label for="state_prov">state_prov</label>
+			<input type="text" name="state_prov" id="state_prov" size="80" class="reqdClr">
+
+			<label for="postal_code">postal_code</label>
+			<input type="text" name="postal_code" id="postal_code" size="80" class="reqdClr">
+
+			<label for="xxxx">country</label>
+			<input type="text" name="country" id="country" size="80" class="reqdClr">
+
+			<label for="ref_title">ref_title (publication title or working title)</label>
+			<input type="text" name="ref_title" id="ref_title" size="80" class="reqdClr">
+
+			<label for="biosample">biosample</label>
+			<input type="text" name="xxxx" id="biosample" size="80">
+
+			<label for="bioproject">bioproject</label>
+			<input type="text" name="bioproject" id="bioproject" size="80" >
+
 			<br><input type="submit" value="create batch" class="insBtn">
 		</form>
 	</cfoutput>
