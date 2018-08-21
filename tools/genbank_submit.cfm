@@ -63,7 +63,6 @@
 				</cfloop>
 			</select>
 
-
 			<br><input type="submit" value="add person" class="insBtn">
 		</form>
 		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -71,9 +70,59 @@
 		</cfquery>
 		<cfdump var=#p#>
 
+		<h3>Sequences</h3>
+		<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from genbank_sequence where genbank_batch_id=#batch_id#
+		</cfquery>
+		<cfdump var=#s#>
+
+		<form name="f" method="post" action="genbank_submit.cfm">
+			<input type="hidden" name="action" value="add_sequence">
+			<input type="hidden" name="batch_id" value="#batch_id#">
+
+			<label for="sequence_identifier">sequence_identifier</label>
+			<input type="text" name="sequence_identifier" id="sequence_identifier" size="80" class="reqdClr">
+
+
+			<label for="GUID">GUID (DWC Triplet format)</label>
+			<input type="text" name="GUID" id="GUID" size="80" class="reqdClr">
+
+
+			<label for="sequence_data">sequence_data</label>
+			<textarea name="sequence_data" id="sequence_data" class="hugetextarea"></textarea>
+
+
+			<br><input type="submit" value="add sequence" class="insBtn">
+		</form>
+
+
 	</cfoutput>
 </cfif>
 
+
+
+
+<!--------------------------------------------------------------------------------------------->
+<cfif action is "add_sequence">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into genbank_sequence (
+				sequence_id,
+				genbank_batch_id,
+				sequence_identifier,
+				collection_object_id,
+				sequence_data
+			) values (
+				someRandomSequence.nextval,
+				#batch_id#,
+				'#sequence_identifier#',
+				(select collection_object_id from flat where guid='#GUID#'),
+				'#sequence_data#'
+			)
+		</cfquery>
+		<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
+	</cfoutput>
+</cfif>
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "add_agent">
 	<cfoutput>
