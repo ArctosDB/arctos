@@ -9,7 +9,7 @@
 			select * from genbank_batch order by batch_name
 		</cfquery>
 		<cfloop query="d">
-			<br><a href="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#">edit batch #batch_name#</a>
+			<br><a href="genbank_submit.cfm?action=edbatch&batch_id=#genbank_batch_id#">edit batch #batch_name#</a>
 
 		</cfloop>
 	</cfoutput>
