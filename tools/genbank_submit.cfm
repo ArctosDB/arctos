@@ -118,7 +118,7 @@
 			<label for="last_name">last_name</label>
 			<input type="text" name="last_name" id="last_name" size="80" class="reqdClr">
 
-			<label for="xxxx">middle_initial</label>
+			<label for="middle_initial">middle_initial</label>
 			<input type="text" name="middle_initial" id="middle_initial" size="80" class="reqdClr">
 
 			<label for="email">email</label>
@@ -155,7 +155,7 @@
 			<input type="text" name="ref_title" id="ref_title" size="80" class="reqdClr">
 
 			<label for="biosample">biosample</label>
-			<input type="text" name="xxxx" id="biosample" size="80">
+			<input type="text" name="biosample" id="biosample" size="80">
 
 			<label for="bioproject">bioproject</label>
 			<input type="text" name="bioproject" id="bioproject" size="80" >
