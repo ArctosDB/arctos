@@ -18,7 +18,7 @@
 <cfif action is "edbatch">
 	<cfoutput>
 		<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from genbank_batch where batch_id=#batch_id#
+			select * from genbank_batch where genbank_batch_id=#batch_id#
 		</cfquery>
 		<cfdump var=#b#>
 		<hr>
