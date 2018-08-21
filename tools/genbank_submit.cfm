@@ -54,7 +54,14 @@
 			<label for="last_name">last_name</label>
 			<input type="text" name="last_name" id="last_name" size="80" class="reqdClr">
 
+			<label for="agent_order">agent_order</label>
+			<select name="agent_order" id="agent_order" class="reqdClr">
+				<option></option>
+				<cfloop from="1" to="30" index="i">
 
+					<option value="#i#">#i#</option>
+				</cfloop>
+			</select>
 
 
 			<br><input type="submit" value="add person" class="insBtn">
@@ -78,7 +85,8 @@
 				agent_role,
 				first_name,
 				middle_initial,
-				last_name
+				last_name,
+				agent_order
 			) values (
 				someRandomSequence.nextval,
 				#batch_id#,
@@ -86,7 +94,8 @@
 				'#agent_role#',
 				'#first_name#',
 				'#middle_initial#',
-				'#last_name#'
+				'#last_name#',
+				#agent_order#
 			)
 		</cfquery>
 		<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
