@@ -131,55 +131,70 @@
 		<cfdump var=#p#>
 		<cfdump var=#s#>
 
-
-
+<cfset l=1>
+<cfsavecontent variable = "sauths">
+	<cfloop query="sqa">
+        {
+            name name {
+                last "#LAST_NAME#",
+                first "#FIRST_NAME#",
+                middle "#MIDDLE_INITIAL#",
+                initials "",
+                suffix "",
+                title ""
+            }
+        }<cfif l is sqa.recordcount>,</cfif>
+  		<cfset l=l+1>
+	</cfloop>
+</cfsavecontent>
+<cfset l=1>
+<cfsavecontent variable = "pauths">
+	<cfloop query="srefa">
+        {
+            name name {
+                last "#LAST_NAME#",
+                first "#FIRST_NAME#",
+                middle "#MIDDLE_INITIAL#",
+                initials "",
+                suffix "",
+                title ""
+            }
+        }<cfif l is srefa.recordcount>,</cfif>
+  		<cfset l=l+1>
+	</cfloop>
+</cfsavecontent>
 <cfsavecontent variable = "sbt">
 Submit-block ::= {
-  contact {
     contact {
-      name name {
-        last "#d.last_name#",
-        first "#d.first_name#",
-        middle "#d.middle_initial#",
-        initials "",
-        suffix "",
-        title ""
-      },
-      affil std {
-        affil "#d.organization#",
-        div "#d.department#",
-        city "#d.city#",
-        sub "#d.state_prov#",
-        country "#d.country#",
-        street "#d.street#",
-        email "#d.email#",
-        fax "#d.fax#",
-        phone "#d.phone#",
-        postal-code "#d.postal_code#"
-      }
-    }
-  },
-  cit {
-    authors {
-      names std {
-		<cfset l=0>
-        <cfloop query="sqa">
-		{
-          name name {
-            last "#LAST_NAME#",
-            first "#FIRST_NAME#",
-            middle "#MIDDLE_INITIAL#",
+        contact {
+            name name {
+            last "#d.last_name#",
+            first "#d.first_name#",
+            middle "#d.middle_initial#",
             initials "",
             suffix "",
             title ""
-          }
-		}
-  		<cfset l=l+1>
-		<cfif l is sqa.recordcount>
-		,
-		</cfif>
-	},
-		</cfloop>
+        },
+        affil std {
+            affil "#d.organization#",
+            div "#d.department#",
+            city "#d.city#",
+            sub "#d.state_prov#",
+            country "#d.country#",
+            street "#d.street#",
+            email "#d.email#",
+            fax "#d.fax#",
+            phone "#d.phone#",
+            postal-code "#d.postal_code#"
+        }
+    }
+},
+cit {
+    authors {
+        names std {
+			#sauths#
+        }
+    },
     affil std {
         affil "#d.organization#",
         div "#d.department#",
@@ -202,23 +217,7 @@ Seqdesc ::= pub {
       cit "unpublished",
       authors {
         names std {
-		<cfset l=0>
-		<cfloop query="srefa">
-		 {
-             name name {
-	            last "#LAST_NAME#",
-	            first "#FIRST_NAME#",
-	            middle "#MIDDLE_INITIAL#",
-	            initials "",
-	            suffix "",
-	            title ""
-	          }
-          }
-		<cfset l=l+1>
-		<cfif l lt srefa.recordcount>
-		,
-		</cfif>
-		</cfloop>
+		  #pauths#
         }
       },
       title "#d.REF_TITLE#"
