@@ -148,7 +148,7 @@
 </cfsavecontent>
 <cfset l=1>
 <cfsavecontent variable = "pauths">
-	<cfloop query="srefa">{
+<cfloop query="srefa">{
             name name {
                 last "#LAST_NAME#",
                 first "#FIRST_NAME#",
@@ -193,7 +193,7 @@ Submit-block ::= {
 cit {
     authors {
         names std {
-			#sauths#
+		    #sauths#
         }
     },
     affil std {
@@ -217,7 +217,8 @@ Seqdesc ::= pub {
     gen {
       cit "unpublished",
       authors {
-        names std {#pauths#
+        names std {
+		    #pauths#
         }
       },
       title "#d.REF_TITLE#"
