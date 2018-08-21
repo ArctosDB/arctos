@@ -97,7 +97,7 @@
 
 
 		<p>
-		<br><a href="genbank_submit.cfm?action=prepfiles&batch_id=#genbank_batch_id#">prepare files</a>
+		<br><a href="genbank_submit.cfm?action=prepfiles&batch_id=#batch_id#">prepare files</a>
 
 		</p>
 
