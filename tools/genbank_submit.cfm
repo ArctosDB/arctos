@@ -217,7 +217,7 @@
 <cfset rstr=rstr & chr(10) & "subtype new">
 <cfset rstr=rstr & chr(10) & "}">
 
-
+<!----
 }
 Seqdesc ::= pub {
   pub {
@@ -336,7 +336,7 @@ Seqdesc ::= user {
 
 <cfdump var=#sbt#>
 
-
+---->
 <cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
 		<a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.sbt</a>
