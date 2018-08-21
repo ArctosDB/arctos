@@ -198,52 +198,95 @@
 	</cfif>
  	<cfset l=l+1>
 </cfloop>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "},">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "affil std {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'affil "#d.organization#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'div "#d.department#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'city "#d.city#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'sub "#d.state_prov#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'country "#d.country#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'street "#d.street#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'email "#d.email#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'fax "#d.fax#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'phone "#d.phone#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'postal-code "#d.postal_code#"'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "}">
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "},">
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "affil std {">
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'affil "#d.organization#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'div "#d.department#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'city "#d.city#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'sub "#d.state_prov#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'country "#d.country#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'street "#d.street#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'email "#d.email#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'fax "#d.fax#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'phone "#d.phone#",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'postal-code "#d.postal_code#"'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "}">
-<cfset rstr=rstr & chr(10) & chr(9) & "}">
-<cfset rstr=rstr & chr(10) & "},">
-<cfset rstr=rstr & chr(10) & "subtype new">
+<cfset rstr=rstr & chr(10) & chr(9) & "},">
+<cfset rstr=rstr & chr(10) & chr(9) & "subtype new">
 <cfset rstr=rstr & chr(10) & "}">
+<cfset rstr=rstr & chr(10) & "Seqdesc ::= pub {">
+<cfset rstr=rstr & chr(10) & chr(9) & "pub {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & " gen {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & ' cit "unpublished",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & ' cit "authors {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & ' names std {'>
+<cfset l=1>
+<cfloop query="srefa">
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & "{">
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & "name name {">
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'last "#LAST_NAME#",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'first "#FIRST_NAME#",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'middle "#MIDDLE_INITIAL#",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'initials "",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'suffix "",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'title ""'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & "}">
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & "}">
+	<cfif l lt srefa.recordcount>
+	 	<cfset rstr=rstr & ",">
+	</cfif>
+ 	<cfset l=l+1>
+</cfloop>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "},">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'title "#d.REF_TITLE#"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & '}'>
+<cfset rstr=rstr & chr(10) & 'Seqdesc ::= user {'>
+<cfset rstr=rstr & chr(10) & chr(9) & 'type str "DBLink",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & 'data {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '{'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'label str "BioProject",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'num 1,'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'data strs {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '"SUB1"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '},'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '{'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'label str "BioSample",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'num 1,'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'data strs {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '"SAM6"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & 'Seqdesc ::= user {'>
+<cfset rstr=rstr & chr(10) & chr(9) & 'type str "Submission",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & 'data {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '{'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'label str "AdditionalComment",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'data str "ALT EMAIL:#d.email#"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & 'Seqdesc ::= user {'>
+<cfset rstr=rstr & chr(10) & chr(9) & 'type str "Submission",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & 'data {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '{'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'label str "AdditionalComment",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'Submission Title:None'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & '}'>
+
 
 <!----
-}
-Seqdesc ::= pub {
-  pub {
-    gen {
-      cit "unpublished",
-      authors {
-        names std {
-		    #pauths#
-        }
-      },
-      title "#d.REF_TITLE#"
-    }
-  }
-}
+
 Seqdesc ::= user {
-  type str "Submission",
-  data {
-    {
-      label str "AdditionalComment",
-      data str "ALT EMAIL:#d.email#"
-    }
-  }
-}
-Seqdesc ::= user {
-  type str "Submission",
-  data {
+
+
     {
       label str "AdditionalComment",
       data str "Submission Title:None"
