@@ -134,30 +134,30 @@
 <cfset l=1>
 <cfsavecontent variable = "sauths">
 <cfloop query="sqa">{
-            name name {
-                last "#LAST_NAME#",
-                first "#FIRST_NAME#",
-                middle "#MIDDLE_INITIAL#",
-                initials "",
-                suffix "",
-                title ""
-            }
-        }<cfif l is sqa.recordcount>,</cfif>
+                        name name {
+                            last "#LAST_NAME#",
+                            first "#FIRST_NAME#",
+                            middle "#MIDDLE_INITIAL#",
+                            initials "",
+                            suffix "",
+                            title ""
+                        }
+                    }<cfif l is sqa.recordcount>,</cfif>
   		<cfset l=l+1>
 	</cfloop>
 </cfsavecontent>
 <cfset l=1>
 <cfsavecontent variable = "pauths">
 <cfloop query="srefa">{
-                    name name {
-                last "#LAST_NAME#",
-                first "#FIRST_NAME#",
-                middle "#MIDDLE_INITIAL#",
-                initials "",
-                suffix "",
-                title ""
-            }
-        }<cfif l is srefa.recordcount>,</cfif>
+                        name name {
+                            last "#LAST_NAME#",
+                            first "#FIRST_NAME#",
+                            middle "#MIDDLE_INITIAL#",
+                            initials "",
+                            suffix "",
+                            title ""
+                        }
+                    }<cfif l is srefa.recordcount>,</cfif>
   		<cfset l=l+1>
 	</cfloop>
 </cfsavecontent>
