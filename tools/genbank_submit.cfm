@@ -123,8 +123,7 @@
 		<cfdump var=#p#>
 		<cfdump var=#s#>
 <cfsavecontent variable = "sbt">
-			var s='
-		Submit-block ::= {
+Submit-block ::= {
   contact {
     contact {
       name name {
@@ -220,15 +219,6 @@ Seqdesc ::= user {
 
 
 <cfdump var=#sbt#>
-2
-3
-4
-5
-6
-7
-8
-9
-
 
 
 <cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#sbt#" addnewline="false">
