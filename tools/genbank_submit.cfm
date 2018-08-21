@@ -176,10 +176,9 @@ Submit-block ::= {
 		}
   		<cfset l=l+1>
 		<cfif l is sqa.recordcount>
-		}
-		<cfelse>
-	},
+		,
 		</cfif>
+	},
 		</cfloop>
     affil std {
         affil "#d.organization#",
