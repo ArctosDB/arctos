@@ -27,17 +27,42 @@
 		<form name="f" method="post" action="genbank_submit.cfm">
 			<input type="hidden" name="action" value="add_agent">
 			<input type="hidden" name="batch_id" value="#batch_id#">
+
+
+
+
+
 			<input type="hidden" name="new_agent_id" id="new_agent_id" value="">
+			<label for="new_agent">Agent (pick Arctos agent)</label>
 			<input type="text" name="new_agent" id="new_agent" value=""
 				onchange="pickAgentModal('new_agent_id',this.id,this.value); return false;"
 				onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
-			<br><input type="submit" value="create batch" class="insBtn">
+
+			<label for="agent_role">agent_role</label>
+			<select name="agent_role" id="agent_role" class="reqdClr">
+				<option></option>
+				<option value="sequence author">sequence author</option>
+				<option value="reference author">reference author</option>
+			</select>
+
+			<label for="first_name">first_name</label>
+			<input type="text" name="first_name" id="first_name" size="80" class="reqdClr">
+
+			<label for="middle_initial">middle_initial</label>
+			<input type="text" name="middle_initial" id="middle_initial" size="80" >
+
+			<label for="last_name">last_name</label>
+			<input type="text" name="last_name" id="last_name" size="80" class="reqdClr">
+
+
+
+
+			<br><input type="submit" value="add person" class="insBtn">
 		</form>
 		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from genbank_people where genbank_batch_id=#batch_id#
 		</cfquery>
 		<cfdump var=#p#>
-
 
 	</cfoutput>
 </cfif>
@@ -50,12 +75,18 @@
 				genbank_people_id,
 				genbank_batch_id,
 				agent_id,
-				person_role
+				agent_role,
+				first_name,
+				middle_initial,
+				last_name
 			) values (
 				someRandomSequence.nextval,
 				#batch_id#,
 				'#new_agent_id#',
-				'#person_role#'
+				'#agent_role#',
+				'#first_name#',
+				'#middle_initial#',
+				'#last_name#'
 			)
 		</cfquery>
 		<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
@@ -84,7 +115,7 @@
 			<label for="first_name">first_name</label>
 			<input type="text" name="first_name" id="first_name" size="80" class="reqdClr">
 
-			<label for="xxxx">last_name</label>
+			<label for="last_name">last_name</label>
 			<input type="text" name="last_name" id="last_name" size="80" class="reqdClr">
 
 			<label for="xxxx">middle_initial</label>
@@ -117,7 +148,7 @@
 			<label for="postal_code">postal_code</label>
 			<input type="text" name="postal_code" id="postal_code" size="80" class="reqdClr">
 
-			<label for="xxxx">country</label>
+			<label for="country">country</label>
 			<input type="text" name="country" id="country" size="80" class="reqdClr">
 
 			<label for="ref_title">ref_title (publication title or working title)</label>
@@ -143,12 +174,44 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into genbank_batch (
 			genbank_batch_id,
-			created_agent_id,
-			batch_name
+			contact_agent_id,
+			batch_name,
+			first_name,
+			last_name,
+			middle_initial,
+			email,
+			organization,
+			department,
+			phone,
+			fax,
+			street,
+			city,
+			state_prov,
+			postal_code,
+			country,
+			ref_title,
+			biosample,
+			bioproject
 		) values (
 			#k.k#,
-			#session.myAgentID#,
-			'#batch_name#'
+			#contact_agent_id#,
+			'#batch_name#',
+			'#first_name#',
+			'#last_name#',
+			'#middle_initial#',
+			'#email#',
+			'#organization#',
+			'#department#',
+			'#phone#',
+			'#fax#',
+			'#street#',
+			'#city#',
+			'#state_prov#',
+			'#postal_code#',
+			'#country#',
+			'#ref_title#',
+			'#biosample#',
+			'#bioproject#'
 		)
 	</cfquery>
 	<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#k.k#" addtoken="false">
