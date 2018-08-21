@@ -183,16 +183,16 @@
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "names std {">
 <cfset l=1>
 <cfloop query="sqa">
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & "{">
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & "name name {">
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'last "#LAST_NAME#",'>
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'first "#FIRST_NAME#",'>
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'middle "#MIDDLE_INITIAL#",'>
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'initials "",'>
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'suffix "",'>
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'title ""'>
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & "}">
-	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & "}">
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & "{">
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & "name name {">
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'last "#LAST_NAME#",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'first "#FIRST_NAME#",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'middle "#MIDDLE_INITIAL#",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'initials "",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'suffix "",'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'title ""'>
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & "}">
+	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & "}">
 	<cfif l lt sqa.recordcount>
 	 	<cfset rstr=rstr & ",">
 	</cfif>
