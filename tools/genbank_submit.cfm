@@ -150,7 +150,7 @@
 <cfset l=1>
 <cfsavecontent variable = "pauths">
 	<cfloop query="srefa">
-        {
+            {
             name name {
                 last "#LAST_NAME#",
                 first "#FIRST_NAME#",
@@ -218,8 +218,7 @@ Seqdesc ::= pub {
     gen {
       cit "unpublished",
       authors {
-        names std {
-		  #pauths#
+        names std {#pauths#
         }
       },
       title "#d.REF_TITLE#"
