@@ -220,6 +220,21 @@ Seqdesc ::= user {
 
 
 <cfdump var=#sbt#>
+2
+3
+4
+5
+6
+7
+8
+9
+
+
+
+<cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#sbt#" addnewline="false">
+
+		<a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.sbt</a>
+
 
 	</cfoutput>
 </cfif>
