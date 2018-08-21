@@ -245,41 +245,41 @@
 <cfset rstr=rstr & chr(10) & '}'>
 <cfset rstr=rstr & chr(10) & 'Seqdesc ::= user {'>
 <cfset rstr=rstr & chr(10) & chr(9) & 'type str "DBLink",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & 'data {'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '{'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'label str "BioProject",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'num 1,'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'data strs {'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '"SUB1"'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '}'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '},'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '{'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'label str "BioSample",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'num 1,'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'data strs {'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '"SAM6"'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & 'data {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '{'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'label str "BioProject",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'num 1,'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'data strs {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '"SUB1"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '},'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '{'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'label str "BioSample",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'num 1,'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'data strs {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '"SAM6"'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
 <cfset rstr=rstr & chr(10) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & '}'>
 <cfset rstr=rstr & chr(10) & 'Seqdesc ::= user {'>
 <cfset rstr=rstr & chr(10) & chr(9) & 'type str "Submission",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & 'data {'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '{'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'label str "AdditionalComment",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'data str "ALT EMAIL:#d.email#"'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & 'data {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '{'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'label str "AdditionalComment",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'data str "ALT EMAIL:#d.email#"'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
 <cfset rstr=rstr & chr(10) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & '}'>
 <cfset rstr=rstr & chr(10) & 'Seqdesc ::= user {'>
 <cfset rstr=rstr & chr(10) & chr(9) & 'type str "Submission",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & 'data {'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '{'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'label str "AdditionalComment",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'Submission Title:None'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & chr(9) & 'data {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '{'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'label str "AdditionalComment",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'Submission Title:None'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
 <cfset rstr=rstr & chr(10) & chr(9) & '}'>
+<cfset rstr=rstr & chr(10) & '}'>
 
 
 <!----
