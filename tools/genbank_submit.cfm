@@ -96,12 +96,27 @@
 		</form>
 
 
+		<p>
+		<br><a href="genbank_submit.cfm?action=prepfiles&batch_id=#genbank_batch_id#">prepare files</a>
+
+		</p>
+
 	</cfoutput>
 </cfif>
 
 
 
 
+<!--------------------------------------------------------------------------------------------->
+<cfif action is "prepfiles">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from genbank_batch where genbank_batch_id=#batch_id#
+		</cfquery>
+		<cfdump var=#d#>
+
+	</cfoutput>
+</cfif>
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "add_sequence">
 	<cfoutput>
