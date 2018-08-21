@@ -194,8 +194,7 @@ Submit-block ::= {
 },
 cit {
     authors {
-        names std {
-		#sauths#
+        names std {#sauths#
         }
     },
     affil std {
