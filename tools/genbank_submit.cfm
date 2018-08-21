@@ -131,21 +131,7 @@
 		<cfdump var=#p#>
 		<cfdump var=#s#>
 
-<cfset l=1>
-<cfsavecontent variable = "sauths">
-<cfloop query="sqa">{
-                        name name {
-                            last "#LAST_NAME#",
-                            first "#FIRST_NAME#",
-                            middle "#MIDDLE_INITIAL#",
-                            initials "",
-                            suffix "",
-                            title ""
-                        }
-                    }<cfif l lt sqa.recordcount>,#chr(10)#</cfif>
-  		<cfset l=l+1>
-	</cfloop>
-</cfsavecontent>
+
 <cfset l=1>
 <cfsavecontent variable = "pauths">
 <cfloop query="srefa">{
@@ -164,6 +150,108 @@
 
 
 ====#pauths#====
+
+
+<cfset rstr="Submit-block ::= {">
+<cfset rstr=rstr & chr(10) & chr(9) & "contact {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "contact {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "name name {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'last "#d.last_name#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'first "#d.first_name#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'middle "#d.middle_initial#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'initials "",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'suffix "",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'title ""'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'first "#d.first_name#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "},">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "affil std {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'affil "#d.organization#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'div "#d.department#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'city "#d.city#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'sub "#d.state_prov#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'country "#d.country#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'street "#d.street#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'email "#d.email#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'fax "#d.fax#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'phone "#d.phone#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'postal-code "#d.postal_code#"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "}">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "}">
+<cfset rstr=rstr & chr(10) & chr(9) & "},">
+<cfset rstr=rstr & chr(10) & chr(9) & "cit {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "authors {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "names std {">
+<cfset l=1>
+<cfloop query="sqa">
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & "{">
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & "name name {">
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'last "#LAST_NAME#",'>
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'first "#FIRST_NAME#",'>
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'middle "#MIDDLE_INITIAL#",'>
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'initials "",'>
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'suffix "",'>
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & 'title ""'>
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & chr(9) & "}">
+	<cfset rstr=rstr & chr(10) & hr(9) & chr(9) & chr(9) & chr(9) & "}">
+	<cfif l lt sqa.recordcount>
+	 	<cfset rstr=rstr & ",">
+	</cfif>
+ 	<cfset l=l+1>
+</cfloop>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "}">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "},">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "affil std {">
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'affil "#d.organization#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'div "#d.department#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'city "#d.city#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'sub "#d.state_prov#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'country "#d.country#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'street "#d.street#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'email "#d.email#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'fax "#d.fax#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'phone "#d.phone#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'postal-code "#d.postal_code#"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "}">
+<cfset rstr=rstr & chr(10) & chr(9) & "}">
+<cfset rstr=rstr & chr(10) & "},">
+<cfset rstr=rstr & chr(10) & "subtype new">
+<cfset rstr=rstr & chr(10) & "}">
+
+
+}
+Seqdesc ::= pub {
+  pub {
+    gen {
+      cit "unpublished",
+      authors {
+        names std {
+		    #pauths#
+        }
+      },
+      title "#d.REF_TITLE#"
+    }
+  }
+}
+Seqdesc ::= user {
+  type str "Submission",
+  data {
+    {
+      label str "AdditionalComment",
+      data str "ALT EMAIL:#d.email#"
+    }
+  }
+}
+Seqdesc ::= user {
+  type str "Submission",
+  data {
+    {
+      label str "AdditionalComment",
+      data str "Submission Title:None"
+    }
+  }
+}
+
+
 <cfsavecontent variable = "sbt">
 Submit-block ::= {
     contact {
@@ -249,7 +337,7 @@ Seqdesc ::= user {
 <cfdump var=#sbt#>
 
 
-<cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#sbt#" addnewline="false">
+<cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
 		<a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.sbt</a>
 
