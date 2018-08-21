@@ -113,7 +113,113 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from genbank_batch where genbank_batch_id=#batch_id#
 		</cfquery>
+		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from genbank_people where genbank_batch_id=#batch_id#
+		</cfquery>
+		<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from genbank_sequence where genbank_batch_id=#batch_id#
+		</cfquery>
 		<cfdump var=#d#>
+		<cfdump var=#p#>
+		<cfdump var=#s#>
+<cfsavecontent variable = "sbt">
+			var s='
+		Submit-block ::= {
+  contact {
+    contact {
+      name name {
+        last "Tester",
+        first "Test",
+        middle "",
+        initials "",
+        suffix "",
+        title ""
+      },
+      affil std {
+        affil "Testorg",
+        div "testdept",
+        city "tcty",
+        sub "tstp",
+        country "Taiwan",
+        street "teststrt",
+        email "test@tester.org",
+        fax "001-000-1111",
+        phone "123-456-7890",
+        postal-code "12345"
+      }
+    }
+  },
+  cit {
+    authors {
+      names std {
+        {
+          name name {
+            last "testl",
+            first "testa",
+            middle "",
+            initials "T.M.I.",
+            suffix "",
+            title ""
+          }
+        }
+      },
+      affil std {
+        affil "Testorg",
+        div "testdept",
+        city "tcty",
+        sub "tstp",
+        country "Taiwan",
+        street "teststrt",
+        postal-code "12345"
+      }
+    }
+  },
+  subtype new
+}
+Seqdesc ::= pub {
+  pub {
+    gen {
+      cit "unpublished",
+      authors {
+        names std {
+          {
+            name name {
+              last "testl",
+              first "testa",
+              middle "",
+              initials "T.M.I.",
+              suffix "",
+              title ""
+            }
+          }
+        }
+      },
+      title "testttl"
+    }
+  }
+}
+Seqdesc ::= user {
+  type str "Submission",
+  data {
+    {
+      label str "AdditionalComment",
+      data str "ALT EMAIL:test@tester.org"
+    }
+  }
+}
+Seqdesc ::= user {
+  type str "Submission",
+  data {
+    {
+      label str "AdditionalComment",
+      data str "Submission Title:None"
+    }
+  }
+}
+</cfsavecontent>
+
+
+<cfdump var=#sbt#>
 
 	</cfoutput>
 </cfif>
