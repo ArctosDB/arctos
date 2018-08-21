@@ -149,7 +149,7 @@
 <cfset l=1>
 <cfsavecontent variable = "pauths">
 <cfloop query="srefa">{
-            name name {
+                    name name {
                 last "#LAST_NAME#",
                 first "#FIRST_NAME#",
                 middle "#MIDDLE_INITIAL#",
