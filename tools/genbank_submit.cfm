@@ -163,6 +163,9 @@
   		<cfset l=l+1>
 	</cfloop>
 </cfsavecontent>
+
+
+====#pauths#====
 <cfsavecontent variable = "sbt">
 Submit-block ::= {
     contact {
@@ -192,7 +195,7 @@ Submit-block ::= {
 cit {
     authors {
         names std {
-			#sauths#
+		#sauths#
         }
     },
     affil std {
