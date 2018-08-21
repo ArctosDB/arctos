@@ -116,60 +116,82 @@
 		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from genbank_people where genbank_batch_id=#batch_id#
 		</cfquery>
+
+		<cfquery name="sqa" dbtype="query">
+			select * from p where AGENT_ROLE='sequence author' order by agent_order
+		</cfquery>
+		<cfquery name="srefa" dbtype="query">
+			select * from p where AGENT_ROLE='reference author' order by agent_order
+		</cfquery>
+
 		<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from genbank_sequence where genbank_batch_id=#batch_id#
 		</cfquery>
 		<cfdump var=#d#>
 		<cfdump var=#p#>
 		<cfdump var=#s#>
+
+
+
 <cfsavecontent variable = "sbt">
 Submit-block ::= {
   contact {
     contact {
       name name {
-        last "Tester",
-        first "Test",
-        middle "",
+        last "#d.last_name#",
+        first "#d.first_name#",
+        middle "#d.middle_initial#",
         initials "",
         suffix "",
         title ""
       },
       affil std {
-        affil "Testorg",
-        div "testdept",
-        city "tcty",
-        sub "tstp",
-        country "Taiwan",
-        street "teststrt",
-        email "test@tester.org",
-        fax "001-000-1111",
-        phone "123-456-7890",
-        postal-code "12345"
+        affil "#d.organization#",
+        div "#d.department#",
+        city "#d.city#",
+        sub "#d.state_prov#",
+        country "#d.country#",
+        street "#d.street#",
+        email "#d.email#",
+        fax "#d.fax#",
+        phone "#d.phone#",
+        postal-code "#d.postal_code#"
       }
     }
   },
   cit {
     authors {
       names std {
-        {
+		<cfset l=0>
+        <cfloop query="sqa">
+		{
           name name {
-            last "testl",
-            first "testa",
-            middle "",
-            initials "T.M.I.",
+            last "#LAST_NAME#",
+            first "#FIRST_NAME#",
+            middle "#MIDDLE_INITIAL#",
+            initials "",
             suffix "",
             title ""
           }
-        }
-      },
-      affil std {
-        affil "Testorg",
-        div "testdept",
-        city "tcty",
-        sub "tstp",
-        country "Taiwan",
-        street "teststrt",
-        postal-code "12345"
+		}
+  		<cfset l=l+1>
+		<cfif l is sqa.recordcount>
+		}
+		<cfelse>
+	},
+		</cfif>
+		</cfloop>
+    affil std {
+        affil "#d.organization#",
+        div "#d.department#",
+        city "#d.city#",
+        sub "#d.state_prov#",
+        country "#d.country#",
+        street "#d.street#",
+        email "#d.email#",
+        fax "#d.fax#",
+        phone "#d.phone#",
+        postal-code "#d.postal_code#"
       }
     }
   },
@@ -181,19 +203,26 @@ Seqdesc ::= pub {
       cit "unpublished",
       authors {
         names std {
-          {
-            name name {
-              last "testl",
-              first "testa",
-              middle "",
-              initials "T.M.I.",
-              suffix "",
-              title ""
-            }
+		<cfset l=0>
+		<cfloop query="srefa">
+		 {
+             name name {
+	            last "#LAST_NAME#",
+	            first "#FIRST_NAME#",
+	            middle "#MIDDLE_INITIAL#",
+	            initials "",
+	            suffix "",
+	            title ""
+	          }
           }
+		<cfset l=l+1>
+		<cfif l lt srefa.recordcount>
+		,
+		</cfif>
+		</cfloop>
         }
       },
-      title "testttl"
+      title "#d.REF_TITLE#"
     }
   }
 }
@@ -202,7 +231,7 @@ Seqdesc ::= user {
   data {
     {
       label str "AdditionalComment",
-      data str "ALT EMAIL:test@tester.org"
+      data str "ALT EMAIL:#d.email#"
     }
   }
 }
