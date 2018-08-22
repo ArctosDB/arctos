@@ -656,10 +656,12 @@
 	</cfquery>
 
 	<cfoutput>
-		<p>
-			Files in directory #b.batch_name#....
-		</p>
+
 		<cfdirectory name="d" action="list" directory="#application.webDirectory#/temp/#b.batch_name#">
+
+		<p>
+			There should be some files linked below. Here's what they are:
+		</p>
 		<table border>
 			<th>
 				<td>File Extension</td>
@@ -703,7 +705,7 @@
 			</tr>
 		</table>
 		<p>
-			errorsummary.val issues
+			errorsummary.val common issues
 		</p>
 		<table border>
 			<th>
@@ -732,20 +734,18 @@
 			</tr>
 		</table>
 
-		<p>Files</p>
-		Click to do whatever your browser wants to do. Right-click, save-as to download. All files are text and viewable in text editors.
-
+		<p>
+			Files in directory #b.batch_name#.
+			Click to do whatever your browser wants to do. Right-click, save-as to download. All files are text and viewable in text editors.
+		</p>
 		<ul>
 		<cfloop query="d">
 			<li><a href="/temp/#b.batch_name#/#name#" target="blank">/temp/#b.batch_name#/#name#</a> (new tab/window)</li>
 
 		</cfloop>
 		</ul>
-</cfoutput>
-
+	</cfoutput>
 </cfif>
-
-
 
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "add_sequence">
