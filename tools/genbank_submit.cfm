@@ -283,7 +283,7 @@
 				country='#country#',
 				ref_title='#ref_title#',
 				biosample='#biosample#',
-				bioproject='#xxxbioproject#'
+				bioproject='#bioproject#'
 			where
 				genbank_batch_id=#batch_id#
 		</cfquery>
