@@ -281,6 +281,7 @@
 <cfset tmp_sq="">
 <cfset lnum=1>
 <cfloop query="s">
+
 	<!--- god-query - this stuff gets loaned etc.--->
 	<cfquery name="sd" datasource="uam_god">
 		select
@@ -332,6 +333,7 @@
 	<!--- IDK if anyone will have this but we should --->
 	<cfset tmp=tmp & chr(9) & "">
 
+	<cfset lnum=lnum+1>
 
 
 
