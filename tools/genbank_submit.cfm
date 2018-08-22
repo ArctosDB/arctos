@@ -378,12 +378,11 @@
 			errorVariable="errorOut"
 			name="/usr/local/bin/linux.tbl2asn"
 			arguments="-t #application.webDirectory#/temp/#b.batch_name#/#b.batch_name#.sbt -p #application.webDirectory#/temp/#b.batch_name#/ -V vb -a s" />
+		<p>
+		some stuff hopefully happened <a href="genbank_submit.cfm?action=reviewResults&batch_id=#batch_id#">reviewResults</a>
+
+	</p>
 	</cfoutput>
-	<p>
-	some stuff hopefully happened <a href="genbank_submit.cfm?action=reviewResults&batch_id=#batch_id#">reviewResults</a>
-
-</p>
-
 </cfif>
 
 <!--------------------------------------------------------------------------------------------->
