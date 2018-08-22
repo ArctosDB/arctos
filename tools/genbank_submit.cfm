@@ -378,20 +378,32 @@
 			errorVariable="errorOut"
 			name="/usr/local/bin/linux.tbl2asn"
 			arguments="-t #application.webDirectory#/temp/#b.batch_name#/#b.batch_name#.sbt -p #application.webDirectory#/temp/#b.batch_name#/ -V vb -a s" />
-
- /usr/local/bin/linux.tbl2asn -t /usr/local/httpd/htdocs/wwwarctos/temp/boogity/boogity.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/boogity -r /usr/local/httpd/htdocs/wwwarctos/temp/boogity -a s  -V vb
-
-
-
-
-
-	<cfdump var=#variables#>
-
-/usr/local/bin/linux.tbl2asn -t test.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/test -a s  -V vb -a s
-
-
 	</cfoutput>
+	<p>
+	some stuff hopefully happened <a href="genbank_submit.cfm?action=reviewResults&batch_id=#batch_id#">reviewResults</a>
+
+</p>
+
 </cfif>
+
+<!--------------------------------------------------------------------------------------------->
+<cfif action is "reviewResults">
+	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from genbank_batch where genbank_batch_id=#batch_id#
+	</cfquery>
+
+	<cfoutput>
+		<p>
+			Files in directory #b.batch_name#....
+		</p>
+		<cfdirectory name="d" action="list" directory="#application.webDirectory#/temp/#b.batch_name#">
+		<cfdump var=#d#>
+
+
+</cfif>
+
+
+
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "add_sequence">
 	<cfoutput>
