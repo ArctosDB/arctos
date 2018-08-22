@@ -133,7 +133,7 @@
 
 		<!--- make a directory; force-overwrite if necessary --->
 		<cfset dir="#application.webDirectory#/temp/#d.batch_name#">
-		<cfdirectory destination="#dir#" action="create">
+		<cfdirectory DIRECTORY="#d.batch_name#" destination="#application.webDirectory#/temp/" action="create">
 
 
 <cfset rstr="Submit-block ::= {">
