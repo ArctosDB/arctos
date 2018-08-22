@@ -358,7 +358,7 @@
 
 
 <p>
-	made some files, review then <a href="genbank_submit.cfm?action=pkgfiles">package them</a>
+	made some files, review then <a href="genbank_submit.cfm?action=pkgfiles&batch_id=#batch_id#">package them</a>
 
 </p>
 
@@ -366,12 +366,23 @@
 </cfif>
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "pkgfiles">
+	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from genbank_batch where genbank_batch_id=#batch_id#
+	</cfquery>
+
+
+
 	<cfoutput>
 		<cfexecute
 			variable="gm"
 			errorVariable="errorOut"
 			name="/usr/local/bin/linux.tbl2asn"
-			arguments="-t test.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/test/ -a s  -V vb -a s" />
+			arguments="-t #application.webDirectory#/temp/#d.batch_name#/#d.batch_name#.sbt -p #application.webDirectory#/temp/#d.batch_name#/ -V vb -a s" />
+
+ /usr/local/bin/linux.tbl2asn -t /usr/local/httpd/htdocs/wwwarctos/temp/boogity/boogity.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/boogity -r /usr/local/httpd/htdocs/wwwarctos/temp/boogity -a s  -V vb
+
+
+
 
 
 	<cfdump var=#variables#>
