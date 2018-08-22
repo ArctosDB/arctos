@@ -366,10 +366,13 @@
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "pkgfiles">
 	<cfoutput>
-		<cfexecute name="/usr/local/bin/linux.tbl2asn" arguments="-t test.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/test -a s  -V vb -a s">
+		<cfexecute
+			variable="gm"
+			errorVariable="errorOut"
+			name="/usr/local/bin/linux.tbl2asn"
+			arguments="-t test.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/test -a s  -V vb -a s">
 
-		</cfexecute>
-
+	<cfdump var=#variables#>
 
 /usr/local/bin/linux.tbl2asn -t test.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/test -a s  -V vb -a s
 
