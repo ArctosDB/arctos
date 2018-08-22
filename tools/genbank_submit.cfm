@@ -262,6 +262,10 @@
 <cfset rstr=rstr & chr(10) & '}'>
 
 <cfset rstr=replace(rstr,chr(9),"  ","all")>
+
+<p>
+	#rstr#
+</p>
 <cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
 <a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.sbt</a>
@@ -269,6 +273,10 @@
 
 <cfloop query="s">
 	<cfset tmp=">#sequence_identifier# #sequence_data#">
+
+	<p>
+	#tmp#
+</p>
 	<cffile action="write" file="#application.webDirectory#/temp/#sequence_identifier#.fsa" output="#tmp#" addnewline="false">
 	<br><a href="/temp/#sequence_identifier#.sbt">/temp/#sequence_identifier#.fsa</a>
 </cfloop>
@@ -320,6 +328,9 @@
 
 </cfloop>
 
+	<p>
+	#tmp#
+</p>
 
 	<cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.src" output="#tmp#" addnewline="false">
 
