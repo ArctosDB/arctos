@@ -274,18 +274,8 @@
 
 <a href="/temp/#d.batch_name#/#d.batch_name#.sbt">/temp/#d.batch_name#/#d.batch_name#.sbt</a>
 
-
-<cfloop query="s">
-	<cfset tmp=">#sequence_identifier# #sequence_data#">
-
-	<p>
-	#tmp#
-</p>
-	<cffile action="write" file="#dir#/#sequence_identifier#.fsa" output="#tmp#" addnewline="false">
-	<br><a href="/temp/#d.batch_name#/#sequence_identifier#.fsa">/temp/#d.batch_name#/#sequence_identifier#.fsa</a>
-</cfloop>
-
 <cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
+
 <cfloop query="s">
 	<!--- god-query - this stuff gets loaned etc.--->
 	<cfquery name="sd" datasource="uam_god">
@@ -297,21 +287,31 @@
 			decode(dec_lat,null,null,dec_lat || '/' || dec_long) dll,
 			RELATEDCATALOGEDITEMS,
 			ATTRIBUTES,
-			sex
+			sex,
+			scientific_name
 		from
 			flat
 		where
 			collection_object_id=#collection_object_id#
 	</cfquery>
+
+	<cfset tmp_sq=">#sequence_identifier# [organism=#sd.scientific_name#] #sequence_data#">
+
+	<p>
+	#tmp_sq#
+</p>
+	<cffile action="write" file="#dir#/#sequence_identifier#.fsa" output="#tmp_sq#" addnewline="false">
+	<br><a href="/temp/#d.batch_name#/#sequence_identifier#.fsa">/temp/#d.batch_name#/#sequence_identifier#.fsa</a>
+
 	<cfset host="">
-	<cfloop list="RELATEDCATALOGEDITEMS" index="i" delimiters=";">
+	<cfloop list="#sd.RELATEDCATALOGEDITEMS#" index="i" delimiters=";">
 		<cfif i contains "parasite of">
 			<cfset host=listappend(host,i,';')>
 		</cfif>
 	</cfloop>
 	<cfset dstg="">
 	<cfset dev_stage_attributes="age,age class,numeric age,year class">
-	<cfloop list="ATTRIBUTES" index="i" delimiters=";">
+	<cfloop list="#sd.ATTRIBUTES#" index="i" delimiters=";">
 		<cfif listfind(dev_stage_attributes,i)>
 			<cfset dstg=listappend(dstg,i,';')>
 		</cfif>
@@ -330,7 +330,10 @@
 	<!--- IDK if anyone will have this but we should --->
 	<cfset tmp=tmp & chr(9) & "">
 
+
+
 </cfloop>
+
 
 	<p>
 	#tmp#
@@ -342,8 +345,15 @@
 
 
 <p>
-	made some files, review then package them
+	made some files, review then <a href="genbank_submit.cfm?action=pkgfiles">package them</a>
+
 </p>
+
+	</cfoutput>
+</cfif>
+<!--------------------------------------------------------------------------------------------->
+<cfif action is "pkgfiles">
+	<cfoutput>
 
 	</cfoutput>
 </cfif>
