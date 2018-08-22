@@ -149,12 +149,10 @@
 				<th>agent_order</th>
 			</tr>
 
-				<form name="f" method="post" action="genbank_submit.cfm">
-			<input type="hidden" name="action" value="add_agent">
-			<input type="hidden" name="batch_id" value="#batch_id#">
-			<input type="hidden" name="new_agent_id" id="new_agent_id" value="">
-
-
+			<form name="f" method="post" action="genbank_submit.cfm">
+				<input type="hidden" name="action" value="add_agent">
+				<input type="hidden" name="batch_id" value="#batch_id#">
+				<input type="hidden" name="new_agent_id" id="new_agent_id" value="">
 					<tr>
 						<td>
 							<input type="text" name="new_agent" id="new_agent" value=""
@@ -163,24 +161,23 @@
 						</td>
 						<td>
 							<select name="agent_role" id="agent_role" class="reqdClr">
-								<option></option>
+								<option>PICK</option>
 								<option value="sequence author">sequence author</option>
 								<option value="reference author">reference author</option>
 							</select>
-
 						</td>
 						<td>
-							<input type="text" name="first_name" id="first_name" size="80" class="reqdClr">
+							<input type="text" name="first_name" id="first_name" size="30" >
 						</td>
 						<td>
-							<input type="text" name="middle_initial" id="middle_initial" size="80" >
+							<input type="text" name="middle_initial" id="middle_initial" size="20" >
 						</td>
 						<td>
-							<input type="text" name="last_name" id="last_name" size="80" class="reqdClr">
+							<input type="text" name="last_name" id="last_name" size="30" >
 						</td>
 						<td>
 							<select name="agent_order" id="agent_order" class="reqdClr">
-								<option></option>
+								<option>PICK</option>
 								<cfloop from="1" to="30" index="i">
 
 									<option value="#i#">#i#</option>
@@ -207,7 +204,6 @@
 						</td>
 						<td>
 							<select name="agent_role" id="agent_role" class="reqdClr">
-								<option></option>
 								<option <cfif agent_role is "sequence author" > selected="selected" </cfif>value="sequence author">sequence author</option>
 								<option <cfif agent_role is "reference author" > selected="selected" </cfif>value="reference author">reference author</option>
 							</select>
