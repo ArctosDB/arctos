@@ -377,7 +377,7 @@
 			variable="gm"
 			errorVariable="errorOut"
 			name="/usr/local/bin/linux.tbl2asn"
-			arguments="-t #application.webDirectory#/temp/#d.batch_name#/#d.batch_name#.sbt -p #application.webDirectory#/temp/#d.batch_name#/ -V vb -a s" />
+			arguments="-t #application.webDirectory#/temp/#b.batch_name#/#b.batch_name#.sbt -p #application.webDirectory#/temp/#b.batch_name#/ -V vb -a s" />
 
  /usr/local/bin/linux.tbl2asn -t /usr/local/httpd/htdocs/wwwarctos/temp/boogity/boogity.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/boogity -r /usr/local/httpd/htdocs/wwwarctos/temp/boogity -a s  -V vb
 
