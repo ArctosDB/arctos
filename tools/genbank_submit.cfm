@@ -131,6 +131,10 @@
 		<cfdump var=#p#>
 		<cfdump var=#s#>
 
+		<!--- make a directory; force-overwrite if necessary --->
+		<cfset dir="#application.webDirectory#/temp/#d.batch_name#">
+		<cfdirectory destination="#dir#" action="create">
+
 
 <cfset rstr="Submit-block ::= {">
 <cfset rstr=rstr & chr(10) & chr(9) & "contact {">
@@ -266,9 +270,9 @@
 <p>
 	#rstr#
 </p>
-<cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
+<cffile action="write" file="#dir#/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
-<a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.sbt</a>
+<a href="/temp/#d.batch_name#/#d.batch_name#.sbt">/temp/#d.batch_name#/#d.batch_name#.sbt</a>
 
 
 <cfloop query="s">
@@ -277,8 +281,8 @@
 	<p>
 	#tmp#
 </p>
-	<cffile action="write" file="#application.webDirectory#/temp/#sequence_identifier#.fsa" output="#tmp#" addnewline="false">
-	<br><a href="/temp/#sequence_identifier#.fsa">/temp/#sequence_identifier#.fsa</a>
+	<cffile action="write" file="#dir#/#sequence_identifier#.fsa" output="#tmp#" addnewline="false">
+	<br><a href="/temp/#d.batch_name#/#sequence_identifier#.fsa">/temp/#d.batch_name#/#sequence_identifier#.fsa</a>
 </cfloop>
 
 <cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
@@ -332,12 +336,14 @@
 	#tmp#
 </p>
 
-	<cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.src.txt" output="#tmp#" addnewline="false">
+	<cffile action="write" file="#dir#/#d.batch_name#.src.txt" output="#tmp#" addnewline="false">
 
-<a href="/temp/#d.batch_name#.src.txt">/temp/#d.batch_name#.src</a>
+<a href="/temp/#d.batch_name#/#d.batch_name#.src.txt">/temp/#d.batch_name#/#d.batch_name#.src</a>
 
 
-
+<p>
+	made some files, review then package them
+</p>
 
 	</cfoutput>
 </cfif>
