@@ -18,8 +18,105 @@
 <cfif action is "edbatch">
 	<cfoutput>
 		<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from genbank_batch where genbank_batch_id=#batch_id#
+			select
+				CONTACT_AGENT_ID,
+				getPreferredAgentName(CONTACT_AGENT_ID) contactname,
+				BATCH_NAME,
+				FIRST_NAME,
+				MIDDLE_INITIAL,
+				LAST_NAME,
+				EMAIL,
+				ORGANIZATION,
+				DEPARTMENT,
+				PHONE,
+				FAX,
+				STREET,
+				CITY,
+				STATE_PROV,
+				POSTAL_CODE,
+				COUNTRY,
+				REF_TITLE,
+				BIOSAMPLE,
+				BIOPROJECT
+			 from genbank_batch where genbank_batch_id=#batch_id#
 		</cfquery>
+
+
+
+		<form name="eb" method="post" action="genbank_submit.cfm">
+			<input type="hidden" name="action" value="edit_batch">
+			<input type="hidden" name="batch_id" value="#batch_id#">
+			<input type="hidden" name="CONTACT_AGENT_ID" value="#b.CONTACT_AGENT_ID#">
+
+
+			<label for="batch_name">batch_name (must be unique; local label, usually for publication)</label>
+			<input type="text" name="batch_name" id="batch_name" value="#batch_name#" size="80" class="reqdClr">
+
+			<h3>Contact Agent details</h3>
+
+
+			<label for="new_agent">Agent (pick Arctos agent)</label>
+			<input type="text" name="new_agent" id="new_agent" value=""
+				onchange="pickAgentModal('CONTACT_AGENT_ID',this.id,this.value); return false;"
+				onKeyPress="return noenter(event);" value="#b.contactname#" class="reqdClr minput">
+
+
+
+
+			<label for="first_name">first_name</label>
+			<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
+
+			<label for="last_name">last_name</label>
+			<input type="text" name="last_name" id="last_name" value="#b.last_name#"size="80" class="reqdClr">
+
+			<label for="middle_initial">middle_initial</label>
+			<input type="text" name="middle_initial" id="middle_initial" value="#b.middle_initial#" size="80" class="reqdClr">
+
+			<label for="email">email</label>
+			<input type="text" name="email" id="email" size="80" value="#b.email#" class="reqdClr">
+
+			<label for="organization">organization</label>
+			<input type="text" name="organization" id="organization" value="#b.organization#" size="80" class="reqdClr">
+
+			<label for="department">department</label>
+			<input type="text" name="department" id="department" value="#b.department#"  size="80" class="reqdClr">
+
+			<label for="phone">phone</label>
+			<input type="text" name="phone" id="phone" value="#b.phone#" size="80" class="reqdClr">
+
+			<label for="fax">fax</label>
+			<input type="text" name="fax" id="fax" size="80" value="#b.fax#" class="reqdClr">
+
+			<label for="street">street</label>
+			<input type="text" name="street" id="street" value="#b.street#" size="80" class="reqdClr">
+
+			<label for="city">city</label>
+			<input type="text" name="city" id="city" value="#b.city#"  size="80" class="reqdClr">
+
+			<label for="state_prov">state_prov</label>
+			<input type="text" name="state_prov" id="state_prov" value="#b.state_prov#" size="80" class="reqdClr">
+
+			<label for="postal_code">postal_code</label>
+			<input type="text" name="postal_code" id="postal_code" value="#b.postal_code#" size="80" class="reqdClr">
+
+			<label for="country">country</label>
+			<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
+
+			<label for="ref_title">ref_title (publication title or working title)</label>
+			<input type="text" name="ref_title" id="ref_title" value="#b.ref_title#" size="80" class="reqdClr">
+
+			<label for="biosample">biosample</label>
+			<input type="text" name="biosample" id="biosample" value="#b.biosample#" size="80">
+
+			<label for="bioproject">bioproject</label>
+			<input type="text" name="bioproject" id="bioproject" value="#b.bioproject#" size="80" >
+
+			<br><input type="submit" value="save batch edits" class="insBtn">
+		</form>
+
+
+
+
 		<cfdump var=#b#>
 		<hr>
 		<h3>People</h3>
