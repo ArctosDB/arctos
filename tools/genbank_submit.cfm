@@ -397,6 +397,86 @@
 		</p>
 		<cfdirectory name="d" action="list" directory="#application.webDirectory#/temp/#b.batch_name#">
 		<cfdump var=#d#>
+		<table border>
+			<th>
+				<td>File Extension</td>
+				<td>Whatsit?</td>
+				<td>Interpretation</td>
+			</th>
+			<tr>
+				<td>.fsa</td>
+				<td>FASTA file</td>
+				<td>Generated from the data you provided.[organism] from accepted scientific name of the GUID you provided.</td>
+			</tr>
+			<tr>
+				<td>.sbt</td>
+				<td>template file</td>
+				<td>Generated from the data you provided; authors and publications and such</td>
+			</tr>
+			<tr>
+				<td>.src</td>
+				<td>source file</td>
+				<td>Generated from the GUID you provided.</td>
+			</tr>
+			<tr>
+				<td>errorsummary.val</td>
+				<td>Summary of compilation errors</td>
+				<td>Generated from GenBank tools. Details below.</td>
+			</tr>
+			<tr>
+				<td>.val</td>
+				<td>compilation errors and warnings</td>
+				<td>Generated from GenBank tools. Details below.</td>
+			</tr>
+			<tr>
+				<td>.gbf</td>
+				<td>flatfile format of results. For viewing only.</td>
+				<td>Generated from GenBank tools. </td>
+			</tr>
+			<tr>
+				<td>.sqn</td>
+				<td>File to submit to GB</td>
+				<td>Generated from GenBank tools. </td>
+			</tr>
+		</table>
+		<p>
+			errorsummary.val issues
+		</p>
+		<table border>
+			<th>
+				<td>Message</td>
+				<td>Whatsit?</td>
+			</th>
+			<tr>
+				<td>SEQ_DESCR.BioSourceInconsistency</td>
+				<td>IDK</td>
+			</tr>
+			<tr>
+				<td>SEQ_DESCR.BadInstitutionCode</td>
+				<td>GB isn't processing this correctly??</td>
+			</tr>
+			<tr>
+				<td>SEQ_DESCR.DBLinkProblem</td>
+				<td>Same as BadInstitutionCode??</td>
+			</tr>
+			<tr>
+				<td>SEQ_DESCR.LatLonValue</td>
+				<td>format??</td>
+			</tr>
+			<tr>
+				<td>SEQ_DESCR.ShortSeq</td>
+				<td>GB doesn't like data</td>
+			</tr>
+		</table>
+
+		<p>Files</p>
+
+		<ul>
+		<cfloop query="d">
+			<li><a href="/temp/#b.batch_name#/#name#" target="blank">/temp/#b.batch_name#/#name#</a> (new tab/window)</li>
+
+		</cfloop>
+		</ul>
 </cfoutput>
 
 </cfif>
