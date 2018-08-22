@@ -306,17 +306,17 @@
 	</cfloop>
 
 
-	<cfset tmp=tp & chr(10) & s.sequence_id>
-	<cfset tmp=tp & chr(10) & sd.COLLECTORS>
-	<cfset tmp=tp & chr(10) & sd.cdate>
-	<cfset tmp=tp & chr(10) & sd.country>
-	<cfset tmp=tp & chr(10) & sd.dll>
-	<cfset tmp=tp & chr(10) & sd.guid>
-	<cfset tmp=tp & chr(10) & host>
-	<cfset tmp=tp & chr(10) & dstg>
-	<cfset tmp=tp & chr(10) & sd.sex>
+	<cfset tmp=tmp & chr(10) & s.sequence_id>
+	<cfset tmp=tmp & chr(10) & sd.COLLECTORS>
+	<cfset tmp=tmp & chr(10) & sd.cdate>
+	<cfset tmp=tmp & chr(10) & sd.country>
+	<cfset tmp=tmp & chr(10) & sd.dll>
+	<cfset tmp=tmp & chr(10) & sd.guid>
+	<cfset tmp=tmp & chr(10) & host>
+	<cfset tmp=tmp & chr(10) & dstg>
+	<cfset tmp=tmp & chr(10) & sd.sex>
 	<!--- IDK if anyone will have this but we should --->
-	<cfset tmp=tp & chr(10) & "">
+	<cfset tmp=tmp & chr(10) & "">
 
 </cfloop>
 
