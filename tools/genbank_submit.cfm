@@ -738,10 +738,19 @@
 			Files in directory #b.batch_name#.
 			Click to do whatever your browser wants to do. Right-click, save-as to download. All files are text and viewable in text editors.
 		</p>
+		<ol>
+			<li>CAREFULLY review the .gbf file; it should look like what you'll see on GenBank after submission</li>
+			<li>
+				Download the .sqn file and send it to GenBank via email or at
+				<a target="_blank" class="external" href="https://www.ncbi.nlm.nih.gov/LargeDirSubs/dir_submit.cgi">
+					https://www.ncbi.nlm.nih.gov/LargeDirSubs/dir_submit.cgi
+				</a>
+			</li>
+		</ol>
+
 		<ul>
 		<cfloop query="d">
 			<li><a href="/temp/#b.batch_name#/#name#" target="blank">/temp/#b.batch_name#/#name#</a> (new tab/window)</li>
-
 		</cfloop>
 		</ul>
 	</cfoutput>
