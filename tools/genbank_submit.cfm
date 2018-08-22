@@ -279,6 +279,7 @@
 
 <cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
 
+
 <cfloop query="s">
 	<!--- god-query - this stuff gets loaned etc.--->
 	<cfquery name="sd" datasource="uam_god">
@@ -298,7 +299,7 @@
 			collection_object_id=#collection_object_id#
 	</cfquery>
 
-	<cfset tmp_sq=">#sequence_identifier# [organism=#sd.scientific_name#] #sequence_data#">
+	<cfset tmp_sq=">#sequence_identifier# [organism=#sd.scientific_name#]#chr(10)##sequence_data#">
 
 	<p>
 	#tmp_sq#
