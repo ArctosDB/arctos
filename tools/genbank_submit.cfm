@@ -470,6 +470,7 @@
 		</table>
 
 		<p>Files</p>
+		Click to do whatever your browser wants to do. Right-click, save-as to download. All files are text and viewable in text editors.
 
 		<ul>
 		<cfloop query="d">
