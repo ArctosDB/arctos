@@ -638,12 +638,17 @@
 			name="/usr/local/bin/linux.tbl2asn"
 			arguments="-t #application.webDirectory#/temp/#b.batch_name#/#b.batch_name#.sbt -p #application.webDirectory#/temp/#b.batch_name#/ -V vb -a s" />
 		<p>
-		some stuff hopefully happened <a href="genbank_submit.cfm?action=reviewResults&batch_id=#batch_id#">reviewResults</a>
+			This should have just executed:
 
-	</p>
+			<code>
+				/usr/local/bin/linux.tbl2asn -t #application.webDirectory#/temp/#b.batch_name#/#b.batch_name#.sbt -p #application.webDirectory#/temp/#b.batch_name#/ -V vb -a s
+			</code>
+		</p>
+		<p>
+			<a href="genbank_submit.cfm?action=reviewResults&batch_id=#batch_id#">review results</a>
+		</p>
 	</cfoutput>
 </cfif>
-
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "reviewResults">
 	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
