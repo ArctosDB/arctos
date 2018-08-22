@@ -56,7 +56,7 @@
 
 
 			<label for="new_agent">Agent (pick Arctos agent)</label>
-			<input type="text" name="new_agent" id="new_agent" value=""
+			<input type="text" name="new_agent" id="new_agent"
 				onchange="pickAgentModal('CONTACT_AGENT_ID',this.id,this.value); return false;"
 				onKeyPress="return noenter(event);" value="#b.contactname#" class="reqdClr minput">
 
