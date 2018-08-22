@@ -50,7 +50,7 @@
 
 
 			<label for="batch_name">batch_name (must be unique; local label, usually for publication)</label>
-			<input type="text" name="batch_name" id="batch_name" value="#batch_name#" size="80" class="reqdClr">
+			<input type="text" name="batch_name" id="batch_name" value="#b.batch_name#" size="80" class="reqdClr">
 
 			<h3>Contact Agent details</h3>
 
