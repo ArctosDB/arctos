@@ -190,44 +190,56 @@
 					<input type="hidden" name="GENBANK_PEOPLE_ID" value="#GENBANK_PEOPLE_ID#">
 					<input type="hidden" name="AGENT_ID" id="AGENT_ID__#GENBANK_PEOPLE_ID#" value="#AGENT_ID#">
 					<tr>
-						<td><input type="text" name="agent_name" id="agent_name__#GENBANK_PEOPLE_ID#" value="#aname#"
-					onchange="pickAgentModal('AGENT_ID__#GENBANK_PEOPLE_ID#',this.id,this.value); return false;"
-					onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput"></td>
-						<td><select name="agent_role" id="agent_role" class="reqdClr">
-					<option></option>
-					<option <cfif agent_role is "sequence author" > selected="selected" </cfif>value="sequence author">sequence author</option>
-					<option <cfif agent_role is "reference author" > selected="selected" </cfif>value="reference author">reference author</option>
-				</select></td>
-						<td><input type="text" name="first_name" id="first_name" value="#first_name#" size="30" class="reqdClr"></td>
-						<td>				<input type="text" name="middle_initial"  value="#middle_initial#" id="middle_initial" size="20" >
-</td>
-						<td><input type="text" name="last_name"  value="#last_name#" id="last_name" size="30" class="reqdClr"></td>
-						<td><select name="agent_order" id="agent_order" class="reqdClr">
-					<option></option>
-					<cfloop from="1" to="30" index="i">
-
-						<option <cfif agent_order is i > selected="selected" </cfif>value="#i#">#i#</option>
-					</cfloop>
-				</select></td>
+						<td>
+							<input type="text" name="agent_name" id="agent_name__#GENBANK_PEOPLE_ID#" value="#aname#"
+								onchange="pickAgentModal('AGENT_ID__#GENBANK_PEOPLE_ID#',this.id,this.value); return false;"
+								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
+						</td>
+						<td>
+							<select name="agent_role" id="agent_role" class="reqdClr">
+								<option></option>
+								<option <cfif agent_role is "sequence author" > selected="selected" </cfif>value="sequence author">sequence author</option>
+								<option <cfif agent_role is "reference author" > selected="selected" </cfif>value="reference author">reference author</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="first_name" id="first_name" value="#first_name#" size="30" class="reqdClr">
+						</td>
+						<td>
+							<input type="text" name="middle_initial"  value="#middle_initial#" id="middle_initial" size="20" >
+						</td>
+						<td>
+							<input type="text" name="last_name"  value="#last_name#" id="last_name" size="30" class="reqdClr">
+						</td>
+						<td>
+							<select name="agent_order" id="agent_order" class="reqdClr">
+								<option></option>
+								<cfloop from="1" to="30" index="i">
+									<option <cfif agent_order is i > selected="selected" </cfif>value="#i#">#i#</option>
+								</cfloop>
+							</select>
+						</td>
 						<td><input type="submit" value="save edits" class="insBtn"></td>
 					</tr>
-
-
-			</form>
-
-
-
-		</cfloop>
-
+				</form>
+			</cfloop>
 		</table>
-
-
-
-		<cfdump var=#p#>
 
 		<h3>Sequences</h3>
 		<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from genbank_sequence where genbank_batch_id=#batch_id#
+			select
+				SEQUENCE_ID,
+				GENBANK_BATCH_ID,
+				SEQUENCE_IDENTIFIER,
+				COLLECTION_OBJECT_ID,
+				guid,
+				SEQUENCE_DATA
+			from
+				genbank_sequence,
+				flat
+			where
+				genbank_sequence.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID(+) and
+				genbank_batch_id=#batch_id#
 		</cfquery>
 		<cfdump var=#s#>
 
@@ -247,9 +259,36 @@
 			<textarea name="sequence_data" id="sequence_data" class="hugetextarea"></textarea>
 
 
-			<br><input type="submit" value="add sequence" class="insBtn">
+			<br><input type="submit" value="save sequence" class="insBtn">
+		</form>
+		<cfloop query="s">
+			<hr>
+
+
+				<form name="f" method="post" action="genbank_submit.cfm">
+			<input type="hidden" name="action" value="edit_sequence">
+			<input type="hidden" name="batch_id" value="#batch_id#">
+
+			<label for="sequence_identifier">sequence_identifier</label>
+			<input type="text" name="sequence_identifier" id="sequence_identifier" value='#sequence_identifier#' size="80" class="reqdClr">
+
+
+			<label for="GUID">GUID (DWC Triplet format)</label>
+			<input type="text" name="GUID" id="GUID" value='#guid#' size="80" class="reqdClr">
+
+
+			<label for="sequence_data">sequence_data</label>
+			<textarea name="sequence_data" id="sequence_data" class="hugetextarea">#sequence_data#</textarea>
+
+
+			<br><input type="submit" value="save sequence" class="insBtn">
 		</form>
 
+
+
+
+
+		</cfloop>			    CLOB
 
 		<p>
 		<br><a href="genbank_submit.cfm?action=prepfiles&batch_id=#batch_id#">prepare files</a>
