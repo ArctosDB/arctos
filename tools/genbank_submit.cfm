@@ -278,6 +278,8 @@
 <a href="/temp/#d.batch_name#/#d.batch_name#.sbt">/temp/#d.batch_name#/#d.batch_name#.sbt</a>
 
 <cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
+<cfset tmp="Sequence_ID#chr(9)#Specimen_voucher">
+
 <cfset tmp_sq="">
 <cfset lnum=1>
 <cfloop query="s">
@@ -322,6 +324,8 @@
 
 
 	<cfset tmp=tmp & chr(10) & s.sequence_id>
+	<cfset tmp=tmp & chr(9) & sd.guid>
+	<!----
 	<cfset tmp=tmp & chr(9) & sd.COLLECTORS>
 	<cfset tmp=tmp & chr(9) & sd.cdate>
 	<cfset tmp=tmp & chr(9) & sd.country>
@@ -332,7 +336,7 @@
 	<cfset tmp=tmp & chr(9) & sd.sex>
 	<!--- IDK if anyone will have this but we should --->
 	<cfset tmp=tmp & chr(9) & "">
-
+	---->
 	<cfset lnum=lnum+1>
 
 
