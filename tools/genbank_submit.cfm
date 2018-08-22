@@ -338,7 +338,7 @@
 </cfloop>
 
 	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.fsa" output="#tmp_sq#" addnewline="false">
-	<cffile action="write" mode="777" file="#dir#/#batch_name#.src" output="#tmp#" addnewline="false">
+	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.src" output="#tmp#" addnewline="false">
 
 
 
