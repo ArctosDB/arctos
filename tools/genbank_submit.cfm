@@ -148,8 +148,8 @@
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'middle "#d.middle_initial#",'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'initials "",'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'suffix "",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'title ""'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'first "#d.first_name#",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'title "",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'first "#d.first_name#"'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "},">
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "affil std {">
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'affil "#d.organization#",'>
@@ -205,9 +205,9 @@
 <cfset rstr=rstr & chr(10) & "Seqdesc ::= pub {">
 <cfset rstr=rstr & chr(10) & chr(9) & "pub {">
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & " gen {">
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & ' cit "unpublished",'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & ' cit "authors {'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & ' names std {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'cit "unpublished",'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'authors {'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & 'names std {'>
 <cfset l=1>
 <cfloop query="srefa">
 	<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & "{">
