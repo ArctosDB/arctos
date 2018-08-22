@@ -370,7 +370,7 @@
 			variable="gm"
 			errorVariable="errorOut"
 			name="/bin/bash"
-			arguments="/usr/local/bin/linux.tbl2asn -t test.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/test -a s  -V vb -a s">
+			arguments="touch /usr/local/httpd/htdocs/wwwarctos/temp/test/boogity.test">
 
 	<cfdump var=#variables#>
 
