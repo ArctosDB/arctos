@@ -1,5 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Genbank Submission Form">
+<ul>
+	<li><a href="genbank_submit.cfm">home</a></li>
+	<cfif isdefined("batch_id") and len(batch_id) gt 0>
+		<li><a href="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#">Edit Batch</a></li>
+	</cfif>
+</ul>
+
 <cfif action is "nothing">
 	<cfoutput>
 		<p>
@@ -41,27 +48,20 @@
 			 from genbank_batch where genbank_batch_id=#batch_id#
 		</cfquery>
 
-
-
 		<form name="eb" method="post" action="genbank_submit.cfm">
 			<input type="hidden" name="action" value="edit_batch">
 			<input type="hidden" name="batch_id" value="#batch_id#">
 			<input type="hidden" name="CONTACT_AGENT_ID" value="#b.CONTACT_AGENT_ID#">
-
 
 			<label for="batch_name">batch_name (must be unique; local label, usually for publication)</label>
 			<input type="text" name="batch_name" id="batch_name" value="#b.batch_name#" size="80" class="reqdClr">
 
 			<h3>Contact Agent details</h3>
 
-
 			<label for="new_agent">Agent (pick Arctos agent)</label>
 			<input type="text" name="new_agent" id="new_agent"
 				onchange="pickAgentModal('CONTACT_AGENT_ID',this.id,this.value); return false;"
 				onKeyPress="return noenter(event);" value="#b.contactname#" class="reqdClr minput">
-
-
-
 
 			<label for="first_name">first_name</label>
 			<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
@@ -116,10 +116,8 @@
 
 
 
-
 		<hr>
 		<h3>People</h3>
-		<br>Add Person
 
 		<p>
 			NOTE: Order is for sorting; values are relative, absolute values don't matter.
@@ -155,7 +153,7 @@
 				<input type="hidden" name="action" value="add_agent">
 				<input type="hidden" name="batch_id" value="#batch_id#">
 				<input type="hidden" name="new_agent_id" id="new_p_agent_id">
-					<tr>
+					<tr class="newRec">
 						<td>
 							<input type="text" name="new_agent" id="new_p_agent" value=""
 								onchange="pickAgentModal('new_p_agent_id',this.id,this.value); return false;"
@@ -189,8 +187,6 @@
 						<td><input type="submit" value="add person" class="insBtn"</td>
 					</tr>
 				</form>
-
-
 
 			<cfloop query="p">
 				<form name="f" method="post" action="genbank_submit.cfm">
@@ -250,7 +246,7 @@
 				genbank_sequence.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID(+) and
 				genbank_batch_id=#batch_id#
 		</cfquery>
-
+		<div class="newRec">
 		<form name="f" method="post" action="genbank_submit.cfm">
 			<input type="hidden" name="action" value="add_sequence">
 			<input type="hidden" name="batch_id" value="#batch_id#">
@@ -269,6 +265,7 @@
 
 			<br><input type="submit" value="add sequence" class="insBtn">
 		</form>
+		</div>
 		<cfloop query="s">
 			<hr>
 
