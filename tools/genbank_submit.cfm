@@ -132,26 +132,6 @@
 		<cfdump var=#s#>
 
 
-<cfset l=1>
-<cfsavecontent variable = "pauths">
-<cfloop query="srefa">{
-                        name name {
-                            last "#LAST_NAME#",
-                            first "#FIRST_NAME#",
-                            middle "#MIDDLE_INITIAL#",
-                            initials "",
-                            suffix "",
-                            title ""
-                        }
-                    }<cfif l lt srefa.recordcount>,#chr(10)#</cfif>
-  		<cfset l=l+1>
-	</cfloop>
-</cfsavecontent>
-
-
-====#pauths#====
-
-
 <cfset rstr="Submit-block ::= {">
 <cfset rstr=rstr & chr(10) & chr(9) & "contact {">
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "contact {">
@@ -284,7 +264,101 @@
 <cfset rstr=replace(rstr,chr(9),"  ","all")>
 <cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
-		<a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.sbt</a>
+<a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.sbt</a>
+
+
+<cfloop query="s">
+	<cfset tmp=">#sequence_identifier# #sequence_data#">
+	<cffile action="write" file="#application.webDirectory#/temp/#sequence_identifier#.fsa" output="#tmp#" addnewline="false">
+	<br><a href="/temp/#sequence_identifier#.sbt">/temp/#sequence_identifier#.fsa</a>
+</cfloop>
+
+<cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
+<cfloop query="s">
+	<!--- god-query - this stuff gets loaned etc.--->
+	<cfquery name="sd" datasource="user_god">
+		select
+			guid,
+			COLLECTORS,
+			decode(began_date,ended_date,began_date,began_date  || '/' || ended_date) cdate,
+			country,
+			decode(dec_lat,null,null,dec_lat || '/' || dec_long) dll,
+			RELATEDCATALOGEDITEMS,
+			ATTRIBUTES,
+			sex
+		from
+			flat
+		where
+			collection_object_id=#collection_object_id#
+	</cfquery>
+	<cfset host="">
+	<cfloop list="RELATEDCATALOGEDITEMS" index="i" delimiters=";">
+		<cfif i contains "parasite of">
+			<cfset host=listappend(host,i,';')>
+		</cfif>
+	</cfloop>
+	<cfset dstg="">
+	<cfset dev_stage_attributes="age,age class,numeric age,year class">
+	<cfloop list="ATTRIBUTES" index="i" delimiters=";">
+		<cfif listfind(dev_stage_attributes,i)>
+			<cfset dstg=listappend(dstg,i,';')>
+		</cfif>
+	</cfloop>
+
+
+	<cfset tmp=tp & chr(10) & s.sequence_id>
+	<cfset tmp=tp & chr(10) & sd.COLLECTORS>
+	<cfset tmp=tp & chr(10) & sd.cdate>
+	<cfset tmp=tp & chr(10) & sd.country>
+	<cfset tmp=tp & chr(10) & sd.dll>
+	<cfset tmp=tp & chr(10) & sd.guid>
+	<cfset tmp=tp & chr(10) & host>
+	<cfset tmp=tp & chr(10) & dstg>
+	<cfset tmp=tp & chr(10) & sd.sex>
+	<!--- IDK if anyone will have this but we should --->
+	<cfset tmp=tp & chr(10) & "">
+
+</cfloop>
+
+
+	<cffile action="write" file="#application.webDirectory#/temp/#d.batch_name#.src" output="#tmp#" addnewline="false">
+
+<a href="/temp/#d.batch_name#.sbt">/temp/#d.batch_name#.src</a>
+
+
+
+ genbank_sequence (
+	sequence_id number not null,
+	genbank_batch_id number not null,
+	sequence_identifier varchar2(50) not null,
+	collection_object_id number not null,
+	sequence_data clob
+
+
+Host
+
+     - Developmental stage of organism.
+
+    Host - When the sequence submission is from an organism that exists in a symbiotic, parasitic, or other special relationship with some second organism, the 'host' modifier can be used to identify the name of the host species.
+    Identified_by - name of the person or persons who identified by taxonomic name the organism from which the sequence was obtained
+
+     - Sex of the organism from which the sequence was obtained.
+    Specimen_voucher - An identifier of the individual or collection of the source organism and the place where it is currently stored, usually an institution.
+
+ - Type of tissue from which sequence was obtained.
+
+
+
+<cfloop query="s">
+
+Sequence_ID 	Collected_by 	Collection_date 	Country 	Isolation_source 	Isolate 	Lat_Lon 	Specimen_voucher
+
+
+ genbank_sequence (
+	sequence_id number not null,
+	genbank_batch_id number not null,
+	sequence_identifier varchar2(50) not null,
+	collection_object_id
 
 
 	</cfoutput>
