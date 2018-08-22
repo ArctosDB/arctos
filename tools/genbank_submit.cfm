@@ -369,14 +369,12 @@
 		<cfexecute
 			variable="gm"
 			errorVariable="errorOut"
-			errorFile="/usr/local/httpd/htdocs/wwwarctos/temp/err"
 			name="/bin/sh"
 			arguments="touch /usr/local/httpd/htdocs/wwwarctos/temp/test/boogity.test" />
 
 
 	<cfdump var=#gm#>
 	<cfdump var=#errorOut#>
-	<cfdump var=#cfexecute#>
 	<cfdump var=#variables#>
 
 /usr/local/bin/linux.tbl2asn -t test.sbt -p /usr/local/httpd/htdocs/wwwarctos/temp/test -a s  -V vb -a s
