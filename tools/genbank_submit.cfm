@@ -273,7 +273,7 @@
 <p>
 	#rstr#
 </p>
-<cffile action="write" file="#dir#/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
+<cffile action="write" mode="777" file="#dir#/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
 <a href="/temp/#d.batch_name#/#d.batch_name#.sbt">/temp/#d.batch_name#/#d.batch_name#.sbt</a>
 
@@ -303,7 +303,7 @@
 	<p>
 	#tmp_sq#
 </p>
-	<cffile action="write" file="#dir#/#sequence_identifier#.fsa" output="#tmp_sq#" addnewline="false">
+	<cffile action="write" mode="777" file="#dir#/#sequence_identifier#.fsa" output="#tmp_sq#" addnewline="false">
 	<br><a href="/temp/#d.batch_name#/#sequence_identifier#.fsa">/temp/#d.batch_name#/#sequence_identifier#.fsa</a>
 
 	<cfset host="">
@@ -342,7 +342,7 @@
 	#tmp#
 </p>
 
-	<cffile action="write" file="#dir#/#d.batch_name#.src.txt" output="#tmp#" addnewline="false">
+	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.src.txt" output="#tmp#" addnewline="false">
 
 <a href="/temp/#d.batch_name#/#d.batch_name#.src.txt">/temp/#d.batch_name#/#d.batch_name#.src</a>
 
