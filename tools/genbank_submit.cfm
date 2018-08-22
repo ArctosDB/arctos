@@ -152,7 +152,7 @@
 			<form name="f" method="post" action="genbank_submit.cfm">
 				<input type="hidden" name="action" value="add_agent">
 				<input type="hidden" name="batch_id" value="#batch_id#">
-				<input type="hidden" name="new_agent_id" id="new_p_agent_id" value="">
+				<input type="hidden" name="new_agent_id" id="new_p_agent_id">
 					<tr>
 						<td>
 							<input type="text" name="new_agent" id="new_p_agent" value=""
@@ -799,17 +799,17 @@
 				<cfif len(first_name) gt 0>
 					'#first_name#',
 				<cfelse>
-					(select nvl(getAgentNameType(#agent_id#,'first name'),'LOOKUP FAIL'),
+					(select nvl(getAgentNameType(#new_agent_id#,'first name'),'LOOKUP FAIL'),
 				</cfif>
 				<cfif len(middle_initial) gt 0>
 					'#middle_initial#',
 				<cfelse>
-					(select nvl(substr(getAgentNameType(#agent_id#,'middle name'),1,1),'LOOKUP FAIL'),
+					(select nvl(substr(getAgentNameType(#new_agent_id#,'middle name'),1,1),'LOOKUP FAIL'),
 				</cfif>
 				<cfif len(first_name) gt 0>
 					'#last_name#',
 				<cfelse>
-					(select nvl(getAgentNameType(#agent_id#,'last name'),'LOOKUP FAIL'),
+					(select nvl(getAgentNameType(#new_agent_id#,'last name'),'LOOKUP FAIL'),
 				</cfif>
 				#agent_order#
 			)
