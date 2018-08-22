@@ -133,7 +133,10 @@
 
 		<!--- make a directory; force-overwrite if necessary --->
 		<cfset dir="#application.webDirectory#/temp/#d.batch_name#">
-		<cfdirectory DIRECTORY="#application.webDirectory#/temp/#d.batch_name#" action="create">
+		<cfif directoryexists(dir)>
+			<cfdirectory action="delete" directory="#dir#" recurse="true">
+		</cfif>
+		<cfdirectory mode="777" DIRECTORY="#dir#" action="create">
 
 
 <cfset rstr="Submit-block ::= {">
