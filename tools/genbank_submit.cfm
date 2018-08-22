@@ -312,7 +312,7 @@
 
 
 <!--------------------------------------------------------------------------------------------->
-<cfif action is "edit_sequence">
+<cfif action is "deleteAgent">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from genbank_people where GENBANK_PEOPLE_ID=#GENBANK_PEOPLE_ID#
