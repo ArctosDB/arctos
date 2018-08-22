@@ -259,7 +259,7 @@
 			<textarea name="sequence_data" id="sequence_data" class="hugetextarea"></textarea>
 
 
-			<br><input type="submit" value="save sequence" class="insBtn">
+			<br><input type="submit" value="add sequence" class="insBtn">
 		</form>
 		<cfloop query="s">
 			<hr>
@@ -268,6 +268,7 @@
 				<form name="f" method="post" action="genbank_submit.cfm">
 			<input type="hidden" name="action" value="edit_sequence">
 			<input type="hidden" name="batch_id" value="#batch_id#">
+			<input type="hidden" name="SEQUENCE_ID" value="#SEQUENCE_ID#">
 
 			<label for="sequence_identifier">sequence_identifier</label>
 			<input type="text" name="sequence_identifier" id="sequence_identifier" value='#sequence_identifier#' size="80" class="reqdClr">
@@ -281,7 +282,7 @@
 			<textarea name="sequence_data" id="sequence_data" class="hugetextarea">#sequence_data#</textarea>
 
 
-			<br><input type="submit" value="save sequence" class="insBtn">
+			<br><input type="submit" value="save/edit sequence" class="insBtn">
 		</form>
 
 
@@ -300,6 +301,29 @@
 
 
 
+
+
+
+
+
+
+
+
+<!--------------------------------------------------------------------------------------------->
+<cfif action is "edit_sequence">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update genbank_sequence set
+				sequence_identifier='#sequence_identifier#',
+				COLLECTION_OBJECT_ID=(select COLLECTION_OBJECT_ID from flat where guid='#guid#'),
+				sequence_data='#sequence_data#'
+			where SEQUENCE_ID=#SEQUENCE_ID#
+
+		</cfquery>
+	</cfoutput>
+	<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
+
+</cfif>
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "edit_agent">
 	<cfoutput>
