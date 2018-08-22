@@ -342,9 +342,9 @@
 	#tmp#
 </p>
 
-	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.src.txt" output="#tmp#" addnewline="false">
+	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.src" output="#tmp#" addnewline="false">
 
-<a href="/temp/#d.batch_name#/#d.batch_name#.src.txt">/temp/#d.batch_name#/#d.batch_name#.src</a>
+<a href="/temp/#d.batch_name#/#d.batch_name#.src">/temp/#d.batch_name#/#d.batch_name#.src</a>
 
 
 <p>
