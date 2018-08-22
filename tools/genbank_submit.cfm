@@ -277,9 +277,9 @@
 
 <a href="/temp/#d.batch_name#/#d.batch_name#.sbt">/temp/#d.batch_name#/#d.batch_name#.sbt</a>
 
-<cfset srchdr="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
-
-
+<cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
+<cfset tmp_sq="">
+<cfset lnum=1>
 <cfloop query="s">
 	<!--- god-query - this stuff gets loaned etc.--->
 	<cfquery name="sd" datasource="uam_god">
@@ -299,13 +299,11 @@
 			collection_object_id=#collection_object_id#
 	</cfquery>
 
-	<cfset tmp_sq=">#sequence_identifier# [organism=#sd.scientific_name#]#chr(10)##sequence_data#">
+	<cfif lnum gt 1>
+		<cfset tmp_sq=tmp_sq & chr(10)>
+	</cfif>
+	<cfset tmp_sq=tmp_sq & ">#sequence_identifier# [organism=#sd.scientific_name#]#chr(10)##sequence_data#">
 
-	<p>
-	#tmp_sq#
-</p>
-	<cffile action="write" mode="777" file="#dir#/#sequence_identifier#.fsa" output="#tmp_sq#" addnewline="false">
-	<br><a href="/temp/#d.batch_name#/#sequence_identifier#.fsa">/temp/#d.batch_name#/#sequence_identifier#.fsa</a>
 
 	<cfset host="">
 	<cfloop list="#sd.RELATEDCATALOGEDITEMS#" index="i" delimiters=";">
@@ -322,7 +320,7 @@
 	</cfloop>
 
 
-	<cfset tmp=srchdr & chr(10) & s.sequence_id>
+	<cfset tmp=tmp & chr(10) & s.sequence_id>
 	<cfset tmp=tmp & chr(9) & sd.COLLECTORS>
 	<cfset tmp=tmp & chr(9) & sd.cdate>
 	<cfset tmp=tmp & chr(9) & sd.country>
@@ -334,12 +332,19 @@
 	<!--- IDK if anyone will have this but we should --->
 	<cfset tmp=tmp & chr(9) & "">
 
-	<cffile action="write" mode="777" file="#dir#/#sequence_identifier#.src" output="#tmp#" addnewline="false">
 
-<a href="/temp/#d.batch_name#/#sequence_identifier#.src">/temp/#d.batch_name#/#d.batch_name#.src</a>
 
 
 </cfloop>
+
+	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.fsa" output="#tmp_sq#" addnewline="false">
+	<cffile action="write" mode="777" file="#dir#/#batch_name#.src" output="#tmp#" addnewline="false">
+
+
+
+	<br><a href="/temp/#d.batch_name#/#sequence_identifier#.fsa">/temp/#d.batch_name#/#sequence_identifier#.fsa</a>
+
+<a href="/temp/#d.batch_name#/#sequence_identifier#.src">/temp/#d.batch_name#/#d.batch_name#.src</a>
 
 
 	<p>
