@@ -369,8 +369,8 @@
 		<cfexecute
 			variable="gm"
 			errorVariable="errorOut"
-			name="/bin/sh"
-			arguments="touch /usr/local/httpd/htdocs/wwwarctos/temp/test/boogity.test" />
+			name="/bin/touch"
+			arguments="/usr/local/httpd/htdocs/wwwarctos/temp/test/boogity.test" />
 
 
 	<cfdump var=#variables#>
