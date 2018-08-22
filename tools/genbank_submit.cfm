@@ -660,7 +660,6 @@
 			Files in directory #b.batch_name#....
 		</p>
 		<cfdirectory name="d" action="list" directory="#application.webDirectory#/temp/#b.batch_name#">
-		<cfdump var=#d#>
 		<table border>
 			<th>
 				<td>File Extension</td>
