@@ -277,7 +277,7 @@
 
 <a href="/temp/#d.batch_name#/#d.batch_name#.sbt">/temp/#d.batch_name#/#d.batch_name#.sbt</a>
 
-<cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
+<cfset srchdr="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
 
 
 <cfloop query="s">
@@ -322,7 +322,7 @@
 	</cfloop>
 
 
-	<cfset tmp=tmp & chr(10) & s.sequence_id>
+	<cfset tmp=srchdr & chr(10) & s.sequence_id>
 	<cfset tmp=tmp & chr(9) & sd.COLLECTORS>
 	<cfset tmp=tmp & chr(9) & sd.cdate>
 	<cfset tmp=tmp & chr(9) & sd.country>
@@ -334,6 +334,9 @@
 	<!--- IDK if anyone will have this but we should --->
 	<cfset tmp=tmp & chr(9) & "">
 
+	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.src" output="#tmp#" addnewline="false">
+
+<a href="/temp/#d.batch_name#/#sequence_identifier#.src">/temp/#d.batch_name#/#d.batch_name#.src</a>
 
 
 </cfloop>
@@ -343,9 +346,7 @@
 	#tmp#
 </p>
 
-	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.src" output="#tmp#" addnewline="false">
 
-<a href="/temp/#d.batch_name#/#d.batch_name#.src">/temp/#d.batch_name#/#d.batch_name#.src</a>
 
 
 <p>
