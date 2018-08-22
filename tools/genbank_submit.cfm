@@ -327,39 +327,6 @@
 
 
 
- genbank_sequence (
-	sequence_id number not null,
-	genbank_batch_id number not null,
-	sequence_identifier varchar2(50) not null,
-	collection_object_id number not null,
-	sequence_data clob
-
-
-Host
-
-     - Developmental stage of organism.
-
-    Host - When the sequence submission is from an organism that exists in a symbiotic, parasitic, or other special relationship with some second organism, the 'host' modifier can be used to identify the name of the host species.
-    Identified_by - name of the person or persons who identified by taxonomic name the organism from which the sequence was obtained
-
-     - Sex of the organism from which the sequence was obtained.
-    Specimen_voucher - An identifier of the individual or collection of the source organism and the place where it is currently stored, usually an institution.
-
- - Type of tissue from which sequence was obtained.
-
-
-
-<cfloop query="s">
-
-Sequence_ID 	Collected_by 	Collection_date 	Country 	Isolation_source 	Isolate 	Lat_Lon 	Specimen_voucher
-
-
- genbank_sequence (
-	sequence_id number not null,
-	genbank_batch_id number not null,
-	sequence_identifier varchar2(50) not null,
-	collection_object_id
-
 
 	</cfoutput>
 </cfif>
