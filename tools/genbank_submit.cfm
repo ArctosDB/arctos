@@ -265,7 +265,7 @@
 <cfif action is "edit_agent">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			udpate genbank_people set
+			update genbank_people set
 				AGENT_ID='#AGENT_ID#',
 				agent_role='#agent_role#',
 				first_name='#first_name#',
