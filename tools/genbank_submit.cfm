@@ -780,6 +780,7 @@
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "add_agent">
 	<cfoutput>
+
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into genbank_people (
 				genbank_people_id,
@@ -795,9 +796,21 @@
 				#batch_id#,
 				'#new_agent_id#',
 				'#agent_role#',
-				'#first_name#',
-				'#middle_initial#',
-				'#last_name#',
+				<cfif len(first_name) gt 0>
+					'#first_name#',
+				<cfelse>
+					(select nvl(getAgentNameType(#agent_id#,'first name'),'LOOKUP FAIL'),
+				</cfif>
+				<cfif len(middle_initial) gt 0>
+					'#middle_initial#',
+				<cfelse>
+					(select nvl(substr(getAgentNameType(#agent_id#,'middle name'),1,1),'LOOKUP FAIL'),
+				</cfif>
+				<cfif len(first_name) gt 0>
+					'#last_name#',
+				<cfelse>
+					(select nvl(getAgentNameType(#agent_id#,'last name'),'LOOKUP FAIL'),
+				</cfif>
 				#agent_order#
 			)
 		</cfquery>
