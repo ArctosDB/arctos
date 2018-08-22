@@ -225,6 +225,8 @@
  	<cfset l=l+1>
 </cfloop>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & "},">
+
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & "},">
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'title "#d.REF_TITLE#"'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
 <cfset rstr=rstr & chr(10) & chr(9) & '}'>
