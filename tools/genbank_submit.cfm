@@ -334,7 +334,7 @@
 	<!--- IDK if anyone will have this but we should --->
 	<cfset tmp=tmp & chr(9) & "">
 
-	<cffile action="write" mode="777" file="#dir#/#sequence_identifier#.tbl" output="#tmp#" addnewline="false">
+	<cffile action="write" mode="777" file="#dir#/#sequence_identifier#.src" output="#tmp#" addnewline="false">
 
 <a href="/temp/#d.batch_name#/#sequence_identifier#.src">/temp/#d.batch_name#/#d.batch_name#.src</a>
 
