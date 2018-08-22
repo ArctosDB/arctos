@@ -387,20 +387,15 @@
 		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from genbank_people where genbank_batch_id=#batch_id#
 		</cfquery>
-
 		<cfquery name="sqa" dbtype="query">
 			select * from p where AGENT_ROLE='sequence author' order by agent_order
 		</cfquery>
 		<cfquery name="srefa" dbtype="query">
 			select * from p where AGENT_ROLE='reference author' order by agent_order
 		</cfquery>
-
 		<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from genbank_sequence where genbank_batch_id=#batch_id#
 		</cfquery>
-		<cfdump var=#d#>
-		<cfdump var=#p#>
-		<cfdump var=#s#>
 
 		<!--- make a directory; force-overwrite if necessary --->
 		<cfset dir="#application.webDirectory#/temp/#d.batch_name#">
