@@ -323,7 +323,7 @@
 	</cfloop>
 
 
-	<cfset tmp=tmp & chr(10) & s.sequence_id>
+	<cfset tmp=tmp & chr(10) & s.sequence_identifier>
 	<cfset tmp=tmp & chr(9) & sd.guid>
 	<!----
 	<cfset tmp=tmp & chr(9) & sd.COLLECTORS>
