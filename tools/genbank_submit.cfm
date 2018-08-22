@@ -521,14 +521,14 @@
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'label str "BioProject",'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'num 1,'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'data strs {'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '"SUB1"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '"#d.biosample#"'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '},'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '{'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'label str "BioSample",'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'num 1,'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & 'data strs {'>
-<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '"SAM6"'>
+<cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '"#d.bioproject#"'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & chr(9) & '}'>
 <cfset rstr=rstr & chr(10) & chr(9) & chr(9) & '}'>
 <cfset rstr=rstr & chr(10) & chr(9) & '}'>
