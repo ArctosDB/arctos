@@ -3,7 +3,7 @@
 <ul>
 	<li><a href="genbank_submit.cfm">home</a></li>
 	<cfif isdefined("batch_id") and len(batch_id) gt 0>
-		<li><a href="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#">Edit Batch</a></li>
+		<li><a href="genbank_submit.cfm?action=edbatch&batch_id=<cfoutput>#batch_id#</cfoutput>">Edit Batch</a></li>
 	</cfif>
 </ul>
 
