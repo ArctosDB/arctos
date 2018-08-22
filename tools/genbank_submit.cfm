@@ -198,10 +198,10 @@
 					<option <cfif agent_role is "sequence author" > selected="selected" </cfif>value="sequence author">sequence author</option>
 					<option <cfif agent_role is "reference author" > selected="selected" </cfif>value="reference author">reference author</option>
 				</select></td>
-						<td><input type="text" name="first_name" id="first_name" value="#first_name#" size="80" class="reqdClr"></td>
-						<td>				<input type="text" name="middle_initial"  value="#middle_initial#" id="middle_initial" size="80" >
+						<td><input type="text" name="first_name" id="first_name" value="#first_name#" size="30" class="reqdClr"></td>
+						<td>				<input type="text" name="middle_initial"  value="#middle_initial#" id="middle_initial" size="20" >
 </td>
-						<td><input type="text" name="last_name"  value="#last_name#" id="last_name" size="80" class="reqdClr"></td>
+						<td><input type="text" name="last_name"  value="#last_name#" id="last_name" size="30" class="reqdClr"></td>
 						<td><select name="agent_order" id="agent_order" class="reqdClr">
 					<option></option>
 					<cfloop from="1" to="30" index="i">
@@ -261,6 +261,24 @@
 
 
 
+<!--------------------------------------------------------------------------------------------->
+<cfif action is "edit_agent">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			udpate genbank_people set
+				AGENT_ID='#AGENT_ID#',
+				agent_role='#agent_role#',
+				first_name='#first_name#',
+				last_name='#last_name#',
+				agent_order='#agent_order#',
+				middle_initial='#middle_initial#'
+			where GENBANK_PEOPLE_ID=#GENBANK_PEOPLE_ID#
+
+		</cfquery>
+	</cfoutput>
+	<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
+
+</cfif>
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "edit_batch">
 	<cfoutput>
