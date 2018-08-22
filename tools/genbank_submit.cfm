@@ -152,11 +152,11 @@
 			<form name="f" method="post" action="genbank_submit.cfm">
 				<input type="hidden" name="action" value="add_agent">
 				<input type="hidden" name="batch_id" value="#batch_id#">
-				<input type="hidden" name="new_agent_id" id="new_agent_id" value="">
+				<input type="hidden" name="new_p_agent_id" id="new_agent_id" value="">
 					<tr>
 						<td>
-							<input type="text" name="new_agent" id="new_agent" value=""
-								onchange="pickAgentModal('new_agent_id',this.id,this.value); return false;"
+							<input type="text" name="new_agent" id="new_p_agent" value=""
+								onchange="pickAgentModal('new_p_agent_id',this.id,this.value); return false;"
 								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
 						</td>
 						<td>
