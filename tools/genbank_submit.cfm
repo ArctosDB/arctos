@@ -147,6 +147,8 @@
 				<th>middle_initial</th>
 				<th>last_name</th>
 				<th>agent_order</th>
+				<th>-</th>
+				<th>-</th>
 			</tr>
 
 			<form name="f" method="post" action="genbank_submit.cfm">
@@ -226,6 +228,7 @@
 							</select>
 						</td>
 						<td><input type="submit" value="save edits" class="insBtn"></td>
+						<td><input type="button" value="delete" class="delBtn" onclick="document.location='genbank_submit.cfm?action=deleteAgent&batch_id=#batch_id#&GENBANK_PEOPLE_ID=#GENBANK_PEOPLE_ID#'";></td>
 					</tr>
 				</form>
 			</cfloop>
@@ -308,7 +311,15 @@
 
 
 
-
+<!--------------------------------------------------------------------------------------------->
+<cfif action is "edit_sequence">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from genbank_people where GENBANK_PEOPLE_ID=#GENBANK_PEOPLE_ID#
+		</cfquery>
+		<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
+	</cfoutput>
+</cfif>
 
 
 
@@ -780,50 +791,50 @@
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "add_agent">
 	<cfoutput>
-	<cfif len(first_name) gt 0>
-		<cfset fn=first_name>
-	<cfelse>
-		<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select agent_name from agent_name where agent_name_type='first name' and agent_id=#new_agent_id#
-		</cfquery>
-		<cfif gad.recordcount is 1>
-			<cfset fn=gad.agent_name>
-		<cfelseif gad.recordcount is 0>
-			<cfset fn='NOTFOUND'>
+		<cfif len(first_name) gt 0>
+			<cfset fn=first_name>
 		<cfelse>
-			<cfset fn='BAD_LOOKUP'>
+			<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select agent_name from agent_name where agent_name_type='first name' and agent_id=#new_agent_id#
+			</cfquery>
+			<cfif gad.recordcount is 1>
+				<cfset fn=gad.agent_name>
+			<cfelseif gad.recordcount is 0>
+				<cfset fn='NOTFOUND'>
+			<cfelse>
+				<cfset fn='BAD_LOOKUP'>
+			</cfif>
 		</cfif>
-	</cfif>
 
-	<cfif len(middle_initial) gt 0>
-		<cfset mi=middle_initial>
-	<cfelse>
-		<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select agent_name from agent_name where agent_name_type='middle name' and agent_id=#new_agent_id#
-		</cfquery>
-		<cfif gad.recordcount is 1>
-			<cfset mi=left(gad.agent_name,1) & ".">
-		<cfelseif gad.recordcount is 0>
-			<cfset mi='NOTFOUND'>
+		<cfif len(middle_initial) gt 0>
+			<cfset mi=middle_initial>
 		<cfelse>
-			<cfset mi='BAD_LOOKUP'>
+			<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select agent_name from agent_name where agent_name_type='middle name' and agent_id=#new_agent_id#
+			</cfquery>
+			<cfif gad.recordcount is 1>
+				<cfset mi=left(gad.agent_name,1) & ".">
+			<cfelseif gad.recordcount is 0>
+				<cfset mi='NOTFOUND'>
+			<cfelse>
+				<cfset mi='BAD_LOOKUP'>
+			</cfif>
 		</cfif>
-	</cfif>
 
-	<cfif len(last_name) gt 0>
-		<cfset ln=last_name>
-	<cfelse>
-		<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select agent_name from agent_name where agent_name_type='last name' and agent_id=#new_agent_id#
-		</cfquery>
-		<cfif gad.recordcount is 1>
-			<cfset ln=gad.agent_name>
-		<cfelseif gad.recordcount is 0>
-			<cfset ln='NOTFOUND'>
+		<cfif len(last_name) gt 0>
+			<cfset ln=last_name>
 		<cfelse>
-			<cfset ln='BAD_LOOKUP'>
+			<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select agent_name from agent_name where agent_name_type='last name' and agent_id=#new_agent_id#
+			</cfquery>
+			<cfif gad.recordcount is 1>
+				<cfset ln=gad.agent_name>
+			<cfelseif gad.recordcount is 0>
+				<cfset ln='NOTFOUND'>
+			<cfelse>
+				<cfset ln='BAD_LOOKUP'>
+			</cfif>
 		</cfif>
-	</cfif>
 
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into genbank_people (
