@@ -117,45 +117,10 @@
 
 
 
-		<cfdump var=#b#>
 		<hr>
 		<h3>People</h3>
 		<br>Add Person
-		<form name="f" method="post" action="genbank_submit.cfm">
-			<input type="hidden" name="action" value="add_agent">
-			<input type="hidden" name="batch_id" value="#batch_id#">
-			<input type="hidden" name="new_agent_id" id="new_agent_id" value="">
-			<label for="new_agent">Agent (pick Arctos agent)</label>
-			<input type="text" name="new_agent" id="new_agent" value=""
-				onchange="pickAgentModal('new_agent_id',this.id,this.value); return false;"
-				onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
-			<label for="agent_role">agent_role</label>
-			<select name="agent_role" id="agent_role" class="reqdClr">
-				<option></option>
-				<option value="sequence author">sequence author</option>
-				<option value="reference author">reference author</option>
-			</select>
 
-			<label for="first_name">first_name</label>
-			<input type="text" name="first_name" id="first_name" size="80" class="reqdClr">
-
-			<label for="middle_initial">middle_initial</label>
-			<input type="text" name="middle_initial" id="middle_initial" size="80" >
-
-			<label for="last_name">last_name</label>
-			<input type="text" name="last_name" id="last_name" size="80" class="reqdClr">
-
-			<label for="agent_order">agent_order</label>
-			<select name="agent_order" id="agent_order" class="reqdClr">
-				<option></option>
-				<cfloop from="1" to="30" index="i">
-
-					<option value="#i#">#i#</option>
-				</cfloop>
-			</select>
-
-			<br><input type="submit" value="add person" class="insBtn">
-		</form>
 		<p>
 			NOTE: Order is for sorting; values are relative, absolute values don't matter.
 		</p>
@@ -183,6 +148,51 @@
 				<th>last_name</th>
 				<th>agent_order</th>
 			</tr>
+
+				<form name="f" method="post" action="genbank_submit.cfm">
+			<input type="hidden" name="action" value="add_agent">
+			<input type="hidden" name="batch_id" value="#batch_id#">
+			<input type="hidden" name="new_agent_id" id="new_agent_id" value="">
+
+
+					<tr>
+						<td>
+							<input type="text" name="new_agent" id="new_agent" value=""
+								onchange="pickAgentModal('new_agent_id',this.id,this.value); return false;"
+								onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
+						</td>
+						<td>
+							<select name="agent_role" id="agent_role" class="reqdClr">
+								<option></option>
+								<option value="sequence author">sequence author</option>
+								<option value="reference author">reference author</option>
+							</select>
+
+						</td>
+						<td>
+							<input type="text" name="first_name" id="first_name" size="80" class="reqdClr">
+						</td>
+						<td>
+							<input type="text" name="middle_initial" id="middle_initial" size="80" >
+						</td>
+						<td>
+							<input type="text" name="last_name" id="last_name" size="80" class="reqdClr">
+						</td>
+						<td>
+							<select name="agent_order" id="agent_order" class="reqdClr">
+								<option></option>
+								<cfloop from="1" to="30" index="i">
+
+									<option value="#i#">#i#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td><input type="submit" value="add person" class="insBtn"</td>
+					</tr>
+				</form>
+
+
+
 			<cfloop query="p">
 				<form name="f" method="post" action="genbank_submit.cfm">
 					<input type="hidden" name="action" value="edit_agent">
@@ -241,7 +251,6 @@
 				genbank_sequence.COLLECTION_OBJECT_ID=flat.COLLECTION_OBJECT_ID(+) and
 				genbank_batch_id=#batch_id#
 		</cfquery>
-		<cfdump var=#s#>
 
 		<form name="f" method="post" action="genbank_submit.cfm">
 			<input type="hidden" name="action" value="add_sequence">
