@@ -663,11 +663,11 @@
 			There should be some files linked below. Here's what they are:
 		</p>
 		<table border>
-			<th>
-				<td>File Extension</td>
-				<td>Whatsit?</td>
-				<td>Interpretation</td>
-			</th>
+			<tr>
+				<th>File Extension</th>
+				<th>Whatsit?</th>
+				<th>Interpretation</th>
+			</tr>
 			<tr>
 				<td>.fsa</td>
 				<td>FASTA file</td>
