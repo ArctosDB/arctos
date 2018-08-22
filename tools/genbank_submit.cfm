@@ -289,23 +289,14 @@
 
 			<br><input type="submit" value="save/edit sequence" class="insBtn">
 		</form>
-
-
-
-
-
-		</cfloop>			    CLOB
-
+		</cfloop>
 		<p>
-		<br><a href="genbank_submit.cfm?action=prepfiles&batch_id=#batch_id#">prepare files</a>
-
+			Once everything on this page is happy, you can
+			<a href="genbank_submit.cfm?action=prepfiles&batch_id=#batch_id#">prepare files</a>
+			for GenBank submission.
 		</p>
-
 	</cfoutput>
 </cfif>
-
-
-
 
 
 <!--------------------------------------------------------------------------------------------->
@@ -551,12 +542,9 @@
 
 <cfset rstr=replace(rstr,chr(9),"  ","all")>
 
-<p>
-	#rstr#
-</p>
+
 <cffile action="write" mode="777" file="#dir#/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
-<a href="/temp/#d.batch_name#/#d.batch_name#.sbt">/temp/#d.batch_name#/#d.batch_name#.sbt</a>
 
 <cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
 
@@ -623,22 +611,18 @@
 	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.fsa" output="#tmp_sq#" addnewline="false">
 	<cffile action="write" mode="777" file="#dir#/#d.batch_name#.src" output="#tmp#" addnewline="false">
 
-<!----
+<p>
+	These files have been written. You probably don't need to care unless something breaks.
 
-	<br><a href="/temp/#d.batch_name#/#sequence_identifier#.fsa">/temp/#d.batch_name#/#sequence_identifier#.fsa</a>
-
-<a href="/temp/#d.batch_name#/#sequence_identifier#.src">/temp/#d.batch_name#/#d.batch_name#.src</a>
----->
-
-	<p>
-	#tmp#
+	<ul>
+		<li><a href="/temp/#d.batch_name#/#d.batch_name#.sbt">/temp/#d.batch_name#/#d.batch_name#.sbt</a></li>
+		<li><a href="/temp/#d.batch_name#/#d.batch_name#.fsa">/temp/#d.batch_name#/#d.batch_name#.fsa</a></li>
+		<li><a href="/temp/#d.batch_name#/#d.batch_name#.src">/temp/#d.batch_name#/#d.batch_name#.src</a></li>
+	</ul>
 </p>
 
-
-
-
 <p>
-	made some files, review then <a href="genbank_submit.cfm?action=pkgfiles&batch_id=#batch_id#">package them</a>
+	Next Step: <a href="genbank_submit.cfm?action=pkgfiles&batch_id=#batch_id#">package files</a>
 
 </p>
 
