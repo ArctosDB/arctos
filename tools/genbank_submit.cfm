@@ -124,17 +124,11 @@
 		<form name="f" method="post" action="genbank_submit.cfm">
 			<input type="hidden" name="action" value="add_agent">
 			<input type="hidden" name="batch_id" value="#batch_id#">
-
-
-
-
-
 			<input type="hidden" name="new_agent_id" id="new_agent_id" value="">
 			<label for="new_agent">Agent (pick Arctos agent)</label>
 			<input type="text" name="new_agent" id="new_agent" value=""
 				onchange="pickAgentModal('new_agent_id',this.id,this.value); return false;"
 				onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput">
-
 			<label for="agent_role">agent_role</label>
 			<select name="agent_role" id="agent_role" class="reqdClr">
 				<option></option>
@@ -162,9 +156,73 @@
 
 			<br><input type="submit" value="add person" class="insBtn">
 		</form>
+		<p>
+			NOTE: Order is for sorting; values are relative, absolute values don't matter.
+		</p>
 		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from genbank_people where genbank_batch_id=#batch_id#
+			select
+				GENBANK_PEOPLE_ID,
+				GENBANK_BATCH_ID,
+				AGENT_ID,
+				getPreferredAgentName(AGENT_ID) aname,
+				AGENT_ROLE,
+				FIRST_NAME,
+				MIDDLE_INITIAL,
+				LAST_NAME,
+				AGENT_ORDER
+			 from genbank_people where genbank_batch_id=#batch_id#
+			 order by AGENT_ORDER
 		</cfquery>
+
+		<table border>
+			<tr>
+				<th>Arctos Agent</th>
+				<th>agent_role</th>
+				<th>first_name</th>
+				<th>middle_initial</th>
+				<th>last_name</th>
+				<th>agent_order</th>
+			</tr>
+			<cfloop query="p">
+				<form name="f" method="post" action="genbank_submit.cfm">
+					<input type="hidden" name="action" value="edit_agent">
+					<input type="hidden" name="batch_id" value="#batch_id#">
+					<input type="hidden" name="GENBANK_PEOPLE_ID" value="#GENBANK_PEOPLE_ID#">
+					<input type="hidden" name="AGENT_ID" id="AGENT_ID__#GENBANK_PEOPLE_ID#" value="#AGENT_ID#">
+					<tr>
+						<td><input type="text" name="agent_name" id="agent_name__#GENBANK_PEOPLE_ID#" value="#aname#"
+					onchange="pickAgentModal('AGENT_ID__#GENBANK_PEOPLE_ID#',this.id,this.value); return false;"
+					onKeyPress="return noenter(event);" placeholder="pick an agent" class="reqdClr minput"></td>
+						<td><select name="agent_role" id="agent_role" class="reqdClr">
+					<option></option>
+					<option <cfif agent_role is "sequence author" > selected="selected" </cfif>value="sequence author">sequence author</option>
+					<option <cfif agent_role is "reference author" > selected="selected" </cfif>value="reference author">reference author</option>
+				</select></td>
+						<td><input type="text" name="first_name" id="first_name" value="#first_name#" size="80" class="reqdClr"></td>
+						<td>				<input type="text" name="middle_initial"  value="#middle_initial#" id="middle_initial" size="80" >
+</td>
+						<td><input type="text" name="last_name"  value="#last_name#" id="last_name" size="80" class="reqdClr"></td>
+						<td><select name="agent_order" id="agent_order" class="reqdClr">
+					<option></option>
+					<cfloop from="1" to="30" index="i">
+
+						<option <cfif agent_order is i > selected="selected" </cfif>value="#i#">#i#</option>
+					</cfloop>
+				</select></td>
+						<td><input type="submit" value="save edits" class="insBtn"></td>
+					</tr>
+
+
+			</form>
+
+
+
+		</cfloop>
+
+		</table>
+
+
+
 		<cfdump var=#p#>
 
 		<h3>Sequences</h3>
@@ -201,6 +259,37 @@
 	</cfoutput>
 </cfif>
 
+
+
+<!--------------------------------------------------------------------------------------------->
+<cfif action is "edit_batch">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update genbank_batch set
+				CONTACT_AGENT_ID='#CONTACT_AGENT_ID#',
+				batch_name='#batch_name#',
+				first_name='#first_name#',
+				last_name='#last_name#',
+				middle_initial='#middle_initial#',
+				email='#email#',
+				organization='#organization#',
+				department='#department#',
+				phone='#phone#',
+				fax='#fax#',
+				street='#street#',
+				city='#city#',
+				state_prov='#state_prov#',
+				postal_code='#postal_code#',
+				country='#country#',
+				ref_title='#ref_title#',
+				biosample='#biosample#',
+				bioproject='#xxxbioproject#'
+			where
+				genbank_batch_id=#batch_id#
+		</cfquery>
+		<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
+	</cfoutput>
+</cfif>
 
 
 
