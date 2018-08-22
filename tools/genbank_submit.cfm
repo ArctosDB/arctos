@@ -231,7 +231,7 @@
 				SEQUENCE_ID,
 				GENBANK_BATCH_ID,
 				SEQUENCE_IDENTIFIER,
-				COLLECTION_OBJECT_ID,
+				genbank_sequence.COLLECTION_OBJECT_ID,
 				guid,
 				SEQUENCE_DATA
 			from
