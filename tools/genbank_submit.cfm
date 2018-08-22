@@ -780,6 +780,50 @@
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "add_agent">
 	<cfoutput>
+	<cfif len(first_name) gt 0>
+		<cfset fn=first_name>
+	<cfelse>
+		<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select agent_name from agent_name where agent_name_type='first name' and agent_id=#new_agent_id#
+		</cfquery>
+		<cfif gad.recordcount is 1>
+			<cfset fn=gad.agent_name>
+		<cfelseif gad.recordcount is 0>
+			<cfset fn='NOTFOUND'>
+		<cfelse>
+			<cfset fn='BAD_LOOKUP'>
+		</cfif>
+	</cfif>
+
+	<cfif len(middle_initial) gt 0>
+		<cfset mi=middle_initial>
+	<cfelse>
+		<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select agent_name from agent_name where agent_name_type='middle name' and agent_id=#new_agent_id#
+		</cfquery>
+		<cfif gad.recordcount is 1>
+			<cfset mi=left(gad.agent_name,1) & ".">
+		<cfelseif gad.recordcount is 0>
+			<cfset mi='NOTFOUND'>
+		<cfelse>
+			<cfset mi='BAD_LOOKUP'>
+		</cfif>
+	</cfif>
+
+	<cfif len(last_name) gt 0>
+		<cfset ln=last_name>
+	<cfelse>
+		<cfquery name="gad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select agent_name from agent_name where agent_name_type='last name' and agent_id=#new_agent_id#
+		</cfquery>
+		<cfif gad.recordcount is 1>
+			<cfset ln=gad.agent_name>
+		<cfelseif gad.recordcount is 0>
+			<cfset ln='NOTFOUND'>
+		<cfelse>
+			<cfset ln='BAD_LOOKUP'>
+		</cfif>
+	</cfif>
 
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into genbank_people (
@@ -796,21 +840,9 @@
 				#batch_id#,
 				'#new_agent_id#',
 				'#agent_role#',
-				<cfif len(first_name) gt 0>
-					'#first_name#',
-				<cfelse>
-					(select nvl(getAgentNameType(#new_agent_id#,'first name'),'LOOKUP FAIL'),
-				</cfif>
-				<cfif len(middle_initial) gt 0>
-					'#middle_initial#',
-				<cfelse>
-					(select nvl(substr(getAgentNameType(#new_agent_id#,'middle name'),1,1),'LOOKUP FAIL'),
-				</cfif>
-				<cfif len(first_name) gt 0>
-					'#last_name#',
-				<cfelse>
-					(select nvl(getAgentNameType(#new_agent_id#,'last name'),'LOOKUP FAIL'),
-				</cfif>
+				'#fn#',
+				'#mi#',
+				'#ln#',
 				#agent_order#
 			)
 		</cfquery>
