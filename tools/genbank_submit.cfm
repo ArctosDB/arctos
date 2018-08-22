@@ -369,7 +369,7 @@
 		<cfexecute
 			variable="gm"
 			errorVariable="errorOut"
-			name="/bin/bash"
+			name="/bin/sh"
 			arguments="touch /usr/local/httpd/htdocs/wwwarctos/temp/test/boogity.test">
 
 	<cfdump var=#variables#>
