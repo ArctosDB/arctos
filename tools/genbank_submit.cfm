@@ -1158,6 +1158,10 @@ tissue-lib
 		<cfset fadr=DeserializeJSON(fj.address)>
 		<cfdump var=#fadr#>
 		<cfabort>
+		<cfif isdefined("fadr.boogity")>
+			ok
+			<cfelse>no
+		</cfif>
 
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
