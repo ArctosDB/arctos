@@ -1212,6 +1212,11 @@ tissue-lib
 		<cfelse>
 			<cfset STREET="PLEASE PROVIDE">
 		</cfif>
+		<cfif isdefined("fadr.FAX")>
+			<cfset FAX=fadr.FAX>
+		<cfelse>
+			<cfset FAX="PLEASE PROVIDE">
+		</cfif>
 
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
