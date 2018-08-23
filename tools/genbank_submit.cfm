@@ -258,67 +258,64 @@
 				genbank_batch_id=#batch_id#
 		</cfquery>
 		<div class="newRec">
-		<form name="f" method="post" action="genbank_submit.cfm">
-			<input type="hidden" name="action" value="add_sequence">
-			<input type="hidden" name="batch_id" value="#batch_id#">
+			<form name="f" method="post" action="genbank_submit.cfm">
+				<input type="hidden" name="action" value="add_sequence">
+				<input type="hidden" name="batch_id" value="#batch_id#">
 
-			<label for="sequence_identifier">sequence_identifier</label>
-			<input type="text" name="sequence_identifier" id="sequence_identifier" size="80" class="reqdClr">
+				<label for="sequence_identifier">sequence_identifier</label>
+				<input type="text" name="sequence_identifier" id="sequence_identifier" size="80" class="reqdClr">
 
-			<div style="border:2px solid red; padding:1em;margin:1em;">
-				<br>You MUST provide enough information to identify a specimen, and SHOULD provide enough to identify a specific sample.
-				<br>Preferred: provide a barcode, Arctos will figure out the rest.
-				<br>Acceptable: provide a GUID
+				<div style="border:2px solid red; padding:1em;margin:1em;">
+					<br>You MUST provide enough information to identify a specimen, and SHOULD provide enough to identify a specific sample.
+					<br>Preferred: provide a barcode, Arctos will figure out the rest.
+					<br>Acceptable: provide a GUID
 
-				<label for="source_material_id">source_material_id (barcode)</label>
-				<input type="text" name="source_material_id" id="source_material_id" size="80" >
-				<label for="tissue">tissue (part name)</label>
-				<input type="text" name="tissue" id="tissue" size="80" >
-				<label for="GUID">GUID (DWC Triplet format)</label>
-				<input type="text" name="GUID" id="GUID" size="80" >
-			</div>
+					<label for="source_material_id">source_material_id (barcode)</label>
+					<input type="text" name="source_material_id" id="source_material_id" size="80" >
+					<label for="tissue">tissue (part name)</label>
+					<input type="text" name="tissue" id="tissue" size="80" >
+					<label for="GUID">GUID (DWC Triplet format)</label>
+					<input type="text" name="GUID" id="GUID" size="80" >
+				</div>
 
-			<label for="sequence_data">sequence_data</label>
-			<textarea name="sequence_data" id="sequence_data" class="hugetextarea"></textarea>
+				<label for="sequence_data">sequence_data</label>
+				<textarea name="sequence_data" id="sequence_data" class="hugetextarea"></textarea>
 
 
-			<br><input type="submit" value="add sequence" class="insBtn">
-		</form>
+				<br><input type="submit" value="add sequence" class="insBtn">
+			</form>
 		</div>
 		<cfset rn=1>
 		<cfloop query="s">
 			<div  #iif(rn MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-			<hr>
-
-
 				<form name="f" method="post" action="genbank_submit.cfm">
-			<input type="hidden" name="action" value="edit_sequence">
-			<input type="hidden" name="batch_id" value="#batch_id#">
-			<input type="hidden" name="SEQUENCE_ID" value="#SEQUENCE_ID#">
+				<input type="hidden" name="action" value="edit_sequence">
+				<input type="hidden" name="batch_id" value="#batch_id#">
+				<input type="hidden" name="SEQUENCE_ID" value="#SEQUENCE_ID#">
 
-			<label for="sequence_identifier">sequence_identifier</label>
-			<input type="text" name="sequence_identifier" id="sequence_identifier" value='#sequence_identifier#' size="80" class="reqdClr">
+				<label for="sequence_identifier">sequence_identifier</label>
+				<input type="text" name="sequence_identifier" id="sequence_identifier" value='#sequence_identifier#' size="80" class="reqdClr">
 
-			<div style="border:2px solid red; padding:1em;margin:1em;">
-				<br>You MUST provide enough information to identify a specimen, and SHOULD provide enough to identify a specific sample.
-				<br>Preferred: provide a barcode, Arctos will figure out the rest.
-				<br>Acceptable: provide a GUID
+				<div style="border:2px solid red; padding:1em;margin:1em;">
+					<br>You MUST provide enough information to identify a specimen, and SHOULD provide enough to identify a specific sample.
+					<br>Preferred: provide a barcode, Arctos will figure out the rest.
+					<br>Acceptable: provide a GUID
 
-				<label for="source_material_id">source_material_id (barcode)</label>
-				<input type="text" name="source_material_id" id="source_material_id" size="80" value='#source_material_id#'>
-				<label for="tissue">tissue (part name)</label>
-				<input type="text" name="tissue" id="tissue" size="80" value='#tissue#'>
-				<label for="GUID">GUID (DWC Triplet format)</label>
-				<input type="text" name="GUID" id="GUID" value='#guid#' size="80" >
-			</div>
-
-
-			<label for="sequence_data">sequence_data</label>
-			<textarea name="sequence_data" id="sequence_data" class="hugetextarea">#sequence_data#</textarea>
+					<label for="source_material_id">source_material_id (barcode)</label>
+					<input type="text" name="source_material_id" id="source_material_id" size="80" value='#source_material_id#'>
+					<label for="tissue">tissue (part name)</label>
+					<input type="text" name="tissue" id="tissue" size="80" value='#tissue#'>
+					<label for="GUID">GUID (DWC Triplet format)</label>
+					<input type="text" name="GUID" id="GUID" value='#guid#' size="80" >
+				</div>
 
 
-			<br><input type="submit" value="save/edit sequence" class="insBtn">
-		</form>
+				<label for="sequence_data">sequence_data</label>
+				<textarea name="sequence_data" id="sequence_data" class="hugetextarea">#sequence_data#</textarea>
+
+
+				<br><input type="submit" value="save/edit sequence" class="insBtn">
+			</form>
 		</div>
 		<cfset rn=rn+1>
 		</cfloop>
