@@ -101,7 +101,7 @@
 			<p><strong>In Containers:</strong> #valuelist(accncontainers.barcode)#</p>
 		</cfif>
 		<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select project_name,project_id from project,
+			select project.project_name,project.project_id from project,
 			project_trans where
 			project_trans.project_id =  project.project_id
 			and transaction_id=<cfqueryparam value = "#transaction_id#" CFSQLType = "CF_SQL_INTEGER">
