@@ -724,6 +724,9 @@
 				/usr/local/bin/linux.tbl2asn -t #application.webDirectory#/temp/#b.batch_name#/#b.batch_name#.sbt -p #application.webDirectory#/temp/#b.batch_name#/ -V vb -a s
 			</code>
 		</p>
+
+		<cfdump var=#gm#>
+		<cfdump var=#errorOut#>
 		<p>
 			<a href="genbank_submit.cfm?action=reviewResults&batch_id=#batch_id#">review results</a>
 		</p>
