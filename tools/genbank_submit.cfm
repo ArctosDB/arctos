@@ -285,7 +285,9 @@
 			<br><input type="submit" value="add sequence" class="insBtn">
 		</form>
 		</div>
+		<cfset rn=1>
 		<cfloop query="s">
+			<div  #iif(rn MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<hr>
 
 
@@ -317,6 +319,8 @@
 
 			<br><input type="submit" value="save/edit sequence" class="insBtn">
 		</form>
+		</div>
+		<cfset rn=rn+1>
 		</cfloop>
 		<p>
 			Once everything on this page is happy, you can
