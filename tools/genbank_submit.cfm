@@ -63,45 +63,52 @@
 				onchange="pickAgentModal('CONTACT_AGENT_ID',this.id,this.value); return false;"
 				onKeyPress="return noenter(event);" value="#b.contactname#" class="reqdClr minput">
 
-			<label for="first_name">first_name</label>
-			<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
+			<div style="margin:1em;padding:1em;border:2px solid green">
+				<label for="first_name">first_name</label>
+				<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
 
-			<label for="last_name">last_name</label>
-			<input type="text" name="last_name" id="last_name" value="#b.last_name#"size="80" class="reqdClr">
+				<label for="last_name">last_name</label>
+				<input type="text" name="last_name" id="last_name" value="#b.last_name#"size="80" class="reqdClr">
 
-			<label for="middle_initial">middle_initial</label>
-			<input type="text" name="middle_initial" id="middle_initial" value="#b.middle_initial#" size="80" class="reqdClr">
+				<label for="middle_initial">middle_initial</label>
+				<input type="text" name="middle_initial" id="middle_initial" value="#b.middle_initial#" size="80" class="reqdClr">
 
-			<label for="email">email</label>
-			<input type="text" name="email" id="email" size="80" value="#b.email#" class="reqdClr">
+				<label for="email">email</label>
+				<input type="text" name="email" id="email" size="80" value="#b.email#" class="reqdClr">
 
-			<label for="organization">organization</label>
-			<input type="text" name="organization" id="organization" value="#b.organization#" size="80" class="reqdClr">
+				<label for="organization">organization</label>
+				<input type="text" name="organization" id="organization" value="#b.organization#" size="80" class="reqdClr">
 
-			<label for="department">department</label>
-			<input type="text" name="department" id="department" value="#b.department#"  size="80" class="reqdClr">
+				<label for="department">department</label>
+				<input type="text" name="department" id="department" value="#b.department#"  size="80" class="reqdClr">
 
-			<label for="phone">phone</label>
-			<input type="text" name="phone" id="phone" value="#b.phone#" size="80" class="reqdClr">
+				<label for="phone">phone</label>
+				<input type="text" name="phone" id="phone" value="#b.phone#" size="80" class="reqdClr">
 
-			<label for="fax">fax</label>
-			<input type="text" name="fax" id="fax" size="80" value="#b.fax#" class="reqdClr">
+				<label for="fax">fax</label>
+				<input type="text" name="fax" id="fax" size="80" value="#b.fax#" class="reqdClr">
 
-			<label for="street">street</label>
-			<input type="text" name="street" id="street" value="#b.street#" size="80" class="reqdClr">
+				<label for="street">street</label>
+				<input type="text" name="street" id="street" value="#b.street#" size="80" class="reqdClr">
 
-			<label for="city">city</label>
-			<input type="text" name="city" id="city" value="#b.city#"  size="80" class="reqdClr">
+				<label for="city">city</label>
+				<input type="text" name="city" id="city" value="#b.city#"  size="80" class="reqdClr">
 
-			<label for="state_prov">state_prov</label>
-			<input type="text" name="state_prov" id="state_prov" value="#b.state_prov#" size="80" class="reqdClr">
+				<label for="state_prov">state_prov</label>
+				<input type="text" name="state_prov" id="state_prov" value="#b.state_prov#" size="80" class="reqdClr">
 
-			<label for="postal_code">postal_code</label>
-			<input type="text" name="postal_code" id="postal_code" value="#b.postal_code#" size="80" class="reqdClr">
+				<label for="postal_code">postal_code</label>
+				<input type="text" name="postal_code" id="postal_code" value="#b.postal_code#" size="80" class="reqdClr">
 
-			<label for="country">country</label>
-			<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
+				<label for="country">country</label>
+				<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
 
+				<label for="save_to_address">Create or replace "formatted JSON" address with this information?</label>
+				<select name="make_addr" id="make_addr" class="reqdClr">
+					<option value="no">no</option>
+					<option value="yes">yes</option>
+				</select>
+			</div>
 			<label for="ref_title">ref_title (publication title or working title)</label>
 			<input type="text" name="ref_title" id="ref_title" value="#b.ref_title#" size="80" class="reqdClr">
 
@@ -422,6 +429,22 @@
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "edit_batch">
 	<cfoutput>
+
+		<cfif save_to_address is "yes">
+			<!--- make JSON --->
+			<cfset j.first_name=first_name>
+			<cfset j.last_name=last_name>
+
+			<cfset x=SerializeJSON(j)>
+
+			<cfdump var=#x#>
+
+			<cfabort>
+		</cfif>
+
+
+
+
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update genbank_batch set
 				CONTACT_AGENT_ID='#CONTACT_AGENT_ID#',
@@ -1035,14 +1058,14 @@ tissue-lib
 			<label for="batch_name">batch_name (must be unique; local label, usually for publication)</label>
 			<input type="text" name="batch_name" id="batch_name" size="80" class="reqdClr">
 
-			<h3>Contact Agent details</h3>
+			<h3>Contact Agent</h3>
 			<label for="contact_agent">contact agent (pick Arctos agent)</label>
 			<input type="hidden" name="contact_agent_id" id="contact_agent_id" value="">
 			<input type="text" name="contact_agent" id="contact_agent" value=""
 				onchange="pickAgentModal('contact_agent_id',this.id,this.value); return false;"
 				onKeyPress="return noenter(event);" placeholder="contact agent" class="reqdClr minput">
 
-
+		<!----
 
 			<label for="first_name">first_name</label>
 			<input type="text" name="first_name" id="first_name" size="80" class="reqdClr">
@@ -1091,7 +1114,7 @@ tissue-lib
 
 			<label for="bioproject">bioproject</label>
 			<input type="text" name="bioproject" id="bioproject" size="80" >
-
+---->
 			<br><input type="submit" value="create batch" class="insBtn">
 		</form>
 	</cfoutput>
@@ -1102,6 +1125,7 @@ tissue-lib
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select someRandomSequence.nextval k from dual
 	</cfquery>
+
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into genbank_batch (
