@@ -430,7 +430,7 @@
 <cfif action is "edit_batch">
 	<cfoutput>
 
-		<cfif save_to_address is "yes">
+		<cfif make_addr is "yes">
 			<!--- make JSON --->
 			<cfset j.first_name=first_name>
 			<cfset j.last_name=last_name>
