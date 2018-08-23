@@ -1215,17 +1215,25 @@ tissue-lib
 
 		<cfif isdefined("fadr.FIRST_NAME")>
 			<cfset FIRST_NAME=fadr.FIRST_NAME>
+			got fadr
 		<cfelse>
 			<!--- see if we can find it --->
 			<cfquery name="e" dbtype="query">
 				select agent_name from an where agent_name_type='first name'
 			</cfquery>
+			<cfdump var=#e#>
 			<cfif e.recordcount gt 0>
 				<cfset FIRST_NAME=valuelist(e.agent_name)>
 			<cfelse>
 				<cfset FIRST_NAME="UNKNOWN">
 			</cfif>
 		</cfif>
+
+
+		#FIRST_NAME#
+
+		<cfabort>
+
 		<cfif isdefined("fadr.LAST_NAME")>
 			<cfset LAST_NAME=fadr.LAST_NAME>
 		<cfelse>
