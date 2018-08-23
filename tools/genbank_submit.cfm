@@ -108,6 +108,11 @@
 					<option value="no">no</option>
 					<option value="yes">yes</option>
 				</select>
+				<div class="importantNotification">
+					When creating a batch, Arctos will attempt to retrieve name and address components. Please correct any "UNKNOWN"
+					values above. Select "yes" in <code>Create or replace "formatted JSON" address with this information?</code>
+					to save this information as an Agent Address and allow acessing this information in the future.
+				</div>
 			</div>
 			<label for="ref_title">ref_title (publication title or working title)</label>
 			<input type="text" name="ref_title" id="ref_title" value="#b.ref_title#" size="80" class="reqdClr">
