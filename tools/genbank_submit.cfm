@@ -676,8 +676,8 @@
 	<cfset tmp=tmp & chr(9) & host>
 	<cfset tmp=tmp & chr(9) & dstg>
 	<cfset tmp=tmp & chr(9) & sd.sex>
-	<cfset tmp=tmp & chr(9) & sd.tissue>
-	<cfset tmp=tmp & chr(9) & sd.source_material_id>
+	<cfset tmp=tmp & chr(9) & s.tissue>
+	<cfset tmp=tmp & chr(9) & s.source_material_id>
 	<cfset lnum=lnum+1>
 
 
