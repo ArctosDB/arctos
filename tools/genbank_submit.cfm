@@ -447,6 +447,11 @@
 			<cfset j.country=country>
 
 			<cfset x=SerializeJSON(j)>
+
+			<!--- there can (should) be onyl one --->
+			<cfquery name="dAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				delete from address where ADDRESS_TYPE='formatted JSON' and AGENT_ID=CONTACT_AGENT_ID#
+			</cfquery>
 			<cfquery name="addAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				insert into address (
 					ADDRESS_ID,
