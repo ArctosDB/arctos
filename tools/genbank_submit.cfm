@@ -688,7 +688,7 @@ tissue-lib
 		587 The altitude must be reported as a number followed by a space and the letter m (for meters).
 	---->
 	<cfif len(sd.min_elev) gt 0>
-		<cfset 	altitude=sd.min_elev>
+		<cfset 	altitude=sd.min_elev & ' m'>
 		<cfif sd.min_elev is not sd.max_elev>
 			<cfset thenote=listappend(thenote,"Elevation: #sd.min_elev#-#sd.max_elev#","; ")>
 		</cfif>
