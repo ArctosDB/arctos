@@ -1244,9 +1244,7 @@ tissue-lib
 			state_prov,
 			postal_code,
 			country,
-			ref_title,
-			biosample,
-			bioproject
+			ref_title
 		) values (
 			#k.k#,
 			#contact_agent_id#,
@@ -1264,9 +1262,7 @@ tissue-lib
 			'#state_prov#',
 			'#postal_code#',
 			'#country#',
-			'#ref_title#',
-			'#biosample#',
-			'#bioproject#'
+			'#ref_title#'
 		)
 	</cfquery>
 	<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#k.k#" addtoken="false">
