@@ -1160,6 +1160,10 @@ tissue-lib
 	<cfif fj.recordcount gt 0 and IsJSON(fj.address)>
 		<!--- if there are multiple, just use one... --->
 		<cfset fadr=DeserializeJSON(fj.address)>
+	<cfelse>
+		<cfset fadr="">
+	</cfif>
+
 		<cfdump var=#fadr#>
 		<cfif isdefined("fadr.COUNTRY")>
 			<cfset COUNTRY=fadr.COUNTRY>
@@ -1227,7 +1231,7 @@ tissue-lib
 			<cfelse>
 				<cfset FIRST_NAME="UNKNOWN">
 			</cfif>
-		</cfif>
+
 
 
 		#FIRST_NAME#
