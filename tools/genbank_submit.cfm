@@ -649,9 +649,8 @@ tissue-lib
 			sex,
 			scientific_name,
 			IDENTIFIEDBY,
-			case when MINIMUM_ELEVATION is not null then MINIMUM_ELEVATION || '-' || MAXIMUM_ELEVATION || ' ' || ORIG_ELEV_UNITS
-			else ''
-			end altitude
+			 to_meters(MINIMUM_ELEVATION, ORIG_ELEV_UNITS ) min_elev,
+			 to_meters(MAXIMUM_ELEVATION, ORIG_ELEV_UNITS ) max_elev
 		from
 			flat
 		where
@@ -677,14 +676,28 @@ tissue-lib
 		</cfif>
 	</cfloop>
 
-
+	<cfset thenote="">
 	<cfset tmp=tmp & chr(10) & s.sequence_identifier>
 	<cfset tmp=tmp & chr(9) & sd.COLLECTORS>
 	<cfset tmp=tmp & chr(9) & sd.cdate>
 	<cfset tmp=tmp & chr(9) & sd.country>
 	<cfset tmp=tmp & chr(9) & sd.identifiedby>
 	<cfset tmp=tmp & chr(9) & sd.dll>
-	<cfset tmp=tmp & chr(9) & sd.altitude>
+	<!----
+		https://www.ncbi.nlm.nih.gov/IEB/ToolBox/C_DOC/lxr/source/errmsg/valid.msg
+		587 The altitude must be reported as a number followed by a space and the letter m (for meters).
+	---->
+	<cfif len(sd.min_elev) gt 0>
+		<cfset 	altitude=sd.min_elev>
+		<cfif sd.min_elev is not sd.max_elev>
+			<cfset thenote=listappend(thenote,"Elevation: #sd.min_elev#-#sd.max_elev#","; ")>
+		</cfif>
+	<cfelse>
+		<cfset 	altitude=''>
+	</cfif>
+
+
+	<cfset tmp=tmp & chr(9) & altitude>
 	<cfset tmp=tmp & chr(9) & sd.guid>
 	<cfset tmp=tmp & chr(9) & host>
 	<cfset tmp=tmp & chr(9) & dstg>
@@ -692,9 +705,9 @@ tissue-lib
 	<cfset tmp=tmp & chr(9) & s.tissue>
 	<cfset tmp=tmp & chr(9) & s.source_material_id>
 	<cfif len(s.source_material_id) gt 0>
-		<cfset tnt="tissue-lib (#source_material_id#) is specimen part barcode.">
+		<cfset thenote=listappend(thenote,"tissue-lib (#source_material_id#) is specimen part barcode.","; ")>
 	<cfelse>
-		<cfset tnt="">
+
 	</cfif>
 	<cfset tmp=tmp & chr(9) & tnt>
 	<cfset lnum=lnum+1>
