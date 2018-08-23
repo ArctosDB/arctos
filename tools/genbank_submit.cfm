@@ -741,6 +741,7 @@ tissue-lib
 
 	<cfoutput>
 		<cfexecute
+			timeout="120"
 			variable="gm"
 			errorVariable="errorOut"
 			name="/usr/local/bin/linux.tbl2asn"
