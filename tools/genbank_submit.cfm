@@ -126,12 +126,8 @@
 
 			<br><input type="submit" value="save batch edits" class="insBtn">
 		</form>
-
-
-
 		<hr>
 		<h3>People</h3>
-
 		<p>
 			NOTE: Order is for sorting; values are relative, absolute values don't matter.
 		</p>
