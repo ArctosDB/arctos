@@ -105,9 +105,10 @@
 			<label for="ref_title">ref_title (publication title or working title)</label>
 			<input type="text" name="ref_title" id="ref_title" value="#b.ref_title#" size="80" class="reqdClr">
 
+			<br>"SAMN04505215" from "https://www.ncbi.nlm.nih.gov/biosample/SAMN04505215"
 			<label for="biosample">biosample</label>
 			<input type="text" name="biosample" id="biosample" value="#b.biosample#" size="80">
-
+			<br>"PRJNA418314" from "https://www.ncbi.nlm.nih.gov/bioproject/418314"
 			<label for="bioproject">bioproject</label>
 			<input type="text" name="bioproject" id="bioproject" value="#b.bioproject#" size="80" >
 
@@ -690,13 +691,11 @@ tissue-lib
 	<cfif len(sd.min_elev) gt 0>
 		<cfset 	altitude=sd.min_elev & ' m'>
 		<cfif sd.min_elev is not sd.max_elev>
-			<cfset thenote=listappend(thenote,"Elevation: #sd.min_elev#-#sd.max_elev#","; ")>
+			<cfset thenote=listappend(thenote,"Elevation: #sd.min_elev#-#sd.max_elev#m","; ")>
 		</cfif>
 	<cfelse>
 		<cfset 	altitude=''>
 	</cfif>
-
-
 	<cfset tmp=tmp & chr(9) & altitude>
 	<cfset tmp=tmp & chr(9) & sd.guid>
 	<cfset tmp=tmp & chr(9) & host>
@@ -709,12 +708,6 @@ tissue-lib
 	</cfif>
 	<cfset tmp=tmp & chr(9) & thenote>
 	<cfset lnum=lnum+1>
-
-
-
-
-
-
 
 </cfloop>
 
