@@ -613,7 +613,7 @@
 <cffile action="write" mode="777" file="#dir#/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
 
-<cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue_type">
+<cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue#chr(9)#source_material_id">
 
 <cfset tmp_sq="">
 <cfset lnum=1>
@@ -676,10 +676,9 @@
 	<cfset tmp=tmp & chr(9) & host>
 	<cfset tmp=tmp & chr(9) & dstg>
 	<cfset tmp=tmp & chr(9) & sd.sex>
-	<!--- IDK if anyone will have this but we should --->
-	<cfset tmp=tmp & chr(9) & "">
+	<cfset tmp=tmp & chr(9) & sd.tissue>
+	<cfset tmp=tmp & chr(9) & sd.source_material_id>
 	<cfset lnum=lnum+1>
-
 
 
 </cfloop>
