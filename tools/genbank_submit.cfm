@@ -1153,6 +1153,10 @@ tissue-lib
 	<cfquery name="fj" dbtype="query">
 		select address from adrs where address_type='formatted JSON' and VALID_ADDR_FG=1
 	</cfquery>
+
+	<cfquery name="an" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from agent_name where agent_id=#contact_agent_id#
+	</cfquery>
 	<cfif fj.recordcount gt 0 and IsJSON(fj.address)>
 		<!--- if there are multiple, just use one... --->
 		<cfset fadr=DeserializeJSON(fj.address)>
@@ -1160,67 +1164,123 @@ tissue-lib
 		<cfif isdefined("fadr.COUNTRY")>
 			<cfset COUNTRY=fadr.COUNTRY>
 		<cfelse>
-			<cfset COUNTRY="PLEASE PROVIDE">
+			<cfset COUNTRY="UNKNOWN">
 		</cfif>
 		<cfif isdefined("fadr.DEPARTMENT")>
 			<cfset DEPARTMENT=fadr.DEPARTMENT>
 		<cfelse>
-			<cfset DEPARTMENT="PLEASE PROVIDE">
+			<cfset DEPARTMENT="UNKNOWN">
 		</cfif>
 		<cfif isdefined("fadr.EMAIL")>
 			<cfset EMAIL=fadr.EMAIL>
 		<cfelse>
-			<cfset EMAIL="PLEASE PROVIDE">
-		</cfif>
-		<cfif isdefined("fadr.FIRST_NAME")>
-			<cfset FIRST_NAME=fadr.FIRST_NAME>
-		<cfelse>
-			<cfset FIRST_NAME="PLEASE PROVIDE">
-		</cfif>
-		<cfif isdefined("fadr.LAST_NAME")>
-			<cfset LAST_NAME=fadr.LAST_NAME>
-		<cfelse>
-			<cfset LAST_NAME="PLEASE PROVIDE">
-		</cfif>
-		<cfif isdefined("fadr.MIDDLE_INITIAL")>
-			<cfset MIDDLE_INITIAL=fadr.MIDDLE_INITIAL>
-		<cfelse>
-			<cfset MIDDLE_INITIAL="PLEASE PROVIDE">
-		</cfif>
-		<cfif isdefined("fadr.ORGANIZATION")>
-			<cfset ORGANIZATION=fadr.ORGANIZATION>
-		<cfelse>
-			<cfset ORGANIZATION="PLEASE PROVIDE">
+			<!--- see if we can find it --->
+			<cfquery name="e" dbtype="query">
+				select address from adrs where address_type='email' and VALID_ADDR_FG=1
+			</cfquery>
+			<cfif e.recordcount gt 0>
+				<cfset EMAIL=valuelist(e.address)>
+			<cfelse>
+				<cfset EMAIL="UNKNOWN">
+			</cfif>
 		</cfif>
 		<cfif isdefined("fadr.PHONE")>
 			<cfset PHONE=fadr.PHONE>
 		<cfelse>
-			<cfset PHONE="PLEASE PROVIDE">
-		</cfif>
-		<cfif isdefined("fadr.POSTAL_CODE")>
-			<cfset POSTAL_CODE=fadr.POSTAL_CODE>
-		<cfelse>
-			<cfset POSTAL_CODE="PLEASE PROVIDE">
-		</cfif>
-		<cfif isdefined("fadr.STATE_PROV")>
-			<cfset STATE_PROV=fadr.STATE_PROV>
-		<cfelse>
-			<cfset STATE_PROV="PLEASE PROVIDE">
-		</cfif>
-		<cfif isdefined("fadr.STREET")>
-			<cfset STREET=fadr.STREET>
-		<cfelse>
-			<cfset STREET="PLEASE PROVIDE">
+			<!--- see if we can find it --->
+			<cfquery name="e" dbtype="query">
+				select address from adrs where address_type like '%phone%' and VALID_ADDR_FG=1
+			</cfquery>
+			<cfif e.recordcount gt 0>
+				<cfset PHONE=valuelist(e.address)>
+			<cfelse>
+				<cfset PHONE="UNKNOWN">
+			</cfif>
 		</cfif>
 		<cfif isdefined("fadr.FAX")>
 			<cfset FAX=fadr.FAX>
 		<cfelse>
-			<cfset FAX="PLEASE PROVIDE">
+			<!--- see if we can find it --->
+			<cfquery name="e" dbtype="query">
+				select address from adrs where address_type = 'fax' and VALID_ADDR_FG=1
+			</cfquery>
+			<cfif e.recordcount gt 0>
+				<cfset FAX=valuelist(e.address)>
+			<cfelse>
+				<cfset FAX="UNKNOWN">
+			</cfif>
 		</cfif>
+
+
+
+		<cfif isdefined("fadr.FIRST_NAME")>
+			<cfset FIRST_NAME=fadr.FIRST_NAME>
+		<cfelse>
+			<!--- see if we can find it --->
+			<cfquery name="e" dbtype="query">
+				select agent_name from an where agent_name_type='first name'
+			</cfquery>
+			<cfif e.recordcount gt 0>
+				<cfset FIRST_NAME=valuelist(e.agent_name)>
+			<cfelse>
+				<cfset FIRST_NAME="UNKNOWN">
+			</cfif>
+		</cfif>
+		<cfif isdefined("fadr.LAST_NAME")>
+			<cfset LAST_NAME=fadr.LAST_NAME>
+		<cfelse>
+			<!--- see if we can find it --->
+			<cfquery name="e" dbtype="query">
+				select agent_name from an where agent_name_type='last name'
+			</cfquery>
+			<cfif e.recordcount gt 0>
+				<cfset LAST_NAME=valuelist(e.agent_name)>
+			<cfelse>
+				<cfset LAST_NAME="UNKNOWN">
+			</cfif>
+		</cfif>
+
+		<cfif isdefined("fadr.MIDDLE_INITIAL")>
+			<cfset MIDDLE_INITIAL=fadr.MIDDLE_INITIAL>
+		<cfelse>
+			<!--- see if we can find it --->
+			<cfquery name="e" dbtype="query">
+				select agent_name from an where agent_name_type='middle name'
+			</cfquery>
+			<cfif e.recordcount gt 0>
+				<cfset MIDDLE_INITIAL=left(e.agent_name,1) & ".">
+			<cfelse>
+				<cfset MIDDLE_INITIAL="UNKNOWN">
+			</cfif>
+		</cfif>
+
+
+		<cfif isdefined("fadr.ORGANIZATION")>
+			<cfset ORGANIZATION=fadr.ORGANIZATION>
+		<cfelse>
+			<cfset ORGANIZATION="UNKNOWN">
+		</cfif>
+
+		<cfif isdefined("fadr.POSTAL_CODE")>
+			<cfset POSTAL_CODE=fadr.POSTAL_CODE>
+		<cfelse>
+			<cfset POSTAL_CODE="UNKNOWN">
+		</cfif>
+		<cfif isdefined("fadr.STATE_PROV")>
+			<cfset STATE_PROV=fadr.STATE_PROV>
+		<cfelse>
+			<cfset STATE_PROV="UNKNOWN">
+		</cfif>
+		<cfif isdefined("fadr.STREET")>
+			<cfset STREET=fadr.STREET>
+		<cfelse>
+			<cfset STREET="UNKNOWN">
+		</cfif>
+
 		<cfif isdefined("fadr.CITY")>
 			<cfset CITY=fadr.CITY>
 		<cfelse>
-			<cfset CITY="PLEASE PROVIDE">
+			<cfset CITY="UNKNOWN">
 		</cfif>
 
 	</cfif>
