@@ -706,10 +706,8 @@ tissue-lib
 	<cfset tmp=tmp & chr(9) & s.source_material_id>
 	<cfif len(s.source_material_id) gt 0>
 		<cfset thenote=listappend(thenote,"tissue-lib (#source_material_id#) is specimen part barcode.","; ")>
-	<cfelse>
-
 	</cfif>
-	<cfset tmp=tmp & chr(9) & tnt>
+	<cfset tmp=tmp & chr(9) & thenote>
 	<cfset lnum=lnum+1>
 
 
