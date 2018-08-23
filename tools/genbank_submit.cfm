@@ -1224,6 +1224,8 @@ tissue-lib
 		</cfif>
 
 	</cfif>
+
+	<cfset ref_title="PENDING">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into genbank_batch (
 			genbank_batch_id,
