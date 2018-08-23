@@ -287,7 +287,7 @@
 		</div>
 		<cfset rn=1>
 		<cfloop query="s">
-			<div  #iif(rn MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+			<div style="margin:1em;padding:1em;" #iif(rn MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<form name="f" method="post" action="genbank_submit.cfm">
 				<input type="hidden" name="action" value="edit_sequence">
 				<input type="hidden" name="batch_id" value="#batch_id#">
