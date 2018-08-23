@@ -340,8 +340,7 @@
 			<cfquery name="gid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 					flat.collection_object_id,
-					specimen_part.part_name,
-					container.barcode
+					specimen_part.part_name
 				from
 					flat,
 					specimen_part,
@@ -839,8 +838,7 @@
 			<cfquery name="gid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select
 					flat.collection_object_id,
-					specimen_part.part_name,
-					container.barcode
+					specimen_part.part_name
 				from
 					flat,
 					specimen_part,
