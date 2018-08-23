@@ -434,6 +434,15 @@
 			<!--- make JSON --->
 			<cfset j.first_name=first_name>
 			<cfset j.last_name=last_name>
+			<cfset j.middle_initial=middle_initial>
+			<cfset j.email=email>
+			<cfset j.organization=organization>
+			<cfset j.department=department>
+			<cfset j.phone=phone>
+			<cfset j.street=street>
+			<cfset j.state_prov=state_prov>
+			<cfset j.postal_code=postal_code>
+			<cfset j.country=country>
 
 			<cfset x=SerializeJSON(j)>
 
