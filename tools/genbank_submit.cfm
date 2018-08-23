@@ -1162,6 +1162,11 @@ tissue-lib
 			<cfelse>no
 		</cfif>
 
+		<cfif isdefined("fadr.POSTAL_CODE")>
+			POSTAL_CODE
+			<cfelse>noPOSTAL_CODE
+		</cfif>
+
 
 
 		<cfabort>
