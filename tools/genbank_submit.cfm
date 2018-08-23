@@ -753,14 +753,17 @@ tissue-lib
 				/usr/local/bin/linux.tbl2asn -t #application.webDirectory#/temp/#b.batch_name#/#b.batch_name#.sbt -p #application.webDirectory#/temp/#b.batch_name#/ -V vb -a s
 			</code>
 		</p>
+		<p>
+			Execution Results:
+		</p>
 		<cfif isdefined("gm")>
 			<p>
-				Execute Message: #gm#
+				 #gm#
 			</p>
 		</cfif>
 		<cfif isdefined("errorOut")>
 			<p>
-				Execute Error: #errorOut#
+				#errorOut#
 			</p>
 		</cfif>
 		<p>
