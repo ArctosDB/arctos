@@ -554,7 +554,17 @@
 			COLLECTORS,
 			decode(began_date,ended_date,began_date,began_date  || '/' || ended_date) cdate,
 			country,
-			decode(dec_lat,null,null,dec_lat || '/' || dec_long) dll,
+			case when dec_lat is not null then
+				CASE when dec_lat > 0 then dec_lat || ' N'
+				when dec_lat < 0 then (dec_lat*-1) || ' S'
+				else ''
+				END || ' ' ||
+				CASE when dec_long > 0 then dec_long || ' E'
+				when dec_long < 0 then (dec_long*-1) || ' W'
+				else ''
+				END
+			else ''
+			END DLL
 			RELATEDCATALOGEDITEMS,
 			ATTRIBUTES,
 			sex,
@@ -564,6 +574,17 @@
 		where
 			collection_object_id=#collection_object_id#
 	</cfquery>
+
+
+
+select
+dec_lat,DEC_LONG,
+
+from flat
+    where
+      guid='UAM:Fish:3663';
+
+
 
 	<cfif lnum gt 1>
 		<cfset tmp_sq=tmp_sq & chr(10)>
@@ -723,10 +744,6 @@
 			<tr>
 				<td>SEQ_DESCR.DBLinkProblem</td>
 				<td>Same as BadInstitutionCode??</td>
-			</tr>
-			<tr>
-				<td>SEQ_DESCR.LatLonValue</td>
-				<td>format??</td>
 			</tr>
 			<tr>
 				<td>SEQ_DESCR.ShortSeq</td>
