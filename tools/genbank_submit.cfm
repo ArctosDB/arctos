@@ -1146,7 +1146,20 @@ tissue-lib
 		select someRandomSequence.nextval k from dual
 	</cfquery>
 
+	<!--- see if we can get address info; fake it if not --->
+	<cfquery name="adrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from address where agent_id=#contact_agent_id#
+	</cfquery>
+	<cfquery name="fj" dbtype="query">
+		select address from adrs where address_type='formatted JSON' and VALID_ADDR_FG=1
+	</cfquery>
+	<cfif fj.recordcount gt 0 and IsJSON(fj.address)>
+		<!--- if there are multiple, just use one... --->
+		<cfset fadr=DeserializeJSON(fj.address)>
+		<cfdump var=#fadr#>
+		<cfabort>
 
+	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into genbank_batch (
 			genbank_batch_id,
