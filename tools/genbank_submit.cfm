@@ -612,8 +612,15 @@
 
 <cffile action="write" mode="777" file="#dir#/#d.batch_name#.sbt" output="#rstr#" addnewline="false">
 
+<!---
+https://www.ncbi.nlm.nih.gov/Sequin/sequin.hlp.html#ModifiersPage
+Altitude
+Identified-by:
+note
+tissue-lib
+--->
 
-<cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Lat_Lon#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue#chr(9)#source_material_id">
+<cfset tmp="Sequence_ID#chr(9)#Collected_by#chr(9)#Collection_date#chr(9)#Country#chr(9)#Identified-by#chr(9)#Lat_Lon#chr(9)#Altitude#chr(9)#Specimen_voucher#chr(9)#Host#chr(9)#Dev_stage#chr(9)#Sex#chr(9)#Tissue-type#chr(9)#tissue-lib#chr(9)#note">
 
 <cfset tmp_sq="">
 <cfset lnum=1>
@@ -640,7 +647,11 @@
 			RELATEDCATALOGEDITEMS,
 			ATTRIBUTES,
 			sex,
-			scientific_name
+			scientific_name,
+			IDENTIFIEDBY,
+			case when MINIMUM_ELEVATION is not null then MINIMUM_ELEVATION || '-' || MAXIMUM_ELEVATION || ' ' || ORIG_ELEV_UNITS
+			else ''
+			end altitude
 		from
 			flat
 		where
@@ -671,14 +682,27 @@
 	<cfset tmp=tmp & chr(9) & sd.COLLECTORS>
 	<cfset tmp=tmp & chr(9) & sd.cdate>
 	<cfset tmp=tmp & chr(9) & sd.country>
+	<cfset tmp=tmp & chr(9) & sd.identifiedby>
 	<cfset tmp=tmp & chr(9) & sd.dll>
+	<cfset tmp=tmp & chr(9) & sd.altitude>
 	<cfset tmp=tmp & chr(9) & sd.guid>
 	<cfset tmp=tmp & chr(9) & host>
 	<cfset tmp=tmp & chr(9) & dstg>
 	<cfset tmp=tmp & chr(9) & sd.sex>
 	<cfset tmp=tmp & chr(9) & s.tissue>
 	<cfset tmp=tmp & chr(9) & s.source_material_id>
+	<cfif len(s.source_material_id) gt 0>
+		<cfset tnt="tissue-lib (#source_material_id#) is specimen part barcode.">
+	<cfelse>
+		<cfset tnt="">
+	</cfif>
+	<cfset tmp=tmp & chr(9) & tnt>
 	<cfset lnum=lnum+1>
+
+
+
+
+
 
 
 </cfloop>
@@ -725,8 +749,6 @@
 			</code>
 		</p>
 
-		<cfdump var=#gm#>
-		<cfdump var=#errorOut#>
 		<p>
 			<a href="genbank_submit.cfm?action=reviewResults&batch_id=#batch_id#">review results</a>
 		</p>
