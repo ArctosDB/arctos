@@ -238,7 +238,9 @@
 				SEQUENCE_IDENTIFIER,
 				genbank_sequence.COLLECTION_OBJECT_ID,
 				guid,
-				SEQUENCE_DATA
+				SEQUENCE_DATA,
+				tissue,
+				source_material_id
 			from
 				genbank_sequence,
 				flat
