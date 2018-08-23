@@ -392,7 +392,6 @@
 				COLLECTION_OBJECT_ID=#cid#,
 				tissue='#tis#',
 				source_material_id='#source_material_id#',
-				COLLECTION_OBJECT_ID=#cid#,
 				sequence_data='#sequence_data#'
 			where SEQUENCE_ID=#SEQUENCE_ID#
 		</cfquery>
