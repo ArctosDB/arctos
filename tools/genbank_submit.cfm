@@ -564,7 +564,7 @@
 				else ''
 				END
 			else ''
-			END DLL
+			END DLL,
 			RELATEDCATALOGEDITEMS,
 			ATTRIBUTES,
 			sex,
