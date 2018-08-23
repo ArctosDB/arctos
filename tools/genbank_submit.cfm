@@ -1157,19 +1157,61 @@ tissue-lib
 		<!--- if there are multiple, just use one... --->
 		<cfset fadr=DeserializeJSON(fj.address)>
 		<cfdump var=#fadr#>
-		<cfif isdefined("fadr.boogity")>
-			ok
-			<cfelse>no
+		<cfif isdefined("fadr.COUNTRY")>
+			<cfset COUNTRY=fadr.COUNTRY>
+		<cfelse>
+			<cfset COUNTRY="PLEASE PROVIDE">
 		</cfif>
-
+		<cfif isdefined("fadr.DEPARTMENT")>
+			<cfset DEPARTMENT=fadr.DEPARTMENT>
+		<cfelse>
+			<cfset DEPARTMENT="PLEASE PROVIDE">
+		</cfif>
+		<cfif isdefined("fadr.EMAIL")>
+			<cfset EMAIL=fadr.EMAIL>
+		<cfelse>
+			<cfset EMAIL="PLEASE PROVIDE">
+		</cfif>
+		<cfif isdefined("fadr.FIRST_NAME")>
+			<cfset FIRST_NAME=fadr.FIRST_NAME>
+		<cfelse>
+			<cfset FIRST_NAME="PLEASE PROVIDE">
+		</cfif>
+		<cfif isdefined("fadr.LAST_NAME")>
+			<cfset LAST_NAME=fadr.LAST_NAME>
+		<cfelse>
+			<cfset LAST_NAME="PLEASE PROVIDE">
+		</cfif>
+		<cfif isdefined("fadr.MIDDLE_INITIAL")>
+			<cfset MIDDLE_INITIAL=fadr.MIDDLE_INITIAL>
+		<cfelse>
+			<cfset MIDDLE_INITIAL="PLEASE PROVIDE">
+		</cfif>
+		<cfif isdefined("fadr.ORGANIZATION")>
+			<cfset ORGANIZATION=fadr.ORGANIZATION>
+		<cfelse>
+			<cfset ORGANIZATION="PLEASE PROVIDE">
+		</cfif>
+		<cfif isdefined("fadr.PHONE")>
+			<cfset PHONE=fadr.PHONE>
+		<cfelse>
+			<cfset PHONE="PLEASE PROVIDE">
+		</cfif>
 		<cfif isdefined("fadr.POSTAL_CODE")>
-			POSTAL_CODE
-			<cfelse>noPOSTAL_CODE
+			<cfset POSTAL_CODE=fadr.POSTAL_CODE>
+		<cfelse>
+			<cfset POSTAL_CODE="PLEASE PROVIDE">
 		</cfif>
-
-
-
-		<cfabort>
+		<cfif isdefined("fadr.STATE_PROV")>
+			<cfset STATE_PROV=fadr.STATE_PROV>
+		<cfelse>
+			<cfset STATE_PROV="PLEASE PROVIDE">
+		</cfif>
+		<cfif isdefined("fadr.STREET")>
+			<cfset STREET=fadr.STREET>
+		<cfelse>
+			<cfset STREET="PLEASE PROVIDE">
+		</cfif>
 
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
