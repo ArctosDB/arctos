@@ -445,10 +445,21 @@
 			<cfset j.country=country>
 
 			<cfset x=SerializeJSON(j)>
-
-			<cfdump var=#x#>
-
-			<cfabort>
+			<cfquery name="addAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into address (
+					ADDRESS_ID,
+					AGENT_ID,
+					ADDRESS_TYPE,
+					ADDRESS,
+					VALID_ADDR_FG
+				) values (
+					sq_address_id.nextval,
+					#CONTACT_AGENT_ID#,
+					'formatted JSON',
+					'#x#',
+					1
+				)
+			</cfquery>
 		</cfif>
 
 
