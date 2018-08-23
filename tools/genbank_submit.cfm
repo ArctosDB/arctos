@@ -254,10 +254,18 @@
 			<label for="sequence_identifier">sequence_identifier</label>
 			<input type="text" name="sequence_identifier" id="sequence_identifier" size="80" class="reqdClr">
 
+			<div style="border:2px solid red; padding:1em;margin:1em;">
+				<br>You MUST provide enough information to identify a specimen, and SHOULD provide enough to identify a specific sample.
+				<br>Preferred: provide a barcode, Arctos will figure out the rest.
+				<br>Acceptable: provide a GUID
 
-			<label for="GUID">GUID (DWC Triplet format)</label>
-			<input type="text" name="GUID" id="GUID" size="80" class="reqdClr">
-
+				<label for="source_material_id">source_material_id (barcode)</label>
+				<input type="text" name="source_material_id" id="source_material_id" size="80" >
+				<label for="tissue">tissue (part name)</label>
+				<input type="text" name="tissue" id="tissue" size="80" >
+				<label for="GUID">GUID (DWC Triplet format)</label>
+				<input type="text" name="GUID" id="GUID" size="80" >
+			</div>
 
 			<label for="sequence_data">sequence_data</label>
 			<textarea name="sequence_data" id="sequence_data" class="hugetextarea"></textarea>
@@ -278,9 +286,18 @@
 			<label for="sequence_identifier">sequence_identifier</label>
 			<input type="text" name="sequence_identifier" id="sequence_identifier" value='#sequence_identifier#' size="80" class="reqdClr">
 
+			<div style="border:2px solid red; padding:1em;margin:1em;">
+				<br>You MUST provide enough information to identify a specimen, and SHOULD provide enough to identify a specific sample.
+				<br>Preferred: provide a barcode, Arctos will figure out the rest.
+				<br>Acceptable: provide a GUID
 
-			<label for="GUID">GUID (DWC Triplet format)</label>
-			<input type="text" name="GUID" id="GUID" value='#guid#' size="80" class="reqdClr">
+				<label for="source_material_id">source_material_id (barcode)</label>
+				<input type="text" name="source_material_id" id="source_material_id" size="80" value='#source_material_id#'>
+				<label for="tissue">tissue (part name)</label>
+				<input type="text" name="tissue" id="tissue" size="80" value='#tissue#'>
+				<label for="GUID">GUID (DWC Triplet format)</label>
+				<input type="text" name="GUID" id="GUID" value='#guid#' size="80" >
+			</div>
 
 
 			<label for="sequence_data">sequence_data</label>
@@ -316,14 +333,65 @@
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "edit_sequence">
 	<cfoutput>
+		<cfif isdefined("source_material_id") and len(source_material_id) gt 0>
+			<!--- they provided a barcode, overwrite anything else from it --->
+			<cfquery name="gid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					flat.collection_object_id,
+					specimen_part.part_name,
+					container.barcode
+				from
+					flat,
+					specimen_part,
+					coll_obj_cont_hist,
+					container partc,
+					container ppc
+				where
+					flat.collection_object_id=specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=partc.container_id and
+					partc.parent_container_id=ppc.container_id and
+					ppc.barcode='#source_material_id#'
+			</cfquery>
+			<cfif gid.recordcount is not 1>
+				<div class="error">
+					barcode did not resolve<cfabort>
+				</div>
+			</cfif>
+			<cfset tis=gid.part_name>
+			<cfset cid=gid.collection_object_id>
+		<cfelseif  isdefined("guid") and len(guid) gt 0>
+			<cfquery name="gid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					flat.collection_object_id
+				from
+					flat
+				where
+					flat.guid='#guid#'
+			</cfquery>
+			<cfif gid.recordcount is not 1>
+				<div class="error">
+					barcode did not resolve<cfabort>
+				</div>
+			</cfif>
+			<cfset tis=''>
+			<cfset cid=gid.collection_object_id>
+		<cfelse>
+			<div class="error">
+				You must provide barcode or GUID<cfabort>
+			</div>
+		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update genbank_sequence set
 				sequence_identifier='#sequence_identifier#',
-				COLLECTION_OBJECT_ID=(select COLLECTION_OBJECT_ID from flat where guid='#guid#'),
+				COLLECTION_OBJECT_ID=#cid#,
+				tissue='#tis#',
+				source_material_id='#source_material_id#',
+				COLLECTION_OBJECT_ID=#cid#,
 				sequence_data='#sequence_data#'
 			where SEQUENCE_ID=#SEQUENCE_ID#
-
 		</cfquery>
+
 	</cfoutput>
 	<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
 
@@ -574,18 +642,6 @@
 		where
 			collection_object_id=#collection_object_id#
 	</cfquery>
-
-
-
-select
-dec_lat,DEC_LONG,
-
-from flat
-    where
-      guid='UAM:Fish:3663';
-
-
-
 	<cfif lnum gt 1>
 		<cfset tmp_sq=tmp_sq & chr(10)>
 	</cfif>
@@ -776,19 +832,73 @@ from flat
 <!--------------------------------------------------------------------------------------------->
 <cfif action is "add_sequence">
 	<cfoutput>
+		<cfif isdefined("source_material_id") and len(source_material_id) gt 0>
+			<!--- they provided a barcode, overwrite anything else from it --->
+			<cfquery name="gid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					flat.collection_object_id,
+					specimen_part.part_name,
+					container.barcode
+				from
+					flat,
+					specimen_part,
+					coll_obj_cont_hist,
+					container partc,
+					container ppc
+				where
+					flat.collection_object_id=specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=partc.container_id and
+					partc.parent_container_id=ppc.container_id and
+					ppc.barcode='#source_material_id#'
+			</cfquery>
+			<cfif gid.recordcount is not 1>
+				<div class="error">
+					barcode did not resolve<cfabort>
+				</div>
+			</cfif>
+			<cfset tis=gid.part_name>
+			<cfset cid=gid.collection_object_id>
+		<cfelseif  isdefined("guid") and len(guid) gt 0>
+			<cfquery name="gid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					flat.collection_object_id
+				from
+					flat
+				where
+					flat.guid='#guid#'
+			</cfquery>
+			<cfif gid.recordcount is not 1>
+				<div class="error">
+					barcode did not resolve<cfabort>
+				</div>
+			</cfif>
+			<cfset tis=''>
+			<cfset cid=gid.collection_object_id>
+		<cfelse>
+			<div class="error">
+				You must provide barcode or GUID<cfabort>
+			</div>
+		</cfif>
+
+
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into genbank_sequence (
 				sequence_id,
 				genbank_batch_id,
 				sequence_identifier,
 				collection_object_id,
-				sequence_data
+				sequence_data,
+				tissue,
+				source_material_id
 			) values (
 				someRandomSequence.nextval,
 				#batch_id#,
 				'#sequence_identifier#',
-				(select collection_object_id from flat where guid='#GUID#'),
-				'#sequence_data#'
+				#cid#,
+				'#sequence_data#',
+				'#tis#',
+				'#source_material_id#'
 			)
 		</cfquery>
 		<cflocation url="genbank_submit.cfm?action=edbatch&batch_id=#batch_id#" addtoken="false">
