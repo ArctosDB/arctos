@@ -395,7 +395,7 @@
 				order by
 					preferred_agent_name
 			</cfquery>
-			<fieldset>
+			<fieldset>f
 				<legend>Group Members</legend>
 				<cfloop query="grpMem">
 					<div>
@@ -608,7 +608,7 @@
 					<cfset ttype='email'>
 				<cfelseif address_type contains "phone" or address_type is "fax">
 					<cfset ttype='tel'>
-				<cfelseif address_type is "home" or address_type is "correspondence" or address_type is "shipping">
+				<cfelseif address_type is "home" or address_type is "correspondence" or address_type is "shipping" or address_type is "formatted JSON">
 					<cfset ttype='textarea'>
 				<cfelse>
 					<cfset ttype='text'>
