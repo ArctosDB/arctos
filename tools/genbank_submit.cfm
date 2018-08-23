@@ -374,7 +374,9 @@
 			</cfquery>
 			<cfif gid.recordcount is not 1>
 				<div class="error">
-					barcode did not resolve<cfabort>
+					barcode did not resolve
+					<cfdump var=#gid#>
+					<cfabort>
 				</div>
 			</cfif>
 			<cfset tis=''>
@@ -856,7 +858,9 @@
 			</cfquery>
 			<cfif gid.recordcount is not 1>
 				<div class="error">
-					barcode did not resolve<cfabort>
+					barcode did not resolve
+					<cfdump var=#gid#>
+					<cfabort>
 				</div>
 			</cfif>
 			<cfset tis=gid.part_name>
@@ -872,7 +876,9 @@
 			</cfquery>
 			<cfif gid.recordcount is not 1>
 				<div class="error">
-					barcode did not resolve<cfabort>
+					barcode did not resolve
+					<cfdump var=#gid#>
+					<cfabort>
 				</div>
 			</cfif>
 			<cfset tis=''>
