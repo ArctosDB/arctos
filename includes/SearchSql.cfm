@@ -373,6 +373,28 @@
 		)">
 	<cfelse>
 
+
+		<cfset basQual = basQual & " and #session.flatTableName#.COLLECTION_OBJECT_ID in (
+	      select collection_object_id from identification where upper(scientific_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+	      union
+	      select collection_object_id from identification,identification_taxonomy,taxon_term
+	         where
+	      identification.identification_id=identification_taxonomy.identification_id and
+	      identification_taxonomy.taxon_name_id=taxon_term.taxon_name_id and
+	         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+	      union
+	      select collection_object_id from identification,identification_taxonomy,common_name
+	         where
+	      identification.identification_id=identification_taxonomy.identification_id and
+	      identification_taxonomy.taxon_name_id=common_name.taxon_name_id and
+	         upper(common_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
+		)">
+
+
+		<!---- now have relationship data in classifications --->
+
+		<!----
+
 		<cfset basQual = basQual & " and #session.flatTableName#.COLLECTION_OBJECT_ID in (
 	      select collection_object_id from identification where upper(scientific_name) LIKE '#ucase(escapeQuotes(taxon_name))#%'
 	      union
@@ -402,6 +424,7 @@
 	      taxon_relations.taxon_name_id=taxon_term.taxon_name_id and
 	         upper(term) LIKE '#ucase(escapeQuotes(taxon_name))#%'
 	)">
+	---->
 	</cfif>
 
 
