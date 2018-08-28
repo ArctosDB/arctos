@@ -336,10 +336,19 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			where
 				pre_new_institution.niid=pre_new_collection.niid (+)
 			order by
-				pre_new_institution.insert_date,
-				pre_new_institution.status
+				pre_new_institution.status,
+				pre_new_institution.insert_date
 		</cfquery>
 
+		<style>
+			.sComp{
+				font-size:x-small;
+				background-color:gray'
+			}
+			.sRCC{
+				font-weight:bold;
+			}
+		</style>
 		<table border>
 			<tr>
 				<th>INSTITUTION</th>
@@ -350,7 +359,14 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 				<th>Manage</th>
 			</tr>
 			<cfloop query="d">
-				<tr>
+				<cfif istatus is "complete">
+					<cfset tc='sComp'>
+				<cfelseif istatus is "approve_to_create_collections">
+					<cfset tc='sRCC'>
+				<cfelse>
+					<cfset tc="">
+				</cfif>
+				<tr class="#tc#">
 					<td>#INSTITUTION#</td>
 					<td>#istatus#</td>
 					<td>#insert_date#</td>
