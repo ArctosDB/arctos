@@ -68,6 +68,8 @@ valid specimen data.
 	<cfquery name="usr_template" datasource="uam_god">
 		select * from cf_test_users where username='#u#'
 	</cfquery>
+
+	<cfdump var=#usr_template#>
 	<cfif usr_template.recordcount is not 1>
 		bad request<cfabort>
 	</cfif>
