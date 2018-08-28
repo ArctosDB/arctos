@@ -13,7 +13,7 @@ valid specimen data.
 <p>
 	<a href="http://arctos.database.museum">Go to Arctos</a>
 </p>
-
+<cfif action is "nothing">
 	<cfif not isdefined("application.version") or application.version is not "test">
 		nope<cfabort>
 	</cfif>
@@ -53,8 +53,10 @@ valid specimen data.
 	</cfform>
 
 
-</cfoutput>
 
+</cfif>
+
+</cfoutput>
 <cfif action is "crufl">
 	<cfdump var=#form#>
 
