@@ -51,5 +51,12 @@ valid specimen data.
 
 <cfif action is "crufl">
 	<cfdump var=#form#>
+
+	<cfif hash(ucase(form.captcha)) neq form.captchaHash>
+		You did not enter the correct text; use your back button.
+		<cfabort>
+	</cfif>
+
+
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
