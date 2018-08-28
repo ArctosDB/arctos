@@ -37,14 +37,19 @@ valid specimen data.
 	    <label for="captcha">Enter the text above (required)</label>
 	    <input type="text" name="captcha" id="captcha" class="reqdClr">
 	    <p></p>
-	    <label for="usr">Who do you want to be?</label><br>
+	    	<cfquery name="usr_template" datasource="uam_god">
+				select username,descr from cf_test_users where username='#u#'
+			</cfquery>
+	    <cfoutput>
+	    <label for="u">Who do you want to be?</label><br>
 	    <select name="u">
 			<option></option>
-			<option value="i_am_tester">i_am_tester</option>
+			<cfloop query="usr_template">
+
+			<option value="#usr_template.username#">#usr_template.username# - #usr_template.descr#</option>
+			</cfloop>
 		</select>
-        <input type="text" name="text" id="text" >
         <br>
-	    <cfoutput>
 	    <input type="hidden" name="captchaHash" value="#captchaHash#">
 	    </cfoutput>
 		<br><input type="submit" value="log in as user">
