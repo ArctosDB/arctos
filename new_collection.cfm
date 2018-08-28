@@ -1,7 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Prospective Collection Form">
-
-<cfdump var=#form#>
 <script>
 	jQuery(document).ready(function() {
 		$(':input[required]:visible').each(function(e){
@@ -227,31 +225,30 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <!------------------------------------------------------>
 <cfif action is "setColnStatus">
 	<cfoutput>
-		hi
 		<cfif old_status is status>
-		1	No changes - request denied<cfabort>
+			No changes - request denied<cfabort>
 		<cfelseif status is "denied">
-		2	Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
+			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
 			<p>
 				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to set status</a>
 			</p>
 			<cfabort>
 		<cfelseif old_status is "new" and status is not "administrative_approval_granted">
-		3	Out of order - request denied<cfabort>
+			Out of order - request denied<cfabort>
 		<cfelseif old_status is "administrative_approval_granted" and status is not "approve_to_create_collections">
-		4	Out of order - request denied<cfabort>
+			Out of order - request denied<cfabort>
 		<cfelseif old_status is "approve_to_create_collections" and status is not "complete">
-		5	Out of order - request denied<cfabort>
+			Out of order - request denied<cfabort>
 
 		<cfelseif status is "administrative_approval_granted">
-		6<p> status is "administrative_approval_granted"</p>
+		<p> status is "administrative_approval_granted"</p>
 			<cfif len(institutional_mentor) is 0 or len(institutional_mentor_email) is 0>
 				institutional_mentor and institutional_mentor_email are required for status=administrative_approval_granted
 				<cfabort>
 			</cfif>
 			<cfset scnrm="true">
 		<cfelseif  status is "approve_to_create_collections">
-		7	<cfquery name="cs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			<cfquery name="cs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from pre_new_collection where niid=#niid#
 			</cfquery>
 			<cfif cs.recordcount is 0>
@@ -296,8 +293,6 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			</cfloop>
 			<cfif len(probs) eq 0>
 				<cfset scnrm="true">
-				<br>happy2
-
 			</cfif>
 		<cfelse>
 			<cfset scnrm="true">
