@@ -294,7 +294,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<cfabort>
 				</cfif>
 			</cfloop>
-			<cfif len(probs) eg 0>
+			<cfif len(probs) eq 0>
 				<cfset scnrm="true">
 				<br>happy2
 
