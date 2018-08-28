@@ -291,8 +291,12 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<cfabort>
 				</cfif>
 			</cfloop>
+			<cfif len(probs) eq 0>
+				<cfset scnrm="true">
+			</cfif>
 		<cfelse>
 			<cfset scnrm="true">
+			<br>happy>
 		</cfif>
 		<cfif isdefined("scnrm") and scnrm is "true">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
