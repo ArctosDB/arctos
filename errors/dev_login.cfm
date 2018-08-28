@@ -38,7 +38,7 @@ valid specimen data.
 	    <input type="text" name="captcha" id="captcha" class="reqdClr">
 	    <p></p>
 	    	<cfquery name="usr_template" datasource="uam_god">
-				select username,descr from cf_test_users where username='#u#'
+				select username,descr from cf_test_users order by username
 			</cfquery>
 	    <label for="u">Who do you want to be?</label><br>
 	    <select name="u">
