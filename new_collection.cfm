@@ -363,8 +363,10 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<cfset tc='sComp'>
 				<cfelseif istatus is "approve_to_create_collections">
 					<cfset tc='sRCC'>
+				<cfelse>
+					<cfset tc="">
 				</cfif>
-				<tr
+				<tr class="#tc#">
 					<td>#INSTITUTION#</td>
 					<td>#istatus#</td>
 					<td>#insert_date#</td>
