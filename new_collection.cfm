@@ -1,5 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Prospective Collection Form">
+
+<cfdump var=#form#>
 <script>
 	jQuery(document).ready(function() {
 		$(':input[required]:visible').each(function(e){
