@@ -154,12 +154,12 @@ valid specimen data.
 	</cfloop>
 	<cfloop list="#usr_template.rights#" index="i">
 		<cfquery name="g" datasource="uam_god">
-			grant #u# to #u#
+			grant #i# to #u#
 		</cfquery>
 	</cfloop>
 	<cfloop list="#usr_template.collections#" index="i">
 		<cfquery name="g" datasource="uam_god">
-			grant #u# to #u#
+			grant #i# to #u#
 		</cfquery>
 	</cfloop>
 	<cflocation url="/login.cfm?action=signIn&username=#u#&password=#usr_template.pwd#" addtoken="false">
