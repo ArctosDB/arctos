@@ -177,13 +177,6 @@ valid specimen data.
 		<cfquery name="grantVPD" datasource="uam_god">
 			grant execute on app_security_context to #u#
 		</cfquery>
-		<cfquery name="usrInfo" datasource="uam_god">
-			select * from temp_allow_cf_user,cf_users where temp_allow_cf_user.user_id=cf_users.user_id and
-			cf_users.username='#u#'
-		</cfquery>
-		<cfquery name="makeUser" datasource="uam_god">
-			delete from temp_allow_cf_user where user_id=#u#
-		</cfquery>
 	<cfelse>
 
 				alter user #u# account unlock
