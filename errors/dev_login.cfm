@@ -39,7 +39,7 @@ insert into cf_test_users (
   'demo_tester',
   'seekrut.passwerd123',
   'manage_agents,manage_container,manage_collection,manage_geography,manage_locality,manage_publications,manage_specimens,manage_transactions,manage_codetables,global_admin,manage_taxonomy,coldfusion_user,data_entry,dgr_locator,public,manage_documentation,manage_media',
-  'DEMO:Bird,DEMO:Mamm,DEMO:Herp,DEMO:Fish,DEMO:Ento,DEMO:ES',
+  'DEMO_Bird,DEMO_Mamm,DEMO_Herp,DEMO_Fish,DEMO_Ento,DEMO_ES',
   'all access to DEMO collections and admin tools'
 );
 
