@@ -109,8 +109,6 @@ valid specimen data.
 <cfif action is "crufl">
 
 <cfoutput>
-	<cfdump var=#form#>
-
 	<cfif hash(ucase(form.captcha)) neq form.captchaHash>
 		You did not enter the correct text; use your back button.
 		<cfabort>
@@ -120,7 +118,6 @@ valid specimen data.
 		select * from cf_test_users where username='#u#'
 	</cfquery>
 
-	<cfdump var=#usr_template#>
 	<cfif usr_template.recordcount is not 1>
 		bad request<cfabort>
 	</cfif>
@@ -135,13 +132,6 @@ valid specimen data.
 				password='#hash(usr_template.pwd)#'
 			where username='#u#'
 		</cfquery>
-
-		update cf_users set
-				PW_CHANGE_DATE=sysdate,
-				last_login=sysdate,
-				password='#hash(usr_template.pwd)#'
-			where username='#u#'
-
 	<cfelse>
 		<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select max(user_id) + 1 as nextid from cf_users
@@ -161,21 +151,6 @@ valid specimen data.
 				sysdate
 			)
 		</cfquery>
-
-
-		INSERT INTO cf_users (
-				user_id,
-				username,
-				password,
-				PW_CHANGE_DATE,
-				last_login
-			) VALUES (
-				#nextUserID.nextid#,
-				'#u#',
-				'#hash(usr_template.pwd)#',
-				sysdate,
-				sysdate
-			)
 	</cfif>
 	<cfquery name="alreadyGotOne" datasource="uam_god">
 		select count(*) c from dba_users where upper(username)='#ucase(u)#'
@@ -185,22 +160,11 @@ valid specimen data.
 		select count(*) c from agent_name where agent_name_type='login' and upper(agent_name)='#ucase(u)#'
 	</cfquery>
 	<cfif agt.c neq 1>
-					insert into agent_name (AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME) values (sq_AGENT_NAME_ID.nextval,0,'login','#u#')
-
 		<cfquery name="mka" datasource="uam_god">
 			insert into agent_name (AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME) values (sq_AGENT_NAME_ID.nextval,0,'login','#u#')
 		</cfquery>
 	</cfif>
-
-
-
-	<cfdump var=#alreadyGotOne#>
-
-	<br>alreadyGotOne.recordcount::#alreadyGotOne.c#
 	<cfif alreadyGotOne.c lt 1>
-
-				create user #u# identified by "#usr_template.pwd#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 1G on users
-
 		<cfquery name="makeUser" datasource="uam_god">
 			create user #u# identified by "#usr_template.pwd#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 1G on users
 		</cfquery>
@@ -213,13 +177,7 @@ valid specimen data.
 		<cfquery name="grantVPD" datasource="uam_god">
 			grant execute on app_security_context to #u#
 		</cfquery>
-
-
-
 	<cfelse>
-
-				alter user #u# account unlock
-
 		<!--- force reset the pwd --->
 		<cfquery name="uact" datasource="uam_god">
 			alter user #u# account unlock
@@ -254,11 +212,6 @@ valid specimen data.
 			grant #i# to #u#
 		</cfquery>
 	</cfloop>
-
-	/login.cfm?action=signIn&username=#u#&password=#usr_template.pwd#
-
-
-	<cfabort>
 	<cflocation url="/login.cfm?action=signIn&username=#u#&password=#usr_template.pwd#" addtoken="false">
 
 
