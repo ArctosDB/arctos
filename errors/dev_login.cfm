@@ -106,6 +106,8 @@ valid specimen data.
 
 </cfoutput>
 <cfif action is "crufl">
+
+<cfoutput>
 	<cfdump var=#form#>
 
 	<cfif hash(ucase(form.captcha)) neq form.captchaHash>
@@ -220,7 +222,7 @@ valid specimen data.
 
 
 
-
+</cfoutput>
 
 
 
