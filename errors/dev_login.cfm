@@ -178,6 +178,12 @@ valid specimen data.
 		<cfquery name="grantVPD" datasource="uam_god">
 			grant execute on app_security_context to #u#
 		</cfquery>
+
+		<cfquery name="ocu" datasource="cf_dbuser">
+			insert into  cf_users (username,password) values ('#u#','#hash(usr_template.pwd)#')
+		</cfquery>
+
+
 	<cfelse>
 
 				alter user #u# account unlock
