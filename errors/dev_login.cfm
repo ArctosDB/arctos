@@ -1,4 +1,52 @@
+<!----
 
+test only
+do not create this in prod
+
+
+create table cf_test_users (
+  username varchar2(255) not null,
+  pwd varchar2(255) not null,
+  collections varchar2(4000) not null,
+  rights varchar2(4000) not null,
+  descr varchar2(4000) not null
+);
+
+
+delete from cf_test_users;
+
+insert into cf_test_users (
+  username,
+  pwd,
+  rights,
+  collections,
+  descr
+) values (
+  'i_am_tester',
+  'seekrut.passwerd123',
+  'manage_agents,manage_container,manage_collection,manage_geography,manage_locality,manage_publications,manage_specimens,manage_transactions,manage_codetables,global_admin,manage_taxonomy,coldfusion_user,data_entry,dgr_locator,public,manage_documentation,manage_media',
+  'CUMV_AMPH,CRCM_BIRD,CUMV_MAMM,DMNS_INV,UMNH_BIRD,DGR_MAMM,CHAS_MAMM,UCM_FISH,PSU_MAMM,DGR_BIRD,NBSB_BIRD,MVZ_EGG,MVZ_IMG,UMNH_MAMM,COA_EGG,MVZ_PAGE,UTEP_INV,HWML_PARA,UCM_HERP,MSB_FISH,MVZOBS_MAMM,UTEP_ZOO,MVZOBS_HERP,UAMOBS_ENTO,CUMV_REPT,COA_HERP,KNWR_HERB,CUMV_BIRD,NMU_ENTO,UAMOBS_MAMM,UAM_ARC,UAM_EH,MVZ_BIRD,MVZ_MAMM,WNMU_BIRD,UWBM_MAMM,UNR_MAMM,UMNH_MALA,WNMU_FISH,UAMB_HERB,MSB_HOST,UTEPOBS_HERP,DGR_ENTO,UTEP_ENTO,UMNH_ENTO,MSB_PARA,MSB_MAMM,UAM_MAMM,UTEP_FISH,DMNS_EGG,WNMU_MAMM,MVZOBS_FISH,NMU_MAMM,MLZ_MAMM,UWYMV_HERP,DMNS_MAMM,NMU_FISH,UAMOBS_BIRD,CHAS_INV,UTEP_MAMM,UTEP_BIRD,UAM_ART,UAM_HERB,CHAS_FISH,MLZ_EGG,MLZ_BIRD,UNR_HERP,UAM_ENTO,CUMV_FISH,CHAS_EGG,MVZ_HERP,KNWR_ENTO,COA_BIRD,DMNS_BIRD,USNPC_PARA,UCM_BIRD,UNR_BIRD,UTEP_HERP,MSBOBS_MAMM,MSB_BIRD,UNR_FISH,NMU_HERB,UAMOBS_EH,UAM_FISH,COA_ENTO,MSB_HERP,CHAS_BIRD,UWBM_HERP,MVZOBS_BIRD,UAM_ALG,UCM_MAMM,UTEP_HERPOS,COA_REPT,UTEP_HERB,DMNS_PARA,UWYMV_BIRD,UWYMV_MAMM,UAM_INV,UAM_ES,UAM_BIRD,NMU_BIRD,UCM_OBS,CHAS_ENTO,UTEPOBS_ENTO,UMNH_HERP,CHAS_HERB,COA_MAMM,UCM_EGG,UAM_HERP,UTEP_ARC,DMNS_HERP,MVZ_HILD,UTEP_ES,UAMOBS_FISH,KWP_ENTO,CHAS_EH,UWYMV_FISH,UNR_EGG',
+  'all access to everything'
+);
+
+insert into cf_test_users (
+  username,
+  pwd,
+  rights,
+  collections,
+  descr
+) values (
+  'demo_tester',
+  'seekrut.passwerd123',
+  'manage_agents,manage_container,manage_collection,manage_geography,manage_locality,manage_publications,manage_specimens,manage_transactions,manage_codetables,global_admin,manage_taxonomy,coldfusion_user,data_entry,dgr_locator,public,manage_documentation,manage_media',
+  'DEMO:Bird,DEMO:Mamm,DEMO:Herp,DEMO:Fish,DEMO:Ento,DEMO:ES',
+  'all access to DEMO collections and admin tools'
+);
+
+
+
+
+---->
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfheader statuscode="401" statustext="Not authorized">
@@ -107,7 +155,13 @@ valid specimen data.
 	<cfquery name="alreadyGotOne" datasource="uam_god">
 		select count(*) c from dba_users where upper(username)='#u#'
 	</cfquery>
+
+	<cfdump var=#alreadyGotOne#>
+
+	<br>alreadyGotOne.recordcount::#alreadyGotOne.recordcount#
 	<cfif alreadyGotOne.recordcount lt 1>
+
+
 		<cfquery name="makeUser" datasource="uam_god">
 			create user #u# identified by "#usr_template.pwd#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 1G on users
 		</cfquery>
