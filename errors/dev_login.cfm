@@ -29,6 +29,8 @@ insert into cf_test_users (
   'all access to everything'
 );
 
+delete from cf_test_users where username='demo_tester';
+
 insert into cf_test_users (
   username,
   pwd,
@@ -42,7 +44,6 @@ insert into cf_test_users (
   'DEMO_Bird,DEMO_Mamm,DEMO_Herp,DEMO_Fish,DEMO_Ento,DEMO_ES',
   'all access to DEMO collections and admin tools'
 );
-
 
 
 
@@ -215,8 +216,6 @@ valid specimen data.
 			grant #i# to #u#
 		</cfquery>
 	</cfloop>
-
-	happy<cfabort>
 	<cflocation url="/login.cfm?action=signIn&username=#u#&password=#usr_template.pwd#" addtoken="false">
 
 
