@@ -159,7 +159,7 @@ valid specimen data.
 	<cfdump var=#alreadyGotOne#>
 
 	<br>alreadyGotOne.recordcount::#alreadyGotOne.recordcount#
-	<cfif alreadyGotOne.recordcount lt 1>
+	<cfif alreadyGotOne.c lt 1>
 
 
 		<cfquery name="makeUser" datasource="uam_god">
