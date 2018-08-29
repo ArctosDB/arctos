@@ -135,6 +135,14 @@ valid specimen data.
 				password='#hash(usr_template.pwd)#'
 			where username='#u#'
 		</cfquery>
+
+		update cf_users set
+				PW_CHANGE_DATE=sysdate,
+				last_login=sysdate,
+				password='#hash(usr_template.pwd)#'
+			where username='#u#'
+
+
 	<cfelse>
 		<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select max(user_id) + 1 as nextid from cf_users
@@ -154,6 +162,21 @@ valid specimen data.
 				sysdate
 			)
 		</cfquery>
+
+
+		INSERT INTO cf_users (
+				user_id,
+				username,
+				password,
+				PW_CHANGE_DATE,
+				last_login
+			) VALUES (
+				#nextUserID.nextid#,
+				'#u#',
+				'#hash(usr_template.pwd)#',
+				sysdate,
+				sysdate
+			)
 	</cfif>
 	<cfquery name="alreadyGotOne" datasource="uam_god">
 		select count(*) c from dba_users where upper(username)='#ucase(u)#'
@@ -179,9 +202,6 @@ valid specimen data.
 			grant execute on app_security_context to #u#
 		</cfquery>
 
-		<cfquery name="ocu" datasource="cf_dbuser">
-			insert into  cf_users (username,password) values ('#u#','#hash(usr_template.pwd)#')
-		</cfquery>
 
 
 	<cfelse>
