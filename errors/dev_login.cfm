@@ -160,9 +160,10 @@ valid specimen data.
 
 	<cfdump var=#alreadyGotOne#>
 
-	<br>alreadyGotOne.recordcount::#alreadyGotOne.recordcount#
+	<br>alreadyGotOne.recordcount::#alreadyGotOne.c#
 	<cfif alreadyGotOne.c lt 1>
 
+				create user #u# identified by "#usr_template.pwd#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 1G on users
 
 		<cfquery name="makeUser" datasource="uam_god">
 			create user #u# identified by "#usr_template.pwd#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 1G on users
@@ -184,6 +185,9 @@ valid specimen data.
 			delete from temp_allow_cf_user where user_id=#u#
 		</cfquery>
 	<cfelse>
+
+				alter user #u# account unlock
+
 		<!--- force reset the pwd --->
 		<cfquery name="uact" datasource="uam_god">
 			alter user #u# account unlock
