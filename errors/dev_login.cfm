@@ -125,9 +125,9 @@ valid specimen data.
 		bad request<cfabort>
 	</cfif>
 	<cfquery name="x" datasource="uam_god">
-		select count(*) from cf_users where username='#u#'
+		select count(*) c from cf_users where username='#u#'
 	</cfquery>
-	<cfif x.recordcount is 1>
+	<cfif x.c is 1>
 		<cfquery name="uu" datasource="cf_dbuser">
 			update cf_users set
 				PW_CHANGE_DATE=sysdate,
