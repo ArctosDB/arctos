@@ -222,6 +222,8 @@ valid specimen data.
 			grant #i# to #u#
 		</cfquery>
 	</cfloop>
+
+	happy<cfabort>
 	<cflocation url="/login.cfm?action=signIn&username=#u#&password=#usr_template.pwd#" addtoken="false">
 
 
