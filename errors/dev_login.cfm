@@ -155,7 +155,7 @@ valid specimen data.
 		</cfquery>
 	</cfif>
 	<cfquery name="alreadyGotOne" datasource="uam_god">
-		select count(*) c from dba_users where upper(username)='#u#'
+		select count(*) c from dba_users where upper(username)='#ucase(u)#'
 	</cfquery>
 
 	<cfdump var=#alreadyGotOne#>
