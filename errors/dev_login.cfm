@@ -142,7 +142,6 @@ valid specimen data.
 				password='#hash(usr_template.pwd)#'
 			where username='#u#'
 
-
 	<cfelse>
 		<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select max(user_id) + 1 as nextid from cf_users
@@ -181,6 +180,19 @@ valid specimen data.
 	<cfquery name="alreadyGotOne" datasource="uam_god">
 		select count(*) c from dba_users where upper(username)='#ucase(u)#'
 	</cfquery>
+
+	<cfquery name="agt" datasource="uam_god">
+		select count(*) c from agent_name where agent_name_type='login' and upper(agent_name)='#ucase(u)#'
+	</cfquery>
+	<cfif agt.c neq 1>
+					insert into agent_name (AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME) values (sq_AGENT_NAME_ID.nextval,0,'login','#u#')
+
+		<cfquery name="mka" datasource="uam_god">
+			insert into agent_name (AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME) values (sq_AGENT_NAME_ID.nextval,0,'login','#u#')
+		</cfquery>
+	</cfif>
+
+
 
 	<cfdump var=#alreadyGotOne#>
 
