@@ -231,7 +231,7 @@
 										</td>
 										<td class="valigntop">
 											<label for="cat_num">Cat##</label>
-											<input type="text" name="cat_num" size="6" id="cat_num">
+											<input type="text" name="cat_num" size="15" id="cat_num">
 											<span id="catNumLbl" class="f11a"></span>
 										</td>
 										<td class="valigntop">
