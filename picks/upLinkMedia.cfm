@@ -166,8 +166,12 @@
 
 
 
-	<!--- only get appropriate relationships ---->
-	<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<!--- only get appropriate relationships
+
+	 cachedwithin="#createtimespan(0,0,60,0)#"
+
+	  ---->
+	<cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ctmedia_relationship where media_relationship like
 		'% #tbl#'
 		order by media_relationship
