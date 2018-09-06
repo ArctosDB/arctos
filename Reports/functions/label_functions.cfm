@@ -1319,6 +1319,7 @@
 
 		</cfloop>
 
+<cfset idLabel = "tttest">
 
 		<cfset colIdAr[i] = "#idLabel#"/>
 
