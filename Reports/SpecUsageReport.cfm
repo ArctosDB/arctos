@@ -55,7 +55,7 @@
 						project_agent,
 						agent_name
 					where
-						project_agent.agent_name_id=agent_name.agent_name_id and
+						project_agent.agent_id=agent_name.agent_id and
 						project_id=#p.project_id#
 					order by
 						AGENT_POSITION
@@ -68,7 +68,7 @@
 						project_sponsor,
 						agent_name
 					where
-						project_sponsor.agent_name_id=agent_name.agent_name_id and
+						project_sponsor.agent_id=agent_name.agent_id and
 						project_id=#p.project_id#
 				</cfquery>
 				<cfquery name="pan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
