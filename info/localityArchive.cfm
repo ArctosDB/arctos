@@ -144,9 +144,9 @@
 		 where
 		 	1=1
 		 	<cfif len(locality_id) gt 0>
-				and locality_id in (
-				<!----<cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">---->
-				select  #locality_id# from dual union select locality_id from geology_archive where locality_id in (#locality_id#)
+				and (
+					locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ",">
+					or locality_id in ( select locality_id from geology_archive where locality_id in (#locality_id#))
 				)
 			</cfif>
 			<cfif len(sdate) gt 0>
