@@ -402,7 +402,7 @@
 					GEO_ATT_REMARK,
 					'[current]' whodunit,
 					'[current]' changedate,
-					'[current]' triggering_event,
+					'[current]' triggering_event
 				from
 					geology_attributes
 				where
