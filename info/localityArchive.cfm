@@ -416,7 +416,7 @@
 					GEO_ATT_DETERMINED_METHOD,
 					GEO_ATT_REMARK,
 					whodunit,
-					changedate,
+					to_char(changedate,'YYYY-MM-DD') changedate,
 					triggering_event
 				 from
 				 	geology_archive where locality_id=#dlocid.locality_id#
