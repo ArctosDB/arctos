@@ -423,7 +423,7 @@
 				 ) order by changedate desc
 			</cfquery>
 			<cfif geology.recordcount gt 0 >
-				<tr>
+				<tr class="datarow" data-lid="#dlocid.locality_id#">
 					<td colspan="15">
 						<table border>
 							<tr>
