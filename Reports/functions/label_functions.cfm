@@ -1327,12 +1327,13 @@
 		<cfset cn="">
 		<cfset plc="">
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
-			<cfif listgetat(ids,1,"=") is "collector number">
-				<cfset cn=listgetat(ids,2,"=")>
-			<cfelseif listgetat(ids,1,"=") is "preparator number">
-				<cfset pn=listgetat(ids,2,"=")>
-			<cfelseif listgetat(ids,1,"=") is "MVZ Prep Lab Catalog">
-				<cfset plc=listgetat(ids,2,"=")>
+			<cfset tp=trim(ids)>
+			<cfif listgetat(tp,1,"=") is "collector number">
+				<cfset cn=listgetat(tp,2,"=")>
+			<cfelseif listgetat(tp,1,"=") is "preparator number">
+				<cfset pn=listgetat(tp,2,"=")>
+			<cfelseif listgetat(tp,1,"=") is "MVZ Prep Lab Catalog">
+				<cfset plc=listgetat(tp,2,"=")>
 			</cfif>
 		</cfloop>
 
