@@ -170,8 +170,6 @@
 				)
 			</cfif>
 	</cfquery>
-
-	<cfdump var=#d#>
 	<cfquery name="dlocid" dbtype="query">
 		select distinct(locality_id) from d
 	</cfquery>
