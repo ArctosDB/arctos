@@ -29,7 +29,7 @@
 				specimen_event.collection_object_id=cataloged_item.collection_object_id and
 				cataloged_item.collection_id=collection.collection_id and (
 					CHANGEDATE >= SYSDATE - 1 or
-					locality_id in (select locality_id from geology_archive where CHANGEDATE >= SYSDATE - 1
+					locality_archive.locality_id in (select locality_id from geology_archive where CHANGEDATE >= SYSDATE - 1)
 				)
 			group by
 				collection.collection_id,
