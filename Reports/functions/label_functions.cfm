@@ -1336,7 +1336,6 @@
 				<cfset plc=listgetat(tp,2,"=")>
 			</cfif>
 		</cfloop>
-
 		<cfif len(plc) gt 0>
 			<cfset idLabel=plc>
 		</cfif>
@@ -1347,7 +1346,6 @@
 			<cfset idLabel=cn>
 		</cfif>
 		<cfset colIdAr[i] = "#idLabel#"/>
-
 		<!--- Parts Formatting --->
 		<cfset formatted_parts = "">
 
