@@ -143,7 +143,6 @@
 						project_name,
 						project_dates,
 						project_agents,
-						--project_sponsors,
 						numberProjectAccnSpecimens,
 						numberProjectLoanSpecimens
 					) values (
@@ -152,7 +151,6 @@
 						'#p.project_name#',
 						'#project_dates#',
 						'#project_agents#',
-						--'#project_sponsors#',
 						#pan.numSpec#,
 						#plo.numSpec#
 					)
