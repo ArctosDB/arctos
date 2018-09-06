@@ -1296,6 +1296,7 @@
 
 		<cfset idLabel = "">
 
+
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 
 			<cfset CNpos = find("collector number=", ids)/>
