@@ -389,6 +389,12 @@
 						#LOCALITY_REMARKS#
 					</td>
 				</tr>
+				<tr>
+					<td colspan="15">
+						i am geology
+
+					</td>
+				</tr>
 			</cfloop>
 		</cfloop>
 	</table>
