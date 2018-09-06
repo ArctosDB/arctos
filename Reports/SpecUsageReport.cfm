@@ -41,7 +41,7 @@
 					project.project_id,
 					project.project_name,
 					project.start_date,
-					project.end_date,
+					project.end_date
 				from
 					project
 				where
