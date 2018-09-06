@@ -1296,6 +1296,8 @@
 
 		<cfset idLabel = "">
 
+
+		<!--- old code; no idea what it's trying to do...
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 
 			<cfset CNpos = find("collector number=", ids)/>
@@ -1318,9 +1320,31 @@
 			</cfif>
 
 		</cfloop>
+		--->
 
-<cfset idLabel = "tttest">
+		<!--- from carla: get ONE value ONLY, collector number>preparator number>Prep Lab Catalog--->
+		<cfset pn="">
+		<cfset cn="">
+		<cfset plc="">
+		<cfloop list="#other_ids#" delimiters=";" index="ids">
+			<cfif listgetat(ids,1,"=") is "collector number">
+				<cfset cn=listgetat(ids,2,"=")>
+			<cfelseif listgetat(ids,1,"=") is "preparator number">
+				<cfset pn=listgetat(ids,2,"=")>
+			<cfelseif listgetat(ids,1,"=") is "MVZ Prep Lab Catalog">
+				<cfset plc=listgetat(ids,2,"=")>
+			</cfif>
+		</cfloop>
 
+		<cfif len(plc) gt 0>
+			<cfset idLabel=plc>
+		</cfif>
+		<cfif len(pn) gt 0>
+			<cfset idLabel=pn>
+		</cfif>
+		<cfif len(cn) gt 0>
+			<cfset idLabel=cn>
+		</cfif>
 		<cfset colIdAr[i] = "#idLabel#"/>
 
 		<!--- Parts Formatting --->
