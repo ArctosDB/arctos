@@ -147,13 +147,24 @@
 				and locality_id in ( <cfqueryparam value = "#locality_id#" CFSQLType = "CF_SQL_INTEGER" list = "yes" separator = ","> )
 			</cfif>
 			<cfif len(sdate) gt 0>
-				and locality_id in (select locality_id from locality_archive where changedate >= '#sdate#')
+				and locality_id in (
+					select locality_id from locality_archive where changedate >= '#sdate#'
+					union select locality_id from geology_archive where changedate >= '#sdate#'
+					)
 			</cfif>
 			<cfif len(edate) gt 0>
-				and locality_id in (select locality_id from locality_archive where changedate <= '#edate#')
+				and locality_id in (
+					select locality_id from locality_archive where changedate <= '#edate#'
+					union
+					select locality_id from geology_archive where changedate <= '#edate#'
+				)
 			</cfif>
 			<cfif len(who) gt 0>
-				and locality_id in (select locality_id from locality_archive where upper(whodunit) like '%#ucase(who)#%')
+				and locality_id in (
+					select locality_id from locality_archive where upper(whodunit) like '%#ucase(who)#%'
+					union
+					select locality_id from geology_archive where upper(whodunit) like '%#ucase(who)#%'
+				)
 			</cfif>
 	</cfquery>
 	<cfquery name="dlocid" dbtype="query">
