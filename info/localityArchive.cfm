@@ -422,7 +422,7 @@
 				 	geology_archive where locality_id=#dlocid.locality_id#
 				 ) order by changedate
 			</cfquery>
-			<cfif g_c.recordcount gt 0 or g_a.recordcount gt 0>
+			<cfif geology.recordcount gt 0 >
 				<tr>
 					<td colspan="15">
 						<table border>
