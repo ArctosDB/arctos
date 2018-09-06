@@ -60,6 +60,7 @@
 					order by
 						AGENT_POSITION
 				</cfquery>
+				<!---
 				<cfquery name="ps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						agent_name,
@@ -71,6 +72,7 @@
 						project_sponsor.agent_id=agent_name.agent_id and
 						project_id=#p.project_id#
 				</cfquery>
+				--->
 				<cfquery name="pan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						count(distinct(cataloged_item.collection_object_id)) numSpec
@@ -110,6 +112,7 @@
 				<cfelse>
 					<cfset project_agents="">
 				</cfif>
+				<!---
 				<cfif ps.recordcount is 1>
 					<cfset project_sponsors=ps.agent_name>
 				<cfelseif ps.recordcount is 2>
@@ -123,6 +126,7 @@
 				<cfelse>
 					<cfset project_sponsors="">
 				</cfif>
+				--->
 				<cfif p.start_date is p.end_date>
 					<cfset project_dates=p.start_date>
 				<cfelseif len(p.start_date) gt 0 and len(p.end_date) gt 0>
@@ -139,7 +143,7 @@
 						project_name,
 						project_dates,
 						project_agents,
-						project_sponsors,
+						--project_sponsors,
 						numberProjectAccnSpecimens,
 						numberProjectLoanSpecimens
 					) values (
@@ -148,7 +152,7 @@
 						'#p.project_name#',
 						'#project_dates#',
 						'#project_agents#',
-						'#project_sponsors#',
+						--'#project_sponsors#',
 						#pan.numSpec#,
 						#plo.numSpec#
 					)
