@@ -40,8 +40,8 @@
 				select
 					project.project_id,
 					project.project_name,
-					to_char(project.start_date,'yyyy-mm-dd') start_date,
-					to_char(project.end_date,'yyyy-mm-dd') end_date
+					project.start_date,
+					project.end_date,
 				from
 					project
 				where
@@ -49,7 +49,7 @@
 			</cfquery>
 			<cfloop query="p">
 				<cfquery name="pa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
+					select
 						agent_name
 					from
 						project_agent,
@@ -61,7 +61,7 @@
 						AGENT_POSITION
 				</cfquery>
 				<cfquery name="ps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
+					select
 						agent_name,
 						ACKNOWLEDGEMENT
 					from
@@ -72,7 +72,7 @@
 						project_id=#p.project_id#
 				</cfquery>
 				<cfquery name="pan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
+					select
 						count(distinct(cataloged_item.collection_object_id)) numSpec
 					from
 						project_trans,
@@ -84,7 +84,7 @@
 						project_id=#p.project_id#
 				</cfquery>
 				<cfquery name="plo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select 
+					select
 						count(distinct(specimen_part.derived_from_cat_item)) numSpec
 					from
 						project_trans,
@@ -130,7 +130,7 @@
 				<cfelseif len(p.start_date) gt 0>
 					<cfset project_dates=p.start_date>
 				<cfelseif len(p.end_date) gt 0>
-					<cfset project_dates=p.end_date>			
+					<cfset project_dates=p.end_date>
 				</cfif>
 				<cfquery name="insProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into #session.projectReportTable# (
@@ -185,11 +185,11 @@
 						#numCits#
 					)
 				</cfquery>
-			</cfloop>		
+			</cfloop>
 		</cfif>
-		
+
 		You just created a table named #session.projectReportTable#.
-	
+
 	<p>
 		Table structure is:
 		<ul>
@@ -209,23 +209,23 @@
 	</p>
 	<p>
 		You may access this table in Reports as
-		##session.projectReportTable##, or query #session.projectReportTable# in 
-		<a href="/tools/userSQL.cfm?action=run&sql=select * from #session.projectReportTable#">Write SQL</a>, 
+		##session.projectReportTable##, or query #session.projectReportTable# in
+		<a href="/tools/userSQL.cfm?action=run&sql=select * from #session.projectReportTable#">Write SQL</a>,
 		which allows CSV downloads		.
 	</p>
 	<p>
-	
+
 		See Reports and handlers for
 		<a href="/Reports/report_printer.cfm?report=ProjectTemplate">ProjectTemplate</a>
-		 and 
+		 and
 		<a href="/Reports/report_printer.cfm?report=PublicationTemplate">PublicationTemplate</a>
-		in the 
+		in the
 		<a href="/Reports/reporter.cfm">Reporter</a> and
 		<a href="/Reports/report_printer.cfm">Report Printer</a>
 		for example usage.
 	</p>
 	<p>
-		#session.projectReportTable# is a temporary table attached to your session. It is only available to you, 
+		#session.projectReportTable# is a temporary table attached to your session. It is only available to you,
 		and will need rebuilt after you log out or in approximately 2 hours.
 	</p>
 	</cfif>
