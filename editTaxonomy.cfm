@@ -1611,7 +1611,7 @@
 							review them and anything their insertion may have misplaced very carefully before saving.
 						</li>
 						<li>
-							This form assumes all monomials are "genus." (That's correct for ~95% of monomials in Arctos.) It will
+							This form assumes all monomials are "genus." (~95% of monomials in Arctos are.) It will
 							suggest "genus" for all monomials, every time it loads. If the assumption is incorrect, you MUST
 							remove it before saving.
 						</li>
