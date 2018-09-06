@@ -391,17 +391,69 @@
 					</td>
 				</tr>
 			</cfloop>
-
+			<cfquery name="geology" datasource="uam_god">
+				select * from (
+				select
+					GEOLOGY_ATTRIBUTE,
+					GEO_ATT_VALUE,
+					getPreferredAgentName(GEO_ATT_DETERMINER_ID) detr,
+					to_char(GEO_ATT_DETERMINED_DATE,'YYYY-MM-DD') detdate,
+					GEO_ATT_DETERMINED_METHOD,
+					GEO_ATT_REMARK,
+					'[current]' whodunit,
+					'[current]' changedate,
+					'[current]' triggering_event,
+				from
+					geology_attributes
+				where
+					locality_id=#dlocid.locality_id#
+				UNION
+				select
+					GEOLOGY_ATTRIBUTE,
+					GEO_ATT_VALUE,
+					getPreferredAgentName(GEO_ATT_DETERMINER_ID) detr,
+					to_char(GEO_ATT_DETERMINED_DATE,'YYYY-MM-DD') detdate,
+					GEO_ATT_DETERMINED_METHOD,
+					GEO_ATT_REMARK,
+					whodunit,
+					changedate,
+					triggering_event
+				 from
+				 	geology_archive where locality_id=#dlocid.locality_id#
+				 ) order by changedate
+			</cfquery>
+			<cfif g_c.recordcount gt 0 or g_a.recordcount gt 0>
 				<tr>
 					<td colspan="15">
-						<cfquery name="g_orig" datasource="uam_god">
-							select * from geology_archive where locality_id=#dlocid.locality_id#
-						</cfquery>
-						<cfdump var=#g_orig#>
-						i am geology
-
+						<table border>
+							<tr>
+								<th>Attribute</th>
+								<th>Value</th>
+								<th>Determiner</th>
+								<th>Date</th>
+								<th>Method</th>
+								<th>Remark</th>
+								<th>Who</th>
+								<th>Changed</th>
+								<th>Action</th>
+							</tr>
+							<cfloop query="geology">
+								<tr>
+									<td>#GEOLOGY_ATTRIBUTE#</td>
+									<td>#GEO_ATT_VALUE#</td>
+									<td>#detr#</td>
+									<td>#detdate#</td>
+									<td>#GEO_ATT_DETERMINED_METHOD#</td>
+									<td>#GEO_ATT_REMARK#</td>
+									<td>#whodunit#</td>
+									<td>#changedate#</td>
+									<td>#triggering_event#</td>
+								</tr>
+							</cfloop>
+						</table>
 					</td>
 				</tr>
+			</cfif>
 		</cfloop>
 	</table>
 </cfoutput>
