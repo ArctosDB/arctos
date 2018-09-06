@@ -420,7 +420,7 @@
 					triggering_event
 				 from
 				 	geology_archive where locality_id=#dlocid.locality_id#
-				 ) order by changedate
+				 ) order by changedate desc
 			</cfquery>
 			<cfif geology.recordcount gt 0 >
 				<tr>
