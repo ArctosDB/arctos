@@ -1610,6 +1610,11 @@
 							include suggested values;
 							review them and anything their insertion may have misplaced very carefully before saving.
 						</li>
+						<li>
+							This form assumes all monomials are "genus." (That's correct for ~95% of monomials in Arctos.) It will
+							suggest "genus" for all monomials, every time it loads. If the assumption is incorrect, you MUST
+							remove it before saving.
+						</li>
 					</ul>
 				</div>
 				<!--- needs to live somewhere after thisrowinc is set and not where it can mess with the flaky JS that is sortable ---->
