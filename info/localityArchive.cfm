@@ -182,7 +182,8 @@
 		</tr>
 		<cfloop query="dlocid">
 			<cfquery name="orig" datasource="uam_god">
-				select locality_id,
+				select
+					locality_id,
 				 	geog_auth_rec_id,
 				 	spec_locality,
 				 	decode(DEC_LAT,
@@ -393,6 +394,10 @@
 
 				<tr>
 					<td colspan="15">
+						<cfquery name="g_orig" datasource="uam_god">
+							select * from geology_archive where locality_id=#dlocid.locality_id#
+						</cfquery>
+						<cfdump var=#g_orig#>
 						i am geology
 
 					</td>
