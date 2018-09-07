@@ -615,7 +615,9 @@
 					<cfreturn result>
 				</cfcatch>
 			 </cftry>
-
+<cfif isdefined("debug") and debug is true>
+	<cfdump var=#queriedFor#>
+	</cfif>
 		 	<cfif #queriedFor.recordcount# is 0>
 				<cfset result = querynew("CONTAINER_ID,MSG")>
 				<cfset temp = queryaddrow(result,1)>
