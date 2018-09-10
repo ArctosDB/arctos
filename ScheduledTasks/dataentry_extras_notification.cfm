@@ -90,6 +90,7 @@
 			upper(grantee) in (#listqualify(valuelist(usrs.username),"'")#)
 			) and b.granted_role='MANAGE_COLLECTION'
 	</cfquery>
+
 	<cfquery name="nagt_p" dbtype="query">
 		select username from usrs union select username from aa
 	</cfquery>
@@ -97,9 +98,8 @@
 		select distinct username from nagt_p
 	</cfquery>
 	<cfquery name="adrs" datasource="uam_god">
-		select agent_name,get_address(agent_name.agent_id,'email') email from agent_name where upper(agent_name) in (#listqualify(valuelist(nagt.username),"'")#)
+		select agent_name,get_address(agent_name.agent_id,'email') email from agent_name where agent_name_type='login' and upper(agent_name) in (#listqualify(valuelist(nagt.username),"'")#)
 	</cfquery>
-
 	<cfquery name="f_adrs" dbtype="query">
 		select distinct agent_name,email from adrs where email is not null
 	</cfquery>
