@@ -116,6 +116,10 @@
 	</cfif>
 
 	mailing...
+
+	<cfdump var=#maddr#>
+
+	<cfabort>
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="pending_data@#Application.fromEmail#" type="html">
 		<cfif isdefined("Application.version") and  Application.version is not "prod">
 			<hr>
