@@ -91,9 +91,6 @@
 			) and b.granted_role='MANAGE_COLLECTION'
 	</cfquery>
 
-	<cfdump var=#aa#>
-
-
 	<cfquery name="nagt_p" dbtype="query">
 		select username from usrs union select username from aa
 	</cfquery>
@@ -103,8 +100,6 @@
 	<cfquery name="adrs" datasource="uam_god">
 		select agent_name,get_address(agent_name.agent_id,'email') email from agent_name where agent_name_type='login' and upper(agent_name) in (#listqualify(valuelist(nagt.username),"'")#)
 	</cfquery>
-
-	<cfdump var=#adrs#>
 	<cfquery name="f_adrs" dbtype="query">
 		select distinct agent_name,email from adrs where email is not null
 	</cfquery>
@@ -121,10 +116,6 @@
 	</cfif>
 
 	mailing...
-
-	<cfdump var=#maddr#>
-
-	<cfabort>
 	<cfmail to="#maddr#" bcc="#Application.LogEmail#" subject="#subj#" from="pending_data@#Application.fromEmail#" type="html">
 		<cfif isdefined("Application.version") and  Application.version is not "prod">
 			<hr>
