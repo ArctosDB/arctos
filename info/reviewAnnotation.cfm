@@ -43,6 +43,10 @@
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select distinct guid_prefix from collection order by guid_prefix
 	</cfquery>
+	<cfquery name="coln" dbtype="query">
+		select distinct listgetat(guid_prefix,1,':') coln from c
+	</cfquery>
+	<cfdump var=#coln#>
 	<cfparam name="atype" default="">
 	<cfparam name="guid_prefix" default="">
 	<cfparam name="reviewer_comment" default="">
