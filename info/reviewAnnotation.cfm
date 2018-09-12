@@ -43,15 +43,10 @@
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select distinct guid_prefix from collection order by guid_prefix
 	</cfquery>
-	<cfset coln="">
-	<cfloop query="c">
-		<cfset tc=listgetat(guid_prefix,1,':')>
-		<cfif not listfind(coln,tc)>
-			<cfset coln=listappend(coln,tc)>
-		</cfif>
-	</cfloop>
+	<cfquery name="institution_acronym" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select distinct institution_acronym from collection order by institution_acronym
+	</cfquery>
 
-	<cfdump var=#coln#>
 	<cfparam name="atype" default="">
 	<cfparam name="guid_prefix" default="">
 	<cfparam name="institution" default="">
@@ -81,9 +76,9 @@
 			<label for="institution">Institution (only works when "specimens" above)</label>
 			<select name="institution" size="1">
 				<option value=""></option>
-				<cfset x=guid_prefix>
-				<cfloop list="#coln#" index="x">
-					<option <cfif institution is x> selected="selected"</cfif> value="#x#">#x# Specimens</option>
+				<cfset x=institution>
+				<cfloop query="institution_acronym">
+					<option <cfif institution_acronym.institution_acronym is x> selected="selected"</cfif> value="#institution_acronym#">#institution_acronym# Specimens</option>
 				</cfloop>
 			</select>
 			<label for="reviewer_comment">
@@ -169,6 +164,14 @@
 						select collection_object_id from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
 						collection.guid_prefix in (
 							<cfqueryparam value = "#guid_prefix#" CFSQLType = "CF_SQL_VARCHAR" list = "yes" separator = ",">
+						)
+					)
+				</cfif>
+				<cfif isdefined("institution") and len(institution) gt 0>
+					and annotations.collection_object_id in (
+						select collection_object_id from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
+						collection.institution_acronym in (
+							<cfqueryparam value = "#institution#" CFSQLType = "CF_SQL_VARCHAR" list = "yes" separator = ",">
 						)
 					)
 				</cfif>
