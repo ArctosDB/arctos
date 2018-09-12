@@ -54,6 +54,7 @@
 	<cfdump var=#coln#>
 	<cfparam name="atype" default="">
 	<cfparam name="guid_prefix" default="">
+	<cfparam name="institution" default="">
 	<cfparam name="reviewer_comment" default="">
 	<cfparam name="submitter" default="">
 	<cfparam name="reviewer" default="">
@@ -75,6 +76,14 @@
 				<cfset x=guid_prefix>
 				<cfloop query="c">
 					<option <cfif c.guid_prefix is x> selected="selected"</cfif> value="#guid_prefix#">#guid_prefix# Specimens</option>
+				</cfloop>
+			</select>
+			<label for="institution">Institution (only works when "specimens" above)</label>
+			<select name="institution" size="1">
+				<option value=""></option>
+				<cfset x=guid_prefix>
+				<cfloop list="#coln#" index="x">
+					<option <cfif institution is x> selected="selected"</cfif> value="#x#">#x# Specimens</option>
 				</cfloop>
 			</select>
 			<label for="reviewer_comment">
