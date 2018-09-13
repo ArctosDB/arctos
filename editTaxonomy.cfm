@@ -2099,7 +2099,7 @@
 <cfoutput>
 
 	<cfquery name="deletetaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		deelete from taxon_name where TAXON_NAME_ID=#taxon_name_id#
+		delete from taxon_name where TAXON_NAME_ID=#taxon_name_id#
 	</cfquery>
 	<p>
 		deleted
