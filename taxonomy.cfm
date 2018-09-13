@@ -340,6 +340,10 @@
 			border:2px solid red;
 			text-align:center;
 		}
+		.metaInfo{
+			margin-left:2em;
+			font-size:xx-small;
+		}
 	</style>
 	<cfquery name="d" datasource="uam_god">
 		select
@@ -450,6 +454,12 @@
 	<input type="hidden" id="taxon_name_id" value="#taxon_name_id.taxon_name_id#">
 	<cfset title="Taxonomy Details: #name#">
 	<h3>Taxonomy Details for <i>#name#</i></h3>
+	<cfquery name="wdi" datasource="uam_god">
+		select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=##taxon_name_id.taxon_name_id##
+	</cfquery>
+	<div class="metaInfo">
+		Created by #wdi.cb# #wdi.cd#
+	</div>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<script>
 			jQuery(document).ready(function(){
