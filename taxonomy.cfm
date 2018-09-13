@@ -518,6 +518,9 @@
 						<li>Are published in a way which anyone might have every considered taxonomy</li>
 					</ul>
 				</p>
+				<p>
+					Please carefully <span class="helpLink" data-helplink="taxonomy">review the documentation</span> before proceeding.
+				</p>
 			</div>
 		</div>
 	</cfif>
