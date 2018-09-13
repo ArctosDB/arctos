@@ -342,7 +342,6 @@
 		}
 		.metaInfo{
 			margin-left:2em;
-			font-size:xx-small;
 		}
 	</style>
 	<cfquery name="d" datasource="uam_god">
@@ -479,6 +478,9 @@
 					}
 				});
 			});
+			function showDeleteButton(){
+				$("##deleteButtonInfo").show();
+			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
 		<div id="validatorResults"></div>
@@ -488,6 +490,10 @@
 		<span class="metaInfo">
 			Created by #wdi.cb# #wdi.cd#
 		</span>
+		<br><input type="button" class="delBtn" value="delete" onclick="showDeleteButton()">
+		<div id="deleteButtonInfo">
+			hello I delete stuff
+		</div>
 	</cfif>
 	<div id="specTaxMap"></div>
 	<div id="specTaxMedia"></div>
