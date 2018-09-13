@@ -343,7 +343,7 @@
 		.metaInfo{
 			margin-left:2em;
 		}
-		#deleteButtonInfo {
+		##deleteButtonInfo {
 			visibility:none;
 		}
 	</style>
