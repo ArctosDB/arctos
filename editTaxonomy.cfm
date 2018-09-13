@@ -2055,6 +2055,40 @@
 			</div>
 			<br><input type="submit" value="save common name changes">
 		</form>
+
+		<div class="importantNotification">
+			Before deleting this taxon, you must
+			<ul>
+				<li>Delete all classifications</li>
+				<li>Delete all relationships</li>
+				<li>Delete all common names</li>
+				<li>Delete all publication</li>
+				<li>Delete all identifications which use this taxon</li>
+				<li>Delete any other data which references this taxon in any way</li>
+			</ul>
+			<p>
+				You should delete taxa which:
+				<ul>
+					<li>Do not appear in any publications which anyone might have every considered taxonomy</li>
+					<li>Are not otherwise useful (e.g., common mis-spellings should often be retained)</li>
+				</ul>
+			</p>
+			<p>
+				You should not delete taxa which:
+				<ul>
+					<li>Are published in a way which anyone might have every considered taxonomy</li>
+				</ul>
+			</p>
+			<p>
+				Please carefully <span class="helpLink" data-helplink="taxonomy">review the documentation</span> before proceeding.
+			</p>
+		</div>
+		<form name="dt" method="post" action="editTaxonomy.cfm">
+			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
+			<input type="hidden" name="action" value="deleteTaxon">
+			<br><input type="submit" class="delBtn" value="DELETE taxon">
+		</form>
+
 	</cfoutput>
 </cfif>
 <cfinclude template="includes/_footer.cfm">
