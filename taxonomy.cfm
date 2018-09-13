@@ -343,6 +343,9 @@
 		.metaInfo{
 			margin-left:2em;
 		}
+		#deleteButtonInfo {
+			visibility:none;
+		}
 	</style>
 	<cfquery name="d" datasource="uam_god">
 		select
