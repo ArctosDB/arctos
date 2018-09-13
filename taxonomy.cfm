@@ -457,9 +457,9 @@
 	<cfquery name="wdi" datasource="uam_god">
 		select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=#taxon_name_id.taxon_name_id#
 	</cfquery>
-	<div class="metaInfo">
+	<span class="metaInfo">
 		Created by #wdi.cb# #wdi.cd#
-	</div>
+	</span>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<script>
 			jQuery(document).ready(function(){
