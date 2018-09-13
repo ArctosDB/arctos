@@ -344,7 +344,7 @@
 			margin-left:2em;
 		}
 		##deleteButtonInfo {
-			visibility:none;
+			display:none;
 		}
 	</style>
 	<cfquery name="d" datasource="uam_god">
@@ -495,7 +495,10 @@
 		</span>
 		<br><input type="button" class="delBtn" value="delete" onclick="showDeleteButton()">
 		<div id="deleteButtonInfo">
+			<div class="importantNotification">
+
 			hello I delete stuff
+			</div>
 		</div>
 	</cfif>
 	<div id="specTaxMap"></div>
