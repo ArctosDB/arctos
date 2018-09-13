@@ -455,7 +455,7 @@
 	<cfset title="Taxonomy Details: #name#">
 	<h3>Taxonomy Details for <i>#name#</i></h3>
 	<cfquery name="wdi" datasource="uam_god">
-		select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=##taxon_name_id.taxon_name_id##
+		select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=#taxon_name_id.taxon_name_id#
 	</cfquery>
 	<div class="metaInfo">
 		Created by #wdi.cb# #wdi.cd#
