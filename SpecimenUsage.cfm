@@ -587,7 +587,7 @@
 								<cfloop array="#x.message.reference#" index="idx">
 								   <cfoutput>
 									   <cfdump var="#idx#">
-										<br>#idx.article-title#
+										<br>#idx["article-title"]#
 									</cfoutput>
 								</cfloop>
 							</cfif>
