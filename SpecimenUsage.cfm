@@ -574,6 +574,13 @@
 					</li>
 					<cfif len(doi) gt 0>
 						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
+
+						<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
+							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+						</cfhttp>
+						<cfdump var=#cfhttp#>
+
+
 					<cfelse>
 						<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 							<li><a href="/Publication.cfm?publication_id=#publication_id#">NO DOI! Please edit and add.</a></li>
