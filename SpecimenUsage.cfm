@@ -579,6 +579,10 @@
 							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 						</cfhttp>
 						<cfdump var=#cfhttp#>
+						<cfif isjson(cfhttp.Filecontent)>
+							<cfset x=SerializeJSON(cfhttp.Filecontent)>
+							<cfdump var=#x#>
+						</cfif>
 
 
 					<cfelse>
