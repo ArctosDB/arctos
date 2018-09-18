@@ -21,6 +21,36 @@
 
 	</cfif>
 
+	<cfif structKeyExists(x.message,"author")>
+		<cfdump var=#x.message.author#>
+		<cfloop array="#x.message.author#" index="idx">
+		   <cfdump var="#idx#">
+		    <cfif StructKeyExists(idx, "family")>
+				<br>family#idx["family"]#
+			</cfif>
+			<cfif StructKeyExists(idx, "given")>
+				<br>given#idx["given"]#
+			</cfif>
+			<cfif StructKeyExists(idx, "given")>
+				<br>given#idx["given"]#
+			</cfif>
+			<cfif StructKeyExists(idx, "sequence")>
+				<br>given#idx["sequence"]#
+			</cfif>
+
+		</cfloop>
+	</cfif>
+
+
+
+reference-count
+
+publisher
+
+page
+
+is-referenced-by-count
+
 	<cfif structKeyExists(x.message,"reference")>
 		<cfdump var=#x.message.reference#>
 		<cfloop array="#x.message.reference#" index="idx">
