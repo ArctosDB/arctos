@@ -135,9 +135,9 @@ Cited By (from http://opencitations.net)
 
 
 			<cfset astr="">
-			<cfset a="">
 			<cfif structKeyExists(tr.message,"author")>
 				<cfloop array="#tr.message.author#" index="ax">
+					<cfset a="">
 				    <cfif StructKeyExists(ax, "given")>
 						<cfset a=a & ' ' & #ax["given"]#>
 					</cfif>
