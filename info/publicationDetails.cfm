@@ -107,9 +107,9 @@
 			<br>#rfs#
 		</cfloop>
 	</cfif>
-	<cfhttp method="get" url="http://opencitations.net/index/coci/search?text=#doi#&rule=citeddoi">
+	<cfhttp method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
 		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-		<cfhttpparam type = "header" name = "Accept" value = "text/csv">
+		<cfhttpparam type = "header" name = "Accept" value = "application/json">
 
 
 	</cfhttp>
