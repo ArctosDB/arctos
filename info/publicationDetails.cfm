@@ -114,7 +114,7 @@
 		<cfhttpparam type = "header" name = "Accept" value = "application/json">
 	</cfhttp>
 
-
+Cited By (from http://opencitations.net)
 	<cfif not isjson(cfhttp.Filecontent)>
 			invalid return
 			<cfdump var=#cfhttp#>
@@ -135,7 +135,82 @@
 					<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">
 						<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 					</cfhttp>
-					<cfdump var=#cfhttp#>
+					<cfset tr=DeserializeJSON(cfhttp.Filecontent)>
+
+					<cfif structKeyExists(tr.message,"title")>
+						<cfset tar=tr.message["title"]>
+						<p>
+							Title: #tar[1]#
+						</p>
+					</cfif>
+					<cfif structKeyExists(tr.message,"publisher")>
+						<p>
+							Publisher: #tr.message["publisher"]#
+						</p>
+					</cfif>
+					<cfif structKeyExists(tr.message,"container-title")>
+						<cfset tar=tr.message["container-title"]>
+						<p>
+							Container Title: #tar[1]#
+						</p>
+					</cfif>
+					<cfif structKeyExists(tr.message,"issue")>
+						<p>
+							Issue: #tr.message["issue"]#
+						</p>
+					</cfif>
+					<cfif structKeyExists(tr.message,"type")>
+						<p>
+							Type: #tr.message["type"]#
+						</p>
+					</cfif>
+					<cfif structKeyExists(tr.message,"volume")>
+						<p>
+							Volume: #tr.message["volume"]#
+						</p>
+					</cfif>
+					<cfif structKeyExists(tr.message,"page")>
+						<p>
+							Page: #tr.message["page"]#
+						</p>
+					</cfif>
+					<cfif structKeyExists(tr.message,"reference-count")>
+						<p>
+							Reference Count: #tr.message["reference-count"]#
+						</p>
+					</cfif>
+
+					<cfif structKeyExists(tr.message,"is-referenced-by-count")>
+						<p>
+							Referenced By Count: #tr.message["is-referenced-by-count"]#
+						</p>
+					</cfif>
+					<p>
+						Authors
+					</p>
+					<cfif structKeyExists(tr.message,"author")>
+						<cfloop array="#tr.message.author#" index="ax">
+						    <cfif StructKeyExists(ax, "given")>
+								<br>#ax["given"]#
+							</cfif>
+						    <cfif StructKeyExists(ax, "family")>
+								#ax["family"]#
+							</cfif>
+
+							<cfif StructKeyExists(ax, "sequence")>
+								(#ax["sequence"]#)
+							</cfif>
+						</cfloop>
+					</cfif>
+
+
+
+
+
+
+
+
+
 			</cfif>
 	</p>
 </cfloop>
