@@ -32,40 +32,34 @@
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"issue")>
-		<cfset tar=x.message["issue"]>
 		<p>
-			Issue: #tar[1]#
+			Issue: x.message["issue"]
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"type")>
-		<cfset tar=x.message["type"]>
 		<p>
-			Type: #tar[1]#
+			Type: #x.message["type"]#
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"volume")>
-		<cfset tar=x.message["volume"]>
 		<p>
-			Volume: #tar[1]#
+			Volume: #x.message["volume"]#
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"page")>
-		<cfset tar=x.message["page"]>
 		<p>
-			Page: #tar[1]#
+			Page: x.message["page"]#
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"reference-count")>
-		<cfset tar=x.message["reference-count"]>
 		<p>
-			Reference Count: #tar[1]#
+			Reference Count: #x.message["reference-count"]#
 		</p>
 	</cfif>
 
 	<cfif structKeyExists(x.message,"is-referenced-by-count")>
-		<cfset tar=x.message["is-referenced-by-count"]>
 		<p>
-			Referenced By Count: #tar[1]#
+			Referenced By Count: #x.message["is-referenced-by-count"]#
 		</p>
 	</cfif>
 
