@@ -3,6 +3,9 @@
 </cfif>
 <cfoutput>
 	<h2>CrossRef Data</h2>
+	<p>
+		<a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">view data</a>
+	</p>
 	<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 	</cfhttp>
@@ -96,6 +99,9 @@
 <h3>
 Cited By (from http://opencitations.net)
 </h3>
+<p>
+	<a target="_blank" class="external" href="http://opencitations.net/index/coci/api/v1/citations/#doi#">view data</a>
+</p>
 	<cfif not isjson(cfhttp.Filecontent)>
 		invalid return
 		<cfdump var=#cfhttp#>
@@ -133,6 +139,8 @@ Cited By (from http://opencitations.net)
 				<cfset ctdstr=ctdstr & '#tar[1]#.'>
 			</cfif>
 			<br>#ctdstr#. <a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
+			<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">view data</a>
+
 		</cfif>
 	</cfloop>
 </cfoutput>
