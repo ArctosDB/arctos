@@ -589,7 +589,7 @@
 									   <cfdump var="#idx#">
 									    <cfset rfs="">
 									    <cfif StructKeyExists(idx, "author")>
-											<cfset rfs=frs & idx["author"]
+											<cfset rfs=frs & idx["author"]>
 										</cfif>
 									    <cfif StructKeyExists(idx, "year")>
 											<cfset rfs=frs & ' ' & idx["year"] & '. '>
