@@ -16,7 +16,7 @@
 	<cfif structKeyExists(x.message,"title")>
 		<cfset tar=x.message["title"]>
 		<p>
-				<cfdump var=#tar[1]#>
+				Title: #tar[1]#
 		</p>
 
 	</cfif>
