@@ -131,7 +131,8 @@
 	<p>
 		 <cfif StructKeyExists(idx, "citing")>
 				<br>--#idx["citing"]#
-					<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#idx['citing']#?select=DOI,title">
+				<cfset cdoi=idx["citing"]>
+					<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">
 						<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 					</cfhttp>
 					<cfdump var=#cfhttp#>
