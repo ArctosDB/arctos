@@ -121,9 +121,5 @@
 
 
 
-							<cfdump var=#cfhttp#>
-
-	<cfdump var=#x#>
-
 
 </cfoutput>
