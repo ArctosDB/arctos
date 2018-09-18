@@ -112,6 +112,7 @@
 						</cfloop>
 					</select>
 					<span class="infoLink" onclick="getCtDoc('ctmedia_license',editCollection.use_license_id.value);">Define</span>
+
 					<label for="PREFERRED_TAXONOMY_SOURCE">Taxonomy (Classification) Source</label>
 					<select name="preferred_taxonomy_source" id="preferred_taxonomy_source">
 						<cfloop query="cttaxonomy_source">
