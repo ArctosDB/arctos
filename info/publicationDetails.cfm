@@ -110,13 +110,20 @@
 	<cfhttp method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
 		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 		<cfhttpparam type = "header" name = "Accept" value = "application/json">
+		<cfif not isjson(cfhttp.Filecontent)>
+			invalid return
+			<cfdump var=#cfhttp#>
+			<cfabort>
+		</cfif>
 
+		<cfset x=DeserializeJSON(cfhttp.Filecontent)>
+		<cfdump var=#x#>
 
 	</cfhttp>
 <cfdump var=#cfhttp#>
 
 
-
+http://api.crossref.org/works?sample=10&select=DOI,title
 
 
 
