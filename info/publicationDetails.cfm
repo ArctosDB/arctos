@@ -14,8 +14,9 @@
 	<cfset x=DeserializeJSON(cfhttp.Filecontent)>
 
 	<cfif structKeyExists(x.message,"title")>
+		<cfset tar=x.message["title"]>
 		<p>
-				title:#x.message["title"]#
+				<cfdump var=#tar#>
 		</p>
 
 	</cfif>
