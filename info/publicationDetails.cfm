@@ -2,6 +2,7 @@
 	DOI is required
 </cfif>
 <cfoutput>
+	<h2>CrossRef Data</h2>
 	<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 	</cfhttp>
@@ -20,53 +21,34 @@
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"publisher")>
-
-		<p>
-			Publisher: #x.message["publisher"]#
-		</p>
+		<br>Publisher: #x.message["publisher"]#
 	</cfif>
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
-		<p>
-			Container Title: #tar[1]#
-		</p>
+		<br>Container Title: #tar[1]#
 	</cfif>
 	<cfif structKeyExists(x.message,"issue")>
-		<p>
-			Issue: #x.message["issue"]#
-		</p>
+		<br>Issue: #x.message["issue"]#
 	</cfif>
 	<cfif structKeyExists(x.message,"type")>
-		<p>
-			Type: #x.message["type"]#
-		</p>
+		<br>Type: #x.message["type"]#
 	</cfif>
 	<cfif structKeyExists(x.message,"volume")>
-		<p>
-			Volume: #x.message["volume"]#
-		</p>
+		<br>Volume: #x.message["volume"]#
 	</cfif>
 	<cfif structKeyExists(x.message,"page")>
-		<p>
-			Page: #x.message["page"]#
-		</p>
+		<br>Page: #x.message["page"]#
 	</cfif>
 	<cfif structKeyExists(x.message,"reference-count")>
-		<p>
-			Reference Count: #x.message["reference-count"]#
-		</p>
+		<br>Reference Count: #x.message["reference-count"]#
 	</cfif>
-
 	<cfif structKeyExists(x.message,"is-referenced-by-count")>
-		<p>
-			Referenced By Count: #x.message["is-referenced-by-count"]#
-		</p>
+		<br>Referenced By Count: #x.message["is-referenced-by-count"]#
 	</cfif>
 
-
-	<p>
+	<h3>
 		Authors
-	</p>
+	</h3>
 	<cfif structKeyExists(x.message,"author")>
 		<cfloop array="#x.message.author#" index="idx">
 		    <cfif StructKeyExists(idx, "given")>
@@ -75,17 +57,15 @@
 		    <cfif StructKeyExists(idx, "family")>
 				#idx["family"]#
 			</cfif>
-
 			<cfif StructKeyExists(idx, "sequence")>
 				(#idx["sequence"]#)
 			</cfif>
-
 		</cfloop>
 	</cfif>
 
-<p>
+<h3>
 	References
-</p>
+</h3>
 	<cfif structKeyExists(x.message,"reference")>
 		<cfloop array="#x.message.reference#" index="idx">
 		    <cfset rfs="">
@@ -113,9 +93,9 @@
 		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 		<cfhttpparam type = "header" name = "Accept" value = "application/json">
 	</cfhttp>
-<p>
+<h3>
 Cited By (from http://opencitations.net)
-</p>
+</h3>
 	<cfif not isjson(cfhttp.Filecontent)>
 		invalid return
 		<cfdump var=#cfhttp#>
@@ -150,30 +130,12 @@ Cited By (from http://opencitations.net)
 					</cfif>
 				</cfloop>
 			</cfif>
-			<cfset ctdstr='DOI: ' & cdoi & '. '>
 			<cfset ctdstr=ctdstr & astr & '. '>
 			<cfif structKeyExists(tr.message,"title")>
 				<cfset tar=tr.message["title"]>
 				<cfset ctdstr=ctdstr & '#tar[1]#.'>
 			</cfif>
-
-			<br>#ctdstr#
-
-
-
-
-			</cfif>
-	</p>
-</cfloop>
-
-
-
-<cfdump var=#cfhttp#>
-
-
-
-
-
-
-
+			<br>#ctdstr#. <a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
+		</cfif>
+	</cfloop>
 </cfoutput>
