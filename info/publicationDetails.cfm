@@ -33,7 +33,7 @@
 	</cfif>
 	<cfif structKeyExists(x.message,"issue")>
 		<p>
-			Issue: x.message["issue"]
+			Issue: #x.message["issue"]#
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"type")>
@@ -83,14 +83,11 @@
 		</cfloop>
 	</cfif>
 
-
-
-
-
+<p>
+	References
+</p>
 	<cfif structKeyExists(x.message,"reference")>
-		<cfdump var=#x.message.reference#>
 		<cfloop array="#x.message.reference#" index="idx">
-		   <cfdump var="#idx#">
 		    <cfset rfs="">
 		    <cfif StructKeyExists(idx, "author")>
 				<cfset rfs=rfs & idx["author"]>
