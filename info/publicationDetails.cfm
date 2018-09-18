@@ -127,7 +127,13 @@
 		DeserializeJSON
 		</p>
 		<cfdump var=#x#>
-
+<cfloop array="#x#" index="idx">
+	<p>
+		 <cfif StructKeyExists(idx, "citing")>
+				<br>--#idx["citing"]#
+			</cfif>
+	</p>
+</cfloop>
 
 
 
