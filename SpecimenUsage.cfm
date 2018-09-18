@@ -600,6 +600,9 @@
 										<cfelseif StructKeyExists(idx, "volume-title")>
 										   <cfset rfs=rfs & idx["volume-title"]>
 										  </cfif>
+										   <cfif StructKeyExists(idx, "doi")>
+											<cfset rfs=rfs & '. <a class="external" target="_blank" href="http://dx.doi.org/#idx["doi"]#">http://dx.doi.org/#idx["doi"]#</a>'>
+										</cfif>
 <br>#rfs#
 
 
