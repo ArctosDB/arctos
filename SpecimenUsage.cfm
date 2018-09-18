@@ -580,7 +580,7 @@
 						</cfhttp>
 						<cfdump var=#cfhttp#>
 						<cfif isjson(cfhttp.Filecontent)>
-							<cfset x=SerializeJSON(cfhttp.Filecontent)>
+							<cfset x=DeserializeJSON(cfhttp.Filecontent)>
 							<cfdump var=#x#>
 						</cfif>
 
