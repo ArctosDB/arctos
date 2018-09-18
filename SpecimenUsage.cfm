@@ -587,14 +587,20 @@
 								<cfloop array="#x.message.reference#" index="idx">
 								   <cfoutput>
 									   <cfdump var="#idx#">
-									   <cfif StructKeyExists(idx, "article-title")>
-										   <br>#idx["article-title"]#
-										<cfelseif StructKeyExists(idx, "volume-title")>
-										   <br>#idx["volume-title"]#
-										  <cfelse>
-										  <br>notitle
-										  </cfif>
+									    <cfset rfs="">
+									    <cfif StructKeyExists(idx, "author")>
+											<cfset rfs=frs & idx["author"]
+										</cfif>
+									    <cfif StructKeyExists(idx, "year")>
+											<cfset rfs=frs & ' ' & idx["year"] & '. '>
+										</cfif>
 
+									   <cfif StructKeyExists(idx, "article-title")>
+										   <cfset rfs=frs & idx["article-title"]>
+										<cfelseif StructKeyExists(idx, "volume-title")>
+										   <cfset rfs=frs & idx["volume-title"]>
+										  </cfif>
+<br>#rfs#
 
 
 
