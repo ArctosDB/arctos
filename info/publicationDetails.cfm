@@ -112,7 +112,10 @@
 	<cfhttp method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
 		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 		<cfhttpparam type = "header" name = "Accept" value = "application/json">
-		<cfif not isjson(cfhttp.Filecontent)>
+	</cfhttp>
+
+
+	<cfif not isjson(cfhttp.Filecontent)>
 			invalid return
 			<cfdump var=#cfhttp#>
 			<cfabort>
@@ -125,7 +128,9 @@
 		</p>
 		<cfdump var=#x#>
 
-	</cfhttp>
+
+
+
 <cfdump var=#cfhttp#>
 
 
