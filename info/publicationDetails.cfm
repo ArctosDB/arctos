@@ -113,8 +113,9 @@
 		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 		<cfhttpparam type = "header" name = "Accept" value = "application/json">
 	</cfhttp>
-
+<p>
 Cited By (from http://opencitations.net)
+</p>
 	<cfif not isjson(cfhttp.Filecontent)>
 		invalid return
 		<cfdump var=#cfhttp#>
@@ -148,6 +149,7 @@ Cited By (from http://opencitations.net)
 					</cfif>
 				</cfloop>
 			</cfif>
+			<br>astr==#astr#
 			<cfset ctdstr='DOI: ' & cdoi & '. '>
 			<cfset ctdstr=ctdstr & astr & '. '>
 			<cfif structKeyExists(tr.message,"title")>
@@ -155,7 +157,7 @@ Cited By (from http://opencitations.net)
 				<cfset ctdstr='#tar[1]#.'>
 			</cfif>
 
-<br>#ctdstr#
+			<br>#ctdstr#
 
 
 
