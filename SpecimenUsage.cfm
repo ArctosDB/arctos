@@ -575,44 +575,7 @@
 					<cfif len(doi) gt 0>
 						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 
-						<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
-							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-						</cfhttp>
-						<cfdump var=#cfhttp#>
-						<cfif isjson(cfhttp.Filecontent)>
-							<cfset x=DeserializeJSON(cfhttp.Filecontent)>
-							<cfdump var=#x#>
-							<cfif structKeyExists(x.message,"reference")>
-								<cfdump var=#x.message.reference#>
-								<cfloop array="#x.message.reference#" index="idx">
-								   <cfoutput>
-									   <cfdump var="#idx#">
-									    <cfset rfs="">
-									    <cfif StructKeyExists(idx, "author")>
-											<cfset rfs=rfs & idx["author"]>
-										</cfif>
-									    <cfif StructKeyExists(idx, "year")>
-											<cfset rfs=rfs & ' ' & idx["year"] & '. '>
-										</cfif>
-
-									   <cfif StructKeyExists(idx, "article-title")>
-										   <cfset rfs=rfs & idx["article-title"]>
-										<cfelseif StructKeyExists(idx, "volume-title")>
-										   <cfset rfs=rfs & idx["volume-title"]>
-										  </cfif>
-										   <cfif StructKeyExists(idx, "doi")>
-											<cfset rfs=rfs & '. <a class="external" target="_blank" href="http://dx.doi.org/#idx["doi"]#">http://dx.doi.org/#idx["doi"]#</a>'>
-										</cfif>
-<br>#rfs#
-
-
-
-
-
-									</cfoutput>
-								</cfloop>
-							</cfif>
-						</cfif>
+						<a href="/info/publicationDetails.cfm?doi=#doi#">more info</a>
 
 
 
