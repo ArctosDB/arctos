@@ -587,7 +587,19 @@
 								<cfloop array="#x.message.reference#" index="idx">
 								   <cfoutput>
 									   <cfdump var="#idx#">
-										<br>#idx["article-title"]#
+									   <cfif StructKeyExists(idx, "article-title")>
+										   <br>#idx["article-title"]#
+										<cfelseif StructKeyExists(idx, "volume-title")>
+										   <br>#idx["volume-title"]#
+										  <cfelse>
+										  <br>notitle
+										  </cfif>
+
+
+
+
+
+
 									</cfoutput>
 								</cfloop>
 							</cfif>
