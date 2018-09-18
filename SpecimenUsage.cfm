@@ -582,7 +582,11 @@
 						<cfif isjson(cfhttp.Filecontent)>
 							<cfset x=DeserializeJSON(cfhttp.Filecontent)>
 							<cfdump var=#x#>
+							<cfif structKeyExists("x.message.reference")>
+								<cfdump var=#x.message.reference#>
+							</cfif>
 						</cfif>
+
 
 
 					<cfelse>
