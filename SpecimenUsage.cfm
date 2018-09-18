@@ -1,4 +1,28 @@
 <cfinclude template = "includes/_header.cfm">
+<script>
+	function showPubInfo(doi){
+		var guts = "/info/publicationDetails.cfm?doi=" + doi;
+		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:800px;'></iframe>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'center'],
+			title: 'Publication Details',
+				width:800,
+	 			height:800,
+			close: function() {
+				$( this ).remove();
+			}
+		}).width(800-10).height(800-10);
+		$(window).resize(function() {
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+	}
+</script>
 <cfset maxNumberOfRows=500>
 <cfif action is "nothing">
 	<cfif isdefined("publication_id") and len(publication_id) gt 0>
@@ -574,11 +598,7 @@
 					</li>
 					<cfif len(doi) gt 0>
 						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
-
-						<a href="/info/publicationDetails.cfm?doi=#doi#">more info</a>
-
-
-
+						<li><span class="likeLink" onclick="showPubInfo('#doi#');">more information</span></li>
 					<cfelse>
 						<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 							<li><a href="/Publication.cfm?publication_id=#publication_id#">NO DOI! Please edit and add.</a></li>

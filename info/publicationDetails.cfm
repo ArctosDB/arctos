@@ -110,9 +110,6 @@ Cited By (from http://opencitations.net)
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 			</cfhttp>
 			<cfset tr=DeserializeJSON(cfhttp.Filecontent)>
-
-
-
 			<cfset astr="">
 			<cfif structKeyExists(tr.message,"author")>
 				<cfloop array="#tr.message.author#" index="ax">
