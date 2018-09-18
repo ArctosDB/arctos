@@ -19,14 +19,15 @@
 			Title: #tar[1]#
 		</p>
 	</cfif>
-	<!----
 	<cfif structKeyExists(x.message,"publisher")>
+		<cfdump var=#x.message["publisher"]#>
+		<!----
 		<cfset tar=x.message["publisher"]>
 		<p>
 			Publisher: #tar[1]#
 		</p>
+		---->
 	</cfif>
-	---->
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
 		<p>
