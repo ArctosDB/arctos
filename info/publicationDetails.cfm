@@ -48,7 +48,7 @@
 	</cfif>
 	<cfif structKeyExists(x.message,"page")>
 		<p>
-			Page: x.message["page"]#
+			Page: #x.message["page"]#
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"reference-count")>
