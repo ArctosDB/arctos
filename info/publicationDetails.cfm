@@ -16,17 +16,63 @@
 	<cfif structKeyExists(x.message,"title")>
 		<cfset tar=x.message["title"]>
 		<p>
-				Title: #tar[1]#
+			Title: #tar[1]#
 		</p>
+	</cfif>
+	<cfif structKeyExists(x.message,"publisher")>
+		<cfset tar=x.message["publisher"]>
+		<p>
+			Publisher: #tar[1]#
+		</p>
+	</cfif>
+	<cfif structKeyExists(x.message,"container-title")>
+		<cfset tar=x.message["container-title"]>
+		<p>
+			Container Title: #tar[1]#
+		</p>
+	</cfif>
+	<cfif structKeyExists(x.message,"issue")>
+		<cfset tar=x.message["issue"]>
+		<p>
+			Issue: #tar[1]#
+		</p>
+	</cfif>
+	<cfif structKeyExists(x.message,"type")>
+		<cfset tar=x.message["type"]>
+		<p>
+			Type: #tar[1]#
+		</p>
+	</cfif>
+	<cfif structKeyExists(x.message,"volume")>
+		<cfset tar=x.message["volume"]>
+		<p>
+			Volume: #tar[1]#
+		</p>
+	</cfif>
+	<cfif structKeyExists(x.message,"page")>
+		<cfset tar=x.message["page"]>
+		<p>
+			Page: #tar[1]#
+		</p>
+	</cfif>
+	<cfif structKeyExists(x.message,"reference-count")>
+		<cfset tar=x.message["reference-count"]>
+		<p>
+			Reference Count: #tar[1]#
+		</p>
+	</cfif>
 
+	<cfif structKeyExists(x.message,"is-referenced-by-count")>
+		<cfset tar=x.message["is-referenced-by-count"]>
+		<p>
+			Referenced By Count: #tar[1]#
+		</p>
 	</cfif>
 
 
-
-
-<p>
-	Authors
-</p>
+	<p>
+		Authors
+	</p>
 	<cfif structKeyExists(x.message,"author")>
 		<cfloop array="#x.message.author#" index="idx">
 		    <cfif StructKeyExists(idx, "given")>
@@ -42,13 +88,10 @@
 
 		</cfloop>
 	</cfif>
-reference-count
 
-publisher
 
-page
 
-is-referenced-by-count
+
 
 	<cfif structKeyExists(x.message,"reference")>
 		<cfdump var=#x.message.reference#>
