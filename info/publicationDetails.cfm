@@ -19,40 +19,30 @@
 		</p>
 
 	</cfif>
-		<cfif structKeyExists(x.message,"reference")>
-			<cfdump var=#x.message.reference#>
-			<cfloop array="#x.message.reference#" index="idx">
-			   <cfoutput>
-				   <cfdump var="#idx#">
-				    <cfset rfs="">
-				    <cfif StructKeyExists(idx, "author")>
-						<cfset rfs=rfs & idx["author"]>
-					</cfif>
-				    <cfif StructKeyExists(idx, "year")>
-						<cfset rfs=rfs & ' ' & idx["year"] & '. '>
-					</cfif>
 
-				   <cfif StructKeyExists(idx, "article-title")>
-					   <cfset rfs=rfs & idx["article-title"]>
-					<cfelseif StructKeyExists(idx, "volume-title")>
-					   <cfset rfs=rfs & idx["volume-title"]>
+	<cfif structKeyExists(x.message,"reference")>
+		<cfdump var=#x.message.reference#>
+		<cfloop array="#x.message.reference#" index="idx">
+		   <cfdump var="#idx#">
+		    <cfset rfs="">
+		    <cfif StructKeyExists(idx, "author")>
+				<cfset rfs=rfs & idx["author"]>
+			</cfif>
+		    <cfif StructKeyExists(idx, "year")>
+				<cfset rfs=rfs & ' ' & idx["year"] & '. '>
+			</cfif>
+		   <cfif StructKeyExists(idx, "article-title")>
+			   <cfset rfs=rfs & idx["article-title"]>
+			<cfelseif StructKeyExists(idx, "volume-title")>
+			   <cfset rfs=rfs & idx["volume-title"]>
 					journal-title
-
-
-					</cfif>
-					   <cfif StructKeyExists(idx, "doi")>
-						<cfset rfs=rfs & '. <a class="external" target="_blank" href="http://dx.doi.org/#idx["doi"]#">http://dx.doi.org/#idx["doi"]#</a>'>
-					</cfif>
+			</cfif>
+		   <cfif StructKeyExists(idx, "doi")>
+				<cfset rfs=rfs & '. <a class="external" target="_blank" href="http://dx.doi.org/#idx["doi"]#">http://dx.doi.org/#idx["doi"]#</a>'>
+			</cfif>
 			<br>#rfs#
-
-
-
-
-
-									</cfoutput>
-								</cfloop>
-							</cfif>
-						</cfif>
+		</cfloop>
+	</cfif>
 
 
 							<cfdump var=#cfhttp#>
