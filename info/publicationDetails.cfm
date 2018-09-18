@@ -131,7 +131,6 @@ Cited By (from http://opencitations.net)
 			</cfhttp>
 			<cfset tr=DeserializeJSON(cfhttp.Filecontent)>
 
-			<cfdump var=#tr#>
 
 
 			<cfset astr="">
@@ -151,7 +150,6 @@ Cited By (from http://opencitations.net)
 					</cfif>
 				</cfloop>
 			</cfif>
-			<br>astr==#astr#
 			<cfset ctdstr='DOI: ' & cdoi & '. '>
 			<cfset ctdstr=ctdstr & astr & '. '>
 			<cfif structKeyExists(tr.message,"title")>
