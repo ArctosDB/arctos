@@ -107,6 +107,18 @@
 			<br>#rfs#
 		</cfloop>
 	</cfif>
+	<cfhttp method="get" url="http://opencitations.net/index/coci/search?text=#doi#&rule=citeddoi">
+		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+		<cfhttpparam type = "header" name = "Accept" value = "text/csv">
+
+
+	</cfhttp>
+<cfdump var=#cfhttp#>
+
+
+
+
+
 
 
 							<cfdump var=#cfhttp#>
