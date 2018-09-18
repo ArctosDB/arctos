@@ -584,9 +584,8 @@
 							<cfdump var=#x#>
 							<cfif structKeyExists(x.message,"reference")>
 								<cfdump var=#x.message.reference#>
-								<cfloop collection="#x.message.reference#" item="key" >
-									<cfdump var="#x.message.reference[key]#">
-
+								<cfloop array="#x.message.reference#" index="idx">
+								   <cfoutput>#idx#  </cfoutput>
 								</cfloop>
 							</cfif>
 						</cfif>
