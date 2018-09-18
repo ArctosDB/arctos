@@ -20,13 +20,10 @@
 		</p>
 	</cfif>
 	<cfif structKeyExists(x.message,"publisher")>
-		<cfdump var=#x.message["publisher"]#>
-		<!----
-		<cfset tar=x.message["publisher"]>
+
 		<p>
-			Publisher: #tar[1]#
+			Publisher: #x.message["publisher"]#
 		</p>
-		---->
 	</cfif>
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
