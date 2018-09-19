@@ -154,10 +154,7 @@
 							<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 						</cfhttp>
 						<cfif not isjson(d.Filecontent)>
-							invalid return
-							<br>https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#
-							<cfdump var=#d#>
-							<cfabort>
+							invalid return; https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI# did not resolve (possibly not a valid DOI?)
 						</cfif>
 						<cfquery name="dc" datasource="uam_god">
 							delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
