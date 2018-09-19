@@ -155,6 +155,7 @@
 						</cfhttp>
 						<cfif not isjson(d.Filecontent)>
 							invalid return
+							<br>https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#
 							<cfdump var=#d#>
 							<cfabort>
 						</cfif>
