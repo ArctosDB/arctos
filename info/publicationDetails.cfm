@@ -25,7 +25,6 @@
 		select * from cache_publication_sdata where source='crossref' and doi='#doi#' and last_date > sysdate-30
 	</cfquery>
 	<cfif c.recordcount gt 0>
-		<br>got cache
 		<cfset x=DeserializeJSON(c.json_data)>
 		<cfset jmamm_citation=c.jmamm_citation>
 	<cfelse>
@@ -49,7 +48,6 @@
 			insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
 			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
 		</cfquery>
-		<br>added to cache
 		<cfset x=DeserializeJSON(d.Filecontent)>
 		<cfset jmamm_citation=jmc.fileContent>
 	</cfif>
@@ -147,7 +145,6 @@
 						select * from cache_publication_sdata where source='crossref' and doi='#thisDOI#' and last_date > sysdate-30
 					</cfquery>
 					<cfif c.recordcount gt 0>
-						<br>got cache
 						<cfset rfs=c.jmamm_citation>
 					<cfelse>
 						<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">
@@ -167,7 +164,6 @@
 								insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
 								 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
 							</cfquery>
-							<br>added to cache
 							<cfset rfs=jmc.fileContent>
 						</cfif>
 					</cfif>
@@ -188,7 +184,6 @@
 		select * from cache_publication_sdata where source='opencitations' and doi='#doi#' and last_date > sysdate-30
 	</cfquery>
 	<cfif c.recordcount gt 0>
-		<br>got cache
 		<cfset x=DeserializeJSON(c.json_data)>
 	<cfelse>
 		<cfhttp result="d" method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
@@ -211,7 +206,6 @@
 			insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
 			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','opencitations',sysdate)
 		</cfquery>
-		<br>added to cache
 		<cfset x=DeserializeJSON(d.Filecontent)>
 	</cfif>
 
@@ -232,7 +226,6 @@ Cited By (from http://opencitations.net)
 				select * from cache_publication_sdata where source='crossref' and doi='#cdoi#' and last_date > sysdate-30
 			</cfquery>
 			<cfif c.recordcount gt 0>
-				<br>got cache
 				<cfset tr=DeserializeJSON(c.json_data)>
 				<cfset jmamm_citation=c.jmamm_citation>
 			<cfelse>
@@ -257,7 +250,6 @@ Cited By (from http://opencitations.net)
 					insert into cache_publication_sdata (doi,json_data,source,jmamm_citation,last_date) values
 					 ('#cdoi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'crossref','#jmamm_citation#',sysdate)
 				</cfquery>
-				<br>added to cache
 				<cfset tr=DeserializeJSON(d.Filecontent)>
 			</cfif>
 
