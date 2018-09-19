@@ -390,6 +390,7 @@
 						<span class="helpLink" data-helplink="project_agent_role">Agent&nbsp;Role</a>
 					</td>
 					<td>Remark</td>
+					<td>AwardNumber</td>
 				</tr>
 				<cfset i=0>
 				<cfloop query="agents">
@@ -631,6 +632,16 @@
 					WHERE
 						project_agent_id = #project_agent_id#
 				</cfquery>
+				<p>
+				UPDATE project_agent SET
+						agent_id = #agent_id#,
+						project_agent_role = '#project_agent_role#',
+						agent_position = #agent_position#,
+						project_agent_remarks='#project_agent_remarks#',
+						award_number='#award_number#'
+					WHERE
+						project_agent_id = #project_agent_id#
+				</p>
 			</cfif>
 		</cfloop>
 		<cfloop from="1" to="#numNewAgents#" index="n">
@@ -659,8 +670,9 @@
 			</cfif>
 		</cfloop>
 		</cftransaction>
-  		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
+
 		<!----
+		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
 	---->
 	</cfoutput>
 </cfif>
