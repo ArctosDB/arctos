@@ -671,9 +671,8 @@
 			</cfif>
 		</cfloop>
 		</cftransaction>
-
-		<!----
 		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
+		<!----
 	---->
 	</cfoutput>
 </cfif>
