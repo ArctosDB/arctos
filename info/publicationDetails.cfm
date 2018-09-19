@@ -10,14 +10,22 @@
 		border:1px solid gray;
 		background-color: #edefea;
 	}
+	#ldgthngee {
+		position:fixed;
+		top:0px;
+		left:50%;
+	}
 </style>
 <script>
 	$(window).on('load', function() {
-		$(".ldgthngee").remove();
+		$("#ldgthngee").remove();
 	});
 </script>
 <cfoutput>
 
+	<div id="ldgthngee">
+		<img src="/images/indicator.gif">
+	</div>
 	<cfparam name="debug" default="false">
 	<cfset debug="false">
 
@@ -310,6 +318,3 @@ Cited By (from http://opencitations.net)
 		</cfif>
 	</cfloop>
 </cfoutput>
-	<div class="ldgthngee">
-		<img src="/images/indicator.gif">
-	</div>
