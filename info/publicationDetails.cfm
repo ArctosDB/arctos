@@ -149,10 +149,12 @@
 						<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">
 							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 						</cfhttp>
+						<cfdump var=#d#>
 						<cfhttp result="jmc" method="get" url="https://dx.doi.org/#thisDOI#">
 							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 							<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 						</cfhttp>
+						<cfdump var=#jmc#>
 						<cfif not isjson(d.Filecontent)>
 							invalid return; https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI# did not resolve (possibly not a valid DOI?)
 						</cfif>
