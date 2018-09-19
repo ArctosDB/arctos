@@ -125,7 +125,7 @@
 
 			<cfif len(rfs) is 0>
 				<br>got nothing so far....
-				<cfdump var=#x.message.reference#>
+				<cfdump var=#idx#>
 			</cfif>
 
 
