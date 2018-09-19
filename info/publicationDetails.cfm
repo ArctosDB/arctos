@@ -2,6 +2,11 @@
 	DOI is required
 </cfif>
 <cfoutput>
+
+	<cfparam name="debug" default="false">
+	<cfset debug="true">
+
+
 	<h2>CrossRef Data</h2>
 	<p>
 		<a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">view data</a>
@@ -32,7 +37,9 @@
 		<cfset x=DeserializeJSON(d.Filecontent)>
 	</cfif>
 
-
+	<cfif debug is true>
+		<cfdump var=#x#>
+	</cfif>
 
 
 
