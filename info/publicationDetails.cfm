@@ -12,8 +12,8 @@
 		<a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">view data</a>
 	</p>
 	<!--- see if we have a recent cache --->
-	<cfquery name="c" datasource="uam_god">
-		select * from cache_publication_sdata where doi='#doi#' and last_date > sysdate-30
+	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from cache_publication_sdata where source='crossref' and doi='#doi#' and last_date > sysdate-30
 	</cfquery>
 	<cfif c.recordcount gt 0>
 		<br>got cache
@@ -28,10 +28,11 @@
 			<cfabort>
 		</cfif>
 		<cfquery name="dc" datasource="uam_god">
-			delete from cache_publication_sdata where doi='#doi#'
+			delete from cache_publication_sdata where source='crossref' and doi='#doi#'
 		</cfquery>
 		<cfquery name="uc" datasource="uam_god">
-			insert into cache_publication_sdata (doi,json_data,last_date) values ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,sysdate)
+			insert into cache_publication_sdata (doi,json_data,source,last_date) values
+			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'crossref',sysdate)
 		</cfquery>
 		<br>added to cache
 		<cfset x=DeserializeJSON(d.Filecontent)>
@@ -51,6 +52,10 @@
 	</cfif>
 	<cfif structKeyExists(x.message,"publisher")>
 		<br>Publisher: #x.message["publisher"]#
+	</cfif>
+	<cfif structKeyExists(x.message,"created")>
+		<cfset tar=x.message["created"]>
+		<cfdump var=#tar#>
 	</cfif>
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
@@ -117,11 +122,35 @@
 		</cfloop>
 	</cfif>
 
+	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from cache_publication_sdata where source='opencitations' and doi='#doi#' and last_date > sysdate-30
+	</cfquery>
+	<cfif c.recordcount gt 0>
+		<br>got cache
+		<cfset x=DeserializeJSON(c.json_data)>
+	<cfelse>
+		<cfhttp result="d" method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
+			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+			<cfhttpparam type = "header" name = "Accept" value = "application/json">
+		</cfhttp>
+		<cfif not isjson(d.Filecontent)>
+			invalid return
+			<cfdump var=#cfhttp#>
+			<cfabort>
+		</cfif>
+		<cfquery name="dc" datasource="uam_god">
+			delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
+		</cfquery>
+		<cfquery name="uc" datasource="uam_god">
+			insert into cache_publication_sdata (doi,json_data,source,last_date) values
+			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'opencitations',sysdate)
+		</cfquery>
+		<br>added to cache
+		<cfset x=DeserializeJSON(d.Filecontent)>
+	</cfif>
 
-	<cfhttp method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
-		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-		<cfhttpparam type = "header" name = "Accept" value = "application/json">
-	</cfhttp>
+
+
 <h3>
 Cited By (from http://opencitations.net)
 </h3>
