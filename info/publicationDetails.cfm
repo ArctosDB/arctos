@@ -141,12 +141,12 @@
 			<cfelse>
 				<div class="refDiv">
 					#rfs#
+					 <cfif StructKeyExists(idx, "doi")>
+						 <cfset thisDOI=idx["doi"]>
+						<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>
+						<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
+					</cfif>
 				</div>
-				 <cfif StructKeyExists(idx, "doi")>
-					 <cfset thisDOI=idx["doi"]>
-					<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>
-					<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
-				</cfif>
 			</cfif>
 
 
