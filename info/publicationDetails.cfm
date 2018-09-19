@@ -19,6 +19,7 @@
 		<br>got cache
 		<cfset x=DeserializeJSON(c.json_data)>
 	<cfelse>
+		<cfdump var=#c#>
 		<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 		</cfhttp>
