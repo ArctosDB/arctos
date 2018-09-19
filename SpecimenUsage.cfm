@@ -101,6 +101,10 @@
 						<option value="require">require</option>
 						<option value="exclude">exclude</option>
 					</select>
+					<label for="award_number">
+						<span class="helpLink" id="project_award_number">Award Number</span>
+					</label>
+					<input name="award_number" id="award_number" type="text">
 				</td>
 				<td>
 					<h4>Publication</h4>
@@ -229,6 +233,11 @@
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_description is not null and length(project.project_description) >= #descr_len#">
 		</cfif>
+		<cfif isdefined("award_number") AND len(award_number) gt 0>
+			<cfset go="yes">
+			<cfset whr = "#whr# AND project.project_id in (select project_id from project_agent where upper(award_number)='#ucase(award_number)#')">
+		</cfif>
+
 		<cfif isdefined("author") AND len(author) gt 0>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN
