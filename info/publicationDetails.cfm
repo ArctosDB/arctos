@@ -137,10 +137,6 @@
 			</cfif>
 
 			<cfif len(rfs) is 0>
-				<cfdump var=#idx#>
-				<br>we got nothing
-				<br>but there may be a DOI
-				<br>pull it
 				<cfif StructKeyExists(idx, "doi")>
 					<cfset thisDOI=idx["doi"]>
 					<cfquery name="c" datasource="uam_god">
