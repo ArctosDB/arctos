@@ -157,12 +157,7 @@ Cited By (from http://opencitations.net)
 <p>
 	<a target="_blank" class="external" href="http://opencitations.net/index/coci/api/v1/citations/#doi#">view data</a>
 </p>
-	<cfif not isjson(cfhttp.Filecontent)>
-		invalid return
-		<cfdump var=#cfhttp#>
-		<cfabort>
-	</cfif>
-	<cfset x=DeserializeJSON(cfhttp.Filecontent)>
+
 	<cfloop array="#x#" index="idx">
 		<cfset ctdstr="">
 		<cfif StructKeyExists(idx, "citing")>
