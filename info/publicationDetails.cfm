@@ -163,10 +163,38 @@ Cited By (from http://opencitations.net)
 		<cfset ctdstr="">
 		<cfif StructKeyExists(idx, "citing")>
 			<cfset cdoi=idx["citing"]>
-			<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">
-				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-			</cfhttp>
-			<cfset tr=DeserializeJSON(cfhttp.Filecontent)>
+
+
+
+			<cfquery name="c" datasource="uam_god">
+				select * from cache_publication_sdata where source='crossref' and doi='#cdoi#' and last_date > sysdate-30
+			</cfquery>
+			<cfif c.recordcount gt 0>
+				<br>got cache
+				<cfset tr=DeserializeJSON(c.json_data)>
+			<cfelse>
+				<cfdump var=#c#>
+				<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">
+					<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+				</cfhttp>
+				<cfif not isjson(d.Filecontent)>
+					invalid return
+					<cfdump var=#cfhttp#>
+					<cfabort>
+				</cfif>
+				<cfquery name="dc" datasource="uam_god">
+					delete from cache_publication_sdata where source='crossref' and doi='#cdoi#'
+				</cfquery>
+				<cfquery name="uc" datasource="uam_god">
+					insert into cache_publication_sdata (doi,json_data,source,last_date) values
+					 ('#cdoi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'crossref',sysdate)
+				</cfquery>
+				<br>added to cache
+				<cfset tr=DeserializeJSON(d.Filecontent)>
+			</cfif>
+
+
+
 			<cfset astr="">
 			<cfif structKeyExists(tr.message,"author")>
 				<cfloop array="#tr.message.author#" index="ax">
