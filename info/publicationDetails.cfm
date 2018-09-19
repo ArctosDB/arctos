@@ -301,6 +301,12 @@ Cited By (from http://opencitations.net)
 				<br><a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
 				<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">view raw data</a>
 				<br><a href="publicationDetails.cfm?doi=#cdoi#">[ more information ]</a>
+				<cfquery name="ap" datasource="uam_god" cachedwithin="#createtimespan(0,0,15,0)#">
+					select publication_id from publication where doi='#cdoi#'
+				</cfquery>
+				<cfif ap.recordcount gt 0>
+					<br><a target="_blank" href="/publication/#ap.publication_id#">Arctos Publication</a>
+				</cfif>
 			</div>
 			<cfflush>
 
