@@ -17,6 +17,7 @@
 
 
 	<h2>CrossRef Data</h2>
+	<cfflush>
 	<p>
 		<a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">view data</a>
 	</p>
