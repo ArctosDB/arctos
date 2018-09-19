@@ -11,7 +11,7 @@
 		select * from cache_publication_sdata where doi='#doi#' and last_date > sysdate-30
 	</cfquery>
 	<cfif c.recordcount gt 0>
-	<br>got cache
+		<br>got cache
 		<cfset d=DeserializeJSON(c.json_data)>
 	<cfelse>
 		<cfhttp name="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
@@ -26,7 +26,7 @@
 			delete from cache_publication_sdata where doi='#doi#'
 		</cfquery>
 		<cfquery name="uc" datasource="uam_god">
-			insert into cache_publication_sdata (doi,json_datalast_date) values ('##','#d.Filecontent#',sysdate)
+			insert into cache_publication_sdata (doi,json_data,last_date) values ('#doi#','#d.Filecontent#',sysdate)
 		</cfquery>
 		<br>added to cache
 		<cfset x=DeserializeJSON(d.Filecontent)>
