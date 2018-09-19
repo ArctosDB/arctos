@@ -124,8 +124,8 @@
 			</cfif>
 		   <cfif StructKeyExists(idx, "doi")>
 			   <cfset thisDOI=idx["doi"]>
-				<cfset rfs=rfs & '. <a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>'>
-				<cfset rfs=rfs & ' <a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>'>
+				<cfset rfs=rfs & '<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>'>
+				<cfset rfs=rfs & '<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>'>
 			</cfif>
 			<div class="refDiv">
 				#rfs#
@@ -227,10 +227,11 @@ Cited By (from http://opencitations.net)
 				<cfset tar=tr.message["title"]>
 				<cfset ctdstr=ctdstr & '#tar[1]#.'>
 			</cfif>
-			<br>#ctdstr#. <a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
+			<div class="refDiv">
+			#ctdstr#. <a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
 			<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">view data</a>
 			<br><a href="publicationDetails.cfm?doi=#cdoi#">[ more information ]</a>'>
-
+			</div>
 
 		</cfif>
 	</cfloop>
