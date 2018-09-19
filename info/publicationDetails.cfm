@@ -9,7 +9,7 @@
 <cfoutput>
 
 	<cfparam name="debug" default="false">
-	<cfset debug="true">
+	<cfset debug="false">
 
 
 	<h2>CrossRef Data</h2>
@@ -25,7 +25,6 @@
 		<cfset x=DeserializeJSON(c.json_data)>
 		<cfset jmamm_citation=c.jmamm_citation>
 	<cfelse>
-		<cfdump var=#c#>
 		<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 		</cfhttp>
@@ -33,7 +32,6 @@
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 			<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 		</cfhttp>
-		<cfdump var=#jmc#>
 
 		<cfif not isjson(d.Filecontent)>
 			invalid return
@@ -121,35 +119,38 @@
 </h3>
 	<cfif structKeyExists(x.message,"reference")>
 		<cfloop array="#x.message.reference#" index="idx">
-		    <cfset rfs="">
-		    <cfif StructKeyExists(idx, "author")>
-				<cfset rfs=rfs & idx["author"]>
-			</cfif>
-		    <cfif StructKeyExists(idx, "year")>
-				<cfset rfs=rfs & ' ' & idx["year"] & '. '>
-			</cfif>
-		   <cfif StructKeyExists(idx, "article-title")>
-			   <cfset rfs=rfs & idx["article-title"]>
-			<cfelseif StructKeyExists(idx, "volume-title")>
-			   <cfset rfs=rfs & idx["volume-title"]>
-			  <cfelseif StructKeyExists(idx, "unstructured")>
-			   <cfset rfs=rfs & idx["unstructured"]>
+			<cfif StructKeyExists(idx, "unstructured")>
+				<cfset rfs=idx["unstructured"]>
+			</cfelse>
+		   		<cfset rfs="">
+			    <cfif StructKeyExists(idx, "author")>
+					<cfset rfs=rfs & idx["author"]>
+				</cfif>
+			    <cfif StructKeyExists(idx, "year")>
+					<cfset rfs=rfs & ' ' & idx["year"] & '. '>
+				</cfif>
+			   <cfif StructKeyExists(idx, "article-title")>
+				   <cfset rfs=rfs & idx["article-title"]>
+				<cfelseif StructKeyExists(idx, "volume-title")>
+				   <cfset rfs=rfs & idx["volume-title"]>
 			</cfif>
 
 			<cfif len(rfs) is 0>
-				<br>got nothing so far....
 				<cfdump var=#idx#>
+			<cfelse>
+				<div class="refDiv">
+					#rfs#
+				</div>
+				 <cfif StructKeyExists(idx, "doi")>
+					 <cfset thisDOI=idx["doi"]>
+					<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>
+					<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
+				</cfif>
 			</cfif>
 
 
-		   <cfif StructKeyExists(idx, "doi")>
-			   <cfset thisDOI=idx["doi"]>
-				<cfset rfs=rfs & '<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>'>
-				<cfset rfs=rfs & '<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>'>
-			</cfif>
-			<div class="refDiv">
-				#rfs#
-			</div>
+
+
 		</cfloop>
 	</cfif>
 
@@ -197,9 +198,6 @@ Cited By (from http://opencitations.net)
 		<cfset ctdstr="">
 		<cfif StructKeyExists(idx, "citing")>
 			<cfset cdoi=idx["citing"]>
-
-
-
 			<cfquery name="c" datasource="uam_god">
 				select * from cache_publication_sdata where source='crossref' and doi='#cdoi#' and last_date > sysdate-30
 			</cfquery>
