@@ -6,16 +6,35 @@
 	<p>
 		<a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">view data</a>
 	</p>
-	<cfhttp method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
-		<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-	</cfhttp>
-	<cfif not isjson(cfhttp.Filecontent)>
-		invalid return
-		<cfdump var=#cfhttp#>
-		<cfabort>
+	<!--- see if we have a recent cache --->
+	<cfquery name="c" datasource="uam_god">
+		select * from cache_publication_sdata where doi='#doi#' and last_date > sysdate-30
+	</cfquery>
+	<cfif c.recordcount gt 0>
+	<br>got cache
+		<cfset d=DeserializeJSON(c.json_data)>
+	<cfelse>
+		<cfhttp name="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
+			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+		</cfhttp>
+		<cfif not isjson(d.Filecontent)>
+			invalid return
+			<cfdump var=#cfhttp#>
+			<cfabort>
+		</cfif>
+		<cfquery name="dc" datasource="uam_god">
+			delete from cache_publication_sdata where doi='#doi#'
+		</cfquery>
+		<cfquery name="uc" datasource="uam_god">
+			insert into cache_publication_sdata (doi,json_datalast_date) values ('##','#d.Filecontent#',sysdate)
+		</cfquery>
+		<br>added to cache
+		<cfset x=DeserializeJSON(d.Filecontent)>
 	</cfif>
 
-	<cfset x=DeserializeJSON(cfhttp.Filecontent)>
+
+
+
 
 	<cfif structKeyExists(x.message,"title")>
 		<cfset tar=x.message["title"]>
