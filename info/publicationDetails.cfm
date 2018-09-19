@@ -12,7 +12,7 @@
 	</cfquery>
 	<cfif c.recordcount gt 0>
 		<br>got cache
-		<cfset d=DeserializeJSON(c.json_data)>
+		<cfset x=DeserializeJSON(c.json_data)>
 	<cfelse>
 		<cfhttp name="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
