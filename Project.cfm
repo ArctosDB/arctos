@@ -207,7 +207,7 @@
 				getDetails
 			where
 				agent_name is not null
-			group by project_agent_id,agent_name, agent_position, agent_id, project_agent_role,project_agent_remarks
+			group by project_agent_id,agent_name, agent_position, agent_id, project_agent_role,project_agent_remarks,award_number
 			order by agent_position
 		</cfquery>
 		<cfquery name="getLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
