@@ -250,8 +250,8 @@ Cited By (from http://opencitations.net)
 					delete from cache_publication_sdata where source='crossref' and doi='#cdoi#'
 				</cfquery>
 				<cfquery name="uc" datasource="uam_god">
-					insert into cache_publication_sdata (doi,json_data,source,last_date) values
-					 ('#cdoi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'crossref',sysdate)
+					insert into cache_publication_sdata (doi,json_data,source,jmamm_citation,last_date) values
+					 ('#cdoi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'crossref','#jmamm_citation#',sysdate)
 				</cfquery>
 				<br>added to cache
 				<cfset tr=DeserializeJSON(d.Filecontent)>
