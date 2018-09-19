@@ -58,7 +58,7 @@
 		<cfset tar=x.message["created"]>
 		<cfdump var=#tar#>
 
-		<cfset z=tar["parts"]>
+		<cfset z=tar["date-parts"]>
 		<br>Year:		<cfdump var=#z#>
 		<cfset y=z[1]>
 		<br>Year:		<cfdump var=#z#>
