@@ -12,7 +12,7 @@
 		<a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">view data</a>
 	</p>
 	<!--- see if we have a recent cache --->
-	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="c" datasource="uam_god">
 		select * from cache_publication_sdata where source='crossref' and doi='#doi#' and last_date > sysdate-30
 	</cfquery>
 	<cfif c.recordcount gt 0>
@@ -123,7 +123,7 @@
 		</cfloop>
 	</cfif>
 
-	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="c" datasource="uam_god">
 		select * from cache_publication_sdata where source='opencitations' and doi='#doi#' and last_date > sysdate-30
 	</cfquery>
 	<cfif c.recordcount gt 0>
