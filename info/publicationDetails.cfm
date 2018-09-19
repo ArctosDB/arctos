@@ -141,16 +141,47 @@
 				<br>we got nothing
 				<br>but there may be a DOI
 				<br>pull it
-			<cfelse>
-				<div class="refDiv">
-					#rfs#
-					 <cfif StructKeyExists(idx, "doi")>
-						 <cfset thisDOI=idx["doi"]>
-						<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>
-						<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
+				<cfif StructKeyExists(idx, "doi")>
+					<cfset thisDOI=idx["doi"]>
+					<cfquery name="c" datasource="uam_god">
+						select * from cache_publication_sdata where source='crossref' and doi='#thisDOI#' and last_date > sysdate-30
+					</cfquery>
+					<cfif c.recordcount gt 0>
+						<br>got cache
+						<cfset rfs=c.jmamm_citation>
+					<cfelse>
+						<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">
+							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+						</cfhttp>
+						<cfhttp result="jmc" method="get" url="https://dx.doi.org/#thisDOI#">
+							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+							<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+						</cfhttp>
+						<cfif not isjson(d.Filecontent)>
+							invalid return
+							<cfdump var=#d#>
+							<cfabort>
+						</cfif>
+						<cfquery name="dc" datasource="uam_god">
+							delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
+						</cfquery>
+						<cfquery name="uc" datasource="uam_god">
+							insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+							 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
+						</cfquery>
+						<br>added to cache
+						<cfset rfs=jmc.fileContent>
 					</cfif>
-				</div>
+				</cfif>
 			</cfif>
+			<div class="refDiv">
+				#rfs#
+				 <cfif StructKeyExists(idx, "doi")>
+					 <cfset thisDOI=idx["doi"]>
+					<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>
+					<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
+				</cfif>
+			</div>
 		</cfloop>
 	</cfif>
 
