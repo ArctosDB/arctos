@@ -155,18 +155,19 @@
 							<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 						</cfhttp>
 						<cfdump var=#jmc#>
-						<cfif not isjson(d.Filecontent)>
-							invalid return; https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI# did not resolve (possibly not a valid DOI?)
+						<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
+							<cfset rfs="invalid return; https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI# and / or 	https://dx.doi.org/#thisDOI# did not resolve (possibly not a valid DOI?)">
+						<cfelse>
+							<cfquery name="dc" datasource="uam_god">
+								delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
+							</cfquery>
+							<cfquery name="uc" datasource="uam_god">
+								insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+								 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
+							</cfquery>
+							<br>added to cache
+							<cfset rfs=jmc.fileContent>
 						</cfif>
-						<cfquery name="dc" datasource="uam_god">
-							delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
-						</cfquery>
-						<cfquery name="uc" datasource="uam_god">
-							insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
-							 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
-						</cfquery>
-						<br>added to cache
-						<cfset rfs=jmc.fileContent>
 					</cfif>
 				</cfif>
 			</cfif>
