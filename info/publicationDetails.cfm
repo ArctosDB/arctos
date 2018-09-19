@@ -121,7 +121,7 @@
 		<cfloop array="#x.message.reference#" index="idx">
 			<cfif StructKeyExists(idx, "unstructured")>
 				<cfset rfs=idx["unstructured"]>
-			</cfelse>
+			<cfelse>
 		   		<cfset rfs="">
 			    <cfif StructKeyExists(idx, "author")>
 					<cfset rfs=rfs & idx["author"]>
@@ -133,6 +133,7 @@
 				   <cfset rfs=rfs & idx["article-title"]>
 				<cfelseif StructKeyExists(idx, "volume-title")>
 				   <cfset rfs=rfs & idx["volume-title"]>
+			   </cfif>
 			</cfif>
 
 			<cfif len(rfs) is 0>
