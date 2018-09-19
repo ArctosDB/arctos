@@ -183,7 +183,7 @@
 			<a target="_blank" href="/agent.cfm?agent_name=#agent_name#">#agent_name#</a>:
 			 #project_agent_role#<cfif len(project_agent_remarks) gt 0> (#project_agent_remarks#)</cfif>
 			 <cfif len(award_number) gt 0>
-				 <div style="margin-left:2em;">
+				 <div style="margin-left:2em;font-size:smaller;">
 					Award Number <a target="_blank" class="external" href="https://search.crossref.org/?q=#award_number#">#award_number#</a>
 				</div>
 			</cfif>
