@@ -3,7 +3,11 @@
 </cfif>
 <style>
 	.refDiv{
-		border:1px solid red;
+		padding-left: 1em;
+    	text-indent:-1em;
+		margin-top:.5em;
+		border:1px solid gray;
+		background-color: #edefea;
 	}
 </style>
 <cfoutput>
