@@ -649,6 +649,7 @@
 			<cfset new_role = evaluate("new_role" & n)>
 			<cfset new_agent_position = evaluate("new_agent_position" & n)>
 			<cfset new_project_agent_remarks = evaluate("new_project_agent_remarks" & n)>
+			<cfset new_award_number = evaluate("new_award_number" & n)>
 			<cfif len(new_agent_id) gt 0>
 			  <cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				 INSERT INTO project_agent (
