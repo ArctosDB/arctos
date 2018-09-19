@@ -472,10 +472,10 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="new_award_number#x#" id="new_award_number#x#">
+							<input type="text" name="new_project_agent_remarks#x#" id="new_project_agent_remarks#x#">
 						</td>
 						<td>
-							<input type="text" name="new_project_agent_remarks#x#" id="new_project_agent_remarks#x#">
+							<input type="text" name="new_award_number#x#" id="new_award_number#x#">
 						</td>
 						<td>
 						</td>
