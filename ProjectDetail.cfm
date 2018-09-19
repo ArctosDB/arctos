@@ -91,7 +91,8 @@
 			agent_position,
 			project_agent_role,
 			project_agent_remarks,
-			funded_usd
+			funded_usd,
+			award_number
 		FROM
 			project,
 			project_agent,
@@ -123,13 +124,15 @@
 		select
 			agent_name,
 			project_agent_role,
-			project_agent_remarks
+			project_agent_remarks,
+			award_number
 		from
 			proj
 		group by
 			agent_name,
 			project_agent_role,
-			project_agent_remarks
+			project_agent_remarks,
+			award_number
 		order by
 			agent_position
 	</cfquery>
@@ -177,7 +180,10 @@
 	---->
 	<cfloop query="a">
 		<div class="proj_agent">
-			<a target="_blank" href="/agent.cfm?agent_name=#agent_name#">#agent_name#</a>: #project_agent_role#<cfif len(project_agent_remarks) gt 0> (#project_agent_remarks#)</cfif>
+			<a target="_blank" href="/agent.cfm?agent_name=#agent_name#">#agent_name#</a>:
+			 #project_agent_role#<cfif len(project_agent_remarks) gt 0> (#project_agent_remarks#)</cfif>
+			 <cfif len(award_number) gt 0> Award Number <a target="_blank" class="external" href="https://search.crossref.org/?q=#award_number#">#award_number#</a></cfif>
+
 		</div>
 	</cfloop>
 	<div class="cdiv">
