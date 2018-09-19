@@ -119,7 +119,7 @@
 			}
 			$("#" + dfld).removeClass('deleting');
 			$(this).removeClass('deleting');
-			if ( $(this).val()=='url' ){
+			if ( $(this).val()=='url' || $(this).val()=='ORCID'){
 				ntype='url';
 			} else if ( $(this).val()=='email' ){
 				ntype='email';

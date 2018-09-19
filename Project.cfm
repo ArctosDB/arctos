@@ -183,7 +183,8 @@
 				project_remarks,
 				agent_position,
 				project_agent_remarks,
-				project.funded_usd
+				project.funded_usd,
+				project_agent.award_number
 			FROM
 				project,
 				preferred_agent_name,
@@ -200,7 +201,8 @@
 				agent_position,
 				agent_id,
 				project_agent_role,
-				project_agent_remarks
+				project_agent_remarks,
+				award_number
 			from
 				getDetails
 			where
@@ -422,6 +424,9 @@
 							</select>
 						</td>
 						<td>
+							<input type="text" name="award_number_#i#" id="award_number_#i#" value="#award_number#">
+						</td>
+						<td>
 							<input type="text" name="project_agent_remarks_#i#" id="project_agent_remarks_#i#" value='#project_agent_remarks#'>
 						</td>
 						<td nowrap valign="center">
@@ -467,6 +472,9 @@
 						</td>
 						<td>
 							<input type="text" name="new_project_agent_remarks#x#" id="new_project_agent_remarks#x#">
+						</td>
+						<td>
+							<input type="text" name="new_award_number#x#" id="new_award_number#x#">
 						</td>
 						<td>
 						</td>
@@ -588,6 +596,7 @@
 <!------------------------------------------------------------------------------------------->
 <cfif action is "save">
 	<cfoutput>
+		<cftransaction>
   		<cfquery name="upProject" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
  			UPDATE project SET
  				project_name = '#project_name#',
@@ -606,6 +615,7 @@
 			<cfset project_agent_role = evaluate("project_agent_role_" & n)>
 			<cfset project_agent_remarks = evaluate("project_agent_remarks_" & n)>
 			<cfset project_agent_id = evaluate("project_agent_id_" & n)>
+			<cfset award_number = evaluate("award_number_" & n)>
 			<cfif agent_name is "deleted">
 				<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	 				DELETE FROM project_agent where project_agent_id=#project_agent_id#
@@ -616,17 +626,11 @@
 						agent_id = #agent_id#,
 						project_agent_role = '#project_agent_role#',
 						agent_position = #agent_position#,
-						project_agent_remarks='#project_agent_remarks#'
+						project_agent_remarks='#project_agent_remarks#',
+						award_number='#award_number#'
 					WHERE
 						project_agent_id = #project_agent_id#
 				</cfquery>
-				UPDATE project_agent SET
-						agent_id = #agent_id#,
-						project_agent_role = '#project_agent_role#',
-						agent_position = #agent_position#,
-						project_agent_remarks='#project_agent_remarks#'
-					WHERE
-						project_agent_id = #project_agent_id#
 			</cfif>
 		</cfloop>
 		<cfloop from="1" to="#numNewAgents#" index="n">
@@ -641,17 +645,20 @@
 					 AGENT_ID,
 					 PROJECT_AGENT_ROLE,
 					 AGENT_POSITION,
-					 project_agent_remarks)
-				VALUES (
+					 project_agent_remarks,
+					 award_number
+				)	VALUES (
 					#PROJECT_ID#,
 					 #new_agent_id#,
 					 '#new_role#',
 					 #new_agent_position#,
 					 '#new_project_agent_remarks#'
+					 '#new_award_number#'
 				 	)
 				 </cfquery>
 			</cfif>
 		</cfloop>
+		</cftransaction>
   		<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
 		<!----
 	---->
