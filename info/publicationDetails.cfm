@@ -13,7 +13,7 @@
 </style>
 <script>
 	$(window).on('load', function() {
-		$("#ldgthngee").remove();
+		$(".ldgthngee").remove();
 	});
 </script>
 <cfoutput>
@@ -21,7 +21,7 @@
 	<cfparam name="debug" default="false">
 	<cfset debug="false">
 
-	<div id="ldgthngee">
+	<div class="ldgthngee">
 		<img src="/images/indicator.gif">
 	</div>
 
@@ -312,4 +312,7 @@ Cited By (from http://opencitations.net)
 
 		</cfif>
 	</cfloop>
+	<div class="ldgthngee">
+		<img src="/images/indicator.gif">
+	</div>
 </cfoutput>
