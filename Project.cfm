@@ -664,7 +664,7 @@
 					 #new_agent_id#,
 					 '#new_role#',
 					 #new_agent_position#,
-					 '#new_project_agent_remarks#'
+					 '#new_project_agent_remarks#',
 					 '#new_award_number#'
 				 	)
 				 </cfquery>
