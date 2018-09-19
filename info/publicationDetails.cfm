@@ -26,7 +26,7 @@
 			delete from cache_publication_sdata where doi='#doi#'
 		</cfquery>
 		<cfquery name="uc" datasource="uam_god">
-			insert into cache_publication_sdata (doi,json_data,last_date) values ('#doi#','#d.Filecontent#',sysdate)
+			insert into cache_publication_sdata (doi,json_data,last_date) values ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,sysdate)
 		</cfquery>
 		<br>added to cache
 		<cfset x=DeserializeJSON(d.Filecontent)>
