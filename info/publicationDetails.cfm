@@ -138,6 +138,9 @@
 
 			<cfif len(rfs) is 0>
 				<cfdump var=#idx#>
+				<br>we got nothing
+				<br>but there may be a DOI
+				<br>pull it
 			<cfelse>
 				<div class="refDiv">
 					#rfs#
@@ -257,7 +260,7 @@ Cited By (from http://opencitations.net)
 				#jmamm_citation#
 				<br><a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
 				<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">view raw data</a>
-				<br><a href="publicationDetails.cfm?doi=#cdoi#">[ more information ]</a>'>
+				<br><a href="publicationDetails.cfm?doi=#cdoi#">[ more information ]</a>
 			</div>
 
 		</cfif>
