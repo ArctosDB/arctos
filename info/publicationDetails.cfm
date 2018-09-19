@@ -57,8 +57,11 @@
 	<cfif structKeyExists(x.message,"created")>
 		<cfset tar=x.message["created"]>
 		<cfdump var=#tar#>
-		<cfset x=tar[1][1]>
-		<br>Year:		<cfdump var=#x#>
+
+		<cfset z=tar["parts"]>
+		<br>Year:		<cfdump var=#z#>
+		<cfset y=z[1]>
+		<br>Year:		<cfdump var=#z#>
 	</cfif>
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
