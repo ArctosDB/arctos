@@ -254,12 +254,14 @@ Cited By (from http://opencitations.net)
 					<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 					<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 				</cfhttp>
+
+					<cfdump var=#jmc#>
 				<cfset jmamm_citation=jmc.fileContent>
 
 				<cfif not isjson(d.Filecontent)>
 					invalid return
-					<cfdump var=#cfhttp#>
-					<cfabort>
+					<cfdump var=#d#>
+					<cfdump var=#jmc#>
 				</cfif>
 				<cfquery name="dc" datasource="uam_god">
 					delete from cache_publication_sdata where source='crossref' and doi='#cdoi#'
