@@ -23,6 +23,7 @@
 	<cfif c.recordcount gt 0>
 		<br>got cache
 		<cfset x=DeserializeJSON(c.json_data)>
+		<cfset jmamm_citation=c.jmamm_citation>
 	<cfelse>
 		<cfdump var=#c#>
 		<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
@@ -48,12 +49,17 @@
 		</cfquery>
 		<br>added to cache
 		<cfset x=DeserializeJSON(d.Filecontent)>
+		<cfset jmamm_citation=jmc.fileContent>
 	</cfif>
 
 	<cfif debug is true>
 		<cfdump var=#x#>
 	</cfif>
 
+
+	<h3>
+		#jmamm_citation#
+	</h3>
 
 
 	<cfif structKeyExists(x.message,"title")>
@@ -158,6 +164,10 @@
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 			<cfhttpparam type = "header" name = "Accept" value = "application/json">
 		</cfhttp>
+		<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
+			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+			<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+		</cfhttp>
 		<cfif not isjson(d.Filecontent)>
 			invalid return
 			<cfdump var=#cfhttp#>
@@ -167,8 +177,8 @@
 			delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
 		</cfquery>
 		<cfquery name="uc" datasource="uam_god">
-			insert into cache_publication_sdata (doi,json_data,source,last_date) values
-			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'opencitations',sysdate)
+			insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','opencitations',sysdate)
 		</cfquery>
 		<br>added to cache
 		<cfset x=DeserializeJSON(d.Filecontent)>
@@ -196,11 +206,18 @@ Cited By (from http://opencitations.net)
 			<cfif c.recordcount gt 0>
 				<br>got cache
 				<cfset tr=DeserializeJSON(c.json_data)>
+				<cfset jmamm_citation=c.jmamm_citation>
 			<cfelse>
 				<cfdump var=#c#>
 				<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">
 					<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				</cfhttp>
+				<cfhttp result="jmc" method="get" url="https://dx.doi.org/#cdoi#">
+					<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+					<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+				</cfhttp>
+				<cfset jmamm_citation=jmc.fileContent>
+
 				<cfif not isjson(d.Filecontent)>
 					invalid return
 					<cfdump var=#cfhttp#>
@@ -241,6 +258,7 @@ Cited By (from http://opencitations.net)
 				<cfset tar=tr.message["title"]>
 				<cfset ctdstr=ctdstr & '#tar[1]#.'>
 			</cfif>
+			<p>----#jmamm_citation#----</p>
 			<div class="refDiv">
 			#ctdstr#. <a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
 			<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">view data</a>
