@@ -21,9 +21,6 @@
 	<cfparam name="debug" default="false">
 	<cfset debug="false">
 
-	<div class="ldgthngee">
-		<img src="/images/indicator.gif">
-	</div>
 
 	<h2>CrossRef Data</h2>
 	<cfflush>
@@ -312,7 +309,7 @@ Cited By (from http://opencitations.net)
 
 		</cfif>
 	</cfloop>
+</cfoutput>
 	<div class="ldgthngee">
 		<img src="/images/indicator.gif">
 	</div>
-</cfoutput>
