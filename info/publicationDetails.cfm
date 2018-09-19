@@ -186,6 +186,12 @@
 					 <cfset thisDOI=idx["doi"]>
 					<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>
 					<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
+					<cfquery name="ap" datasource="uam_god" cachedwithin="#createtimespan(0,0,15,0)#">
+						select publication_id from publication where doi='#thisDOI#'
+					</cfquery>
+					<cfif ap.recordcount gt 0>
+						<br><a target="_blank" href="/publication/#ap.publication_id#">Arctos Publication</a>
+					</cfif>
 				</cfif>
 			</div>
 			<cfflush>
