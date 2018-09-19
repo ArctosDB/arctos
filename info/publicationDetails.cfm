@@ -120,7 +120,8 @@
 			   <cfset rfs=rfs & idx["article-title"]>
 			<cfelseif StructKeyExists(idx, "volume-title")>
 			   <cfset rfs=rfs & idx["volume-title"]>
-					journal-title
+			  <cfelseif StructKeyExists(idx, "unstructured")>
+			   <cfset rfs=rfs & idx["unstructured"]>
 			</cfif>
 
 			<cfif len(rfs) is 0>
