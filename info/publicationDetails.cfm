@@ -229,6 +229,8 @@ Cited By (from http://opencitations.net)
 			</cfif>
 			<br>#ctdstr#. <a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
 			<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">view data</a>
+			<br><a href="publicationDetails.cfm?doi=#cdoi#">[ more information ]</a>'>
+
 
 		</cfif>
 	</cfloop>
