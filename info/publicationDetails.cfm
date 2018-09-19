@@ -122,6 +122,13 @@
 			   <cfset rfs=rfs & idx["volume-title"]>
 					journal-title
 			</cfif>
+
+			<cfif len(rfs) is 0>
+				<br>got nothing so far....
+				<cfdump var=#x.message.reference#>
+			</cfif>
+
+
 		   <cfif StructKeyExists(idx, "doi")>
 			   <cfset thisDOI=idx["doi"]>
 				<cfset rfs=rfs & '<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>'>
@@ -226,9 +233,6 @@ Cited By (from http://opencitations.net)
 			<cfif structKeyExists(tr.message,"title")>
 				<cfset tar=tr.message["title"]>
 				<cfset ctdstr=ctdstr & '#tar[1]#.'>
-			</cfif>
-			<cfif len(ctdstr) is 0>
-				<br>got nothing so far....
 			</cfif>
 			<div class="refDiv">
 			#ctdstr#. <a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
