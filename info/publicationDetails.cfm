@@ -61,7 +61,7 @@
 		<cfset z=tar["date-parts"]>
 		<br>Year:		<cfdump var=#z#>
 		<cfset y=z[1]>
-		<br>Year:		<cfdump var=#z#>
+		<br>Year:		<cfdump var=#y#>
 	</cfif>
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
