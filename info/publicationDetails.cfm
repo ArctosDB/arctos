@@ -51,17 +51,11 @@
 			Title: #tar[1]#
 		</p>
 	</cfif>
-	<cfif structKeyExists(x.message,"publisher")>
-		<br>Publisher: #x.message["publisher"]#
-	</cfif>
 	<cfif structKeyExists(x.message,"created")>
 		<cfset tar=x.message["created"]>
-		<cfdump var=#tar#>
-
 		<cfset z=tar["date-parts"]>
-		<br>Year:		<cfdump var=#z#>
 		<cfset y=z[1][1]>
-		<br>Year:		<cfdump var=#y#>
+		<br>Year:#y#
 	</cfif>
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
@@ -69,6 +63,9 @@
 	</cfif>
 	<cfif structKeyExists(x.message,"issue")>
 		<br>Issue: #x.message["issue"]#
+	</cfif>
+	<cfif structKeyExists(x.message,"publisher")>
+		<br>Publisher: #x.message["publisher"]#
 	</cfif>
 	<cfif structKeyExists(x.message,"type")>
 		<br>Type: #x.message["type"]#
@@ -85,7 +82,6 @@
 	<cfif structKeyExists(x.message,"is-referenced-by-count")>
 		<br>Referenced By Count: #x.message["is-referenced-by-count"]#
 	</cfif>
-
 	<h3>
 		Authors
 	</h3>
