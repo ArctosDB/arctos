@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_pickHeader.cfm">
 <cfif not isdefined("doi") or len(doi) is 0>
 	DOI is required
 </cfif>
