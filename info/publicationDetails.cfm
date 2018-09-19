@@ -28,6 +28,12 @@
 		<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 		</cfhttp>
+		<cfhttp result="jmc" method="get" url="https://dx.doi.org//#doi#">
+			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+			<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+		</cfhttp>
+		<cfdump var=#jmc#>
+
 		<cfif not isjson(d.Filecontent)>
 			invalid return
 			<cfdump var=#d#>
@@ -37,8 +43,8 @@
 			delete from cache_publication_sdata where source='crossref' and doi='#doi#'
 		</cfquery>
 		<cfquery name="uc" datasource="uam_god">
-			insert into cache_publication_sdata (doi,json_data,source,last_date) values
-			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'crossref',sysdate)
+			insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
 		</cfquery>
 		<br>added to cache
 		<cfset x=DeserializeJSON(d.Filecontent)>
