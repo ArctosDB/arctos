@@ -425,10 +425,10 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="award_number_#i#" id="award_number_#i#" value="#award_number#">
+							<input type="text" name="project_agent_remarks_#i#" id="project_agent_remarks_#i#" value='#project_agent_remarks#'>
 						</td>
 						<td>
-							<input type="text" name="project_agent_remarks_#i#" id="project_agent_remarks_#i#" value='#project_agent_remarks#'>
+							<input type="text" name="award_number_#i#" id="award_number_#i#" value="#award_number#">
 						</td>
 						<td nowrap valign="center">
 							<input type="button"
@@ -472,10 +472,10 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="new_project_agent_remarks#x#" id="new_project_agent_remarks#x#">
+							<input type="text" name="new_award_number#x#" id="new_award_number#x#">
 						</td>
 						<td>
-							<input type="text" name="new_award_number#x#" id="new_award_number#x#">
+							<input type="text" name="new_project_agent_remarks#x#" id="new_project_agent_remarks#x#">
 						</td>
 						<td>
 						</td>
