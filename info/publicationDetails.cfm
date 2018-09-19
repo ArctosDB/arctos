@@ -10,11 +10,19 @@
 		background-color: #edefea;
 	}
 </style>
+<script>
+	$(window).on('load', function() {
+		$("#ldgthngee").remove();
+	});
+</script>
 <cfoutput>
 
 	<cfparam name="debug" default="false">
 	<cfset debug="false">
 
+	<div id="ldgthngee">
+		<img src="/images/indicator.gif">
+	</div>
 
 	<h2>CrossRef Data</h2>
 	<cfflush>
@@ -117,6 +125,7 @@
 		</cfloop>
 	</cfif>
 
+	<cfflush>
 <h3>
 	References
 </h3>
@@ -178,6 +187,7 @@
 					<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
 				</cfif>
 			</div>
+			<cfflush>
 		</cfloop>
 	</cfif>
 
@@ -285,6 +295,7 @@ Cited By (from http://opencitations.net)
 				<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">view raw data</a>
 				<br><a href="publicationDetails.cfm?doi=#cdoi#">[ more information ]</a>
 			</div>
+			<cfflush>
 
 		</cfif>
 	</cfloop>
