@@ -1,6 +1,11 @@
 <cfif not isdefined("doi") or len(doi) is 0>
 	DOI is required
 </cfif>
+<style>
+	.refDiv{
+		border:1px solid red;
+	}
+</style>
 <cfoutput>
 
 	<cfparam name="debug" default="false">
@@ -55,7 +60,7 @@
 		<cfset tar=x.message["created"]>
 		<cfset z=tar["date-parts"]>
 		<cfset y=z[1][1]>
-		<br>Year:#y#
+		<br>Year: #y#
 	</cfif>
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
@@ -118,9 +123,13 @@
 					journal-title
 			</cfif>
 		   <cfif StructKeyExists(idx, "doi")>
-				<cfset rfs=rfs & '. <a class="external" target="_blank" href="http://dx.doi.org/#idx["doi"]#">http://dx.doi.org/#idx["doi"]#</a>'>
+			   <cfset thisDOI=idx["doi"]>
+				<cfset rfs=rfs & '. <a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>'>
+				<cfset rfs=rfs & ' <a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>'>
 			</cfif>
-			<br>#rfs#
+			<div class="refDiv">
+				#rfs#
+			</div>
 		</cfloop>
 	</cfif>
 
