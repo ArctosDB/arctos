@@ -165,7 +165,11 @@
 	</cfif>
 	<cfif structKeyExists(x.message,"container-title")>
 		<cfset tar=x.message["container-title"]>
-		<br>Container Title: #tar[1]#
+		<cfif isdefined(tar[1])>
+			<br>Container Title: #tar[1]#
+		</cfif>
+
+
 	</cfif>
 	<cfif structKeyExists(x.message,"issue")>
 		<br>Issue: #x.message["issue"]#
