@@ -132,6 +132,7 @@
 	<cfargument name="doi" required="true" type="string">
 	<cftry>
 
+		<cfset r.STATUS='SUCCESS'>
 		<!--- we should always have a cache of this --->
 		<cfquery name="dc" datasource="uam_god">
 			select * from cache_publication_sdata where source='crossref' and doi='#doi#'
@@ -162,33 +163,42 @@
 		<cfelse>
 			<cfset yr='unknown'>
 		</cfif>
+		<cfif structKeyExists(x.message,"type")>
+			<cfif x.message["type"] is 'journal-article'>
+				<cfset pt="journal article">
+			<cfelse>
+				<cfset r.STATUS='cannot_create_type'>
+				<cfset r.MSG='This app only works for journal-article'>
+			</cfif>
+		<cfelse>
+			<cfset r.status='cannot create type'>
+		</cfif>
+		<cfif r.STATUS is 'SUCCESS'>
+			<cfquery name="pid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_publication_id.nextval pid from dual
+			</cfquery>
+			<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into publication (
+					PUBLICATION_ID,
+					PUBLICATION_TYPE,
+					PUBLICATION_REMARKS,
+					IS_PEER_REVIEWED_FG,
+					FULL_CITATION,
+					SHORT_CITATION,
+					DOI
+				) values (
+					#pid.pid#,
+					'journal article',
+					'Auto-created as suspected relevant to Arctos collections',
+					1,
+					'#dc.jmamm_citation#',
+					'#ssa# #yr#',
+					'#doi#'
+				)
+			</cfquery>
+			<cfset r.PUBLICATION_ID=pid.pid>
+		</cfif>
 
-ssa:<cfdump var=#ssa#>
-
-yr:<cfdump var=#yr#>
-
-<!----
-		<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select sq_publication_id.nextval pid from dual
-		</cfquery>
-
-		<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into publication (
-				PUBLICATION_ID,
-				PUBLICATION_TYPE,
-				PUBLICATION_REMARKS,
-				IS_PEER_REVIEWED_FG,
-				FULL_CITATION,
-				SHORT_CITATION,
-				DOI
-			) values (
-
-			)
-		</cfquery>
-		---->
-
-		<cfset r.STATUS='SUCCESS'>
-		<cfset r.PUBLICATION_ID=mkp.pid>
 
 		<cfcatch>
 			<cfset r.STATUS='FAIL'>
@@ -196,26 +206,6 @@ yr:<cfdump var=#yr#>
 			<cfset r.MSG=cfcatch.message & ': ' & cfcatch.detail>
 		</cfcatch>
 	</cftry>
-
-						    DATE
-
-UAM@ARCTOSTE> desc publication
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
-  						   NOT NULL NUMBER
- PUBLISHED_YEAR 							    NUMBER
- 						   NOT NULL VARCHAR2(21)
- PUBLICATION_LOC							    VARCHAR2(255)
- 							    VARCHAR2(4000)
- 						   NOT NULL NUMBER(1)
- 							   NOT NULL VARCHAR2(4000)
-  						   NOT NULL VARCHAR2(4000)
- 									    VARCHAR2(4000)
- PMID									    VARCHAR2(4000)
-
-
-
-
 	<cfreturn r>
 </cffunction>
 <!------------------------------------------------------>
