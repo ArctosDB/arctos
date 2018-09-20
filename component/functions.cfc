@@ -147,6 +147,13 @@
 			<cfset numAuths=arraylen(x.message["author"])>
 
 			numAuths:<cfdump var=#numAuths#>
+
+			<cfset ssa=x.message["author"][1]["family"]>
+			ssa:<cfdump var=#ssa#>
+
+			<cfif numAuths is 3 >
+				<cfset ssa=x.message["author"][1]["family"]>
+			</cfif>
 		</cfif>
 
 <!----
