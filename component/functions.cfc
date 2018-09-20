@@ -149,13 +149,21 @@
 			numAuths:<cfdump var=#numAuths#>
 
 			<cfset ssa=x.message["author"][1]["family"]>
-			ssa:<cfdump var=#ssa#>
 
-			<cfif numAuths is 3 >
+
+			<cfif numAuths is 1>
 				<cfset ssa=x.message["author"][1]["family"]>
+			<cfelseif numAuths is 2>
+				<cfset ssa=x.message["author"][1]["family"] & ' and ' & x.message["author"][2]["family"]>
+			<cfelseif numAuths is 0>
+				<cfset ssa='unknown'>
+			<cfelse>
+				<cfset ssa=x.message["author"][1]["family"] & ' et. al'>
 			</cfif>
 		</cfif>
 
+
+ssa:<cfdump var=#ssa#>
 <!----
 		<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_publication_id.nextval pid from dual
