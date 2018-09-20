@@ -191,7 +191,7 @@
 					'journal article',
 					'Auto-created as suspected relevant to Arctos collections',
 					1,
-					'#dc.jmamm_citation#',
+					regexp_replace('#dc.jmamm_citation#','[^[:print:]]',''),
 					'#ssa# #yr#',
 					'#doi#'
 				)
