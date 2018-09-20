@@ -354,7 +354,7 @@
 		</cfhttp>
 		<cfif not isjson(d.Filecontent)>
 			invalid return
-			<cfdump var=#cfhttp#>
+			<cfdump var=#d#>
 			<cfabort>
 		</cfif>
 		<cfquery name="dc" datasource="uam_god">
