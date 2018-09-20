@@ -85,7 +85,7 @@
 				<cfset a.orcid=idx["ORCID"]>
 			</cfif>
 			<cfdump var=#a#>
-			<cfset aary=arrayAppend(aary,a)>
+			<cfset arrayAppend(aary,a)>
 		</cfloop>
 	</cfif>
 			<cfdump var=#aary#>
