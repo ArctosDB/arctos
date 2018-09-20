@@ -78,6 +78,12 @@
 			// hide the original
 			$("##ht_desc_orig").hide();
 		}
+
+
+
+	});
+	jQuery(document).load(function(){
+		console.log('loaded');
 		$("li[data-doi]").each(function( i, val ) {
 			console.log(val);
 
