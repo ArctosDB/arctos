@@ -115,7 +115,10 @@
 		<br>Referenced By Count: #x.message["is-referenced-by-count"]#
 	</cfif>
 	<cfif structKeyExists(x.message,"funder")>
-		<br>Funder: #x.message["funder"][1].["name"]#
+		<br>Funder:
+		<cfset fd=x.message["funder"]>
+		<cfdump var=#fd#
+
 	</cfif>
 
 
