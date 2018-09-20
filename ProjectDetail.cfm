@@ -82,7 +82,7 @@
 
 
 	});
-	$( document ).ajaxComplete(function() {
+	$( document ).ajaxStop(function() {
 		console.log('loaded');
 		$("li[data-doi]").each(function( i, val ) {
 			console.log(val);
