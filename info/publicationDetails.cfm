@@ -174,6 +174,9 @@
 			<cfif StructKeyExists(idx, "sequence")>
 				(#idx["sequence"]#)
 			</cfif>
+			<cfif StructKeyExists(idx, "ORCID")>
+				(#idx["ORCID"]#)
+			</cfif>
 		</cfloop>
 	</cfif>
 
