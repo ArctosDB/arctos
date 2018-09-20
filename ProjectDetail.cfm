@@ -84,13 +84,16 @@
 	});
 	$( document ).ajaxStop(function() {
 		console.log('loaded');
+		var dois=[];
 		$("li[data-doi]").each(function( i, val ) {
 			console.log(val);
 			var doi=$(this).attr("data-doi")
 			console.log(doi);
+			dois.push(doi);
 
 		});
-
+		var dl=dois.join(',');
+			dois.push(dl);
 
 
 	});
