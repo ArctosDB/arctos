@@ -28,6 +28,7 @@
 			</cfquery>
 			<cfset x=DeserializeJSON(d.fileContent)>
 		<cfset r.longcitation=jmc.fileContent>
+		</cfif>
 	</cfif>
 	<cfif structKeyExists(x.message,"title")>
 		<cfset r.unformatted_title=x.message["title"]>
