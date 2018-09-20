@@ -64,7 +64,9 @@
 	<cfif structKeyExists(x.message,"is-referenced-by-count")>
 		<cfset r.referenced_by=x.message["is-referenced-by-count"]>
 	</cfif>
-	<cfset i=0><!----
+	<cfset i=0>
+
+	<!----
 	<cfif structKeyExists(x.message,"author")>
 		<cfloop array="#x.message.author#" index="idx">
 			<cfset i=i+1>
@@ -128,7 +130,6 @@
 
 
 
-</cffunction>
 
 </cffunction>
 
