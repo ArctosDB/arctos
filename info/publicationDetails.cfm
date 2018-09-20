@@ -117,7 +117,7 @@
 	<cfif structKeyExists(x.message,"funder")>
 		<br>Funder:
 		<cfset fd=x.message["funder"]>
-		<cfdump var=#fd#
+		<cfdump var=#fd#>
 
 	</cfif>
 
