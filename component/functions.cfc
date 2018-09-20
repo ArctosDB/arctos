@@ -1,11 +1,198 @@
 <cfcomponent>
 
+<cffunction name="pubToAry" access="remote" returnformat="plain" queryFormat="column">
+	<cfargument name="doi" required="true" type="string">
+	<cfquery name="c" datasource="uam_god">
+		select * from cache_publication_sdata where source='crossref' and doi='#thisDOI#' and last_date > sysdate-30
+	</cfquery>
+	<cfif c.recordcount gt 0>
+		<cfset r.longcitation=c.jmamm_citation>
+		<cfset x=DeserializeJSON(c.json_data)>
+	<cfelse>
+		<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">
+			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+		</cfhttp>
+		<cfhttp result="jmc" method="get" url="https://dx.doi.org/#thisDOI#">
+			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+			<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+		</cfhttp>
+		<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
+			<cfset r.status="fail">
+		<cfelse>
+			<cfquery name="dc" datasource="uam_god">
+				delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
+			</cfquery>
+			<cfquery name="uc" datasource="uam_god">
+				insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+				 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
+			</cfquery>
+			<cfset x=DeserializeJSON(d.fileContent)>
+		<cfset r.longcitation=jmc.fileContent>
+	</cfif>
+	<cfif structKeyExists(x.message,"title")>
+		<cfset r.unformatted_title=x.message["title"]>
+	</cfif>
+	<cfif structKeyExists(x.message,"created")>
+		<cfset tar=x.message["created"]>
+		<cfset z=tar["date-parts"]>
+		<cfset r.year=z[1][1]>
+	</cfif>
+	<cfif structKeyExists(x.message,"container-title")>
+		<cfset tar=x.message["container-title"]>
+		<cfif ArrayIsDefined(tar,1)>
+			<cfset r.container_title=tar[1]>
+		</cfif>
+	</cfif>
+	<cfif structKeyExists(x.message,"issue")>
+		<cfset r.issue=x.message["issue"]>
+	</cfif>
+	<cfif structKeyExists(x.message,"publisher")>
+		<cfset r.publisher=x.message["publisher"]>
+	</cfif>
+	<cfif structKeyExists(x.message,"type")>
+		<cfset t.type=x.message["type"]>
+	</cfif>
+	<cfif structKeyExists(x.message,"volume")>
+		<cfset r.volume=x.message["volume"]>
+	</cfif>
+	<cfif structKeyExists(x.message,"page")>
+		<cfset r.page=x.message["page"]>
+	</cfif>
+	<cfif structKeyExists(x.message,"reference-count")>
+		<cfset r.reference_count=x.message["reference-count"]>
+	</cfif>
+	<cfif structKeyExists(x.message,"is-referenced-by-count")>
+		<cfset r.referenced_by=x.message["is-referenced-by-count"]>
+	</cfif>
+	<cfset i=0>
+	<cfif structKeyExists(x.message,"author")>
+		<cfloop array="#x.message.author#" index="idx">
+			<cfset i=i+1>
+		    <cfif StructKeyExists(idx, "given")>
+				<cfset r.given_name_#i#=idx["given"]>
+			</cfif>
+			<!----
+		    <cfif StructKeyExists(idx, "family")>
+				#idx["family"]#
+			</cfif>
+			<cfif StructKeyExists(idx, "sequence")>
+				(#idx["sequence"]#)
+			</cfif>
+			<cfif StructKeyExists(idx, "ORCID")>
+				<ul>
+					<cfquery name="au" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+						select agent_id from address where ADDRESS_TYPE='ORCID' and address='#idx["ORCID"]#'
+					</cfquery>
+					<cfif au.recordcount gt 0>
+						<li><a href="/agent.cfm?agent_id=#au.agent_id#" target="_blank">[ Arctos Agent ]</a></li>
+					</cfif>
+					<li><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a></li>
+				</ul>
+			</cfif>
+			---->
+		</cfloop>
+	</cfif>
+
+	<cfdump var=#r#>
+<!----------
+	<cfflush>
+	<cfif structKeyExists(x.message,"funder")>
+		<br>Funder(s):
+		<cfset fd=x.message["funder"]>
+		<ul>
+		<cfloop array="#fd#" index="fdrs">
+			<li>
+				#fdrs["name"]#
+				<cfif structKeyExists(fdrs,"DOI")>
+					(<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)
+				</cfif>
+
+				<cfif structKeyExists(fdrs,"award")>
+					<ul>
+						<cfloop array='#fdrs["award"]#' index="ax">
+							 <li>
+								 Award #ax#
+								<cfif fdrs["name"] is "National Science Foundation">
+									<a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=#ax#" target="_blank" class="external">NSF Search</a>
+								</cfif>
+							</li>
+						</cfloop>
+					</ul>
+				</cfif>
+			</li>
+		</cfloop>
+		</ul>
+	</cfif>
+
+	------->
+
+
+
+</cffunction>
+
+</cffunction>
 
 <cffunction name="autocreatepublication" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="doi" required="true" type="string">
+	<cftry>
 
-	<cfset r.STATUS='SUCCESS'>
-	<cfset r.PUBLICATION_ID='12'>
+		<!--- we should always have a cache of this --->
+		<cfquery name="dc" datasource="uam_god">
+			select * from cache_publication_sdata where source='crossref' and doi='#doi#'
+		</cfquery>
+		<cfif dc.recordcount is not 1>
+			<cfset r.STATUS='FAIL'>
+			<cfset r.PUBLICATION_ID=-1>
+			<cfset r.MSG='cache_not_found'>
+			<cfreturn r>
+		</cfif>
+
+		<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select sq_publication_id.nextval pid from dual
+		</cfquery>
+
+		<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into publication (
+				PUBLICATION_ID,
+				PUBLICATION_TYPE,
+				PUBLICATION_REMARKS,
+				IS_PEER_REVIEWED_FG,
+				FULL_CITATION,
+				SHORT_CITATION,
+				DOI
+			) values (
+
+			)
+		</cfquery>
+
+		<cfset r.STATUS='SUCCESS'>
+		<cfset r.PUBLICATION_ID=mkp.pid>
+
+		<cfcatch>
+			<cfset r.STATUS='FAIL'>
+			<cfset r.PUBLICATION_ID='-1'>
+			<cfset r.MSG=cfcatch.message & ': ' & cfcatch.detail>
+		</cfcatch>
+	</cftry>
+
+						    DATE
+
+UAM@ARCTOSTE> desc publication
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+  						   NOT NULL NUMBER
+ PUBLISHED_YEAR 							    NUMBER
+ 						   NOT NULL VARCHAR2(21)
+ PUBLICATION_LOC							    VARCHAR2(255)
+ 							    VARCHAR2(4000)
+ 						   NOT NULL NUMBER(1)
+ 							   NOT NULL VARCHAR2(4000)
+  						   NOT NULL VARCHAR2(4000)
+ 									    VARCHAR2(4000)
+ PMID									    VARCHAR2(4000)
+
+
+
 
 	<cfreturn r>
 </cffunction>
