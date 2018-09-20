@@ -92,6 +92,12 @@
 
 
 	});
+	function aasd(){
+		$("li[data-doi]").each(function( i, val ) {
+			console.log(val);
+
+		});
+		}
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
@@ -191,6 +197,8 @@
 	</cfloop>
 
 	---->
+
+	<span onclick="aasd()">aasd</span>
 	<cfloop query="a">
 		<div class="proj_agent">
 			<a target="_blank" href="/agent.cfm?agent_name=#agent_name#">#agent_name#</a>:
