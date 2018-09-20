@@ -27,7 +27,6 @@
 		<img src="/images/indicator.gif">
 	</div>
 	<cfparam name="debug" default="false">
-	<cfset debug="false">
 	<cfquery name="abp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT
 			publication.publication_id,
