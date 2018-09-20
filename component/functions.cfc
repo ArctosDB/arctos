@@ -4,7 +4,10 @@
 <cffunction name="autocreatepublication" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="doi" required="true" type="string">
 
-	<cfreturn '[STATUS: "SUCCESS","PUBLICATION_ID":12]'>
+	<cfset r.STATUS='SUCCESS'>
+	<cfset r.PUBLICATION_ID='12'>
+
+	<cfreturn r>
 </cffunction>
 <!------------------------------------------------------>
 <cffunction name="getMediaLocalityCount" access="remote" returnformat="plain" queryFormat="column">
