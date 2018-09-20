@@ -125,12 +125,17 @@
 			<cfdump var=#d#>
 			<cfabort>
 		</cfif>
+		<cfif left(jmc.statuscode,3) is "200">
+			<cfset jmcdata=jmc.fileContent>
+		<cfelse>
+			<cfset jmcdata='ERROR: #jmc.statuscode#'>
+		</cfif>
 		<cfquery name="dc" datasource="uam_god">
 			delete from cache_publication_sdata where source='crossref' and doi='#doi#'
 		</cfquery>
 		<cfquery name="uc" datasource="uam_god">
 			insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
-			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
+			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmcdata#','crossref',sysdate)
 		</cfquery>
 		<cfset x=DeserializeJSON(d.Filecontent)>
 		<cfset jmamm_citation=jmc.fileContent>
