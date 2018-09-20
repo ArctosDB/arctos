@@ -78,8 +78,14 @@
 			// hide the original
 			$("##ht_desc_orig").hide();
 		}
-		var x=$("##pubs").data();
-		console.log(x);
+		$.each( li[data-doi], function( i, val ) {
+			//$( "#" + val).prop('checked', true);
+			console.log(val);
+
+		});
+
+
+	//	$('a[data-item-id="stand-out"]')
 
 	});
 </script>
