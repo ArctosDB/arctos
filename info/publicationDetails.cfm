@@ -131,7 +131,7 @@
 						<cfloop array='#fdrs["award"]#' index="ax">
 							 <li>
 								 Award #ax#
-								<cfif ax is "National Science Foundation">
+								<cfif fdrs["name"] is "National Science Foundation">
 									<a href="https://www.nsf.gov/awardsearch/showAward?#ax#" target="_blank" class="external">NSF Search</a>
 								</cfif>
 							</li>
