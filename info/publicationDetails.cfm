@@ -114,6 +114,11 @@
 	<cfif structKeyExists(x.message,"is-referenced-by-count")>
 		<br>Referenced By Count: #x.message["is-referenced-by-count"]#
 	</cfif>
+	<cfif structKeyExists(x.message,"funder")>
+		<br>Funder: #x.message["funder"][1].["name"]#
+	</cfif>
+
+
 	<h3>
 		Authors
 	</h3>
