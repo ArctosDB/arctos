@@ -64,14 +64,14 @@
 	<cfif structKeyExists(x.message,"is-referenced-by-count")>
 		<cfset r.referenced_by=x.message["is-referenced-by-count"]>
 	</cfif>
-	<cfset i=0>
+	<cfset i=0><!----
 	<cfif structKeyExists(x.message,"author")>
 		<cfloop array="#x.message.author#" index="idx">
 			<cfset i=i+1>
 		    <cfif StructKeyExists(idx, "given")>
 				<cfset r.given_name_#i#=idx["given"]>
 			</cfif>
-			<!----
+
 		    <cfif StructKeyExists(idx, "family")>
 				#idx["family"]#
 			</cfif>
@@ -89,10 +89,10 @@
 					<li><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a></li>
 				</ul>
 			</cfif>
-			---->
+
 		</cfloop>
 	</cfif>
-
+---->
 	<cfdump var=#r#>
 <!----------
 	<cfflush>
