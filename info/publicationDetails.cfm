@@ -27,7 +27,7 @@
 		<img src="/images/indicator.gif">
 	</div>
 	<cfparam name="debug" default="false">
-	<cfset debug="false">
+	<cfset debug="true">
 
 
 	<h2>CrossRef Data</h2>
