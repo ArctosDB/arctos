@@ -175,14 +175,15 @@
 				(#idx["sequence"]#)
 			</cfif>
 			<cfif StructKeyExists(idx, "ORCID")>
-				<cfquery name="au" datasource="uam_god">
-					select agent_id from address where ADDRESS_TYPE='ORCID' and address='#idx["ORCID"]#'
-				</cfquery>
-				<cfif au.recordcount gt 0>
-					<br><a href="/agent.cfm?agent_id=#au.agent_id#" target="_blank">[ Arctos Agent ]</a>
-				</cfif>
-
-				<br><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a>
+				<ul>
+					<cfquery name="au" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+						select agent_id from address where ADDRESS_TYPE='ORCID' and address='#idx["ORCID"]#'
+					</cfquery>
+					<cfif au.recordcount gt 0>
+						<li><a href="/agent.cfm?agent_id=#au.agent_id#" target="_blank">[ Arctos Agent ]</a></li>
+					</cfif>
+					<li><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a></li>
+				</ul>
 			</cfif>
 		</cfloop>
 	</cfif>
@@ -362,7 +363,7 @@ Cited By (from http://opencitations.net)
 				<br><a class="external" target="_blank" href="http://dx.doi.org/#cdoi#">http://dx.doi.org/#cdoi#</a>
 				<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">view raw data</a>
 				<br><a href="publicationDetails.cfm?doi=#cdoi#">[ more information ]</a>
-				<cfquery name="ap" datasource="uam_god" cachedwithin="#createtimespan(0,0,15,0)#">
+				<cfquery name="ap" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 					select publication_id from publication where doi='#cdoi#'
 				</cfquery>
 				<cfif ap.recordcount gt 0>
