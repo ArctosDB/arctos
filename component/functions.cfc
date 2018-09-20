@@ -67,35 +67,28 @@
 	</cfif>
 	<cfset i=0>
 
-	<!----
+	<cfset aary=[]>
 	<cfif structKeyExists(x.message,"author")>
 		<cfloop array="#x.message.author#" index="idx">
 			<cfset i=i+1>
 		    <cfif StructKeyExists(idx, "given")>
-				<cfset r.given_name_#i#=idx["given"]>
+				<cfset a.given_name=idx["given"]>
 			</cfif>
 
 		    <cfif StructKeyExists(idx, "family")>
-				#idx["family"]#
+				<cfset a.family_name=idx["family"]>
 			</cfif>
 			<cfif StructKeyExists(idx, "sequence")>
-				(#idx["sequence"]#)
+				<cfset a.sequence=idx["sequence"]>
 			</cfif>
 			<cfif StructKeyExists(idx, "ORCID")>
-				<ul>
-					<cfquery name="au" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-						select agent_id from address where ADDRESS_TYPE='ORCID' and address='#idx["ORCID"]#'
-					</cfquery>
-					<cfif au.recordcount gt 0>
-						<li><a href="/agent.cfm?agent_id=#au.agent_id#" target="_blank">[ Arctos Agent ]</a></li>
-					</cfif>
-					<li><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a></li>
-				</ul>
+				<cfset a.orcid=idx["ORCID"]>
 			</cfif>
-
+			<cfdump var=#a#>
+			<cfset aary=arrayAppend(aary,a)>
 		</cfloop>
 	</cfif>
----->
+			<cfdump var=#aary#>
 	<cfdump var=#r#>
 <!----------
 	<cfflush>
