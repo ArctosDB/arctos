@@ -120,7 +120,7 @@
 		<cfdump var=#fd#>
 		<cfset fd1=fd[1]>
 		<cfdump var=#fd1#>
-		<cfset fd2=fdi["name"]>
+		<cfset fd2=fd1["name"]>
 		<cfdump var=#fd2#>
 
 
