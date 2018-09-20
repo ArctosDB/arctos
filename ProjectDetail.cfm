@@ -78,7 +78,7 @@
 			// hide the original
 			$("##ht_desc_orig").hide();
 		}
-		$.each( li[data-doi], function( i, val ) {
+		$.each( "li[data-doi]", function( i, val ) {
 			console.log(val);
 
 		});
