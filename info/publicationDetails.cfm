@@ -47,6 +47,15 @@
 			publication.publication_id = citation.publication_id (+) and
 			publication.publication_id = pauth.publication_id (+) and
 			doi='#doi#'
+		GROUP BY
+			publication.publication_id,
+			publication.full_citation,
+			publication.publication_remarks,
+			publication.doi,
+			publication.pmid,
+			getPreferredAgentName(pauth.AGENT_ID),
+			pauth.AUTHOR_ROLE,
+			pauth.agent_id
 	</cfquery>
 		<h2>Arctos Publication</h2>
 	<cfif abp.recordcount gt 0>
