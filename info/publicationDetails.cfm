@@ -466,6 +466,10 @@ Cited By (from http://opencitations.net)
 				</cfquery>
 				<cfif ap.recordcount gt 0>
 					<br><a target="_blank" href="/publication/#ap.publication_id#">Arctos Publication</a>
+				<cfelse>
+					<div id="acp_#hash(cdoi)#">
+						<span class="likeLink" onclick="autocreatepublication('#cdoi#','acp_#hash(cdoi)#')">Auto-Create</span>
+					</div>
 				</cfif>
 			</div>
 			<cfflush>
