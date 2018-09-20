@@ -95,7 +95,7 @@
 	<cfelse>
 		Publication is not in Arctos.
 	</cfif>
-
+	<cfflush>
 	<h2>CrossRef Data</h2>
 	<cfflush>
 	<p>
@@ -140,6 +140,7 @@
 		<cfset x=DeserializeJSON(d.Filecontent)>
 		<cfset jmamm_citation=jmc.fileContent>
 	</cfif>
+
 
 	<cfif debug is true>
 		<cfdump var=#x#>
