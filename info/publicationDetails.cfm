@@ -122,12 +122,13 @@
 		<cfdump var=#fd1#>
 		<cfset fd2=fd1["name"]>
 		<cfset fdd=fd1["DOI"]>
-		Funder: #fd2# (<a href="https://dx.doi.org/#fdd#" target="_blank" class="external">#fdd#</a>
+		Funder: #fd2# (<a href="https://dx.doi.org/#fdd#" target="_blank" class="external">#fdd#</a>)
 
 		<cfset awd=fd1["award"]>
+		<cfdump var=#awd#>
 		<ul>
-		<cfloop array="#awd#" index="idx">
-			 <li>#awd[idx]#</li>
+		<cfloop array="#awd#" index="ax">
+			 <li>#ax#</li>
 		</cfloop>
 		</ul>
 
