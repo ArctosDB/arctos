@@ -1,4 +1,12 @@
 <cfcomponent>
+
+
+<cffunction name="autocreatepublication" access="remote" returnformat="plain" queryFormat="column">
+	<cfparam name="doi" type="string" required="true">
+
+	<cfreturn '[STATUS: "SUCCESS","PUBLICATION_ID":12]'>
+</cffunction>
+<!------------------------------------------------------>
 <cffunction name="getMediaLocalityCount" access="remote" returnformat="plain" queryFormat="column">
 	<cfparam name="locid" type="numeric">
 	<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

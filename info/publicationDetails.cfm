@@ -20,6 +20,30 @@
 	$(window).on('load', function() {
 		$("#ldgthngee").remove();
 	});
+	function autocreatepublication(doi,eid){
+		#("#' + eid).html('<img src="/images/indicator.gif">');
+		$.ajax({
+		url: "/component/functions.cfc?queryformat=column",
+		type: "POST",
+		dataType: "json",
+		async: false,
+		data: {
+			method:  "autocreatepublication",
+			doi : doi,
+			returnformat : "json"
+		},
+		success: function(r) {
+			alert(r);
+			console.log(r);
+		},
+		error: function (xhr, textStatus, errorThrown){
+		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+		}
+	});
+
+
+	}
+
 </script>
 <cfoutput>
 
@@ -193,50 +217,7 @@
 	<cfif structKeyExists(x.message,"is-referenced-by-count")>
 		<br>Referenced By Count: #x.message["is-referenced-by-count"]#
 	</cfif>
-	<cfif structKeyExists(x.message,"funder")>
 
-		<br>Funder(s):
-		<cfset fd=x.message["funder"]>
-		<ul>
-		<cfloop array="#fd#" index="fdrs">
-			<li>
-				#fdrs["name"]#
-				<cfif structKeyExists(fdrs,"DOI")>
-					(<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)
-				</cfif>
-
-				<cfif structKeyExists(fdrs,"award")>
-					<ul>
-						<cfloop array='#fdrs["award"]#' index="ax">
-							 <li>
-								 Award #ax#
-								<cfif fdrs["name"] is "National Science Foundation">
-									<a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=#ax#" target="_blank" class="external">NSF Search</a>
-								</cfif>
-							</li>
-						</cfloop>
-					</ul>
-				</cfif>
-			</li>
-		</cfloop>
-		</ul>
-		<!----
-		<cfdump var=#fd#>
-		<cfset fd1=fd[1]>
-		<cfdump var=#fd1#>
-		<cfset fd2=fd1["name"]>
-		<cfset fdd=fd1["DOI"]>
-		Funder: #fd2# (<a href="https://dx.doi.org/#fdd#" target="_blank" class="external">#fdd#</a>)
-
-		<cfset awd=fd1["award"]>
-		<cfdump var=#awd#>
-		<ul>
-		<cfloop array="#awd#" index="ax">
-			 <li>#ax#</li>
-		</cfloop>
-		</ul>
----->
-	</cfif>
 
 
 	<h3>
@@ -267,6 +248,34 @@
 		</cfloop>
 	</cfif>
 
+	<cfflush>
+	<cfif structKeyExists(x.message,"funder")>
+		<br>Funder(s):
+		<cfset fd=x.message["funder"]>
+		<ul>
+		<cfloop array="#fd#" index="fdrs">
+			<li>
+				#fdrs["name"]#
+				<cfif structKeyExists(fdrs,"DOI")>
+					(<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)
+				</cfif>
+
+				<cfif structKeyExists(fdrs,"award")>
+					<ul>
+						<cfloop array='#fdrs["award"]#' index="ax">
+							 <li>
+								 Award #ax#
+								<cfif fdrs["name"] is "National Science Foundation">
+									<a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=#ax#" target="_blank" class="external">NSF Search</a>
+								</cfif>
+							</li>
+						</cfloop>
+					</ul>
+				</cfif>
+			</li>
+		</cfloop>
+		</ul>
+	</cfif>
 	<cfflush>
 <h3>
 	References
@@ -332,6 +341,10 @@
 					</cfquery>
 					<cfif ap.recordcount gt 0>
 						<br><a target="_blank" href="/publication/#ap.publication_id#">Arctos Publication</a>
+					<cfelse>
+						<div id="acp_#hash(doi)#">
+							<span class="likeLink" onclick="autocreatepublication('#thisDOI#','acp_#hash(doi)#')">Auto-Create</span>
+						</div>
 					</cfif>
 				</cfif>
 			</div>
