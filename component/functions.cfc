@@ -142,7 +142,13 @@
 			<cfset r.MSG='cache_not_found'>
 			<cfreturn r>
 		</cfif>
+		<cfset x=DeserializeJSON(dc.json_data)>
+		<cfif structKeyExists(x.message,"author")>
+			<cfset numAuths=arraylen(x.message["author"])>
 
+			numAuths:<cfdump var=#numAuths#>
+
+<!----
 		<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_publication_id.nextval pid from dual
 		</cfquery>
@@ -160,6 +166,7 @@
 
 			)
 		</cfquery>
+		---->
 
 		<cfset r.STATUS='SUCCESS'>
 		<cfset r.PUBLICATION_ID=mkp.pid>
