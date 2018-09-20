@@ -78,7 +78,7 @@
 			// hide the original
 			$("##ht_desc_orig").hide();
 		}
-		var x=$("li").find(`[data-doi='${current}']`);
+		var x=$("##pubs").data();
 		console.log(x);
 
 	});
