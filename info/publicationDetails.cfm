@@ -355,7 +355,6 @@
 		<cfif not isjson(d.Filecontent)>
 			invalid return
 			<cfdump var=#d#>
-			<cfabort>
 		</cfif>
 		<cfquery name="dc" datasource="uam_god">
 			delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
