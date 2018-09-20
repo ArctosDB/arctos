@@ -129,7 +129,7 @@
 				<cfif structKeyExists(fdrs,"award")>
 					<ul>
 						<cfloop array='#fdrs["award"]#' index="ax">
-							 <li>#ax#</li>
+							 <li>Award #ax#</li>
 						</cfloop>
 					</ul>
 				</cfif>
