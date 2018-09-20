@@ -116,7 +116,10 @@
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 			<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 		</cfhttp>
-
+		<cfif debug is true>
+			<cfdump var=#jmc#>
+			<cfdump var=#d#>
+		</cfif>
 		<cfif not isjson(d.Filecontent)>
 			invalid return
 			<cfdump var=#d#>
