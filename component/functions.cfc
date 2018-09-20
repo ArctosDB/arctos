@@ -2,7 +2,7 @@
 
 
 <cffunction name="autocreatepublication" access="remote" returnformat="plain" queryFormat="column">
-	<cfparam name="doi" type="string" required="true">
+	<cfargument name="doi" required="true" type="string">
 
 	<cfreturn '[STATUS: "SUCCESS","PUBLICATION_ID":12]'>
 </cffunction>
