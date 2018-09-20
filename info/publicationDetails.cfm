@@ -121,7 +121,11 @@
 		<ul>
 		<cfloop array="#fd#" index="fdrs">
 			<li>
-				#fdrs["name"]# (<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)
+				#fdrs["name"]#
+				<cfif structKeyExists(fdrs,"DOI")>
+					(<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)
+				</cfif>
+
 				<cfif structKeyExists(fdrs,"award")>
 					<ul>
 						<cfloop array='#fdrs["award"]#' index="ax">
