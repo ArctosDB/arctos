@@ -82,7 +82,7 @@
 
 
 	});
-	jQuery(document).load(function(){
+	$( window ).load(function() {
 		console.log('loaded');
 		$("li[data-doi]").each(function( i, val ) {
 			console.log(val);
