@@ -80,6 +80,7 @@
 		Full Citation: #pubs.full_citation#
 		<br>Number Citations: #pubs.NUMCITS#
 		<br>Remarks: #pubs.publication_remarks#
+		<br>Context: <a target="_blank" href="/publication/#abp.publication_id#">[ view in Arctos ]</a>
 		<cfquery name="pauths" dbtype="query">
 			select authn,AUTHOR_ROLE,agent_id from abp where authn is not null group by authn,AUTHOR_ROLE,agent_id order by authn
 		</cfquery>
