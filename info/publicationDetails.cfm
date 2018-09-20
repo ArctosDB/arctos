@@ -21,7 +21,7 @@
 		$("#ldgthngee").remove();
 	});
 	function autocreatepublication(doi,eid){
-		$("#' + eid).html('<img src="/images/indicator.gif">');
+		$("#" + eid).html('<img src="/images/indicator.gif">');
 		$.ajax({
 		url: "/component/functions.cfc?queryformat=column",
 		type: "POST",
