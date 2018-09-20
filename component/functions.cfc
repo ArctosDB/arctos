@@ -147,6 +147,7 @@
 			<cfset numAuths=arraylen(x.message["author"])>
 
 			numAuths:<cfdump var=#numAuths#>
+		</cfif>
 
 <!----
 		<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
