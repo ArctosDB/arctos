@@ -28,7 +28,64 @@
 	</div>
 	<cfparam name="debug" default="false">
 	<cfset debug="false">
+	<cfquery name="abp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT
+			publication.publication_id,
+			publication.full_citation,
+			publication.publication_remarks,
+			publication.doi,
+			publication.pmid,
+			count(distinct(citation.collection_object_id)) numCits,
+			getPreferredAgentName(pauth.AGENT_ID) authn,
+			pauth.AUTHOR_ROLE,
+			pauth.agent_id
+		FROM
+			publication,
+			citation,
+			publication_agent pauth
+		WHERE
+			publication.publication_id = citation.publication_id (+) and
+			publication.publication_id = pauth.publication_id (+) and
+			doi='#doi#'
+	</cfquery>
+		<h2>Arctos Publication</h2>
+	<cfif abp.recordcount gt 0>
+		<cfquery name="pubs" dbtype="query">
+			SELECT
+				publication_id,
+				full_citation,
+				doi,
+				pmid,
+				publication_remarks,
+				NUMCITS
+			FROM
+				abp
+			GROUP BY
+				publication_id,
+				full_citation,
+				doi,
+				pmid,
+				publication_remarks,
+				NUMCITS
+		</cfquery>
+		Full Citation: #pubs.full_citation#
+		<br>Number Citations: #pubs.NUMCITS#
+		<br>Remarks: #pubs.publication_remarks#
+		<cfquery name="pauths" dbtype="query">
+			select authn,AUTHOR_ROLE,agent_id from abp where authn is not null group by authn,AUTHOR_ROLE,agent_id order by authn
+		</cfquery>
+		<li>
+			Publication Agents
+			<ul>
+				<cfloop query="pauths">
+					<li><a target="_blank" href="/agent.cfm?agent_id=#agent_id#">#authn#</a> (#AUTHOR_ROLE#)</li>
+				</cfloop>
+			</ul>
+		</li>
 
+	<cfelse>
+		Publication is not in Arctos.
+	</cfif>
 
 	<h2>CrossRef Data</h2>
 	<cfflush>
