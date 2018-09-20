@@ -31,7 +31,7 @@
 		</cfif>
 	</cfif>
 	<cfif structKeyExists(x.message,"title")>
-		<cfset r.unformatted_title=x.message["title"]>
+		<cfset r.unformatted_title=x.message["title"][1]>
 	</cfif>
 	<cfif structKeyExists(x.message,"created")>
 		<cfset tar=x.message["created"]>
