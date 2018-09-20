@@ -92,6 +92,7 @@
 			dois.push(doi);
 
 		});
+		console.log(dois);
 		var dl=dois.join(',');
 			dois.push(dl);
 
