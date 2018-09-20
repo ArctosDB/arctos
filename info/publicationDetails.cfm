@@ -38,6 +38,8 @@
 				$("#" + eid).html('').append(tl);
 			} else {
 				alert(r.STATUS + ': ' + r.MSG);
+				$("#" + eid).html('');
+
 			}
 		},
 		error: function (xhr, textStatus, errorThrown){
