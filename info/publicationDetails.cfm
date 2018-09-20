@@ -175,7 +175,14 @@
 				(#idx["sequence"]#)
 			</cfif>
 			<cfif StructKeyExists(idx, "ORCID")>
-				(#idx["ORCID"]#)
+				<cfquery name="au" datasource="uam_god">
+					select agent_id from address where ADDRESS_TYPE='ORCID' and address='#idx["ORCID"]#'
+				</cfquery>
+				<cfif au.recordcount gt 0>
+					<br><a href="/agent.cfm?agent_id=#au.agent_id#" target="_blank">[ Arctos Agent ]</a>
+				</cfif>
+
+				<br><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a>
 			</cfif>
 		</cfloop>
 	</cfif>
