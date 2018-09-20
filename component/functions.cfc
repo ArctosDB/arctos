@@ -145,12 +145,6 @@
 		<cfset x=DeserializeJSON(dc.json_data)>
 		<cfif structKeyExists(x.message,"author")>
 			<cfset numAuths=arraylen(x.message["author"])>
-
-			numAuths:<cfdump var=#numAuths#>
-
-			<cfset ssa=x.message["author"][1]["family"]>
-
-
 			<cfif numAuths is 1>
 				<cfset ssa=x.message["author"][1]["family"]>
 			<cfelseif numAuths is 2>
@@ -160,10 +154,19 @@
 			<cfelse>
 				<cfset ssa=x.message["author"][1]["family"] & ' et. al'>
 			</cfif>
+		<cfelse>
+			<cfset ssa='unknown'>
+		</cfif>
+		<cfif structKeyExists(x.message,"created")>
+			<cfset yr=x.message["created"]["date-parts"][1][1]>
+		<cfelse>
+			<cfset yr='unknown'>
 		</cfif>
 
-
 ssa:<cfdump var=#ssa#>
+
+yr:<cfdump var=#yr#>
+
 <!----
 		<cfquery name="mkp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select sq_publication_id.nextval pid from dual
