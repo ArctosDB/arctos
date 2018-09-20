@@ -120,9 +120,17 @@
 		<cfset fd=x.message["funder"]>
 		<ul>
 		<cfloop array="#fd#" index="fdrs">
-			<li>fdrs["name"] (<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)</li>
+			<li>
+				#fdrs["name"]# (<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)
+				<ul>
+				<cfloop array='#fdrs["award"]#' index="ax">
+					 <li>#ax#</li>
+				</cfloop>
+				</ul>
+			</li>
 		</cfloop>
 		</ul>
+		<!----
 		<cfdump var=#fd#>
 		<cfset fd1=fd[1]>
 		<cfdump var=#fd1#>
@@ -137,7 +145,7 @@
 			 <li>#ax#</li>
 		</cfloop>
 		</ul>
-
+---->
 	</cfif>
 
 
