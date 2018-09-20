@@ -129,7 +129,12 @@
 				<cfif structKeyExists(fdrs,"award")>
 					<ul>
 						<cfloop array='#fdrs["award"]#' index="ax">
-							 <li>Award #ax#</li>
+							 <li>
+								 Award #ax#
+								<cfif ax is "National Science Foundation">
+									<a href="https://www.nsf.gov/awardsearch/showAward?#ax#" target="_blank" class="external">NSF Search</a>
+								</cfif>
+							</li>
 						</cfloop>
 					</ul>
 				</cfif>
