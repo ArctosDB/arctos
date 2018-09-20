@@ -89,6 +89,7 @@
 		</cfloop>
 	</cfif>
 			<cfdump var=#aary#>
+	<cfset r.authors=aary>
 	<cfdump var=#r#>
 <!----------
 	<cfflush>
