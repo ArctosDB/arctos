@@ -93,8 +93,8 @@
 
 		});
 		console.log(dois);
-		var dl=dois.join(',');
-			dois.push(dl);
+		var dl=dois.join();
+		console.log(dl);
 
 
 	});
