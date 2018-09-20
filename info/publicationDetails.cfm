@@ -186,9 +186,11 @@
 
 	<cfif structKeyExists(x.message,"title")>
 		<cfset tar=x.message["title"]>
+		<cfif ArrayIsDefined(tar,1)>
 		<p>
 			Title: #tar[1]#
 		</p>
+		</cfif>
 	</cfif>
 	<cfif structKeyExists(x.message,"created")>
 		<cfset tar=x.message["created"]>
