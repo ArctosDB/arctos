@@ -344,6 +344,7 @@
 					 <cfset thisDOI=idx["doi"]>
 					<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>
 					<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
+					<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">view raw data</a>
 					<cfquery name="ap" datasource="uam_god" cachedwithin="#createtimespan(0,0,15,0)#">
 						select publication_id from publication where doi='#thisDOI#'
 					</cfquery>
