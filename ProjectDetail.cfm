@@ -78,6 +78,9 @@
 			// hide the original
 			$("##ht_desc_orig").hide();
 		}
+		var x=$("li").find(`[data-doi='${current}']`);
+		console.log(x);
+
 	});
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
