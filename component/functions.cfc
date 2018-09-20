@@ -3,16 +3,16 @@
 <cffunction name="pubToAry" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="doi" required="true" type="string">
 	<cfquery name="c" datasource="uam_god">
-		select * from cache_publication_sdata where source='crossref' and doi='#thisDOI#' and last_date > sysdate-30
+		select * from cache_publication_sdata where source='crossref' and doi='#doi#' and last_date > sysdate-30
 	</cfquery>
 	<cfif c.recordcount gt 0>
 		<cfset r.longcitation=c.jmamm_citation>
 		<cfset x=DeserializeJSON(c.json_data)>
 	<cfelse>
-		<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">
+		<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 		</cfhttp>
-		<cfhttp result="jmc" method="get" url="https://dx.doi.org/#thisDOI#">
+		<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
 			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 			<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 		</cfhttp>
@@ -20,11 +20,11 @@
 			<cfset r.status="fail">
 		<cfelse>
 			<cfquery name="dc" datasource="uam_god">
-				delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
+				delete from cache_publication_sdata where source='crossref' and doi='#doi#'
 			</cfquery>
 			<cfquery name="uc" datasource="uam_god">
 				insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
-				 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
+				 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
 			</cfquery>
 			<cfset x=DeserializeJSON(d.fileContent)>
 		<cfset r.longcitation=jmc.fileContent>
