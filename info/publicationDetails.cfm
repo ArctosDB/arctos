@@ -352,8 +352,8 @@
 					<cfif ap.recordcount gt 0>
 						<br><a target="_blank" href="/publication/#ap.publication_id#">Arctos Publication</a>
 					<cfelse>
-						<div id="acp_#hash(doi)#">
-							<span class="likeLink" onclick="autocreatepublication('#thisDOI#','acp_#hash(doi)#')">Auto-Create</span>
+						<div id="acp_#hash(thisDOI)#">
+							<span class="likeLink" onclick="autocreatepublication('#thisDOI#','acp_#hash(thisDOI)#')">Auto-Create</span>
 						</div>
 					</cfif>
 				</cfif>
