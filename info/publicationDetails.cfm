@@ -137,11 +137,42 @@
 </h3>
 	<cfif structKeyExists(x.message,"reference")>
 		<cfloop array="#x.message.reference#" index="idx">
-			<cfif StructKeyExists(idx, "unstructured")>
-				<cfset rfs=idx["unstructured"]>
+			<!--- referenes are a mess, if we have a DOI just use the damned thing --->
+			<cfif StructKeyExists(idx, "doi")>
+				<cfset thisDOI=idx["doi"]>
+				<cfquery name="c" datasource="uam_god">
+					select * from cache_publication_sdata where source='crossref' and doi='#thisDOI#' and last_date > sysdate-30
+				</cfquery>
+				<cfif c.recordcount gt 0>
+					<cfset rfs=c.jmamm_citation>
+				<cfelse>
+					<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">
+						<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+					</cfhttp>
+					<cfhttp result="jmc" method="get" url="https://dx.doi.org/#thisDOI#">
+						<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+						<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+					</cfhttp>
+					<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
+						<cfset rfs="invalid return; https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI# and / or 	https://dx.doi.org/#thisDOI# did not resolve (possibly not a valid DOI?)">
+					<cfelse>
+						<cfquery name="dc" datasource="uam_god">
+							delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
+						</cfquery>
+						<cfquery name="uc" datasource="uam_god">
+							insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+							 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
+						</cfquery>
+						<cfset rfs=jmc.fileContent>
+					</cfif>
+				</cfif>
 			<cfelse>
-		   		<cfset rfs="">
-			    <cfif StructKeyExists(idx, "author")>
+				<!--- no DOI, use what we have --->
+				<cfif StructKeyExists(idx, "unstructured")>
+					<cfset rfs=idx["unstructured"]>
+				<cfelse>
+			   		<cfset rfs="">
+				<cfif StructKeyExists(idx, "author")>
 					<cfset rfs=rfs & idx["author"]>
 				</cfif>
 			    <cfif StructKeyExists(idx, "year")>
@@ -152,38 +183,6 @@
 				<cfelseif StructKeyExists(idx, "volume-title")>
 				   <cfset rfs=rfs & idx["volume-title"]>
 			   </cfif>
-			</cfif>
-
-			<cfif len(rfs) is 0>
-				<cfif StructKeyExists(idx, "doi")>
-					<cfset thisDOI=idx["doi"]>
-					<cfquery name="c" datasource="uam_god">
-						select * from cache_publication_sdata where source='crossref' and doi='#thisDOI#' and last_date > sysdate-30
-					</cfquery>
-					<cfif c.recordcount gt 0>
-						<cfset rfs=c.jmamm_citation>
-					<cfelse>
-						<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">
-							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-						</cfhttp>
-						<cfhttp result="jmc" method="get" url="https://dx.doi.org/#thisDOI#">
-							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-							<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
-						</cfhttp>
-						<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
-							<cfset rfs="invalid return; https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI# and / or 	https://dx.doi.org/#thisDOI# did not resolve (possibly not a valid DOI?)">
-						<cfelse>
-							<cfquery name="dc" datasource="uam_god">
-								delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
-							</cfquery>
-							<cfquery name="uc" datasource="uam_god">
-								insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
-								 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
-							</cfquery>
-							<cfset rfs=jmc.fileContent>
-						</cfif>
-					</cfif>
-				</cfif>
 			</cfif>
 			<div class="refDiv">
 				#rfs#
