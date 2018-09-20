@@ -82,6 +82,7 @@
 
 
 	});
+	/*
 	$( document ).ajaxStop(function() {
 		console.log('loaded');
 		var dois=[];
@@ -98,7 +99,7 @@
 
 
 	});
-
+	*/
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
