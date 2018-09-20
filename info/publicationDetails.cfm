@@ -35,6 +35,13 @@
 		success: function(r) {
 			alert(r);
 			console.log(r);
+			if (r.STATUS=='SUCCESS'){
+				var tl='<a target="_blank" href="/publication/' + r.PUBLICATION_ID + '">[ view publication in Arctos ]</a>';
+				$("#" + eid).html(tl);
+
+			} else {
+				alert(r.STATUS + ': ' + r.MSG);
+			}
 		},
 		error: function (xhr, textStatus, errorThrown){
 		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
