@@ -128,7 +128,7 @@
 
 </cffunction>
 
-<cffunction name="autocreatepublication" access="remote" returnformat="plain" queryFormat="column">
+<cffunction name="autocreatepublication" access="remote" returnformat="json" queryFormat="column">
 	<cfargument name="doi" required="true" type="string">
 	<cftry>
 
