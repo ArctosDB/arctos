@@ -120,7 +120,7 @@
 		<cfset fd=x.message["funder"]>
 		<ul>
 		<cfloop array="#fd#" index="fdrs">
-			<li><cfdump var=#fdrs#></li>
+			<li>fdrs["name"] (<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)</li>
 		</cfloop>
 		</ul>
 		<cfdump var=#fd#>
