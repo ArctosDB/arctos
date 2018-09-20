@@ -79,13 +79,11 @@
 			$("##ht_desc_orig").hide();
 		}
 		$.each( li[data-doi], function( i, val ) {
-			//$( "#" + val).prop('checked', true);
 			console.log(val);
 
 		});
 
 
-	//	$('a[data-item-id="stand-out"]')
 
 	});
 </script>
