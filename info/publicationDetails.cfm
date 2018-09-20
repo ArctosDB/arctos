@@ -118,6 +118,11 @@
 		<br>Funder:
 		<cfset fd=x.message["funder"]>
 		<cfdump var=#fd#>
+		<cfset fd1=fd[1]>
+		<cfdump var=#fd1#>
+		<cfset fd2=fdi["name"]>
+		<cfdump var=#fd2#>
+
 
 	</cfif>
 
