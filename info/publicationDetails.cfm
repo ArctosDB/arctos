@@ -172,17 +172,18 @@
 					<cfset rfs=idx["unstructured"]>
 				<cfelse>
 			   		<cfset rfs="">
-				<cfif StructKeyExists(idx, "author")>
-					<cfset rfs=rfs & idx["author"]>
+					<cfif StructKeyExists(idx, "author")>
+						<cfset rfs=rfs & idx["author"]>
+					</cfif>
+				    <cfif StructKeyExists(idx, "year")>
+						<cfset rfs=rfs & ' ' & idx["year"] & '. '>
+					</cfif>
+				   <cfif StructKeyExists(idx, "article-title")>
+					   <cfset rfs=rfs & idx["article-title"]>
+					<cfelseif StructKeyExists(idx, "volume-title")>
+					   <cfset rfs=rfs & idx["volume-title"]>
+				   </cfif>
 				</cfif>
-			    <cfif StructKeyExists(idx, "year")>
-					<cfset rfs=rfs & ' ' & idx["year"] & '. '>
-				</cfif>
-			   <cfif StructKeyExists(idx, "article-title")>
-				   <cfset rfs=rfs & idx["article-title"]>
-				<cfelseif StructKeyExists(idx, "volume-title")>
-				   <cfset rfs=rfs & idx["volume-title"]>
-			   </cfif>
 			</cfif>
 			<div class="refDiv">
 				#rfs#
