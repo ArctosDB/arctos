@@ -132,7 +132,7 @@
 							 <li>
 								 Award #ax#
 								<cfif fdrs["name"] is "National Science Foundation">
-									<a href="https://www.nsf.gov/awardsearch/showAward?#ax#" target="_blank" class="external">NSF Search</a>
+									<a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=#ax#" target="_blank" class="external">NSF Search</a>
 								</cfif>
 							</li>
 						</cfloop>
