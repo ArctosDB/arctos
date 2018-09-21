@@ -107,6 +107,12 @@
 						<span class="helpLink" id="project_award_number">Award Number</span>
 					</label>
 					<input name="award_number" id="award_number" type="text">
+					<label for="proj_pubs">Project Publications</label>
+					<select name="proj_pubs" id="proj_pubs">
+						<option value=""></option>
+						<option value="require">require publications</option>
+						<option value="require_none">require no publications</option>
+					</select>
 				</td>
 				<td>
 					<h4>Publication</h4>
@@ -218,6 +224,18 @@
 				<cfset whr = "#whr# AND projmedia.media_id is null">
 			</cfif>
 		</cfif>
+		<cfif isdefined("proj_pubs") AND len(proj_pubs) gt 0>
+			<cfset go="yes">
+			<cfset frm=frm & ", project_publication projpub">
+			<cfset whr = "#whr# AND project.project_id=projpub.project_id (+)">
+			<cfif proj_pubs is "require">
+				<cfset whr = "#whr# AND projpub.project_id is not null">
+			<cfelseif  proj_pubs is "exclude">
+				<cfset whr = "#whr# AND projpub.project_id is null">
+			</cfif>
+		</cfif>
+
+
 
 		<cfif isdefined("agent_role") AND len(agent_role) gt 0>
 			<cfset title = "#agent_role#">

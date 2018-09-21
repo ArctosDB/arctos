@@ -117,10 +117,7 @@
 						tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
 						tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + "'" + ');">CrossRef Data</span></li>';
 						tra+='</ul>';
-						console.log(tra);
-						//tra='i like tatertots';
 						var escdoi=v.DOI.replace(/[\W_]+/g,"_");
-						console.log(escdoi);
 						$('##x' + escdoi).append(tra);
 					});
 				} else {
