@@ -136,6 +136,7 @@
 		<cfset ar=[]>
 		<cfloop list="#doilist#" index="doi">
 			<cfset doi=replace(doi,'"','all')>
+			<cfset ta=structNew()>
 			<p><cfdump var=#doi#></p>
 			<cfquery name="c" datasource="uam_god">
 				select * from cache_publication_sdata where source='crossref' and doi='#doi#'
