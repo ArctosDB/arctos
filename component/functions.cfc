@@ -130,7 +130,6 @@
 
 <cffunction name="getPubCitSts" access="remote" returnformat="json" queryFormat="column">
 	<cfargument name="doilist" required="true" type="string">
-	<p><cfdump var=#doilist#></p>
 	<cftry>
 		<cfset r.STATUS='SUCCESS'>
 		<cfset ar=[]>
