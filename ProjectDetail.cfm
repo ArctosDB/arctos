@@ -49,6 +49,7 @@
 		jQuery.get(ptl, function(data){
 			 jQuery(el).html(data);
 			 if (name=='pubs'){
+			 	console.log('pubs');
 				 fetchMediaMeta();
 			 }
 		})
