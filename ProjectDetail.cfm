@@ -119,7 +119,10 @@
 						tra+='</ul>';
 						console.log(tra);
 						//tra='i like tatertots';
-						$('[data-doi="' + $.escapeSelector(v.DOI) + '"]').append(tra);
+						var escdoi=v.DOI.replace(/[\W_]+/g," ");
+						console.log(tra);
+						
+						$('[data-doi="' + v.DOI + '"]').append(tra);
 					});
 				} else {
 					alert(r.STATUS + ': ' + r.MSG);
