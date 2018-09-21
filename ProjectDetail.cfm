@@ -82,7 +82,9 @@
 
 
 	});
-	$( document ).ajaxStop(function() {
+
+	function fetchMediaMeta(){
+	///$( document ).ajaxStop(function() {
 		console.log('loaded');
 		var dois=[];
 		$("li[data-doi]").each(function( i, val ) {
@@ -118,8 +120,8 @@
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
 		});
-
-	});
+		}
+	//});
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
