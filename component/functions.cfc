@@ -135,6 +135,7 @@
 		<cfset ar=[]>
 		<cfloop list="doilist" index="doi">
 			<cfset doi=replace(doi,'"','all')>
+			<cfdump var=#doi#>
 			<cfquery name="c" datasource="uam_god">
 				select * from cache_publication_sdata where source='crossref' and doi='#doi#'
 			</cfquery>
@@ -148,11 +149,14 @@
 					<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 					<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 				</cfhttp>
+				<cfdump var=#d#>
+				<cfdump var=#jmc#>
 				<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
 					<cfset r.STATUS='FAIL'>
 					<cfset r.MSG='http fetch failed; bad DOI?'>
 					<cfreturn r>
 				<cfelse>
+
 					<cfquery name="dc" datasource="uam_god">
 						delete from cache_publication_sdata where source='crossref' and doi='#doi#'
 					</cfquery>
