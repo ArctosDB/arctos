@@ -118,7 +118,7 @@
 			success: function(r) {
 				console.log(r);
 				if (r.STATUS=='SUCCESS'){
-					console.log(r.STATUS);
+					console.log('success....');
 
 				} else {
 					alert(r.STATUS + ': ' + r.MSG);
