@@ -120,8 +120,8 @@
 						console.log(tra);
 						//tra='i like tatertots';
 						var escdoi=v.DOI.replace(/[\W_]+/g," ");
-						console.log(tra);
-						
+						console.log(escdoi);
+
 						$('[data-doi="' + v.DOI + '"]').append(tra);
 					});
 				} else {
