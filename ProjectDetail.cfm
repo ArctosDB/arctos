@@ -49,7 +49,6 @@
 		jQuery.get(ptl, function(data){
 			 jQuery(el).html(data);
 			 if (name=='pubs'){
-			 	console.log('pubs');
 				 fetchMediaMeta();
 			 }
 		})
@@ -88,8 +87,6 @@
 	});
 
 	function fetchMediaMeta(){
-	///$( document ).ajaxStop(function() {
-		console.log('fetchMediaMeta');
 		var dois=[];
 		$("li[data-doi]").each(function( i, val ) {
 			//console.log(val);
@@ -97,11 +94,8 @@
 			//console.log(doi);
 			dois.push(doi);
 		});
-		console.log(dois);
 		var dl=dois.join();
-		console.log(dl);
 		if (dl.length==0) {
-			console.log('got nuthin');
 			return;
 		}
 
@@ -134,7 +128,6 @@
 			}
 		});
 	}
-	//});
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
