@@ -636,9 +636,6 @@
 								<cfquery name="thisTaxLinks" dbtype="query">
 									select distinct taxsciname from raw_identification where taxsciname is not null and identification_id=#identification_id#
 								</cfquery>
-								<cfif session.username is "dlm">
-									<cfdump var=#thisTaxLinks#>
-								</cfif>
 								<cfquery name="thisCommonName" dbtype="query">
 									select distinct common_name from raw_identification where common_name is not null and
 									 identification_id=#identification_id#
