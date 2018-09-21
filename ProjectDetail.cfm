@@ -118,6 +118,7 @@
 						tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + "'" + ');">CrossRef Data</span></li>';
 						tra+='</ul>';
 						console.log(tra);
+						tra='i like tatertots';
 						$('[data-doi="' + v.DOI + '"]').append(tra);
 					});
 				} else {
