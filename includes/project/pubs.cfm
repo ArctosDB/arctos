@@ -61,7 +61,7 @@
 						</li>
 						<cfif len(doi) gt 0>
 							<cfset escdoi=rereplace(doi,"[^A-Za-z0-9]","_","ALL")>
-							<li data-doisel='#escdoi#' data-doi='#doi#'><a class="external" target="_blank" href="https://doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
+							<li data-doisel='x#escdoi#' data-doi='#doi#'><a class="external" target="_blank" href="https://doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 						</cfif>
 						<cfif len(pmid) gt 0>
 							<li><a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/pubmed/#pmid#">PubMed</a></li>
