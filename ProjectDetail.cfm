@@ -48,6 +48,9 @@
 		var ptl="/includes/project/" + name + ".cfm?project_id=#project_id#";
 		jQuery.get(ptl, function(data){
 			 jQuery(el).html(data);
+			 if (name=='pubs'){
+				 fetchMediaMeta();
+			 }
 		})
 	}
 	jQuery(document).ready(function(){
@@ -85,7 +88,7 @@
 
 	function fetchMediaMeta(){
 	///$( document ).ajaxStop(function() {
-		console.log('loaded');
+		console.log('fetchMediaMeta');
 		var dois=[];
 		$("li[data-doi]").each(function( i, val ) {
 			console.log(val);
@@ -120,7 +123,7 @@
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
 		});
-		}
+	}
 	//});
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
