@@ -175,6 +175,8 @@
 			<cfdump var=#ta#>
 			<cfset arrayAppend(ar,ta)>
 		</cfloop>
+			<cfdump var=#ar#>
+
 		<cfset r.stsary=ar>
 		<cfcatch>
 			<cfset r.STATUS='FAIL'>
