@@ -119,7 +119,7 @@
 						tra+='</ul>';
 						console.log(tra);
 						//tra='i like tatertots';
-						var escdoi=v.DOI.replace(/[\W_]+/g," ");
+						var escdoi=v.DOI.replace(/[\W_]+/g,"_");
 						console.log(escdoi);
 
 						$('[data-doi="' + v.DOI + '"]').append(tra);
