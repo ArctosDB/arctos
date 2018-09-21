@@ -126,7 +126,7 @@
 						var tra='<ul>';
 						tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
 						tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
-
+						tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + '"' + ');">CrossRef Data</span></li>';
 						tra+='</ul>';
 
 

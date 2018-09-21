@@ -1,4 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
+<!----
 <script>
 	function showPubInfo(doi){
 		var guts = "/info/publicationDetails.cfm?doi=" + doi;
@@ -23,6 +24,7 @@
 		});
 	}
 </script>
+---->
 <cfset maxNumberOfRows=500>
 <cfif action is "nothing">
 	<cfif isdefined("publication_id") and len(publication_id) gt 0>
