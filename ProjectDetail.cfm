@@ -103,7 +103,7 @@
 			url: "/component/functions.cfc?queryformat=column",
 			type: "GET",
 			dataType: "json",
-			async: false,
+			//async: false,
 			data: {
 				method:  "getPubCitSts",
 				doilist : dl,
