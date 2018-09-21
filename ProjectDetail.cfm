@@ -119,6 +119,11 @@
 				console.log(r);
 				if (r.STATUS=='SUCCESS'){
 					console.log('success....');
+					$.each( STSARY, function( key, value ) {
+					  alert( key + ": " + value );
+					});
+
+
 
 				} else {
 					alert(r.STATUS + ': ' + r.MSG);
