@@ -634,7 +634,7 @@
 						        	<div class="unAcceptedIdDiv">
 						        </cfif>
 								<cfquery name="thisTaxLinks" dbtype="query">
-									select distinct taxsciname from raw_identification where identification_id=#identification_id#
+									select distinct taxsciname from raw_identification where taxsciname is not null and identification_id=#identification_id#
 								</cfquery>
 								<cfif session.username is "dlm">
 									<cfdump var=#thisTaxLinks#>
