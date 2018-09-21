@@ -119,9 +119,10 @@
 				console.log(r);
 				if (r.STATUS=='SUCCESS'){
 					console.log('success....');
-					$.each( r.STSARY, function( key, value ) {
-					  console.log( key );
-					  console.log( value );
+					$.each( r.STSARY, function( k, v ) {
+
+					  console.log( v );
+						console.log(v.DOI);
 					});
 
 
