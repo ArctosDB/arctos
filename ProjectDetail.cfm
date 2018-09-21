@@ -123,7 +123,14 @@
 
 					  console.log( v );
 						console.log(v.DOI);
-						$('[data-doi="' + v.DOI + '"]').append('References: ' + v.REFERENCE_COUNT);
+						var tra='<ul>';
+						tra+='<li>References Count: ' + v.REFERENCE_COUNT' + '</li>';
+						tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT' + '</li>';
+
+						tra+='</ul>';
+
+
+						$('[data-doi="' + v.DOI + '"]').append(tra);
 
 
 
