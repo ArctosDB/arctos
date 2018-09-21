@@ -60,6 +60,7 @@
 							</cfif>
 						</li>
 						<cfif len(doi) gt 0>
+							<!---- DOIs with some weird chars are difficult to find in JS; this should usually work and that's probably close enough for this --->
 							<cfset escdoi=rereplace(doi,"[^A-Za-z0-9]","_","ALL")>
 							<li id='x#escdoi#' data-doi='#doi#'><a class="external" target="_blank" href="https://doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 						</cfif>
