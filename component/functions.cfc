@@ -130,6 +130,7 @@
 
 <cffunction name="getPubCitSts" access="remote" returnformat="json" queryFormat="column">
 	<cfargument name="doilist" required="true" type="string">
+	<cfdump var=#doilist#>
 	<cftry>
 		<cfset r.STATUS='SUCCESS'>
 		<cfset ar=[]>
@@ -153,7 +154,6 @@
 					<cfset r.MSG='http fetch failed; bad DOI?'>
 					<cfreturn r>
 				<cfelse>
-
 					<cfquery name="dc" datasource="uam_god">
 						delete from cache_publication_sdata where source='crossref' and doi='#doi#'
 					</cfquery>
@@ -161,7 +161,7 @@
 						insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
 						 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
 					</cfquery>
-				<cfset x=DeserializeJSON(d.filecontent)>
+					<cfset x=DeserializeJSON(d.filecontent)>
 				</cfif>
 			</cfif>
 			<cfif structKeyExists(x.message,"reference-count")>
