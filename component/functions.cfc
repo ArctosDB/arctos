@@ -149,8 +149,6 @@
 					<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 					<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 				</cfhttp>
-				<cfdump var=#d#>
-				<cfdump var=#jmc#>
 				<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
 					<cfset r.STATUS='FAIL'>
 					<cfset r.MSG='http fetch failed; bad DOI?'>
