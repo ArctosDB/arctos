@@ -82,7 +82,6 @@
 
 
 	});
-	/*
 	$( document ).ajaxStop(function() {
 		console.log('loaded');
 		var dois=[];
@@ -97,10 +96,33 @@
 		var dl=dois.join();
 		console.log(dl);
 
+		$.ajax({
+			url: "/component/functions.cfc?queryformat=column",
+			type: "POST",
+			dataType: "json",
+			async: false,
+			data: {
+				method:  "getPubCitSts",
+				doilist : dl,
+				returnformat : "json"
+			},
+			success: function(r) {
+				console.log(r);
+				if (r.STATUS=='SUCCESS'){
+					console.log(r.STATUS);
+
+				} else {
+					alert(r.STATUS + ': ' + r.MSG);
+					$("#" + eid).html('');
+				}
+			},
+				error: function (xhr, textStatus, errorThrown){
+		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			}
+		});
 
 	});
-	*/
-</script>
+\</script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			project.project_id,
