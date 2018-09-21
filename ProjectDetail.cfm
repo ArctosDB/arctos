@@ -124,8 +124,8 @@
 					  console.log( v );
 						console.log(v.DOI);
 						var tra='<ul>';
-						tra+='<li>References Count: ' + v.REFERENCE_COUNT' + '</li>';
-						tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT' + '</li>';
+						tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
+						tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
 
 						tra+='</ul>';
 
