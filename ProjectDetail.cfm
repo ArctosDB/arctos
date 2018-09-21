@@ -92,14 +92,18 @@
 		console.log('fetchMediaMeta');
 		var dois=[];
 		$("li[data-doi]").each(function( i, val ) {
-			console.log(val);
+			//console.log(val);
 			var doi=$(this).attr("data-doi")
-			console.log(doi);
+			//console.log(doi);
 			dois.push(doi);
 		});
 		console.log(dois);
 		var dl=dois.join();
 		console.log(dl);
+		if (dl.length==0)
+			console.log('got nuthin');
+			return;
+		end if;
 
 		$.ajax({
 			url: "/component/functions.cfc?queryformat=column",
