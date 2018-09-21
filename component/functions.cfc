@@ -130,12 +130,13 @@
 
 <cffunction name="getPubCitSts" access="remote" returnformat="json" queryFormat="column">
 	<cfargument name="doilist" required="true" type="string">
-	<cfdump var=#doilist#>
+	<p><cfdump var=#doilist#></p>
 	<cftry>
 		<cfset r.STATUS='SUCCESS'>
 		<cfset ar=[]>
 		<cfloop list="#doilist#" index="doi">
 			<cfset doi=replace(doi,'"','all')>
+	<p><cfdump var=#doi#></p>
 			<cfquery name="c" datasource="uam_god">
 				select * from cache_publication_sdata where source='crossref' and doi='#doi#'
 			</cfquery>
