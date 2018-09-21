@@ -133,7 +133,7 @@
 	<cftry>
 		<cfset r.STATUS='SUCCESS'>
 		<cfset ar=[]>
-		<cfloop list="doilist" index="doi">
+		<cfloop list="#doilist#" index="doi">
 			<cfset doi=replace(doi,'"','all')>
 			<cfdump var=#doi#>
 			<cfquery name="c" datasource="uam_god">
