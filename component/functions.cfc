@@ -173,8 +173,15 @@
 			</cfif>
 			<cfset ta.doi=doi>
 			<cfdump var=#ta#>
+			^^^ta
+
+			<cfdump var=#ar#>
+			^^^^preappend
 			<cfset arrayAppend(ar,ta)>
+			<cfdump var=#ar#>
+			^^^posrappent
 		</cfloop>
+
 			<cfdump var=#ar#>
 
 		<cfset r.stsary=ar>
