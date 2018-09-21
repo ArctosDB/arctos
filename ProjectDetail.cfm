@@ -123,6 +123,12 @@
 
 					  console.log( v );
 						console.log(v.DOI);
+						$('[data-doi="' + v.DOI + '"]').append('References: ' + v.REFERENCE_COUNT);
+
+
+
+
+
 					});
 
 
