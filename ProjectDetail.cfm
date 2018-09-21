@@ -121,8 +121,7 @@
 						//tra='i like tatertots';
 						var escdoi=v.DOI.replace(/[\W_]+/g,"_");
 						console.log(escdoi);
-
-						$('[data-doi="' + v.DOI + '"]').append(tra);
+						$('[data-doisel="' + v.DOI + '"]').append(tra);
 					});
 				} else {
 					alert(r.STATUS + ': ' + r.MSG);
