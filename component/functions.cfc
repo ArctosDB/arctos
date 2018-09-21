@@ -172,6 +172,7 @@
 				<cfset ta.reference_by_count=x.message["is-referenced-by-count"]>
 			</cfif>
 			<cfset ta.doi=doi>
+			<cfdump var=#ta#>
 			<cfset arrayAppend(ar,ta)>
 		</cfloop>
 		<cfset r.stsary=ar>
