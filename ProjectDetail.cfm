@@ -90,7 +90,6 @@
 			var doi=$(this).attr("data-doi")
 			console.log(doi);
 			dois.push(doi);
-
 		});
 		console.log(dois);
 		var dl=dois.join();
@@ -113,7 +112,6 @@
 
 				} else {
 					alert(r.STATUS + ': ' + r.MSG);
-					$("#" + eid).html('');
 				}
 			},
 				error: function (xhr, textStatus, errorThrown){
@@ -122,7 +120,7 @@
 		});
 
 	});
-\</script>
+</script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			project.project_id,
