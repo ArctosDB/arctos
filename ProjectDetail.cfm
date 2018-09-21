@@ -120,7 +120,8 @@
 				if (r.STATUS=='SUCCESS'){
 					console.log('success....');
 					$.each( r.STSARY, function( key, value ) {
-					  alert( key + ": " + value );
+					  console.log( key );
+					  console.log( value );
 					});
 
 
