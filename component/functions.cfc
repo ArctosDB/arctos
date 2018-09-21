@@ -137,7 +137,6 @@
 		<cfloop list="#doilist#" index="doi">
 			<cfset doi=replace(doi,'"','all')>
 			<cfset ta=structNew()>
-			<p><cfdump var=#doi#></p>
 			<cfquery name="c" datasource="uam_god">
 				select * from cache_publication_sdata where source='crossref' and doi='#doi#'
 			</cfquery>
@@ -173,18 +172,8 @@
 				<cfset ta.reference_by_count=x.message["is-referenced-by-count"]>
 			</cfif>
 			<cfset ta.doi=doi>
-			<cfdump var=#ta#>
-			^^^ta
-
-			<cfdump var=#ar#>
-			^^^^preappend
 			<cfset arrayAppend(ar,ta)>
-			<cfdump var=#ar#>
-			^^^posrappent
 		</cfloop>
-
-			<cfdump var=#ar#>
-
 		<cfset r.stsary=ar>
 		<cfcatch>
 			<cfset r.STATUS='FAIL'>
