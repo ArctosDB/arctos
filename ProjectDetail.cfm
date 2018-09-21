@@ -100,10 +100,10 @@
 		console.log(dois);
 		var dl=dois.join();
 		console.log(dl);
-		if (dl.length==0)
+		if (dl.length==0) {
 			console.log('got nuthin');
 			return;
-		end if;
+		}
 
 		$.ajax({
 			url: "/component/functions.cfc?queryformat=column",
