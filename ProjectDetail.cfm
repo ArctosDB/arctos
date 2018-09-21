@@ -116,30 +116,15 @@
 				returnformat : "json"
 			},
 			success: function(r) {
-				console.log(r);
 				if (r.STATUS=='SUCCESS'){
-					console.log('success....');
 					$.each( r.STSARY, function( k, v ) {
-
-					  console.log( v );
-						console.log(v.DOI);
 						var tra='<ul>';
 						tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
 						tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
 						tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + "'" + ');">CrossRef Data</span></li>';
 						tra+='</ul>';
-
-
 						$('[data-doi="' + v.DOI + '"]').append(tra);
-
-
-
-
-
 					});
-
-
-
 				} else {
 					alert(r.STATUS + ': ' + r.MSG);
 				}
