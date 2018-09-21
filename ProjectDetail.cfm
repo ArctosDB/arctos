@@ -107,7 +107,7 @@
 
 		$.ajax({
 			url: "/component/functions.cfc?queryformat=column",
-			type: "POST",
+			type: "GET",
 			dataType: "json",
 			async: false,
 			data: {
