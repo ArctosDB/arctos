@@ -395,6 +395,42 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		</pre>
 </cfif>
 <!------------------------------------------------------------------------------------------------->
+<cfif action is "autocreateandseed">
+	<cfif not isdefined('seed_term') or len(seed_term) is 0>
+		seed term is required<cfabort>
+	</cfif>
+	<!--- get a random name --->
+	<cfset rr="">
+	 <cfloop index="i" from="1" to="6">
+        <!--- Random character in range A-Z --->
+        <cfset rr=rr&Chr(RandRange(49, 90))>
+    </cfloop>
+	<cfset dsn=rereplace(seed_term,"[^A-Za-x]","_","all")>
+	<cfset dsn=dsn & '_' & rr>
+	<cfoutput>
+		dsn:#dsn#
+	</cfoutput>
+	<!----
+	<cfquery name="saveCreateDataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into htax_dataset (
+			dataset_id,
+			dataset_name,
+			created_by,
+			created_date,
+			source,
+			comments
+		) values (
+			somerandomsequence.nextval,
+			'#dataset_name#',
+			'#session.username#',
+			'#dateformat(now(),"yyyy-mm-dd")#',
+			'#source#',
+			'#comments#'
+		)
+	</cfquery>
+	---->
+</cfif>
+<!------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 	<p>
 		ABOUT:
