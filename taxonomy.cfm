@@ -796,8 +796,8 @@
 								<a rel="nofollow" href="#tlink#">[ more like this term ]</a>
 								<a rel="nofollow" href="#ttlink#">[ including rank ]</a>
 								<a rel="nofollow" href="#srclnk#">[ from this source ]</a>
-								<cfif (source is 'Arctos' or source is 'Arctos Plants') and isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-									<a href="/tools/taxonomyTree.cfm?action=autocreateandseed&seed_term=#term#&source=#source#&trm_rank=#sttyp#"> [ seed hierarchy ]</a>
+								<cfif (sources.source is 'Arctos' or sources.source is 'Arctos Plants') and isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+									<a href="/tools/taxonomyTree.cfm?action=autocreateandseed&seed_term=#term#&source=#sources.source#&trm_rank=#sttyp#"> [ seed hierarchy ]</a>
 								</cfif>
 
 							</div>
