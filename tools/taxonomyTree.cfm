@@ -403,7 +403,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	<cfset rr="">
 	 <cfloop index="i" from="1" to="6">
         <!--- Random character in range A-Z --->
-        <cfset rr=rr&Chr(RandRange(49, 90))>
+        <cfset rr=rr&Chr(RandRange(65, 90))>
     </cfloop>
 	<cfset dsn=rereplace(seed_term,"[^A-Za-x]","_","all")>
 	<cfset dsn=dsn & '_' & rr>
