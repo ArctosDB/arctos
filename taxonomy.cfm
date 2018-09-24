@@ -790,7 +790,7 @@
 									<cfset sttyp=term_type>
 								<cfelse>
 									<cfset ttlink=tlink & "&term_type=NULL">
-									<cfset sttyp=='NULL'>
+									<cfset sttyp='NULL'>
 								</cfif>
 								<cfset srclnk=ttlink & "&source=#sources.source#">
 								<a rel="nofollow" href="#tlink#">[ more like this term ]</a>
