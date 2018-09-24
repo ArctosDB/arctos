@@ -417,7 +417,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		dsn:#dsn#
 	</cfoutput>
 	<cfquery name="dsid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select somerandomsequence.nextval into dsid from dual
+		select somerandomsequence.nextval dsid from dual
 	</cfquery>
 	<cfquery name="saveCreateDataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into htax_dataset (
