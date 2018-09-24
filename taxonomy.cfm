@@ -787,13 +787,19 @@
 								<cfif len(term_type) gt 0>
 									(#term_type#)
 									<cfset ttlink=tlink & "&term_type==#term_type#">
+									<cfset sttyp=term_type>
 								<cfelse>
 									<cfset ttlink=tlink & "&term_type=NULL">
+									<cfset sttyp=='NULL'>
 								</cfif>
 								<cfset srclnk=ttlink & "&source=#sources.source#">
 								<a rel="nofollow" href="#tlink#">[ more like this term ]</a>
 								<a rel="nofollow" href="#ttlink#">[ including rank ]</a>
 								<a rel="nofollow" href="#srclnk#">[ from this source ]</a>
+								<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+									<a href="/tools/taxonomyTree.cfm?action=autocreateandseed&seed_term=#term#&source=#source#&trm_rank=#sttyp#"> [ seed hierarchy ]</a>
+								</cfif>
+
 							</div>
 							<cfset indent=indent+1>
 						</cfloop>
