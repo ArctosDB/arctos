@@ -633,7 +633,7 @@
 		select source from cttaxonomy_source order by source
 	</cfquery>
 	<cfquery name="cttaxon_term_noclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select taxon_term from cttaxon_term where is_classification=0 order by taxon_term
+		select taxon_term from cttaxon_term where is_classification=0 and taxon_term not in ('display_name','scientific_name') order by taxon_term
 	</cfquery>
 	<cfquery name="cttaxon_term_isclass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select taxon_term from cttaxon_term where is_classification=1 order by taxon_term
@@ -1044,8 +1044,9 @@
 		<cfquery name="maxnoclass" dbtype="query">
 			select count(*) m from noclass
 		</cfquery>
+		<!---- exclude auto-generated terms --->
 		<cfquery name="cttaxon_term" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select * from cttaxon_term
+			select * from cttaxon_term where taxon_term not in ('display_name','scientific_name')
 		</cfquery>
 
 		<cfquery name="cttaxon_term_noclass" dbtype="query">
