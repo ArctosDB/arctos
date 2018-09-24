@@ -399,6 +399,12 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	<cfif not isdefined('seed_term') or len(seed_term) is 0>
 		seed term is required<cfabort>
 	</cfif>
+	<cfif not isdefined('source') or len(source) is 0>
+		source is required<cfabort>
+	</cfif>
+	<cfif not isdefined('trm_rank') or len(trm_rank) is 0>
+		trm_rank is required<cfabort>
+	</cfif>
 	<!--- get a random name --->
 	<cfset rr="">
 	 <cfloop index="i" from="1" to="6">
@@ -410,7 +416,9 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 	<cfoutput>
 		dsn:#dsn#
 	</cfoutput>
-	<!----
+	<cfquery name="dsid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select somerandomsequence.nextval into dsid from dual
+	</cfquery>
 	<cfquery name="saveCreateDataset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into htax_dataset (
 			dataset_id,
@@ -420,15 +428,35 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			source,
 			comments
 		) values (
-			somerandomsequence.nextval,
-			'#dataset_name#',
+			#dsid.dsid#,
+			'#dsn#',
 			'#session.username#',
 			'#dateformat(now(),"yyyy-mm-dd")#',
 			'#source#',
-			'#comments#'
+			'Auto-created from classification page.'
 		)
 	</cfquery>
-	---->
+	<cfquery name="seed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r">
+		insert
+		into htax_seed (scientific_name,taxon_name_id,dataset_id) (
+		select distinct
+			scientific_name,
+			taxon_name.taxon_name_id,
+			#dsid.dsid#
+		from
+			taxon_name,
+			taxon_term
+		where
+			taxon_name.taxon_name_id=taxon_term.taxon_name_id and
+			taxon_term.source='#source#'
+			and term_type='#trm_rank#'
+			and term='#seed_term#'
+		)
+	</cfquery>
+	<cflocation url="taxonomyTree.cfm?action=manageDataset&dataset_name=#dsn#" addtoken="false">
+
+
+
 </cfif>
 <!------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
