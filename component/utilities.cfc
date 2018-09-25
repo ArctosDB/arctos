@@ -1,7 +1,7 @@
 <cfcomponent>
 
-<cffunction name="getArctosPublication">
-	 <cfargument name="doi" required="true" type="string"/>
+<cffunction name="getArctosPublication"  access="remote">
+	 <cfargument name="doi" required="true" type="string" access="remote">
 	 <cfquery name="abp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT
 			publication.publication_id,
