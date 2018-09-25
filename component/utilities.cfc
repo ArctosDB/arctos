@@ -31,6 +31,7 @@
 			pauth.AUTHOR_ROLE,
 			pauth.agent_id
 	</cfquery>
+	<cfoutput>
 	<cfsavecontent variable="r">
 	<h2>Arctos Publication</h2>
 	<cfif abp.recordcount gt 0>
@@ -71,8 +72,10 @@
 		Publication is not in Arctos.
 	</cfif>
 	</cfsavecontent>
+	</cfoutput>
 	<cfreturn r>
 </cffunction>
+<!-------------------------------------------------------->
 <cffunction name="makeMBLDownloadFile">
 	 <cfargument name="zid" required="true" type="numeric"/>
 	 <cfquery name="f" datasource="uam_god">
