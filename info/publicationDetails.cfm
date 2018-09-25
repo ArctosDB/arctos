@@ -75,6 +75,29 @@
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
 		});
+		
+		$.ajax({
+			url: "/component/utilities.cfc?queryformat=column",
+			type: "POST",
+			dataType: "text",
+			async: true,
+			data: {
+				method:  "getPublicationCitations",
+				doi : $("#doi").val(),
+				returnformat : "plain"
+			},
+			success: function(r) {
+				console.log(r);
+				$("#pubcitby").html(r);
+			},
+			error: function (xhr, textStatus, errorThrown){
+		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			}
+		});
+		
+		
+		
+		
 	});
 
 	
@@ -121,6 +144,9 @@
 	<div id="crossrefpubdata"><img src="/images/indicator.gif"></div>
 	<h2>References</h2>
 	<div id="pubrefs"><img src="/images/indicator.gif"></div>
+	<h2>Cited By (from http://opencitations.net)</h2>
+	<div id="pubcitby"><img src="/images/indicator.gif"></div>
+
 
 	<!-----
 	<cfparam name="debug" default="false">
