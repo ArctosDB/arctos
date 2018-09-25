@@ -59,10 +59,7 @@
 	<cfflush>
 
 	<cfparam name="debug" default="false">
-	<cfif debug is true>
-		hi
-		<cfabort>
-	</cfif>
+
 	<cfquery name="abp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT
 			publication.publication_id,
@@ -94,6 +91,11 @@
 	</cfquery>
 		<h2>Arctos Publication</h2>
 		<cfflush>
+
+			<cfif debug is true>
+		hi
+		<cfabort>
+	</cfif>
 	<cfif abp.recordcount gt 0>
 		<cfquery name="pubs" dbtype="query">
 			SELECT
