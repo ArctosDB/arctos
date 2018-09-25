@@ -1,5 +1,5 @@
 
-
+<cfset application.serverRootURL='http://arctos.database.museum'>
 
 <cfoutput>
 	<cfloop from="1" to ="1000" index="i">
