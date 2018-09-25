@@ -25,7 +25,7 @@
 			url: "/component/utilities.cfc?queryformat=column",
 			type: "POST",
 			dataType: "text",
-			async: false,
+			async: true,
 			data: {
 				method:  "getArctosPublication",
 				doi : $("#doi").val(),
