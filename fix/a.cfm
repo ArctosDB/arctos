@@ -18,7 +18,6 @@
 		<cfdump var=#d#>
 
 		<cfdump var=#uc#>
-	</cfif>
 </cfoutput>
 
 
