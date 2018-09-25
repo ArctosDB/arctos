@@ -1,4 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+
+<cfoutput>
+	<cfloop from="1" to ="1000" index="i">
+		#i#<cfflush>
+
+	</cfloop>
+</cfoutput>
+
 <cfset Application.serverrooturl='http://arctos-test.tacc.utexas.edu'>
 
 <cfoutput>#CreateObject("java", "java.lang.System").getProperty("java.version")#
