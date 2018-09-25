@@ -2,11 +2,23 @@
 
 
 <cfoutput>
-	<cfloop from="1" to ="1000" index="i">
-		#i#<cfflush>
-		<cfset sleep(500)>
+		<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/10.1111/nph.12423">
+			<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+		</cfhttp>
+		<cfquery name="uc" datasource="uam_god">
+			select * from cache_publication_sdata where doi='10.1111/nph.12423'
+		</cfquery>
 
-	</cfloop>
+		<p>
+			dlen:: #len(d.filecontent)#
+		</p>
+		<p>
+			uclen::#len(uc.JSON_DATA)#
+		</p>
+		<cfdump var=#d#>
+
+		<cfdump var=#uc#>
+	</cfif>
 </cfoutput>
 
 
