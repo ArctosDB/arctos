@@ -176,6 +176,9 @@
 		<cfquery name="dc" datasource="uam_god">
 			delete from cache_publication_sdata where source='crossref' and doi='#doi#'
 		</cfquery>
+		<cfif debug is true>
+			len(jmcdata)::#len(jmcdata)#
+		</cfif>
 		<cfquery name="uc" datasource="uam_god">
 			insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
 			 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmcdata#','crossref',sysdate)
