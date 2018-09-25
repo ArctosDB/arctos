@@ -114,7 +114,6 @@
 						</cfif>
 					</cfif>
 				</div>
-				<cfflush>
 			</cfloop>
 		</cfif>
 
