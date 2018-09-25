@@ -94,7 +94,6 @@
 
 			<cfif debug is true>
 		hi
-		<cfabort>
 	</cfif>
 	<cfif abp.recordcount gt 0>
 		<cfquery name="pubs" dbtype="query">
