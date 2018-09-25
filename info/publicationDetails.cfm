@@ -33,7 +33,7 @@
 			},
 			success: function(r) {
 				console.log(r);
-				$("#arctospubdata").html(r).
+				$("#arctospubdata").html(r);
 			},
 			error: function (xhr, textStatus, errorThrown){
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
