@@ -4,9 +4,14 @@
 <cfoutput>
 	<cfloop from="1" to ="1000" index="i">
 		#i#<cfflush>
+		<cfset sleep(500)>
 
 	</cfloop>
 </cfoutput>
+
+
+<cfabort>
+
 
 <cfset Application.serverrooturl='http://arctos-test.tacc.utexas.edu'>
 
