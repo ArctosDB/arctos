@@ -84,6 +84,9 @@
 	<div id="ldgthngee">
 		<img src="/images/indicator.gif">
 	</div>
+
+
+	<!-----
 	<cfparam name="debug" default="false">
 	<cfquery name="abp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT
@@ -507,4 +510,5 @@ Cited By (from http://opencitations.net)
 
 		</cfif>
 	</cfloop>
+	---->
 </cfoutput>
