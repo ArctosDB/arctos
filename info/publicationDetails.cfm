@@ -18,6 +18,9 @@
 </style>
 <script>
 	$(document).ready(function() {
+
+		console.log('ready');
+
 		$.ajax({
 			url: "/component/utilities.cfc?queryformat=column",
 			type: "POST",
