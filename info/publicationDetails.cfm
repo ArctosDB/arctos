@@ -17,37 +17,62 @@
 	}
 </style>
 <script>
+	$(document).ready(function() {
+		/*
+		$.ajax({
+			url: "/component/utilities.cfc?queryformat=column",
+			type: "POST",
+			dataType: "json",
+			async: false,
+			data: {
+				method:  "getArctosPublication",
+				doi : doi,
+				returnformat : "json"
+			},
+			success: function(r) {
+				if (r.STATUS=='SUCCESS'){
+					var tl='<a target="_blank" href="/publication/' + r.PUBLICATION_ID + '">[ view publication in Arctos ]</a>';
+					$("#" + eid).html('').append(tl);
+				} else {
+					alert(r.STATUS + ': ' + r.MSG);
+					$("#" + eid).html('');
+				}
+			},
+			error: function (xhr, textStatus, errorThrown){
+		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			}
+		});
+		*/
+	});
+
 	$(window).on('load', function() {
 		$("#ldgthngee").remove();
 	});
 	function autocreatepublication(doi,eid){
 		$("#" + eid).html('<img src="/images/indicator.gif">');
-		$.ajax({
-		url: "/component/functions.cfc?queryformat=column",
-		type: "POST",
-		dataType: "json",
-		async: false,
-		data: {
-			method:  "autocreatepublication",
-			doi : doi,
-			returnformat : "json"
-		},
-		success: function(r) {
-			if (r.STATUS=='SUCCESS'){
-				var tl='<a target="_blank" href="/publication/' + r.PUBLICATION_ID + '">[ view publication in Arctos ]</a>';
-				$("#" + eid).html('').append(tl);
-			} else {
-				alert(r.STATUS + ': ' + r.MSG);
-				$("#" + eid).html('');
-
+			$.ajax({
+			url: "/component/functions.cfc?queryformat=column",
+			type: "POST",
+			dataType: "json",
+			async: false,
+			data: {
+				method:  "autocreatepublication",
+				doi : doi,
+				returnformat : "json"
+			},
+			success: function(r) {
+				if (r.STATUS=='SUCCESS'){
+					var tl='<a target="_blank" href="/publication/' + r.PUBLICATION_ID + '">[ view publication in Arctos ]</a>';
+					$("#" + eid).html('').append(tl);
+				} else {
+					alert(r.STATUS + ': ' + r.MSG);
+					$("#" + eid).html('');
+				}
+			},
+			error: function (xhr, textStatus, errorThrown){
+			    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
-		},
-		error: function (xhr, textStatus, errorThrown){
-		    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-		}
-	});
-
-
+		});
 	}
 
 </script>
