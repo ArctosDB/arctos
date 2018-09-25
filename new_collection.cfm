@@ -225,13 +225,12 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <!------------------------------------------------------>
 <cfif action is "setColnStatus">
 	<cfoutput>
-		<cfdump var=#form#>
 		<cfif old_status is status>
 			No changes - request denied<cfabort>
 		<cfelseif status is "denied">
 			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
 			<p>
-				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to set status</a>
+				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&old_status=#old_status#&status=#status#&niid=#niid#">continue to set status</a>
 			</p>
 			<cfabort>
 		<cfelseif old_status is "new" and status is not "administrative_approval_granted">
