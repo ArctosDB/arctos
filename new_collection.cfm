@@ -225,6 +225,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <!------------------------------------------------------>
 <cfif action is "setColnStatus">
 	<cfoutput>
+		<cfdump var=#form#>
 		<cfif old_status is status>
 			No changes - request denied<cfabort>
 		<cfelseif status is "denied">
