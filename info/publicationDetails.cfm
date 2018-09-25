@@ -56,6 +56,7 @@
 	<div id="ldgthngee">
 		<img src="/images/indicator.gif">
 	</div>
+	<cfflush>
 	<cfparam name="debug" default="false">
 	<cfquery name="abp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT
@@ -87,6 +88,7 @@
 			pauth.agent_id
 	</cfquery>
 		<h2>Arctos Publication</h2>
+		<cfflush>
 	<cfif abp.recordcount gt 0>
 		<cfquery name="pubs" dbtype="query">
 			SELECT
