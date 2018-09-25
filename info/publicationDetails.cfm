@@ -33,6 +33,7 @@
 			},
 			success: function(r) {
 				console.log(r);
+
 				if (r.STATUS=='SUCCESS'){
 					var tl='<a target="_blank" href="/publication/' + r.PUBLICATION_ID + '">[ view publication in Arctos ]</a>';
 					$("#" + eid).html('').append(tl);
