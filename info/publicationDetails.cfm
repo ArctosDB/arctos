@@ -58,6 +58,7 @@
 	</div>
 	<cfflush>
 	<cfif debug is true>
+		hi
 		<cfabort>
 	</cfif>
 	<cfparam name="debug" default="false">
