@@ -24,7 +24,7 @@
 		$.ajax({
 			url: "/component/utilities.cfc?queryformat=column",
 			type: "POST",
-			dataType: "plain",
+			dataType: "text",
 			async: false,
 			data: {
 				method:  "getArctosPublication",
