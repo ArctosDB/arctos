@@ -33,14 +33,7 @@
 			},
 			success: function(r) {
 				console.log(r);
-
-				if (r.STATUS=='SUCCESS'){
-					var tl='<a target="_blank" href="/publication/' + r.PUBLICATION_ID + '">[ view publication in Arctos ]</a>';
-					$("#" + eid).html('').append(tl);
-				} else {
-					alert(r.STATUS + ': ' + r.MSG);
-					$("#" + eid).html('');
-				}
+				$("#arctospubdata").html(r).
 			},
 			error: function (xhr, textStatus, errorThrown){
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
@@ -85,7 +78,7 @@
 	<div id="ldgthngee">
 		<img src="/images/indicator.gif">
 	</div>
-
+	<div id="arctospubdata"></div>
 
 	<!-----
 	<cfparam name="debug" default="false">
