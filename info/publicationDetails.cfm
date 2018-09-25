@@ -57,6 +57,9 @@
 		<img src="/images/indicator.gif">
 	</div>
 	<cfflush>
+	<cfif debug is true>
+		<cfabort>
+	</cfif>
 	<cfparam name="debug" default="false">
 	<cfquery name="abp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT
