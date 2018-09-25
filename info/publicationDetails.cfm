@@ -18,11 +18,10 @@
 </style>
 <script>
 	$(document).ready(function() {
-		/*
 		$.ajax({
 			url: "/component/utilities.cfc?queryformat=column",
 			type: "POST",
-			dataType: "json",
+			dataType: "plain",
 			async: false,
 			data: {
 				method:  "getArctosPublication",
@@ -30,6 +29,7 @@
 				returnformat : "json"
 			},
 			success: function(r) {
+				console.log(r);
 				if (r.STATUS=='SUCCESS'){
 					var tl='<a target="_blank" href="/publication/' + r.PUBLICATION_ID + '">[ view publication in Arctos ]</a>';
 					$("#" + eid).html('').append(tl);
@@ -42,7 +42,6 @@
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
 		});
-		*/
 	});
 
 	$(window).on('load', function() {
