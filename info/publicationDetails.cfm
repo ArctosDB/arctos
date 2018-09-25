@@ -28,7 +28,7 @@
 			async: false,
 			data: {
 				method:  "getArctosPublication",
-				doi : doi,
+				doi : $("#doi").val(),
 				returnformat : "json"
 			},
 			success: function(r) {
@@ -79,7 +79,8 @@
 
 </script>
 <cfoutput>
-
+	<!--- for JS ---->
+	<input type="hidden" id="doi" value="#doi#">
 	<div id="ldgthngee">
 		<img src="/images/indicator.gif">
 	</div>
