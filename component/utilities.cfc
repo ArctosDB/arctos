@@ -5,7 +5,6 @@
 	<cfargument name="doi" required="true" type="string" access="remote">
 	<cfoutput>
 		<cfsavecontent variable="r">
-			<h2>CrossRef Data</h2>
 			<p>
 				<a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">view data</a>
 			</p>
@@ -152,8 +151,6 @@
 			</cfloop>
 			</ul>
 		</cfif>
-
-
 		</cfsavecontent>
 	</cfoutput>
 	<cfreturn r>
@@ -192,7 +189,6 @@
 	</cfquery>
 	<cfoutput>
 	<cfsavecontent variable="r">
-	<h2>Arctos Publication</h2>
 	<cfif abp.recordcount gt 0>
 		<cfquery name="pubs" dbtype="query">
 			SELECT

@@ -96,8 +96,10 @@
 	<div id="ldgthngee">
 		<img src="/images/indicator.gif">
 	</div>
-	<div id="arctospubdata"></div>
-	<div id="crossrefpubdata"></div>
+	<h2>Arctos Publication</h2>
+	<div id="arctospubdata"><img src="/images/indicator.gif"></div>
+	<h2>CrossRef Data</h2>
+	<div id="crossrefpubdata"><img src="/images/indicator.gif"></div>
 
 	<!-----
 	<cfparam name="debug" default="false">
@@ -169,13 +171,13 @@
 	<cfelse>
 		Publication is not in Arctos.
 	</cfif>
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	<cfflush>
 	<h2>CrossRef Data</h2>
 	<cfflush>
