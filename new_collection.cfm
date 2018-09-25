@@ -697,7 +697,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			<div class="asr">#d.comments#</div>
 		</div>
 
-		<cfif d.status is "administrative_approval_granted">
+		<cfif d.status is "administrative_approval_granted" or  d.status is "approve_to_create_collections">
 			<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
 			</cfquery>
