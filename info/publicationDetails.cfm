@@ -57,8 +57,27 @@
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
 		});
+		$.ajax({
+			url: "/component/utilities.cfc?queryformat=column",
+			type: "POST",
+			dataType: "text",
+			async: true,
+			data: {
+				method:  "getPublicationRefs",
+				doi : $("#doi").val(),
+				returnformat : "plain"
+			},
+			success: function(r) {
+				console.log(r);
+				$("#pubrefs").html(r);
+			},
+			error: function (xhr, textStatus, errorThrown){
+		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			}
+		});
 	});
 
+	
 	$(window).on('load', function() {
 		$("#ldgthngee").remove();
 	});
@@ -100,6 +119,8 @@
 	<div id="arctospubdata"><img src="/images/indicator.gif"></div>
 	<h2>CrossRef Data</h2>
 	<div id="crossrefpubdata"><img src="/images/indicator.gif"></div>
+	<h2>References</h2>
+	<div id="pubrefs"><img src="/images/indicator.gif"></div>
 
 	<!-----
 	<cfparam name="debug" default="false">

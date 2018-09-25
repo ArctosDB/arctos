@@ -1,6 +1,157 @@
 <cfcomponent>
 
 
+
+<cffunction name="getPublicationRefs"  access="remote">
+	<cfargument name="doi" required="true" type="string" access="remote">
+	<cfoutput>
+		<cfquery name="c" datasource="uam_god">
+			select * from cache_publication_sdata where source='crossref' and doi='#doi#' and last_date > sysdate-30
+		</cfquery>
+		<cfif c.recordcount gt 0>
+			<cfset x=DeserializeJSON(c.json_data)>
+			<cfset jmamm_citation=c.jmamm_citation>
+		<cfelse>
+			<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
+				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+			</cfhttp>
+			<cfhttp result="jmc" method="get" url="https://dx.doi.org//#doi#">
+				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+			</cfhttp>
+			<cfif debug is true>
+				<cfdump var=#jmc#>
+				<cfdump var=#d#>
+			</cfif>
+			<cfif not isjson(d.Filecontent)>
+				invalid return
+				<cfdump var=#d#>
+				<cfabort>
+			</cfif>
+			<cfif left(jmc.statuscode,3) is "200">
+				<cfset jmcdata=jmc.fileContent>
+			<cfelse>
+				<cfset jmcdata='ERROR: #jmc.statuscode#'>
+			</cfif>
+			<cfquery name="dc" datasource="uam_god">
+				delete from cache_publication_sdata where source='crossref' and doi='#doi#'
+			</cfquery>
+			<cfquery name="uc" datasource="uam_god">
+				insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+				 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmcdata#','crossref',sysdate)
+			</cfquery>
+			<cfset x=DeserializeJSON(d.Filecontent)>
+			<cfset jmamm_citation=jmc.fileContent>
+		</cfif>
+
+		<cfsavecontent variable="r">
+			<cfif structKeyExists(x.message,"reference")>
+			<cfloop array="#x.message.reference#" index="idx">
+				<!--- referenes are a mess, if we have a DOI just use the damned thing --->
+				<cfif StructKeyExists(idx, "doi")>
+					<cfset thisDOI=idx["doi"]>
+					<cfquery name="c" datasource="uam_god">
+						select * from cache_publication_sdata where source='crossref' and doi='#thisDOI#' and last_date > sysdate-30
+					</cfquery>
+					<cfif c.recordcount gt 0>
+						<cfset rfs=c.jmamm_citation>
+					<cfelse>
+						<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">
+							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+						</cfhttp>
+						<cfhttp result="jmc" method="get" url="https://dx.doi.org/#thisDOI#">
+							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+							<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+						</cfhttp>
+						<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
+							<cfset rfs="invalid return; https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI# and / or 	https://dx.doi.org/#thisDOI# did not resolve (possibly not a valid DOI?)">
+						<cfelse>
+							<cfquery name="dc" datasource="uam_god">
+								delete from cache_publication_sdata where source='crossref' and doi='#thisDOI#'
+							</cfquery>
+							<cfquery name="uc" datasource="uam_god">
+								insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+								 ('#thisDOI#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
+							</cfquery>
+							<cfset rfs=jmc.fileContent>
+						</cfif>
+					</cfif>
+				<cfelse>
+					<!--- no DOI, use what we have --->
+					<cfif StructKeyExists(idx, "unstructured")>
+						<cfset rfs=idx["unstructured"]>
+					<cfelse>
+				   		<cfset rfs="">
+						<cfif StructKeyExists(idx, "author")>
+							<cfset rfs=rfs & idx["author"]>
+						</cfif>
+					    <cfif StructKeyExists(idx, "year")>
+							<cfset rfs=rfs & ' ' & idx["year"] & '. '>
+						</cfif>
+					   <cfif StructKeyExists(idx, "article-title")>
+						   <cfset rfs=rfs & idx["article-title"]>
+						<cfelseif StructKeyExists(idx, "volume-title")>
+						   <cfset rfs=rfs & idx["volume-title"]>
+					   </cfif>
+					</cfif>
+				</cfif>
+				<div class="refDiv">
+					#rfs#
+					 <cfif StructKeyExists(idx, "doi")>
+						 <cfset thisDOI=idx["doi"]>
+						<br><a class="external" target="_blank" href="http://dx.doi.org/#thisDOI#">http://dx.doi.org/#thisDOI#</a>
+						<br><a href="publicationDetails.cfm?doi=#thisDOI#">[ more information ]</a>
+						<br><a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#thisDOI#">view raw data</a>
+						<cfquery name="ap" datasource="uam_god" cachedwithin="#createtimespan(0,0,15,0)#">
+							select publication_id from publication where doi='#thisDOI#'
+						</cfquery>
+						<cfif ap.recordcount gt 0>
+							<br><a target="_blank" href="/publication/#ap.publication_id#">Arctos Publication</a>
+						<cfelse>
+							<div id="acp_#hash(thisDOI)#">
+								<span class="likeLink" onclick="autocreatepublication('#thisDOI#','acp_#hash(thisDOI)#')">Auto-Create</span>
+							</div>
+						</cfif>
+					</cfif>
+				</div>
+				<cfflush>
+			</cfloop>
+		</cfif>
+
+		<cfquery name="c" datasource="uam_god">
+			select * from cache_publication_sdata where source='opencitations' and doi='#doi#' and last_date > sysdate-30
+		</cfquery>
+		<cfif c.recordcount gt 0>
+			<cfset x=DeserializeJSON(c.json_data)>
+		<cfelse>
+			<cfhttp result="d" method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
+				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+				<cfhttpparam type = "header" name = "Accept" value = "application/json">
+			</cfhttp>
+			<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
+				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+			</cfhttp>
+			<cfif not isjson(d.Filecontent)>
+				invalid return
+				<cfdump var=#d#>
+				<cfabort>
+			</cfif>
+			<cfquery name="dc" datasource="uam_god">
+				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
+			</cfquery>
+			<cfquery name="uc" datasource="uam_god">
+				insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+				 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','opencitations',sysdate)
+			</cfquery>
+			<cfset x=DeserializeJSON(d.Filecontent)>
+		</cfif>
+
+		</cfsavecontent>
+	</cfoutput>
+	<cfreturn r>
+</cffunction>
+<!-------------------------------------------------------->
 <cffunction name="getCrossrefPublication"  access="remote">
 	<cfargument name="doi" required="true" type="string" access="remote">
 	<cfoutput>
