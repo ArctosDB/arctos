@@ -29,7 +29,7 @@
 			data: {
 				method:  "getArctosPublication",
 				doi : $("#doi").val(),
-				returnformat : "json"
+				returnformat : "text"
 			},
 			success: function(r) {
 				console.log(r);
