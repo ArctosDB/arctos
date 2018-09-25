@@ -90,7 +90,7 @@
 		var dois=[];
 		$("li[data-doi]").each(function( i, val ) {
 			//console.log(val);
-			var doi=$(this).attr("data-doi")
+			var doi=$(this).attr("data-doi");
 			//console.log(doi);
 			dois.push(doi);
 		});
