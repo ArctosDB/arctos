@@ -18,9 +18,6 @@
 </style>
 <script>
 	$(document).ready(function() {
-
-		console.log('ready');
-
 		$.ajax({
 			url: "/component/utilities.cfc?queryformat=column",
 			type: "POST",
@@ -32,7 +29,7 @@
 				returnformat : "plain"
 			},
 			success: function(r) {
-				console.log(r);
+				//console.log(r);
 				$("#arctospubdata").html(r);
 			},
 			error: function (xhr, textStatus, errorThrown){
@@ -50,7 +47,7 @@
 				returnformat : "plain"
 			},
 			success: function(r) {
-				console.log(r);
+				//console.log(r);
 				$("#crossrefpubdata").html(r);
 			},
 			error: function (xhr, textStatus, errorThrown){
@@ -68,14 +65,14 @@
 				returnformat : "plain"
 			},
 			success: function(r) {
-				console.log(r);
+				//console.log(r);
 				$("#pubrefs").html(r);
 			},
 			error: function (xhr, textStatus, errorThrown){
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
 		});
-		
+
 		$.ajax({
 			url: "/component/utilities.cfc?queryformat=column",
 			type: "POST",
@@ -87,22 +84,17 @@
 				returnformat : "plain"
 			},
 			success: function(r) {
-				console.log(r);
+				//console.log(r);
 				$("#pubcitby").html(r);
 			},
 			error: function (xhr, textStatus, errorThrown){
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
 		});
-		
-		
-		
-		
-	});
 
-	
-	$(window).on('load', function() {
-		$("#ldgthngee").remove();
+
+
+
 	});
 	function autocreatepublication(doi,eid){
 		$("#" + eid).html('<img src="/images/indicator.gif">');
@@ -135,9 +127,6 @@
 <cfoutput>
 	<!--- for JS ---->
 	<input type="hidden" id="doi" value="#doi#">
-	<div id="ldgthngee">
-		<img src="/images/indicator.gif">
-	</div>
 	<h2>Arctos Publication</h2>
 	<div id="arctospubdata"><img src="/images/indicator.gif"></div>
 	<h2>CrossRef Data</h2>

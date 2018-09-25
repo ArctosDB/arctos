@@ -179,25 +179,15 @@
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif action is "search">
-<script>
-	$(document).ready(function() {
-		$('.modal').click(function(e) {
-		    e.preventDefault();
-
-		    var d=$(this).attr("data-doi");
-		    console.log(d);
-		     showPubInfo(d);
-
-		   // $('#modal').load(this.href).dialog('open');
-
-		   // showPubInfo
+	<script>
+		$(document).ready(function() {
+			$('.modal').click(function(e) {
+			    e.preventDefault();
+			    var d=$(this).attr("data-doi");
+			    showPubInfo(d);
+			});
 		});
-
-	});
-</script>
-
-
-
+	</script>
 	<cfoutput>
 		<cfset title = "Usage Search Results">
 		<cfset sel = "
@@ -643,9 +633,7 @@
 					</li>
 					<cfif len(doi) gt 0>
 						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
-						<ul><li><a href="/info/publicationDetails.cfm?doi=#doi#" onclick="showPubInfo('#doi#');">CrossRef Data</a></li></ul>
-
-						<a data-doi='#doi#' href="/info/publicationDetails.cfm?doi=#doi#" class="modal">Open Me!!</a>
+						<ul><li><a data-doi='#doi#' href="/info/publicationDetails.cfm?doi=#doi#" class="modal">CrossRef Data</a></li></ul>
 					<cfelse>
 						<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 							<li><a href="/Publication.cfm?publication_id=#publication_id#">NO DOI! Please edit and add.</a></li>
