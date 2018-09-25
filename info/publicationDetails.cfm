@@ -145,7 +145,7 @@
 		select * from cache_publication_sdata where source='crossref' and doi='#doi#' and last_date > sysdate-30
 	</cfquery>
 	<cfif c.recordcount gt 0>
-		<cfif isjson(c.json_data>
+		<cfif isjson(c.json_data)>
 			<cfset x=DeserializeJSON(c.json_data)>
 		</cfif>
 		<cfset jmamm_citation=c.jmamm_citation>
