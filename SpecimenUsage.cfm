@@ -640,7 +640,7 @@
 						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 						<ul><li><a href="/info/publicationDetails.cfm?doi=#doi#" onclick="showPubInfo('#doi#');">CrossRef Data</a></li></ul>
 
-						<a href="/info/publicationDetails.cfm?doi=#doi" class="modal">Open Me!!</a>
+						<a href="/info/publicationDetails.cfm?doi=#doi#" class="modal">Open Me!!</a>
 					<cfelse>
 						<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 							<li><a href="/Publication.cfm?publication_id=#publication_id#">NO DOI! Please edit and add.</a></li>
