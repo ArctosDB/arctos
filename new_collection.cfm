@@ -426,6 +426,9 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <!------------------------------------------------------>
 <cfif action is "edit_collection">
 	<cfoutput>
+		<cfif d.status is not "approved_to_create_collections">
+			Changes are not allowed with the current status.
+		</cfif>
 		<!--- pre-check this ---->
 		<cfif len(LOAN_POLICY_URL) gt 0 and not isvalid('url',LOAN_POLICY_URL)>
 			LOAN_POLICY_URL is not a valid URL. Use your back button.<cfabort>
@@ -726,6 +729,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<input type="hidden" name="action" value="edit_collection">
 					<input type="hidden" name="niid" value="#d.niid#">
 					<input type="hidden" name="ncid" value="#c.ncid#">
+					<input type="hidden" name="status" value="#d.status#">
 					<div class="infoDiv">
 						GUID_Prefix is the core of the primary specimen identifier. It is combined with catalog number and Arctos' URL to
 						produce a resolvable globally-unique specimen identifier. This must be unique across all Arctos collections.
