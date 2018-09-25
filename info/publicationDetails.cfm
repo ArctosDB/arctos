@@ -177,6 +177,7 @@
 		</cfquery>
 		<cfif debug is true>
 			len(jmcdata)::#len(jmcdata)#
+			<p></p>len(d.Filecontent)::#len(d.Filecontent)#
 		</cfif>
 		<cfquery name="uc" datasource="uam_god">
 			insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
