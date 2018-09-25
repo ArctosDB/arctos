@@ -1,5 +1,164 @@
 <cfcomponent>
 
+
+<cffunction name="getCrossrefPublication"  access="remote">
+	<cfargument name="doi" required="true" type="string" access="remote">
+	<cfoutput>
+		<cfsavecontent variable="r">
+			<h2>CrossRef Data</h2>
+			<p>
+				<a target="_blank" class="external" href="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">view data</a>
+			</p>
+		<!--- see if we have a recent cache --->
+		<cfquery name="c" datasource="uam_god">
+			select * from cache_publication_sdata where source='crossref' and doi='#doi#' and last_date > sysdate-30
+		</cfquery>
+		<cfif c.recordcount gt 0>
+			<cfset x=DeserializeJSON(c.json_data)>
+			<cfset jmamm_citation=c.jmamm_citation>
+		<cfelse>
+			<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
+				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+			</cfhttp>
+			<cfhttp result="jmc" method="get" url="https://dx.doi.org//#doi#">
+				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
+				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
+			</cfhttp>
+			<cfif debug is true>
+				<cfdump var=#jmc#>
+				<cfdump var=#d#>
+			</cfif>
+			<cfif not isjson(d.Filecontent)>
+				invalid return
+				<cfdump var=#d#>
+				<cfabort>
+			</cfif>
+			<cfif left(jmc.statuscode,3) is "200">
+				<cfset jmcdata=jmc.fileContent>
+			<cfelse>
+				<cfset jmcdata='ERROR: #jmc.statuscode#'>
+			</cfif>
+			<cfquery name="dc" datasource="uam_god">
+				delete from cache_publication_sdata where source='crossref' and doi='#doi#'
+			</cfquery>
+			<cfquery name="uc" datasource="uam_god">
+				insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+				 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmcdata#','crossref',sysdate)
+			</cfquery>
+			<cfset x=DeserializeJSON(d.Filecontent)>
+			<cfset jmamm_citation=jmc.fileContent>
+		</cfif>
+		<h3>
+			#jmamm_citation#
+		</h3>
+
+
+		<cfif structKeyExists(x.message,"title")>
+			<cfset tar=x.message["title"]>
+			<cfif ArrayIsDefined(tar,1)>
+			<p>
+				Title: #tar[1]#
+			</p>
+			</cfif>
+		</cfif>
+		<cfif structKeyExists(x.message,"created")>
+			<cfset tar=x.message["created"]>
+			<cfset z=tar["date-parts"]>
+			<cfset y=z[1][1]>
+			<br>Year: #y#
+		</cfif>
+		<cfif structKeyExists(x.message,"container-title")>
+			<cfset tar=x.message["container-title"]>
+			<cfif ArrayIsDefined(tar,1)>
+				<br>Container Title: #tar[1]#
+			</cfif>
+		</cfif>
+		<cfif structKeyExists(x.message,"issue")>
+			<br>Issue: #x.message["issue"]#
+		</cfif>
+		<cfif structKeyExists(x.message,"publisher")>
+			<br>Publisher: #x.message["publisher"]#
+		</cfif>
+		<cfif structKeyExists(x.message,"type")>
+			<br>Type: #x.message["type"]#
+		</cfif>
+		<cfif structKeyExists(x.message,"volume")>
+			<br>Volume: #x.message["volume"]#
+		</cfif>
+		<cfif structKeyExists(x.message,"page")>
+			<br>Page: #x.message["page"]#
+		</cfif>
+		<cfif structKeyExists(x.message,"reference-count")>
+			<br>Reference Count: #x.message["reference-count"]#
+		</cfif>
+		<cfif structKeyExists(x.message,"is-referenced-by-count")>
+			<br>Referenced By Count: #x.message["is-referenced-by-count"]#
+		</cfif>
+
+
+
+		<h3>
+			Authors
+		</h3>
+		<cfif structKeyExists(x.message,"author")>
+			<cfloop array="#x.message.author#" index="idx">
+			    <cfif StructKeyExists(idx, "given")>
+					<br>#idx["given"]#
+				</cfif>
+			    <cfif StructKeyExists(idx, "family")>
+					#idx["family"]#
+				</cfif>
+				<cfif StructKeyExists(idx, "sequence")>
+					(#idx["sequence"]#)
+				</cfif>
+				<cfif StructKeyExists(idx, "ORCID")>
+					<ul>
+						<cfquery name="au" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+							select agent_id from address where ADDRESS_TYPE='ORCID' and address='#idx["ORCID"]#'
+						</cfquery>
+						<cfif au.recordcount gt 0>
+							<li><a href="/agent.cfm?agent_id=#au.agent_id#" target="_blank">[ Arctos Agent ]</a></li>
+						</cfif>
+						<li><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a></li>
+					</ul>
+				</cfif>
+			</cfloop>
+		</cfif>
+
+		<cfif structKeyExists(x.message,"funder")>
+			<br>Funder(s):
+			<cfset fd=x.message["funder"]>
+			<ul>
+			<cfloop array="#fd#" index="fdrs">
+				<li>
+					#fdrs["name"]#
+					<cfif structKeyExists(fdrs,"DOI")>
+						(<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)
+					</cfif>
+
+					<cfif structKeyExists(fdrs,"award")>
+						<ul>
+							<cfloop array='#fdrs["award"]#' index="ax">
+								 <li>
+									 Award #ax#
+									<cfif fdrs["name"] is "National Science Foundation">
+										<a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=#ax#" target="_blank" class="external">NSF Search</a>
+									</cfif>
+								</li>
+							</cfloop>
+						</ul>
+					</cfif>
+				</li>
+			</cfloop>
+			</ul>
+		</cfif>
+
+
+		</cfsavecontent>
+	</cfoutput>
+	<cfreturn r>
+</cffunction>
+<!-------------------------------------------------------->
 <cffunction name="getArctosPublication"  access="remote">
 	 <cfargument name="doi" required="true" type="string" access="remote">
 	 <cfquery name="abp" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">

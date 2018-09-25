@@ -39,6 +39,24 @@
 		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 			}
 		});
+		$.ajax({
+			url: "/component/utilities.cfc?queryformat=column",
+			type: "POST",
+			dataType: "text",
+			async: true,
+			data: {
+				method:  "getCrossrefPublication",
+				doi : $("#doi").val(),
+				returnformat : "plain"
+			},
+			success: function(r) {
+				console.log(r);
+				$("#crossrefpubdata").html(r);
+			},
+			error: function (xhr, textStatus, errorThrown){
+		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			}
+		});
 	});
 
 	$(window).on('load', function() {
@@ -79,6 +97,7 @@
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="arctospubdata"></div>
+	<div id="crossrefpubdata"></div>
 
 	<!-----
 	<cfparam name="debug" default="false">
@@ -150,6 +169,13 @@
 	<cfelse>
 		Publication is not in Arctos.
 	</cfif>
+	
+	
+	
+	
+	
+	
+	
 	<cfflush>
 	<h2>CrossRef Data</h2>
 	<cfflush>
