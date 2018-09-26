@@ -113,7 +113,7 @@ function fetchMediaMeta(){
 					tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
 					tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
 					//tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + "'" + ');">CrossRef Data</span></li>';
-					tra+='<li><a data-doi="' + v.DOI + '" href="/info/publicationDetails.cfm?doi=' + v.DOI + ' class="modal">CrossRef Data</a></li>';
+					tra+='<li><a data-doi="' + v.DOI + '" href="/info/publicationDetails.cfm?doi=' + v.DOI + '" class="modal">CrossRef Data</a></li>';
 					
 					
 					tra+='</ul>';
