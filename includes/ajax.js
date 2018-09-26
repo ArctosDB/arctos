@@ -111,7 +111,7 @@ function fetchMediaMeta(){
 					tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + "'" + ');">CrossRef Data</span></li>';
 					tra+='</ul>';
 					var escdoi=v.DOI.replace(/[\W_]+/g,"_");
-					$('##x' + escdoi).append(tra);
+					$('#x' + escdoi).append(tra);
 				});
 			} else {
 				alert(r.STATUS + ': ' + r.MSG);
