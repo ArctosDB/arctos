@@ -133,7 +133,7 @@
 	<div id="crossrefpubdata"><img src="/images/indicator.gif"></div>
 	<h2>References</h2>
 	<div id="pubrefs"><img src="/images/indicator.gif"></div>
-	<h2>Cited By (from http://opencitations.net)</h2>
+	<h2>Cited By <span style="font-size:x-small">(from http://opencitations.net)</span></h2>
 	<div id="pubcitby"><img src="/images/indicator.gif"></div>
 
 
