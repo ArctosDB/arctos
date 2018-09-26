@@ -131,9 +131,9 @@
 	<div id="arctospubdata"><img src="/images/indicator.gif"></div>
 	<h2>CrossRef Data</h2>
 	<div id="crossrefpubdata"><img src="/images/indicator.gif"></div>
-	<h2>References</h2>
+	<h2>References <span style="font-size:50%;font-weight:normal;">(from http://crossref.org)</span></h2>
 	<div id="pubrefs"><img src="/images/indicator.gif"></div>
-	<h2>Cited By <span style="font-size:x-small">(from http://opencitations.net)</span></h2>
+	<h2>Cited By <span style="font-size:50%;font-weight:normal;">(from http://opencitations.net)</span></h2>
 	<div id="pubcitby"><img src="/images/indicator.gif"></div>
 
 
