@@ -86,49 +86,7 @@
 
 	});
 
-	function fetchMediaMeta(){
-		var dois=[];
-		$("li[data-doi]").each(function( i, val ) {
-			//console.log(val);
-			var doi=$(this).attr("data-doi");
-			//console.log(doi);
-			dois.push(doi);
-		});
-		var dl=dois.join();
-		if (dl.length==0) {
-			return;
-		}
-
-		$.ajax({
-			url: "/component/functions.cfc?queryformat=column",
-			type: "GET",
-			dataType: "json",
-			//async: false,
-			data: {
-				method:  "getPubCitSts",
-				doilist : dl,
-				returnformat : "json"
-			},
-			success: function(r) {
-				if (r.STATUS=='SUCCESS'){
-					$.each( r.STSARY, function( k, v ) {
-						var tra='<ul>';
-						tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
-						tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
-						tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + "'" + ');">CrossRef Data</span></li>';
-						tra+='</ul>';
-						var escdoi=v.DOI.replace(/[\W_]+/g,"_");
-						$('##x' + escdoi).append(tra);
-					});
-				} else {
-					alert(r.STATUS + ': ' + r.MSG);
-				}
-			},
-				error: function (xhr, textStatus, errorThrown){
-		    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-			}
-		});
-	}
+	
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT

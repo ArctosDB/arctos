@@ -186,6 +186,11 @@
 			    var d=$(this).attr("data-doi");
 			    showPubInfo(d);
 			});
+
+
+			fetchMediaMeta();
+
+
 		});
 	</script>
 	<cfoutput>
