@@ -637,8 +637,15 @@
 						</cfif>
 					</li>
 					<cfif len(doi) gt 0>
-						<li><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
+						<cfset escdoi=rereplace(doi,"[^A-Za-z0-9]","_","ALL")>
+						<li id='x#escdoi#' data-doi='#doi#'><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 						<ul><li><a data-doi='#doi#' href="/info/publicationDetails.cfm?doi=#doi#" class="modal">CrossRef Data</a></li></ul>
+
+
+
+
+
+
 					<cfelse>
 						<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 							<li><a href="/Publication.cfm?publication_id=#publication_id#">NO DOI! Please edit and add.</a></li>
