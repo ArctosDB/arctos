@@ -230,7 +230,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 		<cfelseif status is "denied">
 			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
 			<p>
-				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&status=#status#&niid=#niid#">continue to set status</a>
+				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&old_status=#old_status#&status=#status#&niid=#niid#">continue to set status</a>
 			</p>
 			<cfabort>
 		<cfelseif old_status is "new" and status is not "administrative_approval_granted">
@@ -426,6 +426,9 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <!------------------------------------------------------>
 <cfif action is "edit_collection">
 	<cfoutput>
+		<cfif status is not "approved_to_create_collections">
+			Changes are not allowed with the current status.
+		</cfif>
 		<!--- pre-check this ---->
 		<cfif len(LOAN_POLICY_URL) gt 0 and not isvalid('url',LOAN_POLICY_URL)>
 			LOAN_POLICY_URL is not a valid URL. Use your back button.<cfabort>
@@ -697,7 +700,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			<div class="asr">#d.comments#</div>
 		</div>
 
-		<cfif d.status is "administrative_approval_granted">
+		<cfif d.status is "administrative_approval_granted" or  d.status is "approve_to_create_collections">
 			<cfquery name="CTMEDIA_LICENSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select MEDIA_LICENSE_ID,DISPLAY from CTMEDIA_LICENSE order by DISPLAY
 			</cfquery>
@@ -726,6 +729,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<input type="hidden" name="action" value="edit_collection">
 					<input type="hidden" name="niid" value="#d.niid#">
 					<input type="hidden" name="ncid" value="#c.ncid#">
+					<input type="hidden" name="status" value="#d.status#">
 					<div class="infoDiv">
 						GUID_Prefix is the core of the primary specimen identifier. It is combined with catalog number and Arctos' URL to
 						produce a resolvable globally-unique specimen identifier. This must be unique across all Arctos collections.

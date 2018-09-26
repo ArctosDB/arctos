@@ -53,7 +53,12 @@
 							<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 							<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 						</cfhttp>
-						<cfset jmamm_citation=jmc.fileContent>
+						<cfif left(jmc.statuscode,3) is "200">
+							<cfset jmamm_citation=jmc.fileContent>
+						<cfelse>
+							<cfset jmamm_citation='lookup failure: https://dx.doi.org/#cdoi#'>
+						</cfif>
+
 						<cfif not isjson(d.Filecontent)>
 							<cfreturn "lookup failure for https://api.crossref.org/v1/works/http://dx.doi.org/#cdoi#">
 						</cfif>
@@ -64,7 +69,10 @@
 							insert into cache_publication_sdata (doi,json_data,source,jmamm_citation,last_date) values
 							 ('#cdoi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'crossref','#jmamm_citation#',sysdate)
 						</cfquery>
+						<!----
+						this isn't used
 						<cfset tr=DeserializeJSON(d.Filecontent)>
+						---->
 					</cfif>
 					<div class="refDiv">
 						#jmamm_citation#
