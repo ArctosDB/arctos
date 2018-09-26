@@ -205,35 +205,6 @@
 				</div>
 			</cfloop>
 		</cfif>
-
-<!----
-		<cfquery name="c" datasource="uam_god">
-			select * from cache_publication_sdata where source='opencitations' and doi='#doi#' and last_date > sysdate-30
-		</cfquery>
-		<cfif c.recordcount gt 0>
-			<cfset x=DeserializeJSON(c.json_data)>
-		<cfelse>
-			<cfhttp result="d" method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
-				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-				<cfhttpparam type = "header" name = "Accept" value = "application/json">
-			</cfhttp>
-			<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
-				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
-				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
-			</cfhttp>
-			<cfif left(d.statuscode,3) is nor "200" or not isjson(d.Filecontent)>
-				<cfreturn 'lookup failed at http://opencitations.net/index/coci/api/v1/citations/#doi#'>
-			</cfif>
-			<cfquery name="dc" datasource="uam_god">
-				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
-			</cfquery>
-			<cfquery name="uc" datasource="uam_god">
-				insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
-				 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','opencitations',sysdate)
-			</cfquery>
-			<cfset x=DeserializeJSON(d.Filecontent)>
-		</cfif>
----->
 		</cfsavecontent>
 	</cfoutput>
 	<cfreturn r>
@@ -257,19 +228,17 @@
 			<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 			</cfhttp>
-			<cfhttp result="jmc" method="get" url="https://dx.doi.org//#doi#">
+			<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 			</cfhttp>
 			<cfif not isjson(d.Filecontent)>
-				invalid return
-				<cfdump var=#d#>
-				<cfabort>
+				<cfreturn 'lookup failed at https://api.crossref.org/v1/works/http://dx.doi.org/#doi#'>
 			</cfif>
 			<cfif left(jmc.statuscode,3) is "200">
 				<cfset jmcdata=jmc.fileContent>
 			<cfelse>
-				<cfset jmcdata='ERROR: #jmc.statuscode#'>
+				<cfset jmcdata='lookup of https://dx.doi.org/#doi# failed with #jmc.statuscode#'>
 			</cfif>
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='crossref' and doi='#doi#'
@@ -284,8 +253,6 @@
 		<h3>
 			#jmamm_citation#
 		</h3>
-
-
 		<cfif structKeyExists(x.message,"title")>
 			<cfset tar=x.message["title"]>
 			<cfif ArrayIsDefined(tar,1)>
@@ -327,9 +294,6 @@
 		<cfif structKeyExists(x.message,"is-referenced-by-count")>
 			<br>Referenced By Count: #x.message["is-referenced-by-count"]#
 		</cfif>
-
-
-
 		<h3>
 			Authors
 		</h3>
@@ -357,7 +321,6 @@
 				</cfif>
 			</cfloop>
 		</cfif>
-
 		<cfif structKeyExists(x.message,"funder")>
 			<br>Funder(s):
 			<cfset fd=x.message["funder"]>
@@ -368,7 +331,6 @@
 					<cfif structKeyExists(fdrs,"DOI")>
 						(<a href="https://dx.doi.org/#fdrs["DOI"]#" target="_blank" class="external">#fdrs["DOI"]#</a>)
 					</cfif>
-
 					<cfif structKeyExists(fdrs,"award")>
 						<ul>
 							<cfloop array='#fdrs["award"]#' index="ax">
