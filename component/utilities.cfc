@@ -32,9 +32,7 @@
 			<cfset x=DeserializeJSON(d.Filecontent)>
 		</cfif>
 		<cfsavecontent variable="r">
-			<p>
-				<a target="_blank" class="external" href="http://opencitations.net/index/coci/api/v1/citations/#doi#">view data</a>
-			</p>
+			<br><a target="_blank" class="external" href="http://opencitations.net/index/coci/api/v1/citations/#doi#">view data</a>
 			<cfloop array="#x#" index="idx">
 				<cfset ctdstr="">
 				<cfif StructKeyExists(idx, "citing")>
@@ -253,6 +251,7 @@
 		<h3>
 			#jmamm_citation#
 		</h3>
+
 		<ul>
 		<cfif structKeyExists(x.message,"title")>
 			<cfset tar=x.message["title"]>
@@ -294,6 +293,7 @@
 			<li>Referenced By Count: #x.message["is-referenced-by-count"]#</li>
 		</cfif>
 		</ul>
+
 		<h3>
 			Authors
 		</h3>
