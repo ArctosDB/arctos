@@ -183,8 +183,6 @@
 		$(document).ready(function() {
 		// this doesn't work in includes for some reason so here it is...
 		$('body').on('click', '.modalink', function(e) {
-			alert('clicky');
-			console.log('modalclick');
 			 e.preventDefault();
 			 var d=$(this).attr("data-doi");
 			 showPubInfo(d);

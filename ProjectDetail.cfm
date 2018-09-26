@@ -54,6 +54,13 @@
 		})
 	}
 	jQuery(document).ready(function(){
+		// this doesn't work in includes for some reason so here it is...
+		$('body').on('click', '.modalink', function(e) {
+			 e.preventDefault();
+			 var d=$(this).attr("data-doi");
+			 showPubInfo(d);
+		});
+
 		var elemsToLoad='pubs,specUsed,specCont,projCont,projUseCont,projTaxa';
 		var elemAry = elemsToLoad.split(",");
 		for(var i=0; i<elemAry.length; i++){
@@ -86,7 +93,7 @@
 
 	});
 
-	
+
 </script>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
