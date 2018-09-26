@@ -253,47 +253,47 @@
 		<h3>
 			#jmamm_citation#
 		</h3>
+		<ul>
 		<cfif structKeyExists(x.message,"title")>
 			<cfset tar=x.message["title"]>
 			<cfif ArrayIsDefined(tar,1)>
-			<p>
-				Title: #tar[1]#
-			</p>
+			<li>Title: #tar[1]#</li>
 			</cfif>
 		</cfif>
 		<cfif structKeyExists(x.message,"created")>
 			<cfset tar=x.message["created"]>
 			<cfset z=tar["date-parts"]>
 			<cfset y=z[1][1]>
-			<br>Year: #y#
+			<li>Year: #y#</li>
 		</cfif>
 		<cfif structKeyExists(x.message,"container-title")>
 			<cfset tar=x.message["container-title"]>
 			<cfif ArrayIsDefined(tar,1)>
-				<br>Container Title: #tar[1]#
+				<li>Container Title: #tar[1]#</li>
 			</cfif>
 		</cfif>
 		<cfif structKeyExists(x.message,"issue")>
-			<br>Issue: #x.message["issue"]#
+			<li>Issue: #x.message["issue"]#</li>
 		</cfif>
 		<cfif structKeyExists(x.message,"publisher")>
-			<br>Publisher: #x.message["publisher"]#
+			<li>Publisher: #x.message["publisher"]#</li>
 		</cfif>
 		<cfif structKeyExists(x.message,"type")>
-			<br>Type: #x.message["type"]#
+			<li>Type: #x.message["type"]#</li>
 		</cfif>
 		<cfif structKeyExists(x.message,"volume")>
-			<br>Volume: #x.message["volume"]#
+			<li>Volume: #x.message["volume"]#</li>
 		</cfif>
 		<cfif structKeyExists(x.message,"page")>
-			<br>Page: #x.message["page"]#
+			<li>Page: #x.message["page"]#</li>
 		</cfif>
 		<cfif structKeyExists(x.message,"reference-count")>
-			<br>Reference Count: #x.message["reference-count"]#
+			<li>Reference Count: #x.message["reference-count"]#</li>
 		</cfif>
 		<cfif structKeyExists(x.message,"is-referenced-by-count")>
-			<br>Referenced By Count: #x.message["is-referenced-by-count"]#
+			<li>Referenced By Count: #x.message["is-referenced-by-count"]#</li>
 		</cfif>
+		</ul>
 		<h3>
 			Authors
 		</h3>
