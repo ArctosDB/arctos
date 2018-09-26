@@ -638,9 +638,13 @@
 					</li>
 					<cfif len(doi) gt 0>
 						<cfset escdoi=rereplace(doi,"[^A-Za-z0-9]","_","ALL")>
+						<li id='x#escdoi#' data-doi='#doi#'><a class="external" target="_blank" href="https://doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
+
+<!----
+
 						<li id='x#escdoi#' data-doi='#doi#'><a class="external" target="_blank" href="http://dx.doi.org/#doi#">http://dx.doi.org/#doi#</a></li>
 						<ul><li><a data-doi='#doi#' href="/info/publicationDetails.cfm?doi=#doi#" class="modal">CrossRef Data</a></li></ul>
-
+---->
 
 
 
