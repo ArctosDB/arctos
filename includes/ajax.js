@@ -78,6 +78,8 @@ function getFormattedPartTime(partTime){
 }
 
 function fetchMediaMeta(){
+	console.log('fetchMediaMeta');
+	
 	var dois=[];
 	$("li[data-doi]").each(function( i, val ) {
 		//console.log(val);
