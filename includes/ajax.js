@@ -33,7 +33,7 @@ $(document).ready(function() {
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
 		
-		$('body').on('click', 'a.modal', function() {
+		$('body').on('click', '.modal', function() {
 			console.log('modalclick');
 			 e.preventDefault();
 			 var d=$(this).attr("data-doi");
