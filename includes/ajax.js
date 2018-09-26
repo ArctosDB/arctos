@@ -32,7 +32,11 @@ $(document).ready(function() {
 		$(".ui-widget-overlay").click(function(){
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
-		
+		$('.modal').click(function(e) {
+		    e.preventDefault();
+		    var d=$(this).attr("data-doi");
+		    showPubInfo(d);
+		});
 
 		
 		
@@ -108,7 +112,10 @@ function fetchMediaMeta(){
 					var tra='<ul>';
 					tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
 					tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
-					tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + "'" + ');">CrossRef Data</span></li>';
+					//tra+='<li><span class="likeLink" onclick="showPubInfo(' + "'" + v.DOI + "'" + ');">CrossRef Data</span></li>';
+					tra+='<li><a data-doi="' + v.DOI + '" href="/info/publicationDetails.cfm?doi=' + v.DOI + ' class="modal">CrossRef Data</a></li>';
+					
+					
 					tra+='</ul>';
 					var escdoi=v.DOI.replace(/[\W_]+/g,"_");
 					$('#x' + escdoi).append(tra);

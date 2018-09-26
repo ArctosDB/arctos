@@ -181,11 +181,7 @@
 <cfif action is "search">
 	<script>
 		$(document).ready(function() {
-			$('.modal').click(function(e) {
-			    e.preventDefault();
-			    var d=$(this).attr("data-doi");
-			    showPubInfo(d);
-			});
+			
 
 
 			fetchMediaMeta();
