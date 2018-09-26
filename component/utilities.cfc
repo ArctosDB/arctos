@@ -1,6 +1,6 @@
 <cfcomponent>
 
-
+<!-------------------------------------------------------->
 <cffunction name="getPublicationCitations"  access="remote">
 	<cfargument name="doi" required="true" type="string" access="remote">
 	<cfoutput>
@@ -110,19 +110,17 @@
 			<cfhttp result="d" method="get" url="https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 			</cfhttp>
-			<cfhttp result="jmc" method="get" url="https://dx.doi.org//#doi#">
+			<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 			</cfhttp>
-			<cfif not isjson(d.Filecontent)>
-				invalid return
-				<cfdump var=#d#>
-				<cfabort>
+			<cfif left(d.statuscode,3) is not "200" or not isjson(d.Filecontent)>
+				<cfreturn "Lookup failed at https://api.crossref.org/v1/works/http://dx.doi.org/#doi#">
 			</cfif>
 			<cfif left(jmc.statuscode,3) is "200">
 				<cfset jmcdata=jmc.fileContent>
 			<cfelse>
-				<cfset jmcdata='ERROR: #jmc.statuscode#'>
+				<cfset jmcdata='Lookup failed at https://dx.doi.org/#doi# with #jmc.statuscode#'>
 			</cfif>
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='crossref' and doi='#doi#'
@@ -208,6 +206,7 @@
 			</cfloop>
 		</cfif>
 
+<!----
 		<cfquery name="c" datasource="uam_god">
 			select * from cache_publication_sdata where source='opencitations' and doi='#doi#' and last_date > sysdate-30
 		</cfquery>
@@ -222,10 +221,8 @@
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 			</cfhttp>
-			<cfif not isjson(d.Filecontent)>
-				invalid return
-				<cfdump var=#d#>
-				<cfabort>
+			<cfif left(d.statuscode,3) is nor "200" or not isjson(d.Filecontent)>
+				<cfreturn 'lookup failed at http://opencitations.net/index/coci/api/v1/citations/#doi#'>
 			</cfif>
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
@@ -236,7 +233,7 @@
 			</cfquery>
 			<cfset x=DeserializeJSON(d.Filecontent)>
 		</cfif>
-
+---->
 		</cfsavecontent>
 	</cfoutput>
 	<cfreturn r>
