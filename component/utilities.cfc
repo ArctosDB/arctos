@@ -297,32 +297,36 @@
 		<h3>
 			Authors
 		</h3>
+		<ul>
 		<cfif structKeyExists(x.message,"author")>
 			<cfloop array="#x.message.author#" index="idx">
-			    <cfif StructKeyExists(idx, "given")>
-					<br>#idx["given"]#
-				</cfif>
-			    <cfif StructKeyExists(idx, "family")>
-					#idx["family"]#
-				</cfif>
-				<cfif StructKeyExists(idx, "sequence")>
-					(#idx["sequence"]#)
-				</cfif>
-				<cfif StructKeyExists(idx, "ORCID")>
-					<ul>
-						<cfquery name="au" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-							select agent_id from address where ADDRESS_TYPE='ORCID' and address='#idx["ORCID"]#'
-						</cfquery>
-						<cfif au.recordcount gt 0>
-							<li><a href="/agent.cfm?agent_id=#au.agent_id#" target="_blank">[ Arctos Agent ]</a></li>
-						</cfif>
-						<li><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a></li>
-					</ul>
-				</cfif>
+				<li>
+				    <cfif StructKeyExists(idx, "given")>
+						#idx["given"]#
+					</cfif>
+				    <cfif StructKeyExists(idx, "family")>
+						#idx["family"]#
+					</cfif>
+					<cfif StructKeyExists(idx, "sequence")>
+						(#idx["sequence"]#)
+					</cfif>
+					<cfif StructKeyExists(idx, "ORCID")>
+						<ul>
+							<cfquery name="au" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+								select agent_id from address where ADDRESS_TYPE='ORCID' and address='#idx["ORCID"]#'
+							</cfquery>
+							<cfif au.recordcount gt 0>
+								<li><a href="/agent.cfm?agent_id=#au.agent_id#" target="_blank">[ Arctos Agent ]</a></li>
+							</cfif>
+							<li><a href="#idx["ORCID"]#" class="external" target="_blank">#idx["ORCID"]#</a></li>
+						</ul>
+					</cfif>
+				</li>
 			</cfloop>
 		</cfif>
+		</ul>
 		<cfif structKeyExists(x.message,"funder")>
-			<br>Funder(s):
+			<h3>Funder(s):</h3>
 			<cfset fd=x.message["funder"]>
 			<ul>
 			<cfloop array="#fd#" index="fdrs">
