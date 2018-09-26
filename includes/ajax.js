@@ -34,6 +34,7 @@ $(document).ready(function() {
 		});
 		
 		$('body').on('click', 'a.modal', function() {
+			console.log('modalclick');
 			 e.preventDefault();
 			 var d=$(this).attr("data-doi");
 			 showPubInfo(d);
