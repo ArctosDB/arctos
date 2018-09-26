@@ -459,6 +459,9 @@
 		</li>
 	<cfelse>
 		Publication is not in Arctos.
+		<div id="acp_#hash(doi)#">
+			<span class="likeLink" onclick="autocreatepublication('#doi#','acp_#hash(doi)#')">Auto-Create</span>
+		</div>
 	</cfif>
 	</cfsavecontent>
 	</cfoutput>
