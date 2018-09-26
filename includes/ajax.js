@@ -14,8 +14,8 @@ $(document).ready(function() {
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
-			"height": 'auto',
-			"modal": true,
+			height: 'auto',
+			modal: true,
 			//position: ['center', 'center'],
 			position: { my: 'top', at: 'top+150' },
 			title: 'Documentation',
