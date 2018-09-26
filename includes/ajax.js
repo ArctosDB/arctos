@@ -11,12 +11,11 @@ $(document).ready(function() {
 			var f=this.id;
 		}
 		var guts = "/doc/get_short_doc.cfm?fld=" + f;
-		
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
-			height: 'auto',
-			modal: true,
+			"height": 'auto',
+			"modal": true,
 			//position: ['center', 'center'],
 			position: { my: 'top', at: 'top+150' },
 			title: 'Documentation',
