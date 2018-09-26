@@ -32,11 +32,13 @@ $(document).ready(function() {
 		$(".ui-widget-overlay").click(function(){
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
-		$('.modal').click(function(e) {
-		    e.preventDefault();
-		    var d=$(this).attr("data-doi");
-		    showPubInfo(d);
+		
+		$('body').on('click', 'a.modal', function() {
+			 e.preventDefault();
+			 var d=$(this).attr("data-doi");
+			 showPubInfo(d);
 		});
+		
 
 		
 		
