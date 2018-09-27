@@ -133,16 +133,21 @@
 			},
 			function (r) {
 				console.log(r);
-				if (r.status=='success'){
+				if (r.STATUS=='success'){
 					//alert('back; update parent and close if success');
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
-					if ( r.child && r. parent) {
+					if ( r.CHILD && r. PARENT) {
 						console.log('movedToNewParent==noclose');
 						parent.movedToNewParent(r.CHILD,r.PARENT,'noclose');
 					}
 					parent.savedMetaEdit(theID,newVal);
 				} else {
-					parent.setStatus(r.status,'err');
+					var theerr="ERROR:";
+					if (r.MESSAGE){
+						theerr+=r.MESSAGE;
+					}
+					parent.setStatus(theerr + ':','err');
+					alert(theerr);
 				}
 			}
 		);
