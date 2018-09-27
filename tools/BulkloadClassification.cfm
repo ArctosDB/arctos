@@ -190,23 +190,30 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 <cfif action is "getUsingCollectionContacts">
 	<cfoutput>
 		  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			  select
-			  	get_address(CONTACT_AGENT_ID,'email',1) addr
-			  from
-				collection_contacts
-			where
-				CONTACT_ROLE='data quality' and
-				COLLECTION_ID in (
-				 select collection_id from cataloged_item where collection_object_id  in (
-				      select COLLECTION_OBJECT_ID from identification where identification_id in (
-				          select  identification_id from identification_taxonomy where taxon_name_id in (
-				              select taxon_name_id from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
-				            )
-				        )
-				    ) group by collection_id
-				) group by get_address(CONTACT_AGENT_ID,'email',1)
+			 select addr from (
+				  select
+				  	get_address(CONTACT_AGENT_ID,'email',1) addr
+				  from
+					collection_contacts
+				where
+					CONTACT_ROLE='data quality' and
+					COLLECTION_ID in (
+					 select collection_id from cataloged_item where collection_object_id  in (
+					      select COLLECTION_OBJECT_ID from identification where identification_id in (
+					          select  identification_id from identification_taxonomy where taxon_name_id in (
+					              select taxon_name_id from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+					            )
+					        )
+					    ) group by collection_id
+					)
+				where addr is not null group by addr
 		</cfquery>
-		<cfdump var=#d#>
+		<cfset al=''>
+		<cfloop query="d">
+			<cfset al=listappend(al,addr)>
+		</cfloop>
+		"data quality" contact email for collections using taxa in your bulkloader
+		<textarea class="hugetextarea">#al#</textarea>
 	</cfoutput>
 </cfif>
 
