@@ -25,7 +25,7 @@ sho err;
 <!------------------------------------------------------->
 <cfif action is "down">
 	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_taxonomy where upper(username)='#ucase(session.username)#'
+		select * from cf_temp_taxon_name where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
@@ -38,7 +38,7 @@ sho err;
 <!------------------------------------------------------->
 <cfif action is "makeTemplate">
 	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_taxonomy where 1=2
+		select * from cf_temp_taxon_name where 1=2
 	</cfquery>
 	<cffile action = "write" file = "#Application.webDirectory#/download/BulkTaxonomy.csv"
     	output = "#t.columnlist#" addNewLine = "no">
@@ -67,7 +67,7 @@ sho err;
 <cfoutput>
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from cf_temp_taxonomy
+		delete from cf_temp_taxon_name
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
@@ -90,7 +90,7 @@ sho err;
 		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into cf_temp_taxonomy (#colNames#) values (#preservesinglequotes(colVals)#)
+				insert into cf_temp_taxon_name (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
 	</cfloop>
@@ -111,7 +111,7 @@ sho err;
 
 
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_taxonomy  where upper(username)='#ucase(session.username)#'
+		select * from cf_temp_taxon_name  where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfquery name="isProb" dbtype="query">
 		select status,count(*) c from data group by status
@@ -156,14 +156,14 @@ sho err;
 <cfif action is "validate">
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from  cf_temp_taxonomy  where status is null and  upper(username)='#ucase(session.username)#'
+		select * from  cf_temp_taxon_name  where status is null and  upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfset tc = CreateObject("component","component.taxonomy")>
 
 	<cfloop query="d">
 		<cfset result=tc.validateName(scientific_name)>
 		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update cf_temp_taxonomy set status='#result.consensus#' where scientific_name='#scientific_name#'
+			update cf_temp_taxon_name set status='#result.consensus#' where scientific_name='#scientific_name#'
 		</cfquery>
 	</cfloop>
 	<cflocation url="BulkloadTaxonomy.cfm" addtoken="false">
@@ -176,7 +176,7 @@ sho err;
 <cfif action is "loadData">
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from  cf_temp_taxonomy  where  upper(username)='#ucase(session.username)#'
+		select * from  cf_temp_taxon_name  where  upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfloop query="d">
 		<cftransaction>
@@ -184,7 +184,7 @@ sho err;
 				insert into taxon_name (scientific_name) values ('#scientific_name#')
 			</cfquery>
 			<cfquery name="dup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				delete from cf_temp_taxonomy  where scientific_name='#scientific_name#' and upper(username)='#ucase(session.username)#'
+				delete from cf_temp_taxon_name  where scientific_name='#scientific_name#' and upper(username)='#ucase(session.username)#'
 			</cfquery>
 			<br>loaded #scientific_name#
 		</cftransaction>
