@@ -189,6 +189,7 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 <!----------------------------------------------------------------->
 <cfif action is "getUsingCollectionContacts">
 	<cfoutput>
+		<!--- this is way faster as a bunch nested queries for some weird reason --->
 		  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			 select addr from (
 				  select
