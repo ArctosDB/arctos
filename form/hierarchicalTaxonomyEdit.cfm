@@ -230,7 +230,7 @@
 		if (ttt=='taxon_status'){
 			console.log('go taxon_status');
 			$("#the_new_term_cell_" + idx).html('');
-			$("#canned_taxon_status").clone().attr('name', 'nctermtype_new_' + idx).attr('id', 'nctermtype_new_' + idx).appendTo($("#the_new_term_cell_" + idx));
+			$("#canned_taxon_status").clone().attr('name', 'nctermvalue_new_"' + idx).attr('id', 'nctermvalue_new_' + idx).appendTo($("#the_new_term_cell_" + idx));
 			/*
 
 			var theel=$("#canned_taxon_status");
