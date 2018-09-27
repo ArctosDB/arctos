@@ -1685,6 +1685,10 @@ UAM@ARCTOS> desc hierarchical_taxonomy
     		}
 		}
 
+		function clicked_tree(id){
+			console.log(id);
+		}
+
 		jQuery(document).ready(function() {
 			myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
 			myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
@@ -1693,10 +1697,9 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			myTree.enableTreeLines(true);
 			myTree.enableTreeImages(false);
 			myTree.enableItemEditor(false);
-			myTree.allTree.onselectstart = function(){ return true; }
 			initTree();
 			myTree.attachEvent("onCheck", function(id){
-				console.log('checked ' + id);
+				//console.log('checked ' + id);
 				checked_box(id);
 			});
 
@@ -1706,6 +1709,9 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 
 			myTree.attachEvent("onRightClick", function(id){
 				myTree.closeItem(id);
+			});
+			myTree.attachEvent("onClick", function(id){
+				clicked_tree(id);
 			});
 
 			myTree.attachEvent("onDrop", function(sId, tId, id, sObject, tObject){
