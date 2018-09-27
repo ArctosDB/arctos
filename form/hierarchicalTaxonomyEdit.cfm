@@ -326,6 +326,15 @@
 		</tr>
 	</cfloop>
 	</table>
+	<p>
+		Instead of dragging, you can move this term to a new parent here.
+		<label for="newParentTermValue">New Parent Term Value (exact, case-sensitive, no rank)</label>
+		<input name="newParentTermValue" id="newParentTermValue" type="text" value="#d_p.term# (#d_p.rank#)" placeholder='new parent' size="60">
+		<input type="button" onclick="findSaveNewParent()" class="savBtn" value="findSaveNewParent">
+
+	</p>
+	<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="Save Rank/Term Metadata Edits">
+
 	<hr>
 	<p>
 		Create a new term as a child of this term.
@@ -345,13 +354,7 @@
 		<br><input type="button" onclick="fcreateNewChildTerm()" class="insBtn" value="Create New Child Term">
 	</p>
 <hr>
-	<p>
-		Instead of dragging, you can move this term to a new parent here.
-		<label for="newParentTermValue">New Parent Term Value (exact, case-sensitive, no rank)</label>
-		<input name="newParentTermValue" id="newParentTermValue" type="text" value="#d_p.term# (#d_p.rank#)" placeholder='new parent' size="60">
-		<input type="button" onclick="findSaveNewParent()" class="savBtn" value="findSaveNewParent">
 
-	</p>
 
 </form>
 </cfoutput>
