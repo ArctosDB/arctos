@@ -186,6 +186,19 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 		<cflocation url="BulkloadClassification.cfm?action=nothing" addtoken="false">
 	</cfoutput>
 </cfif>
+
+<!----------------------------------------------------------------->
+<cfif action is "pullNewNames">
+	<cfoutput>
+		<!--- this is way faster as a bunch nested queries for some weird reason --->
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select scientific_name from CF_TEMP_CLASSIFICATION where  upper(username)='#ucase(session.username)#' and
+			scientific_name not in (select scientific_name from taxon_name) order by scientific_name
+		</cfquery>
+		<cfdump var=#d#>
+	</cfoutput>
+</cfif>
+
 <!----------------------------------------------------------------->
 <cfif action is "getUsingCollectionContacts">
 	<cfoutput>
@@ -259,6 +272,9 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=getCSV">Download all of your data</a>. Do this often as a backup.
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm?action=pullNewNames">Find names which are not in Arctos.</a>. These can be created after vetting.
 		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>. Do this before re-loading
