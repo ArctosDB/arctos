@@ -1653,6 +1653,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 
 			setStatus('working','working');
 		    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
+		    console.log('guts: ' + guts);
+
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:1200px;height:800px;'></iframe>").dialog({
 				autoOpen: true,
 				closeOnEscape: true,
