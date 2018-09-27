@@ -187,6 +187,36 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------->
+<cfif action is "getUsingCollectionContacts">
+	<cfoutput>
+		  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select
+				collection.guid_prefix
+			from
+				collection,
+				cataloged_item,
+				identification,
+				identification_taxonomy,
+				taxon_name,
+				CF_TEMP_CLASSIFICATION
+			where
+				collection.collection_id=cataloged_item.collection_id and
+				cataloged_item.collection_object_id=identification.collection_object_id and
+				identification.identification_id=identification_taxonomy.identification_id and
+				identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id and
+				taxon_name.scientific_name=CF_TEMP_CLASSIFICATION.scientific_name and
+				CF_TEMP_CLASSIFICATION.source=collection.PREFERRED_TAXONOMY_SOURCE and
+				upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#'
+			group by
+				collection.guid_prefix
+		</cfquery>
+		<cfdump var=#d#>
+	</cfoutput>
+</cfif>
+
+
+
+<!----------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfoutput>
 
@@ -203,6 +233,9 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 		<p>
 			Multiple classification warnings may be an indication of someone trying to create homonyms or similar. Check and preserve
 			the data elsewhere if possible.
+		</p>
+		<p>
+			<a href="BulkloadClassification.cfm?action=getUsingCollectionContacts">[ getUsingCollectionContacts ]</a>
 		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=makeTemplate">[ Get a Template ]</a> and view column descriptions
