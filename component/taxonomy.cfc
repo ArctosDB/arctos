@@ -383,9 +383,11 @@
 			</cfif>
 
 		</cftransaction>
-		<cfreturn 'success'>
+		<cfreturn myStruct>
 		<cfcatch>
-			<cfreturn 'FAIL: ' & cfcatch.message & cfcatch.detail>
+			<cfset myStruct = {}>
+			<cfset myStruct.status='fail'>
+			<cfset myStruct.message=cfcatch.message & cfcatch.detail>
 		</cfcatch>
 		</cftry>
 
