@@ -1524,13 +1524,18 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			$(".ui-dialog-titlebar-close").trigger('click');
 		}
 
-		function movedToNewParent(c,p){
+		function movedToNewParent(c,p,noclose){
 			// remove the child
 			myTree.deleteItem(c,false);
 			// expand the new parent
 			expandNode(p);
 			setStatus('move success','done');
-			$(".ui-dialog-titlebar-close").trigger('click');
+			if (noclose!='noclose'){
+				$(".ui-dialog-titlebar-close").trigger('click');
+				} else {
+				alert('movedToNewParent without close');
+				}
+			
 		}
 
 		function createdNewTerm(id){

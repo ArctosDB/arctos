@@ -133,9 +133,12 @@
 			},
 			function (r) {
 				//console.log(r);
-				if (r=='success'){
+				if (r.status=='success'){
 					//alert('back; update parent and close if success');
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
+					if ( r.child && r. parent) {
+						parent.movedToNewParent(r.CHILD,r.PARENT,'noclose');
+					}
 					parent.savedMetaEdit(theID,newVal);
 				} else {
 					parent.setStatus(r,'err');
@@ -206,6 +209,7 @@
 			},
 			function (r) {
 				if (r.STATUS=='success'){
+
 					parent.movedToNewParent(r.CHILD,r.PARENT);
 				} else {
 					parent.setStatus('ERROR: fail. Make sure you supply a case-sensitive exact-match parent term.','err');

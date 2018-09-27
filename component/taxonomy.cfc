@@ -315,42 +315,71 @@
 		<cfset tid=x.qval>
 		<cftry>
 		<cftransaction>
-		<cfloop query="qry">
-			<cfif left(qtrm,15) is "nctermtype_new_">
-				<!--- there should be a corresponding nctermvalue_new_1 ---->
-				<cfset thisIndex=listlast(qtrm,"_")>
-				<cfquery name="thisval" dbtype="query">
-					select QVAL from qry where qtrm='nctermvalue_new_#thisIndex#'
-				</cfquery>
-				<cfquery name="insone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into htax_noclassterm (
-						NC_TID,
-						TID,
-						TERM_TYPE,
-						TERM_VALUE
-					) values (
-						somerandomsequence.nextval,
-						#tid#,
-						'#qval#',
-						'#URLDecode(thisval.qval)#'
-					)
-				</cfquery>
-			<cfelseif left(qtrm,11) is "nctermtype_">
-				<cfset thisIndex=listlast(qtrm,"_")>
-				<cfquery name="thisval" dbtype="query">
-					select QVAL from qry where qtrm='nctermvalue_#thisIndex#'
-				</cfquery>
-				<cfif QVAL is "DELETE">
-					<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						delete from htax_noclassterm where NC_TID=#thisIndex#
+			<cfloop query="qry">
+				<cfif left(qtrm,15) is "nctermtype_new_">
+					<!--- there should be a corresponding nctermvalue_new_1 ---->
+					<cfset thisIndex=listlast(qtrm,"_")>
+					<cfquery name="thisval" dbtype="query">
+						select QVAL from qry where qtrm='nctermvalue_new_#thisIndex#'
 					</cfquery>
-				<cfelse>
-					<cfquery name="uone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where NC_TID=#thisIndex#
+					<cfquery name="insone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into htax_noclassterm (
+							NC_TID,
+							TID,
+							TERM_TYPE,
+							TERM_VALUE
+						) values (
+							somerandomsequence.nextval,
+							#tid#,
+							'#qval#',
+							'#URLDecode(thisval.qval)#'
+						)
 					</cfquery>
+				<cfelseif left(qtrm,11) is "nctermtype_">
+					<cfset thisIndex=listlast(qtrm,"_")>
+					<cfquery name="thisval" dbtype="query">
+						select QVAL from qry where qtrm='nctermvalue_#thisIndex#'
+					</cfquery>
+					<cfif QVAL is "DELETE">
+						<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							delete from htax_noclassterm where NC_TID=#thisIndex#
+						</cfquery>
+					<cfelse>
+						<cfquery name="uone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+							update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where NC_TID=#thisIndex#
+						</cfquery>
+					</cfif>
 				</cfif>
+			</cfloop>
+			<!--- if we got in newParentTermValue, move the child --->
+			<cfif isdefined("newParentTermValue") and len(newParentTermValue) gt 0>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from hierarchical_taxonomy where term='#term#'
+				</cfquery>
+				<cfif d.recordcount is 1 and len(d.tid) gt 0>
+					<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update hierarchical_taxonomy set parent_tid=#d.tid# where tid=#id#
+					</cfquery>
+					<!--- return
+						1) the parent; it's what we'll need to expand;
+						2) the child so we can focus it
+					---->
+					<cfset myStruct = {}>
+					<cfset myStruct.status='success'>
+					<cfset myStruct.child=id>
+					<cfset myStruct.parent=d.tid>
+				<cfelse>
+					<cfset myStruct = {}>
+					<cfset myStruct.status='fail'>
+					<cfset myStruct.child=id>
+					<cfset myStruct.parent=-1>
+				</cfif>
+			<cfelse>
+				<!---- not changing parent, just return success. We'll be in the catch if the normal update failed --->
+				<cfset myStruct = {}>
+				<cfset myStruct.status='success'>
 			</cfif>
-		</cfloop>
+	
 		</cftransaction>
 		<cfreturn 'success'>
 		<cfcatch>
