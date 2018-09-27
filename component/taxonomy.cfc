@@ -305,9 +305,6 @@
 				<cfset queryAddRow(qry, {qtrm=t,qval=v})>
 			</cfif>
 		</cfloop>
-		<cfdump var=#qry#>
-
-		<cfabort>
 		<!--- should always have this; fail if no --->
 		<cfquery name="x" dbtype="query">
 			select qval from qry where qtrm='tid'
@@ -349,16 +346,21 @@
 							update htax_noclassterm set TERM_TYPE='#qval#',TERM_VALUE='#URLDecode(thisval.qval)#' where NC_TID=#thisIndex#
 						</cfquery>
 					</cfif>
+				<cfelseif qtrm is "newParentTermValue">
+					<cfset nptv=qval>
 				</cfif>
 			</cfloop>
 			<!--- if we got in newParentTermValue, move the child --->
-			<cfif isdefined("newParentTermValue") and len(newParentTermValue) gt 0>
+			<cfif isdefined("nptv") and len(nptv) gt 0>
+				<cfquery name="thisID" dbtype="query">
+					select QVAL from qry where QTRM='tid'
+				</cfquery>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select * from hierarchical_taxonomy where term='#term#'
+					select * from hierarchical_taxonomy where term='#nptv#'
 				</cfquery>
 				<cfif d.recordcount is 1 and len(d.tid) gt 0>
 					<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update hierarchical_taxonomy set parent_tid=#d.tid# where tid=#id#
+						update hierarchical_taxonomy set parent_tid=#d.tid# where tid=#thisID.QVAL#
 					</cfquery>
 					<!--- return
 						1) the parent; it's what we'll need to expand;
@@ -366,12 +368,12 @@
 					---->
 					<cfset myStruct = {}>
 					<cfset myStruct.status='success'>
-					<cfset myStruct.child=id>
+					<cfset myStruct.child=thisID.QVAL>
 					<cfset myStruct.parent=d.tid>
 				<cfelse>
 					<cfset myStruct = {}>
 					<cfset myStruct.status='fail'>
-					<cfset myStruct.child=id>
+					<cfset myStruct.child=thisID.QVAL>
 					<cfset myStruct.parent=-1>
 				</cfif>
 			<cfelse>
@@ -379,7 +381,7 @@
 				<cfset myStruct = {}>
 				<cfset myStruct.status='success'>
 			</cfif>
-	
+
 		</cftransaction>
 		<cfreturn 'success'>
 		<cfcatch>
