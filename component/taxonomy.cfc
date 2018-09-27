@@ -371,6 +371,7 @@
 					<cfset myStruct.child=thisID.QVAL>
 					<cfset myStruct.parent=d.tid>
 				<cfelse>
+					<cfdump var=#d#>
 					<cfset myStruct = {}>
 					<cfset myStruct.status='fail'>
 					<cfset myStruct.child=thisID.QVAL>
