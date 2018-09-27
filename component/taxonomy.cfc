@@ -305,9 +305,9 @@
 				<cfset queryAddRow(qry, {qtrm=t,qval=v})>
 			</cfif>
 		</cfloop>
-		<!----
-		<cfdump var=#qry#>
-		---->
+		<cfif isdefined("debug") and debug is 1>
+			<cfdump var=#qry#>
+		</cfif>
 		<!--- should always have this; fail if no --->
 		<cfquery name="x" dbtype="query">
 			select qval from qry where qtrm='tid'
@@ -316,12 +316,20 @@
 		<cftry>
 		<cftransaction>
 			<cfloop query="qry">
+				<cfif isdefined("debug") and debug is 1>
+					<br>loopy @ #qtrm#
+				</cfif>
 				<cfif left(qtrm,15) is "nctermtype_new_">
 					<!--- there should be a corresponding nctermvalue_new_1 ---->
 					<cfset thisIndex=listlast(qtrm,"_")>
 					<cfquery name="thisval" dbtype="query">
 						select QVAL from qry where qtrm='nctermvalue_new_#thisIndex#'
 					</cfquery>
+					<cfif isdefined("debug") and debug is 1>
+						<br>nctermtype_new_
+						<br>qval: #qval#
+						<br>thisval.qval: #thisval.qval#
+					</cfif>
 					<cfquery name="insone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into htax_noclassterm (
 							NC_TID,
@@ -336,6 +344,11 @@
 						)
 					</cfquery>
 				<cfelseif left(qtrm,11) is "nctermtype_">
+					<cfif isdefined("debug") and debug is 1>
+						<br>nctermtype_
+						<br>qval: #qval#
+						<br>thisval.qval: #thisval.qval#
+					</cfif>
 					<cfset thisIndex=listlast(qtrm,"_")>
 					<cfquery name="thisval" dbtype="query">
 						select QVAL from qry where qtrm='nctermvalue_#thisIndex#'
@@ -355,6 +368,9 @@
 			</cfloop>
 			<!--- if we got in newParentTermValue, move the child --->
 			<cfif isdefined("nptv") and len(nptv) gt 0>
+				<cfif isdefined("debug") and debug is 1>
+					<br>got nptv
+				</cfif>
 				<cfquery name="thisID" dbtype="query">
 					select QVAL from qry where QTRM='tid'
 				</cfquery>
@@ -372,11 +388,17 @@
 						1) the parent; it's what we'll need to expand;
 						2) the child so we can focus it
 					---->
+					<cfif isdefined("debug") and debug is 1>
+						<br>set nptv status success
+					</cfif>
 					<cfset myStruct = {}>
 					<cfset myStruct.status='success'>
 					<cfset myStruct.child=thisID.QVAL>
 					<cfset myStruct.parent=d.tid>
 				<cfelse>
+					<cfif isdefined("debug") and debug is 1>
+						<br>set nptv status fail
+					</cfif>
 					<!----
 					<cfdump var=#d#>
 					---->
@@ -387,12 +409,20 @@
 					<cfset myStruct.parent=-1>
 				</cfif>
 			<cfelse>
+
+				<cfif isdefined("debug") and debug is 1>
+					<br>set NON-nptv status success
+				</cfif>
 				<!---- not changing parent, just return success. We'll be in the catch if the normal update failed --->
 				<cfset myStruct = {}>
 				<cfset myStruct.status='success'>
 			</cfif>
 
 		</cftransaction>
+		<cfif isdefined("debug") and debug is 1>
+			<br>returning this:<cfdump var=#myStruct#>
+		</cfif>
+
 		<cfreturn myStruct>
 		<cfcatch>
 			<!----
