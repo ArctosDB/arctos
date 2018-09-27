@@ -281,7 +281,7 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 			<a href="BulkloadClassification.cfm?action=getCSV">Download all of your data</a>. Do this often as a backup.
 		</p>
 		<p>
-			<a href="BulkloadClassification.cfm?action=pullNewNames">Find names which are not in Arctos.</a>. These can be created after vetting.
+			<a href="BulkloadClassification.cfm?action=pullNewNames">Download names which are not in Arctos.</a>. These can be created after vetting.
 		</p>
 		<p>
 			<a href="BulkloadClassification.cfm?action=deletemystuff">Delete all of your data</a>. Do this before re-loading
