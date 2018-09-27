@@ -76,7 +76,7 @@
 			function (r) {
 				//console.log(r);
 				if (r.STATUS=='success'){
-					parent.createdNewTerm(CHILD_ID,PARENT_ID);
+					parent.createdNewTerm(r.CHILD_ID,r.PARENT_ID);
 
 				} else {
 					var errm=r.STATUS;
