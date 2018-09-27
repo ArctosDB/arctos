@@ -199,7 +199,7 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 				where
 					CONTACT_ROLE='data quality' and
 					COLLECTION_ID in (
-						select collection_id from collection where source in (
+						select collection_id from collection where preferred_taxonomy_source in (
 							select source  from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
 						) and
 						collection_id in (
