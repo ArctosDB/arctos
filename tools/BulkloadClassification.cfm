@@ -206,6 +206,7 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 					        )
 					    ) group by collection_id
 					)
+				)
 				where addr is not null group by addr
 		</cfquery>
 		<cfset al=''>
