@@ -231,17 +231,11 @@
 			console.log('go taxon_status');
 			$("#the_new_term_cell_" + idx).html('');
 			$("#canned_taxon_status").clone().attr('name', 'nctermvalue_new_' + idx).attr('id', 'nctermvalue_new_' + idx).appendTo($("#the_new_term_cell_" + idx));
-			/*
-
-			var theel=$("#canned_taxon_status");
-			theel.name='nctermtype_new_' + idx;
-			theel.id='nctermtype_new_' + idx;
-			theel.id='nctermtype_new_' + idx;
-			$("#the_new_term_cell_" + idx).html(theel);
-			*/
-
+		} else if  (ttt=='nomenclatural_code'){
+			console.log('go nomenclatural_code');
+			$("#the_new_term_cell_" + idx).html('');
+			$("#canned_nomenclatural_code").clone().attr('name', 'nctermvalue_new_' + idx).attr('id', 'nctermvalue_new_' + idx).appendTo($("#the_new_term_cell_" + idx));
 		}
-
 	}
 
 </script>
@@ -257,6 +251,16 @@
 			<option value="#taxon_status#">#taxon_status#</option>
 		</cfloop>
 	</select>
+	<select id="canned_nomenclatural_code">
+		<option value=""></option>
+		<cfloop query="ctnomenclatural_code">
+			<option value="#nomenclatural_code#">#nomenclatural_code#</option>
+		</cfloop>
+	</select>
+
+
+
+
 </div>
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
