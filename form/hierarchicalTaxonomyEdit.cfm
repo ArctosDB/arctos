@@ -225,7 +225,7 @@
 	}
 
 	function pickedNewValue(idx){
-		var ttt=$("nctermtype_new_" + idx).val();
+		var ttt=$("#nctermtype_new_" + idx).val();
 		console.log('ttt::' + ttt);
 		if (ttt=='taxon_status'){
 			console.log('go taxon_status');
