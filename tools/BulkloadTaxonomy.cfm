@@ -164,7 +164,7 @@ sho err;
 			update cf_temp_taxon_name set status='#result.consensus#' where scientific_name='#scientific_name#'
 		</cfquery>
 	</cfloop>
-	<cflocation url="BulkloadTaxonomy.cfm" addtoken="false">
+	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">
 </cfoutput>
 </cfif>
 
