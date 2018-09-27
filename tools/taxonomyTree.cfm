@@ -1686,7 +1686,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		}
 
 		function clicked_tree(id){
-			console.log(id);
+			console.log(myTree.getItemText(id));
 		}
 
 		jQuery(document).ready(function() {
