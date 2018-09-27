@@ -225,6 +225,7 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 		<p>
 		"data quality" contact email for collections using taxa in your bulkloader
 		</p>
+		<br>
 		<textarea class="hugetextarea">#al#</textarea>
 	</cfoutput>
 </cfif>
