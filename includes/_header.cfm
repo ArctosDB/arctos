@@ -297,7 +297,8 @@
 
 											<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
 												<li><a target="_top" href="/tools/BulkloadClassification.cfm">Bulkload Taxonomy Classifications</a></li>
-												<li><a target="_top" href="/tools/taxonomyTree.cfm">Hierarchical Classifications</a></li>
+												<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulkload Taxonomy Names</a></li>
+												<li><a target="_top" href="/tools/taxonomyTree.cfm">Manage Classifications Hierarchically</a></li>
 											</cfif>
 										</ul>
 									</li>
