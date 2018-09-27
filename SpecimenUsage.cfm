@@ -118,9 +118,8 @@
 					<h4>Publication</h4>
 					<label for="doi">
 						<span class="helpLink" id="_doi">DOI</span>
-						<cfif session.roles contains "manage_publications">
-							<span class="likeLink" onclick='$("##doi").val("NULL")'>[ find NULL ]</span>
-						</cfif>
+						<span class="likeLink" onclick='$("##doi").val("NULL")'>[ NULL ]</span>
+						<span class="likeLink" onclick='$("##doi").val("_")'>[ NOT NULL ]</span>
 					</label>
 					<input name="doi" id="doi" type="text">
 					<label for="publication_type"><span class="helpLink" id="publication_type">Publication Type</span></label>
@@ -398,6 +397,8 @@
 		<cfif isdefined("doi") AND len(doi) gt 0>
 			<cfif compare(doi,"NULL") is 0>
 				<cfset basWhere = " #basWhere# AND doi is null">
+			<cfelseif compare(doi,"_") is 0>
+				<cfset basWhere = " #basWhere# AND doi is not null">
 			<cfelse>
 				<cfset basWhere = "#basWhere# AND doi ='#doi#'">
 			</cfif>
