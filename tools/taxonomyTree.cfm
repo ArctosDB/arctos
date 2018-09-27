@@ -1645,19 +1645,19 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			myTree.attachEvent("onCheck", function(id){
 				setStatus('working','working');
 			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
-				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:800px;height:600px;'></iframe>").dialog({
+				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:1200px;height:800px;'></iframe>").dialog({
 					autoOpen: true,
 					closeOnEscape: true,
 					height: 'auto',
 					modal: true,
 					position: ['center', 'center'],
 					title: 'Edit Term',
-						width:800,
-			 			height:600,
+						width:1200,
+			 			height:800,
 					close: function() {
 						$( this ).remove();
 					}
-				}).width(800-10).height(600-10);
+				}).width(1200-10).height(800-10);
 				$(window).resize(function() {
 					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
 				});
