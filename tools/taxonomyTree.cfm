@@ -1552,8 +1552,10 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			myTree.selectItem(id);
 			myTree.focusItem(id);
 			// open for editing
+			console.log('triggering check');
+			$( "#" + id ).trigger( "check" );
 
-			id.trigger('check');
+
 
 
 
