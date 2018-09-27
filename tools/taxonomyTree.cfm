@@ -1653,11 +1653,11 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 
 		function checked_box(id){
 
-				console.log('checked_box ' + id);
+			//console.log('checked_box ' + id);
 
 			setStatus('working','working');
 		    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
-		    console.log('guts: ' + guts);
+		    //console.log('guts: ' + guts);
 
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:1200px;height:800px;'></iframe>").dialog({
 				autoOpen: true,
@@ -1693,6 +1693,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			myTree.enableTreeLines(true);
 			myTree.enableTreeImages(false);
 			myTree.enableItemEditor(false);
+			myTree.allTree.onselectstart = function(){ return true; }
 			initTree();
 			myTree.attachEvent("onCheck", function(id){
 				console.log('checked ' + id);
