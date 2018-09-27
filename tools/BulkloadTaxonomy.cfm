@@ -37,11 +37,9 @@ sho err;
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "makeTemplate">
-	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_taxon_name where 1=2
-	</cfquery>
+	<cfset c='SCIENTIFIC_NAME'>
 	<cffile action = "write" file = "#Application.webDirectory#/download/BulkTaxonomy.csv"
-    	output = "#t.columnlist#" addNewLine = "no">
+    	output = "#c#" addNewLine = "no">
 	<cflocation url="/download.cfm?file=BulkTaxonomy.csv" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
