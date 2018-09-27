@@ -132,16 +132,17 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				//console.log(r);
+				console.log(r);
 				if (r.status=='success'){
 					//alert('back; update parent and close if success');
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 					if ( r.child && r. parent) {
+						console.log('movedToNewParent==noclose');
 						parent.movedToNewParent(r.CHILD,r.PARENT,'noclose');
 					}
 					parent.savedMetaEdit(theID,newVal);
 				} else {
-					parent.setStatus(r,'err');
+					parent.setStatus(r.status,'err');
 				}
 			}
 		);
@@ -332,9 +333,12 @@
 	</table>
 	<p>
 		Instead of dragging, you can move this term to a new parent here.
+		<br>Current Parent: #d_p.term# (#d_p.rank#)
 		<label for="newParentTermValue">New Parent Term Value (exact, case-sensitive, no rank)</label>
-		<input name="newParentTermValue" id="newParentTermValue" type="text" value="#d_p.term# (#d_p.rank#)" placeholder='new parent' size="60">
+		<input name="newParentTermValue" id="newParentTermValue" type="text" value="" placeholder='new parent' size="60">
+		<!----
 		<input type="button" onclick="findSaveNewParent()" class="savBtn" value="findSaveNewParent">
+		---->
 
 	</p>
 	<br><input type="button" onclick="saveAllEdits()" class="savBtn" value="Save Rank/Term Metadata Edits">
