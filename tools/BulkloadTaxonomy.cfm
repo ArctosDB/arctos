@@ -167,9 +167,6 @@ sho err;
 	<cflocation url="BulkloadTaxonomy.cfm?action=show" addtoken="false">
 </cfoutput>
 </cfif>
-
-
-
 <!------------------------------------------------------->
 <cfif action is "loadData">
 <cfoutput>
