@@ -179,7 +179,7 @@ sho err;
 	<cfloop query="d">
 		<cftransaction>
 			<cfquery name="isn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into taxon_name (scientific_name) values ('#scientific_name#')
+				insert into taxon_name (taxon_name_id,scientific_name) values (sq_taxon_name_id.nextval,'#scientific_name#')
 			</cfquery>
 			<cfquery name="dup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				delete from cf_temp_taxon_name  where scientific_name='#scientific_name#' and upper(username)='#ucase(session.username)#'
