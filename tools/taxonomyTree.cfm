@@ -1541,8 +1541,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		function createdNewTerm(id,newid){
 			// id is what we were editing
 			// newid is what we just made
-			console.log('newid: ' + newid);
-			console.log('id: ' + id);
+			//console.log('newid: ' + newid);
+			//console.log('id: ' + id);
 			//alert('am createdNewTerm have id=' + id);
 			//alert(' close the modal');
 			// close the modal
@@ -1556,7 +1556,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			myTree.selectItem(id);
 			myTree.focusItem(id);
 			// open for editing
-			console.log('triggering check');
+			//console.log('triggering check');
 			//$( "#" + id ).trigger( "check" );
 			checked_box(newid);
 
@@ -1686,7 +1686,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		}
 
 		function clicked_tree(id){
-			console.log(myTree.getItemText(id));
+			//console.log(myTree.getItemText(id));
 			setStatus('Clicked: ' + myTree.getItemText(id),'click');
 		}
 
@@ -1752,7 +1752,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				performSearch();
 			});
 			if ($("#autosearch").val().length>0){
-				console.log('go go autosearch');
+				//console.log('go go autosearch');
 				// grab the term, stuff it in the search box so as to not confuse people
 				$("#srch").val($("#autosearch").val());
 				// do nothing for a while, let stuff happen

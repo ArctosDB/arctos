@@ -46,7 +46,7 @@
 			},
 			function (r) {
 				var pr=[];
-				console.log(r);
+				//console.log(r);
 				if (r.ROWCOUNT==0){
 					$("#srcconsistencycheckdiv").html('NOT USED!!');
 				} else {
@@ -139,7 +139,7 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				console.log(r);
+				//console.log(r);
 				if (r.STATUS=='success'){
 					//alert('back; update parent and close if success');
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
