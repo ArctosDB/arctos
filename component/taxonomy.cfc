@@ -305,6 +305,7 @@
 				<cfset queryAddRow(qry, {qtrm=t,qval=v})>
 			</cfif>
 		</cfloop>
+		<cfdump var=#qry#>
 		<!----
 		<cfdump var=#qry#>
 		---->
