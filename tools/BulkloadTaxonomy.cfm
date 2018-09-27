@@ -51,6 +51,9 @@ sho err;
 		 <p>
 			Upload a comma-delimited text file (csv). <a href="BulkloadTaxonomy.cfm?action=makeTemplate">[ Get the Template ]</a>
 		</p>
+		<p>
+			<a href="BulkloadTaxonomy.cfm?action=show">[ Manage existing data ]</a>
+		</p>
 
 		<cfform name="oids" method="post" enctype="multipart/form-data" action="BulkloadTaxonomy.cfm">
 			<input type="hidden" name="action" value="getFile">
