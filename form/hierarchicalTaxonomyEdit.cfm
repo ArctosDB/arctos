@@ -137,7 +137,7 @@
 					//alert('back; update parent and close if success');
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 					if ( r.CHILD && r. PARENT) {
-						console.log('movedToNewParent==noclose');
+						//console.log('movedToNewParent==noclose');
 						parent.movedToNewParent(r.CHILD,r.PARENT,'noclose');
 					}
 					parent.savedMetaEdit(theID,newVal);
@@ -224,11 +224,35 @@
 		);
 	}
 
+	function pickedNewValue(idx){
+		var ttt=$("nctermtype_new_" + idx).val();
+		console.log('ttt::' + ttt);
+		if (ttt=='taxon_status'){
+			console.log('go taxon_status');
+			var theel=$("#canned_taxon_status");
+			theel.name='nctermtype_new_' + idx;
+			theel.id='nctermtype_new_' + idx;
+			theel.id='nctermtype_new_' + idx;
+			$("#the_new_term_cell_" + idx).html(theel);
+
+		}
+
+	}
+
 </script>
 
 
 
 <cfoutput>
+<div style="display:none">
+	<!--- some canned controls to move around with JS --->
+	<select id="canned_taxon_status">
+		<option value=""></option>
+		<cfloop query="cttaxon_status">
+			<option value="#taxon_status#">#taxon_status#</option>
+		</cfloop>
+	</select>
+</div>
 <form id="tEditFrm">
 	<input type="hidden" id="tid" name="tid" value="#tid#">
 	<input type="hidden" id="term" name="term" value="#d.term#">
@@ -325,14 +349,14 @@
 	<cfloop from="1" to="5" index="i">
 		<tr>
 			<td>
-				<select name="nctermtype_new_#i#" id="nctermtype_new_#i#">
+				<select name="nctermtype_new_#i#" id="nctermtype_new_#i#" onchange="pickedNewValue('#i#')">
 					<option value="">pick to add term-value pair</option>
 					<cfloop query="nc">
 						<option value="#nc.TAXON_TERM#">#nc.TAXON_TERM#</option>
 					</cfloop>
 				</select>
 			</td>
-			<td><input name="nctermvalue_new_#i#" id="nctermvalue_new_#i#" type="text" size="60"></td>
+			<td id="the_new_term_cell_#i#"><input name="nctermvalue_new_#i#" id="nctermvalue_new_#i#" type="text" size="60"></td>
 		</tr>
 	</cfloop>
 	</table>
