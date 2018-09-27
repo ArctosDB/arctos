@@ -77,6 +77,7 @@
 				//console.log(r);
 				if (r=='success'){
 					parent.createdNewTerm(theID);
+					
 				} else {
 					parent.setStatus(r,'err');
 				}
@@ -226,13 +227,13 @@
 
 	function pickedNewValue(idx){
 		var ttt=$("#nctermtype_new_" + idx).val();
-		console.log('ttt::' + ttt);
+		//console.log('ttt::' + ttt);
 		if (ttt=='taxon_status'){
-			console.log('go taxon_status');
+			//console.log('go taxon_status');
 			$("#the_new_term_cell_" + idx).html('');
 			$("#canned_taxon_status").clone().attr('name', 'nctermvalue_new_' + idx).attr('id', 'nctermvalue_new_' + idx).appendTo($("#the_new_term_cell_" + idx));
 		} else if  (ttt=='nomenclatural_code'){
-			console.log('go nomenclatural_code');
+			//console.log('go nomenclatural_code');
 			$("#the_new_term_cell_" + idx).html('');
 			$("#canned_nomenclatural_code").clone().attr('name', 'nctermvalue_new_' + idx).attr('id', 'nctermvalue_new_' + idx).appendTo($("#the_new_term_cell_" + idx));
 		}

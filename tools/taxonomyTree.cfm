@@ -1535,7 +1535,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 				} else {
 				alert('movedToNewParent without close');
 				}
-			
+
 		}
 
 		function createdNewTerm(id){
@@ -1551,6 +1551,12 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			setStatus('created new term','done');
 			myTree.selectItem(id);
 			myTree.focusItem(id);
+			// open for editing
+
+			id.trigger('check');
+
+
+
 		}
 		function expandNode(id){
 			//alert('am expandNode');
