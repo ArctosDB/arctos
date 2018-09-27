@@ -384,13 +384,12 @@
 
 		</cftransaction>
 		<cfreturn myStruct>
-		<!----
 		<cfcatch>
+			<cfdump var=#cfcatch#>
 			<cfset myStruct = {}>
 			<cfset myStruct.status='fail'>
 			<cfset myStruct.message=cfcatch.message & cfcatch.detail>
 		</cfcatch>
-		---->
 		</cftry>
 
 		</cfoutput>
