@@ -195,7 +195,14 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 			select scientific_name from CF_TEMP_CLASSIFICATION where  upper(username)='#ucase(session.username)#' and
 			scientific_name not in (select scientific_name from taxon_name) order by scientific_name
 		</cfquery>
-		<cfdump var=#d#>
+		<cfset  util = CreateObject("component","component.utilities")>
+		<cfset csv = util.QueryToCSV2(Query=d,Fields=d.columnlist)>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/ClassificationNamesNotInArctos.csv"
+	    	output = "#csv#"
+	    	addNewLine = "no">
+		<cflocation url="/download.cfm?file=ClassificationNamesNotInArctos.csv" addtoken="false">
+		<a href="/download.cfm?file=ClassificationNamesNotInArctos.csv">ClassificationNamesNotInArctos.csv</a>
 	</cfoutput>
 </cfif>
 
