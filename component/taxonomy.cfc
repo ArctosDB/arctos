@@ -305,6 +305,8 @@
 				<cfset queryAddRow(qry, {qtrm=t,qval=v})>
 			</cfif>
 		</cfloop>
+
+		<cfdump var=#qry#>
 		<!--- should always have this; fail if no --->
 		<cfquery name="x" dbtype="query">
 			select qval from qry where qtrm='tid'
