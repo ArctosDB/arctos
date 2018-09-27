@@ -1539,6 +1539,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 		}
 
 		function createdNewTerm(id,pid){
+			console.log('parent: ' + id);
+			console.log('new: ' + pid);
 			//alert('am createdNewTerm have id=' + id);
 			//alert(' close the modal');
 			// close the modal
