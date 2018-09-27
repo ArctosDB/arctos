@@ -305,8 +305,9 @@
 				<cfset queryAddRow(qry, {qtrm=t,qval=v})>
 			</cfif>
 		</cfloop>
-
+		<!----
 		<cfdump var=#qry#>
+		---->
 		<!--- should always have this; fail if no --->
 		<cfquery name="x" dbtype="query">
 			select qval from qry where qtrm='tid'
@@ -360,7 +361,9 @@
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from hierarchical_taxonomy where term='#nptv#' and dataset_id in (select dataset_id from hierarchical_taxonomy where tid=#tid#)
 				</cfquery>
+				<!----
 					<cfdump var=#d#>
+					---->
 				<cfif d.recordcount is 1 and len(d.tid) gt 0>
 					<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						update hierarchical_taxonomy set parent_tid=#d.tid# where tid=#thisID.QVAL#
@@ -374,9 +377,12 @@
 					<cfset myStruct.child=thisID.QVAL>
 					<cfset myStruct.parent=d.tid>
 				<cfelse>
+					<!----
 					<cfdump var=#d#>
+					---->
 					<cfset myStruct = {}>
 					<cfset myStruct.status='fail'>
+					<cfset myStruct.message='unable to find parent term'>
 					<cfset myStruct.child=thisID.QVAL>
 					<cfset myStruct.parent=-1>
 				</cfif>
@@ -389,7 +395,9 @@
 		</cftransaction>
 		<cfreturn myStruct>
 		<cfcatch>
+			<!----
 			<cfdump var=#cfcatch#>
+			---->
 			<cfset myStruct = {}>
 			<cfset myStruct.status='fail'>
 			<cfset myStruct.message=cfcatch.message & cfcatch.detail>
