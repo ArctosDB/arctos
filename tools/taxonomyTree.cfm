@@ -1553,7 +1553,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			myTree.focusItem(id);
 			// open for editing
 			console.log('triggering check');
-			$( "#" + id ).trigger( "check" );
+			//$( "#" + id ).trigger( "check" );
+			checked_box(id);
 
 
 
@@ -1646,6 +1647,35 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			setStatus('ready','done');
 		}
 
+		function checked_box(id){
+			setStatus('working','working');
+		    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:1200px;height:800px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'center'],
+				title: 'Edit Term',
+					width:1200,
+		 			height:800,
+				close: function() {
+					$( this ).remove();
+				}
+			}).width(1200-10).height(800-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+		    // uncheck everything
+		    var ids=myTree.getAllSubItems(0).split(",");
+    		for (var i=0; i<ids.length; i++){
+       			myTree.setCheck(ids[i],0);
+    		}
+		}
+
 		jQuery(document).ready(function() {
 			myTree = new dhtmlXTreeObject('treeBox', '100%', '100%', 0);
 			myTree.setImagesPath("/includes/dhtmlxTree_v50_std/codebase/imgs/dhxtree_material/");
@@ -1656,32 +1686,8 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			myTree.enableItemEditor(false);
 			initTree();
 			myTree.attachEvent("onCheck", function(id){
-				setStatus('working','working');
-			    var guts = "/form/hierarchicalTaxonomyEdit.cfm?tid=" + id;
-				$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:1200px;height:800px;'></iframe>").dialog({
-					autoOpen: true,
-					closeOnEscape: true,
-					height: 'auto',
-					modal: true,
-					position: ['center', 'center'],
-					title: 'Edit Term',
-						width:1200,
-			 			height:800,
-					close: function() {
-						$( this ).remove();
-					}
-				}).width(1200-10).height(800-10);
-				$(window).resize(function() {
-					$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-				});
-				$(".ui-widget-overlay").click(function(){
-				    $(".ui-dialog-titlebar-close").trigger('click');
-				});
-			    // uncheck everything
-			    var ids=myTree.getAllSubItems(0).split(",");
-	    		for (var i=0; i<ids.length; i++){
-	       			myTree.setCheck(ids[i],0);
-	    		}
+				checked_box(id);
+
 			});
 
 			myTree.attachEvent("onDblClick", function(id){
