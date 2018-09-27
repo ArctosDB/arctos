@@ -75,8 +75,10 @@
 			},
 			function (r) {
 				//console.log(r);
+				// parent is what we were editing
+				// shild is what we just made
 				if (r.STATUS=='success'){
-					parent.createdNewTerm(r.CHILD_ID,r.PARENT_ID);
+					parent.createdNewTerm(r.PARENT_ID,r.CHILD_ID);
 
 				} else {
 					var errm=r.STATUS;
