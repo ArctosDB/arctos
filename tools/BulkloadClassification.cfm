@@ -190,25 +190,21 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 <cfif action is "getUsingCollectionContacts">
 	<cfoutput>
 		  <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				collection.guid_prefix
-			from
-				collection,
-				cataloged_item,
-				identification,
-				identification_taxonomy,
-				taxon_name,
-				CF_TEMP_CLASSIFICATION
+			  select
+			  	get_address(CONTACT_AGENT_ID,'email',1) addr
+			  from
+				collection_contacts
 			where
-				collection.collection_id=cataloged_item.collection_id and
-				cataloged_item.collection_object_id=identification.collection_object_id and
-				identification.identification_id=identification_taxonomy.identification_id and
-				identification_taxonomy.taxon_name_id=taxon_name.taxon_name_id and
-				taxon_name.scientific_name=CF_TEMP_CLASSIFICATION.scientific_name and
-				CF_TEMP_CLASSIFICATION.source=collection.PREFERRED_TAXONOMY_SOURCE and
-				upper(CF_TEMP_CLASSIFICATION.username)='#ucase(session.username)#'
-			group by
-				collection.guid_prefix
+				CONTACT_ROLE='data quality' and
+				COLLECTION_ID in (
+				 select collection_id from cataloged_item where collection_object_id  in (
+				      select COLLECTION_OBJECT_ID from identification where identification_id in (
+				          select  identification_id from identification_taxonomy where taxon_name_id in (
+				              select taxon_name_id from CF_TEMP_CLASSIFICATION where upper(username)='#ucase(session.username)#'
+				            )
+				        )
+				    ) group by collection_id
+				) group by get_address(CONTACT_AGENT_ID,'email',1)
 		</cfquery>
 		<cfdump var=#d#>
 	</cfoutput>
