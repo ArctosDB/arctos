@@ -74,12 +74,21 @@
 				queryformat : 'column'
 			},
 			function (r) {
+				
+					<cfset r={}>
+			<cfset r.status='success'>
+			<cfset r.parent_id=id>
+			<cfset r.child_id=ntid.ntid>
 				//console.log(r);
-				if (r=='success'){
-					parent.createdNewTerm(theID);
+				if (r.STATUS=='success'){
+					parent.createdNewTerm(theID,pID);
 					
 				} else {
-					parent.setStatus(r,'err');
+					var errm=r.STATUS;
+					if (r.MeSSAGE){
+						errm+=': ' + r.MESSAGE;
+					}
+					parent.setStatus(errm,'err');
 				}
 			}
 		);

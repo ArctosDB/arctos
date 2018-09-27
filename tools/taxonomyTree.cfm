@@ -1538,7 +1538,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 
 		}
 
-		function createdNewTerm(id){
+		function createdNewTerm(id,pid){
 			//alert('am createdNewTerm have id=' + id);
 			//alert(' close the modal');
 			// close the modal
@@ -1554,7 +1554,7 @@ UAM@ARCTOS> desc hierarchical_taxonomy
 			// open for editing
 			console.log('triggering check');
 			//$( "#" + id ).trigger( "check" );
-			checked_box(id);
+			checked_box(pid);
 
 
 

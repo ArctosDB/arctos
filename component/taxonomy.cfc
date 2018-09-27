@@ -226,9 +226,11 @@
 					<cfthrow message="newChildTerm and newChildTermRank are required">
 				</cfif>
 			<cftransaction>
-
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from hierarchical_taxonomy where tid=#id#
+				</cfquery>
+				<cfquery name="ntid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select somerandomsequence.nextval ntid from dual
 				</cfquery>
 				<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					insert into hierarchical_taxonomy (
@@ -238,7 +240,7 @@
 						RANK,
 						DATASET_ID
 					) values (
-						somerandomsequence.nextval,
+						#ntid.ntid#,
 						#id#,
 						'#newChildTerm#',
 						'#newChildTermRank#',
@@ -246,10 +248,19 @@
 					)
 				</cfquery>
 			</cftransaction>
-			<cfreturn 'success'>
+			<cfset r={}>
+			<cfset r.status='success'>
+			<cfset r.parent_id=id>
+			<cfset r.child_id=ntid.ntid>
+			<cfreturn r>
 		</cfoutput>
 		<cfcatch>
-			<cfreturn cfcatch.message & '; ' & cfcatch.detail >
+			<cfset r={}>
+			<cfset r.status='fail'>
+			<cfset r.parent_id=id>
+			<cfset r.child_id="">
+			<cfset r.message=cfcatch.message & '; ' & cfcatch.detail>
+			<cfreturn r>
 		</cfcatch>
 		</cftry>
 	</cffunction>
