@@ -21,6 +21,9 @@
 <cfquery name="ctFlags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select flags from ctflags order by flags
 </cfquery>
+<cfquery name="cttaxon_status" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select taxon_status from cttaxon_status order by taxon_status
+</cfquery>
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
@@ -186,6 +189,19 @@
 				<option value=""></option>
 				<cfloop query="ctFlags">
 					<option value="#flags#">#flags#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="taxon_status">Taxon Status (accepted ID):</span>
+		</td>
+		<td class="srch">
+			<select name="taxon_status" id="taxon_status" size="1">
+				<option value=""></option>
+				<cfloop query="cttaxon_status">
+					<option value="#taxon_status#">#taxon_status#</option>
 				</cfloop>
 			</select>
 		</td>
