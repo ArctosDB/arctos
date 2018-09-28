@@ -139,6 +139,7 @@
     		upper(p.barcode) like '#ucase(escapeQuotes(anyid))#'
 		)">
 </cfif>
+
 <cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
 	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
@@ -459,6 +460,13 @@
 
 
 </cfif>
+
+<cfif isdefined("taxon_status") AND len(taxon_status) gt 0>
+	<cfset mapurl = "#mapurl#&taxon_status=#taxon_status#">
+  	<cfset basQual = "#basQual#  AND getTaxonTermBySpecimen(#session.flatTableName#.collection_object_id,'taxon_status')='#taxon_status#'" >
+</cfif>
+
+
 <cfif isdefined("ImgNoConfirm") and len(ImgNoConfirm) gt 0>
 	<cfset mapurl = "#mapurl#&ImgNoConfirm=#ImgNoConfirm#">
    	<cfset basQual = "#basQual#  AND #session.flatTableName#.collection_object_id not in (select
