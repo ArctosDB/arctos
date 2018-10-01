@@ -6,6 +6,30 @@
 				var tid=$(this).attr("data-tid");
 				console.log(tid);
 				//dois.push(doi);
+				 $.ajax({
+			        url: "/component/taxonomy.cfc?queryformat=column",
+			        type: "GET",
+			        dataType: "json",
+			        //async: false,
+			        data: {
+			          method:  "getTaxonStatus",
+			          taxon_name_id : tid,
+			          returnformat : "json"
+			        },
+			        success: function(r) {
+			        	console.log(r);
+			          if (r.STATUS) && r.STATUS=='SUCCESS'){
+			          	console.log('happy')
+			          } else {
+			            alert(r.STATUS + ': ' + r.MSG);
+			          }
+			        },
+			          error: function (xhr, textStatus, errorThrown){
+			            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			        }
+			      });
+
+
 			});
 	});
 
