@@ -6,7 +6,8 @@
 	}
 </style>
 	<script>
-	$(document).ready(function() {
+	//$(document).ready(function() {
+		function getStatus(){
 			$("span[data-tid]").each(function( i, val ) {
 				//console.log(val);
 				var tid=$(this).attr("data-tid");
@@ -42,7 +43,8 @@
 
 
 			});
-	});
+			}
+	//});
 
 
 
@@ -206,6 +208,7 @@
 	--->
 
 	</cfoutput>
+	<script>getStatus();</script>
 	</CFIF>
 
 <cfinclude template="/includes/_pickFooter.cfm">
