@@ -1465,7 +1465,7 @@
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
 	<!--- keep this synced up with /ScheduledTasks/createRobots.cfm ---->
-	<cfset badbot="Apache-HttpClient,AlphaBot">
+	<cfset badbot="Apache-HttpClient,AlphaBot,admx">
 	<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler,BLEXBot">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
@@ -1569,6 +1569,7 @@
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0,/)">
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads,ackBulletin,aupm">
+			<cfset x=x & ",ashx">
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
@@ -1576,7 +1577,7 @@
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway">
-			<cfset x=x & ",getmappingxpath,get_host_address,git">
+			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla">
@@ -1600,7 +1601,6 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
-
 
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME">
