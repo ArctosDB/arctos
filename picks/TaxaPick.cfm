@@ -19,9 +19,13 @@
 			        success: function(r) {
 			        	console.log(r);
 			          if ((r.STATUS) && r.STATUS=='success'){
-			          	console.log('happy')
+			          	console.log('happy');
+
+			          	$("#t_" + tid).html(r.TAXON_STATUS);
+
 			          } else {
-			          	console.log('not so happy')
+			          	console.log('not so happy');
+			          	$("#t_" + tid).html('taxon_status lookup fail');
 			            //alert(r.STATUS + ': ' + r.MSG);
 			          }
 			        },
