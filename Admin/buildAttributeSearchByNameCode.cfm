@@ -242,7 +242,7 @@ delete them by name in addition to category
 
 <cfset variables.f_atrbyname="#Application.webDirectory#/download/delete_attrs_by_name.sql">
 <cfscript>
-	variables.josrch_field_doc = createObject('Component', '/component.FileWriter').init(variables.f_atrbyname, variables.encoding, 32768);
+	variables.f_atrbyname = createObject('Component', '/component.FileWriter').init(variables.f_atrbyname, variables.encoding, 32768);
 	aCol = listToArray (listOfArrtCfVals);
 	for( fieldName in aCol ){
 			variables.f_atrbyname.writeLine("delete from ssrch_field_doc where cf_variable='qry[fieldName][1]';#chr(10)#");
