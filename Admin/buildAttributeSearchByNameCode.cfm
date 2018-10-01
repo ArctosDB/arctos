@@ -50,6 +50,7 @@
 			variables.f_ss_doc = createObject('Component', '/component.FileWriter').init(variables.f_ss_doc, variables.encoding, 32768);
 			variables.f_ss_doc.writeLine(x);
 		</cfscript>
+		<cfset listOfArrtCfVals="">
 		<cfloop query="d">
 			<cfquery name="tctl" datasource="uam_god">
 				select
@@ -83,6 +84,8 @@
 				<!---- free-text - wheeeee..... ---->
 				<cfset srchhint='Search for underbar (_) to require #ATTRIBUTE_TYPE#. Prefix value with "=" (exact) or "!" (is not).'>
 			</cfif>
+
+			<cfset listOfArrtCfVals=listappend(listOfArrtCfVals,attrvar)>
 <cfset v="insert into ssrch_field_doc (
 	CATEGORY,
 	CF_VARIABLE,
@@ -228,11 +231,34 @@
 	variables.josrch_field_doc.close();
 	variables.f_ss_doc.close();
 </cfscript>
+
+<!----
+listOfArrtCfVals
+these things get added to the docs NOT as attributes
+so don't get deleted
+so messes happen
+delete them by name in addition to category
+---->
+
+<cfset variables.f_atrbyname="#Application.webDirectory#/download/delete_attrs_by_name.sql">
+<cfscript>
+	variables.josrch_field_doc = createObject('Component', '/component.FileWriter').init(variables.f_atrbyname, variables.encoding, 32768);
+	aCol = listToArray (listOfArrtCfVals);
+	for( fieldName in aCol ){
+			variables.f_atrbyname.writeLine("delete from ssrch_field_doc where cf_variable='qry[fieldName][1]';#chr(10)#");
+	}
+
+	variables.f_atrbyname.close();
+</cfscript>
+
 		This app just builds text.
+
 		<p>
 			Get the SQL to update ssrch_field_doc <a href="/download/srch_field_doc.sql">here</a>
 		</p>
-
+		<p>
+			Get the SQL to delete miscategorized variables ssrch_field_doc <a href="/download/delete_attrs_by_name.sql">here</a>
+		</p>
 		<p>
 			Get the CFML to build /includes/SearchSql_attributes.cfm <a href="/download/specsrch.txt">here</a>
 		</p>
