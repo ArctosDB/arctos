@@ -18,7 +18,7 @@
 			        },
 			        success: function(r) {
 			        	console.log(r);
-			          if (r.STATUS) && r.STATUS=='SUCCESS'){
+			          if ((r.STATUS) && r.STATUS=='SUCCESS'){
 			          	console.log('happy')
 			          } else {
 			            alert(r.STATUS + ': ' + r.MSG);
