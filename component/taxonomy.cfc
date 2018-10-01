@@ -192,6 +192,7 @@
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from hierarchical_taxonomy where term='#term#'
 			</cfquery>
+			<cfdump var=#d#>
 			<cfif d.recordcount is 1 and len(d.tid) gt 0>
 				<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update hierarchical_taxonomy set parent_tid=#d.tid# where tid=#id#
