@@ -245,7 +245,7 @@ delete them by name in addition to category
 	variables.f_atrbyname = createObject('Component', '/component.FileWriter').init(variables.f_atrbyname, variables.encoding, 32768);
 	aCol = listToArray (listOfArrtCfVals);
 	for( fieldName in aCol ){
-			variables.f_atrbyname.writeLine("delete from ssrch_field_doc where cf_variable='qry[fieldName][1]';#chr(10)#");
+			variables.f_atrbyname.writeLine("delete from ssrch_field_doc where cf_variable='" & qry[fieldName][1] & "';#chr(10)#");
 	}
 
 	variables.f_atrbyname.close();
