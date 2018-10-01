@@ -183,9 +183,8 @@
 			<cfreturn d>
 		</cfoutput>
 	</cffunction>
-<!--------------------------------------------------------------------------------------->
+<!----------------------------------------------
 	<cffunction name="moveTermNewParent" access="remote">
-		deprecated<cfabort>
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="id" type="numeric" required="true">
 		<cfargument name="term" type="string" required="true">
@@ -215,6 +214,7 @@
 			<cfreturn myStruct>
 		</cfoutput>
 	</cffunction>
+----------------------------------------->
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="createTerm" access="remote">
 		<!---- hierarchical taxonomy editor ---->
