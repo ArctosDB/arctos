@@ -379,6 +379,8 @@ create index ix_u_cftempoid_uname on cf_temp_oids (upper (username) ) tablespace
 				existing_other_id_number
 			from
 				cf_temp_oids
+			where
+				upper(username)='#ucase(session.username)#'
 			having count(*) > 1 group by
 				guid_prefix,
 				new_other_id_type,
