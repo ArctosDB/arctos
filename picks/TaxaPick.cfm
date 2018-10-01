@@ -6,7 +6,10 @@
 	}
 </style>
 	<script>
-	//$(document).ready(function() {
+	$(document).ready(function() {
+		getStatus();
+		});
+
 		function getStatus(){
 			console.log('I am getstatus');
 
@@ -46,7 +49,7 @@
 
 			});
 			}
-	//});
+
 
 
 
@@ -207,10 +210,13 @@
 			</div>
 	<!---
 		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> -
+		<script>getStatus();</script>
+
+
 	--->
 
 	</cfoutput>
-	<script>getStatus();</script>
+
 	</CFIF>
 
 <cfinclude template="/includes/_pickFooter.cfm">
