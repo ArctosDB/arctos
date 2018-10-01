@@ -13,7 +13,7 @@
 		function getStatus(){
 			console.log('I am getstatus');
 
-			$("span[data-tid]").each(function( i, val ) {
+			$("div[data-tid]").each(function( i, val ) {
 				//console.log(val);
 				var tid=$(this).attr("data-tid");
 				console.log(tid);
