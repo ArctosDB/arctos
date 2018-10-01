@@ -18,10 +18,11 @@
 			        },
 			        success: function(r) {
 			        	console.log(r);
-			          if ((r.STATUS) && r.STATUS=='SUCCESS'){
+			          if ((r.STATUS) && r.STATUS=='success'){
 			          	console.log('happy')
 			          } else {
-			            alert(r.STATUS + ': ' + r.MSG);
+			          	console.log('not so happy')
+			            //alert(r.STATUS + ': ' + r.MSG);
 			          }
 			        },
 			          error: function (xhr, textStatus, errorThrown){
