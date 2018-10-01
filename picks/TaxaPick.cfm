@@ -21,7 +21,7 @@
 			          if ((r.STATUS) && r.STATUS=='success'){
 			          	console.log('happy');
 
-			          	$("#t_" + tid).html(r.TAXON_STATUS);
+			          	$("#t_" + r.TAXON_NAME_ID).html(r.TAXON_STATUS);
 
 			          } else {
 			          	console.log('not so happy');
