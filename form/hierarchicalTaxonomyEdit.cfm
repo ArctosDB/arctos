@@ -145,7 +145,7 @@
 					//alert('calling parent t with tid=' + theID + ' newVal=' + newVal);
 					if ( r.CHILD && r. PARENT) {
 						//console.log('movedToNewParent==noclose');
-						parent.movedToNewParent(r.CHILD,r.PARENT,'noclose');
+						parent.movedToNewParent(r.CHILD,r.PARENT,'msg');
 					}
 					parent.savedMetaEdit(theID,newVal);
 				} else {
@@ -209,6 +209,8 @@
 
 	}
 
+	/*
+	deprecated
 	function findSaveNewParent(){
 		parent.setStatus('working','working');
 		var theID=$("#tid").val();
@@ -230,6 +232,7 @@
 			}
 		);
 	}
+	*/
 
 	function pickedNewValue(idx){
 		var ttt=$("#nctermtype_new_" + idx).val();

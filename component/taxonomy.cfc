@@ -185,6 +185,7 @@
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="moveTermNewParent" access="remote">
+		deprecated<cfabort>
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="id" type="numeric" required="true">
 		<cfargument name="term" type="string" required="true">
