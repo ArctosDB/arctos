@@ -3,7 +3,7 @@
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getTaxonStatus" access="remote">
 		<!---- hierarchical taxonomy editor ---->
-		<cfargument name="taxon_name_id" type="integer" required="true">
+		<cfargument name="taxon_name_id" type="numeric" required="true">
 		<cfoutput>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 				select term, source from taxon_term where term_type='taxon_status' and taxon_name_id=#taxon_name_id# group by term, source order by term, source
