@@ -189,7 +189,7 @@
 	<cfelse>
 		<cfoutput query="getTaxa">
 <br><a href="##" onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();">#scientific_name#</a>
-<span id="t_#taxon_name_id#" data-tid="#taxon_name_id#"></div>
+<span id="t_#taxon_name_id#" data-tid="#taxon_name_id#"></span>
 	<!---
 		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> -
 	--->
