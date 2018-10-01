@@ -170,7 +170,7 @@
 					<cfset thisval=evaluate("us." & c)>
 					#c#
 					<cfif len(thisval) gt 0>
-						='#thisval#'
+						='#escapeQuotes(thisval)#'
 					<cfelse>
 						is null
 					</cfif>
