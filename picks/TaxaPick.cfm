@@ -1,5 +1,19 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 	<script>
+	$(document).ready(function() {
+			$("span[data-tid]").each(function( i, val ) {
+				//console.log(val);
+				var tid=$(this).attr("data-tid");
+				console.log(tid);
+				//dois.push(doi);
+			});
+	});
+
+
+
+
+
+
 		function settaxaPickPrefs (v) {
 			jQuery.getJSON("/component/functions.cfc",
 				{
@@ -35,10 +49,10 @@
 			<cfabort>
 		</cfif>
 		<cfif taxaPickPrefs is "anyterm">
-			<cfset sql="SELECT 
-				scientific_name, 
+			<cfset sql="SELECT
+				scientific_name,
 				taxon_name_id
-			from 
+			from
 				taxon_name
 			where
 				UPPER(scientific_name) LIKE '#ucase(scientific_name)#%'
@@ -47,10 +61,10 @@
 		<cfelseif taxaPickPrefs is "usedbymycollections">
 			<!--- VPD limits users to seeing only their collections, so just make the joins --->
 			<cfset sql="select scientific_name,taxon_name_id from (
-				SELECT 
-					taxon_name.scientific_name, 
+				SELECT
+					taxon_name.scientific_name,
 					taxon_name.taxon_name_id
-				from 
+				from
 					taxon_name,
 					identification_taxonomy,
 					identification,
@@ -60,8 +74,8 @@
 					identification_taxonomy.identification_id=identification.identification_id and
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
-				) 
-				group by 
+				)
+				group by
 					scientific_name,
 					taxon_name_id
 				order by
@@ -69,10 +83,10 @@
 		<cfelseif taxaPickPrefs is "mycollections">
 			<!--- VPD limits users to seeing only their collections, so just make the joins --->
 			<cfset sql="select scientific_name,taxon_name_id from (
-				SELECT 
-			 		taxon_name.scientific_name, 
+				SELECT
+			 		taxon_name.scientific_name,
 			  		taxon_name.taxon_name_id
-				from 
+				from
 			  		taxon_name,
 			  		taxon_term,
 			  		collection
@@ -80,26 +94,26 @@
 					taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 					taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
 			  		UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
-			  	) 
-			  	group by 
-			  		scientific_name, 
+			  	)
+			  	group by
+			  		scientific_name,
 			  		taxon_name_id
 			  	order by
 			  		scientific_name">
 		<cfelseif taxaPickPrefs is "relatedterm">
 			<cfset sql="select * from (
-				SELECT 
-					scientific_name, 
+				SELECT
+					scientific_name,
 					taxon_name_id
-				from 
+				from
 					taxon_name
 				where
 					UPPER(taxon_name.scientific_name) LIKE '#ucase(scientific_name)#%'
 				UNION
-				SELECT 
-					a.scientific_name, 
+				SELECT
+					a.scientific_name,
 					a.taxon_name_id
-				from 
+				from
 					taxon_name a,
 					taxon_relations,
 					taxon_name b
@@ -108,10 +122,10 @@
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
 					UPPER(B.scientific_name) LIKE '#ucase(scientific_name)#%'
 				UNION
-				SELECT 
-					b.scientific_name, 
+				SELECT
+					b.scientific_name,
 					b.taxon_name_id
-				from 
+				from
 					taxon_name a,
 					taxon_relations,
 					taxon_name b
@@ -120,12 +134,12 @@
 					taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
 					UPPER(a.scientific_name) LIKE '#ucase(scientific_name)#%'
 			)
-			where 
+			where
 				taxon_name_id is not null
 			group by
 				scientific_name,
 				taxon_name_id
-			ORDER BY 
+			ORDER BY
 				scientific_name
 		">
 		</cfif>
@@ -146,8 +160,9 @@
 	<cfelse>
 		<cfoutput query="getTaxa">
 <br><a href="##" onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();">#scientific_name#</a>
-	<!---	
-		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> - 
+<span id="t_#taxon_name_id#" data-tid="#taxon_name_id#"></div>
+	<!---
+		<br><a href="##" onClick="javascript: document.selectedAgent.agentID.value='#agent_id#';document.selectedAgent.agentName.value='#agent_name#';document.selectedAgent.submit();">#agent_name# - #agent_id#</a> -
 	--->
 
 	</cfoutput>
