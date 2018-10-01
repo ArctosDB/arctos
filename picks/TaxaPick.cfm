@@ -7,55 +7,32 @@
 </style>
 	<script>
 	$(document).ready(function() {
-		getStatus();
+		$("div[data-tid]").each(function( i, val ) {
+			//console.log(val);
+			var tid=$(this).attr("data-tid");
+			//dois.push(doi);
+			 $.ajax({
+		        url: "/component/taxonomy.cfc?queryformat=column",
+		        type: "GET",
+		        dataType: "json",
+		        //async: false,
+		        data: {
+		          method:  "getTaxonStatus",
+		          taxon_name_id : tid,
+		          returnformat : "json"
+		        },
+		        success: function(r) {
+		          if ((r.STATUS) && r.STATUS=='success'){
+		          	$("#t_" + r.TAXON_NAME_ID).html(r.TAXON_STATUS);
+		          }
+		          // else do nothing; this isn't that important
+		        },
+		          error: function (xhr, textStatus, errorThrown){
+		            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+		        }
+		      });
 		});
-
-		function getStatus(){
-			console.log('I am getstatus');
-
-			$("div[data-tid]").each(function( i, val ) {
-				//console.log(val);
-				var tid=$(this).attr("data-tid");
-				console.log(tid);
-				//dois.push(doi);
-				 $.ajax({
-			        url: "/component/taxonomy.cfc?queryformat=column",
-			        type: "GET",
-			        dataType: "json",
-			        //async: false,
-			        data: {
-			          method:  "getTaxonStatus",
-			          taxon_name_id : tid,
-			          returnformat : "json"
-			        },
-			        success: function(r) {
-			        	console.log(r);
-			          if ((r.STATUS) && r.STATUS=='success'){
-			          	console.log('happy');
-
-			          	$("#t_" + r.TAXON_NAME_ID).html(r.TAXON_STATUS);
-
-			          } else {
-			          	console.log('not so happy');
-			          	$("#t_" + tid).html('taxon_status lookup fail');
-			            //alert(r.STATUS + ': ' + r.MSG);
-			          }
-			        },
-			          error: function (xhr, textStatus, errorThrown){
-			            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-			        }
-			      });
-
-
-			});
-			}
-
-
-
-
-
-
-
+	});
 		function settaxaPickPrefs (v) {
 			jQuery.getJSON("/component/functions.cfc",
 				{
