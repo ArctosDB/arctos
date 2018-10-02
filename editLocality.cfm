@@ -576,7 +576,7 @@ function checkCoordinateError(){
 	#contents#
 	<br>
 	<a target="_blank" href="/info/localityArchive.cfm?locality_id=#locality_id#">view edit archive</a>
-   	<div style="border:5px solid red; background-color:red;">
+   	<div class="importantNotification">
 		<br>Red is scary. This form is dangerous. Make sure you know what it's doing before you get all clicky.
 		<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select

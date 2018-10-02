@@ -571,7 +571,7 @@
 		<cfquery name="sspe" dbtype="query">
 			select sum(c) sct from specimen
 		</cfquery>
-		<div style="border:2px solid blue; background-color:red;">
+		<div class="importantNotification">
 			Altering this record will update:
 			<ul>
 				<li>#localities.c# <a href="Locality.cfm?geog_auth_rec_id=#geog_auth_rec_id#&action=findLocality">localities</a></li>
@@ -983,7 +983,7 @@
 	<br>
 	<a href="/info/collectingEventArchive.cfm?collecting_event_id=#collecting_event_id#">View Edit Archive</a>
 
-	<div style="border:5px solid red; background-color:red;">
+	<div class="importantNotification">
 		<br>Red is scary. This form is dangerous. Make sure you know what it's doing before you get all clicky.
 		<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
