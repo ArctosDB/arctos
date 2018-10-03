@@ -93,6 +93,11 @@
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select guid_prefix ,collection_id from collection order by guid_prefix
 </cfquery>
+<cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by COLL_OBJ_DISPOSITION
+</cfquery>
+
+
 <cfif listcontains(displ,"on loan")>
 	You can't use this to add loan items because some listed items are already on loan.
 <cfelse>
@@ -111,9 +116,35 @@
 		<br>
 		<input type="submit" value="add all items to loan">
 	</form>
+
+	<form name="f2" method="post" action="">
+		<input type="hidden" name="Action" value="updateAllDisposition">
+		<input type="hidden" name="partIDs" value="#partIDs#">
+		<input type="hidden" name="container_id" value="#container_id#">
+
+
+		<label for="disposition">Update All Part Disposition To</label>
+		<select name="disposition" id="disposition">
+			<option value=""></option>
+			<cfloop query="CTCOLL_OBJ_DISP">
+				<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+			</cfloop>
+		</select>
+		<input type="submit" value="mass-update disposition">
+	</form>
 </cfif>
 
 </cfoutput>
+
+<cfif action is "updateAllDisposition">
+	<cfquery name="ud" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		update coll_object set COLL_OBJ_DISPOSITION='#disposition#' where COLLECTION_OBJECT_ID in (#partIDs#)
+	</cfquery>
+	<cflocation url="allContainerLeafNodes.cfm?container_id=#container_id#" addtoken="false">
+</cfif>
+
+
+
 <cfif action is "addPartsToLoan">
 	<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select loan.transaction_id from loan,trans where loan.transaction_id=trans.transaction_id and
