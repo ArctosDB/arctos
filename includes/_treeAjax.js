@@ -102,6 +102,7 @@ function loadTree_success(r) {
 			var PARENT_CONTAINER_ID = result.PARENT_CONTAINER_ID[i];
 			var CONTAINER_TYPE = result.CONTAINER_TYPE[i];
 			var LABEL = result.LABEL[i];
+			var BARCODE = result.BARCODE[i];
 			var LASTENV = result.LASTENV[i];
 			if (LASTENV.length > 0) {
 				thislbl='* ' + LABEL + ' (' + CONTAINER_TYPE + ')';				
