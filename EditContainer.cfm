@@ -126,6 +126,7 @@
 			  tube.barcode tube_barcode,
 			  tube.container_id tube_id,
 			  tube.container_type tube_type,
+			  tube.label tube_label,
 			  box.barcode box_barcode,
 			  box.container_id box_id,
 			  box.container_type box_type,
@@ -148,6 +149,7 @@
 				<th>Parent-of-position type</th>
 				<th>Position Label</th>
 				<th>Empty Container barcode</th>
+				<th>Empty Container label</th>
 				<th>Empty Container type</th>
 			</tr>
 			<cfloop query="d">
@@ -163,6 +165,7 @@
 
 						[<a href="/findContainer.cfm?container_id=#tube_id#">view in tree</a>]
 					</td>
+					<td>#tube_label#</td>
 					<td>#tube_type#</td>
 				</tr>
 			</cfloop>
