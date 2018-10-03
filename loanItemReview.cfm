@@ -82,7 +82,12 @@
 		                	title: 'Barcode',
 		                	display: function (data) {
 		                		console.log(data);
-                            	return $('<a href="/findContainer.cfm?barcode=' +  data.record.NBC.replace(/\[\] /g,'') + '">' + data.record.NBC + '</a>');
+		                		var bc=data.record.NBC;
+		                		console.log(bc);
+		                		bc:=bc.trim().replace(/\[\]/g,'');
+		                		console.log('r:' + bc);
+
+                            	return $('<a href="/findContainer.cfm?barcode=' +  data.record.NBC + '">' + data.record.NBC + '</a>');
                         	}
 		                },
 
