@@ -595,6 +595,7 @@
 					CONTAINER_REMARKS,
 					someRandomSequence.nextval ID,
 					label,
+					barcode,
 					SYS_CONNECT_BY_PATH(container_type,':') thepath
 				from container
 				start with container_id IN (
