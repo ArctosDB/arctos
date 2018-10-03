@@ -636,6 +636,7 @@
 						PARENT_INSTALL_DATE,
 						CONTAINER_REMARKS,
 						label,
+						barcode,
 						id,
 						lastenv
 					 from queriedFor
@@ -647,13 +648,14 @@
 						PARENT_INSTALL_DATE,
 						CONTAINER_REMARKS,
 						label,
+						barcode,
 						id,
 						lastenv
 						order by id desc
 				 </cfquery>
 	 			<cfset alreadyGotOne = "-1">
 				<cfset i=1>
-				<cfset result = querynew("CONTAINER_ID,PARENT_CONTAINER_ID,LABEL,CONTAINER_TYPE,LASTENV")>
+				<cfset result = querynew("CONTAINER_ID,PARENT_CONTAINER_ID,LABEL,BARCODE,CONTAINER_TYPE,LASTENV")>
 	  			<cfloop query="ro">
 	  				<cfif not listfind(alreadyGotOne,CONTAINER_ID)>
 						<cfif #PARENT_CONTAINER_ID# is 0>
@@ -665,6 +667,7 @@
 						<cfset temp = QuerySetCell(result, "container_id", "#container_id#", #i#)>
 						<cfset temp = QuerySetCell(result, "parent_container_id", "#thisParent#", #i#)>
 						<cfset temp = QuerySetCell(result, "label", "#label#", #i#)>
+						<cfset temp = QuerySetCell(result, "barcode", "#barcode#", #i#)>
 						<cfset temp = QuerySetCell(result, "container_type", "#ro.container_type#", #i#)>
 						<cfset temp = QuerySetCell(result, "lastenv", "#ro.lastenv#", #i#)>
 						<cfset alreadyGotOne = "#alreadyGotOne#,#CONTAINER_ID#">
