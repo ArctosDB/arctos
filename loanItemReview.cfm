@@ -81,9 +81,14 @@
 		                NBC: {
 		                	title: 'Barcode',
 		                	display: function (data) {
-                            	return $('<a href="/findContainer.cfm?barcode=' +  data.record.NBC + '">' + data.record.NBC + '</a>');
+                            	return $('<a href="/findContainer.cfm?barcode=' +  data.record.NBC.replace(/[] /g,'') + '">' + data.record.NBC + '</a>');
                         	}
 		                },
+
+
+
+
+
 		                PARTLASTSCANDATE: {
 		                	title: 'LastScan'},
 		                ENCUMBRANCES: {title: 'Encumbrances'},
