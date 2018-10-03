@@ -113,7 +113,7 @@ function loadTree_success(r) {
 			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + thislbl +  '",0,0,0,0,"",1)';
 			eval(thisIns);
 		}
-		
+		post();
 	}
 }
 function expandNode (id) {
