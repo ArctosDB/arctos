@@ -84,7 +84,7 @@
 		                		console.log(data);
 		                		var bc=data.record.NBC;
 		                		console.log(bc);
-		                		bc=bc.trim().replace(/\[/g,'');
+		                		bc=bc.trim().replace(/\[\]/g,'');
 		                		console.log('r:' + bc);
 
                             	return $('<a href="/findContainer.cfm?barcode=' +  data.record.NBC + '">' + data.record.NBC + '</a>');
