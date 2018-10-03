@@ -101,6 +101,7 @@
 <cfif listcontains(displ,"on loan")>
 	You can't use this to add loan items because some listed items are already on loan.
 <cfelse>
+<hr>
 	<label for="f">Add All Items To Loan and update part disposition to "on loan"</label>
 	<form name="f" method="post" action="">
 		<input type="hidden" name="Action" value="addPartsToLoan">
@@ -116,6 +117,8 @@
 		<br>
 		<input type="submit" value="add all items to loan">
 	</form>
+</cfif>
+<hr>
 
 	<form name="f2" method="post" action="">
 		<input type="hidden" name="Action" value="updateAllDisposition">
@@ -132,8 +135,6 @@
 		</select>
 		<input type="submit" value="mass-update disposition">
 	</form>
-</cfif>
-
 </cfoutput>
 
 <cfif action is "updateAllDisposition">
