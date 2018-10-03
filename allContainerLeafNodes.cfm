@@ -115,7 +115,7 @@
 		<label for="loan_number">Loan Number</label>
 		<input type="text" name="loan_number" size="25">
 		<br>
-		<input type="submit" value="add all items to loan">
+		<input type="submit" class="insBtn" value="add all items to loan">
 	</form>
 </cfif>
 <hr>
@@ -133,7 +133,7 @@
 				<option value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
 			</cfloop>
 		</select>
-		<input type="submit" value="mass-update disposition">
+		<input type="submit" class="lnkBtn" value="mass-update disposition">
 	</form>
 </cfoutput>
 
