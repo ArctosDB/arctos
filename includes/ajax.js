@@ -70,27 +70,12 @@ function createAgent(type,caller,agentIdFld,agentNameFld){
 	if (!agentNameFld){
 		var agentNameFld='';		
 	}
-	
-
-
-	// is there a modal open?
-	
 	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller + '&agentIdFld=' + agentIdFld + '&agentNameFld=' + agentNameFld;
-
-	
-	
+	// is there a modal open?	
 	if(parent.$("#dialog").length){
-		console.log('modal is open');
-		// just inject src
-		//parent.$("#dialog").src=guts;
-		
+		// just inject src		
 		parent.$('#dialog').attr('src', guts)
-		
-		
-	} else {
-		
-		console.log('not open');
-		
+	} else {		
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
 			closeOnEscape: true,
@@ -110,15 +95,7 @@ function createAgent(type,caller,agentIdFld,agentNameFld){
 		$(".ui-widget-overlay").click(function(){
 		    $(".ui-dialog-titlebar-close").trigger('click');
 		});
-		
 	}
-	
-	
-	
-	
-	
-	
-	
 }
 
 
