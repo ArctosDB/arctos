@@ -1467,7 +1467,7 @@ function createAgent(type,caller){
 	if (!caller){
 		var caller='';		
 	}
-	var guts = "includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
+	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
