@@ -185,7 +185,7 @@
 		<strong>Create Agent</strong>
 		<form name="prefdName" id="createAgent" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
-			<input type="hidden" name="caller" value="#calledFromFindAgent#">
+			<input type="hidden" name="caller" value="#caller#">
 			<!---
 				possible values here:
 					unchecked: run the checks
@@ -328,7 +328,7 @@
 		</cfif>
 		<br>Agent created successfully.
 
-		calledFromFindAgent::#calledFromFindAgent#
+		caller::#caller#
 
 		<!----
 		If you're seeing this something is broken so file a bug report!
