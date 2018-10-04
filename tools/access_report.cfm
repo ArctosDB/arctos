@@ -59,7 +59,7 @@
 		from
 			DBA_ROLE_PRIVS
 			<cfif excl_admin is "true">
-				and GRANTED_ROLE not in (#listqualify(ebij,"'",",")#)
+				where GRANTED_ROLE not in (#listqualify(ebij,"'",",")#)
 			</cfif>
 		group by
 			GRANTED_ROLE
