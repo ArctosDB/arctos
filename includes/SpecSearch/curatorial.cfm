@@ -36,6 +36,16 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="barcode">Part Barcode:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="barcode" id="barcode" size="50">
+			<span class="infoLink" onclick="document.getElementById('barcode').value='NULL'">NULL</span>
+
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="anybarcode">Any Barcode:</span>
 		</td>
 		<td class="srch">
