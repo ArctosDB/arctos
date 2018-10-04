@@ -73,7 +73,11 @@ function createAgent(type,caller){
 	if(parent.$("#dialog").length){
 		console.log('modal is open');
 		// just inject src
-		parent.$("#dialog").src=guts;
+		//parent.$("#dialog").src=guts;
+		
+		parent.$('#dialog').attr('src', guts)
+		
+		
 	} else {
 		
 		console.log('not open');
