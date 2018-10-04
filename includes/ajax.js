@@ -1462,6 +1462,34 @@ function getLoan(LoanIDFld,LoanNumberFld,loanNumber,collectionID){
 	oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
 	loanpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
 }
+
+function createAgent(type,caller){
+	if (!caller){
+		var caller='';		
+	}
+	var guts = "includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'New Agent',
+			width:800,
+			height:600,
+		close: function() {
+			$( this ).remove();
+		},
+	}).width(800-10).height(600-10);
+	$(window).resize(function() {
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}
+
+
 function pickAgentModal(agentIdFld,agentNameFld,name){
 	// semi-experimental jquery modal agent pick
 	// initiated 20140916

@@ -181,11 +181,11 @@
 		}
 	</script>
 	<cfoutput>
-		<cfparam name="calledFromFindAgent" default="false">
+		<cfparam name="caller" default="">
 		<strong>Create Agent</strong>
 		<form name="prefdName" id="createAgent" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
-			<input type="hidden" name="calledFromFindAgent" value="#calledFromFindAgent#">
+			<input type="hidden" name="caller" value="#calledFromFindAgent#">
 			<!---
 				possible values here:
 					unchecked: run the checks
