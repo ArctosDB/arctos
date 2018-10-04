@@ -80,7 +80,7 @@ grant insert,update,delete on citation to manage_specimens;
 					dba_tab_privs.table_name=all_objects.OBJECT_NAME and
 					grantee IN ( SELECT role  FROM dba_roles) and
 					upper(grantee)='#ucase(role_name)#'
-				GROUP BY table_name, grantee
+				GROUP BY table_name, grantee,OBJECT_TYPE
 		</cfquery>
 		<table border>
 			<tr>
