@@ -31,24 +31,24 @@
 
 
 <cfoutput>
-	<cfparam name="locked" default="">
+	<cfparam name="excl_locked" default="">
 	<cfparam name="excl_pub_usr" default="true">
 	<cfparam name="excl_admin" default="true">
 	<form method="get" action="access_report.cfm">
-		<label for="locked">Locked?</label>
-		<select name="locked">
+		<label for="excl_locked">Locked?</label>
+		<select name="excl_locked">
 			<option value=""></option>
-			<option <cfif locked is "OPEN">selected="selected"</cfif><value="OPEN">open</option>
+			<option <cfif excl_locked is "true">selected="selected"</cfif> value="true">exclude</option>
 		</select>
 		<label for="excl_pub_usr">PUB_USR...?</label>
 		<select name="excl_pub_usr">
 			<option value=""></option>
-			<option <cfif excl_pub_usr is "true">selected="selected"</cfif><value="true">exclude</option>
+			<option <cfif excl_pub_usr is "true">selected="selected"</cfif> value="true">exclude</option>
 		</select>
 		<label for="excl_admin">Admin stuff?</label>
 		<select name="excl_admin">
 			<option value=""></option>
-			<option <cfif excl_admin is "true">selected="selected"</cfif><value="true">exclude</option>
+			<option <cfif excl_admin is "true">selected="selected"</cfif> value="true">exclude</option>
 		</select>
 
 		<br><input type="submit" value="filter">
@@ -86,8 +86,8 @@
 				<cfif excl_admin is "true">
 					and grantee not in (#listqualify(ebij,"'",",")#)
 				</cfif>
-			 	<cfif len(locked) gt 0>
-					and ACCOUNT_STATUS='#locked#'
+				<cfif excl_locked is "true">
+					and ACCOUNT_STATUS='OPEN'
 				</cfif>
 			group by
 				GRANTEE,
