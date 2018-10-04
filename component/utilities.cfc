@@ -21,8 +21,6 @@
 			</cfhttp>
 			<cfif not isjson(d.Filecontent)>
 				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi# or https://dx.doi.org/#doi#">
-			<cfelse>
-				its json
 			</cfif>
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
