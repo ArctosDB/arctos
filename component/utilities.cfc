@@ -36,6 +36,9 @@ delete from cache_publication_sdata where doi='10.1016/j.scitotenv.2005.11.012';
 
 			<br>it's json....
 
+			<cfdump var=#d#>
+
+
 			<cfdump var=#jmc#>
 
 			<cfquery name="dc" datasource="uam_god">
