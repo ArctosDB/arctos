@@ -16,10 +16,10 @@
 		<input type="hidden" name="agentNameFld" value="#agentNameFld#">
 	</form>
 	<div style="display:table-cell;width:25%;">
-								<input type="button" value="Create Person" class="insBtn" onClick="createAgent('person');">
+								<input type="button" value="Create Person" class="insBtn" onClick="createAgent('person','findAgent');">
 							</div>
 							<div style="display:table-cell;width:25%;">
-								<input type="button" value="Create Agent" class="insBtn" onClick="createAgent();">
+								<input type="button" value="Create Agent" class="insBtn" onClick="createAgent('','findAgent');">
 							</div>
 	<cfif len(name) is 0>
 		<cfabort>
