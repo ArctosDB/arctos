@@ -43,7 +43,6 @@
 			loadAgentSearch($("#agntSearch").serialize());
 		});
 	});
-	
 </script>
 
 <cfset title='Manage Agents'>

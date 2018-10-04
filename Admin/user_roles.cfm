@@ -59,14 +59,20 @@ grant insert,update,delete on citation to manage_specimens;
 <!---------------------------------------------------------------------->
 <cfif action IS "defineRole">
 	<cfoutput>
-		The following table is authoritative as of #dateformat(now(), 'YYYY-MM-DD')#.
+		The following table is authoritative for role #role_name# as of #dateformat(now(), 'YYYY-MM-DD')#.
+
+		<p>
+			Note: EXECUTE applies to stored procedures, which may perform various operations on behalf of users.
+			See <a href="https://github.com/ArctosDB/DDL" target="_blank" class="external">https://github.com/ArctosDB/DDL</a> for more information.
+		</p>
 
 		<cfquery name="d" datasource="uam_god">
 			 SELECT table_name, grantee,
 				MAX(DECODE(privilege, 'SELECT', 'yes','no')) AS select_priv,
 				MAX(DECODE(privilege, 'DELETE', 'yes','no')) AS delete_priv,
 				MAX(DECODE(privilege, 'UPDATE', 'yes','no')) AS update_priv,
-				MAX(DECODE(privilege, 'INSERT', 'yes','no')) AS insert_priv
+				MAX(DECODE(privilege, 'INSERT', 'yes','no')) AS insert_priv,
+				MAX(DECODE(privilege, 'EXECUTE', 'yes','no')) AS execute_priv
 				FROM dba_tab_privs
 				WHERE grantee IN (
 				  SELECT role
@@ -81,6 +87,7 @@ grant insert,update,delete on citation to manage_specimens;
 				<td>Select?</td>
 				<td>Delete?</td>
 				<td>Insert?</td>
+				<td>Execute?</td>
 				<td>Update?</td>
 			</tr>
 			<cfloop query="d">
@@ -91,6 +98,7 @@ grant insert,update,delete on citation to manage_specimens;
 					<td>#delete_priv#</td>
 					<td>#update_priv#</td>
 					<td>#insert_priv#</td>
+					<td>#execute_priv#</td>
 				</tr>
 			</cfloop>
 		</table>

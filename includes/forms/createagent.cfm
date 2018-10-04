@@ -336,9 +336,7 @@
 
 		<cfif caller is "findAgent">
 			<script>
-				console.log(' from findAgent');
 				var guts = "/picks/findAgentModal.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&name=#preferred_agent_name#";
-				console.log(guts);
 				parent.$('##dialog').attr('src', guts);
 			</script>
 		<cfelse>
