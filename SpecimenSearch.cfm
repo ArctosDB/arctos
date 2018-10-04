@@ -478,6 +478,7 @@
 				</td>
 				<td class="srch">
 					<input type="text" name="barcode" id="barcode" size="50">
+					<span class="infoLink" onclick="document.getElementById('barcode').value='NULL'">NULL</span>
 				</td>
 			</tr>
 		</table>
