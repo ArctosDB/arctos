@@ -65,7 +65,8 @@ function createAgent(type,caller){
 		var caller='';		
 	}
 	// is there a modal open?
-	if($("#dialog"). length){
+	
+	if(parent.$("#dialog").length){
 		console.log('modal is open');
 	} else {
 		
