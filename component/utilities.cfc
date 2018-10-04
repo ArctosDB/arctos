@@ -32,6 +32,8 @@
 
 			<br>it's json....
 
+			<cfdump var=#d#>
+
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
 			</cfquery>
