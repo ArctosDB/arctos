@@ -10,7 +10,15 @@
 	</cfquery>
 	<cfloop query="roles">
 		<cfquery name="hasrole" datasource="uam_god">
-			select GRANTEE from DBA_ROLE_PRIVS where GRANTED_ROLE='#GRANTED_ROLE#' 
+			select
+				GRANTEE ,
+				ACCOUNT_STATUS
+			from
+				DBA_ROLE_PRIVS,
+				dba_users
+			 where
+			 	DBA_ROLE_PRIVS.GRANTEE=dba_users.USERNAME and
+			 GRANTED_ROLE='#GRANTED_ROLE#'
 			and grantee not like 'PUB_USR%'
 			and grantee != 'SYS'
 			and grantee != 'UAM'
@@ -21,7 +29,7 @@
 			#GRANTED_ROLE#
 			<ul>
 				<cfloop query="hasrole">
-					<li>#GRANTEE#</li>
+					<li>#GRANTEE# (#ACCOUNT_STATUS#)</li>
 				</cfloop>
 			</ul>
 		</cfif>
