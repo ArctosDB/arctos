@@ -454,6 +454,24 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 				</table>
 				<input type="submit" value="save descriptions">
 			</form>
+			<h2>
+				Permissions on #tbl#
+			</h2>
+			<cfquery name="tp" datasource="uam_god">
+				select *f rom dba_tab_privs where table_name='#tbl#' order by grantee,PRIVILEGE
+			</cfquery>
+			<table border>
+				<tr>
+					<th>GRANTEE</th>
+					<th>PRIVILEGE</th>
+				</tr>
+				<cfloop query="tp">
+					<tr>
+						<td>#GRANTEE#</td>
+						<td>#PRIVILEGE#</td>
+					</tr>
+				</cfloop>
+			</table>
 
 
 		</cfif>
