@@ -1475,6 +1475,10 @@ function createAgent(type,caller){
 
 	console.log('closed modals...');
 	
+	return;
+	
+	
+	
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
