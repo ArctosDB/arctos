@@ -1469,7 +1469,11 @@ function createAgent(type,caller){
 	}
 	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
 	// close any open modals
+	console.log('closing modals...');
+	
 	$(".ui-dialog-titlebar-close").trigger('click');
+
+	console.log('closed modals...');
 	
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 		autoOpen: true,
