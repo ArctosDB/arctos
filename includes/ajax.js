@@ -66,46 +66,46 @@ function createAgent(type,caller){
 	}
 	// is there a modal open?
 	
+	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
+
+	
+	
 	if(parent.$("#dialog").length){
 		console.log('modal is open');
+		// just inject src
+		parent.$("#dialog").src=guts;
 	} else {
 		
 		console.log('not open');
+		
+		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'center'],
+			title: 'New Agent',
+				width:800,
+				height:600,
+			close: function() {
+				$( this ).remove();
+			},
+		}).width(800-10).height(600-10);
+		$(window).resize(function() {
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+		
 	}
 	
 	
-	return;
-	
-	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
-	// close any open modals
-	console.log('closing modals...');
-	parent.$(".ui-dialog-titlebar-close").trigger('click');
-	$(".ui-dialog-titlebar-close").trigger('click');
-
-	console.log('closed modals...');
 	
 	
 	
 	
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'center'],
-		title: 'New Agent',
-			width:800,
-			height:600,
-		close: function() {
-			$( this ).remove();
-		},
-	}).width(800-10).height(600-10);
-	$(window).resize(function() {
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
+	
 }
 
 
