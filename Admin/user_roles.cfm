@@ -67,23 +67,26 @@ grant insert,update,delete on citation to manage_specimens;
 		</p>
 
 		<cfquery name="d" datasource="uam_god">
-			 SELECT table_name, grantee,
+			 SELECT table_name,OBJECT_TYPE, grantee,
 				MAX(DECODE(privilege, 'SELECT', 'yes','no')) AS select_priv,
 				MAX(DECODE(privilege, 'DELETE', 'yes','no')) AS delete_priv,
 				MAX(DECODE(privilege, 'UPDATE', 'yes','no')) AS update_priv,
 				MAX(DECODE(privilege, 'INSERT', 'yes','no')) AS insert_priv,
 				MAX(DECODE(privilege, 'EXECUTE', 'yes','no')) AS execute_priv
-				FROM dba_tab_privs
-				WHERE grantee IN (
-				  SELECT role
-				  FROM dba_roles)
-				  and upper(grantee)='#ucase(role_name)#'
+				FROM
+					dba_tab_privs,
+					all_objects
+				WHERE
+					dba_tab_privs.table_name=all_objects.OBJECT_NAME and
+					grantee IN ( SELECT role  FROM dba_roles) and
+					upper(grantee)='#ucase(role_name)#'
 				GROUP BY table_name, grantee
 		</cfquery>
 		<table border>
 			<tr>
 				<td>Role</td>
-				<td>Table Name</td>
+				<td>Object Name</td>
+				<td>Object Type</td>
 				<td>Select?</td>
 				<td>Delete?</td>
 				<td>Insert?</td>
@@ -94,6 +97,7 @@ grant insert,update,delete on citation to manage_specimens;
 				<tr>
 					<td>#grantee#</td>
 					<td>#table_name#</td>
+					<td>#OBJECT_TYPE#</td>
 					<td>#select_priv#</td>
 					<td>#delete_priv#</td>
 					<td>#update_priv#</td>
