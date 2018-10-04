@@ -11,10 +11,16 @@
 			<!---this gets validated before cache so should be skookum --->
 			<cfset x=DeserializeJSON(c.json_data)>
 		<cfelse>
+
+		<br>cfelseing
+
+
 			<cfhttp result="d" method="get" url="http://opencitations.net/index/coci/api/v1/citations/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "application/json">
 			</cfhttp>
+
+			<br>got d....
 			<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
@@ -22,6 +28,10 @@
 			<cfif not isjson(d.Filecontent)>
 				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi# or https://dx.doi.org/#doi#">
 			</cfif>
+
+
+			<br>it's json....
+
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
 			</cfquery>
