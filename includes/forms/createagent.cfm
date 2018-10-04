@@ -334,13 +334,11 @@
 		</cfif>
 		<br>Agent created successfully.
 
-		caller::#caller#
-
-		findAgent
-
 		<cfif caller is "findAgent">
 			<script>
+				console.log(' from findAgent');
 				var guts = "/picks/findAgentModal.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&name=#preferred_agent_name#";
+				console.log(guts);
 				parent.$('##dialog').attr('src', guts);
 			</script>
 		<cfelse>
@@ -351,9 +349,7 @@
 			</script>
 		</cfif>
 
-		<!----
 		If you're seeing this something is broken so file a bug report!
 
-		---->
 	</cfoutput>
 </cfif>
