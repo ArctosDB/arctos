@@ -34,6 +34,9 @@
 	<cfparam name="excl_locked" default="">
 	<cfparam name="excl_pub_usr" default="true">
 	<cfparam name="excl_admin" default="true">
+	<cfparam name="role_srch" default="">
+	<cfparam name="usr_srch" default="">
+
 	<form method="get" action="access_report.cfm">
 		<label for="excl_locked">Locked?</label>
 		<select name="excl_locked">
@@ -51,6 +54,12 @@
 			<option <cfif excl_admin is "true">selected="selected"</cfif> value="true">exclude</option>
 		</select>
 
+		<label for="role_srch">Role</label>
+		<input type="text" name="role_srch" value='#role_srch#' size="60">
+
+		<label for="usr_srch">User</label>
+		<input type="text" name="usr_srch" value='#usr_srch#' size="60">
+
 		<br><input type="submit" value="filter">
 	</form>
 	<cfquery name="roles" datasource="uam_god">
@@ -58,8 +67,13 @@
 			GRANTED_ROLE
 		from
 			DBA_ROLE_PRIVS
+		where
+			1=1
 			<cfif excl_admin is "true">
-				where GRANTED_ROLE not in (#listqualify(ebij,"'",",")#)
+				and GRANTED_ROLE not in (#listqualify(ebij,"'",",")#)
+			</cfif>
+			<cfif len(role_srch) gt 0>
+				and GRANTED_ROLE like '%#ucase(role_srch)#%'
 			</cfif>
 		group by
 			GRANTED_ROLE
@@ -88,6 +102,9 @@
 				</cfif>
 				<cfif excl_locked is "true">
 					and ACCOUNT_STATUS='OPEN'
+				</cfif>
+				<cfif len(usr_srch) gt 0>
+					and GRANTEE like '%#ucase(usr_srch)#%'
 				</cfif>
 			group by
 				GRANTEE,
