@@ -454,6 +454,8 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 				</table>
 				<input type="submit" value="save descriptions">
 			</form>
+
+
 		</cfif>
 		<cfif action is "saveColDescr">
 			<cftransaction>

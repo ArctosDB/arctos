@@ -59,7 +59,7 @@ grant insert,update,delete on citation to manage_specimens;
 <!---------------------------------------------------------------------->
 <cfif action IS "defineRole">
 	<cfoutput>
-		The following table is authoritative for role #role_name# as of #dateformat(now(), 'YYYY-MM-DD')#.
+		The following table is authoritative as of #dateformat(now(), 'YYYY-MM-DD')#.
 
 		<p>
 			Note: EXECUTE applies to stored procedures, which may perform various operations on behalf of users.
