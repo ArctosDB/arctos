@@ -18,11 +18,15 @@
 				dba_users
 			 where
 			 	DBA_ROLE_PRIVS.GRANTEE=dba_users.USERNAME and
-			 GRANTED_ROLE='#GRANTED_ROLE#'
-			and grantee not like 'PUB_USR%'
-			and grantee != 'SYS'
-			and grantee != 'UAM'
-			group by GRANTEE order by GRANTEE
+			 	GRANTED_ROLE='#GRANTED_ROLE#' and
+			 	grantee not like 'PUB_USR%' and
+			 	grantee != 'SYS'
+			 	and grantee != 'UAM'
+			group by
+				GRANTEE,
+				ACCOUNT_STATUS
+			order by
+				GRANTEE
 		</cfquery>
 		<cfif hasRole.recordcount gt 0>
 			<hr>
