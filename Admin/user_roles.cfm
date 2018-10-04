@@ -79,8 +79,10 @@ grant insert,update,delete on citation to manage_specimens;
 				WHERE
 					dba_tab_privs.table_name=all_objects.OBJECT_NAME and
 					grantee IN ( SELECT role  FROM dba_roles) and
+					OBJECT_TYPE!='SYNONYM' and
 					upper(grantee)='#ucase(role_name)#'
 				GROUP BY table_name, grantee,OBJECT_TYPE
+				order by table_name
 		</cfquery>
 		<table border>
 			<tr>
