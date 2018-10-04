@@ -975,33 +975,33 @@
 										<tr>
 											<td valign="top" align="right"><!---- text stuff here ---->
 												<table width="100%">
-													<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-														<tr>
-															<td align="right" valign="top">Coordinates:</td>
-															<td align="left">
+													<tr>
+														<td align="right" valign="top">Coordinates:</td>
+														<td align="left">
+															<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 																#dec_lat# / #dec_long#
-																<cfif len(verbatim_coordinates) gt 0>
-																	<div class="detailCellSmall">
-																		Verbatim Coordinates: #verbatim_coordinates#
-																	</div>
-																</cfif>
-																<cfif len(DATUM) gt 0>
-																	<div style="font-size:.8em;">
-																		Datum: #DATUM#
-																	</div>
-																</cfif>
-																<cfif len(MAX_ERROR_UNITS) gt 0>
-																	<div style="font-size:.8em;">Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
-																</cfif>
-																<cfif len(georeference_source) gt 0>
-																	<div style="font-size:.8em;">Georeference&nbsp;Source: #georeference_source#</div>
-																</cfif>
-																<cfif len(georeference_protocol) gt 0>
-																	<div style="font-size:.8em;">Georeference&nbsp;Protocol: #georeference_protocol#</div>
-																</cfif>
-															</td>
-														</tr>
-													</cfif>
+															</cfif>
+															<cfif len(verbatim_coordinates) gt 0>
+																<div class="detailCellSmall">
+																	Verbatim Coordinates: #verbatim_coordinates#
+																</div>
+															</cfif>
+															<cfif len(DATUM) gt 0>
+																<div style="font-size:.8em;">
+																	Datum: #DATUM#
+																</div>
+															</cfif>
+															<cfif len(MAX_ERROR_UNITS) gt 0>
+																<div style="font-size:.8em;">Error: #MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
+															</cfif>
+															<cfif len(georeference_source) gt 0>
+																<div style="font-size:.8em;">Georeference&nbsp;Source: #georeference_source#</div>
+															</cfif>
+															<cfif len(georeference_protocol) gt 0>
+																<div style="font-size:.8em;">Georeference&nbsp;Protocol: #georeference_protocol#</div>
+															</cfif>
+														</td>
+													</tr>
 													<cfif len(orig_elev_units) gt 0>
 														<tr>
 															<td align="right">Elevation</td>
