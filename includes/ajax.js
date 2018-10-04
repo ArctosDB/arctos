@@ -60,13 +60,22 @@ $(document).ready(function() {
 
 
 
-function createAgent(type,caller){
+function createAgent(type,caller,agentIdFld,agentNameFld){
 	if (!caller){
 		var caller='';		
 	}
+	if (!agentIdFld){
+		var agentIdFld='';		
+	}
+	if (!agentNameFld){
+		var agentNameFld='';		
+	}
+	
+
+
 	// is there a modal open?
 	
-	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
+	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller + '&agentIdFld=' + agentIdFld + '&agentNameFld=' + agentNameFld;
 
 	
 	

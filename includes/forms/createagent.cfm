@@ -182,10 +182,16 @@
 	</script>
 	<cfoutput>
 		<cfparam name="caller" default="">
+		<cfparam name="agentIdFld" default="">
+		<cfparam name="agentNameFld" default="">
+
+
 		<strong>Create Agent</strong>
 		<form name="prefdName" id="createAgent" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
 			<input type="hidden" name="caller" value="#caller#">
+			<input type="hidden" name="agentIdFld" value="#agentIdFld#">
+			<input type="hidden" name="agentNameFld" value="#agentNameFld#">
 			<!---
 				possible values here:
 					unchecked: run the checks
@@ -330,12 +336,24 @@
 
 		caller::#caller#
 
+		findAgent
+
+		<cfif caller is "findAgent">
+			<script>
+				var guts = "/picks/findAgentModal.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&name=#preferred_agent_name#';
+				parent.$('#dialog').attr('src', guts);
+			</script>
+		<cfelse>
+			<!-- default: from agent form --->
+			<script>
+				parent.loadEditAgent(#agentID.nextAgentId#);
+				parent.$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
+			</script>
+		</cfif>
+
 		<!----
 		If you're seeing this something is broken so file a bug report!
-		<script>
-			parent.loadEditAgent(#agentID.nextAgentId#);
-			parent.$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
-		</script>
+
 		---->
 	</cfoutput>
 </cfif>
