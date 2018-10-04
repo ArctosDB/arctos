@@ -34,8 +34,17 @@ run these in order
 	<cfquery name="CTTAXONOMY_SOURCE" datasource="uam_god">
 		select source from CTTAXONOMY_SOURCE
 	</cfquery>
+	<cfquery name="CTNOMENCLATURAL_CODE" datasource="uam_god">
+		select NOMENCLATURAL_CODE from CTNOMENCLATURAL_CODE
+	</cfquery>
+	<cfset validNomenCodeList=valueList(CTNOMENCLATURAL_CODE.NOMENCLATURAL_CODE)>
+	<cfquery name="CTTAXON_STATUS" datasource="uam_god">
+		select TAXON_STATUS from CTTAXON_STATUS
+	</cfquery>
+	<cfset validTaxonStatusList=valueList(CTTAXON_STATUS.TAXON_STATUS)>
+
+
 	<cfset validSourceList=valueList(CTTAXONOMY_SOURCE.source)>
-	<cfset validNomenCodeList='ICZN,ICBN'>
 	<cfquery name="oClassTerms" datasource="uam_god">
 		select
 			taxon_term
@@ -283,6 +292,9 @@ run these in order
 			</cfif>
 			<cfif not listFind(validNomenCodeList,nomenclatural_code)>
 				<cfset thisProb=listappend(thisProb,"nomenclatural_code must be in (#validNomenCodeList#)",';')>
+			</cfif>
+			<cfif len(taxon_status) gt 0 and not listFind(validTaxonStatusList,taxon_status)>
+				<cfset thisProb=listappend(thisProb,"taxon_status must be in (#validTaxonStatusList#)",';')>
 			</cfif>
 			<cfif len(nomenclatural_code) is 0>
 				<cfset thisProb=listappend(thisProb,"nomenclatural_code may not be NULL",';')>
