@@ -15,6 +15,12 @@
 		<input type="hidden" name="agentIdFld" value="#agentIdFld#">
 		<input type="hidden" name="agentNameFld" value="#agentNameFld#">
 	</form>
+	<div style="display:table-cell;width:25%;">
+								<input type="button" value="Create Person" class="insBtn" onClick="createAgent('person');">
+							</div>
+							<div style="display:table-cell;width:25%;">
+								<input type="button" value="Create Agent" class="insBtn" onClick="createAgent();">
+							</div>
 	<cfif len(name) is 0>
 		<cfabort>
 	</cfif>

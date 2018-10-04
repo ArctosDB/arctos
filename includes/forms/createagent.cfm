@@ -181,9 +181,11 @@
 		}
 	</script>
 	<cfoutput>
+		<cfparam name="calledFromFindAgent" default="false">
 		<strong>Create Agent</strong>
 		<form name="prefdName" id="createAgent" onsubmit="return preCreateCheck()">
 			<input type="hidden" name="action" value="makeNewAgent">
+			<input type="hidden" name="calledFromFindAgent" value="#calledFromFindAgent#">
 			<!---
 				possible values here:
 					unchecked: run the checks
@@ -325,10 +327,15 @@
 			</cfmail>
 		</cfif>
 		<br>Agent created successfully.
+
+		calledFromFindAgent::#calledFromFindAgent#
+
+		<!----
 		If you're seeing this something is broken so file a bug report!
 		<script>
 			parent.loadEditAgent(#agentID.nextAgentId#);
 			parent.$(".ui-dialog-titlebar-close").addClass('obvious').trigger('click');
 		</script>
+		---->
 	</cfoutput>
 </cfif>
