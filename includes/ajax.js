@@ -64,6 +64,17 @@ function createAgent(type,caller){
 	if (!caller){
 		var caller='';		
 	}
+	// is there a modal open?
+	if($("#dialog"). length){
+		console.log('modal is open');
+	} else {
+		
+		console.log('not open');
+	}
+	
+	
+	return;
+	
 	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
 	// close any open modals
 	console.log('closing modals...');
