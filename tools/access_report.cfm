@@ -1,9 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Access Report">
-<cfif action is "nothing">
-	<a href="access_report.cfm?action=role">Roles</a>
-</cfif>
-<cfif action is "role">
+<style>
+.tcls{
+	font-size:smaller;
+	color:darkgray;
+}
+</style>
 <cfoutput>
 	<cfquery name="roles" datasource="uam_god">
 		select GRANTED_ROLE from DBA_ROLE_PRIVS group by GRANTED_ROLE order by GRANTED_ROLE
@@ -33,11 +35,15 @@
 			#GRANTED_ROLE#
 			<ul>
 				<cfloop query="hasrole">
-					<li>#GRANTEE# (#ACCOUNT_STATUS#)</li>
+					<cfif ACCOUNT_STATUS neq 'OPEN'>
+						<cfset tcls='nopn'>
+					<cfelse>
+						<cfset tcls=''>
+					</cfif>
+					<li class="#tcls#">#GRANTEE# (#ACCOUNT_STATUS#)</li>
 				</cfloop>
 			</ul>
 		</cfif>
 	</cfloop>
 </cfoutput>
-</cfif>
 <cfinclude template="/includes/_footer.cfm">
