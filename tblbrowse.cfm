@@ -458,7 +458,7 @@ alter table arctos_table_columns add DATA_SCALE varchar2(255);
 				Permissions on #tbl#
 			</h2>
 			<cfquery name="tp" datasource="uam_god">
-				select *f rom dba_tab_privs where table_name='#tbl#' order by grantee,PRIVILEGE
+				select * from dba_tab_privs where table_name='#tbl#' order by grantee,PRIVILEGE
 			</cfquery>
 			<table border>
 				<tr>
