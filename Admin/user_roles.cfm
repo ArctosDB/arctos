@@ -87,8 +87,8 @@ grant insert,update,delete on citation to manage_specimens;
 				<td>Select?</td>
 				<td>Delete?</td>
 				<td>Insert?</td>
-				<td>Execute?</td>
 				<td>Update?</td>
+				<td>Execute?</td>
 			</tr>
 			<cfloop query="d">
 				<tr>
