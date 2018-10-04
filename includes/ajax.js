@@ -59,6 +59,81 @@ $(document).ready(function() {
 });
 
 
+
+function createAgent(type,caller){
+	if (!caller){
+		var caller='';		
+	}
+	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
+	// close any open modals
+	console.log('closing modals...');
+	parent.$(".ui-dialog-titlebar-close").trigger('click');
+	$(".ui-dialog-titlebar-close").trigger('click');
+
+	console.log('closed modals...');
+	
+	return;
+	
+	
+	
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'center'],
+		title: 'New Agent',
+			width:800,
+			height:600,
+		close: function() {
+			$( this ).remove();
+		},
+	}).width(800-10).height(600-10);
+	$(window).resize(function() {
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}
+
+
+function pickAgentModal(agentIdFld,agentNameFld,name){
+	// semi-experimental jquery modal agent pick
+	// initiated 20140916
+	// if no complaints, replace all picks with this approach
+	name=encodeURIComponent(name);
+	$("#" + agentNameFld).addClass('badPick');
+	var an;
+	if ( typeof name != 'undefined') {
+		an=name;	
+	}else {
+		an='';
+	}
+	var guts = "/picks/findAgentModal.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&name=' + an;
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'top'],
+		title: 'Pick Agent',
+			width:800,
+ 			height:600,
+		close: function() {
+			$( this ).remove();
+		}
+	}).width(800-10).height(600-10);
+	$(window).resize(function() {
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}
+
+
+
 function getFormattedDate() {
     var date = new Date();
     var str = date.getFullYear() + "-" + getFormattedPartTime(date.getMonth() + 1) + "-" + getFormattedPartTime(date.getDate());
@@ -1461,78 +1536,6 @@ function getLoan(LoanIDFld,LoanNumberFld,loanNumber,collectionID){
 	url="/picks/getLoan.cfm";
 	oawin=url+"?LoanIDFld="+LoanIDFld+"&LoanNumberFld="+LoanNumberFld+"&loanNumber="+loanNumber+"&agent_name="+collectionID;
 	loanpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
-}
-
-function createAgent(type,caller){
-	if (!caller){
-		var caller='';		
-	}
-	var guts = "/includes/forms/createagent.cfm?agent_type=" + type + '&caller=' + caller;
-	// close any open modals
-	console.log('closing modals...');
-	
-	$(".ui-dialog-titlebar-close").trigger('click');
-
-	console.log('closed modals...');
-	
-	return;
-	
-	
-	
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'center'],
-		title: 'New Agent',
-			width:800,
-			height:600,
-		close: function() {
-			$( this ).remove();
-		},
-	}).width(800-10).height(600-10);
-	$(window).resize(function() {
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-}
-
-
-function pickAgentModal(agentIdFld,agentNameFld,name){
-	// semi-experimental jquery modal agent pick
-	// initiated 20140916
-	// if no complaints, replace all picks with this approach
-	name=encodeURIComponent(name);
-	$("#" + agentNameFld).addClass('badPick');
-	var an;
-	if ( typeof name != 'undefined') {
-		an=name;	
-	}else {
-		an='';
-	}
-	var guts = "/picks/findAgentModal.cfm?agentIdFld=" + agentIdFld + '&agentNameFld=' + agentNameFld + '&name=' + an;
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'top'],
-		title: 'Pick Agent',
-			width:800,
- 			height:600,
-		close: function() {
-			$( this ).remove();
-		}
-	}).width(800-10).height(600-10);
-	$(window).resize(function() {
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
 }
 
 
