@@ -7,6 +7,15 @@
 }
 </style>
 <cfoutput>
+	<cfparam name="locked" default="">
+	<form method="get" action="access_report.cfm">
+		<label for="locked">Locked?</label>
+		<select name="locked">
+			<option value=""></option>
+			<option <cfif locked is "OPEN">selected="selected"</cfif><value="OPEN">open</option>
+		</select>
+		<br><input type="submit" value="filter">
+	</form>
 	<cfquery name="roles" datasource="uam_god">
 		select GRANTED_ROLE from DBA_ROLE_PRIVS group by GRANTED_ROLE order by GRANTED_ROLE
 	</cfquery>
@@ -24,6 +33,9 @@
 			 	grantee not like 'PUB_USR%' and
 			 	grantee != 'SYS'
 			 	and grantee != 'UAM'
+			 	<cfif len(locked) gt 0>
+					and ACCOUNT_STATUS='#locked#'
+				</cfif>
 			group by
 				GRANTEE,
 				ACCOUNT_STATUS
