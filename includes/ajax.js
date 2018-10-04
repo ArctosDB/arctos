@@ -72,7 +72,6 @@ function createAgent(type,caller){
 
 	console.log('closed modals...');
 	
-	return;
 	
 	
 	
