@@ -137,8 +137,9 @@ alter table CF_TEMP_CLASSIFICATION_FH modify remark varchar2(4000);
 	<cfset BulkTableColList=mine.columnlist>
 	<!--- remove admin stuff ---->
 	<!----
-	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'USERNAME'))>
 	---->
+		<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'USERNAME'))>
+
 	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'TAXON_NAME_ID'))>
 	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'CLASSIFICATION_ID'))>
 	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'SUBSP'))>
