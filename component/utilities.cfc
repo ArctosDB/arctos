@@ -28,6 +28,9 @@
 			<cfif not isjson(d.Filecontent)>
 				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi# or https://dx.doi.org/#doi#">
 			</cfif>
+			<cfif not isjson(jmc.Filecontent)>
+				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi# or https://dx.doi.org/#doi#">
+			</cfif>
 
 delete from cache_publication_sdata where doi='10.1016/j.scitotenv.2005.11.012';
 
