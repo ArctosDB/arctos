@@ -94,6 +94,7 @@ grant insert,update,delete on citation to manage_specimens;
 				<td>Insert?</td>
 				<td>Update?</td>
 				<td>Execute?</td>
+				<td>TableBrowser</td>
 			</tr>
 			<cfloop query="d">
 				<tr>
@@ -105,6 +106,7 @@ grant insert,update,delete on citation to manage_specimens;
 					<td>#update_priv#</td>
 					<td>#insert_priv#</td>
 					<td>#execute_priv#</td>
+					<td><a href="/tblbrowse.cfm?action=tbldetail&tbl=#table_name#" target="_blank">[ new tab ]</a></td>
 				</tr>
 			</cfloop>
 		</table>
