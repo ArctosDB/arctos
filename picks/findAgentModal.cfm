@@ -15,14 +15,12 @@
 		<input type="hidden" name="agentIdFld" value="#agentIdFld#">
 		<input type="hidden" name="agentNameFld" value="#agentNameFld#">
 	</form>
-	<p>
-		<input type="button" value="Create Person" class="insBtn" onClick="createAgent('person','findAgent','#agentIdFld#','#agentNameFld#');">
-		<input type="button" value="Create Agent" class="insBtn" onClick="createAgent('','findAgent','#agentIdFld#','#agentNameFld#');">
-	</p>
-
-
-
-
+	<cfif session.roles contains "manage_agents">
+		<p>
+			<input type="button" value="Create Person" class="insBtn" onClick="createAgent('person','findAgent','#agentIdFld#','#agentNameFld#');">
+			<input type="button" value="Create Agent" class="insBtn" onClick="createAgent('','findAgent','#agentIdFld#','#agentNameFld#');">
+		</p>
+	</cfif>
 	<cfif len(name) is 0>
 		<cfabort>
 	</cfif>
