@@ -60,10 +60,10 @@
 			    file = "#Application.webDirectory#/download/kwp_files/#d.barcode#.csv"
 		    	output = "#csv#"
 		    	addNewLine = "no">
-			<cfquery name="git" datasource="uam_god">
-				update temp_kwp_exp set gotit=1 where barcode='#d.barcode#'
-			</cfquery>
 		</cfloop>
+		<cfquery name="git" datasource="uam_god">
+			update temp_kwp_exp set gotit=1 where barcode='#d.barcode#'
+		</cfquery>
 	</cfloop>
 
 </cfoutput>
