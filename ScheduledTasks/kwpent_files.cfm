@@ -123,14 +123,12 @@
 		select * from temp_kwp_exp where gotit is null and rownum<10
 	</cfquery>
 	<cfloop query="d">
-	<br>#d.barcode#
+		<br>#d.barcode#
 		<cfquery name="s" datasource="uam_god">
 			select * from temp_kwp_all_data where drawer_barcode='#d.barcode#'
 		</cfquery>
 		<cfset csv = util.QueryToCSV2(Query=s,Fields=s.columnlist)>
-		<cffile action = "write"
-		    file = "#Application.webDirectory#/download/kwp_files/#d.barcode#.csv"
-		   	output = "#csv#"
+		<cffile action = "write" file = "#Application.webDirectory#/download/kwp_files/#d.barcode#.csv" output = "#csv#">
 		<cfquery name="git" datasource="uam_god">
 			update temp_kwp_exp set gotit=1 where barcode='#d.barcode#'
 		</cfquery>
