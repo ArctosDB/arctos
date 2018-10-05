@@ -28,7 +28,7 @@
 <cfoutput>
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_kwp_exp where gotit is null and rownum<10
+		select * from temp_kwp_exp where gotit is null and rownum<2
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="s" datasource="uam_god">
