@@ -31,6 +31,7 @@
 		select * from temp_kwp_exp where gotit is null and rownum<2
 	</cfquery>
 	<cfloop query="d">
+	<br>#d.barcode#
 		<cfquery name="s" datasource="uam_god">
 			select
 				cataloged_item.collection_object_id
