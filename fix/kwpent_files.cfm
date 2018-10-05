@@ -47,7 +47,7 @@
 				coll_obj_cont_hist.container_id=p.container_id and
 				p.parent_container_id=t.container_id and
 				t.parent_container_id=d.container_id and
-				d.barcode='#barcode#'
+				d.barcode='#d.barcode#'
 		</cfquery>
 		<cfloop query="s">
 			<cfquery name="sd" datasource="uam_god">
@@ -61,7 +61,7 @@
 		    	output = "#csv#"
 		    	addNewLine = "no">
 			<cfquery name="git" datasource="uam_god">
-				update temp_kwp_exp set gotit=1 where barcode='#barcode#'
+				update temp_kwp_exp set gotit=1 where barcode='#d.barcode#'
 			</cfquery>
 		</cfloop>
 	</cfloop>
