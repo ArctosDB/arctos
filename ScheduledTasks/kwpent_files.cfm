@@ -114,13 +114,18 @@
 	select distinct barcode from temp_kwp_exp where barcode not in (select drawer_barcode from temp_kwp_all_data);
 
 
-	update temp_kwp_exp set gotit=0 where barcode in ('UAM100456416','UAM100456417');
+
+	update temp_kwp_exp set gotit=null;
+		update temp_kwp_exp set gotit=0 where barcode in ('UAM100456416','UAM100456417');
+
+	select gotit,count(*) from temp_kwp_exp group by gotit;
+
 --->
 <cfsetting requestTimeOut = "6000">
 <cfoutput>
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_kwp_exp where gotit is null and rownum<10
+		select * from temp_kwp_exp where gotit is null and rownum<50
 	</cfquery>
 	<cfloop query="d">
 		<br>#d.barcode#
