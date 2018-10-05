@@ -20,12 +20,15 @@
 	select count(*) from temp_kwp_exp where cid is null;
 
 	bah, nevermind
+
+	-- too slow
+	alter table temp_kwp_exp add gotit number;
 --->
 <cfsetting requestTimeOut = "6000">
 <cfoutput>
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_kwp_exp
+		select * from temp_kwp_exp where gotit is null and rownum<10
 	</cfquery>
 	<cfloop query="d">
 		<cfquery name="s" datasource="uam_god">
@@ -57,6 +60,9 @@
 			    file = "#Application.webDirectory#/download/kwp_files/#d.barcode#.csv"
 		    	output = "#csv#"
 		    	addNewLine = "no">
+			<cfquery name="git" datasource="uam_god">
+				update temp_kwp_exp set gotit=1 where barcode='#barcode#'
+			</cfquery>
 		</cfloop>
 	</cfloop>
 
