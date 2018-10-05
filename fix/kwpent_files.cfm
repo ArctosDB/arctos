@@ -21,7 +21,7 @@
 
 	bah, nevermind
 --->
-
+<cfsetting requestTimeOut = "6000">
 <cfoutput>
 	<cfset  util = CreateObject("component","component.utilities")>
 	<cfquery name="d" datasource="prod">
