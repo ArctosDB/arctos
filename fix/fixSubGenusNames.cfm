@@ -37,7 +37,7 @@
 					from
 						exc
 					where
-						TERM_TYPE!='genus'
+						TERM_TYPE!='genus' and TERM_TYPE!='display_name' and TERM_TYPE!='scientific_name'
 				</cfquery>
 				<cfdump var=#newdata#>
 			</cfif>
