@@ -5,7 +5,7 @@
 
 
 		<cfquery name="d" datasource="uam_god">
-			select * from temp_former_subgenus_ids where new_taxon_name in (select SCIENTIFIC_NAME from temp_taxon_sn_nn)
+			select distinct FORMER_TAXON_NAME,NEW_TAXON_NAME  from temp_former_subgenus_ids where new_taxon_name in (select SCIENTIFIC_NAME from temp_taxon_sn_nn)
 		</cfquery>
 		<cfloop query="d">
 			<br>#FORMER_TAXON_NAME#
