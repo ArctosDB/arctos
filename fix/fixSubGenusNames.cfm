@@ -6,7 +6,7 @@
 		<br>#scientific_name#
 		<cfset startpos=find('(',scientific_name)>
 		<cfset stoppos=find(')',scientific_name)>
-		<cfset theSG=mid(scientific_name,startpos,stoppos-startpos)>
+		<cfset theSG=mid(scientific_name,startpos+1,stoppos-startpos-1)>
 		<br>theSG: #theSG#
 	</cfloop>
 
