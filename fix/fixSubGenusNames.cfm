@@ -62,10 +62,11 @@
 							)
 						</cfquery>
 
+					</cfloop>
+
 						<p>
 							<a href="/name/#d.NEW_TAXON_NAME#" target="_blank">edit</a>
 						</p>
-					</cfloop>
 			</cfif>
 
 			<!----
