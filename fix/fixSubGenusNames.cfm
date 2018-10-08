@@ -51,7 +51,7 @@
 								LASTDATE
 							) values (
 								sq_TAXON_TERM_ID.nextval,
-								#tnid.tnid#,
+								#nid.tnid#,
 								'#thisSourceID#',
 								'#newdata.term#',
 								'#newdata.TERM_TYPE#',
