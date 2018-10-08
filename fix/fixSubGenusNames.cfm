@@ -27,7 +27,19 @@
 				<br>is a mess, not going here, just make the name
 			<cfelse>
 				<cfdump var=#exc#>
+				<cfset thisSourceID=CreateUUID()>
+				<cfquery name="newdata" dbtype="query">
+					select
+						POSITION_IN_CLASSIFICATION,
+						SOURCE,
+						TERM,
+						TERM_TYPE
+					from
+						exc
+					where
+						TERM_TYPE!='genus'
 			</cfif>
+			<cfdump var=#newdata#>
 
 		</cfif>
 
