@@ -48,7 +48,8 @@
 								TERM,
 								TERM_TYPE,
 								SOURCE,
-								LASTDATE
+								LASTDATE,
+								POSITION_IN_CLASSIFICATION
 							) values (
 								sq_TAXON_TERM_ID.nextval,
 								#nid.taxon_name_id#,
@@ -56,7 +57,8 @@
 								'#newdata.term#',
 								'#newdata.TERM_TYPE#',
 								'#newdata.SOURCE#',
-								sysdate
+								sysdate,
+								'#newdata.POSITION_IN_CLASSIFICATION#'
 							)
 						</cfquery>
 
