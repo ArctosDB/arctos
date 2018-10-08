@@ -1,4 +1,41 @@
 <cfoutput>
+	<cfif action is "CaptureIntendedMoveSpecimenIDs">
+
+		<cfquery name="d" datasource="uam_god">
+			select * from taxon_name where scientific_name like '%(%'
+		</cfquery>
+		<cfloop query="d">
+			<br>scientific_name:#scientific_name#
+			<cfquery name="id" datasource="uam_god">
+				select * from identification_taxonomy where taxon_name_id=#d.taxon_name_id#
+			</cfquery>
+			<cfif id.recordcount gt 0>
+				<cfdump var=#id#>
+				<cfset startpos=find('(',scientific_name)>
+				<cfset stoppos=find(')',scientific_name)>
+				<cfset theSG=mid(scientific_name,startpos+1,stoppos-startpos-1)>
+				<br>replacement:#theSG#
+				<cfquery name="rid" datasource="uam_god">
+					select * from taxon_name where scientific_name='#theSG#'
+				</cfquery>
+				<cfquery name="upidt" datasource="uam_god">
+					insert into temp_former_subgenus_id (
+						guid,
+						former_taxon_name,
+						new_taxon_name
+					) values (
+						(select guid from flat where collection_object_id=#id.collection_object_id#),
+						'#d.scientific_name#',
+						'#rid.scientific_name#'
+					)
+				</cfquery>
+
+
+			</cfif>
+		</cfloop>
+	</cfif>
+
+
 	<cfif action is "moveSpecimenIDs">
 		<cfquery name="d" datasource="uam_god">
 			select * from taxon_name where scientific_name like '%(%'
