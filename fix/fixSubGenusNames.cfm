@@ -99,9 +99,13 @@
 					select sq_taxon_name_id.nextval tnid from dual
 				</cfquery>
 
+				<!----
 				<cfquery name="makethename" datasource="uam_god">
 					insert into taxon_name (taxon_name_id,scientific_name) values (#tnid.tnid#,'#theSG#')
 				</cfquery>
+				---->
+				<br>insert into taxon_name (taxon_name_id,scientific_name) values (#tnid.tnid#,'#theSG#');
+
 				<cfif workable.recordcount is not 1>
 					<br>is a mess, not going here, just make the name
 				<cfelse>
@@ -120,6 +124,7 @@
 					</cfquery>
 					<cfdump var=#newdata#>
 					<cfloop query="newdata">
+						<!----
 						<cfquery name="makeaterm" datasource="uam_god">
 							insert into taxon_term (
 								TAXON_TERM_ID,
@@ -139,6 +144,24 @@
 								sysdate
 							)
 						</cfquery>
+						---->
+						<br>insert into taxon_term (
+								TAXON_TERM_ID,
+								TAXON_NAME_ID,
+								CLASSIFICATION_ID,
+								TERM,
+								TERM_TYPE,
+								SOURCE,
+								LASTDATE
+							) values (
+								sq_TAXON_TERM_ID.nextval,
+								#tnid.tnid#,
+								'#thisSourceID#',
+								'#newdata.term#',
+								'#newdata.TERM_TYPE#',
+								'#newdata.SOURCE#',
+								sysdate
+							);
 					</cfloop>
 				</cfif>
 			</cfif>
