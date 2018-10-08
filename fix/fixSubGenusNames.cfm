@@ -17,6 +17,9 @@
 				<cfquery name="rid" datasource="uam_god">
 					select * from taxon_name where scientific_name='#theSG#'
 				</cfquery>
+				<cfquery name="upidt" datasource="uam_god">
+					update identification_taxonomy set taxon_name_id=#rid.taxon_name_id# where taxon_name_id=#d.taxon_name_id#
+				</cfquery>
 				<br>update identification_taxonomy set taxon_name_id=#rid.taxon_name_id# where taxon_name_id=#d.taxon_name_id#
 			</cfif>
 		</cfloop>
