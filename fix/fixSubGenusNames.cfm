@@ -2,7 +2,32 @@
 <cfoutput>
 
 
-
+<!--- Plan C-er-sumthin: these data are a mess, do it manually with a little shortcut --->
+<script>
+function cloneRemoteCN(tid,cid){
+			var guts = "/includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
+			console.log('opening ' + guts);
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'center'],
+				title: 'Clone Classification',
+	 			width:800,
+	  			height:600,
+				close: function() {
+					$( this ).remove();
+				},
+			}).width(800-10).height(600-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+		}
+</script>
 
 		<cfquery name="d" datasource="uam_god">
 			select distinct FORMER_TAXON_NAME,NEW_TAXON_NAME  from temp_former_subgenus_ids where new_taxon_name in (select SCIENTIFIC_NAME from temp_taxon_sn_nn)
@@ -14,7 +39,7 @@
 				select taxon_name_id from taxon_name where scientific_name='#FORMER_TAXON_NAME#'
 			</cfquery>
 			<cfquery name="nid" datasource="uam_god">
-				select taxon_name_id from taxon_name where scientific_name='#FORMER_TAXON_NAME#'
+				select taxon_name_id from taxon_name where scientific_name='#NEW_TAXON_NAME#'
 			</cfquery>
 			<cfquery name="c" datasource="uam_god">
 				select * from taxon_term where source in ('Arctos','Arctos Plants') and taxon_name_id=#id.taxon_name_id#
@@ -24,6 +49,8 @@
 			</cfquery>
 			<cfif cnt.recordcount is 1>
 				<br>rock on....
+
+				<span class="likeLink" onclick="cloneRemoteCN('#nid.taxon_name_id#','#cnt.classification_id#')">clickypop</span>
 				<cfset thisSourceID=CreateUUID()>
 				<cfquery name="newdata" dbtype="query">
 					select
