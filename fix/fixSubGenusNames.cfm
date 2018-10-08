@@ -16,6 +16,11 @@
 			<br>already got one, do nothing
 		<cfelse>
 			<br>make a name
+			<!--- pull in existing classification data when we can --->
+			<cfquery name="exc" datasource="uam_god">
+				select * from taxon_term where source in ('Arctos','Arctos Plants') and taxon_name_id=#d.taxon_name_id# order by POSITION_IN_CLASSIFICATION
+			</cfquery>
+			<cfdump var=#exc#>
 		</cfif>
 
 
