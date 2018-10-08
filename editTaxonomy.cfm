@@ -2061,13 +2061,15 @@
 		<div class="importantNotification">
 			Before deleting this taxon, you must
 			<ul>
-				<li>Delete all classifications</li>
 				<li>Delete all relationships</li>
 				<li>Delete all common names</li>
 				<li>Delete all publication</li>
 				<li>Delete all identifications which use this taxon</li>
 				<li>Delete any other data which references this taxon in any way</li>
 			</ul>
+			<p>
+				All classification data will be automatically deleted.
+			</p>
 			<p>
 				You should delete taxa which:
 				<ul>
@@ -2099,10 +2101,15 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "deleteTaxon">
 <cfoutput>
+	<cftransaction>
+		<cfquery name="deletetaxontrm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from taxon_term where TAXON_NAME_ID=#taxon_name_id#
+		</cfquery>
+		<cfquery name="deletetaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from taxon_name where TAXON_NAME_ID=#taxon_name_id#
+		</cfquery>
+	</cftransaction>
 
-	<cfquery name="deletetaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from taxon_name where TAXON_NAME_ID=#taxon_name_id#
-	</cfquery>
 	<p>
 		deleted
 	</p>
