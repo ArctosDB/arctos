@@ -61,7 +61,7 @@
 						</cfquery>
 
 						<p>
-							<a href="/name/#NEW_TAXON_NAME#" target="_blank">edit</a>
+							<a href="/name/#d.NEW_TAXON_NAME#" target="_blank">edit</a>
 						</p>
 					</cfloop>
 			</cfif>
