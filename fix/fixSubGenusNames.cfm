@@ -4,12 +4,20 @@
 			select * from taxon_name where scientific_name like '%(%'
 		</cfquery>
 		<cfloop query="d">
-			<br>#scientific_name#
+			<br>scientific_name:#scientific_name#
 			<cfquery name="id" datasource="uam_god">
 				select identification_id from identification_taxonomy where taxon_name_id=#d.taxon_name_id#
 			</cfquery>
 			<cfif id.recordcount gt 0>
 				<cfdump var=#id#>
+				<cfset startpos=find('(',scientific_name)>
+				<cfset stoppos=find(')',scientific_name)>
+				<cfset theSG=mid(scientific_name,startpos+1,stoppos-startpos-1)>
+				<br>replacement:#theSG#
+				<cfquery name="rid" datasource="uam_god">
+					select * from taxon_name where scientific_name='#theSG#'
+				</cfquery>
+				<br>update identification_taxonomy set taxon_name_id=#rid.taxon_name_id# where taxon_name_id=#d.taxon_name_id#
 			</cfif>
 		</cfloop>
 	</cfif>
