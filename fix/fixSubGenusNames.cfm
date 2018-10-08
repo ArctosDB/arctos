@@ -20,7 +20,15 @@
 			<cfquery name="exc" datasource="uam_god">
 				select * from taxon_term where source in ('Arctos','Arctos Plants') and taxon_name_id=#d.taxon_name_id# order by POSITION_IN_CLASSIFICATION
 			</cfquery>
-			<cfdump var=#exc#>
+			<cfquery name="workable" datasource="uam_god">
+				select distinct classification_id from exc
+			</cfquery>
+			<cfif workable.recordcount is not 1>
+				<br>is a mess, not going here, just make the name
+			<cfelse>
+				<cfdump var=#exc#>
+			</cfif>
+
 		</cfif>
 
 
