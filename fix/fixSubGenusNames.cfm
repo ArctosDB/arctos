@@ -18,13 +18,19 @@
 				<cfquery name="rid" datasource="uam_god">
 					select * from taxon_name where scientific_name='#theSG#'
 				</cfquery>
+
+				<cfquery name="gg" datasource="uam_god">
+					select guid from flat where collection_object_id in (
+						select collection_object_id from identification where identification_id=#id.identification_id#
+					)
+				</cfquery>
 				<cfquery name="upidt" datasource="uam_god">
 					insert into temp_former_subgenus_id (
 						guid,
 						former_taxon_name,
 						new_taxon_name
 					) values (
-						(select guid from flat where collection_object_id=#id.collection_object_id#),
+						'#gg.guid#',
 						'#d.scientific_name#',
 						'#rid.scientific_name#'
 					)
