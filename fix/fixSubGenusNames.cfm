@@ -7,37 +7,39 @@
 		<cfloop query="d">
 			<br>scientific_name:#scientific_name#
 			<cfquery name="id" datasource="uam_god">
-				select * from identification_taxonomy where taxon_name_id=#d.taxon_name_id#
+				select
+					 identification_taxonomy.identification_id,
+					 identification_taxonomy.taxon_name_id,
+					 flat.guid
+				from
+					identification_taxonomy,
+					identification,
+					flat
+				where
+					identification_taxonomy.taxon_name_id=#d.taxon_name_id# and
+					identification_taxonomy.identification_id=identification.identification_id and
+					identification.collection_object_id=flat.collection_object_id
 			</cfquery>
-			<cfif id.recordcount gt 0>
-				<cfdump var=#id#>
-				<cfset startpos=find('(',scientific_name)>
-				<cfset stoppos=find(')',scientific_name)>
-				<cfset theSG=mid(scientific_name,startpos+1,stoppos-startpos-1)>
-				<br>replacement:#theSG#
-				<cfquery name="rid" datasource="uam_god">
-					select * from taxon_name where scientific_name='#theSG#'
+			<cfset startpos=find('(',scientific_name)>
+			<cfset stoppos=find(')',scientific_name)>
+			<cfset theSG=mid(scientific_name,startpos+1,stoppos-startpos-1)>
+			<br>replacement:#theSG#
+			<cfquery name="rid" datasource="uam_god" >
+				select * from taxon_name where scientific_name='#theSG#'
+			</cfquery>
+			<cfloop query="id">
+				<cfquery name="upidt" datasource="uam_god">
+					insert into temp_former_subgenus_id (
+						guid,
+						former_taxon_name,
+						new_taxon_name
+					) values (
+						'#id.guid#',
+						'#d.scientific_name#',
+						'#rid.scientific_name#'
+					)
 				</cfquery>
-				<cfloop query="id">
-					<cfquery name="gg" datasource="uam_god">
-						select guid from flat where collection_object_id in (
-							select collection_object_id from identification where identification_id=#id.identification_id#
-						)
-					</cfquery>
-					<cfquery name="upidt" datasource="uam_god">
-						insert into temp_former_subgenus_id (
-							guid,
-							former_taxon_name,
-							new_taxon_name
-						) values (
-							'#gg.guid#',
-							'#d.scientific_name#',
-							'#rid.scientific_name#'
-						)
-					</cfquery>
-				</cfloop>
-
-			</cfif>
+			</cfloop>
 		</cfloop>
 	</cfif>
 
