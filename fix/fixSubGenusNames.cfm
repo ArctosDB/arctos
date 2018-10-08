@@ -3,32 +3,6 @@
 
 
 <!--- Plan C-er-sumthin: these data are a mess, do it manually with a little shortcut --->
-<cfinclude template="/includes/alwaysInclude.cfm">
-<script>
-function cloneRemoteCN(tid,cid){
-			var guts = "/includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
-			console.log('opening ' + guts);
-			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-				autoOpen: true,
-				closeOnEscape: true,
-				height: 'auto',
-				modal: true,
-				position: ['center', 'center'],
-				title: 'Clone Classification',
-	 			width:800,
-	  			height:600,
-				close: function() {
-					$( this ).remove();
-				},
-			}).width(800-10).height(600-10);
-			$(window).resize(function() {
-				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-			});
-			$(".ui-widget-overlay").click(function(){
-			    $(".ui-dialog-titlebar-close").trigger('click');
-			});
-		}
-</script>
 
 		<cfquery name="d" datasource="uam_god">
 			select distinct FORMER_TAXON_NAME,NEW_TAXON_NAME  from temp_former_subgenus_ids where new_taxon_name in (select SCIENTIFIC_NAME from temp_taxon_sn_nn)
@@ -66,7 +40,6 @@ function cloneRemoteCN(tid,cid){
 				</cfquery>
 				<cfdump var=#newdata#>
 					<cfloop query="newdata">
-						<!----
 						<cfquery name="makeaterm" datasource="uam_god">
 							insert into taxon_term (
 								TAXON_TERM_ID,
@@ -86,24 +59,10 @@ function cloneRemoteCN(tid,cid){
 								sysdate
 							)
 						</cfquery>
-						---->
-						<br>insert into taxon_term (
-								TAXON_TERM_ID,
-								TAXON_NAME_ID,
-								CLASSIFICATION_ID,
-								TERM,
-								TERM_TYPE,
-								SOURCE,
-								LASTDATE
-							) values (
-								sq_TAXON_TERM_ID.nextval,
-								#nid.TAXON_NAME_ID#,
-								'#thisSourceID#',
-								'#newdata.term#',
-								'#newdata.TERM_TYPE#',
-								'#newdata.SOURCE#',
-								sysdate
-							);
+
+						<p>
+							<a href="/name/#NEW_TAXON_NAME#" target="_blank">edit</a>
+						</p>
 					</cfloop>
 			</cfif>
 
