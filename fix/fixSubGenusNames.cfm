@@ -12,7 +12,9 @@
 			<cfquery name="id" datasource="uam_god">
 				select taxon_name_id from taxon_name where scientific_name='#FORMER_TAXON_NAME#'
 			</cfquery>
-
+			<cfquery name="nid" datasource="uam_god">
+				select taxon_name_id from taxon_name where scientific_name='#FORMER_TAXON_NAME#'
+			</cfquery>
 			<cfquery name="c" datasource="uam_god">
 				select * from taxon_term where source in ('Arctos','Arctos Plants') and taxon_name_id=#id.taxon_name_id#
 			</cfquery>
@@ -21,6 +23,59 @@
 			</cfquery>
 			<cfif cnt.recordcount is 1>
 				<br>rock on....
+				<cfset thisSourceID=CreateUUID()>
+				<cfquery name="newdata" dbtype="query">
+					select
+						POSITION_IN_CLASSIFICATION,
+						SOURCE,
+						TERM,
+						TERM_TYPE
+					from
+						exc
+					where
+						TERM_TYPE!='genus' and TERM_TYPE!='display_name' and TERM_TYPE!='scientific_name'
+				</cfquery>
+				<cfdump var=#newdata#>
+					<cfloop query="newdata">
+						<!----
+						<cfquery name="makeaterm" datasource="uam_god">
+							insert into taxon_term (
+								TAXON_TERM_ID,
+								TAXON_NAME_ID,
+								CLASSIFICATION_ID,
+								TERM,
+								TERM_TYPE,
+								SOURCE,
+								LASTDATE
+							) values (
+								sq_TAXON_TERM_ID.nextval,
+								#tnid.tnid#,
+								'#thisSourceID#',
+								'#newdata.term#',
+								'#newdata.TERM_TYPE#',
+								'#newdata.SOURCE#',
+								sysdate
+							)
+						</cfquery>
+						---->
+						<br>insert into taxon_term (
+								TAXON_TERM_ID,
+								TAXON_NAME_ID,
+								CLASSIFICATION_ID,
+								TERM,
+								TERM_TYPE,
+								SOURCE,
+								LASTDATE
+							) values (
+								sq_TAXON_TERM_ID.nextval,
+								#nid.TAXON_NAME_ID#,
+								'#thisSourceID#',
+								'#newdata.term#',
+								'#newdata.TERM_TYPE#',
+								'#newdata.SOURCE#',
+								sysdate
+							);
+					</cfloop>
 			</cfif>
 
 			<!----
