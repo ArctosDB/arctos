@@ -38,8 +38,9 @@
 						exc
 					where
 						TERM_TYPE!='genus'
+				</cfquery>
+				<cfdump var=#newdata#>
 			</cfif>
-			<cfdump var=#newdata#>
 
 		</cfif>
 
