@@ -3,6 +3,7 @@
 
 
 <!--- Plan C-er-sumthin: these data are a mess, do it manually with a little shortcut --->
+<cfinclude template="/includes/alwaysInclude.cfm">
 <script>
 function cloneRemoteCN(tid,cid){
 			var guts = "/includes/forms/cloneclass.cfm?taxon_name_id=" + tid + "&classification_id=" + cid;
