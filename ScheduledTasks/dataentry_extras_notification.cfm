@@ -92,8 +92,17 @@
 	</cfquery>
 
 	<cfquery name="nagt_p" dbtype="query">
+		select username from aa
+	</cfquery>
+	<!----
+		https://github.com/ArctosDB/arctos/issues/1711
+		send this ONLY to the manage_collection (for the folks who entered) users
+	<cfquery name="nagt_p" dbtype="query">
 		select username from usrs union select username from aa
 	</cfquery>
+	--->
+
+
 	<cfquery name="nagt" dbtype="query">
 		select distinct username from nagt_p
 	</cfquery>
