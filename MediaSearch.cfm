@@ -784,24 +784,20 @@
 			<span class="controlButton"	onclick="saveSearch('#Application.ServerRootUrl#/MediaSearch.cfm?action=search#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		</tr></table>
-
 		</td>
 			<td align="right">
 			<cfif findIDs.recordcount gt 1000>
 				Annotations are available only for <1K records.
 			<cfelse>
 				<div id="annotateSpace">
-
 					<button type="button" onclick="openAnnotation('media_id=#valuelist(findIDs.media_id)#')" class="annobtn">
-						<span class="abt">Report Bad Data&nbsp;</span>
+						<span class="abt">Comment or report bad data&nbsp;</span>
 					</button>
 				</div>
-
 			</cfif>
 			</td>
 			</tr>
 		</table>
-
 
 		<cfset q="">
 		<cfloop list="#StructKeyList(form)#" index="key">

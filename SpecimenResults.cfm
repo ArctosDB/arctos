@@ -530,7 +530,7 @@
 				<td>
 					<cfif listlen(collObjIdList) lt 1000>
 						<a href="javascript: openAnnotation('collection_object_id=#collObjIdList#')">
-						Report Bad Data
+							Comment or report bad data
 						</a>
 					</cfif>
 				</td>

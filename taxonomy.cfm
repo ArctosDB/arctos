@@ -443,7 +443,7 @@
 			where taxon_name_id = #taxon_name_id.taxon_name_id#
 		</cfquery>
 		<a href="javascript: openAnnotation('taxon_name_id=#taxon_name_id.taxon_name_id#')">
-			[ Report Problem ]
+			[ Comment or report bad data ]
 		<cfif #existingAnnotations.cnt# gt 0>
 			<br>(#existingAnnotations.cnt# existing)
 		</cfif>

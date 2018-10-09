@@ -320,7 +320,7 @@
 						<cfset bac=ua.c>
 					</cfif>
 					<button type="button" onclick="openAnnotation('collection_object_id=#detail.collection_object_id#')" class="annobtn">
-						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
+						<span class="abt">Comment or report bad data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
 					</button>
 					<cfif len(detail.web_link) gt 0>
 						<cfif len(detail.web_link_text) gt 0>

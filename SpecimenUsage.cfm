@@ -567,7 +567,7 @@
 						</div>
 					</cfloop>
 					#dateformat(start_date,"yyyy-mm-dd")# - #dateformat(end_date,"yyyy-mm-dd")#
-					<br><a href="javascript: openAnnotation('project_id=#project_id#')">Report Problem</a>
+					<br><a href="javascript: openAnnotation('project_id=#project_id#')">Comment or report bad data</a>
 					<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 						<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
 					</cfif>

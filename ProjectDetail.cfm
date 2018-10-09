@@ -172,7 +172,7 @@
 				where project_id = #project_id#
 			</cfquery>
 			<a href="javascript: openAnnotation('project_id=#project_id#')">
-				[ Report Problem ]
+				[ Comment or report bad data ]
 			<cfif #existingAnnotations.cnt# gt 0>
 				<br>(#existingAnnotations.cnt# existing)
 			</cfif>
