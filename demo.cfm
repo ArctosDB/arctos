@@ -47,7 +47,27 @@
 		.tr {display:block;}
 		.td {display:block;}
 	}
+	.noshow {
+		display:none;
+		 -webkit-transition: all 0.5s ease;
+   		 -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+	}
 </style>
+<script>
+	function showHideColDesc(id){
+		if ( $( ""#cd_" + id" ).hasClass( "noshow" ) ){
+			$("#cd_" + id).removeClass('noshow');
+			$("#cdc_" + id)..html('Hide Description');
+		} else {
+			$("#cd_" + id).addClass('noshow');
+			$("#cdc_" + id)..html('Show Description');
+		}
+
+
+	}
+</script>
 <cfoutput>
 	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
@@ -172,7 +192,7 @@
 							<div class="tr">
 								<div class="td widecell">
 									<div class="collection_title">#collection#</div>
-									<div class="collection_description" id="cd_#coll_dir_name#">
+									<div class="collection_description noshow" id="cd_#coll_dir_name#">
 										#descr#
 									</div>
 								</div>
@@ -197,8 +217,11 @@
 							<a name="#lcase(guid_prefix)#"></a>
 							<div class="tr">
 								<div class="td widecell">
-									<div class="collection_title">#collection# (#guid_prefix#)</div>
-									<div class="collection_description" id="cd_#coll_dir_name#">
+									<div class="collection_title">
+										#collection# (#guid_prefix#)
+										<span id="cdc_#coll_dir_name#" onclick="showHideColDesc('#coll_dir_name#');" class="infoLink">Show Description</span>
+									</div>
+									<div class="collection_description noshow" id="cd_#coll_dir_name#">
 										#descr#
 									</div>
 								</div>
