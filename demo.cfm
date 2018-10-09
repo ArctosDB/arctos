@@ -12,6 +12,8 @@
 		padding:1em;
 		margin:1em;
 		font-size:.8em;
+		overflow:auto;
+		max-height:80%;
 	}
 	#stayright{margin-left:12em;}
 	.table {display:table;width:100%}
