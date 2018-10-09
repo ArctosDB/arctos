@@ -61,7 +61,7 @@
 			$("#cd_" + id).removeClass('noshow');
 			$("#cdc_" + id).html('Hide Description');
 		} else {
-			$("#cd_" + id).addClass('noshow');
+			$("#cd_" + id).addClass('noshow',500);
 			$("#cdc_" + id).html('Show Description');
 		}
 
