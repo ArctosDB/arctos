@@ -1,5 +1,7 @@
 <cfset title="Arctos Home">
 <cfinclude template="/includes/_header.cfm">
+<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&libraries=places,geometry" type="text/javascript"></script>'>
+
 <style>
 	 #menu {
 		position:fixed;
@@ -10,6 +12,8 @@
 		padding:1em;
 		margin:1em;
 		font-size:.8em;
+		overflow:auto;
+		max-height:60%;
 	}
 	#stayright{margin-left:12em;}
 	.table {display:table;width:100%}
@@ -45,7 +49,27 @@
 		.tr {display:block;}
 		.td {display:block;}
 	}
+	.noshow {
+		display:none;
+		 -webkit-transition: all 0.5s ease;
+   		 -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+	}
 </style>
+<script>
+	function showHideColDesc(id){
+		if ( $( "#cd_" + id ).hasClass( "noshow" ) ){
+			$("#cd_" + id).removeClass('noshow',500,"easeInBack");
+			$("#cdc_" + id).html('Hide Description');
+		} else {
+			$("#cd_" + id).addClass('noshow',500,"easeOutBack");
+			$("#cdc_" + id).html('Show Description');
+		}
+
+
+	}
+</script>
 <cfoutput>
 	<cfquery name="raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
@@ -112,6 +136,7 @@
 		<cfloop query="insta">
 			<br><a href="###institution_acronym#">#institution_acronym#</a>
 		</cfloop>
+		<!----
 		<div class="anchortitle">Topics</div>
 		<br><a href="##features">Features</a>
 		<br><a href="##nodes">Nodes</a>
@@ -121,6 +146,7 @@
 		<br><a href="##data_usage">Usage</a>
 		<br><a href="##faq">FAQ</a>
 		<br><a href="##suggest">Suggestions</a>
+		---->
 	</div>
 	<div id="stayright">
 		<a name="top"></a>
@@ -146,6 +172,9 @@
 				</b>
 			</p>
 		</p>
+		<p>
+			Please see <a href="https://arctosdb.org/join-arctos/">https://arctosdb.org/join-arctos/</a> for information about joining or using Arctos.
+		</p>
 		<cfloop query="inst">
 			<cfquery name="coln" dbtype="query">
 				select * from raw where collection_id is not null and institution<cfif len(institution) is 0> is null <cfelse> ='#institution#'</cfif> order by collection
@@ -165,7 +194,7 @@
 							<div class="tr">
 								<div class="td widecell">
 									<div class="collection_title">#collection#</div>
-									<div class="collection_description">
+									<div class="collection_description noshow" id="cd_#coll_dir_name#">
 										#descr#
 									</div>
 								</div>
@@ -190,8 +219,13 @@
 							<a name="#lcase(guid_prefix)#"></a>
 							<div class="tr">
 								<div class="td widecell">
-									<div class="collection_title">#collection# (#guid_prefix#)</div>
-									<div class="collection_description">#descr#</div>
+									<div class="collection_title">
+										#collection# (#guid_prefix#)
+										<span id="cdc_#coll_dir_name#" onclick="showHideColDesc('#coll_dir_name#');" class="infoLink">Show Description</span>
+									</div>
+									<div class="collection_description noshow" id="cd_#coll_dir_name#">
+										#descr#
+									</div>
 								</div>
 								<div class="td">
 									<ul>
