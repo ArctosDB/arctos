@@ -154,7 +154,7 @@ jQuery(document).ready(function() {
 					<th><span class="f11a">Remarks</span></th>
 				</tr>
 				<cfloop from="7" to="10" index="i">
-					<tr id="de_attribute_#i#">
+					<tr id="d_attribute_#i#">
 						<td>
 							<select name="attribute_#i#" onChange="getAttributeStuff(this.value,this.id);"
 								style="width:100px;" id="attribute_#i#">
@@ -287,7 +287,7 @@ jQuery(document).ready(function() {
 					<th><span class="f11a">Remarks</span></th>
 				</tr>
 				<cfloop from="7" to="10" index="i">
-					<tr id="de_attribute_#i#">
+					<tr id="d_attribute_#i#">
 						<td>
 							<select name="attribute_#i#" onChange="getAttributeStuff(this.value,this.id);"
 								style="width:100px;" id="attribute_#i#">
@@ -336,7 +336,7 @@ jQuery(document).ready(function() {
 					<th><span class="f11a">Remarks</span></th>
 				</tr>
 				<cfloop from="1" to="10" index="i">
-					<tr id="de_attribute_#i#">
+					<tr id="d_attribute_#i#">
 						<td>
 							<select name="attribute_#i#" onChange="getAttributeStuff(this.value,this.id);"
 								style="width:100px;" id="attribute_#i#">
