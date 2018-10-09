@@ -126,7 +126,7 @@
 						<cfset bac=ua.c>
 					</cfif>
 					<button type="button" onclick="openAnnotation('media_id=#media_id#')" class="annobtn">
-						<span class="abt">Report Bad Data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
+						<span class="abt">Comment on this record or report bad data&nbsp;<span class="gdAnnoCt">[#gac#]</span><span class="badAnnoCt">[#bac#]</span>
 					</button>
 				</div>
 			</div>
