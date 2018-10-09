@@ -57,7 +57,7 @@
 </style>
 <script>
 	function showHideColDesc(id){
-		if ( $( ""#cd_" + id" ).hasClass( "noshow" ) ){
+		if ( $( "#cd_" + id ).hasClass( "noshow" ) ){
 			$("#cd_" + id).removeClass('noshow');
 			$("#cdc_" + id)..html('Hide Description');
 		} else {
