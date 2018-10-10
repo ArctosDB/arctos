@@ -125,6 +125,11 @@
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif action is "edit">
+<style>
+	.mLblDisp{
+		font-size:smaller;
+	}
+</style>
 	<cfset  func = CreateObject("component","component.functions")>
 	<script>
 		jQuery(document).ready(function() {
