@@ -157,13 +157,12 @@
 		select
 			media_label,
 			label_value,
-			agent_name,
+			getPreferredAgentName(ASSIGNED_BY_AGENT_ID) agent_name,
 			media_label_id
 		from
 			media_labels,
 			preferred_agent_name
 		where
-			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
 			media_id=#media_id#
 	</cfquery>
 	<cfquery name="tag"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -247,6 +246,7 @@
 						</cfloop>
 					</select>:&nbsp;<input type="text" name="related_value__#i#" id="related_value__#i#" size="80" value="#summary#">
 					<input type="hidden" name="related_id__#i#" id="related_id__#i#" value="#related_primary_key#">
+					<span class="mLblDisp">Assigned by #agent_name#</span>
 					<cfset i=i+1>
 					<br>
 				</cfloop>
@@ -271,7 +271,7 @@
 								<option <cfif #d# is #media_label#> selected="selected" </cfif>value="#media_label#">#media_label#</option>
 							</cfloop>
 						</select>:&nbsp;<input type="text" name="label_value__0" id="label_value__0" size="80">
-						</div>
+					</div>
 				</div>
 			</cfif>
 			<cfloop query="labels">
@@ -284,6 +284,7 @@
 						<option <cfif d is media_label> selected="selected" </cfif>value="#media_label#">#media_label#</option>
 					</cfloop>
 				</select>:&nbsp;<input type="text" name="label_value__#i#" id="label_value__#i#" size="80" value="#stripQuotes(label_value)#">
+				<span class="mLblDisp">Assigned by #agent_name#</span>
 				</div>
 				<cfset i=i+1>
 			</cfloop>
