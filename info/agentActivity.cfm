@@ -100,10 +100,11 @@ Groups:
 			<li>#ADDRESS_TYPE#: #ADDRESS#</li>
 		</cfloop>
 	</ul>
-Collected or Prepared specimens:
+Collector:
 	<cfquery name="collector" datasource="uam_god">
 		select
 			count(distinct(collector.collection_object_id)) cnt,
+			collector.collector_role,
 			collection.guid_prefix,
 	        collection.collection_id
 		from
@@ -116,12 +117,13 @@ Collected or Prepared specimens:
 			agent_id=#agent_id#
 		group by
 			collection.guid_prefix,
-	        collection.collection_id
+	        collection.collection_id.
+	        collector.collector_role
 	</cfquery>
 	<ul>
 		<CFLOOP query="collector">
 			<li>
-				<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.guid_prefix#</a> specimens
+				#collector.collector_role#: <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#&coll_role=#collector.collector_role#">#collector.cnt# #collector.guid_prefix#</a> specimens
 			</li>
 	  	</CFLOOP>
 	</ul>
