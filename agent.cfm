@@ -245,9 +245,10 @@
 				collection_id
 		</cfquery>
 		<cfif collector.recordcount gt 0>
-			
+
 			<p>
-				 Collector (<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
+				 Collector (<span class="infoLink" onclick="getCtDoc('ctcollector_role');">Define</span>)
+				 <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
 				<ul>
 					<CFLOOP query="cnorole">
 						<li>
