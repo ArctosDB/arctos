@@ -246,7 +246,7 @@
 						</cfloop>
 					</select>:&nbsp;<input type="text" name="related_value__#i#" id="related_value__#i#" size="80" value="#summary#">
 					<input type="hidden" name="related_id__#i#" id="related_id__#i#" value="#related_primary_key#">
-					<span class="mLblDisp">Assigned by #agent_name#</span>
+					<span class="mLblDisp">Created by #created_agent_name#</span>
 					<cfset i=i+1>
 					<br>
 				</cfloop>
