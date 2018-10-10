@@ -397,19 +397,26 @@
 <cffunction name="getMediaRelations" access="public" output="false" returntype="any">
 	<cfargument name="media_id" required="true" type="numeric">
 	<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from media_relations,
-		preferred_agent_name
+		select
+			MEDIA_RELATIONS_ID,
+			MEDIA_ID,
+			MEDIA_RELATIONSHIP,
+			getPreferredAgentName(CREATED_BY_AGENT_ID) created_agent_name,
+			to_char(CREATED_ON_DATE,'YYYY-MM-DD') CREATED_ON_DATE,
+			RELATED_PRIMARY_KEY
+		 from
+		 	media_relations
 		where
-		media_relations.created_by_agent_id = preferred_agent_name.agent_id and
-		media_id=#media_id#
+			media_id=#media_id#
 	</cfquery>
-	<cfset result = querynew("media_relations_id,media_relationship,created_agent_name,related_primary_key,summary,link")>
+	<cfset result = querynew("media_relations_id,media_relationship,created_agent_name,created_on_date,related_primary_key,summary,link")>
 	<cfset i=1>
 	<cfloop query="relns">
 		<cfset temp = queryaddrow(result,1)>
 		<cfset temp = QuerySetCell(result, "media_relations_id", "#media_relations_id#", i)>
 		<cfset temp = QuerySetCell(result, "media_relationship", "#media_relationship#", i)>
-		<cfset temp = QuerySetCell(result, "created_agent_name", "#agent_name#", i)>
+		<cfset temp = QuerySetCell(result, "created_agent_name", "#created_agent_name#", i)>
+		<cfset temp = QuerySetCell(result, "created_on_date", "#created_on_date#", i)>
 		<cfset temp = QuerySetCell(result, "related_primary_key", "#related_primary_key#", i)>
 		<cfset table_name = listlast(media_relationship," ")>
 		<cfif table_name is "locality">
