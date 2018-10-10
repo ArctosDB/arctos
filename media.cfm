@@ -158,6 +158,7 @@
 			media_label,
 			label_value,
 			getPreferredAgentName(ASSIGNED_BY_AGENT_ID) agent_name,
+			to_char(assigned_on_date,'YYYY-MM-DD') assigned_on_date,
 			media_label_id
 		from
 			media_labels
@@ -283,7 +284,7 @@
 						<option <cfif d is media_label> selected="selected" </cfif>value="#media_label#">#media_label#</option>
 					</cfloop>
 				</select>:&nbsp;<input type="text" name="label_value__#i#" id="label_value__#i#" size="80" value="#stripQuotes(label_value)#">
-				<span class="mLblDisp">Assigned by #agent_name#</span>
+				<span class="mLblDisp">Assigned by #agent_name# on #assigned_on_date#</span>
 				</div>
 				<cfset i=i+1>
 			</cfloop>
