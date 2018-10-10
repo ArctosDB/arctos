@@ -160,8 +160,7 @@
 			getPreferredAgentName(ASSIGNED_BY_AGENT_ID) agent_name,
 			media_label_id
 		from
-			media_labels,
-			preferred_agent_name
+			media_labels
 		where
 			media_id=#media_id#
 	</cfquery>
