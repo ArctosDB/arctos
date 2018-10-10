@@ -117,7 +117,7 @@ Collector:
 			agent_id=#agent_id#
 		group by
 			collection.guid_prefix,
-	        collection.collection_id.
+	        collection.collection_id,
 	        collector.collector_role
 	</cfquery>
 	<ul>

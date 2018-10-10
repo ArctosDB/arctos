@@ -245,8 +245,9 @@
 				collection_id
 		</cfquery>
 		<cfif collector.recordcount gt 0>
+			
 			<p>
-				Collected or Prepared <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
+				 Collector (<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
 				<ul>
 					<CFLOOP query="cnorole">
 						<li>
