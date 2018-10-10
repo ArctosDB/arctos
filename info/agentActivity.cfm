@@ -120,7 +120,13 @@ Collector:
 	        collection.collection_id,
 	        collector.collector_role
 	</cfquery>
+	<cfquery name="scc" dbtype="query">
+		select sum(cnt) scc from collector
+	</cfquery>
 	<ul>
+		<li>
+			 <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#scc.scc#</a> specimens
+		</li>
 		<CFLOOP query="collector">
 			<li>
 				#collector.collector_role#: <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#&coll_role=#collector.collector_role#">#collector.cnt# #collector.guid_prefix#</a> specimens
