@@ -101,38 +101,116 @@ Groups:
 		</cfloop>
 	</ul>
 Collector:
-	<cfquery name="collector" datasource="uam_god">
-		select
-			count(distinct(collector.collection_object_id)) cnt,
-			collector.collector_role,
-			collection.guid_prefix,
-	        collection.collection_id
-		from
-			collector,
-			cataloged_item,
-			collection
-		where
-			collector.collection_object_id = cataloged_item.collection_object_id AND
-			cataloged_item.collection_id = collection.collection_id AND
-			agent_id=#agent_id#
-		group by
-			collection.guid_prefix,
-	        collection.collection_id,
-	        collector.collector_role
-	</cfquery>
-	<cfquery name="scc" dbtype="query">
-		select sum(cnt) scc from collector
-	</cfquery>
-	<ul>
-		<li>
-			 <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#scc.scc#</a> specimens
-		</li>
-		<CFLOOP query="collector">
-			<li>
-				#collector.collector_role#: <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#&coll_role=#collector.collector_role#">#collector.cnt# #collector.guid_prefix#</a> specimens
-			</li>
-	  	</CFLOOP>
-	</ul>
+
+<cfquery name="collector" datasource="uam_god">
+			select
+				count(distinct(collector.collection_object_id)) cnt,
+				collection.guid_prefix,
+		        collection.collection_id,
+		        collector.collector_role
+			from
+				collector,
+				cataloged_item,
+				collection
+			where
+				collector.collection_object_id = cataloged_item.collection_object_id AND
+				cataloged_item.collection_id = collection.collection_id AND
+				agent_id=#val(agent_id)# and
+			group by
+				collection.guid_prefix,
+		        collection.collection_id,
+		        collector.collector_role
+		</cfquery>
+		<cfquery name="ssc" dbtype="query">
+			select sum(cnt) sc from collector
+		</cfquery>
+		<cfquery name="cnorole" dbtype="query">
+			select
+				sum(cnt) cnt,
+				guid_prefix,
+				collection_id
+			from
+				collector
+			where
+				guid_prefix is not null
+			group by
+				guid_prefix,
+				collection_id
+			order by
+				guid_prefix,
+				collection_id
+		</cfquery>
+		<cfquery name="cnorolenc" dbtype="query">
+			select
+				sum(cnt) cnt,
+				collector_role
+			from
+				collector
+			where
+				guid_prefix is not null
+			group by
+				collector_role
+			order by
+				collector_role
+		</cfquery>
+		<cfif cnorole.recordcount gt 0>
+			 Collector [<span class="infoLink" onclick="getCtDoc('ctcollector_role');">Define</span>]
+			<table border id="t" class="sortable">
+				<tr>
+					<th>Role</th>
+					<th>Collection</th>
+					<th>SpecimenCount</th>
+					<th>Link</th>
+				</tr>
+				<tr>
+					<td>(any)</td>
+					<td>(all)</td>
+					<td>#ssc.sc#</td>
+					<td><a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">Open Specimen Results</a></td>
+				</tr>
+				<CFLOOP query="cnorolenc">
+					<tr>
+						<td>#cnorolenc.collector_role#</td>
+						<td>(all)</td>
+						<td>#cnorolenc.cnt#</td>
+						<td>
+							<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&coll_role=#cnorolenc.collector_role#">
+								Open Specimen Results
+							</a>
+						</td>
+					</tr>
+				</CFLOOP>
+				<CFLOOP query="cnorole">
+					<tr>
+						<td>(any)</td>
+						<td>#cnorole.guid_prefix#</td>
+						<td>#cnorole.cnt#</td>
+						<td>
+							<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#">
+								Open Specimen Results
+							</a>
+						</td>
+					</tr>
+					<cfquery name="crole" dbtype="query">
+						select collector_role,cnt from collector where collection_id=#collection_id#
+					</cfquery>
+					<cfloop query="crole">
+						<tr>
+							<td>#crole.collector_role#</td>
+							<td>#cnorole.guid_prefix#</td>
+							<td>#crole.cnt#</td>
+							<td>
+								<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#&coll_role=#crole.collector_role#">
+									Open Specimen Results
+								</a>
+							</td>
+						</tr>
+					</cfloop>
+				</CFLOOP>
+			</table>
+		</cfif>
+
+
 
 
 	Media:
