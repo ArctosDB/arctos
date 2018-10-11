@@ -246,32 +246,73 @@
 				guid_prefix,
 				collection_id
 		</cfquery>
+		<cfquery name="cnorolenc" dbtype="query">
+			select
+				sum(cnt) cnt,
+				collector_role
+			from
+				collector
+			where
+				guid_prefix is not null
+			group by
+				collector_role
+			order by
+				collector_role
+		</cfquery>
 		<cfif cnorole.recordcount gt 0>
-			<p>
-				 Collector (<span class="infoLink" onclick="getCtDoc('ctcollector_role');">Define</span>) for
-				 <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
-				<ul>
-					<CFLOOP query="cnorole">
-						<li>
+			 Collector [<span class="infoLink" onclick="getCtDoc('ctcollector_role');">Define</span>]
+			<table border>
+				<tr>
+					<th>Role</th>
+					<th>Collection</th>
+					<th>SpecimenCount</th>
+					<th>Link</th>
+				</tr>
+				<tr>
+					<td>(any)</td>
+					<td>(all)</td>
+					<td>#ssc.sc#</td>
+					<td><a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">Open Specimen Results</a></td>
+				</tr>
+				<CFLOOP query="cnorolenc">
+					<tr>
+						<td>#cnorolenc.collector_role#</td>
+						<td>(all)</td>
+						<td>#cnorolenc.cnt#</td>
+						<td>
+							<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&coll_role=#cnorolenc.collector_role#">
+								Open Specimen Results
+							</a>
+						</td>
+					</tr>
+				</CFLOOP>
+				<CFLOOP query="cnorole">
+					<tr>
+						<td>(any)</td>
+						<td>#cnorole.guid_prefix#</td>
+						<td>#crole.cnt#</td>
+						<td>
 							<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#">
 								#cnorole.cnt# #cnorole.guid_prefix#
-							</a> specimens
-							<cfquery name="crole" dbtype="query">
-								select collector_role,cnt from collector where collection_id=#collection_id#
-							</cfquery>
-							<ul>
-								<cfloop query="crole">
-									<li>
-										<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#&coll_role=#crole.collector_role#">
-											#crole.collector_role#: #crole.cnt#
-										</a>
-									</li>
-								</cfloop>
-							</ul>
-						</li>
-				  	</CFLOOP>
-				</ul>
-			</p>
+							</a>
+						</td>
+					</tr>
+					<cfquery name="crole" dbtype="query">
+						select collector_role,cnt from collector where collection_id=#collection_id#
+					</cfquery>
+					<cfloop query="crole">
+					<tr>
+						<td>#crole.collector_rol</td>
+						<td>#cnorole.guid_prefix#</td>
+						<td>#crole.cnt#</td>
+						<td>
+							<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#&coll_role=#crole.collector_role#">
+								#crole.collector_role#:
+							</a>
+						</td>
+					</tr>
+				</cfloop>
+			</CFLOOP>
 		</cfif>
 
 		<cfquery name="collectormedia" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
