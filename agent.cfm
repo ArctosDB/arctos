@@ -301,18 +301,19 @@
 						select collector_role,cnt from collector where collection_id=#collection_id#
 					</cfquery>
 					<cfloop query="crole">
-					<tr>
-						<td>#crole.collector_role#</td>
-						<td>#cnorole.guid_prefix#</td>
-						<td>#crole.cnt#</td>
-						<td>
-							<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#&coll_role=#crole.collector_role#">
-								Open Specimen Results
-							</a>
-						</td>
-					</tr>
-				</cfloop>
-			</CFLOOP>
+						<tr>
+							<td>#crole.collector_role#</td>
+							<td>#cnorole.guid_prefix#</td>
+							<td>#crole.cnt#</td>
+							<td>
+								<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#&coll_role=#crole.collector_role#">
+									Open Specimen Results
+								</a>
+							</td>
+						</tr>
+					</cfloop>
+				</CFLOOP>
+			</table>
 		</cfif>
 
 		<cfquery name="collectormedia" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
