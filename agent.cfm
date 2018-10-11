@@ -237,6 +237,8 @@
 				collection_id
 			from
 				collector
+			where
+				guid_prefix is not null
 			group by
 				guid_prefix,
 				collection_id
