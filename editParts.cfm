@@ -140,17 +140,15 @@
 							<input type="text" id="lot_count#i#" name="lot_count#i#" value="#p.lot_count#"  class="reqdClr" size="2">
 						</td>
 						<td>
-							<label for="label#i#">In Container Label</label>
-							<!----
+							<label for="label#i#">InContainer</label>
 							<span style="font-size:small">
 								<cfif len(p.label) gt 0>
-									#p.label#
+									#p.parentContainerDisplay#
 								<cfelse>
 									-NONE-
 								</cfif>
 							</span>
-							---->
-							#p.parentContainerDisplay#
+
 							<input type="hidden" name="label#i#" value="#p.label#">
 							<input type="hidden" name="parentContainerId#i#" value="#p.parentContainerId#">
 							<input type="hidden" name="partContainerId#i#" value="#p.partContainerId#">
