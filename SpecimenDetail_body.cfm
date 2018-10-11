@@ -1347,7 +1347,7 @@
 				</td>
 				---->
 
-				<td>#inContainerDisplay#</td>
+				<td>#p.inContainerDisplay#</td>
 				<td>#replace(p.FCTree,':','←<wbr>','all')#</td>
 				<cfquery dbtype="query" name="tlp">
 					select * from l_q where transaction_id is not null and collection_object_id=#pid#
