@@ -260,8 +260,7 @@
 				specimen_part_attribute.determined_date,
 				specimen_part_attribute.determined_by_agent_id,
 				getPreferredAgentName(specimen_part_attribute.determined_by_agent_id) part_attribute_determiner,
-				specimen_part_attribute.attribute_remark,
-
+				specimen_part_attribute.attribute_remark
 			FROM
 				cataloged_item
 				INNER JOIN collection ON (cataloged_item.collection_id = collection.collection_id)
