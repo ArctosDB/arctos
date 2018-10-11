@@ -410,13 +410,14 @@
 				</ul>
 			</p>
 		</cfif>
+		<!--- this is a public page; don't share internal address info --->
 		<cfquery name="address" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				address
 			from
 				address
 			where
-				address.address_type='url' and
+				address.address_type in ('url','ORCID') and
 				address.agent_id=#val(agent_id)#
 			order by
 				address
@@ -427,7 +428,12 @@
 				<ul>
 					<cfloop query="address">
 						<li>
-							<a target="_blank" class="external" href="#address#">#address#</a>
+							#ADDRESS_TYPE#:
+							<cfif ADDRESS_TYPE is "url" or ADDRESS_TYPE is "ORCID">
+								<a href="#ADDRESS#" class="external" target="_blank">#ADDRESS#</a>
+							<cfelse>
+								#ADDRESS#
+							</cfif>
 						</li>
 					</cfloop>
 				</ul>

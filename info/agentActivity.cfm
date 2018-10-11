@@ -97,9 +97,33 @@ Groups:
 	</cfquery>
 	<ul>
 		<cfloop query="address">
-			<li>#ADDRESS_TYPE#: #ADDRESS#</li>
+			<li>
+				#ADDRESS_TYPE#:
+				<cfif ADDRESS_TYPE is "url" or ADDRESS_TYPE is "ORCID">
+					<a href="#ADDRESS#" class="external" target="_blank">#ADDRESS#</a>
+				<cfelse>
+					#ADDRESS#
+				</cfif>
+			</li>
 		</cfloop>
 	</ul>
+
+
+
+Documentation
+ORCID 	The ORCID ID is a nonproprietary alphanumeric code to uniquely identify scientific and other academic authors and contributors - see https://en.wikipedia.org/wiki/ORCID. Format for Arctos is "http://orcid.org/{ORCID}" e. g. https://orcid.org/0000-0003-3985-0670
+correspondence 	Mailing address for letters. Format is {Name, Job Title} [new line] {Full Mailing Address, including country and zip or equivilant}.
+email
+fax
+formatted JSON 	Address components as JSON data objects. Init: used to populate GenBank submission form.
+ftp
+home 	Personal mailing address. Format is {Name, Job Title} [new line] {Full Mailing Address, including country and zip or equivilant}.
+mobile phone
+phone
+shipping 	Shipping address for packages. Format is {Name, Job Title} [new line] {Full Mailing Address, including country and zip or equivilant}.
+url
+work phone
+
 
 	<cfquery name="collector" datasource="uam_god">
 			select
