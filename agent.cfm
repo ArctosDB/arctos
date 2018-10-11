@@ -246,8 +246,7 @@
 				guid_prefix,
 				collection_id
 		</cfquery>
-		<cfif collector.recordcount gt 0>
-
+		<cfif cnorole.recordcount gt 0>
 			<p>
 				 Collector (<span class="infoLink" onclick="getCtDoc('ctcollector_role');">Define</span>) for
 				 <a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#">#ssc.sc# specimens</a>:
