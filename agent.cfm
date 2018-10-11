@@ -290,10 +290,10 @@
 					<tr>
 						<td>(any)</td>
 						<td>#cnorole.guid_prefix#</td>
-						<td>#crole.cnt#</td>
+						<td>#cnorole.cnt#</td>
 						<td>
 							<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#">
-								#cnorole.cnt# #cnorole.guid_prefix#
+								Open Specimen Results
 							</a>
 						</td>
 					</tr>
@@ -307,7 +307,7 @@
 						<td>#crole.cnt#</td>
 						<td>
 							<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#cnorole.collection_id#&coll_role=#crole.collector_role#">
-								#crole.collector_role#:
+								Open Specimen Results
 							</a>
 						</td>
 					</tr>
