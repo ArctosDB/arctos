@@ -1,4 +1,5 @@
 <cfinclude template = "/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfoutput>
 	<cfset title = "Agent Activity">
 	<cfparam name="agent_name" default="">
@@ -261,7 +262,7 @@
 		</cfquery>
 		<cfif cnorole.recordcount gt 0>
 			 Collector [<span class="infoLink" onclick="getCtDoc('ctcollector_role');">Define</span>]
-			<table border>
+			<table border id="t" class="sortable">
 				<tr>
 					<th>Role</th>
 					<th>Collection</th>
