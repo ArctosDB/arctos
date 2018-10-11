@@ -1338,12 +1338,16 @@
 			<td>#p.part_disposition#</td>
 			<td>#p.lot_count#</td>
 			<cfif oneOfUs is 1>
+				<!----
 				<td>#p.label#</td>
 				<td>
 					<cfif len(p.barcode) gt 0>
 						<a href="/findContainer.cfm?barcode=#p.barcode#">#p.barcode#</a>
 					</cfif>
 				</td>
+				---->
+
+				<td>#inContainerDisplay#</td>
 				<td>#replace(p.FCTree,':','←<wbr>','all')#</td>
 				<cfquery dbtype="query" name="tlp">
 					select * from l_q where transaction_id is not null and collection_object_id=#pid#
@@ -1447,6 +1451,7 @@
 		pc.label,
 		pc.barcode,
 		part_name,
+		getContainerDisplay(pc.container_id) inContainerDisplay,
 		sampled_from_obj_id,
 		coll_object.COLL_OBJ_DISPOSITION part_disposition,
 		coll_object.CONDITION part_condition,
@@ -1566,8 +1571,11 @@
 								<th><span class="innerDetailLabel">Disposition</span></th>
 								<th><span class="innerDetailLabel">Qty</span></th>
 								<cfif oneOfUs is 1>
+									<!----
 									<th><span class="innerDetailLabel">Label</span></th>
 									<th><span class="innerDetailLabel">Barcode</span></th>
+									---->
+									<th><span class="innerDetailLabel">InContainer</span></th>
 									<th><span class="innerDetailLabel">PLPath</span></th>
 									<th><span class="innerDetailLabel">Loan</span></th>
 									<th><span class="innerDetailLabel">Event</span></th>
