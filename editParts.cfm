@@ -80,7 +80,8 @@
 					label,
 					parentContainerId,
 					partContainerId,
-					coll_object_remarks
+					coll_object_remarks,
+					parentContainerDisplay
 				from
 					p_q
 				where
@@ -97,7 +98,8 @@
 					label,
 					parentContainerId,
 					partContainerId,
-					coll_object_remarks
+					coll_object_remarks,
+					parentContainerDisplay
 			</cfquery>
 			<cfsavecontent variable="r">
 				<cfset pdg=level-1>
@@ -139,6 +141,7 @@
 						</td>
 						<td>
 							<label for="label#i#">In Container Label</label>
+							<!----
 							<span style="font-size:small">
 								<cfif len(p.label) gt 0>
 									#p.label#
@@ -146,6 +149,8 @@
 									-NONE-
 								</cfif>
 							</span>
+							---->
+							#p.parentContainerDisplay#
 							<input type="hidden" name="label#i#" value="#p.label#">
 							<input type="hidden" name="parentContainerId#i#" value="#p.parentContainerId#">
 							<input type="hidden" name="partContainerId#i#" value="#p.partContainerId#">
@@ -246,6 +251,7 @@
 				parentContainer.label,
 				parentContainer.container_id AS parentContainerId,
 				thisContainer.container_id AS partContainerId,
+				getContainerDisplay(parentContainer.container_id) parentContainerDisplay,
 				coll_object_remark.coll_object_remarks,
 				specimen_part_attribute.part_attribute_id,
 				specimen_part_attribute.attribute_type,
@@ -254,7 +260,8 @@
 				specimen_part_attribute.determined_date,
 				specimen_part_attribute.determined_by_agent_id,
 				getPreferredAgentName(specimen_part_attribute.determined_by_agent_id) part_attribute_determiner,
-				specimen_part_attribute.attribute_remark
+				specimen_part_attribute.attribute_remark,
+
 			FROM
 				cataloged_item
 				INNER JOIN collection ON (cataloged_item.collection_id = collection.collection_id)
