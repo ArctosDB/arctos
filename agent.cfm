@@ -302,7 +302,7 @@
 					</cfquery>
 					<cfloop query="crole">
 					<tr>
-						<td>#crole.collector_rol</td>
+						<td>#crole.collector_role#</td>
 						<td>#cnorole.guid_prefix#</td>
 						<td>#crole.cnt#</td>
 						<td>
