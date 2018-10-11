@@ -115,7 +115,7 @@ Collector:
 			where
 				collector.collection_object_id = cataloged_item.collection_object_id AND
 				cataloged_item.collection_id = collection.collection_id AND
-				agent_id=#val(agent_id)# and
+				agent_id=#val(agent_id)#
 			group by
 				collection.guid_prefix,
 		        collection.collection_id,
