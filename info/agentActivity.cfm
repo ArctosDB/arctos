@@ -1,4 +1,5 @@
 <cfinclude template = "/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfset title = "Agent Activity">
 <cfoutput>
 <a href="/agents.cfm?agent_id=#agent_id#" target="_top">Edit Agent</a>
@@ -107,24 +108,6 @@ Groups:
 			</li>
 		</cfloop>
 	</ul>
-
-
-
-Documentation
-ORCID 	The ORCID ID is a nonproprietary alphanumeric code to uniquely identify scientific and other academic authors and contributors - see https://en.wikipedia.org/wiki/ORCID. Format for Arctos is "http://orcid.org/{ORCID}" e. g. https://orcid.org/0000-0003-3985-0670
-correspondence 	Mailing address for letters. Format is {Name, Job Title} [new line] {Full Mailing Address, including country and zip or equivilant}.
-email
-fax
-formatted JSON 	Address components as JSON data objects. Init: used to populate GenBank submission form.
-ftp
-home 	Personal mailing address. Format is {Name, Job Title} [new line] {Full Mailing Address, including country and zip or equivilant}.
-mobile phone
-phone
-shipping 	Shipping address for packages. Format is {Name, Job Title} [new line] {Full Mailing Address, including country and zip or equivilant}.
-url
-work phone
-
-
 	<cfquery name="collector" datasource="uam_god">
 			select
 				count(distinct(collector.collection_object_id)) cnt,
