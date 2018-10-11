@@ -100,9 +100,8 @@ Groups:
 			<li>#ADDRESS_TYPE#: #ADDRESS#</li>
 		</cfloop>
 	</ul>
-Collector:
 
-<cfquery name="collector" datasource="uam_god">
+	<cfquery name="collector" datasource="uam_god">
 			select
 				count(distinct(collector.collection_object_id)) cnt,
 				collection.guid_prefix,
@@ -153,8 +152,8 @@ Collector:
 			order by
 				collector_role
 		</cfquery>
+		Collector [<span class="infoLink" onclick="getCtDoc('ctcollector_role');">Define</span>]
 		<cfif cnorole.recordcount gt 0>
-			 Collector [<span class="infoLink" onclick="getCtDoc('ctcollector_role');">Define</span>]
 			<table border id="t" class="sortable">
 				<tr>
 					<th>Role</th>
