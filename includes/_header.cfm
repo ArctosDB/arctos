@@ -491,7 +491,7 @@
 									<cfif listfind(formList,"/tools/userSQL.cfm")>
 									    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
 				                    </cfif>
-									   <li><a target="_top" href="/new_collection.cfm">Collection Creation Request</a></li>
+									   <li><a target="_top" href="/new_collection.cfm">Prospective Collection Request</a></li>
 								</ul>
 							</li>
 					    </cfif>
