@@ -817,7 +817,7 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 		}
 	}
 </script>
-<div class="importantNotification">
+<div class="friendlyNotification">
 	Don't want to deal with this form? <a target="_blank" class="external" href="https://github.com/ArctosDB/arctos/issues/new/choose">File an Issue for assistance</a>.
 </div>
 <cfsavecontent variable="doc_barcodeseriessql">

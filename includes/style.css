@@ -143,6 +143,13 @@ body {
 		padding:1em;
 		border:10px solid red;
 	}
+	
+	.friendlyNotification {
+		margin:1em;
+		display:inline-block;
+		padding:1em;
+		border:10px solid green;
+	}
 	.smallNotification {
 		margin:.3em;
 		display:inline-block;
