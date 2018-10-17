@@ -11,8 +11,6 @@
 }
 
 
-
-
 .headerInstitutionText a:link { color:white }
 .headerInstitutionText a:visited { color:white; }
 .headerInstitutionText a:hover { color:blue}
@@ -24,3 +22,4 @@
 .headerCollectionText a:hover { color:blue}
 .headerCollectionText a:active { color:white }
 
+#header-link-cell{text-align:center;}
