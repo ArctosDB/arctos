@@ -775,7 +775,7 @@ CREATE OR REPLACE PROCEDURE temp_update_junk IS
 glist varchar2(4000);
 sep varchar2(20);
 begin
-	for r in (select barcode from temp_all_barcode where holds_specimens is null and rownum<5) loop
+	for r in (select barcode from temp_all_barcode where holds_specimens is null ) loop
 		glist:='';
 		sep:='';
 		 for c in (
@@ -817,7 +817,7 @@ end;
 /
 
 
-
+select holds_specimens,count(*) from temp_all_barcode group by holds_specimens;
 			
 			
 			

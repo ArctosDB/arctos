@@ -1,4 +1,3 @@
-
 .headerInstitutionText, .headerCollectionText{
 	color:white;
 }
@@ -10,3 +9,18 @@
 #headerLinks a:hover {
 	color:red;
 }
+
+
+
+
+.headerInstitutionText a:link { color:white }
+.headerInstitutionText a:visited { color:white; }
+.headerInstitutionText a:hover { color:blue}
+.headerInstitutionText a:active { color:white }
+
+
+.headerCollectionText a:link { color:white }
+.headerCollectionText a:visited { color:white; }
+.headerCollectionText a:hover { color:blue}
+.headerCollectionText a:active { color:white }
+
