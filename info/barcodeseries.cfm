@@ -722,6 +722,12 @@ end;
 
 create table temp_all_barcode as select barcode from container where barcode is not null;
 
+UAM@ARCTOS> select count(*) from temp_all_barcode;
+
+  COUNT(*)
+----------
+   2830633
+
 
 CREATE OR REPLACE PROCEDURE temp_update_junk IS
 	rslt varchar2(255):='FAIL';
@@ -733,7 +739,7 @@ BEGIN
 		begin
 				--rsql:=replace(r.barcodeseriessql,'barcode','''' || barcode || '''');
 				ssmt := 'delete from temp_all_barcode where ' || r.barcodeseriessql;
-				dbms_output.put_line(ssmt);
+				--dbms_output.put_line(ssmt);
 				execute immediate ssmt;
 
 				exception when others then
@@ -744,6 +750,21 @@ BEGIN
 	end;
 /
 sho err;
+
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_temp_update_junk',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'temp_update_junk',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/
+
+select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
+
 
 exec temp_update_junk;
 
@@ -1081,12 +1102,21 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 			</ul>
 		</p>
 
-		<cfparam name="barcode" default="">
-		<form name="t" method="get" action="barcodeseries.cfm">
-			<label for="barcode">Enter a barcode to test</label>
-			<input type="text" value="#barcode#" name="barcode">
-			<input type="submit" value="test this barcode">
-		</form>
+		<div style="margin:1em;padding:1em;border:2px solid black">
+			Test a barcode against existing claims. This form can be used to determine if a barcode is part of an existing series
+			 (e.g., is the series definition correct?), and as a way to explore the possibility of creating a new series. After submitting the
+			 form, this page will reload with something in the STATUS column. PASS (and the row turning green) indicates that the tested barcode
+			 is part of the series. Anything else in STATUS indicates that the barcode is not part of the series. (Various error
+			 messages are displayed as a diagnostic aid; they may make sense when creating a new series.)
+
+
+			<cfparam name="barcode" default="">
+			<form name="t" method="get" action="barcodeseries.cfm">
+				<label for="barcode">Enter a barcode to test</label>
+				<input type="text" value="#barcode#" name="barcode">
+				<input type="submit" value="test this barcode">
+			</form>
+		</div>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_barcodeseries order by barcodeseriestxt
 		</cfquery>
