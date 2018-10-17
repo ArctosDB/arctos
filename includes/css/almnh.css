@@ -1,0 +1,14 @@
+#header_color {
+	background:url("/images/TTg6AyPQ.jpeg") repeat-x scroll 0 0 #a41e34;
+}
+.headerInstitutionText, .headerCollectionText{
+	color:white;
+}
+
+#headerLinks, #headerLinks a {
+	color:white;
+	size:small;
+}
+#headerLinks a:hover {
+	color:red;
+}

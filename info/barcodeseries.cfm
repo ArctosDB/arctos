@@ -719,6 +719,7 @@ begin
 end;
 /
 
+drop table temp_all_barcode;
 
 create table temp_all_barcode as select barcode from container where barcode is not null;
 
@@ -764,6 +765,79 @@ END;
 /
 
 select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
+
+delete from temp_all_barcode where is_number(barcode)=1;
+
+
+alter table temp_all_barcode add holds_specimens varchar2(4000);
+
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+glist varchar2(4000);
+sep varchar2(20);
+begin
+	for r in (select barcode from temp_all_barcode where holds_specimens is null and rownum<5) loop
+		glist:='';
+		sep:='';
+		 for c in (
+			select distinct
+					guid_prefix
+				from
+					coll_obj_cont_hist,
+					specimen_part,
+					cataloged_item,
+					collection
+				where
+					coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id and
+					specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
+					cataloged_item.collection_id=collection.collection_id and
+					coll_obj_cont_hist.container_id in (
+						select
+							container.container_id
+						from
+							container,
+							container p
+						where
+							container.parent_container_id=p.container_id (+) and
+							container.container_type='collection object'
+						start with
+							upper(container.barcode)='407KNWRC'
+						connect by
+							container.parent_container_id = prior container.container_id
+					)
+			) loop
+				glist:=glist || sep || c.guid_prefix;
+				sep:=', ';
+			end loop;
+			if glist is null then
+				glist:='none';
+			end if;
+		update temp_all_barcode set holds_specimens=glist where barcode=r.barcode;
+	end loop;
+end;
+/
+
+
+
+			
+			
+			
+		);
+		
+		
+
+--- misses some for some reason
+CREATE OR REPLACE PROCEDURE temp_update_junk IS
+rst varchar2(255);
+BEGIN
+		for r in (select barcode from temp_all_barcode where rownum<100) loop
+			select IS_CLAIMED_BARCODE(r.barcode) into rst from dual;
+			dbms_output.put_line(r.barcode);
+			dbms_output.put_line(rst);
+		end loop;
+	end;
+/
+sho err;
+
 
 
 exec temp_update_junk;
