@@ -4,4 +4,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 <script type='text/javascript' language="javascript" src='/includes/ajax.js?v=10.3260'></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-<link rel="stylesheet" href="/includes/style.min.css?v1235" />
+<link rel="stylesheet" href="/includes/style.min.css?v1236" />
