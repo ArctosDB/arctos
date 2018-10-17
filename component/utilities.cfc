@@ -1573,7 +1573,7 @@
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads,ackBulletin,aupm">
 			<cfset x=x & ",ashx">
-			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch">
+			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch,bea_wls_deployment_internal">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
 			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel">
