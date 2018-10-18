@@ -27,7 +27,7 @@
 			Please use the "Report Bad Data" link where available to ensure the correct Curator receives your message.
 		</li>
 		<li>
-			You may also
+			Operators should
 			<a href="https://github.com/ArctosDB/arctos/issues/new" target="_blank" class="external">file an Issue at GitHub</a>.
 		</li>
 	</ul>
