@@ -48,7 +48,7 @@
     <cfif IsDefined("tmpPartsArray")>
         <cfloop array="#tmpPartsArray#" index="tmpPart">
             <cfif tmpPart.isFile() AND tmpPart.getName() EQ "FILETOUPLOAD"> <!---   --->
-               <cfset fileName=tmpPart.getName()>
+               <cfset fileName=tmpPart.getFileName() >
             </cfif>
         </cfloop>
     </cfif>
