@@ -219,8 +219,8 @@ argumentCollection = "#form#">
 			<!----
 				<span class="infoLink" onclick="clickUploadPreview()">Load...</span>
 				---->
-			<label for="previewUpload">upload a thumbnail</label>
-				<input type="file" name="previewUpload" size="45" >
+			<label for="FiletoUpload">upload a thumbnail</label>
+				<input type="file" name="FiletoUpload" size="45" >
 
 			<label for="mime_type">MIME Type</label>
 			<select name="mime_type" id="mime_type">
