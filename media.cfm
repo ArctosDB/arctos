@@ -18,6 +18,7 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "saveEdit">
 	<cfoutput>
+		<!----
 		<div class="error">
 			<p>
 				DO NOT USE YOUR BACK BUTTON.
@@ -32,6 +33,7 @@
 				<a href="media.cfm?action=edit&media_id=#media_id#">try this instead</a>
 			</p>
 		</div>
+		---->
 		<cftransaction>
 			<!--- update media --->
 			<cfdump var=#form#>
@@ -200,7 +202,7 @@ argumentCollection = "#form#">
 		<br><a href="/TAG.cfm?media_id=#media_id#">edit #tag.c# TAGs</a> ~
 		<a href="/showTAG.cfm?media_id=#media_id#">View #tag.c# TAGs</a> ~
 		<a href="/media/#media_id#">Detail Page</a>
-		<form name="newMedia" method="post" action="media.cfm">
+		<form name="newMedia" method="post" action="media.cfm" enctype="multipart/form-data">
 			<input type="hidden" name="action" value="saveEdit">
 			<input type="hidden" id="number_of_relations" name="number_of_relations" value="#relns.recordcount#">
 			<input type="hidden" id="number_of_labels" name="number_of_labels" value="#labels.recordcount#">
