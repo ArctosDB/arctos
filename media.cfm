@@ -34,6 +34,12 @@
 		</div>
 		<cftransaction>
 			<!--- update media --->
+			<cfdump var=#form#>
+			<cfif len(previewUpload) gt 0>
+				got a new preview....
+			</cfif>
+
+			<cfabort>
 			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update media set
 				media_uri='#escapeQuotes(media_uri)#',
