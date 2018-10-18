@@ -413,6 +413,7 @@
 		<!--- this is a public page; don't share internal address info --->
 		<cfquery name="address" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
+				ADDRESS_TYPE,
 				address
 			from
 				address
