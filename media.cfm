@@ -68,7 +68,7 @@
 
 	<!--- send it to S3 ---->
 <cfset utilities = CreateObject("component","component.utilities")>
-<cfset x=utilities.loadFileS3_loadOnly("#Application.sandbox#/#tempName#.tmp",fileName)>
+<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
 
 
 uploaded to #Application.sandbox#/#tempName#.tmp
