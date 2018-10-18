@@ -141,6 +141,7 @@
 				}
 			});
 		});
+
 	</script>
 	<!----
 		<select name="label__#i#" id="label__#i#" size="1">
@@ -197,7 +198,10 @@
 			<input type="text" name="preview_uri" id="preview_uri" size="90" value="#media.preview_uri#">
 			<!----
 				<span class="infoLink" onclick="clickUploadPreview()">Load...</span>
-			---->
+				---->
+			<label for="previewUpload">upload a thumbnail</label>
+				<input type="file" name="previewUpload" size="45" >
+
 			<label for="mime_type">MIME Type</label>
 			<select name="mime_type" id="mime_type">
 				<cfloop query="ctmime_type">
