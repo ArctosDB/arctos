@@ -11,6 +11,7 @@
 	<cfargument name="filename" required="yes">
 
 	hi
+		<cffile variable="content" action = "readBinary"  file="#tmp_path#">
 
 	<cfabort>
 
