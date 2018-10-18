@@ -451,6 +451,10 @@
 	<p>
 		Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a>
 	</p>
+	<p>
+		Key for geography WKT links:
+		<textarea>MEDIA::#media_id#</textarea>
+	</p>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
