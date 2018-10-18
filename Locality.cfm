@@ -645,7 +645,7 @@
 							<ol>
 								<li><a href="/DataServices/wktomaticifier.cfm">Convert</a> the spatial data to WKT POLYGON or MULTIPOLYGON format</li>
 								<li>Save as a text file (file extension .wkt is preferred but any will work)</li>
-								<li><a href="/media.cfm?action=newMedia">Create Media</a>; copy the media_id of the media record</li>
+								<li><a target=_"blank" href="/media.cfm?action=newMedia">Create Media</a>; copy the media_id of the media record</li>
 								<li>In the WKT_Polygon box, enter
 									<ul><li>
 										<code>
