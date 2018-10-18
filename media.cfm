@@ -37,7 +37,7 @@
 		<cftransaction>
 			<!--- update media --->
 			<cfdump var=#form#>
-			<cfif len(previewUpload) gt 0>
+			<cfif len(FILETOUPLOAD) gt 0>
 				got a new preview....
 				<cfinvoke
 component = "component.utilities"
