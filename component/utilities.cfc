@@ -7,9 +7,6 @@
 		<cfquery name="c" datasource="uam_god">
 			select * from cache_publication_sdata where source='opencitations' and doi='#doi#' and last_date > sysdate-30
 		</cfquery>
-
-				<cfdump var=#c#>
-
 		<cfif c.recordcount gt 0>
 			<!---this gets validated before cache so should be skookum --->
 			<cfset x=DeserializeJSON(c.json_data)>
@@ -21,16 +18,11 @@
 			<cfif not isjson(d.Filecontent)>
 				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi#">
 			</cfif>
-			<p>	going jmc... </p>
 			<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 			</cfhttp>
 
-				<cfdump var=#jmc#>
-
-
-			<p>	jmcdump above... </p>
 			<cfif left(jmc.Statuscode,3) is not "200" or len(jmc.Filecontent) is 0>
 				<cfreturn "Invalid return for https://dx.doi.org/#doi#">
 			</cfif>
