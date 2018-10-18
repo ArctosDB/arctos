@@ -66,8 +66,6 @@
 			$("#cd_" + id).addClass('noshow',500,"easeOutBack");
 			$("#cdc_" + id).html('Show Description');
 		}
-
-
 	}
 </script>
 <cfoutput>
