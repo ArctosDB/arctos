@@ -221,6 +221,11 @@
 						<div class="dz-message needsclick">
 							Drop ONE file here or click to upload (s3).
 						</div>
+						<select name="nothumb" id="nothumb">
+							<option value="false">generate a thumbnail if possible</option>
+							<option value="true">DO NOT generate a thumbnail</option>
+
+						</select>
 					</form>
 				</div>
 

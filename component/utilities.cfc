@@ -1,5 +1,6 @@
 <cfcomponent>
 
+
 <!-------------------------------------------------------->
 <cffunction name="getPublicationCitations"  access="remote">
 	<cfargument name="doi" required="true" type="string" access="remote">
@@ -777,6 +778,7 @@
 
 
 <cffunction name="loadFileS3" output="false" returnType="any" access="remote">
+	<cfargument name="nothumb" required="no" default="false">
 	<cftry>
 		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
@@ -924,7 +926,11 @@
 		</cfhttp>
 		<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
 
-		<cfif IsImageFile("#Application.sandbox#/#tempName#.tmp")>
+		<!---- 
+			the nothumb var allows for just uploading an image eg a new thumb
+			https://github.com/ArctosDB/arctos/issues/1659
+		---->
+		<cfif nothumb is false and IsImageFile("#Application.sandbox#/#tempName#.tmp")>
 			<!---- make a thumbnail ---->
 			<cfimage action="info" structname="imagetemp" source="#Application.sandbox#/#tempName#.tmp">
 			<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
