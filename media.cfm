@@ -38,7 +38,7 @@
 			<cfif len(previewUpload) gt 0>
 				got a new preview....
 				<cfinvoke
-component = "utilities.cfc"
+component = "component.utilities"
 method = "loadFileS3"
 returnVariable = "v_rtn"
 argumentCollection = "#form#">
