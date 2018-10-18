@@ -69,7 +69,7 @@ uploaded to #Application.sandbox#/#tempName#.tmp
 
 
 <cfabort>
-
+<!----
 	<cfset utilities = CreateObject("component","component.utilities")>
 	<cfset x=utilities.loadFileS3_loadOnly(FILETOUPLOAD,fileName)>
 
@@ -81,7 +81,7 @@ component = "component.utilities"
 method = "loadFileS3_loadOnly"
 returnVariable = "v_rtn"
 argumentCollection = "#form#">
-
+----->
 <!----
 <cfinclude template="/component/utilities.cfc?method=loadFileS3&returnFormat=json">
 	---->
