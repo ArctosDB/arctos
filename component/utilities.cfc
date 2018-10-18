@@ -16,14 +16,14 @@
 				<cfhttpparam type = "header" name = "Accept" value = "application/json">
 			</cfhttp>
 			<cfif not isjson(d.Filecontent)>
-				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi# or https://dx.doi.org/#doi#">
+				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi#">
 			</cfif>
 			<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 			</cfhttp>
 			<cfif not isjson(jmc.Filecontent)>
-				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi# or https://dx.doi.org/#doi#">
+				<cfreturn "Invalid return for https://dx.doi.org/#doi#">
 			</cfif>
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
