@@ -56,6 +56,20 @@
 	<br>filename:#fileName#
 
 
+	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+			<cfset tempName=createUUID()>
+
+	<cffile
+		action = "upload"
+		destination = "#Application.sandbox#/#tempName#.tmp"
+		fileField = "FILETOUPLOAD"
+	>
+
+uploaded to #Application.sandbox#/#tempName#.tmp
+
+
+<cfabort>
+
 	<cfset utilities = CreateObject("component","component.utilities")>
 	<cfset x=utilities.loadFileS3_loadOnly(FILETOUPLOAD,fileName)>
 
