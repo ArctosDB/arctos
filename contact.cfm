@@ -68,13 +68,11 @@
 <cfif action is "sendMail">
 	<cfoutput>
 
-<cfscript>
-			var urlRegex = "(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))";
-			var UrlCount = "";
 
-			UrlCount = arrayLen(rematch(urlRegex,msg)) ;
+			<cfset urlRegex = "(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))">
 
-		</cfscript>
+			<cfset UrlCount = rematch(urlRegex,msg)>
+
 		UrlCount::
 		<cfdump var=#UrlCount#>
 <cfabort>
