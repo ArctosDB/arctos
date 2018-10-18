@@ -58,6 +58,10 @@
 				<!--- send it to S3 ---->
 				<cfset utilities = CreateObject("component","component.utilities")>
 				<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
+				<cfif not isjson(x)>
+					upload fail<cfdump var=#x#><cfabort>
+				</cfif>
+				<cfset x=deserializeJson(x)>
 <cfif not isdefined("x.STATUSCODE")>
 nodefsc
 </cfif>
