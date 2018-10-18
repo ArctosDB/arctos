@@ -68,21 +68,15 @@
 <cfif action is "sendMail">
 	<cfoutput>
 
-<cffunction name="testTooManyUrls" access="public" output="false" returntype="struct" hint="I test whether too many URLs have been submitted in fields">
-		<cfargument name="msg" required="true" type="any" />
-		<cfscript>
+<cfscript>
 			var urlRegex = "(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))";
 			var UrlCount = "";
 
 			UrlCount = arrayLen(rematch(urlRegex,msg)) ;
-			return UrlCount;
+
 		</cfscript>
-	</cffunction>
-
-<cfset x=testTooManyUrls(msg)>
-
-<cfdump var=#x#>
-
+		UrlCount::
+		<cfdump var=#UrlCount#>
 <cfabort>
 
 		<cfif refindnocase("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?",msg)>
