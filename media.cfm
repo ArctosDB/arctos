@@ -59,7 +59,7 @@
 				<cfset utilities = CreateObject("component","component.utilities")>
 				<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
 
-				<cfif not isdefined("x.STATUSCODE") or x.STATUSCODE) is 200 or not isdefined("x.MEDIA_URI") or len(x.MEDIA_URI) is 0>
+				<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
 					upload fail<cfdump var=#x#><cfabort>
 				</cfif>
 				<cfset preview_uri=x.MEDIA_URI>
