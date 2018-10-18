@@ -55,12 +55,16 @@
 
 	<br>filename:#fileName#
 
-<cfabort>
+
+	<cfset utilities = CreateObject("component","component.utilities")>
+	<cfset x=utilities.loadFileS3_loadOnly(FILETOUPLOAD,fileName)>
 
 
+	<cfargument name="tmp_path" required="yes">
+	<cfargument name="filename" required="yes">
 				<cfinvoke
 component = "component.utilities"
-method = "loadFileS3"
+method = "loadFileS3_loadOnly"
 returnVariable = "v_rtn"
 argumentCollection = "#form#">
 

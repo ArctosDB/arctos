@@ -1,8 +1,15 @@
 <cfcomponent>
 
 <cffunction name="loadFileS3_loadOnly" output="false" returnType="any" access="remote">
+	<!---
+		upload a file and return a URL
+		accept:
+		path to tmp
+		filename as loaded
+	---->
 	<cfargument name="tmp_path" required="yes">
-	
+	<cfargument name="filename" required="yes">
+
 	<cftry>
 		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
@@ -35,7 +42,15 @@
 
 
 		<cfset tempName=createUUID()>
-		<cffile action="upload"	destination="#Application.sandbox#/" nameConflict="overwrite" fileField="file" mode="600">
+
+		<cffile variable="content" action = "readBinary"  file="#tmp_path#">
+
+		<cfdump var=#content#>
+
+
+		<cfabort>
+
+
 		<cfset fileName=cffile.serverfile>
 		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
 		<cfset fext=listlast(fileName,".")>
@@ -50,7 +65,6 @@
 			<cfreturn serializeJSON(r)>
 		</cfif>
 		<cfset lclFile="#Application.sandbox#/#fileName#">
-		<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tempName#.tmp">
 		<!--- generate a checksum while we're holding the binary ---->
 		<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
 		<!--- see if the image exists ---->
@@ -150,7 +164,7 @@
 		</cfhttp>
 		<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
 
-		<!---- 
+		<!----
 			the nothumb var allows for just uploading an image eg a new thumb
 			https://github.com/ArctosDB/arctos/issues/1659
 		---->
@@ -1146,7 +1160,7 @@
 		</cfhttp>
 		<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
 
-		<!---- 
+		<!----
 			the nothumb var allows for just uploading an image eg a new thumb
 			https://github.com/ArctosDB/arctos/issues/1659
 		---->
