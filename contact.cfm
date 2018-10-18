@@ -70,8 +70,7 @@
 
 
 
-
-		<cfif refindnocase("(?<=\s|^)(?:https?:)?(?://)?(?:[\w-]+\.)+[a-z]{2,6}(?::\d+)?(?:/[\w.,-]+)*(?:\?\S+)?",msg)>
+		<cfif refindnocase("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?",msg)>
 			found link
 			<cfabort>
 			<cfelse>
