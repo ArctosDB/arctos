@@ -382,14 +382,16 @@
 			<label for="FiletoUpload">upload a file</label>
 			<input type="file" name="FiletoUpload" size="45" >
 			<label for="mime_type">MIME Type</label>
-			<select name="mime_type" id="mime_type">
+			<select name="mime_type" id="mime_type" class="reqdClr" required>
+				<option></option>
 				<cfloop query="ctmime_type">
 				    <option value="#mime_type#">#mime_type#</option>
 				</cfloop>
 			</select>
 			<span class="infoLink" onclick="getCtDoc('ctmime_type');">Define</span>
 			<label for="media_type">Media Type</label>
-			<select name="media_type" id="media_type">
+			<select name="media_type" id="media_type" class="reqdClr" required>
+				<option></option>
 				<cfloop query="ctmedia_type">
 					<option value="#media_type#">#media_type#</option>
 				</cfloop>
@@ -402,59 +404,54 @@
 </cfif>
 <!------------------------------------------------------------------------------------------>
 <cfif action is "saveNew">
-<cfoutput>
-
-
-			<cfif len(FILETOUPLOAD) is 0>
-				no file<cfabort>
-			</cfif>
-			<!---- get the filename as uploaded ---->
-		    <cfset tmpPartsArray = Form.getPartsArray() />
-		    <cfif IsDefined("tmpPartsArray")>
-		        <cfloop array="#tmpPartsArray#" index="tmpPart">
-		            <cfif tmpPart.isFile() AND tmpPart.getName() EQ "FILETOUPLOAD"> <!---   --->
-		               <cfset fileName=tmpPart.getFileName() >
-		            </cfif>
-		        </cfloop>
-		    </cfif>
-			<cfif not isdefined("filename") or len(filename) is 0>
-				Didn't get filename<cfabort>
-			</cfif>
-			<!---- read the file ---->
-			<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-			<!---- temporary safe name ---->
-			<cfset tempName=createUUID()>
-			<!---- stash the file in the sandbox ---->
-			<cffile	action = "upload" destination = "#Application.sandbox#/#tempName#.tmp" fileField = "FILETOUPLOAD">
-			<!--- send it to S3 ---->
-			<cfset utilities = CreateObject("component","component.utilities")>
-			<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
-			<cfif not isjson(x)>
-				upload fail<cfdump var=#x#><cfabort>
-			</cfif>
-			<cfset x=deserializeJson(x)>
-			<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
-				upload fail<cfdump var=#x#><cfabort>
-			</cfif>
-			<cfset media_uri=x.MEDIA_URI>
-
-			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select sq_media_id.nextval nv from dual
-			</cfquery>
-			<cfset media_id=mid.nv>
-			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				insert into media (media_id,media_uri,mime_type,media_type)
-	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#')
-			</cfquery>
-
-
-	<p>
-		Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a>
-	</p>
-	<p>
-		Key for geography WKT links:
-		<textarea>MEDIA::#media_id#</textarea>
-	</p>
-</cfoutput>
+	<cfoutput>
+		<cfif len(FILETOUPLOAD) is 0>
+			no file<cfabort>
+		</cfif>
+		<!---- get the filename as uploaded ---->
+	    <cfset tmpPartsArray = Form.getPartsArray() />
+	    <cfif IsDefined("tmpPartsArray")>
+	        <cfloop array="#tmpPartsArray#" index="tmpPart">
+	            <cfif tmpPart.isFile() AND tmpPart.getName() EQ "FILETOUPLOAD"> <!---   --->
+	               <cfset fileName=tmpPart.getFileName() >
+	            </cfif>
+	        </cfloop>
+	    </cfif>
+		<cfif not isdefined("filename") or len(filename) is 0>
+			Didn't get filename<cfabort>
+		</cfif>
+		<!---- read the file ---->
+		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+		<!---- temporary safe name ---->
+		<cfset tempName=createUUID()>
+		<!---- stash the file in the sandbox ---->
+		<cffile	action = "upload" destination = "#Application.sandbox#/#tempName#.tmp" fileField = "FILETOUPLOAD">
+		<!--- send it to S3 ---->
+		<cfset utilities = CreateObject("component","component.utilities")>
+		<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
+		<cfif not isjson(x)>
+			upload fail<cfdump var=#x#><cfabort>
+		</cfif>
+		<cfset x=deserializeJson(x)>
+		<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
+			upload fail<cfdump var=#x#><cfabort>
+		</cfif>
+		<cfset media_uri=x.MEDIA_URI>
+		<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select sq_media_id.nextval nv from dual
+		</cfquery>
+		<cfset media_id=mid.nv>
+		<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into media (media_id,media_uri,mime_type,media_type)
+            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#')
+		</cfquery>
+		<p>
+			Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a>
+		</p>
+		<p>
+			Key for geography WKT links:
+			<textarea>MEDIA::#media_id#</textarea>
+		</p>
+	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
