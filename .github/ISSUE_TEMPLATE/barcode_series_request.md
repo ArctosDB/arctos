@@ -4,7 +4,7 @@ about: Request a new barcode series
 
 ---
 
-Issue Documentation is at http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html
+Issue Documentation is at http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html 
 Barcode Series Documentation is at http://handbook.arctosdb.org/documentation/container.html#barcode-series
 
 Please supply the following so that we can evaluate your barcode series request. If the series is available, it will be claimed and created for you. If it is not, a response will be posted to this issue and we will work to get you a suitable barcode series.
