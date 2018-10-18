@@ -36,67 +36,34 @@
 		---->
 		<cftransaction>
 			<!--- update media --->
-			<cfdump var=#form#>
 			<cfif len(FILETOUPLOAD) gt 0>
-				got a new preview....
+				<!---- get the filename as uploaded ---->
+			    <cfset tmpPartsArray = Form.getPartsArray() />
+			    <cfif IsDefined("tmpPartsArray")>
+			        <cfloop array="#tmpPartsArray#" index="tmpPart">
+			            <cfif tmpPart.isFile() AND tmpPart.getName() EQ "FILETOUPLOAD"> <!---   --->
+			               <cfset fileName=tmpPart.getFileName() >
+			            </cfif>
+			        </cfloop>
+			    </cfif>
+				<cfif not isdefined("filename") or len(filename) is 0>
+					Didn't get filename<cfabort>
+				</cfif>
+				<!---- read the file ---->
+				<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+				<!---- temporary safe name ---->
+				<cfset tempName=createUUID()>
+				<!---- stash the file in the sandbox ---->
+				<cffile	action = "upload" destination = "#Application.sandbox#/#tempName#.tmp" fileField = "FILETOUPLOAD">
+				<!--- send it to S3 ---->
+				<cfset utilities = CreateObject("component","component.utilities")>
+				<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
 
-
-
-<!---- get the filename as uploaded ---->
-    <cfset tmpPartsArray = Form.getPartsArray() />
-
-    <cfif IsDefined("tmpPartsArray")>
-        <cfloop array="#tmpPartsArray#" index="tmpPart">
-            <cfif tmpPart.isFile() AND tmpPart.getName() EQ "FILETOUPLOAD"> <!---   --->
-               <cfset fileName=tmpPart.getFileName() >
-            </cfif>
-        </cfloop>
-    </cfif>
-
-	<br>filename:#fileName#
-
-<!---- read the file ---->
-	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	<!---- temporary safe name ---->
-			<cfset tempName=createUUID()>
-<!---- stash the file in the sandbox ---->
-	<cffile
-		action = "upload"
-		destination = "#Application.sandbox#/#tempName#.tmp"
-		fileField = "FILETOUPLOAD"
-	>
-
-	<!--- send it to S3 ---->
-<cfset utilities = CreateObject("component","component.utilities")>
-<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
-
-
-uploaded to #Application.sandbox#/#tempName#.tmp
-
-
-<cfdump var=#x#>
-<cfabort>
-<!----
-
-
-
-	<cfargument name="tmp_path" required="yes">
-	<cfargument name="filename" required="yes">
-				<cfinvoke
-component = "component.utilities"
-method = "loadFileS3_loadOnly"
-returnVariable = "v_rtn"
-argumentCollection = "#form#">
------>
-<!----
-<cfinclude template="/component/utilities.cfc?method=loadFileS3&returnFormat=json">
-	---->
-				<cfdump var=#v_rtn#>
-
-
+				<cfif not isdefined("x.STATUSCODE") or x.STATUSCODE) is 200 or not isdefined("x.MEDIA_URI") or len(x.MEDIA_URI) is 0>
+					upload fail<cfdump var=#x#><cfabort>
+				</cfif>
+				<cfset preview_uri=x.MEDIA_URI>
 			</cfif>
-
-			<cfabort>
 			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update media set
 				media_uri='#escapeQuotes(media_uri)#',
