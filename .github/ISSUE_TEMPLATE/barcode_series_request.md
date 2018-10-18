@@ -1,3 +1,9 @@
+---
+name: Barcode Series Request
+about: Request a new barcode series
+
+---
+
 Issue Documentation is at http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html
 Barcode Series Documentation is at http://handbook.arctosdb.org/documentation/container.html#barcode-series
 
