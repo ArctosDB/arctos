@@ -79,10 +79,6 @@
 				Message looks like spam.<cfabort>
 			</cfif>
 		</cfloop>
-
-		processing normal stuff....<cfabort>
-
-
 		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
 			You did not enter the right text. Please use your back button.
 			<cfabort>
