@@ -37,6 +37,18 @@
 			<cfdump var=#form#>
 			<cfif len(previewUpload) gt 0>
 				got a new preview....
+				<cfinvoke
+component = "/component/utilities.cfc"
+method = "loadFileS3"
+returnVariable = "v_rtn"
+argumentCollection = "#form#">
+
+<!----
+<cfinclude template="/component/utilities.cfc?method=loadFileS3&returnFormat=json">
+	---->
+				<cfdump var=#v_rtn#>
+
+
 			</cfif>
 
 			<cfabort>
