@@ -43,7 +43,7 @@
 
 
 
-    <cfset var tmpPartsArray = Form.getPartsArray() />
+    <cfset tmpPartsArray = Form.getPartsArray() />
 
     <cfif IsDefined("tmpPartsArray")>
         <cfloop array="#tmpPartsArray#" index="tmpPart">
