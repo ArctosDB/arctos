@@ -67,6 +67,15 @@
 </cfif>
 <cfif action is "sendMail">
 	<cfoutput>
+		<cfif refindnocase("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?",msg)>
+			found link
+			<cfabort>
+			<cfelse>
+			no link
+			<cfabort>
+			</cfif>
+
+
 		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
 			You did not enter the right text. Please use your back button.
 			<cfabort>
@@ -79,6 +88,8 @@
 			A name is required to proceed. Please use your back button.
 			<cfabort>
 		</cfif>
+		<!--- see if we can detect spam links --->
+
 		<cfmail subject="Arctos Contact"
 			replyto="#email#"
 			to="#Application.bugReportEmail#"
