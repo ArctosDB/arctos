@@ -58,10 +58,30 @@
 				<!--- send it to S3 ---->
 				<cfset utilities = CreateObject("component","component.utilities")>
 				<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
+<cfif not isdefined("x.STATUSCODE")>
+nodefsc
+</cfif>
+		<cfif x.STATUSCODE is not 200>
+			no200
+		</cfif>
+		<cfif not isdefined("x.MEDIA_URI")>
+			nodefuri
+		</cfif>
+		<cfif len(x.MEDIA_URI) is 0>
+
+		muri0
+
+		</cfif>
+
 
 				<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
 					upload fail<cfdump var=#x#><cfabort>
 				</cfif>
+
+				 upload fail {"MIME_TYPE":"image\/png","MD5":"74a4b69549b887fe6893708ea22a0eb9","FILENAME":"Screen_Shot_2018_10_17_at_4_40_15_PM.png",
+				 "STATUSCODE":200,"MEDIA_URI":"https:\/\/web.corral.tacc.utexas.edu\/arctos-s3\/dlm\/2018-10-18\/Screen_Shot_2018_10_17_at_4_40_15_PM.png","MEDIA_TYPE":"image"}
+
+
 				<cfset preview_uri=x.MEDIA_URI>
 			</cfif>
 			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
