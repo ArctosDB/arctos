@@ -67,23 +67,14 @@
 </cfif>
 <cfif action is "sendMail">
 	<cfoutput>
+		<cfset urlRegex = "(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))">
+		<cfset UrlCount = rematch(urlRegex,msg)>
+		<cfif arraylen(urlcount) gt 0>
+			Links are not allowed.<cfabort>
+		</cfif>
 
 
-			<cfset urlRegex = "(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))">
-
-			<cfset UrlCount = rematch(urlRegex,msg)>
-
-		UrlCount::
-		<cfdump var=#UrlCount#>
-<cfabort>
-
-		<cfif refindnocase("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?",msg)>
-			found link
-			<cfabort>
-			<cfelse>
-			no link
-			<cfabort>
-			</cfif>
+		processing normal stuff....<cfabort>
 
 
 		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
