@@ -34,7 +34,6 @@
 			</p>
 		</div>
 		---->
-		<cftransaction>
 			<!--- update media --->
 			<cfif len(FILETOUPLOAD) gt 0>
 				<!---- get the filename as uploaded ---->
@@ -88,6 +87,7 @@ nodefsc
 
 				<cfset preview_uri=x.MEDIA_URI>
 			</cfif>
+		<cftransaction>
 			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update media set
 				media_uri='#escapeQuotes(media_uri)#',
