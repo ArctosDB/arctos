@@ -24,6 +24,7 @@
 			</cfhttp>
 			<cfif not isjson(jmc.Filecontent)>
 				<cfreturn "Invalid return for https://dx.doi.org/#doi#">
+				<cfdump var=#jmc#>
 			</cfif>
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
