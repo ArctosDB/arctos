@@ -68,7 +68,31 @@
 <cfif action is "sendMail">
 	<cfoutput>
 
+<cffunction name="testTooManyUrls" access="public" output="false" returntype="struct" hint="I test whether too many URLs have been submitted in fields">
+		<cfargument name="FormStruct" required="true" type="struct" />
+		<cfscript>
+			var Result = StructNew();
+			var checkfield = "";
+			var urlRegex = "(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))";
+			var UrlCount = "";
 
+			Result.Pass = true;
+			for (checkfield in arguments.FormStruct)   {
+				UrlCount = arrayLen(rematch(urlRegex,arguments.FormStruct[checkfield])) - 1;
+				if (UrlCount GTE getConfig().tooManyUrlsMaxUrls)   {
+					Result.Pass = false;
+					break;
+				}
+			}
+			return Result;
+		</cfscript>
+	</cffunction>
+
+<cfset x=testTooManyUrls(form)>
+
+<cfdump var=#x#>
+
+<cfabort>
 
 		<cfif refindnocase("([a-zA-Z0-9]+://)?([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?(/.*)?",msg)>
 			found link
