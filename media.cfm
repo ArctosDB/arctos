@@ -39,6 +39,25 @@
 			<cfdump var=#form#>
 			<cfif len(FILETOUPLOAD) gt 0>
 				got a new preview....
+
+
+
+
+    <cfset var tmpPartsArray = Form.getPartsArray() />
+
+    <cfif IsDefined("tmpPartsArray")>
+        <cfloop array="#tmpPartsArray#" index="tmpPart">
+            <cfif tmpPart.isFile() AND tmpPart.getName() EQ "FILETOUPLOAD"> <!---   --->
+               <cfset fileName=tmpPart.getName()>
+            </cfif>
+        </cfloop>
+    </cfif>
+
+	<br>filename:#fileName#
+
+<cfabort>
+
+
 				<cfinvoke
 component = "component.utilities"
 method = "loadFileS3"
