@@ -31,7 +31,7 @@
 
 
 			<p>	jmcdump above... </p>
-			<cfif not isjson(jmc.Filecontent)>
+			<cfif left(jmc.Statuscode,3) is not "200" or len(jmc.Filecontent) is 0>
 				<cfreturn "Invalid return for https://dx.doi.org/#doi#">
 			</cfif>
 			<cfquery name="dc" datasource="uam_god">
