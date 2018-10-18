@@ -42,7 +42,7 @@
 
 
 
-
+<!---- get the filename as uploaded ---->
     <cfset tmpPartsArray = Form.getPartsArray() />
 
     <cfif IsDefined("tmpPartsArray")>
@@ -55,23 +55,29 @@
 
 	<br>filename:#fileName#
 
-
+<!---- read the file ---->
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+	<!---- temporary safe name ---->
 			<cfset tempName=createUUID()>
-
+<!---- stash the file in the sandbox ---->
 	<cffile
 		action = "upload"
 		destination = "#Application.sandbox#/#tempName#.tmp"
 		fileField = "FILETOUPLOAD"
 	>
 
+	<!--- send it to S3 ---->
+<cfset utilities = CreateObject("component","component.utilities")>
+<cfset x=utilities.loadFileS3_loadOnly("#Application.sandbox#/#tempName#.tmp",fileName)>
+
+
 uploaded to #Application.sandbox#/#tempName#.tmp
 
 
+<cfdump var=#x#>
 <cfabort>
 <!----
-	<cfset utilities = CreateObject("component","component.utilities")>
-	<cfset x=utilities.loadFileS3_loadOnly(FILETOUPLOAD,fileName)>
+
 
 
 	<cfargument name="tmp_path" required="yes">

@@ -1,19 +1,18 @@
 <cfcomponent>
 
-<cffunction name="loadFileS3_loadOnly" output="false" returnType="any" access="remote">
+<cffunction name="sandboxToS3" output="false" returnType="any" access="remote">
 	<!---
 		upload a file and return a URL
 		accept:
 		path to tmp
 		filename as loaded
+
 	---->
 	<cfargument name="tmp_path" required="yes">
 	<cfargument name="filename" required="yes">
 
-	hi
-		<cffile variable="content" action = "readBinary"  file="#tmp_path#">
 
-	<cfabort>
+
 
 	<cftry>
 		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
@@ -46,18 +45,11 @@
 		</cfhttp>
 
 
-		<cfset tempName=createUUID()>
 
 		<cffile variable="content" action = "readBinary"  file="#tmp_path#">
 
-		<cfdump var=#content#>
 
 
-		<cfabort>
-
-
-		<cfset fileName=cffile.serverfile>
-		<cffile action = "rename" destination="#Application.sandbox#/#tempName#.tmp" source="#Application.sandbox#/#fileName#">
 		<cfset fext=listlast(fileName,".")>
 		<cfset fName=listdeleteat(fileName,listlen(filename,'.'),'.')>
 		<cfset fName=REReplace(fName,"[^A-Za-z0-9_$]","_","all")>
@@ -69,10 +61,9 @@
 			<cfset r.msg=vfn>
 			<cfreturn serializeJSON(r)>
 		</cfif>
-		<cfset lclFile="#Application.sandbox#/#fileName#">
 		<!--- generate a checksum while we're holding the binary ---->
 		<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
-		<!--- see if the image exists ---->
+		<!--- see if the media exists ---->
 		<cfquery name="ckck" datasource="uam_god">
 			select media_id from media_labels where MEDIA_LABEL='MD5 checksum' and LABEL_VALUE='#md5#'
 		</cfquery>
@@ -169,51 +160,6 @@
 		</cfhttp>
 		<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#fileName#">
 
-		<!----
-			the nothumb var allows for just uploading an image eg a new thumb
-			https://github.com/ArctosDB/arctos/issues/1659
-		---->
-		<cfif nothumb is false and IsImageFile("#Application.sandbox#/#tempName#.tmp")>
-			<!---- make a thumbnail ---->
-			<cfimage action="info" structname="imagetemp" source="#Application.sandbox#/#tempName#.tmp">
-			<cfset x=min(180/imagetemp.width, 180/imagetemp.height)>
-			<cfset newwidth = x*imagetemp.width>
-	    	<cfset newheight = x*imagetemp.height>
-		    <cfset barefilename=listgetat(filename,1,".")>
-		    <cfset tfilename="tn_#barefilename#.jpg">
-		   	<cfimage action="convert" source="#Application.sandbox#/#tempName#.tmp" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
-		   	<cfimage action="resize" source="#Application.sandbox#/#tfilename#" width="#newwidth#" height="#newheight#" destination="#Application.sandbox#/#tfilename#" overwrite = "true">
-		   	<cfset bucket="#lcase(session.username)#/#dateformat(now(),'YYYY-MM-DD')#/tn">
-			<cfset currentTime = getHttpTimeString( now() ) />
-			<cfset contentType = "image/jpeg" />
-			<cffile variable="content" action = "readBinary"  file="#Application.sandbox#/#tfilename#">
-			<cfset contentLength=arrayLen( content )>
-			<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket & "/" & tfilename
-			] />
-			<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-			<cfset signature = binaryEncode(
-				binaryDecode(
-					hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
-					"hex"
-				),
-				"base64"
-			)>
-			<cfhttp result="putTN" method="put" url="#s3.s3_endpoint#/#bucket#/#tfilename#">
-				<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
-			    <cfhttpparam type="header" name="Content-Length"  value="#contentLength#" />
-			    <cfhttpparam type="header" name="Content-Type"  value="#contentType#" />
-			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-			    <cfhttpparam type="body" value="#content#" />
-			</cfhttp>
-			<cfset r.preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#tfilename#">
-		<cfelse>
-			<cfset r.preview_uri="">
-		</cfif>
 		<!--- statuscode of putting the actual file - the important thing--->
 	    <cfset r.statusCode=left(putfile.statusCode,3)>
 	  	<cfif r.statuscode is not "200">
