@@ -7,6 +7,9 @@
 		<cfquery name="c" datasource="uam_god">
 			select * from cache_publication_sdata where source='opencitations' and doi='#doi#' and last_date > sysdate-30
 		</cfquery>
+
+				<cfdump var=#c#>
+
 		<cfif c.recordcount gt 0>
 			<!---this gets validated before cache so should be skookum --->
 			<cfset x=DeserializeJSON(c.json_data)>
@@ -22,9 +25,12 @@
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 			</cfhttp>
+
+				<cfdump var=#jmc#>
+
+
 			<cfif not isjson(jmc.Filecontent)>
 				<cfreturn "Invalid return for https://dx.doi.org/#doi#">
-				<cfdump var=#jmc#>
 			</cfif>
 			<cfquery name="dc" datasource="uam_god">
 				delete from cache_publication_sdata where source='opencitations' and doi='#doi#'
