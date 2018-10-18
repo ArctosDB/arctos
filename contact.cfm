@@ -72,7 +72,13 @@
 		<cfif arraylen(urlcount) gt 0>
 			Links are not allowed.<cfabort>
 		</cfif>
+		<cfset spamwords="blog,blogging,amazing,offers">
 
+		<cfloop list="#spamwords#" index="i">
+			<cfif msg contains i>
+				Message looks like spam.<cfabort>
+			</cfif>
+		</cfloop>
 
 		processing normal stuff....<cfabort>
 
