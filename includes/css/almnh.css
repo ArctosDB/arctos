@@ -1,0 +1,26 @@
+
+.headerInstitutionText, .headerCollectionText{
+color:white;
+}
+
+#headerLinks, #headerLinks a {
+color:white;
+size:small;
+}
+#headerLinks a:hover {
+color:gray;
+}
+
+
+.headerInstitutionText a:link { color:white }
+.headerInstitutionText a:visited { color:white; }
+.headerInstitutionText a:hover { color:gray}
+.headerInstitutionText a:active { color:white }
+
+
+.headerCollectionText a:link { color:white }
+.headerCollectionText a:visited { color:white; }
+.headerCollectionText a:hover { color:gray}
+.headerCollectionText a:active { color:white }
+
+#header-link-cell{text-align:center;}
