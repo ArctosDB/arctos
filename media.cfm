@@ -18,7 +18,6 @@
 <!----------------------------------------------------------------------------------------->
 <cfif action is "saveEdit">
 	<cfoutput>
-		<!----
 		<div class="error">
 			<p>
 				DO NOT USE YOUR BACK BUTTON.
@@ -33,8 +32,6 @@
 				<a href="media.cfm?action=edit&media_id=#media_id#">try this instead</a>
 			</p>
 		</div>
-		---->
-			<!--- update media --->
 			<cfif len(FILETOUPLOAD) gt 0>
 				<!---- get the filename as uploaded ---->
 			    <cfset tmpPartsArray = Form.getPartsArray() />
@@ -61,33 +58,13 @@
 					upload fail<cfdump var=#x#><cfabort>
 				</cfif>
 				<cfset x=deserializeJson(x)>
-<cfif not isdefined("x.STATUSCODE")>
-nodefsc
-</cfif>
-		<cfif x.STATUSCODE is not 200>
-			no200
-		</cfif>
-		<cfif not isdefined("x.MEDIA_URI")>
-			nodefuri
-		</cfif>
-		<cfif len(x.MEDIA_URI) is 0>
-
-		muri0
-
-		</cfif>
-
-
 				<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
 					upload fail<cfdump var=#x#><cfabort>
 				</cfif>
-
-				 upload fail {"MIME_TYPE":"image\/png","MD5":"74a4b69549b887fe6893708ea22a0eb9","FILENAME":"Screen_Shot_2018_10_17_at_4_40_15_PM.png",
-				 "STATUSCODE":200,"MEDIA_URI":"https:\/\/web.corral.tacc.utexas.edu\/arctos-s3\/dlm\/2018-10-18\/Screen_Shot_2018_10_17_at_4_40_15_PM.png","MEDIA_TYPE":"image"}
-
-
 				<cfset preview_uri=x.MEDIA_URI>
 			</cfif>
 		<cftransaction>
+			<!--- update media --->
 			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update media set
 				media_uri='#escapeQuotes(media_uri)#',
@@ -390,132 +367,87 @@ nodefsc
 
 <!----------------------------------------------------------------------------------------->
 <cfif action is "newMedia">
-	deprecated - please file an Issue<cfabort>
 	<cfoutput>
-	<p>
-		<span class="helpLink" data-helplink="media_guidelines">READ THE DOCUMENTATION!</span>
-	</p>
-		<form name="newMedia" method="post" action="media.cfm">
-			<input type="hidden" name="action" value="saveNew">
-			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
-			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
-			<label for="media_uri">Media URI</label>
-			<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
-			<label for="preview_uri">Preview URI</label>
-			<input type="text" name="preview_uri" id="preview_uri" size="90">
-			<label for="mime_type">MIME Type</label>
-			<select name="mime_type" id="mime_type" class="reqdClr">
-				<option value=""></option>
-				<cfloop query="ctmime_type">
-					<option value="#mime_type#">#mime_type#</option>
-				</cfloop>
-			</select><span class="infoLink" onclick="getCtDoc('ctmime_type');">Define</span>
+		CAUTION: This form should be used only for special situations.
 
-            <label for="media_type">Media Type</label>
-			<select name="media_type" id="media_type" class="reqdClr">
-				<option value=""></option>
+		<p>
+			This form uploads a file and creates a bare Media record.
+		</p>
+		<p>
+			The Attach/Upload Media link on any page which contains Media will create Media and accompanying thumbnails, and many
+			will automatically create relationships and labels.
+		</p>
+		<form name="newMedia" method="post" action="media.cfm" enctype="multipart/form-data">
+			<input type="hidden" name="action" value="saveNew">
+			<label for="FiletoUpload">upload a file</label>
+			<input type="file" name="FiletoUpload" size="45" >
+			<label for="mime_type">MIME Type</label>
+			<select name="mime_type" id="mime_type">
+				<cfloop query="ctmime_type">
+				    <option value="#mime_type#">#mime_type#</option>
+				</cfloop>
+			</select>
+			<span class="infoLink" onclick="getCtDoc('ctmime_type');">Define</span>
+			<label for="media_type">Media Type</label>
+			<select name="media_type" id="media_type">
 				<cfloop query="ctmedia_type">
 					<option value="#media_type#">#media_type#</option>
 				</cfloop>
-			</select><span class="infoLink" onclick="getCtDoc('ctmedia_type');">Define</span>
-			<label for="media_license_id">License</label>
-			<select name="media_license_id" id="media_license_id">
-				<option value="">NONE</option>
-				<cfloop query="ctmedia_license">
-					<option value="#media_license_id#">#media_license#</option>
-				</cfloop>
-			</select><span class="infoLink" onclick="getCtDoc('ctmedia_license');">Define</span>
-			<label for="relationships">Media Relationships <span class="likeLink" onclick="getCtDoc('ctmedia_relationship');">Define</span></label>
-			<div id="relationships" style="border:1px dashed red;">
-				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)">
-					<option value="">None/Unpick</option>
-					<cfloop query="ctmedia_relationship">
-						<option value="#media_relationship#">#media_relationship#</option>
-					</cfloop>
-				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80" readonly="readonly">
-				<input type="hidden" name="related_id__1" id="related_id__1">
-				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
-			</div>
+			</select>
+			<span class="infoLink" onclick="getCtDoc('ctmedia_type');">Define</span>
 			<br>
-			<label for="labels">Media Labels  <span class="likeLink" onclick="getCtDoc('ctmedia_label');">Define</span></label>
-			<div id="labels" style="border:1px dashed red;">
-				<div id="labelsDiv__1">
-				<select name="label__1" id="label__1" size="1">
-					<option value=""></option>
-					<cfloop query="ctmedia_label">
-						<option value="#media_label#">#media_label#</option>
-					</cfloop>
-				</select>:&nbsp;<input type="text" name="label_value__1" id="label_value__1" size="80">
-				</div>
-				<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
-			</div>
-			<br>
-			<input type="submit"
-				value="Create Media"
-				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'"
-				onmouseout="this.className='insBtn'">
+			<input type="submit" value="upload and create" class="insBtn">
 		</form>
-		<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
-			<cfquery name="s"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select guid from flat where collection_object_id=#collection_object_id#
-			</cfquery>
-			<script language="javascript" type="text/javascript">
-				$("##relationship__1").val('shows cataloged_item');
-				$("##related_value__1").val('#s.guid#');
-				$("##related_id__1").val('#collection_object_id#');
-			</script>
-		</cfif>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------>
 <cfif action is "saveNew">
 <cfoutput>
-	<!--- see if they're making a duplicate ---->
-	<cfquery name="alreadyGotOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select media_id from media where media_uri='#media_uri#'
-	</cfquery>
-	<cfif len(alreadyGotOne.media_id) gt 0>
-		That URI is in use. <a href="/media.cfm?action=edit&media_id=#alreadyGotOne.media_id#">Edit it here</a>
-		<p>
-			If the link above is not the Media you're trying to create, you can rename the file you're trying to upload.
-		</p>
-		<cfabort>
-	</cfif>
-	<cftransaction>
-		<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select sq_media_id.nextval nv from dual
-		</cfquery>
-		<cfset media_id=mid.nv>
-		<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			insert into media (media_id,media_uri,mime_type,media_type,preview_uri<cfif len(media_license_id) gt 0>,media_license_id</cfif>)
-            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#'<cfif len(media_license_id) gt 0>,#media_license_id#</cfif>)
-		</cfquery>
-		<cfloop from="1" to="#number_of_relations#" index="n">
-			<cfset thisRelationship = #evaluate("relationship__" & n)#>
-			<cfset thisRelatedId = #evaluate("related_id__" & n)#>
-			<cfset thisTableName=ListLast(thisRelationship," ")>
-			<cfif len(#thisRelationship#) gt 0 and len(#thisRelatedId#) gt 0>
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into
-						media_relations (
-						media_id,media_relationship,related_primary_key
-					)values (
-						#media_id#,'#thisRelationship#',#thisRelatedId#)
-				</cfquery>
+
+
+			<cfif len(FILETOUPLOAD) is 0>
+				no file<cfabort>
 			</cfif>
-		</cfloop>
-		<cfloop from="1" to="#number_of_labels#" index="n">
-			<cfset thisLabel = #evaluate("label__" & n)#>
-			<cfset thisLabelValue = #evaluate("label_value__" & n)#>
-			<cfif len(#thisLabel#) gt 0 and len(#thisLabelValue#) gt 0>
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					insert into media_labels (media_id,media_label,label_value)
-					values (#media_id#,'#thisLabel#','#thisLabelValue#')
-				</cfquery>
+			<!---- get the filename as uploaded ---->
+		    <cfset tmpPartsArray = Form.getPartsArray() />
+		    <cfif IsDefined("tmpPartsArray")>
+		        <cfloop array="#tmpPartsArray#" index="tmpPart">
+		            <cfif tmpPart.isFile() AND tmpPart.getName() EQ "FILETOUPLOAD"> <!---   --->
+		               <cfset fileName=tmpPart.getFileName() >
+		            </cfif>
+		        </cfloop>
+		    </cfif>
+			<cfif not isdefined("filename") or len(filename) is 0>
+				Didn't get filename<cfabort>
 			</cfif>
-		</cfloop>
-	</cftransaction>
+			<!---- read the file ---->
+			<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
+			<!---- temporary safe name ---->
+			<cfset tempName=createUUID()>
+			<!---- stash the file in the sandbox ---->
+			<cffile	action = "upload" destination = "#Application.sandbox#/#tempName#.tmp" fileField = "FILETOUPLOAD">
+			<!--- send it to S3 ---->
+			<cfset utilities = CreateObject("component","component.utilities")>
+			<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
+			<cfif not isjson(x)>
+				upload fail<cfdump var=#x#><cfabort>
+			</cfif>
+			<cfset x=deserializeJson(x)>
+			<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
+				upload fail<cfdump var=#x#><cfabort>
+			</cfif>
+			<cfset media_uri=x.MEDIA_URI>
+
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select sq_media_id.nextval nv from dual
+			</cfquery>
+			<cfset media_id=mid.nv>
+			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				insert into media (media_id,media_uri,mime_type,media_type)
+	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#')
+			</cfquery>
+
+
 	<p>
 		Media Created <a href="media.cfm?action=edit&media_id=#media_id#">continue to Edit Media</a>
 	</p>
