@@ -21,6 +21,7 @@
 			<cfif not isjson(d.Filecontent)>
 				<cfreturn "Invalid return for http://opencitations.net/index/coci/api/v1/citations/#doi#">
 			</cfif>
+			<p>	going jmc... </p>
 			<cfhttp result="jmc" method="get" url="https://dx.doi.org/#doi#">
 				<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 				<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
@@ -29,6 +30,7 @@
 				<cfdump var=#jmc#>
 
 
+			<p>	jmcdump above... </p>
 			<cfif not isjson(jmc.Filecontent)>
 				<cfreturn "Invalid return for https://dx.doi.org/#doi#">
 			</cfif>
