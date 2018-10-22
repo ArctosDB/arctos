@@ -1338,7 +1338,6 @@ function copyVerbatim(str){
 }
 function populateGeology(id) {
 	
-	return;
 	
 	
 	var idNum=id.replace('geology_attribute_','');
@@ -1349,6 +1348,11 @@ function populateGeology(id) {
 
 	console.log('dataValue::' + dataValue);
 
+	
+	return;
+
+	
+	
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getGeologyValues",
