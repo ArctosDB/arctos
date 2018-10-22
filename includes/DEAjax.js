@@ -1337,6 +1337,10 @@ function copyVerbatim(str){
 	);
 }
 function populateGeology(id) {
+	
+	return;
+	
+	
 	var idNum=id.replace('geology_attribute_','');
 	var thisValue=$("#geology_attribute_" + idNum).val();
 	console.log('thisValue::' + thisValue);
