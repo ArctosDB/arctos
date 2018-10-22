@@ -641,6 +641,7 @@ function loadRecordEdit (collection_object_id) {
 					set_attribute_dropdowns();
 					// turn this thing on when necessary
 					if(ccde=='ES') {
+						console.log('ccde is ES');
 						$("#sort_geology").show();
 					}
 					switchActive($("#orig_lat_long_units").val());
