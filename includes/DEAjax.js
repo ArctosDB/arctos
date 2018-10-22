@@ -631,7 +631,7 @@ function loadRecordEdit (collection_object_id) {
 						} else {
 							$("#" + eName).val(cVal);
 						}
-						//console.log(eName + '-->' + cVal);
+						console.log(eName + '-->' + cVal);
 					}
 
 					// deal with retarded coordinates, where the ID can't match the data column name
