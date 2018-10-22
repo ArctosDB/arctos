@@ -150,6 +150,7 @@
 	<cfset badbot=badbot & ",TweetmemeBot,TurnitinBot">
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",Wotbox">
+	<cfset badbot=badbot & ",VelenPublicWebCrawler">
 	<cfset badbot=badbot & ",YandexBot,Yeti">i">
 
 
