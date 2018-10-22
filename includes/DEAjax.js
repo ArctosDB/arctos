@@ -1348,10 +1348,7 @@ function populateGeology(id) {
 
 	console.log('dataValue::' + dataValue);
 
-	
-	return;
 
-	
 	
 	jQuery.getJSON("/component/functions.cfc",
 		{
