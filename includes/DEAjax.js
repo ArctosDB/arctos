@@ -556,6 +556,7 @@ function loadRecordEdit (collection_object_id) {
 	//load a record in EDIT mode
 	//console.log('loadRecordEdit');
 	msg('fetching data....','wait');
+	populateGeology(1);
 	$.ajax({
 	    url: "/component/Bulkloader.cfc",
 	    dataType: "json",
