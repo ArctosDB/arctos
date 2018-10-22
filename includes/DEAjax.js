@@ -548,7 +548,7 @@ function loadedEditRecord(){
 	
 	
 	        
-	populateGeology('geo_att_value_1');
+	populateGeology('geology_attribute_1');
 	
 	//if (typeof window.history.pushState == 'function') {
 	 // history.replaceState({}, 'DataEntry', theURL);
