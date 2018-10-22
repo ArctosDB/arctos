@@ -1361,7 +1361,14 @@ function populateGeology(id) {
 				}
 				s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 			}
-			$("select#geo_att_value_" + idNum).html(s);				
+			$("select#geo_att_value_" + idNum).html(s);
+			s='<select name="geo_att_value_' + idNum + '" id="geo_att_value_' + idNum + '">' + s;
+			s+="</select>";
+			console.log(s);
+			
+			$("#geo_val_cell_" + idNum).html(s);
+			
+			
 		}
 	);
 }

@@ -976,7 +976,7 @@
 																	</cfloop>
 																</select>
 															</td>
-															<td>
+															<td id='geo_val_cell_#i#'>
 																<!---- initialize this as text; switch to select later --->
 																<input type="text" name="geo_att_value_#i#" id="geo_att_value_#i#">
 															</td>
