@@ -610,6 +610,10 @@ function loadRecordEdit (collection_object_id) {
 						//console.log('a6==weight--' + r.DATA.ATTRIBUTE_6);
 					}
 				}
+				if(ccde=='ES') {
+					console.log('ccde is ES');
+					$("#sort_geology").show();
+				}
 				if (useCustom==false) {
 					ptl+='&useCustom=false';				
 				}
@@ -640,10 +644,10 @@ function loadRecordEdit (collection_object_id) {
 					//$("#loadedMsgDiv").text(r.DATA.LOADED[0]);
 					set_attribute_dropdowns();
 					// turn this thing on when necessary
-					if(ccde=='ES') {
-						console.log('ccde is ES');
-						$("#sort_geology").show();
-					}
+				//	if(ccde=='ES') {
+				//		console.log('ccde is ES');
+				//		$("#sort_geology").show();
+				//	}
 					switchActive($("#orig_lat_long_units").val());
 					loadedEditRecord();
 				});
