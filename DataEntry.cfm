@@ -977,8 +977,7 @@
 																</select>
 															</td>
 															<td>
-																<select name="geo_att_value_#i#" id="geo_att_value_#i#">
-																</select>
+																<input type="text" name="geo_att_value_#i#" id="geo_att_value_#i#">
 															</td>
 															<td>
 																<input type="text"
