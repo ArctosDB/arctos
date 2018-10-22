@@ -556,7 +556,6 @@ function loadRecordEdit (collection_object_id) {
 	//load a record in EDIT mode
 	//console.log('loadRecordEdit');
 	msg('fetching data....','wait');
-	populateGeology("geology_attribute_1");
 	$.ajax({
 	    url: "/component/Bulkloader.cfc",
 	    dataType: "json",
@@ -624,13 +623,20 @@ function loadRecordEdit (collection_object_id) {
 						var cName=columns[i];
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
-						if (cVal == "true") {
-							// ajax form changes "yes" to "true"
-							$("#" + eName).val('yes');
-						} else if (cVal == 'false') {
-							$("#" + eName).val('no');
-						} else {
+						if (eName=='geo_att_value_2'){
 							$("#" + eName).val(cVal);
+							populateGeology('geo_att_value_2');
+							
+							
+						} else {
+							if (cVal == "true") {
+								// ajax form changes "yes" to "true"
+								$("#" + eName).val('yes');
+							} else if (cVal == 'false') {
+								$("#" + eName).val('no');
+							} else {
+								$("#" + eName).val(cVal);
+							}
 						}
 						console.log(eName + '-->' + cVal);
 					}
