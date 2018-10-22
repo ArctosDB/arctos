@@ -977,6 +977,7 @@
 																</select>
 															</td>
 															<td>
+																<!---- initialize this as text; switch to select later --->
 																<input type="text" name="geo_att_value_#i#" id="geo_att_value_#i#">
 															</td>
 															<td>

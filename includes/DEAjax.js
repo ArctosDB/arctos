@@ -557,7 +557,6 @@ function loadRecordEdit (collection_object_id) {
 	
 	
 
-	populateGeology('geo_att_value_2');
 	
 	
 	
@@ -681,6 +680,10 @@ function loadRecordEdit (collection_object_id) {
 			}
 		}
 	);
+	
+	
+	populateGeology('geo_att_value_2');
+
 }
 
 
