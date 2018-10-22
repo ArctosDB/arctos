@@ -547,8 +547,10 @@ function loadedEditRecord(){
 	theURL+='&collection_object_id=' + $("#collection_object_id").val();
 	
 	
-	        
-	populateGeology('geology_attribute_1');
+	$("select[id^='geology_attribute_']").each(function(e){
+		var gid='geology_attribute_' + String(e+1);
+		populateGeology(gid);			
+	});
 	
 	//if (typeof window.history.pushState == 'function') {
 	 // history.replaceState({}, 'DataEntry', theURL);
