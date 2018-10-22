@@ -681,7 +681,7 @@ function loadRecordEdit (collection_object_id) {
 		}
 	);
 	
-	
+	console.log('now geology again');
 	populateGeology('geo_att_value_2');
 
 }
