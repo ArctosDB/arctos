@@ -546,7 +546,7 @@ function loadedEditRecord(){
 	}
 	theURL+='&collection_object_id=' + $("#collection_object_id").val();
 	
-	
+	//
 	$("select[id^='geology_attribute_']").each(function(e){
 		var gid='geology_attribute_' + String(e+1);
 		populateGeology(gid);			
@@ -625,7 +625,7 @@ function loadRecordEdit (collection_object_id) {
 					}
 				}
 				if(ccde=='ES') {
-					console.log('ccde is ES');
+					//console.log('ccde is ES');
 					$("#sort_geology").show();
 				}
 				if (useCustom==false) {
@@ -637,25 +637,14 @@ function loadRecordEdit (collection_object_id) {
 						var cName=columns[i];
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
-						
-						
-						//if (eName=='geo_att_value_2'){
-							
-
-						//	$("#" + eName).val(cVal);
-							
-							
-					//	} else {
-							if (cVal == "true") {
-								// ajax form changes "yes" to "true"
-								$("#" + eName).val('yes');
-							} else if (cVal == 'false') {
-								$("#" + eName).val('no');
-							} else {
-								$("#" + eName).val(cVal);
-							}
-					//	}
-						console.log(eName + '-->' + cVal);
+						if (cVal == "true") {
+							// ajax form changes "yes" to "true"
+							$("#" + eName).val('yes');
+						} else if (cVal == 'false') {
+							$("#" + eName).val('no');
+						} else {
+							$("#" + eName).val(cVal);
+						}
 					}
 
 					// deal with retarded coordinates, where the ID can't match the data column name
@@ -1344,11 +1333,11 @@ function populateGeology(id) {
 	
 	var idNum=id.replace('geology_attribute_','');
 	var thisValue=$("#geology_attribute_" + idNum).val();
-	console.log('thisValue::' + thisValue);
+	//console.log('thisValue::' + thisValue);
 	
 	var dataValue=$("#geo_att_value_" + idNum).val();
 
-	console.log('dataValue::' + dataValue);
+	//console.log('dataValue::' + dataValue);
 
 
 	
@@ -1371,7 +1360,7 @@ function populateGeology(id) {
 			$("select#geo_att_value_" + idNum).html(s);
 			s='<select name="geo_att_value_' + idNum + '" id="geo_att_value_' + idNum + '">' + s;
 			s+="</select>";
-			console.log(s);
+			//console.log(s);
 			
 			$("#geo_val_cell_" + idNum).html(s);
 			
