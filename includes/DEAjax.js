@@ -111,7 +111,7 @@ jQuery(document).ready(function() {
 	});
 	$("select[id^='geology_attribute_']").each(function(e){
 		var gid='geology_attribute_' + String(e+1);
-		populateGeology(gid);			
+	//	populateGeology(gid);			
 	});
 	if (window.addEventListener) {
 		window.addEventListener("message", getGeolocate, false);
