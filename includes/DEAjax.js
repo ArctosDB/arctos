@@ -553,6 +553,16 @@ function loadedEditRecord(){
 }
 
 function loadRecordEdit (collection_object_id) {
+	
+	
+	
+
+	populateGeology('geo_att_value_2');
+	
+	
+	
+	
+	
 	//load a record in EDIT mode
 	//console.log('loadRecordEdit');
 	msg('fetching data....','wait');
@@ -623,12 +633,15 @@ function loadRecordEdit (collection_object_id) {
 						var cName=columns[i];
 						var cVal=eval("r.DATA." + columns[i]);
 						var eName=cName.toLowerCase();
-						if (eName=='geo_att_value_2'){
-							$("#" + eName).val(cVal);
-							populateGeology('geo_att_value_2');
+						
+						
+						//if (eName=='geo_att_value_2'){
+							
+
+						//	$("#" + eName).val(cVal);
 							
 							
-						} else {
+					//	} else {
 							if (cVal == "true") {
 								// ajax form changes "yes" to "true"
 								$("#" + eName).val('yes');
@@ -637,7 +650,7 @@ function loadRecordEdit (collection_object_id) {
 							} else {
 								$("#" + eName).val(cVal);
 							}
-						}
+					//	}
 						console.log(eName + '-->' + cVal);
 					}
 
