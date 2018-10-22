@@ -746,6 +746,15 @@ function loadRecordEnter(collection_object_id){
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
 				if(ccde=='ES') {
+					console.log('is ES');
+					/*
+					 * 
+					 * 
+					$("select[id^='geology_attribute_']").each(function(e){
+						var gid='geology_attribute_' + String(e+1);
+						populateGeology(gid);			
+					});
+					 */
 					$("#sort_geology").show();
 				}
 				// deal with coordinate format
