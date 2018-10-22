@@ -1314,8 +1314,13 @@ function copyVerbatim(str){
 }
 function populateGeology(id) {
 	var idNum=id.replace('geology_attribute_','');
-	var thisValue=$("#geology_attribute_" + idNum).val();;
+	var thisValue=$("#geology_attribute_" + idNum).val();
+	console.log('thisValue::' + thisValue);
+	
 	var dataValue=$("#geo_att_value_" + idNum).val();
+
+	console.log('dataValue::' + dataValue);
+
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getGeologyValues",
