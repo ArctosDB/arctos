@@ -109,10 +109,13 @@ jQuery(document).ready(function() {
 	$("input[type=text]").focus(function(){
 	    //this.select();
 	});
+	// call this after load on edit, as part of enter rather than globally
+	/*
 	$("select[id^='geology_attribute_']").each(function(e){
 		var gid='geology_attribute_' + String(e+1);
-	//	populateGeology(gid);			
+		populateGeology(gid);			
 	});
+	*/
 	if (window.addEventListener) {
 		window.addEventListener("message", getGeolocate, false);
 	} else {
@@ -746,7 +749,7 @@ function loadRecordEnter(collection_object_id){
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
 				if(ccde=='ES') {
-					console.log('is ES');
+					//console.log('is ES');
 					/*
 					 * 
 					 * 
@@ -1337,19 +1340,11 @@ function copyVerbatim(str){
 	);
 }
 function populateGeology(id) {
-	
-	
-	
 	var idNum=id.replace('geology_attribute_','');
 	var thisValue=$("#geology_attribute_" + idNum).val();
 	//console.log('thisValue::' + thisValue);
-	
 	var dataValue=$("#geo_att_value_" + idNum).val();
-
 	//console.log('dataValue::' + dataValue);
-
-
-	
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getGeologyValues",
@@ -1370,10 +1365,7 @@ function populateGeology(id) {
 			s='<select name="geo_att_value_' + idNum + '" id="geo_att_value_' + idNum + '">' + s;
 			s+="</select>";
 			//console.log(s);
-			
-			$("#geo_val_cell_" + idNum).html(s);
-			
-			
+			$("#geo_val_cell_" + idNum).html(s);	
 		}
 	);
 }
@@ -1398,7 +1390,6 @@ function changeCollection(v){
 */
 /* recheck */
 function requirePartAtts(i,v){
-	
 	for (i=1;i<=12;i++){
 		if ($("#part_name_" + i) && $("#part_name_" + i).val().length>0){
 			$("#part_condition_" + i).addClass('reqdClr');
