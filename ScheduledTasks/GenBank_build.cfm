@@ -34,7 +34,7 @@
 	where
 		a.collection_object_id = b.collection_object_id AND
 		a.collection_id = c.collection_id AND
-		b.other_id_type='BioSample'
+		b.other_id_type='NCBI Biosample'
 </cfquery>
 <cfset numberOfFiles=ceiling(BioSample.recordcount/numberOfRecords)>
 <cfset startrownum=1>

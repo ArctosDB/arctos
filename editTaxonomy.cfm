@@ -1968,7 +1968,10 @@
 		<span class="helpLink" data-helplink="taxon_relations">Related Taxa:</span>
 		<table border="1">
 			<tr>
-				<th>Relationship</th>
+				<th>
+					Relationship
+						<span class="infoLink" onclick="getCtDoc('CTTAXON_RELATION');">Define</span>
+				</th>
 				<th>Related Taxa</th>
 				<th>Authority</th>
 			</tr>
