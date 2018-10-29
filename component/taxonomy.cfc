@@ -39,8 +39,8 @@
 		select
 			TAXON_RELATIONSHIP,
 			RELATION_AUTHORITY,
-			a.scientific_name this_name,
-			b.scientific_name related_name
+			a.scientific_name related_name,
+			b.scientific_name this_name
 		from
 			taxon_relations,
 			taxon_name a,
@@ -55,8 +55,8 @@
 		select
 			TAXON_RELATIONSHIP,
 			RELATION_AUTHORITY,
-			b.scientific_name this_name,
-			a.scientific_name related_name
+			b.scientific_name related_name ,
+			a.scientific_name this_name
 		from
 			taxon_relations,
 			taxon_name a,
