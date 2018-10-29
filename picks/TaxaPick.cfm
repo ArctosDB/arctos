@@ -49,8 +49,10 @@
 		        }
 					console.log(rd);
 					console.log(tid);
+					if (rd.length>0){
 
-		         $("#t_" + tid).append(rd);
+		        		$("#t_" + tid).append(rd);
+					}
 		        },
 		          error: function (xhr, textStatus, errorThrown){
 		            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
