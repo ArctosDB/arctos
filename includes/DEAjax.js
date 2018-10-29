@@ -1,5 +1,5 @@
 function buildTaxonName(){
-	var namestring='boogity';
+	var namestring=$("#taxon_name").val();
 		//$('#taxon_name').val();
 	
 	var guts = "/form/taxonNameBuilder.cfm?scientific_name=" + namestring;
