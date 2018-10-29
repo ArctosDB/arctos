@@ -65,7 +65,7 @@
 			taxon_relations.taxon_name_id=b.taxon_name_id and
 			taxon_relations.related_taxon_name_id=#taxon_name_id#
 	</cfquery>
-	<cfset d=[]>
+	<cfset d={}>
     <cfloop query="related">
 	  	<cfset tr='#this_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a href="/name/#related_name#">#related_name#</a>'>
 
