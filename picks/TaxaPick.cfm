@@ -45,7 +45,7 @@
 		          var rd='';
 		          for (i=0;i<r.ROWCOUNT;i++) {
 		          	console.log(i);
-		          	rd+='<div><a href="/name/' + r.DATA.SCIENTIFIC_NAME[i] + '">' + r.DATA.SCIENTIFIC_NAME[i] + '</a> ' + r.DATA.TAXON_RELATIONSHIP[i] + ' ' + r.DATA.RELDIR[i] + ' this name</div>';
+		          	rd+='<div><a target="_blank" href="/name/' + r.DATA.SCIENTIFIC_NAME[i] + '">' + r.DATA.SCIENTIFIC_NAME[i] + '</a> ' + r.DATA.TAXON_RELATIONSHIP[i] + ' ' + r.DATA.RELDIR[i] + ' this name</div>';
 
 					console.log(rd);
 
@@ -72,6 +72,16 @@
 				}
 			);
 		}
+
+		function useThisOne(formName,taxonIdFld,taxonNameFld,taxon_name_id,scientific_name){
+
+
+			opener.document.formName.taxonIdFld.value=taxon_name_id;
+			opener.document.formName.taxonNameFld.value=scientific_name;
+			alert('close');
+
+
+			}
 	</script>
 	<cfoutput>
 		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
@@ -208,10 +218,10 @@
 	<cfelse>
 		<cfoutput query="getTaxa">
 			<div>
-				<a href="##"
-					onClick="javascript: opener.document.#formName#.#taxonIdFld#.value='#taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#scientific_name#';self.close();">
-						#scientific_name#
-				</a>
+				#scientific_name#
+				<a target="_blank" href="/name/#scientific_name#">[ details ]</a>
+				<span class="likeLink" onclick="useThisOne('#formName#','#taxonIdFld#','#taxonNameFld#','#taxon_name_id#','#scientific_name#')">[ use ]</span>
+
 				<div class="tsdiv" id="t_#taxon_name_id#" data-tid="#taxon_name_id#"></div>
 			</div>
 	<!---
