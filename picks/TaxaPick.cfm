@@ -43,11 +43,13 @@
 		        },
 		        success: function(r) {
 		        	console.log(r);
+		        	var rd='';
 		        	for (i=0;i<r.ROWCOUNT;i++) {
     					console.log(r.DATA.RELATIONSHIP[i]);
+    					var rd+='<div>' + r.DATA.RELATIONSHIP[i] + '</div>';
 		        	}
 
-
+					$("#t_" + tid).append(rd);
 		         // var rd='';
 		         // for (i=0;i<r.ROWCOUNT;i++) {
 		         // 	console.log(i);
