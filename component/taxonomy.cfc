@@ -3,10 +3,10 @@
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getRelatedTaxa" access="remote">
 		<!---- hierarchical taxonomy editor ---->
-		<cfargument name="taxon_name_id" type="numeric" required="true">
+		<cfargument name="TAXON_NAME_ID" type="numeric" required="true">
 		<cfoutput>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-				select reldir,scientific_name,TAXON_RELATIONSHIP from (
+				select #TAXON_NAME_ID# TAXON_NAME_ID,reldir,scientific_name,TAXON_RELATIONSHIP from (
 					select
 						'from' reldir,
 						scientific_name,

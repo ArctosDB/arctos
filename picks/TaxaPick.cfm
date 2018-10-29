@@ -46,9 +46,10 @@
 		          for (i=0;i<r.ROWCOUNT;i++) {
 		          	rd+='<a href="/name/' + r.DATA.SCIENTIFIC_NAME + '">' + r.DATA.SCIENTIFIC_NAME + '</a> ' + r.DATA.TAXON_RELATIONSHIP + ' ' + r.DATA.RELDIR + ' this name';
 
-					console.log(rd);
 		        }
 				var rd='i am some text';
+					console.log(rd);
+					console.r.TAXON_NAME_ID;
 
 		         $("#t_" + r.TAXON_NAME_ID).append(rd);
 		        },
