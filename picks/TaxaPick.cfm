@@ -23,7 +23,7 @@
 		        },
 		        success: function(r) {
 		          if ((r.STATUS) && r.STATUS=='success'){
-		          	$("#t_" + r.TAXON_NAME_ID).html(r.TAXON_STATUS);
+		          	$("#t_" + r.TAXON_NAME_ID).append(r.TAXON_STATUS);
 		          }
 		          // else do nothing; this isn't that important
 		        },
@@ -45,7 +45,9 @@
 		          var rd;
 		          for (i=0;i<r.ROWCOUNT;i++) {
 		          	rd+='<a href="/name/' + r.DATA.SCIENTIFIC_NAME + '">' + r.DATA.SCIENTIFIC_NAME + '</a> ' + r.DATA.TAXON_RELATIONSHIP + ' ' + r.DATA.RELDIR + ' this name';
-		        	}
+
+		          	$("#t_" + r.TAXON_NAME_ID).append(rd);
+		        }
 
 		        },
 		          error: function (xhr, textStatus, errorThrown){
