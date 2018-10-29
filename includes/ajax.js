@@ -1751,11 +1751,13 @@ function findMedia(mediaStringFld,mediaIdFld,media_uri){
 	popurl=url+"?mediaIdFld="+mediaIdFld+"&mediaStringFld="+mediaStringFld+"&media_uri="+media_uri;
 	mediapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
+
+
 function taxaPick(taxonIdFld,taxonNameFld,formName,scientificName){
 	var url,popurl;
 	url="/picks/TaxaPick.cfm";
 	popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
-	taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
+	taxapick=window.open(popurl,"","width=800,height=800, resizable,scrollbars");
 }
 function taxaPickIdentification(taxonIdFld,taxonNameFld,formName,scientificName){
 	var url,popurl;

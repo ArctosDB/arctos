@@ -1,9 +1,5 @@
 function buildTaxonName(){
-	var namestring=encodeURIComponent($("#taxon_name").val());
-		//$('#taxon_name').val();
-	
-	console.log(namestring);
-	
+	var namestring=encodeURIComponent($("#taxon_name").val());	
 	var guts = "/form/taxonNameBuilder.cfm?scientific_name=" + namestring;
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
