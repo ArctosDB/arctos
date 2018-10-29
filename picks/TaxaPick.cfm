@@ -42,7 +42,7 @@
 		          returnformat : "json"
 		        },
 		        success: function(r) {
-		          var rd;
+		          var rd='';
 		          for (i=0;i<r.ROWCOUNT;i++) {
 		          	console.log(i);
 		          	rd+='<div><a href="/name/' + r.DATA.SCIENTIFIC_NAME[i] + '">' + r.DATA.SCIENTIFIC_NAME[i] + '</a> ' + r.DATA.TAXON_RELATIONSHIP[i] + ' ' + r.DATA.RELDIR[i] + ' this name</div>';
