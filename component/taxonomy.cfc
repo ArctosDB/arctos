@@ -5,6 +5,7 @@
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="TAXON_NAME_ID" type="numeric" required="true">
 		<cfoutput>
+			<!----
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 				select #TAXON_NAME_ID# TAXON_NAME_ID,reldir,scientific_name,TAXON_RELATIONSHIP from (
 					select
@@ -31,6 +32,47 @@
 				) order by scientific_name
 
 			</cfquery>
+
+---->
+
+<cfquery name="related" datasource="uam_god">
+		select
+			TAXON_RELATIONSHIP,
+			RELATION_AUTHORITY,
+			a.scientific_name this_name,
+			b.scientific_name related_name
+		from
+			taxon_relations,
+			taxon_name a,
+			taxon_name b
+		where
+			taxon_relations.related_taxon_name_id=a.taxon_name_id and
+			taxon_relations.taxon_name_id=b.taxon_name_id and
+			taxon_relations.taxon_name_id=#taxon_name_id#
+	</cfquery>
+
+	<cfquery name="revrelated" datasource="uam_god">
+		select
+			TAXON_RELATIONSHIP,
+			RELATION_AUTHORITY,
+			b.scientific_name this_name,
+			a.scientific_name related_name
+		from
+			taxon_relations,
+			taxon_name a,
+			taxon_name b
+		where
+			taxon_relations.related_taxon_name_id=a.taxon_name_id and
+			taxon_relations.taxon_name_id=b.taxon_name_id and
+			taxon_relations.related_taxon_name_id=#taxon_name_id#
+	</cfquery>
+	<cfset d=[]>
+    <cfloop query="related">
+		<cfset tr="#this_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a href='/name/#related_name#'>#related_name#</a>">
+        <cfif len(RELATION_AUTHORITY) gt 0>
+			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
+		</cfif>
+     </cfloop>
 
 			<cfreturn d>
 		</cfoutput>
