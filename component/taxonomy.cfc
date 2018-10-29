@@ -80,7 +80,7 @@
         <cfif len(RELATION_AUTHORITY) gt 0>
 			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
 		</cfif>
-		<cfset queryAddRow(d,{relationship=tr)>
+		<cfset queryAddRow(d,{relationship="#tr#")>
      </cfloop>
 			<cfreturn d>
 		</cfoutput>
