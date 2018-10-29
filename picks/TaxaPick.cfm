@@ -44,7 +44,7 @@
 		        success: function(r) {
 		        	console.log(r);
 		        	for (i=0;i<r.ROWCOUNT;i++) {
-    					console.log(r.RELATIONSHIP[i]);
+    					console.log(r.DATA.RELATIONSHIP[i]);
 		        	}
 
 
