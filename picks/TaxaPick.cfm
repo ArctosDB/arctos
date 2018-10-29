@@ -47,9 +47,10 @@
 		          	rd+='<a href="/name/' + r.DATA.SCIENTIFIC_NAME + '">' + r.DATA.SCIENTIFIC_NAME + '</a> ' + r.DATA.TAXON_RELATIONSHIP + ' ' + r.DATA.RELDIR + ' this name';
 
 					console.log(rd);
-		          	$("#t_" + r.TAXON_NAME_ID).append(rd);
 		        }
+				var rd='i am some text';
 
+		         $("#t_" + r.TAXON_NAME_ID).append(rd);
 		        },
 		          error: function (xhr, textStatus, errorThrown){
 		            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
