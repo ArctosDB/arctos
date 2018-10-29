@@ -81,6 +81,9 @@
 			function useThisOne(formName,taxonIdFld,taxonNameFld,taxon_name_id,scientific_name){
 			opener.document.#formName#.#taxonIdFld#.value=taxon_name_id;
 			opener.document.#formName#.#taxonNameFld#.value=scientific_name;
+			opener.document.#formName#.#taxonNameFld#.removeClass('badPick');
+			opener.document.#formName#.#taxonNameFld#.addClass('goodPick');
+
 			alert('close');
 
 
