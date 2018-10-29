@@ -73,17 +73,19 @@
 			);
 		}
 
-		function useThisOne(formName,taxonIdFld,taxonNameFld,taxon_name_id,scientific_name){
 
+	</script>
+	<cfoutput>
 
-			opener.document.formName.taxonIdFld.value=taxon_name_id;
-			opener.document.formName.taxonNameFld.value=scientific_name;
+		<script>
+			function useThisOne(formName,taxonIdFld,taxonNameFld,taxon_name_id,scientific_name){
+			opener.document.#formName#.#taxonIdFld#.value=taxon_name_id;
+			opener.document.#formName#.#taxonNameFld#.value=scientific_name;
 			alert('close');
 
 
 			}
-	</script>
-	<cfoutput>
+		</script>
 		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
 			<cfset session.taxaPickPrefs="anyterm">
 		</cfif>
