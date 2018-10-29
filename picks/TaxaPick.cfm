@@ -43,11 +43,10 @@
 		        },
 		        success: function(r) {
 		          var rd;
-		          $.each( r.SCIENTIFIC_NAME,function( k, v ) {
-		          	rd+='<a href="/name/' + r.SCIENTIFIC_NAME + '">' + r.SCIENTIFIC_NAME + '</a> ' + TAXON_RELATIONSHIP + ' ' + r.RELDIR + ' this name';
-		          	$("#t_" + r.TAXON_NAME_ID).append(rd);
-		          	});
-		          // else do nothing; this isn't that important
+		          for (i=0;i<r.ROWCOUNT;i++) {
+		          	rd+='<a href="/name/' + r.DATA.SCIENTIFIC_NAME + '">' + r.DATA.SCIENTIFIC_NAME + '</a> ' + r.DATA.TAXON_RELATIONSHIP + ' ' + r.DATA.RELDIR + ' this name';
+		        	}
+
 		        },
 		          error: function (xhr, textStatus, errorThrown){
 		            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
