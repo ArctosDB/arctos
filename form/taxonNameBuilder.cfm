@@ -82,7 +82,7 @@
 	});
 </script>
 <cfoutput>
-
+	<cfparam name="scientific_name" default="">
 	scientific_name==#scientific_name#
 	<cfquery name="cttaxa_formula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
        	select taxa_formula,DESCRIPTION from cttaxa_formula order by taxa_formula
@@ -101,7 +101,7 @@
 		</select>
 		<div id="dt1">
 			<label for="t1">Type to select Taxon Name A, or <span class="likeLink" onclick="taxaPick('nothing','t1','theForm','');">pick here</span></label>
-			<input type="text" name="t1" class="reqdClr" size="40" id="t1" autofocus onKeyPress="return noenter(event);">
+			<input type="text" name="t1" class="reqdClr" value="#scientific_name#" size="40" id="t1" autofocus onKeyPress="return noenter(event);">
 		</div>
 		<div id="dt2" style="display:none;">
 			<label for="t2">Type to select Taxon Name B, or <span class="likeLink" onclick="taxaPick('nothing','t2','theForm','');">pick here</span></label>
