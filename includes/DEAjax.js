@@ -1,7 +1,6 @@
-function buildTaxonName(namestring){
-	if (!namestring){
-		var namestring="";		
-	}
+function buildTaxonName(){
+	var namestring=$('#taxon_name').val();
+	
 	var guts = "/form/taxonNameBuilder.cfm?scientific_name=" + namestring;
 	$("<div id='dialog' class='popupDialog'><img src='/images/indicator.gif'></div>").dialog({
 		autoOpen: true,
