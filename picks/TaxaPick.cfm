@@ -51,7 +51,7 @@
 
 		        }
 					console.log(tid);
-					if (rd.length>0){
+					if ((rd) && rd.length>0){
 
 		        		$("#t_" + tid).append(rd);
 					}
