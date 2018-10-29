@@ -354,7 +354,7 @@
 										<td>
 											<input type="text" name="taxon_name" class="reqdClr" size="40" id="taxon_name"
 												onchange="taxaPickIdentification('nothing',this.id,'dataEntry',this.value)">
-												<span class="infoLink" onclick="buildTaxonName($("##taxon_name").val())">build</span>
+												<span class="infoLink" onclick="buildTaxonName($('##taxon_name').val())">build</span>
 										</td>
 									</tr>
 									<tr>
