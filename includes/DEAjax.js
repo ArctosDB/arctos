@@ -1,5 +1,5 @@
 function buildTaxonName(){
-	var namestring=$("#taxon_name").val();
+	var namestring=encodeURIComponent($("#taxon_name").val());
 		//$('#taxon_name').val();
 	
 	console.log(namestring);
