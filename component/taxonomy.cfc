@@ -1,6 +1,41 @@
 <cfcomponent>
 
 <!--------------------------------------------------------------------------------------->
+	<cffunction name="getRelatedTaxa" access="remote">
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="taxon_name_id" type="numeric" required="true">
+		<cfoutput>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,60,0)#">
+				select reldir,scientific_name,TAXON_RELATIONSHIP from (
+					select
+						'from' reldir,
+						scientific_name,
+						TAXON_RELATIONSHIP
+					from
+						taxon_name,
+						taxon_relations
+					where
+						taxon_name.taxon_name_id=taxon_relations.taxon_name_id and
+						taxon_relations.RELATED_TAXON_NAME_ID=#taxon_name_id#
+					union
+					select
+						'to' reldir,
+						scientific_name,
+						TAXON_RELATIONSHIP
+					from
+						taxon_name,
+						taxon_relations
+					where
+						taxon_name.taxon_name_id=taxon_relations.RELATED_TAXON_NAME_ID and
+						taxon_relations.taxon_name_id=#taxon_name_id#
+				) order by scientific_name
+
+			</cfquery>
+
+			<cfreturn d>
+		</cfoutput>
+	</cffunction>
+<!--------------------------------------------------------------------------------------->
 	<cffunction name="getTaxonStatus" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name_id" type="numeric" required="true">
