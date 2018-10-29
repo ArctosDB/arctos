@@ -353,7 +353,7 @@
 										</td>
 										<td>
 											<input type="text" name="taxon_name" class="reqdClr" size="40" id="taxon_name"
-												onchange="taxaPickIdentification('nothing',this.id,'dataEntry',this.value)">
+												onchange="taxaPick('nothing',this.id,'dataEntry',this.value)">
 												<span class="infoLink" onclick="buildTaxonName();">build</span>
 										</td>
 									</tr>
