@@ -76,17 +76,13 @@
 
 	</script>
 	<cfoutput>
-
 		<script>
 			function useThisOne(formName,taxonIdFld,taxonNameFld,taxon_name_id,scientific_name){
-			opener.document.#formName#.#taxonIdFld#.value=taxon_name_id;
-			opener.document.#formName#.#taxonNameFld#.value=scientific_name;
-			opener.document.#formName#.#taxonNameFld#.classList.remove('badPick');
-			opener.document.#formName#.#taxonNameFld#.classList.add('goodPick');
-
-			alert('close');
-
-
+				opener.document.#formName#.#taxonIdFld#.value=taxon_name_id;
+				opener.document.#formName#.#taxonNameFld#.value=scientific_name;
+				opener.document.#formName#.#taxonNameFld#.classList.remove('badPick');
+				opener.document.#formName#.#taxonNameFld#.classList.add('goodPick');
+				self.close();
 			}
 		</script>
 		<cfif not isdefined("session.taxaPickPrefs") or len(session.taxaPickPrefs) is 0>
@@ -213,12 +209,12 @@
 	<cfif getTaxa.recordcount is 1>
 		<cfoutput>
 			<script>
-				opener.document.#formName#.#taxonIdFld#.value='#getTaxa.taxon_name_id#';opener.document.#formName#.#taxonNameFld#.value='#getTaxa.scientific_name#';self.close();
+				useThisOne('#formName#','#taxonIdFld#','#taxonNameFld#','#taxon_name_id#','#scientific_name#');
 			</script>
 		</cfoutput>
 	<cfelseif #getTaxa.recordcount# is 0>
 		<cfoutput>
-			Nothing matched #scientific_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#taxonIdFld#.value='';opener.document.#formName#.#taxonNameFld#.value='';opener.document.#formName#.#taxonNameFld#.focus();self.close();">Try again.</a>
+			Nothing matched #scientific_name#.
 		</cfoutput>
 	<cfelse>
 		<cfoutput query="getTaxa">
@@ -226,7 +222,6 @@
 				#scientific_name#
 				<a target="_blank" href="/name/#scientific_name#">[ details ]</a>
 				<span class="likeLink" onclick="useThisOne('#formName#','#taxonIdFld#','#taxonNameFld#','#taxon_name_id#','#scientific_name#')">[ use ]</span>
-
 				<div class="tsdiv" id="t_#taxon_name_id#" data-tid="#taxon_name_id#"></div>
 			</div>
 	<!---
