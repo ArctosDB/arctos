@@ -43,19 +43,19 @@
 		        },
 		        success: function(r) {
 		        	console.log(r);
-		          var rd='';
-		          for (i=0;i<r.ROWCOUNT;i++) {
-		          	console.log(i);
-		          	rd+='<div><a target="_blank" href="/name/' + r.DATA.SCIENTIFIC_NAME[i] + '">' + r.DATA.SCIENTIFIC_NAME[i] + '</a> [' + r.DATA.TAXON_RELATIONSHIP[i] + '] [' + r.DATA.RELDIR[i] + ' this name]</div>';
+		         // var rd='';
+		         // for (i=0;i<r.ROWCOUNT;i++) {
+		         // 	console.log(i);
+		        //  	rd+='<div><a target="_blank" href="/name/' + r.DATA.SCIENTIFIC_NAME[i] + '">' + r.DATA.SCIENTIFIC_NAME[i] + '</a> [' + r.DATA.TAXON_RELATIONSHIP[i] + '] [' + r.DATA.RELDIR[i] + ' this name]</div>';
 
-					console.log(rd);
+				//	console.log(rd);
 
-		        }
-					console.log(tid);
-					if ((rd) && rd.length>0){
+		       // }
+					//console.log(tid);
+				//	if ((rd) && rd.length>0){
 
-		        		$("#t_" + tid).append(rd);
-					}
+		        //		$("#t_" + tid).append(rd);
+				//	}
 		        },
 		          error: function (xhr, textStatus, errorThrown){
 		            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
