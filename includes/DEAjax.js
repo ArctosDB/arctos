@@ -1,5 +1,5 @@
 function buildTaxonName(namestring){
-	if !(namestring){
+	if (!namestring){
 		var namestring="";		
 	}
 	var guts = "/form/taxonNameBuilder.cfm?scientific_name=" + namestring;
