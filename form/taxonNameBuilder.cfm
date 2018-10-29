@@ -83,7 +83,6 @@
 </script>
 <cfoutput>
 	<cfparam name="scientific_name" default="">
-	scientific_name==#scientific_name#
 	<cfquery name="cttaxa_formula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
        	select taxa_formula,DESCRIPTION from cttaxa_formula order by taxa_formula
     </cfquery>
