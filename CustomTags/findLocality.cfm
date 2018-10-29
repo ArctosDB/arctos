@@ -235,6 +235,13 @@
 <cfif not isdefined("minElevOper")>
 	<cfset minElevOper="=">
 </cfif>
+
+<cfif not isdefined("MinDepOper")>
+	<cfset MinDepOper="=">
+</cfif>
+<cfif not isdefined("MaxDepOper")>
+	<cfset MaxDepOper="=">
+</cfif>
 <cfif isdefined("began_date") and len(#began_date#) gt 0>
 	<cfset qual = "#qual# AND began_date #begDateOper# '#began_date#'">
 </cfif>
@@ -271,6 +278,7 @@
 	<cfset sloc = #ucase(replace(spec_locality,"'","''","all"))#>
 	<cfset qual = "#qual# AND upper(spec_locality) like '%#escapeQuotes(ucase(spec_locality))#%'">
 </cfif>
+
 <cfif isdefined("maximum_elevation") and len(#maximum_elevation#) gt 0>
 	<cfset qual = "#qual# AND maximum_elevation #maxElevOper# #val(maximum_elevation)#">
 </cfif>
@@ -279,6 +287,18 @@
 </cfif>
 <cfif isdefined("orig_elev_units") and len(#orig_elev_units#) gt 0>
 	<cfset qual = "#qual# AND orig_elev_units = '#orig_elev_units#'">
+</cfif>
+
+
+
+<cfif isdefined("maximum_depth") and len(maximum_depth) gt 0>
+	<cfset qual = "#qual# AND max_depth #MaxDepOper# #val(maximum_depth)#">
+</cfif>
+<cfif isdefined("minimum_depth") and len(minimum_depth) gt 0>
+	<cfset qual = "#qual# AND min_depth #MinDepOper# #val(minimum_depth)#">
+</cfif>
+<cfif isdefined("depth_units") and len(depth_units) gt 0>
+	<cfset qual = "#qual# AND depth_units = '#depth_units#'">
 </cfif>
 <cfif isdefined("locality_remarks") and len(#locality_remarks#) gt 0>
 	<cfset qual = "#qual# AND upper(locality_remarks) like '%#escapeQuotes(ucase(locality_remarks))#%'">

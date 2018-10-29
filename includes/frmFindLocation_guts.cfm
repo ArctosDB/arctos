@@ -179,6 +179,9 @@
 	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 		select orig_elev_units from ctorig_elev_units order by orig_elev_units
 	</cfquery>
+	<cfquery name="ctdepth_units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+		select depth_units from ctdepth_units order by depth_units
+	</cfquery>
 	<cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 		select distinct(feature) from ctfeature order by feature
 	</cfquery>
@@ -220,6 +223,16 @@
 	<cfparam name="spec_locality" default="">
 	<cfparam name="collnOper" default="">
 	<cfparam name="collection_id" default="">
+
+
+	<cfparam name="MinDepOper" default="">
+	<cfparam name="minimum_depth" default="">
+	<cfparam name="MaxDepOper" default="">
+	<cfparam name="maximum_depth" default="">
+	<cfparam name="depth_units" default="">
+
+
+
 	<cfparam name="MinElevOper" default="">
 	<cfparam name="minimum_elevation" default="">
 	<cfparam name="MaxElevOper" default="">
@@ -435,6 +448,46 @@
 										</select>
 									</td>
 								</tr>
+								<tr>
+									<td>
+										<label for="MinDepOper">Minimum Depth</label>
+										<select name="MinDepOper" id="MinDepOper" size="1">
+											<option <cfif MinDepOper is "="> selected="selected" </cfif> value="=">is</option>
+											<option <cfif MinDepOper is "<>"> selected="selected" </cfif> value="<>">is not</option>
+											<option <cfif MinDepOper is "></cfif>"> selected="selected" </cfif> value=">">more than</option>
+											<option <cfif MinDepOper is "<"> selected="selected" </cfif> value="<">less than</option>
+										</select>
+										<input type="text" name="minimum_depth" id="minimum_depth" value="#minimum_depth#">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="MaxDepOper">Maximum Depth</label>
+										<select name="MaxDepOper" id="MaxDepOper" size="1">
+											<option <cfif MaxDepOper is "="> selected="selected" </cfif> value="=">is</option>
+											<option <cfif MaxDepOper is "<>"> selected="selected" </cfif> value="<>">is not</option>
+											<option <cfif MaxDepOper is "></cfif>"> selected="selected" </cfif> value=">">more than</option>
+											<option <cfif MaxDepOper is "<"> selected="selected" </cfif> value="<">less than</option>
+										</select>
+										<input type="text" name="maximum_depth" id="maximum_depth" value="#maximum_depth#">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<cfset x=depth_units>
+										<label for="depth_units">Depth Units</label>
+										<select name="depth_units" id="depth_units" size="1">
+											<option value=""></option>
+											<cfloop query="ctdepth_units">
+												<option <cfif x is ctdepth_units.depth_units> selected="selected" </cfif> value="#ctdepth_units.depth_units#">#ctdepth_units.depth_units#</option>
+											</cfloop>
+										</select>
+									</td>
+								</tr>
+
+
+
+
 								<tr>
 									<td>
 										<label for="locality_remarks">Locality Remarks</label>
