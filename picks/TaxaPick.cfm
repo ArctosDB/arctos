@@ -49,7 +49,7 @@
 		        }
 				var rd='i am some text';
 					console.log(rd);
-					console.r.TAXON_NAME_ID;
+					console.log(r.TAXON_NAME_ID);
 
 		         $("#t_" + r.TAXON_NAME_ID).append(rd);
 		        },
