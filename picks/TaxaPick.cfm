@@ -49,9 +49,9 @@
 		        }
 				var rd='i am some text';
 					console.log(rd);
-					console.log(r.TAXON_NAME_ID);
+					console.log(tid);
 
-		         $("#t_" + r.TAXON_NAME_ID).append(rd);
+		         $("#t_" + tid).append(rd);
 		        },
 		          error: function (xhr, textStatus, errorThrown){
 		            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
