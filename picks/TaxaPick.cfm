@@ -47,7 +47,6 @@
 		          	rd+='<a href="/name/' + r.DATA.SCIENTIFIC_NAME + '">' + r.DATA.SCIENTIFIC_NAME + '</a> ' + r.DATA.TAXON_RELATIONSHIP + ' ' + r.DATA.RELDIR + ' this name';
 
 		        }
-				var rd='i am some text';
 					console.log(rd);
 					console.log(tid);
 
