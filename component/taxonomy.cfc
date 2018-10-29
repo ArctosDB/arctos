@@ -73,6 +73,7 @@
         <cfif len(RELATION_AUTHORITY) gt 0>
 			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
 		</cfif>
+		<cfset ArrayAppend(d,tr)>
      </cfloop>
 
 			<cfreturn d>
