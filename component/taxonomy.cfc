@@ -75,7 +75,7 @@
 		<cfset queryAddRow(d,{relationship="#tr#"})>
      </cfloop>
  <cfloop query="revrelated">
-		<cfset tr='#related_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a target="_blank" href="/name/#this_name#">#this_name#</a>'>
+		<cfset tr='<a target="_blank" href="/name/#related_name#">#related_name#</a>  &##8594; #TAXON_RELATIONSHIP# &##8594; #this_name#'>
 
         <cfif len(RELATION_AUTHORITY) gt 0>
 			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
