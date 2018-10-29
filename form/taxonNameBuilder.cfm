@@ -22,7 +22,7 @@
 			matchContains: true,
 			minChars: 1,
 			selectFirst:false
-		});		
+		});
 		if ($("#taxon_name").val().length > 0){
 			$("#t1").val($("#taxon_name").val()).trigger('keydown');
 		}
@@ -90,7 +90,7 @@
     </p>
 	<form name="theForm" id="theForm">
 		<input type="hidden" name="nothing" id="nothing">
-		
+
 		<label for="taxa_formula">Pick a Formula to get started</label>
 		<select name="taxa_formula" id="taxa_formula" size="1"  required>
 			<cfloop query="cttaxa_formula">
@@ -98,7 +98,7 @@
 			</cfloop>
 		</select>
 		<div id="dt1">
-			<label for="t1">Type to select Taxon Name A</label>
+			<label for="t1">Type to select Taxon Name A, or <span class="likeLink" onclick="taxaPick('nothing','t1','theForm','');">pick here</span></label>
 			<input type="text" name="t1" class="reqdClr" size="40" id="t1" autofocus onKeyPress="return noenter(event);">
 		</div>
 		<div id="dt2" style="display:none;">
@@ -110,17 +110,17 @@
 			<input type="text" name="ids" class="reqdClr" size="40" id="ids" onKeyPress="return noenter(event);">
 		</div>
 		<input type="submit" value="Save To Form">
-	</form>	
+	</form>
 	<hr>Documentation
 	<div style="width: 800px;height:400px; overflow:scroll;">
 	<ul>
 		<li>
-			Type into the "Type to select Taxon Name..." box(es) above to select a taxon name. Make sure you have selected an existing name to avoid 
+			Type into the "Type to select Taxon Name..." box(es) above to select a taxon name. Make sure you have selected an existing name to avoid
 			loading failures later.
 		</li>
 		<li>
 			For the "A {string} formula, select the best (usually most specific) appropriate name, and type the ID string. For example, if the specimen
-			is a "working species" for a new shrew, Taxon A would be "Sorex" and the Identification String might be "Sorex n. sp. undescr##17." 
+			is a "working species" for a new shrew, Taxon A would be "Sorex" and the Identification String might be "Sorex n. sp. undescr##17."
 		</li>
 		<li>
 			Use taxon name "unidentifiable" sparingly - it should be interpreted as "this might be a whale, redwood, virus, or mineral" rather than "we don't know what
