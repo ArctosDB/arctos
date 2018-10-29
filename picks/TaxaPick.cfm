@@ -46,7 +46,7 @@
 		          $.each( r.SCIENTIFIC_NAME,function( k, v ) {
 		          	rd+='<a href="/name/' + r.SCIENTIFIC_NAME + '">' + r.SCIENTIFIC_NAME + '</a> ' + TAXON_RELATIONSHIP + ' ' + r.RELDIR + ' this name';
 		          	$("#t_" + r.TAXON_NAME_ID).append(rd);
-		          }
+		          )};
 		          // else do nothing; this isn't that important
 		        },
 		          error: function (xhr, textStatus, errorThrown){
