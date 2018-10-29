@@ -69,7 +69,7 @@
 <cfdump var=#revrelated#>
 	<cfset d=[]>
     <cfloop query="related">
-	  	<cfset tr="#this_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a href='/name/#related_name#'>#related_name#</a>">
+	  	<cfset tr='#this_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a href="/name/#related_name#">#related_name#</a>'>
 
         <cfif len(RELATION_AUTHORITY) gt 0>
 			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
@@ -77,7 +77,7 @@
 		<cfset ArrayAppend(d,tr)>
      </cfloop>
  <cfloop query="revrelated">
-		<cfset tr="#related_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a href='/name/#this_name#'>#this_name#</a>">
+		<cfset tr='#related_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a href="/name/#this_name#">#this_name#</a>'>
 
         <cfif len(RELATION_AUTHORITY) gt 0>
 			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
