@@ -42,6 +42,7 @@
 		          returnformat : "json"
 		        },
 		        success: function(r) {
+		        	console.log(r);
 		          var rd='';
 		          for (i=0;i<r.ROWCOUNT;i++) {
 		          	console.log(i);
