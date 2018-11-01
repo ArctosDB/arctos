@@ -107,7 +107,13 @@
 		select #colLst# from d group by #colLst#
 	</cfquery>
 	<cfquery name="result" dbtype="query">
-		select #colLst#, '' as catnumlist, '' as distinct_county_count, '' as distinct_state_count from d group by #colLst#
+		select
+			#colLst#,
+			'' as catnumlist,
+			'' as distinct_county_count,
+			'' as distinct_state_count,
+			 '' as distinct_taxon_count
+			from d group by #colLst#
 	</cfquery>
 	<cfloop query="us">
 		<cfquery name="thisCatNum" dbtype="query">
@@ -165,14 +171,17 @@
 		<cfquery name="dsc" dbtype="query">
 			select state_prov from d where state_prov is not null group by state_prov
 		</cfquery>
-
+		<cfquery name="dtc" dbtype="query">
+			select scientific_name from d where scientific_name is not null group by scientific_name
+		</cfquery>
 		<cf_qoq>
 		    UPDATE
 		        result
 		    SET
 		        catnumlist='#catnumlist#',
 		        distinct_county_count='#dcc.recordcount#',
-		        distinct_state_count='#dsc.recordcount#'
+		        distinct_state_count='#dsc.recordcount#',
+		        distinct_taxon_count='#dtc.recordcount#'
 		    WHERE
 			   	<cfset lnum=1>
 				<cfloop list="#ColLst#" index="c">
