@@ -1,6 +1,8 @@
-<!--- 
+<cfthrow message = "TaxaPickIdentification is deprecated.">
+<cfabort>
+<!---
 	Unlike TaxaPick.cfm, this form accepts formulaic identifications
-	
+
 	This form does NOT return taxon_name_id (it can be multiples)
 ---->
 <cfinclude template="/includes/_pickHeader.cfm">
@@ -53,7 +55,7 @@
 						</ul>
 					</li>
 					<li>
-						Formula "A sp.": Any scientific name followed by space then "sp." 
+						Formula "A sp.": Any scientific name followed by space then "sp."
 						No substring matching; "Filter Results by..." is ignored. Results only include names without spaces. Examples:
 						<ul>
 							<li><span class="likeLink" onclick="goExample('Sorex sp.')">Sorex sp.</span></li>
@@ -73,7 +75,7 @@
 						</ul>
 					</li>
 					<li>
-						Formula "A x B": Any scientific name followed by space then "x" then another scientific name.  
+						Formula "A x B": Any scientific name followed by space then "x" then another scientific name.
 						No substring matching; "Filter Results by..." is ignored. Examples:
 						<ul>
 							<li><span class="likeLink" onclick="goExample('Sorex x Alces')">Sorex x Alces</span></li>
@@ -81,7 +83,7 @@
 						</ul>
 					</li>
 					<li>
-						Formula "A or B": Any scientific name followed by space then "or" then another scientific name. 
+						Formula "A or B": Any scientific name followed by space then "or" then another scientific name.
 						 No substring matching; ; "Filter Results by..." is ignored. Examples:
 						<ul>
 							<li><span class="likeLink" onclick="goExample('Sorex or Alces')">Sorex or Alces</span></li>
@@ -89,7 +91,7 @@
 						</ul>
 					</li>
 					<li>
-						Formula "A {string}": Any scientific name followed by space then "{" then any string then "}". 
+						Formula "A {string}": Any scientific name followed by space then "{" then any string then "}".
 						 No substring matching; ; "Filter Results by..." is ignored. Examples:
 						<ul>
 							<li><span class="likeLink" onclick="goExample('Sorex {Sorex n. sp. workingname}')">Sorex {Sorex n. sp. workingname}</span></li>
@@ -129,9 +131,9 @@
 				formula: #formula#
 				<br>Namestring IS: #thisName#
 			</div>
-			<cfset sql="SELECT 
+			<cfset sql="SELECT
 					scientific_name || ' sp.' scientific_name
-				from 
+				from
 					taxon_name
 				where
 					UPPER(scientific_name) LIKE '#ucase(thisName)#%'
@@ -145,9 +147,9 @@
 				formula: #formula#
 				<br>Namestring IS: #thisName#
 			</div>
-			<cfset sql="SELECT 
+			<cfset sql="SELECT
 					scientific_name || ' cf.' scientific_name
-				from 
+				from
 					taxon_name
 				where
 					UPPER(scientific_name) LIKE '#ucase(thisName)#'
@@ -160,9 +162,9 @@
 				formula: #formula#
 				<br>Namestring IS: #thisName#
 			</div>
-			<cfset sql="SELECT 
+			<cfset sql="SELECT
 					scientific_name || ' ?' scientific_name
-				from 
+				from
 					taxon_name
 				where
 					UPPER(scientific_name) LIKE '#ucase(thisName)#%'
@@ -178,9 +180,9 @@
 				<br>Namestring1 IS: #thisName1#
 				<br>Namestring2 IS: #thisName2#
 			</div>
-			<cfset sql="SELECT 
+			<cfset sql="SELECT
 					a.scientific_name || ' or ' || b.scientific_name scientific_name
-				from 
+				from
 					taxon_name a,
 					taxon_name b
 				where
@@ -197,9 +199,9 @@
 				<br>Namestring1 IS: #thisName1#
 				<br>Namestring2 IS: #thisName2#
 			</div>
-			<cfset sql="SELECT 
+			<cfset sql="SELECT
 					a.scientific_name || ' and ' || b.scientific_name scientific_name
-				from 
+				from
 					taxon_name a,
 					taxon_name b
 				where
@@ -215,9 +217,9 @@
 				formula: #formula#
 				<br>Namestring IS: #thisName#
 			</div>
-			<cfset sql="SELECT 
+			<cfset sql="SELECT
 					scientific_name || ' #theString#' scientific_name
-				from 
+				from
 					taxon_name
 				where
 					UPPER(scientific_name) = '#ucase(thisName)#'
@@ -231,9 +233,9 @@
 				<br>Namestring STARTS WITH: #thisName#
 			</div>
 			<cfif taxaPickPrefs is "anyterm">
-				<cfset sql="SELECT 
+				<cfset sql="SELECT
 					scientific_name
-				from 
+				from
 					taxon_name
 				where
 					UPPER(scientific_name) LIKE '#ucase(thisName)#%'
@@ -242,9 +244,9 @@
 			<cfelseif taxaPickPrefs is "usedbymycollections">
 				<!--- VPD limits users to seeing only their collections, so just make the joins --->
 				<cfset sql="select scientific_name,taxon_name_id from (
-					SELECT 
+					SELECT
 						taxon_name.scientific_name
-					from 
+					from
 						taxon_name,
 						identification_taxonomy,
 						identification,
@@ -254,17 +256,17 @@
 						identification_taxonomy.identification_id=identification.identification_id and
 						identification.collection_object_id=cataloged_item.collection_object_id and
 						UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
-					) 
-					group by 
+					)
+					group by
 						scientific_name
 					order by
 				  		scientific_name">
 			<cfelseif taxaPickPrefs is "mycollections">
 				<!--- VPD limits users to seeing only their collections, so just make the joins --->
 				<cfset sql="select scientific_name from (
-					SELECT 
+					SELECT
 				 		taxon_name.scientific_name
-					from 
+					from
 				  		taxon_name,
 				  		taxon_term,
 				  		collection
@@ -272,23 +274,23 @@
 						taxon_name.taxon_name_id=taxon_term.taxon_name_id and
 						taxon_term.SOURCE=collection.PREFERRED_TAXONOMY_SOURCE and
 				  		UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
-				  	) 
-				  	group by 
+				  	)
+				  	group by
 				  		scientific_name
 				  	order by
 				  		scientific_name">
 			<cfelseif taxaPickPrefs is "relatedterm">
 				<cfset sql="select * from (
-					SELECT 
+					SELECT
 						scientific_name
-					from 
+					from
 						taxon_name
 					where
 						UPPER(taxon_name.scientific_name) LIKE '#ucase(thisName)#%'
 					UNION
-					SELECT 
+					SELECT
 						a.scientific_name
-					from 
+					from
 						taxon_name a,
 						taxon_relations,
 						taxon_name b
@@ -297,9 +299,9 @@
 						taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
 						UPPER(B.scientific_name) LIKE '#ucase(thisName)#%'
 					UNION
-					SELECT 
+					SELECT
 						b.scientific_name
-					from 
+					from
 						taxon_name a,
 						taxon_relations,
 						taxon_name b
@@ -310,7 +312,7 @@
 				)
 				group by
 					scientific_name
-				ORDER BY 
+				ORDER BY
 					scientific_name
 			">
 			</cfif>

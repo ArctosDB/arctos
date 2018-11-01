@@ -1759,12 +1759,15 @@ function taxaPick(taxonIdFld,taxonNameFld,formName,scientificName){
 	popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
 	taxapick=window.open(popurl,"","width=800,height=800, resizable,scrollbars");
 }
+/*
 function taxaPickIdentification(taxonIdFld,taxonNameFld,formName,scientificName){
 	var url,popurl;
 	url="/picks/TaxaPickIdentification.cfm";
 	popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
 	taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 	}
+*/
+
 function CatItemPick(collIdFld,catNumFld,formName,sciNameFld){
 	var url,popurl,w;
 	url="/picks/CatalogedItemPick.cfm";
