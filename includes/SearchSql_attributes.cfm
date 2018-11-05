@@ -657,7 +657,6 @@
 </cfif>
 </cfif>
 
-
 <cfif isdefined("caste") and len(caste) gt 0>
   <cfset mapurl = "#mapurl#&caste=#caste#">
   <cfif compare(caste,"NULL") is 0>
@@ -993,31 +992,6 @@
     <cfelse>
       <cfset basQual = " #basQual# AND tbl_curvilinear_length.attribute_value #oper# '#schTerm#'">
     </cfif>
-  </cfif>
-</cfif>
-</cfif>
-
-<cfif isdefined("depth") and len(depth) gt 0>
-  <cfset mapurl = "#mapurl#&depth=#depth#">
-  <cfif compare(depth,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'depth') is null">
-  <cfelse>
-    <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_depth ON (#session.flatTableName#.collection_object_id = tbl_depth.collection_object_id)">
-    <cfset basQual = " #basQual# AND tbl_depth.attribute_type = 'depth'">
-    <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_depth.is_encumbered = 0"></cfif>
-    <cfif depth neq "_">
-    <cfset oper=left(depth,1)>
-    <cfif listfind(charattrschops,oper)>
-      <cfset schTerm=ucase(right(depth,len(depth)-1))>
-    <cfelse>
-      <cfset oper="like"><cfset schTerm=ucase(depth)>
-    </cfif>
-    <cfif oper is "!"><cfset oper="!="></cfif>
-    <cfif oper is "like">
-      <cfset basQual = " #basQual# AND upper(tbl_depth.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
-	<cfelse>
-      <cfset basQual = " #basQual# AND upper(tbl_depth.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
-	</cfif>
   </cfif>
 </cfif>
 </cfif>
@@ -2769,6 +2743,31 @@
 </cfif>
 </cfif>
 
+<cfif isdefined("pit_depth") and len(pit_depth) gt 0>
+  <cfset mapurl = "#mapurl#&pit_depth=#pit_depth#">
+  <cfif compare(pit_depth,"NULL") is 0>
+      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'pit_depth') is null">
+  <cfelse>
+    <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_pit_depth ON (#session.flatTableName#.collection_object_id = tbl_pit_depth.collection_object_id)">
+    <cfset basQual = " #basQual# AND tbl_pit_depth.attribute_type = 'pit depth'">
+    <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_pit_depth.is_encumbered = 0"></cfif>
+    <cfif pit_depth neq "_">
+    <cfset oper=left(pit_depth,1)>
+    <cfif listfind(charattrschops,oper)>
+      <cfset schTerm=ucase(right(pit_depth,len(pit_depth)-1))>
+    <cfelse>
+      <cfset oper="like"><cfset schTerm=ucase(pit_depth)>
+    </cfif>
+    <cfif oper is "!"><cfset oper="!="></cfif>
+    <cfif oper is "like">
+      <cfset basQual = " #basQual# AND upper(tbl_pit_depth.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
+	<cfelse>
+      <cfset basQual = " #basQual# AND upper(tbl_pit_depth.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
+	</cfif>
+  </cfif>
+</cfif>
+</cfif>
+
 <cfif isdefined("plastron_length") and len(plastron_length) gt 0>
   <cfset mapurl = "#mapurl#&plastron_length=#plastron_length#">
   <cfif compare(plastron_length,"NULL") is 0>
@@ -3506,31 +3505,6 @@
       <cfset basQual = " #basQual# AND upper(tbl_tested_for_presence.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
 	<cfelse>
       <cfset basQual = " #basQual# AND upper(tbl_tested_for_presence.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
-	</cfif>
-  </cfif>
-</cfif>
-</cfif>
-
-<cfif isdefined("thin_layer_chromatography_compound") and len(thin_layer_chromatography_compound) gt 0>
-  <cfset mapurl = "#mapurl#&thin_layer_chromatography_compound=#thin_layer_chromatography_compound#">
-  <cfif compare(thin_layer_chromatography_compound,"NULL") is 0>
-      <cfset basQual = " #basQual# AND ConcatAttributeValue(flat.collection_object_id,'thin_layer_chromatography_compound') is null">
-  <cfelse>
-    <cfset basJoin = " #basJoin# INNER JOIN v_attributes tbl_thin_layer_chromatography_compound ON (#session.flatTableName#.collection_object_id = tbl_thin_layer_chromatography_compound.collection_object_id)">
-    <cfset basQual = " #basQual# AND tbl_thin_layer_chromatography_compound.attribute_type = 'thin-layer chromatography compound'">
-    <cfif session.flatTableName is not "flat"><cfset basQual = " #basQual# AND tbl_thin_layer_chromatography_compound.is_encumbered = 0"></cfif>
-    <cfif thin_layer_chromatography_compound neq "_">
-    <cfset oper=left(thin_layer_chromatography_compound,1)>
-    <cfif listfind(charattrschops,oper)>
-      <cfset schTerm=ucase(right(thin_layer_chromatography_compound,len(thin_layer_chromatography_compound)-1))>
-    <cfelse>
-      <cfset oper="like"><cfset schTerm=ucase(thin_layer_chromatography_compound)>
-    </cfif>
-    <cfif oper is "!"><cfset oper="!="></cfif>
-    <cfif oper is "like">
-      <cfset basQual = " #basQual# AND upper(tbl_thin_layer_chromatography_compound.attribute_value) #oper# '%#ucase(escapeQuotes(schTerm))#%'">
-	<cfelse>
-      <cfset basQual = " #basQual# AND upper(tbl_thin_layer_chromatography_compound.attribute_value) #oper# '#ucase(escapeQuotes(schTerm))#'">
 	</cfif>
   </cfif>
 </cfif>
