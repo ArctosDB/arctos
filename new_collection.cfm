@@ -862,8 +862,8 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 						create and manage other collection users. Anyone listed here should already have an Arctos account arranged by the Mentor.
 
 						<ul>
-							<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/documentation/users.html">Documentation</a></li>
-							<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Create-your-Arctos-Team-Users-and-Operators.html#1-have-each-team-member-create-an-arctos-user-account">How-To</a></li>
+							<li><span class="helpLink" data-helplink="users">User Documentation</span></li>
+							<li><span class="helpLink" data-helplink="create_team">Team Documentation</span></li>
 						</ul>
 						<label for="admin_username">admin_username</label>
 						<input type="text" name="admin_username" id="admin_username"  value="#c.admin_username#" size="80">
