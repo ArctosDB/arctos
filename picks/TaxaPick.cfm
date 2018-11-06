@@ -222,7 +222,7 @@
 	<cfif getTaxa.recordcount is 1>
 		<cfoutput>
 			<script>
-				useThisOne('#formName#','#taxonIdFld#','#taxonNameFld#','#taxon_name_id#','#scientific_name#');
+				useThisOne('#formName#','#taxonIdFld#','#taxonNameFld#','#getTaxa.taxon_name_id#','#getTaxa.scientific_name#');
 			</script>
 		</cfoutput>
 	<cfelseif #getTaxa.recordcount# is 0>
