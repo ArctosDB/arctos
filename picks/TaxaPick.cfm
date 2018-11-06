@@ -215,6 +215,10 @@
 		</cfquery>
 
 		<cfdump var=#getTaxa#>
+
+		<cfabort>
+
+
 	</cfoutput>
 	<cfif getTaxa.recordcount is 1>
 		<cfoutput>
