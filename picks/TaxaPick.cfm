@@ -216,7 +216,6 @@
 
 		<cfdump var=#getTaxa#>
 
-		<cfabort>
 
 
 	</cfoutput>
