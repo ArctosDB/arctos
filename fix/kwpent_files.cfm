@@ -19,15 +19,14 @@ alter table temp_kwp_tax add taxa varchar2(4000);
 			coll_obj_cont_hist,
 			container p,
 			container t,
-			container d,
-			temp_kwp_tax
+			container d
 	where
 		flat.collection_object_id=specimen_part.derived_from_cat_item and
 		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 		coll_obj_cont_hist.container_id=p.container_id and
 		p.parent_container_id=t.container_id and
 		t.parent_container_id=d.container_id and
-		d.barcode=temp_kwp_tax.barcode
+		d.barcode='#d.barcode#'
 		</cfquery>
 		<cfdump var=#t#>
 		</cfloop>
