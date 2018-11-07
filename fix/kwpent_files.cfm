@@ -12,6 +12,7 @@ alter table temp_kwp_tax add taxa varchar2(4000);
 			select * from temp_kwp_tax where taxa is null and rownum=1
 		</cfquery>
 		<cfloop query="d">
+			#d.barcode#
 			<cfquery name="t" datasource="uam_god">
 			select distinct FULL_TAXON_NAME from
 			flat,
