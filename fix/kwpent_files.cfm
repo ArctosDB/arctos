@@ -14,7 +14,7 @@ alter table temp_kwp_tax add taxa varchar2(4000);
 		<cfloop query="d">
 			#d.barcode#
 			<cfquery name="t" datasource="uam_god">
-			select distinct FULL_TAXON_NAME from
+			select distinct Family || ',' || Subfamily|| ',' || Genus || ',' || Species as FULL_TAXON_NAME from
 			flat,
 			specimen_part,
 			coll_obj_cont_hist,
