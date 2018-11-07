@@ -32,7 +32,9 @@ alter table temp_kwp_tax add taxa varchar2(4000);
 		</cfquery>
 		<cfdump var=#t#>
 		<cfset tt=valuelist(t.FULL_TAXON_NAME)>
-		<cfdump var=#tt#>
+		<cfquery name="ud" datasource="uam_god">
+			update temp_kwp_tax set taxa='#tt#' where barcode='#d.barcode#'
+		</cfquery>
 		</cfloop>
 
 </cfoutput>
