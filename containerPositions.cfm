@@ -79,6 +79,25 @@
 	<cfquery name="aBox" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from container where container_id=#container_id#
 	</cfquery>
+	<!--- require sufficient data --->
+	<cfif len(aBox.NUMBER_ROWS) is 0 or len(aBox.NUMBER_COLUMNS) is 0 len(aBox.ORIENTATION) is 0 len(aBox.POSITIONS_HOLD_CONTAINER_TYPE) is 0>
+		insufficient data to proceed; you must have
+		<ul>
+			<li>NUMBER_ROWS</li>
+			<li>NUMBER_COLUMNS</li>
+			<li>ORIENTATION</li>
+			<li>POSITIONS_HOLD_CONTAINER_TYPE</li>
+		</ul>
+		to use this form
+		<cfabort>
+	</cfif>
+
+	<cfset taborder=aBox.ORIENTATION>
+	<cfset acceptableChildContainerType=aBox.POSITIONS_HOLD_CONTAINER_TYPE>
+	<cfset numberRows = aBox.NUMBER_ROWS>
+	<cfset numberColumns = aBox.NUMBER_COLUMNS>
+	<!--------
+
 	<!--- default is....---->
 	<cfset taborder="horizontal">
 	<!---- figure out what they're trying to do and set some variables ---->
@@ -146,6 +165,7 @@
 		</div>
 		<cfabort>
 	</cfif>
+	---->
 	<!---global--->
 	<!---- see is positions are used ---->
 	<cfquery name="whatPosAreUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -156,13 +176,45 @@
 		There's nothing in this container.
 		<br>You can create positions in empty position-appropriate containers.
 		<br>(Positions will use the parent's institution.)
+		<cfif abox.container_type is "freezer box">
+			<cfset width = 1.2>
+			<cfset length = 1.2>
+			<cfset height = 4.9>
+		<cfelseif abox.container_type is "freezer">
+			<cfset width = 14>
+			<cfset height = 80>
+			<cfset length = 14>
+		<cfelseif abox.container_type is "slide box">
+			<cfset width = 3>
+			<cfset length = 78>
+			<cfset height = 27>
+		<cfelse>
+			<cfset width = 0>
+			<cfset length = 0>
+			<cfset height = 0>
+		</cfif>
 
+		<p>
+			IMPORTANT::
+			<br>Position size controls content size. These values must be set appropriately before proceeding. File an Issue
+			to expand the defaults (eg, if all dimensions are 0 below).
+		</p>
 		<form name="allnewPos" method="post" action="containerPositions.cfm">
 			<input type="hidden" name="action" value="allNewPositions">
 			<input type="hidden" name="container_type" value="#aBox.container_type#">
 			<input type="hidden" name="container_id" value="#aBox.container_id#">
-			<input type="hidden" name="number_positions" value="#aBox.number_positions#">
+
+			<input type="hidden" name="NUMBER_ROWS" value="#aBox.NUMBER_ROWS#">
+			<input type="hidden" name="NUMBER_COLUMNS" value="#aBox.NUMBER_COLUMNS#">
+			<input type="hidden" name="ORIENTATION" value="#aBox.ORIENTATION#">
+			<input type="hidden" name="POSITIONS_HOLD_CONTAINER_TYPE" value="#aBox.POSITIONS_HOLD_CONTAINER_TYPE#">
 			<input type="hidden" name="institution_acronym" value="#aBox.institution_acronym#">
+			<label for="width">New Position Width</label>
+			<input type="text" name="width" value="#width#">
+			<label for="length">New Position Length</label>
+			<input type="text" name="length" value="#length#">
+			<label for="height">New Position Height</label>
+			<input type="text" name="height" value="#height#">
 			<input type="submit" value="Create all new positions" class="insBtn">
 		</form>
 		<cfabort>
@@ -174,11 +226,7 @@
 	</cfquery>
 	<cfif uContentType.recordcount is not 1 or uContentType.container_type is not goodPositionType>
 		<div class="error">
-			There is a problem with the positions in this box.
-			<br>It contains things other than positions, or inappropriate position types.
-			This application can't handle that! Get rid of things that
-			aren't container_type '#goodPositionType#' or submit a bug report if you feel this container should
-			hold the things listed below:
+			This container holds non-positions; this form cannot be used.
 			<ul>
 				<cfloop query="uContentType">
 					<li>#container_type#</li>
@@ -187,10 +235,12 @@
 		</div>
 		<cfabort>
 	</cfif>
+
 	<!----it's all positions ---->
-	<cfif whatPosAreUsed.recordcount is not aBox.number_positions>
+	<cfset npos=aBox.NUMBER_ROWS * aBox.NUMBER_COLUMNS>
+	<cfif whatPosAreUsed.recordcount is not npos>
 		<div class="error">
-			There is a problem with the positions in this box. Aborting....
+			This container holds #whatPosAreUsed.recordcount# but is marked to hold #npos#.
 		</div>
 		<cfabort>
 	</cfif>
@@ -354,6 +404,29 @@
 		</cfif>
 		<!--- there is nothing in this box, make all positions ---->
 		<cftransaction>
+
+
+
+				</p>
+		<form name="allnewPos" method="post" action="containerPositions.cfm">
+			<input type="hidden" name="action" value="allNewPositions">
+			<input type="hidden" name="container_type" value="#aBox.container_type#">
+			<input type="hidden" name="container_id" value="#aBox.container_id#">
+
+			<input type="hidden" name="NUMBER_ROWS" value="#aBox.NUMBER_ROWS#">
+			<input type="hidden" name="NUMBER_COLUMNS" value="#aBox.NUMBER_COLUMNS#">
+			<input type="hidden" name="ORIENTATION" value="#aBox.ORIENTATION#">
+			<input type="hidden" name="POSITIONS_HOLD_CONTAINER_TYPE" value="#aBox.POSITIONS_HOLD_CONTAINER_TYPE#">
+			<input type="hidden" name="institution_acronym" value="#aBox.institution_acronym#">
+			<label for="width">New Position Width</label>
+			<input type="text" name="width" value="#width#">
+			<label for="length">New Position Length</label>
+			<input type="text" name="length" value="#length#">
+			<label for="height">New Position Height</label>
+			<input type="text" name="height" value="#height#">
+			<input type="submit" value="Create all new positions" class="insBtn">
+
+
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
 				<cfstoredproc procedure="createContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -365,7 +438,10 @@
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#width#"><!---- v_width ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#height#"><!---- v_height ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#length#"><!---- v_length ---->
-					<cfprocparam cfsqltype="cf_sql_varchar" value="1"><!---- v_number_positions ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_number_rows ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_number_columns ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_orientation ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_posn_hld_ctr_typ ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#container_id#"><!---- v_parent_container_id ---->
 				</cfstoredproc>
