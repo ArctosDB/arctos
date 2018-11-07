@@ -28,6 +28,7 @@ alter table temp_kwp_tax add taxa varchar2(4000);
 		p.parent_container_id=t.container_id and
 		t.parent_container_id=d.container_id and
 		d.barcode='#d.barcode#'
+		order by  Family || ',' || Subfamily|| ',' || Genus || ',' || Species
 		</cfquery>
 		<cfdump var=#t#>
 		<cfset tt=valuelist(t.FULL_TAXON_NAME)>
