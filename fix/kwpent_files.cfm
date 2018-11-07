@@ -9,7 +9,7 @@ alter table temp_kwp_tax add taxa varchar2(4000);
 --->
 <cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from temp_kwp_tax where taxa is null and rownum=1
+			select * from temp_kwp_tax where taxa is null
 		</cfquery>
 		<cfloop query="d">
 			#d.barcode#
