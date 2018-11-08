@@ -341,6 +341,7 @@
 			<tr>
 				<td colspan="2">
 					<label for="dimTbl">Positions (provide all or none)</label>
+					<div style="border:2px solid red">
 					<table cellspacing="0" cellpadding="0" width="100%" id="dimTbl">
 						<tr>
 							<td>
@@ -372,6 +373,7 @@
 							</td>
 						</tr>
 					</table>
+					</div>
 				</td>
 			</tr>
 	  		<tr>
