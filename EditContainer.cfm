@@ -489,7 +489,7 @@
 		where
 			parent_container_id=#container_id#
 		order by
-			container_type,barcode,label
+			container_type,barcode,lpad(label,255)
 	</cfquery>
 	<h3>Contents</h3>
 	<form name="moveChillun" method="post" action="EditContainer.cfm">
