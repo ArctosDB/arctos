@@ -206,7 +206,7 @@
 			width,
 			length,
 			height,
-			institution_acronym
+			institution_acronym,
 			NUMBER_ROWS,
 			NUMBER_COLUMNS,
 			ORIENTATION,
