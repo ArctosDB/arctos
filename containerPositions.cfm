@@ -80,7 +80,7 @@
 		select * from container where container_id=#container_id#
 	</cfquery>
 	<!--- require sufficient data --->
-	<cfif len(aBox.NUMBER_ROWS) is 0 or len(aBox.NUMBER_COLUMNS) is 0 len(aBox.ORIENTATION) is 0 len(aBox.POSITIONS_HOLD_CONTAINER_TYPE) is 0>
+	<cfif len(aBox.NUMBER_ROWS) is 0 or len(aBox.NUMBER_COLUMNS) is 0 or len(aBox.ORIENTATION) is 0 or len(aBox.POSITIONS_HOLD_CONTAINER_TYPE) is 0>
 		insufficient data to proceed; you must have
 		<ul>
 			<li>NUMBER_ROWS</li>

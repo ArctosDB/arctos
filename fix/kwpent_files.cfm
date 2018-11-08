@@ -9,27 +9,37 @@ alter table temp_kwp_tax add taxa varchar2(4000);
 --->
 <cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from temp_kwp_tax where taxa is null and rownum=1
+			select * from temp_kwp_tax where taxa is null
 		</cfquery>
 		<cfloop query="d">
+			#d.barcode#
 			<cfquery name="t" datasource="uam_god">
-			select distinct FULL_TAXON_NAME from
+			select distinct Family || ',' || Subfamily|| ',' || Genus || ',' || Species as FULL_TAXON_NAME from
 			flat,
 			specimen_part,
 			coll_obj_cont_hist,
 			container p,
 			container t,
-			container d,
-			temp_kwp_tax
+			container d
 	where
 		flat.collection_object_id=specimen_part.derived_from_cat_item and
 		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 		coll_obj_cont_hist.container_id=p.container_id and
 		p.parent_container_id=t.container_id and
 		t.parent_container_id=d.container_id and
-		d.barcode=temp_kwp_tax.barcode
+		d.barcode='#d.barcode#'
+		order by  Family || ',' || Subfamily|| ',' || Genus || ',' || Species
 		</cfquery>
-		<cfdump var=#t#>
+		<cfset tt=valuelist(t.FULL_TAXON_NAME)>
+
+		<p>
+					update temp_kwp_tax set taxa='#tt#' where barcode='#d.barcode#'
+
+		</p>
+		<cfquery name="ud" datasource="uam_god">
+			update temp_kwp_tax set taxa='#tt#' where barcode='#d.barcode#'
+		</cfquery>
+
 		</cfloop>
 
 </cfoutput>
