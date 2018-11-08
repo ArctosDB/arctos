@@ -373,7 +373,7 @@
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
 				<cfstoredproc procedure="createContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					<cfprocparam cfsqltype="cf_sql_varchar" value="#position_label#"><!--- v_container_type ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="position"><!--- v_container_type ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#i#"><!---- v_label --->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_description ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value=""><!---- v_container_remarks ---->
