@@ -224,7 +224,7 @@
 		select container_type from whatPosAreUsed
 		group by container_type
 	</cfquery>
-	<cfif uContentType.recordcount is not 1 or uContentType.container_type is not goodPositionType>
+	<cfif uContentType.recordcount is not 1 or uContentType.container_type is not 'position'>
 		<div class="error">
 			This container holds non-positions; this form cannot be used.
 			<ul>
