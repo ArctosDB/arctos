@@ -354,45 +354,7 @@
 <!------------------------------------------------------------------------------>
 <cfif #action# is "allNewPositions">
 	<cfoutput>
-		<cfif #number_positions# is 100 and #container_type# is "freezer box">
-			<cfset position_label = "position">
-			<cfset width = 1.2>
-			<cfset length = 1.2>
-			<cfset height = 4.9>
-		<cfelseif #number_positions# is "48" and #container_type# is "freezer">
-			<cfset position_label = "position">
-			<cfset width = 14>
-			<cfset height = 80>
-			<cfset length = 14>
-		<cfelseif #number_positions# is "33" and #container_type# is "freezer">
-			<cfset position_label = "position">
-			<cfset width = 14>
-			<cfset height = 80>
-			<cfset length = 14>
-		<cfelseif #number_positions# is 25 AND #container_type# is "freezer box">
-			<cfset position_label = "position">
-			<cfset width = 1.2>
-			<cfset length = 1.2>
-			<cfset height = 4.9>
-		<cfelseif #number_positions# is 81 AND #container_type# is "freezer box">
-			<cfset position_label = "position">
-			<cfset width = 1.2>
-			<cfset length = 1.2>
-			<cfset height = 4.9>
-		<cfelseif number_positions is 169 AND container_type is "freezer box">
-			<cfset position_label = "position">
-			<cfset width = 1.2>
-			<cfset length = 1.2>
-			<cfset height = 4.9>
-		<cfelseif #number_positions# is 100 AND #container_type# is "slide box">
-			<cfset position_label = "position">
-			<cfset width = 3>
-			<cfset length = 78>
-			<cfset height = 27>
-		<cfelse>
-			<hr><font color="##FF0000">I can't deal with #number_positions# positions in a #container_type#!</font>
-			<cfabort>
-		</cfif>
+
 		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from container where parent_container_id=#container_id#
 		</cfquery>
@@ -407,24 +369,6 @@
 
 
 
-				</p>
-		<form name="allnewPos" method="post" action="containerPositions.cfm">
-			<input type="hidden" name="action" value="allNewPositions">
-			<input type="hidden" name="container_type" value="#aBox.container_type#">
-			<input type="hidden" name="container_id" value="#aBox.container_id#">
-
-			<input type="hidden" name="NUMBER_ROWS" value="#aBox.NUMBER_ROWS#">
-			<input type="hidden" name="NUMBER_COLUMNS" value="#aBox.NUMBER_COLUMNS#">
-			<input type="hidden" name="ORIENTATION" value="#aBox.ORIENTATION#">
-			<input type="hidden" name="POSITIONS_HOLD_CONTAINER_TYPE" value="#aBox.POSITIONS_HOLD_CONTAINER_TYPE#">
-			<input type="hidden" name="institution_acronym" value="#aBox.institution_acronym#">
-			<label for="width">New Position Width</label>
-			<input type="text" name="width" value="#width#">
-			<label for="length">New Position Length</label>
-			<input type="text" name="length" value="#length#">
-			<label for="height">New Position Height</label>
-			<input type="text" name="height" value="#height#">
-			<input type="submit" value="Create all new positions" class="insBtn">
 
 
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
