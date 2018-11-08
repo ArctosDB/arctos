@@ -368,8 +368,7 @@
 		<cftransaction>
 
 
-
-
+		<cfset number_positions=NUMBER_ROWS * NUMBER_COLUMNS>
 
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
