@@ -206,9 +206,11 @@
 			width,
 			length,
 			height,
-			number_positions,
-			locked_position,
 			institution_acronym
+			NUMBER_ROWS,
+			NUMBER_COLUMNS,
+			ORIENTATION,
+			POSITIONS_HOLD_CONTAINER_TYPE
 		FROM
 			container
 		WHERE
@@ -314,13 +316,6 @@
 					<label for="parent_install_date">Last Moved Date</label>
 					<div id="parent_install_date">#Dateformat(getCont.parent_install_date, "yyyy-mm-dd")#</div>
 				</td>
-				<td>
-					<label for="locked_position">Locked?</label>
-						<select name="locked_position" id="locked_position" size="1">
-							<option <cfif getCont.locked_position is 0> selected </cfif>value="0">no</option>
-							<option <cfif getCont.locked_position is 1> selected </cfif>value="1">yes</option>
-						</select>
-				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
@@ -339,9 +334,41 @@
 								<label for="length">Length (cm)</label>
 								<input type="text" id="length" name="length" value="#getCont.length#" size="4">
 							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<label for="dimTbl">Positions (provide all or none)</label>
+					<table cellspacing="0" cellpadding="0" width="100%" id="dimTbl">
+						<tr>
 							<td>
-								<label for="number_positions">## Positions</label>
-								<input type="text" name="number_positions" value="#getCont.number_positions#" size="2" id="number_positions">
+								<label for="number_rows">## Rows</label>
+								<input type="text" id="width" name="number_rows" value="#getCont.number_rows#" size="4">
+							</td>
+							<td>
+								<label for="number_columns">## Columns</label>
+								<input type="text" id="number_columns" name="number_columns" value="#getCont.number_columns#" size="4">
+							</td>
+							<td>
+								<label for="orientation">Orientation</label>
+								<select name="orientation" id="orientation">
+									<option value=""></option>
+									<option value="horizontal" <cfif getCont.orientation is "horizontal"> selected="selected" </cfif>>horizontal</option>
+									<option value="vertical" <cfif getCont.orientation is "vertical"> selected="selected" </cfif>>vertical</option>
+								</select>
+							</td>
+							<td>
+								<label for="positions_hold_container_type">Positions Hold Container Type</label>
+								<select name="positions_hold_container_type" id="positions_hold_container_type" size="1">
+									<option value=""></option>
+						          	<cfloop query="ContType">
+			            				<option
+											<cfif getCont.positions_hold_container_type is ContType.container_type> selected="selected" </cfif>
+												value="#ContType.container_type#">#ContType.container_type#</option>
+			         				</cfloop>
+								</select>
 							</td>
 						</tr>
 					</table>
@@ -551,8 +578,10 @@
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#width#"><!---- v_width ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#height#"><!---- v_height ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#length#"><!---- v_length ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#number_positions#"><!---- v_number_positions ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#locked_position#"><!---- v_locked_position ---->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#number_rows#"><!---- v_number_rows ---->
+     			<cfprocparam cfsqltype="cf_sql_varchar" value="#number_columns#"><!---- v_number_columns ---->
+     			<cfprocparam cfsqltype="cf_sql_varchar" value="#orientation#"><!---- v_orientation ---->
+     			<cfprocparam cfsqltype="cf_sql_varchar" value="#positions_hold_container_type#"><!---- v_posn_hld_ctr_typ ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym ---->
 			</cfstoredproc>
 		</cftransaction>
