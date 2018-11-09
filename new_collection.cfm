@@ -998,7 +998,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 		</cfquery>
 		<cfmail to="#mailtol#" subject="Arctos Join Request" from="joinrequest@#Application.fromEmail#" cc="arctos.database@gmail.com" type="html">
 			<p>
-				New Collection Request
+				Prospective Collection Request
 			</p>
 			<p>
 				A user has submitted the initial collection creation form. The submission is available at
