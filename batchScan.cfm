@@ -83,7 +83,7 @@ function setContDim(h,w,l){
 							<td><input type="number" id="new_l" name="new_l" placeholder="H"></td>
 						</tr>
 					</table>
-	
+
 					<br><span class="likeLink" onclick="setContDim('5','13','13');">Set dimensions to (5,13,13)</span>
 					<br><span class="likeLink" onclick="setContDim('7','13','13');">Set dimensions to (7,13,13)</span>
 					<br><span class="likeLink" onclick="setContDim('','','');">reset dimensions</span>
@@ -293,8 +293,10 @@ function setContDim(h,w,l){
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_w#"><!---- v_width ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_h#"><!---- v_height ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#new_l#"><!---- v_length ---->
-					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.number_positions#"><!---- v_number_positions ---->
-					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.locked_position#"><!---- v_locked_position ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.number_rows#"><!---- v_number_rows ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.number_columns#"><!---- v_number_columns ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.orientation#"><!---- v_orientation ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.position_holds_container_type#"><!---- v_posn_hld_ctr_typ ---->
 					<cfprocparam cfsqltype="cf_sql_varchar" value="#updatingpgarent.institution_acronym#"><!---- v_institution_acronym ---->
 				</cfstoredproc>
 			</cfif>

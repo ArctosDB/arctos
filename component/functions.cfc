@@ -3352,8 +3352,10 @@
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.width#"><!---- v_width ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.height#"><!---- v_height ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.length#"><!---- v_length ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_positions#"><!---- v_number_positions ---->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.locked_position#"><!---- v_locked_position ---->
+					<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_rows#"><!---- v_number_rows ---->
+     			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.number_columns#"><!---- v_number_columns ---->
+     			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.orientation#"><!---- v_orientation ---->
+     			<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.positions_hold_container_type#"><!---- v_posn_hld_ctr_typ ---->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#thisID.institution_acronym#"><!---- v_institution_acronym ---->
 			</cfstoredproc>
 			<cfset result = "#box_position#|#thisID.label#">
