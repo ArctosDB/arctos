@@ -1,3 +1,50 @@
+<!---- get geog as list --->
+
+create table temp_kwp_g as select DRAWER_LABEL,BARCODE from temp_kwp_tax;
+
+alter table temp_kwp_g add geo varchar2(4000);
+
+
+
+<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from temp_kwp_g where geo is null
+		</cfquery>
+		<cfloop query="d">
+			#d.barcode#
+			<cfquery name="t" datasource="uam_god">
+			select distinct country || ',' || state_prov as g from
+			flat,
+			specimen_part,
+			coll_obj_cont_hist,
+			container p,
+			container t,
+			container d
+	where
+		flat.collection_object_id=specimen_part.derived_from_cat_item and
+		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+		coll_obj_cont_hist.container_id=p.container_id and
+		p.parent_container_id=t.container_id and
+		t.parent_container_id=d.container_id and
+		d.barcode='#d.barcode#'
+		order by  country || ',' || state_prov
+		</cfquery>
+		<cfset tt=valuelist(t.g)>
+
+		<p>
+					update temp_kwp_g set geo='#tt#' where barcode='#d.barcode#'
+
+		</p>
+		<cfquery name="ud" datasource="uam_god">
+			update temp_kwp_g set geo='#tt#' where barcode='#d.barcode#'
+		</cfquery>
+
+		</cfloop>
+
+</cfoutput>
+
+
+
 <!---- get taxonomy as list
 
 
@@ -6,7 +53,7 @@ create table temp_kwp_tax as select * from dlm.my_temp_cf;
 alter table temp_kwp_tax add taxa varchar2(4000);
 
 
---->
+
 <cfoutput>
 		<cfquery name="d" datasource="uam_god">
 			select * from temp_kwp_tax where taxa is null
@@ -44,7 +91,7 @@ alter table temp_kwp_tax add taxa varchar2(4000);
 
 </cfoutput>
 
-
+--->
 <!----
 
 	alter table temp_kwp_exp add cid number;
