@@ -292,7 +292,6 @@
 	</p>
 	<form name="newScans" method="post" action="containerPositions.cfm" onsubmit="return false;">
 		<input type="hidden" name="action" value="moveScans">
-		<input type="hidden" name="number_positions" value="#aBox.number_positions#">
 		<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
 		<input type="hidden" name="acceptableChildContainerType" id="acceptableChildContainerType" value="#acceptableChildContainerType#">
 		<cfset thisCellNumber=1>
