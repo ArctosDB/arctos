@@ -108,7 +108,7 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 		</tr>
 		<tr>
 			<td>POSITIONS_HOLD_CONTAINER_TYPE</td>
-			<td>All-or-none position group memeber. "0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
+			<td>All-or-none position group memeber. "0" (no quotes)  will update to NULL; blank will be ignored (no updates). "horizontal" or "vertical"</td>
 		</tr>
 	</table>
 	<form enctype="multipart/form-data" action="bulkEditContainer.cfm" method="POST">
@@ -250,7 +250,10 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 				<th>height</th>
 				<th>length</th>
 				<th>width</th>
-				<th>number_positions</th>
+				<th>NUMBER_ROWS</th>
+				<th>NUMBER_COLUMNS</th>
+				<th>ORIENTATION</th>
+				<th>POSITIONS_HOLD_CONTAINER_TYPE</th>
 			</tr>
 			<cfloop query="d">
 				<tr>
@@ -299,6 +302,34 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 							NO UPDATE
 						<cfelse>
 							#width#
+						</cfif>
+					</td>
+					<td>
+						<cfif len(NUMBER_ROWS) eq 0>
+							NO UPDATE
+						<cfelse>
+							#NUMBER_ROWS#
+						</cfif>
+					</td>
+					<td>
+						<cfif len(NUMBER_COLUMNS) eq 0>
+							NO UPDATE
+						<cfelse>
+							#NUMBER_COLUMNS#
+						</cfif>
+					</td>
+					<td>
+						<cfif len(ORIENTATION) eq 0>
+							NO UPDATE
+						<cfelse>
+							#ORIENTATION#
+						</cfif>
+					</td>
+					<td>
+						<cfif len(POSITIONS_HOLD_CONTAINER_TYPE) eq 0>
+							NO UPDATE
+						<cfelse>
+							#POSITIONS_HOLD_CONTAINER_TYPE#
 						</cfif>
 					</td>
 					<td>
