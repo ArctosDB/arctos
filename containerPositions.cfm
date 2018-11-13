@@ -240,7 +240,7 @@
 			<input type="text" name="length" value="#length#">
 			<label for="height">New Position Height</label>
 			<input type="text" name="height" value="#height#">
-			<input type="submit" value="Create all new positions" class="insBtn">
+			<br><input type="submit" value="Create all new positions" class="insBtn">
 		</form>
 		<cfabort>
 	</cfif>
