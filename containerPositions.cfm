@@ -210,7 +210,19 @@
 			</ul>
 		</p>
 		Summary of the container into which you are about to create positions:
-		<cfdump var=#aBox#>
+		<table border>
+			<tr>
+				<th>Column</th>
+				<th>Value</th>
+			</tr>
+			<cfloop list="#abox.columnlist#" index="i">
+				<tr>
+					<td>#i#</td>
+					<td>#evaluate("aBox." & i)#</td>
+				</tr>
+			</cfloop>
+		</table>
+
 
 		<form name="allnewPos" method="post" action="containerPositions.cfm">
 			<input type="hidden" name="action" value="allNewPositions">
