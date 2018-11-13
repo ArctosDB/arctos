@@ -195,9 +195,20 @@
 		</cfif>
 
 		<p>
-			IMPORTANT::
-			<br>Position size controls content size. These values must be set appropriately before proceeding. File an Issue
-			to expand the defaults (eg, if all dimensions are 0 below).
+			IMPORTANT
+			<ul>
+				<li>
+					Position size controls content size. These values must be set appropriately before proceeding. File an Issue
+					to expand the defaults (eg, if all dimensions are 0 below).
+				</li>
+				<li>
+					Containers with postions may be edited in very limited ways. Make SURE you know what you're doing before proceeding.
+				</li>
+				<li>
+					Positions may not be edited. Make SURE you know what you're doing before proceeding.
+				</li>
+			</ul>
+			<br>
 		</p>
 		<form name="allnewPos" method="post" action="containerPositions.cfm">
 			<input type="hidden" name="action" value="allNewPositions">
