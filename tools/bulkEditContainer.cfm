@@ -332,13 +332,6 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 							#POSITIONS_HOLD_CONTAINER_TYPE#
 						</cfif>
 					</td>
-					<td>
-						<cfif len(number_positions) eq 0>
-							NO UPDATE
-						<cfelse>
-							#number_positions#
-						</cfif>
-					</td>
 				</tr>
 			</cfloop>
 		</table>
