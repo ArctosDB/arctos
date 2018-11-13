@@ -202,14 +202,16 @@
 					to expand the defaults (eg, if all dimensions are 0 below).
 				</li>
 				<li>
-					Containers with postions may be edited in very limited ways. Make SURE you know what you're doing before proceeding.
+					Containers with postions may be edited in very limited ways. Proceed with caution.
 				</li>
 				<li>
-					Positions may not be edited. Make SURE you know what you're doing before proceeding.
+					Positions may not be edited. Proceed with caution.
 				</li>
 			</ul>
-			<br>
 		</p>
+		Summary of the container into which you are about to create positions:
+		<cfdump var=#aBox#>
+
 		<form name="allnewPos" method="post" action="containerPositions.cfm">
 			<input type="hidden" name="action" value="allNewPositions">
 			<input type="hidden" name="container_type" value="#aBox.container_type#">
