@@ -617,6 +617,8 @@
 	<div align="center"><font color="#0066FF" size="+6">You've deleted the container!</font> </div>
 </cfif>
 <!----------------------------->
+
+<cfif action is "CreateNew">
 	<cfoutput>
 		<cftransaction>
 			<cfstoredproc procedure="createContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
