@@ -395,7 +395,7 @@
 				order by
 					preferred_agent_name
 			</cfquery>
-			<fieldset>f
+			<fieldset>
 				<legend>Group Members</legend>
 				<cfloop query="grpMem">
 					<div>
