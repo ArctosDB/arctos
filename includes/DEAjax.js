@@ -980,8 +980,6 @@ function toISOString(d) {
 	//return d.getUTCFullYear() + '-' +  padzero(d.getUTCMonth() + 1) + '-' + padzero(d.getUTCDate()) + 'T' + padzero(d.getUTCHours()) + ':' +  padzero(d.getUTCMinutes()) + ':' + padzero(d.getUTCSeconds()) + '.' + pad2zeros(d.getUTCMilliseconds()) + 'Z';
 	var jsonDate = d.toJSON().substring(0,10);
 	return jsonDate;
-	
-
 }
 
 function DEuseGL(glat,glon,gerr){
