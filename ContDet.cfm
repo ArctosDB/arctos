@@ -63,10 +63,7 @@
 		  <div>Institution: #detail.INSTITUTION_ACRONYM#</div>
 		</cfif>
 		<cfif len(detail.POSITIONS_HOLD_CONTAINER_TYPE) gt 0>
-		  <div>Rows: #detail.NUMBER_ROWS#</div>
-		  <div>Columns: #detail.NUMBER_COLUMNS#</div>
-		  <div>Orientation: #detail.ORIENTATION#</div>
-		  <div>PositionsHoldContainerType: #detail.POSITIONS_HOLD_CONTAINER_TYPE#</div>
+		  <div>Position Layout: #detail.NUMBER_ROWS# rows, #detail.NUMBER_COLUMNS# columns, #detail.ORIENTATION#, holds #detail.POSITIONS_HOLD_CONTAINER_TYPE#</div>
 		</cfif>
 		<cfif len(detail.part_name) gt 0>
 			<div>
