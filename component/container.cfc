@@ -332,8 +332,11 @@
 				PARENT_INSTALL_DATE,
 				CONTAINER_REMARKS,
 				label
-			from container
-			where parent_container_id = #contr_id#
+			from
+				container
+			where
+				parent_container_id = #contr_id#
+			order by lpad(barcode,255),lpad(label,255)
 		</cfquery>
 		<cfcatch>
 			<cfset result = querynew("CONTAINER_ID,MSG")>
