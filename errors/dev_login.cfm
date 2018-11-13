@@ -54,7 +54,8 @@ insert into cf_test_users (
 This is a development server. You may log in or create an account
 for testing purposes. You may not access this machine without logging in.
 Data available from this machine are for testing purposes only and are not
-valid specimen data.
+valid specimen data. Forms on this machine are under constant development; check GitHub for "active development" issues or contact us
+for more information.
 
 <p>
 <a href="/login.cfm">Log In</a>

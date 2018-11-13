@@ -6,6 +6,12 @@
 	series functionality.
 	last functional version is in v7.0.1.2
 ---->
+<cfthrow message="form deprecated">
+
+<cfabort>
+
+
+
 <cfif action IS "nothing">
 	<p>
 		<a href="/tools/bulkEditContainer.cfm">upload CSV</a>
@@ -17,6 +23,10 @@
 		<cfquery name="ctContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct(container_type) container_type from ctcontainer_type
 			where container_type <> 'collection object'
+		</cfquery>
+
+		<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select container_type from ctcontainer_type order by container_type
 		</cfquery>
 		<form name="wtf" method="post" action="labels2containers.cfm">
 			<input type="hidden" name="action" value="change">

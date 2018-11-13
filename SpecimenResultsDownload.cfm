@@ -272,57 +272,6 @@
 			<cfset s.append(oneLine)>
 		</cfloop>
 		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/download_4_bulkloader.csv" output="#s.toString()#">
-
-		<!----
-		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
-			<cfset bc = barcode_prefix & i>
-			<cfset r='#chr(13)#"#bc#","#origContType#","#newContType#","","#DESCRIPTION#","#CONTAINER_REMARKS#","#HEIGHT#","#LENGTH#","#WIDTH#","#NUMBER_POSITIONS#"'>
-			<cfset s.append(r)>
-		</cfloop>
-		<cffile action="write" addnewline="no" file="#Application.webDirectory#/download/ChangeContainer.csv" output="#s.toString()#">
-
-
-
-
-
-	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=getData,Fields=getData.columnlist)>
-	<cffile action = "write"
-	    file = "#Application.webDirectory#/download/download_4_bulkloader.csv"
-	   	output = "#csv#"
-	   	addNewLine = "no">
-
-	   	---->
-
-	<!----
-	<cfset fileDir = "#Application.webDirectory#">
-	<cfset variables.encoding="UTF-8">
-	<cfset fname = "download_4_bulkloader.csv">
-	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		variables.joFileWriter.writeLine(ListQualify(clist,'"'));
-	</cfscript>
-	<cfloop query="getData">
-		<cfset oneLine = "">
-		<cfloop list="#clist#" index="c">
-			<cfset thisData = evaluate("getData." & c)>
-			<cfset thisData=replace(thisData,'"','""','all')>
-			<cfif len(oneLine) is 0>
-				<cfset oneLine = '"#thisData#"'>
-			<cfelse>
-				<cfset oneLine = '#oneLine#,"#thisData#"'>
-			</cfif>
-		</cfloop>
-		<cfset oneLine = trim(oneLine)>
-		<cfscript>
-			variables.joFileWriter.writeLine(oneLine);
-		</cfscript>
-	</cfloop>
-	<cfscript>
-		variables.joFileWriter.close();
-	</cfscript>
-	---->
 	<cflocation url="/download.cfm?file=download_4_bulkloader.csv" addtoken="false">
 	<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 </cfoutput>

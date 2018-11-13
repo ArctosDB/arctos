@@ -25,7 +25,8 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulk Edit Container">
-<cfset thecolumns="BARCODE,LABEL,OLD_CONTAINER_TYPE,CONTAINER_TYPE,DESCRIPTION,CONTAINER_REMARKS,HEIGHT,LENGTH,WIDTH,NUMBER_POSITIONS">
+<cfset thecolumns="BARCODE,LABEL,OLD_CONTAINER_TYPE,CONTAINER_TYPE,DESCRIPTION,CONTAINER_REMARKS,HEIGHT,LENGTH,WIDTH,number_rows,number_columns,orientation,positions_hold_container_type">
+
 <cfif action is "makeTemplate">
 	<cfset header=thecolumns>
 	<cffile action = "write"
@@ -92,9 +93,22 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 			<td>WIDTH</td>
 			<td>"0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
 		</tr>
+
 		<tr>
-			<td>NUMBER_POSITIONS</td>
-			<td>"0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
+			<td>NUMBER_ROWS</td>
+			<td>All-or-none position group memeber. "0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
+		</tr>
+		<tr>
+			<td>NUMBER_COLUMNS</td>
+			<td>All-or-none position group memeber. "0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
+		</tr>
+		<tr>
+			<td>ORIENTATION</td>
+			<td>All-or-none position group memeber. "0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
+		</tr>
+		<tr>
+			<td>POSITIONS_HOLD_CONTAINER_TYPE</td>
+			<td>All-or-none position group memeber. "0" (no quotes)  will update to NULL; blank will be ignored (no updates).</td>
 		</tr>
 	</table>
 	<form enctype="multipart/form-data" action="bulkEditContainer.cfm" method="POST">
@@ -209,15 +223,7 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 				width =0 and
 				barcode in (select barcode from container where width is not null)
 		</cfquery>
-		<cfquery name="upn_w" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_lbl2contr
-			set
-				note=note || '; ' || 'existing container has number_positions'
-			where
-				number_positions =0 and
-				barcode in (select barcode from container where number_positions is not null)
-		</cfquery>
+
 		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from cf_temp_lbl2contr where status is not null
 		</cfquery>

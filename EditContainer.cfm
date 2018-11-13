@@ -617,9 +617,6 @@
 	<div align="center"><font color="#0066FF" size="+6">You've deleted the container!</font> </div>
 </cfif>
 <!----------------------------->
-
-<cfif action is "CreateNew">
-
 	<cfoutput>
 		<cftransaction>
 			<cfstoredproc procedure="createContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -631,7 +628,10 @@
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#width#"><!---- v_width --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#height#"><!---- v_height --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#length#"><!---- v_length --->
-				<cfprocparam cfsqltype="cf_sql_varchar" value="#number_positions#"><!---- v_number_positions --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#number_rows#"><!---- v_number_rows --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#number_columns#"><!---- v_number_columns --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#orientation#"><!---- v_orientation --->
+				<cfprocparam cfsqltype="cf_sql_varchar" value="#positions_hold_container_type#"><!---- v_posn_hld_ctr_typ --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="#institution_acronym#"><!---- v_institution_acronym --->
 				<cfprocparam cfsqltype="cf_sql_varchar" value="0"><!---- v_parent_container_id --->
 			</cfstoredproc>
@@ -649,7 +649,10 @@
 	<cfparam name="width" default="">
 	<cfparam name="height" default="">
 	<cfparam name="length" default="">
-	<cfparam name="number_positions" default="">
+	<cfparam name="number_rows" default="">
+	<cfparam name="number_columns" default="">
+	<cfparam name="orientation" default="">
+	<cfparam name="positions_hold_container_type" default="">
 	<cfparam name="description" default="">
 	<cfparam name="barcode" default="">
 	<cfparam name="label" default="">
@@ -713,8 +716,29 @@
 					<td><input name="length" type="text" value="#length#" size="6"></td>
 				</tr>
 			</table>
-			<label for="number_positions">Number of Positions</label>
-			<input name="number_positions" id="number_positions" type="text" value="#number_positions#">
+			<div style="border:1px solid black">
+				Position layout: All or none must be given
+
+				<label for="number_rows">Number of Rows</label>
+				<input name="number_rows" id="number_rows" type="text" value="#number_rows#">
+				<label for="number_columns">Number of Columns</label>
+				<input name="number_columns" id="number_columns" type="text" value="#number_columns#">
+				<label for="orientation">Orientation</label>
+				<select name="orientation" id="orientation">
+					<option value=""></option>
+					<option value="horizontal" <cfif orientation is "horizontal"> selected="selected" </cfif>>horizontal</option>
+					<option value="vertical" <cfif orientation is "vertical"> selected="selected" </cfif>>vertical</option>
+				</select>
+				<label for="positions_hold_container_type">Positions Hold Container Type</label>
+				<select name="positions_hold_container_type" id="positions_hold_container_type" size="1">
+					<option value=""></option>
+				   	<cfloop query="ContType">
+			    		<option
+							<cfif positions_hold_container_type is ContType.container_type> selected="selected" </cfif>
+								value="#ContType.container_type#">#ContType.container_type#</option>
+			        </cfloop>
+				</select>
+			</div>
 			<label for="description">Description</label>
 			<input name="description" type="text" value="#description#">
 			<label for="institution_acronym">Institution</label>

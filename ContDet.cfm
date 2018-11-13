@@ -18,7 +18,11 @@
 		WIDTH,
 		HEIGHT,
 		length,
-		NUMBER_POSITIONS
+		INSTITUTION_ACRONYM,
+		NUMBER_ROWS,
+		NUMBER_COLUMNS,
+		ORIENTATION,
+		POSITIONS_HOLD_CONTAINER_TYPE
 	FROM
 		container,
 		flat,
@@ -55,8 +59,14 @@
 		  <div>Dimensions (W x H x D): #detail.WIDTH# x #detail.HEIGHT# x #detail.length# CM</div>
 		</cfif>
 
-		<cfif len(detail.NUMBER_POSITIONS) gt 0>
-		  <div>Number of Positions: #detail.NUMBER_POSITIONS#</div>
+		<cfif len(detail.INSTITUTION_ACRONYM) gt 0>
+		  <div>Institution: #detail.INSTITUTION_ACRONYM#</div>
+		</cfif>
+		<cfif len(detail.POSITIONS_HOLD_CONTAINER_TYPE) gt 0>
+		  <div>Rows: #detail.NUMBER_ROWS#</div>
+		  <div>Columns: #detail.NUMBER_COLUMNS#</div>
+		  <div>Orientation: #detail.ORIENTATION#</div>
+		  <div>PositionsHoldContainerType: #detail.POSITIONS_HOLD_CONTAINER_TYPE#</div>
 		</cfif>
 		<cfif len(detail.part_name) gt 0>
 			<div>
