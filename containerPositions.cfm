@@ -209,7 +209,7 @@
 				</li>
 			</ul>
 		</p>
-		Summary of the container into which you are about to create positions:
+		Container Summary
 		<table border>
 			<tr>
 				<th>Column</th>
