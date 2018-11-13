@@ -1,102 +1,22 @@
-<!-------------------------------------------------------------->
-<cffunction name="format_cumv_single" access="public" returntype="Query">
-	<!----
 
-		INPUT: Parts with part attribute data
-
-		OUTPUT: Manipulated part names
-
-	---->
-
-    <cfargument name="d" required="true" type="query">
-	<cfquery name="orig" dbtype="query">
-		select * from d
-	</cfquery>
-	<cfset origColList=orig.columnList>
-	<!--- get rid of the 1::many stuff --->
-	<cfif listcontains(origColList,"PART_NAME")>
-		<cfset origColList=listdeleteat(origColList,listfind(origColList,'PART_NAME'))>
-	</cfif>
-	<cfif listcontains(origColList,"LOT_COUNT")>
-		<cfset origColList=listdeleteat(origColList,listfind(origColList,'LOT_COUNT'))>
-	</cfif>
-	<cfif listcontains(origColList,"ATTRIBUTE_TYPE")>
-		<cfset origColList=listdeleteat(origColList,listfind(origColList,'ATTRIBUTE_TYPE'))>
-	</cfif>
-	<cfif listcontains(origColList,"ATTRIBUTE_VALUE")>
-		<cfset origColList=listdeleteat(origColList,listfind(origColList,'ATTRIBUTE_VALUE'))>
-	</cfif>
-	<cfquery name="d" dbtype="query">
-		select
-			#origColList#
-		from
-			orig
-		group by
-			#origColList#
-	</cfquery>
-    <cfset Ar_individual_summary  = ArrayNew(1)>
-	<cfset Ar_part_name = ArrayNew(1)>
-	<cfset Ar_storage = ArrayNew(1)>
-	<cfset Ar_hasTissues = ArrayNew(1)>
-	<cfset Ar_partsWithCount = ArrayNew(1)>
-	<cfset i=1>
-	<cfloop query="d">
-		<cfset ic=0>
-		<cfquery name="parts" dbtype="query">
-			select
-				part_name,
-				lot_count,
-				attribute_type,
-				attribute_value
-			from orig where guid='#guid#'
-		</cfquery>
-		<cfset tissues=''>
-		<cfset storage='unknown'>
-		<cfset part='unknown'>
-		<cfset pwc=''>
-		<cfset rlc=0>
-		<cfloop query="parts">
-			<cfif len(pwc) is 0>
-				<cfset pwc="#lot_count# #part_name#">
-			<cfelse>
-				<cfset pwc="#pwc#, #lot_count# #part_name#">
-			</cfif>
-			<cfif part_name contains "frozen">
-				<cfset tissues=part_name>
-			<cfelseif part_name contains "ethanol">
-				<cfset storage='Etoh'>
-				<cfset part="Fluid Specimen(s)">
-			<cfelseif part_name contains "isopropanol">
-				<cfset storage='isopropanol'>
-				<cfset part="Fluid Specimen(s)">
-			</cfif>
-			<cfif part_name contains "whole organism">
-				<cfset rlc=rlc+lot_count>
-			</cfif>
-		</cfloop>
-		<cfset Ar_part_name[i] = part>
-		<cfset Ar_hasTissues[i] = tissues>
-		<cfset Ar_partsWithCount[i] = pwc>
-		<cfset Ar_individual_summary[i] = rlc & ' ' & part>
-		<cfset i=i+1>
-	</cfloop>
-	<cfset temp=queryAddColumn(d,"individual_summary","VarChar",Ar_individual_summary)>
-	<cfset temp=queryAddColumn(d,"part_name","VarChar",Ar_part_name)>
-	<cfset temp=queryAddColumn(d,"storage","VarChar",Ar_storage)>
-	<cfset temp=queryAddColumn(d,"hasTissues","VarChar",Ar_hasTissues)>
-	<cfset temp=queryAddColumn(d,"partsWithCount","VarChar",Ar_partsWithCount)>
-
-
-  <cfreturn d>
-</cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="catnum_to_list" access="public" returntype="query">
 
 	<!----
 
-		INPUT: Query containing cat_num as INTEGER
+		INPUT: Query containing
+			* cat_num as INTEGER
+			* county
+			* state_prov
+			* scientific_name
 
-		OUTPUT: everything except cat_num GROUPed, cat_num as range-containing list in variable catnumlist
+		OUTPUT:
+			Input query, with...
+			* everything except cat_num GROUPed
+			* cat_num as range-containing list in variable catnumlist
+			* new column distinct_county_count (count of distinct values in COUNTY)
+			* new column distinct_state_count (count of distinct values in STATE_PROV)
+			* new column distinct_taxon_count (count of distinct values in SCIENTIFIC_NAME)
 
 	---->
 
@@ -1801,4 +1721,97 @@
 	</cfloop>
 	<cfset temp = queryAddColumn(q,"fDatum", "VarChar", datumAr)>
 	<cfreturn q>
+</cffunction>
+
+
+<!-------------------------------------------------------------->
+<cffunction name="format_cumv_single" access="public" returntype="Query">
+	<!----
+
+		INPUT: Parts with part attribute data
+
+		OUTPUT: Manipulated part names
+
+	---->
+
+    <cfargument name="d" required="true" type="query">
+	<cfquery name="orig" dbtype="query">
+		select * from d
+	</cfquery>
+	<cfset origColList=orig.columnList>
+	<!--- get rid of the 1::many stuff --->
+	<cfif listcontains(origColList,"PART_NAME")>
+		<cfset origColList=listdeleteat(origColList,listfind(origColList,'PART_NAME'))>
+	</cfif>
+	<cfif listcontains(origColList,"LOT_COUNT")>
+		<cfset origColList=listdeleteat(origColList,listfind(origColList,'LOT_COUNT'))>
+	</cfif>
+	<cfif listcontains(origColList,"ATTRIBUTE_TYPE")>
+		<cfset origColList=listdeleteat(origColList,listfind(origColList,'ATTRIBUTE_TYPE'))>
+	</cfif>
+	<cfif listcontains(origColList,"ATTRIBUTE_VALUE")>
+		<cfset origColList=listdeleteat(origColList,listfind(origColList,'ATTRIBUTE_VALUE'))>
+	</cfif>
+	<cfquery name="d" dbtype="query">
+		select
+			#origColList#
+		from
+			orig
+		group by
+			#origColList#
+	</cfquery>
+    <cfset Ar_individual_summary  = ArrayNew(1)>
+	<cfset Ar_part_name = ArrayNew(1)>
+	<cfset Ar_storage = ArrayNew(1)>
+	<cfset Ar_hasTissues = ArrayNew(1)>
+	<cfset Ar_partsWithCount = ArrayNew(1)>
+	<cfset i=1>
+	<cfloop query="d">
+		<cfset ic=0>
+		<cfquery name="parts" dbtype="query">
+			select
+				part_name,
+				lot_count,
+				attribute_type,
+				attribute_value
+			from orig where guid='#guid#'
+		</cfquery>
+		<cfset tissues=''>
+		<cfset storage='unknown'>
+		<cfset part='unknown'>
+		<cfset pwc=''>
+		<cfset rlc=0>
+		<cfloop query="parts">
+			<cfif len(pwc) is 0>
+				<cfset pwc="#lot_count# #part_name#">
+			<cfelse>
+				<cfset pwc="#pwc#, #lot_count# #part_name#">
+			</cfif>
+			<cfif part_name contains "frozen">
+				<cfset tissues=part_name>
+			<cfelseif part_name contains "ethanol">
+				<cfset storage='Etoh'>
+				<cfset part="Fluid Specimen(s)">
+			<cfelseif part_name contains "isopropanol">
+				<cfset storage='isopropanol'>
+				<cfset part="Fluid Specimen(s)">
+			</cfif>
+			<cfif part_name contains "whole organism">
+				<cfset rlc=rlc+lot_count>
+			</cfif>
+		</cfloop>
+		<cfset Ar_part_name[i] = part>
+		<cfset Ar_hasTissues[i] = tissues>
+		<cfset Ar_partsWithCount[i] = pwc>
+		<cfset Ar_individual_summary[i] = rlc & ' ' & part>
+		<cfset i=i+1>
+	</cfloop>
+	<cfset temp=queryAddColumn(d,"individual_summary","VarChar",Ar_individual_summary)>
+	<cfset temp=queryAddColumn(d,"part_name","VarChar",Ar_part_name)>
+	<cfset temp=queryAddColumn(d,"storage","VarChar",Ar_storage)>
+	<cfset temp=queryAddColumn(d,"hasTissues","VarChar",Ar_hasTissues)>
+	<cfset temp=queryAddColumn(d,"partsWithCount","VarChar",Ar_partsWithCount)>
+
+
+  <cfreturn d>
 </cffunction>
