@@ -380,16 +380,15 @@
 					<table cellpadding="0" cellspacing="0" width="100%">
 						<tr>
 							<td>
+								<label for="newParentBarcode">Move To Barcode</label>
+								<input type="hidden" name="parent_container_id" id="parent_container_id" value="#getCont.parent_container_id#">
+								<input type="text" name="newParentBarcode" id="newParentBarcode" />
+							</td>
+							<td>
 								<input type="button"
 									value="Print"
 									class="lnkBtn"
 									onclick="window.open('Reports/report_printer.cfm?container_id=#getCont.container_id#');">
-							</td>
-							<td>
-								<input type="button"
-									value="Save Container Edits"
-									class="savBtn"
-									onclick="form1.action.value='update';submit();">
 							</td>
 							<td>
 								<input type="button"
@@ -412,9 +411,10 @@
 								</cfif>
 							</td>
 							<td>
-								<label for="newParentBarcode">Move To Barcode</label>
-								<input type="hidden" name="parent_container_id" id="parent_container_id" value="#getCont.parent_container_id#">
-								<input type="text" name="newParentBarcode" id="newParentBarcode" />
+								<input type="button"
+									value="Save Container Edits"
+									class="savBtn"
+									onclick="form1.action.value='update';submit();">
 							</td>
 						</tr>
 					</table>
@@ -459,6 +459,9 @@
 		</tr>
 	</table>
 </form>
+<p>
+	Add "checked" with no additional data. The form will reload; any other changes will be lost.
+</p>
 <input type="button" onclick="quickCheck()" class="insBtn" value="quick-insert container check">
 <h3>History</h3>
 <div id="cehisttgt"></div>
