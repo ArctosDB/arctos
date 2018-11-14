@@ -351,7 +351,7 @@
 											id="barcode#thisTabIndex#"
 											size="6"
 											tabindex="#thisTabIndex#"
-											font-size:"inherit">
+											font-size="inherit">
 									</cfif>
 								</span>
 							</div>
