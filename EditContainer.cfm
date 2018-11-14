@@ -506,6 +506,14 @@
 	</cfquery>
 	<cfif isp.recordcount is 1 and isp.container_type is 'position'>
 		contains only positions
+		<cfquery name="childrenchildren" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select count(*) c from container where parent_container_id in (
+				select container_id	from container where parent_container_id=#container_id#
+			)
+		</cfquery>
+		<cfif childrenchildren.c is 0>
+			...all positions are empty
+		</cfif>
 	</cfif>
 	<h3>Contents</h3>
 	<form name="moveChillun" method="post" action="EditContainer.cfm">
