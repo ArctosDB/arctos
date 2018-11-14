@@ -12,12 +12,19 @@
 		border:1px solid black;
 		background-color:#F4F4F4;
 		}
-	span.labelSpan {
+	span.labelSpanOLD {
 		 border:1px solid black;
 		 font-size:x-small;
 		 background-color:#CCCCCC;
 		 }
+	span.labelSpan {
+		 border:1px solid black;
+		 background-color:#CCCCCC;
+		 }
 	span.innerSpan {
+		 text-align:center;
+		 }
+	span.innerSpanOLD {
 		 font-size:x-small;
 		 text-align:center;
 		 }
@@ -90,7 +97,8 @@
 		}
 	}
 	function changeTableFont(s){
-		$("#grid_table").removeClass().addClass(s);
+
+		$(".ccellDiv").removeClass().addClass('ccellDiv').addClass(s);
 	}
 </script>
 
