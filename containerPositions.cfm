@@ -96,76 +96,7 @@
 	<cfset acceptableChildContainerType=aBox.POSITIONS_HOLD_CONTAINER_TYPE>
 	<cfset numberRows = aBox.NUMBER_ROWS>
 	<cfset numberColumns = aBox.NUMBER_COLUMNS>
-	<!--------
 
-	<!--- default is....---->
-	<cfset taborder="horizontal">
-	<!---- figure out what they're trying to do and set some variables ---->
-	<cfif aBox.number_positions is 100 AND aBox.container_type is "freezer box">
-		<cfset acceptableChildContainerType="cryovial">
-		<cfset goodPositionType = "position">
-		<cfset numberRows = 10>
-		<cfset numberColumns = 10>
-	<cfelseif aBox.number_positions is 81 AND aBox.container_type is "freezer box">
-		<cfset acceptableChildContainerType="cryovial">
-		<cfset goodPositionType = "position">
-		<cfset numberRows = 9>
-		<cfset numberColumns = 9>
-	<cfelseif aBox.number_positions is 25 AND aBox.container_type is "freezer box">
-		<cfset acceptableChildContainerType="cryovial">
-		<cfset goodPositionType = "position">
-		<cfset numberRows = 5>
-		<cfset numberColumns = 5>
-	<cfelseif aBox.number_positions is 169 AND aBox.container_type is "freezer box">
-		<cfset acceptableChildContainerType="cryovial">
-		<cfset goodPositionType = "position">
-		<cfset numberRows = 13>
-		<cfset numberColumns = 13>
-	<cfelseif aBox.number_positions is 48 AND aBox.container_type is "freezer">
-		<cfset acceptableChildContainerType="freezer rack">
-		<cfset goodPositionType = "position">
-		<cfset numberRows = 12>
-		<cfset numberColumns = 4>
-	<cfelseif aBox.number_positions is 33 AND aBox.container_type is "freezer">
-		<cfset acceptableChildContainerType="freezer rack">
-		<cfset goodPositionType = "position">
-		<cfset numberRows = 11>
-		<cfset numberColumns = 3>
-	<cfelseif aBox.number_positions is 100 AND aBox.container_type is "slide box">
-		<cfset acceptableChildContainerType="slide">
-		<cfset goodPositionType = "position">
-		<cfset numberRows = 50>
-		<cfset numberColumns = 2>
-		<cfset taborder="vertical">
-	<cfelse>
-		<!--- this form can do nothing useful ---->
-		<div class="error">
-			This application won't do what you want to do.
-
-			<p>
-				You must have a container with positons. (Edit Container, set number of positions.)
-			</p>
-			What this form will scan into or create positions for:
-
-
-			<ul>
-				<li>freezer box - 100 positions - 10 rows, 10 columns, holds <strong>cryovial</strong></li>
-				<li>freezer box - 81 positions - 9 rows, 9 columns, holds <strong>cryovial</strong></li>
-				<li>freezer box - 25 positions - 5 rows, 5 columns, holds <strong>cryovial</strong></li>
-				<li>freezer box - 169 positions - 13 rows, 13 columns, holds <strong>cryovial</strong></li>
-				<li>freezer - 48 positions - 12 rows, 4 columns, holds <strong>freezer rack</strong></li>
-				<li>freezer - 33 positions - 11 rows, 3 columns, holds <strong>freezer rack</strong></li>
-				<li>slide box - 100 positions - 50 rows, 2 columns, holds <strong>slide</strong></li>
-			</ul>
-
-
-			<p>
-			If you have that and you're still getting this error, <a href="/contact.cfm">contact us</a>.
-			</p>
-		</div>
-		<cfabort>
-	</cfif>
-	---->
 	<!---global--->
 	<!---- see is positions are used ---->
 	<cfquery name="whatPosAreUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -300,6 +231,8 @@
 		<strong>#aBox.barcode#</strong>
 		<br> Type:
 		<strong>#aBox.container_type#</strong>
+		<br><a href="EditContainer.cfm?container_id=#abox.container_id#">Edit</a>
+		<br><a href="findContainer.cfm?container_id=#abox.container_id#">Tree View</a>
 	</p>
 
 	<p>
