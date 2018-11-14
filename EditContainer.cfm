@@ -115,6 +115,27 @@
 		$("#parameter_value").val('1');
 		$("#envcheck").submit();
 	}
+	 function posnmagic(v){
+	 	if (v=='freezerbox100'){
+	 		$("#number_rows").val('10');
+	 		$("#number_columns").val('10');
+	 		$("#orientation").val('horizontal');
+	 		$("#positions_hold_container_type").val('cryovial');
+	 	}
+	 	if (v=='freezerbox81'){
+	 		$("#number_rows").val('9');
+	 		$("#number_columns").val('9');
+	 		$("#orientation").val('horizontal');
+	 		$("#positions_hold_container_type").val('cryovial');
+	 	}
+
+	 	if (v=='reset'){
+	 		$("#number_rows").val('');
+	 		$("#number_columns").val('');
+	 		$("#orientation").val('');
+	 		$("#positions_hold_container_type").val('');
+	 	}
+	 }
 </script>
 <cfif action is "findNoPartTube">
 	<script src="/includes/sorttable.js"></script>
@@ -192,31 +213,6 @@
 </cfif>
 <!---------------------------------------------------------------->
 <cfif action is "nothing">
-	<script>
-	 function posnmagic(v){
-	 	if (v=='freezerbox100'){
-	 		$("#number_rows").val('10');
-	 		$("#number_columns").val('10');
-	 		$("#orientation").val('horizontal');
-	 		$("#positions_hold_container_type").val('cryovial');
-	 	}
-	 	if (v=='freezerbox81'){
-	 		$("#number_rows").val('9');
-	 		$("#number_columns").val('9');
-	 		$("#orientation").val('horizontal');
-	 		$("#positions_hold_container_type").val('cryovial');
-	 	}
-
-	 	if (v=='reset'){
-	 		$("#number_rows").val('');
-	 		$("#number_columns").val('');
-	 		$("#orientation").val('');
-	 		$("#positions_hold_container_type").val('');
-	 	}
-
-	 }
-
-	</script>
 	<cfset title="Edit Container">
 	<cfquery name="getCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
