@@ -362,7 +362,7 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 			</p>
 			<form action="bulkEditContainer.cfm">
 				<input type="hidden" name="action" value="finalizeUpload">
-	    		<input type="submit" class="savBtn" value="Make Changes" />
+	    		<input type="submit" class="savBtn" value="Make Changes and delete local data" />
 			</form>
 		</cfif>
 	</cfoutput>

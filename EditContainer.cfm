@@ -501,6 +501,12 @@
 		order by
 			container_type,barcode,lpad(label,255)
 	</cfquery>
+	<cfquery name="isp" dbtype="query">
+		select container_type from children group by container_type
+	</cfquery>
+	<cfif isp.recordcount is 1 and isp.container_type is 'position'>
+		contains only positions
+	</cfif>
 	<h3>Contents</h3>
 	<form name="moveChillun" method="post" action="EditContainer.cfm">
 		<input type="hidden" name="action" value="moveChillun">
