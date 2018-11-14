@@ -156,7 +156,7 @@
 				<tr>
 					<td>
 						#box_barcode#
-						[<a href="/findContainer.cfm?container_id=#box_id#">view in tree</a>]
+						<br>[<a href="/findContainer.cfm?container_id=#box_id#">view in tree</a>]
 					</td>
 					<td>#box_type#</td>
 					<td>#position_label#</td>
@@ -227,6 +227,10 @@
 	</cfquery>
 	<cfoutput>
 	<h2>Edit Container</h2>
+	<br><a href="/findContainer.cfm?container_id=#container_id#">view in tree</a>
+	<cfif len(getCont.POSITIONS_HOLD_CONTAINER_TYPE) gt 0>
+		<br><a href="/containerPositions.cfm?container_id=#container_id#">positions</a>
+	</cfif>
 	<a href="/findContainer.cfm?container_id=#container_id#">view in tree</a>
 	<table><tr><td valign="top"><!---- left column ---->
 
