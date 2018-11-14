@@ -505,14 +505,20 @@
 		select container_type from children group by container_type
 	</cfquery>
 	<cfif isp.recordcount is 1 and isp.container_type is 'position'>
-		contains only positions
 		<cfquery name="childrenchildren" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select count(*) c from container where parent_container_id in (
 				select container_id	from container where parent_container_id=#container_id#
 			)
 		</cfquery>
 		<cfif childrenchildren.c is 0>
-			...all positions are empty
+			<p>
+				This container holds only empty positions.
+				<form name="moveChillun" method="post" action="EditContainer.cfm">
+					<input type="hidden" name="action" value="deleteEmptyPositions">
+					<input type="hidden" name="container_id" value="#getCont.container_id#">
+					<br><input type="submit" value="Delete empty positions" class="delBtn">
+				</form>
+			</p>
 		</cfif>
 	</cfif>
 	<h3>Contents</h3>
