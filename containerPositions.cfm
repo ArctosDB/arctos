@@ -319,7 +319,7 @@
 								where label = '#thisTabIndex#'
 							</cfquery>
 
-							<div class="ccellDiv">
+							<div class="ccellDiv mediumFont">
 								<span class="labelSpan">
 									#thisTabIndex#
 								</span>
