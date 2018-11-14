@@ -147,6 +147,15 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
+<cfif action is "deleteStagingData">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_lbl2contr
+	</cfquery>
+	<p>
+		Data deleted. <a href="bulkEditContainer.cfm">load more</a>
+	</p>
+</cfif>
+<!------------------------------------------------------------------------------------------->
 <cfif action IS "validateUpload">
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
@@ -230,9 +239,12 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 		<cfif fail.c gt 0>
 			There are problems. Fix the data and try again.
 		<cfelse>
-			Validation complete. Carefully recheck the data and <a href="bulkEditContainer.cfm?action=finalizeUpload">click here to finalize the upload</a>.
-			Pay special attention to the "note" column - these are not "errors" but information here may be an indication that
-			you are about to make a huge mess.
+			Validation complete
+			<p>
+				Please review the data in the staging table below. Pay special attention to the "note" column - these are not "errors"
+				but information here may be an indication that the edit you are about to make is not exactly correct or what you want.
+				Instructions for completing the upload or making changes to this data are found at the bottom of the staging table.
+			</p>
 		</cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_lbl2contr
@@ -335,12 +347,35 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 				</tr>
 			</cfloop>
 		</table>
+		<cfif fail.c gt 0>
+			<p>
+				 The data in the staging table contains errors or does not appear as expected. Delete it from the staging table without uploading.
+			</p>
+			<form action="bulkEditContainer.cfm">
+				<input type="hidden" name="action" value="deleteStagingData">
+	    		<input type="submit" class="delBtn" value="Delete Data" />
+			</form>
+
+		<cfelse>
+			<p>
+				The data in the staging table appears as expected. The upload can be finalized and the data deleted from the staging table.
+			</p>
+			<form action="bulkEditContainer.cfm">
+				<input type="hidden" name="action" value="finalizeUpload">
+	    		<input type="submit" class="savBtn" value="Make Changes" />
+			</form>
+		</cfif>
 	</cfoutput>
 </cfif>
 <!------------------------------------------>
 <cfif action IS "finalizeUpload">
+	<cftransaction>
 		<cfstoredproc procedure="bulkUpdateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		</cfstoredproc>
+		<cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from cf_temp_lbl2contr
+		</cfquery>
+
 		<!----
 	<!--- lots of possibliities here, so break this into a few simpler queries ---->
 	<cftransaction>
