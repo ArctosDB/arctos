@@ -98,7 +98,7 @@
 			theSpan.appendChild(label);
 		} else{
 			var absPosn = Math.abs(box_position);
-			$("#barcode" + absPosn).focus().addClass('activeCell');
+			$("#barcode" + absPosn).focus().select().addClass('activeCell');
 			alert("Error! Position " + absPosn + " save was not successful. The error is: \n" + msg);
 		}
 	}
