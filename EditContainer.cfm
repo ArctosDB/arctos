@@ -387,26 +387,26 @@
 							</td>
 							<td>
 								<input type="button"
-									value="Update"
+									value="Save Container Edits"
 									class="savBtn"
 									onclick="form1.action.value='update';submit();">
 							</td>
 							<td>
 								<input type="button"
-									value="Delete"
+									value="Delete Container"
 									class="delBtn"
 									onclick="form1.action.value='delete';confirmDelete('form1');" >
 							</td>
 							<td>
 								<input type="button"
-									value="Clone"
+									value="Clone Container"
 									class="insBtn"
 									onclick="form1.action.value='newContainer';submit();">
 							</td>
 							<td>
 								<cfif getCont.parent_container_id gt 0>
 									<input type="button"
-										value="Edit Parent"
+										value="Edit Parent Container"
 										class="lnkBtn"
 										onclick="document.location='EditContainer.cfm?container_id=#getCont.parent_container_id#';">
 								</cfif>
@@ -455,7 +455,7 @@
 			</td>
 			<td><input type="number" name="parameter_value" id="parameter_value"></td>
 			<td><textarea class="mediumtextarea" name="remark" id="remark"></textarea></td>
-			<td><input type="submit" class="insBtn" value="save"></td>
+			<td><input type="submit" class="insBtn" value="save container check"></td>
 		</tr>
 	</table>
 </form>
