@@ -231,28 +231,10 @@
 	<cfif len(getCont.POSITIONS_HOLD_CONTAINER_TYPE) gt 0>
 		<br><a href="/containerPositions.cfm?container_id=#container_id#">positions</a>
 	</cfif>
-	<a href="/findContainer.cfm?container_id=#container_id#">view in tree</a>
 	<table><tr><td valign="top"><!---- left column ---->
 
 
-	<div class="importantNotification">
-		<form name="scary_barcode_swapper" method="post" action="EditContainer.cfm">
-			<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
-			<input type="hidden" name="action" value="scary_barcode_swapper">
-			<div style="text-align:center">
-				DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
-			</div>
-			<br>This scary red box adds or replaces barcodes. Do not use this form unless you know what it does.
-			<br>Enter the barcode of a "donor" container.
-			<br>The donor must be a label.
-			<br>That container will be DELETED and the barcode will be assigned to this container.
-			<br>Any barcode currently assigned to this container will be lost.
-			<br>This runs as admin to bypass rules about changing barcodes; make sure you know what you're doing!
-			<label for="donorBarcode">Donor Barcode</label>
-			<input type="text" name="donorBarcode">
-			<input type="submit" class="savBtn" value="Merge Containers">
-		</form>
-	</div>
+
 
 
 	<form name="form1" method="post" action="EditContainer.cfm">
@@ -480,6 +462,25 @@
 <input type="button" onclick="quickCheck()" class="insBtn" value="quick-insert container check">
 <h3>History</h3>
 <div id="cehisttgt"></div>
+
+	<div class="importantNotification">
+		<form name="scary_barcode_swapper" method="post" action="EditContainer.cfm">
+			<input type="hidden" name="container_id" id="container_id" value="#getCont.container_id#">
+			<input type="hidden" name="action" value="scary_barcode_swapper">
+			<div style="text-align:center">
+				DO NOT USE THIS UNLESS YOU KNOW WHAT YOU'RE DOING!!
+			</div>
+			<br>This scary red box adds or replaces barcodes. Do not use this form unless you know what it does.
+			<br>Enter the barcode of a "donor" container.
+			<br>The donor must be a label.
+			<br>That container will be DELETED and the barcode will be assigned to this container.
+			<br>Any barcode currently assigned to this container will be lost.
+			<br>This runs as admin to bypass rules about changing barcodes; make sure you know what you're doing!
+			<label for="donorBarcode">Donor Barcode</label>
+			<input type="text" name="donorBarcode">
+			<input type="submit" class="savBtn" value="Merge Containers">
+		</form>
+	</div>
 </td>
 <td valign="top"><!---- right column ---->
 	<cfquery name="children" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
