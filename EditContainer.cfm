@@ -512,11 +512,10 @@
 		</cfquery>
 		<cfif childrenchildren.c is 0>
 			<p>
-				This container holds only empty positions.
 				<form name="moveChillun" method="post" action="EditContainer.cfm">
 					<input type="hidden" name="action" value="deleteEmptyPositions">
 					<input type="hidden" name="container_id" value="#getCont.container_id#">
-					<br><input type="submit" value="Delete empty positions" class="delBtn">
+					<br><input type="submit" value="Delete All Positions" class="delBtn">
 				</form>
 			</p>
 		</cfif>
