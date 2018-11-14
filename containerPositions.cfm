@@ -105,6 +105,14 @@
 
 		$(".ccellDiv").removeClass().addClass('ccellDiv').addClass(s);
 	}
+	function gotFocus(id){
+		$("#" + id).addClass('activeCell');
+	}
+	function lostFocus(id){
+		$("#" + id).removeClass('activeCell');
+	}
+
+
 </script>
 
 <cfif action is "nothing">
@@ -335,7 +343,8 @@
 											value="#thisPos.position_id#"
 											class="inheritFont">
 										<input type="text"
-											onFocus="this.className='activeCell'"
+											onFocus="gotFocus(this.id)"
+											onBlur="lostFocus(this.id)"
 											onChange="moveContainer('barcode#thisTabIndex#',this.value)"
 											name="barcode#thisTabIndex#"
 											id="barcode#thisTabIndex#"
