@@ -192,6 +192,31 @@
 </cfif>
 <!---------------------------------------------------------------->
 <cfif action is "nothing">
+	<script>
+	 function posnmagic(v){
+	 	if (v=='freezerbox100'){
+	 		$("#number_rows").val('10');
+	 		$("#number_columns").val('10');
+	 		$("#orientation").val('horizontal');
+	 		$("#positions_hold_container_type").val('cryovial');
+	 	}
+	 	if (v=='freezerbox81'){
+	 		$("#number_rows").val('9');
+	 		$("#number_columns").val('9');
+	 		$("#orientation").val('horizontal');
+	 		$("#positions_hold_container_type").val('cryovial');
+	 	}
+
+	 	if (v=='reset'){
+	 		$("#number_rows").val('');
+	 		$("#number_columns").val('');
+	 		$("#orientation").val('');
+	 		$("#positions_hold_container_type").val('');
+	 	}
+
+	 }
+
+	</script>
 	<cfset title="Edit Container">
 	<cfquery name="getCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
@@ -330,6 +355,15 @@
 					<div style="border:2px solid red">
 					<table cellspacing="0" cellpadding="0" width="100%" id="dimTbl">
 						<tr>
+							<td>
+								<label for="posnmagic">magic</label>
+								<select name="posnmagic" id="posnmagic" onchange="posnmagic(this.value)">
+									<option value=""></option>
+									<option value="reset" >-reset-</option>
+									<option value="freezerbox100" >10x10 freezer box</option>
+									<option value="freezerbox81" >9x9 freezer box</option>
+								</select>
+							</td>
 							<td>
 								<label for="number_rows">## Rows</label>
 								<input type="text" id="width" name="number_rows" value="#getCont.number_rows#" size="4">

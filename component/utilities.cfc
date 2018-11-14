@@ -1765,22 +1765,23 @@
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0,/)">
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads,ackBulletin,aupm">
-			<cfset x=x & ",ashx,app_debug,assets">
+			<cfset x=x & ",ashx,app_debug,assets,auth,App,ASPSamp,AdvWorks,AccountService,Accounts">
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch,bea_wls_deployment_internal">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
-			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts,COMMIT_EDITMSG">
+			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts,COMMIT_EDITMSG,console,CHANGELOG,com_sun_web_ui,cfdocs">
+			<cfset x=x & ",classLoader,cacheObjectMaxSize">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config">
-			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
+			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway">
 			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana,hooks,heads">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
-			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla">
-			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization,logs">
+			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla,jsf">
+			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization,logs,logon">
 			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg,modules,mychat">
-			<cfset x=x & ",news,nyet">
-			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol,objects">
+			<cfset x=x & ",news,nyet,newdsn">
+			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol,objects,owa,openshift,onrequestend">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pmc">
 			<cfset x=x & ",pma4,php5,pre-receive">
 			<cfset x=x & ",pma,phppgadmin,prescription,phpmychat,pre-push">
@@ -1793,7 +1794,7 @@
 			<cfset x=x & ",trackback,texteditor,tar">
 			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra,vscode,views">
-			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig">
+			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
 
