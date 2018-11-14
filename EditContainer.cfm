@@ -115,7 +115,7 @@
 		$("#parameter_value").val('1');
 		$("#envcheck").submit();
 	}
-	 function posnmagic(v){
+	 function positionlayoutmagic(v){
 	 	if (v=='freezerbox100'){
 	 		$("#number_rows").val('10');
 	 		$("#number_columns").val('10');
@@ -353,7 +353,7 @@
 						<tr>
 							<td>
 								<label for="posnmagic">magic</label>
-								<select name="posnmagic" id="posnmagic" onchange="posnmagic(this.value)">
+								<select name="posnmagic" id="posnmagic" onchange="positionlayoutmagic(this.value)">
 									<option value=""></option>
 									<option value="reset" >-reset-</option>
 									<option value="freezerbox100" >10x10 freezer box</option>
