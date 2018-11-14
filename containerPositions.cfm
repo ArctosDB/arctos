@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
-		input.activeCell {
+	input.activeCell {
 		background-color:#FF0000;
 		}
 	input.hasData {
@@ -21,6 +21,25 @@
 		 font-size:x-small;
 		 text-align:center;
 		 }
+	grid_table
+	.xsmallFont{
+		font-size:x-small;
+	}
+	.smallFont{
+		font-size:small;
+	}
+	.mediumFont{
+		font-size:medium;
+	}
+	.largeFont{
+		font-size:large;
+	}
+	.xlargeFont{
+		font-size:x-large;
+	}
+	.xxlargeFont{
+		font-size:xx-large;
+	}
 </style>
 <script>
 	function checkSave (boxID,content) {
@@ -70,6 +89,9 @@
 			var absPosn = Math.abs(box_position);
 			alert("Error! Position " + absPosn + " save was not successful. The error is: \n" + msg);
 		}
+	}
+	function changeTableFont(s){
+		$("#grid_table").removeClass().addClass(s);
 	}
 </script>
 
@@ -248,12 +270,23 @@
 		Save happens when you tab out of a cell. You can set your scanner to send a tab after data. Make sure you deal with anything
 		that turns red.
 	</p>
+	<p>
+		<label for="cfs">Table Font Size</label>
+		<select id="tfs" onchange="changeTableFont(this.value);">
+			<option value="xsmallFont">xsmallFont</option>
+			<option value="smallFont">smallFont</option>
+			<option selected="selected" value="mediumFont">mediumFont</option>
+			<option value="largeFont">largeFont</option>
+			<option value="xlargeFont">xlargeFont</option>
+			<option value="xxlargeFont">xxlargeFont</option>
+		</select>
+	</p>
 	<form name="newScans" method="post" action="containerPositions.cfm" onsubmit="return false;">
 		<input type="hidden" name="action" value="moveScans">
 		<input type="hidden" name="container_id" id="container_id" value="#aBox.container_id#">
 		<input type="hidden" name="acceptableChildContainerType" id="acceptableChildContainerType" value="#acceptableChildContainerType#">
 		<cfset thisCellNumber=1>
-		<table cellpadding="0" cellspacing="0" border="1">
+		<table id="grid_table" cellpadding="0" cellspacing="0" border="1">
 			<cfloop from="1" to="#numberRows#" index="currentrow">
 				<tr>
 					<cfloop from="1" to="#numberColumns#" index="currentcolumn">
