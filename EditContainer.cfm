@@ -362,7 +362,7 @@
 							</td>
 							<td>
 								<label for="number_rows">## Rows</label>
-								<input type="text" id="width" name="number_rows" value="#getCont.number_rows#" size="4">
+								<input type="text" id="number_rows" name="number_rows" value="#getCont.number_rows#" size="4">
 							</td>
 							<td>
 								<label for="number_columns">## Columns</label>
