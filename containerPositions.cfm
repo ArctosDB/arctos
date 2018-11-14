@@ -2,9 +2,6 @@
 <style>
 
 	.inheritFont {font-size:inherit;}
-
-
-
 	input.activeCell {
 		background-color:#FF0000;
 		}
@@ -17,11 +14,7 @@
 		border:1px solid black;
 		background-color:#F4F4F4;
 		}
-	span.labelSpanOLD {
-		 border:1px solid black;
-		 font-size:x-small;
-		 background-color:#CCCCCC;
-		 }
+
 	span.labelSpan {
 		 border:1px solid black;
 		 background-color:#CCCCCC;
@@ -29,10 +22,7 @@
 	span.innerSpan {
 		 text-align:center;
 		 }
-	span.innerSpanOLD {
-		 font-size:x-small;
-		 text-align:center;
-		 }
+
 	.xsmallFont{
 		font-size:x-small;
 	}
@@ -290,6 +280,9 @@
 	<p>
 		Save happens when you tab out of a cell. You can set your scanner to send a tab after data. Make sure you deal with anything
 		that turns red.
+	</p>
+	<p>
+		Moving an object does NOT remove it from it's original cell. Reload this page to refresh data.
 	</p>
 	<p>
 		<label for="cfs">Table Font Size</label>
