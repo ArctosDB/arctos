@@ -21,7 +21,6 @@
 		 font-size:x-small;
 		 text-align:center;
 		 }
-	grid_table
 	.xsmallFont{
 		font-size:x-small;
 	}
