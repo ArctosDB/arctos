@@ -1769,33 +1769,35 @@
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch,bea_wls_deployment_internal">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
-			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts">
+			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts,COMMIT_EDITMSG">
 			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway">
-			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler">
-			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana">
+			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git">
+			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana,hooks,heads">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla">
-			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization">
+			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization,logs">
 			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg,modules,mychat">
 			<cfset x=x & ",news,nyet">
-			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol">
+			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol,objects">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pmc">
-			<cfset x=x & ",pma4,php5">
-			<cfset x=x & ",pma,phppgadmin,prescription,phpmychat">
+			<cfset x=x & ",pma4,php5,pre-receive">
+			<cfset x=x & ",pma,phppgadmin,prescription,phpmychat,pre-push">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel">
-			<cfset x=x & ",remote-sync,regex,register,rar">
+			<cfset x=x & ",remote-sync,regex,register,rar,refs,receive,remotes">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sftp-config,store,shop,server_info">
-			<cfset x=x & ",sysobjects,svn,sap,ssh">
-			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects">
+			<cfset x=x & ",sysobjects,svn,sap,ssh,stash">
+			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects,sample">
 			<cfset x=x & ",trackback,texteditor,tar">
 			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra,vscode,views">
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
+
+
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
