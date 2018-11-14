@@ -1,5 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
+
+	.inheritFont {font-family:inherit;}
+
+
+
 	input.activeCell {
 		background-color:#FF0000;
 		}
@@ -327,15 +332,16 @@
 										<input type="hidden"
 											name="position_id#thisTabIndex#"
 											id="position_id#thisTabIndex#"
-											value="#thisPos.position_id#">
+											value="#thisPos.position_id#"
+											class="inheritFont">
 										<input type="text"
 											onFocus="this.className='activeCell'"
 											onChange="moveContainer('barcode#thisTabIndex#',this.value)"
 											name="barcode#thisTabIndex#"
 											id="barcode#thisTabIndex#"
 											size="6"
-											style="font-size:small;"
-											tabindex="#thisTabIndex#">
+											tabindex="#thisTabIndex#"
+											class="inheritFont">
 									</cfif>
 								</span>
 							</div>
