@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <style>
 
-	.inheritFont {font-family:inherit;}
+	.inheritFont {font-size:inherit;}
 
 
 
@@ -351,7 +351,7 @@
 											id="barcode#thisTabIndex#"
 											size="6"
 											tabindex="#thisTabIndex#"
-											font-size="inherit">
+											class="inheritFont">
 									</cfif>
 								</span>
 							</div>
