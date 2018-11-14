@@ -374,16 +374,18 @@
 					<textarea rows="2" cols="60" id="container_remarks" name="container_remarks">#getCont.container_remarks#</textarea>
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<label for="newParentBarcode">Move To Barcode</label>
+					<input type="hidden" name="parent_container_id" id="parent_container_id" value="#getCont.parent_container_id#">
+					<input type="text" name="newParentBarcode" id="newParentBarcode" />
+				</td>
+			</tr>
 
 			<tr>
 				<td colspan="2">
 					<table cellpadding="0" cellspacing="0" width="100%">
 						<tr>
-							<td>
-								<label for="newParentBarcode">Move To Barcode</label>
-								<input type="hidden" name="parent_container_id" id="parent_container_id" value="#getCont.parent_container_id#">
-								<input type="text" name="newParentBarcode" id="newParentBarcode" />
-							</td>
 							<td>
 								<input type="button"
 									value="Print"
