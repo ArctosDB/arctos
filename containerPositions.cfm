@@ -342,7 +342,7 @@
 											name="position_id#thisTabIndex#"
 											id="position_id#thisTabIndex#"
 											value="#thisPos.position_id#"
-											class="inheritFont">
+											>
 										<input type="text"
 											onFocus="gotFocus(this.id)"
 											onBlur="lostFocus(this.id)"
@@ -351,7 +351,7 @@
 											id="barcode#thisTabIndex#"
 											size="6"
 											tabindex="#thisTabIndex#"
-											class="inheritFont">
+											font-size:"inherit">
 									</cfif>
 								</span>
 							</div>
