@@ -84,8 +84,32 @@ update temp_qn set hg=trim('xxxx') where quad='xxxxxx';
 
 alter table temp_qn add media_id number;
 
+
+-- after makes media, just SQL
+
+lock table geog_auth_rec in exclusive mode nowait;
+
+alter trigger TRG_HIGHER_GEOG_MAGICDUPS disable;
+alter trigger TR_GEOGAUTHREC_AU_FLAT disable;
+
+begin
+	for r in (select * from temp_qn) loop
+		dbms_output.put_line(r.hg);
+		update geog_auth_rec set WKT_POLYGON='media::' || r.media_id where higher_geog=r.HG;
+	end loop;
+end;
+/
+alter trigger TR_GEOGAUTHREC_AU_FLAT enable;
+
+alter trigger TRG_HIGHER_GEOG_MAGICDUPS enable;
+
+commit;
+
+
+
 ---->
 
+<!---- makes media
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		select * from temp_qn where media_id is null
@@ -179,3 +203,4 @@ alter table temp_qn add media_id number;
 		</cfif>
 	</cfloop>
 </cfoutput>
+--------->
