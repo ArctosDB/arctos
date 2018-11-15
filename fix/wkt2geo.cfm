@@ -88,7 +88,8 @@ alter table temp_qn add media_id number;
 
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_qn where media_id is null and rownum<2
+		select * from temp_qn where media_id is null
+		--and rownum<2
 	</cfquery>
 	<cfloop query="d">
 
