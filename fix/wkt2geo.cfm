@@ -88,10 +88,12 @@ alter table temp_qn add media_id number;
 
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_qn where media_id is null and rownum<1
+		select * from temp_qn where media_id is null and rownum<2
 	</cfquery>
 	<cfloop query="d">
+
 		<cfset tmuri='https://raw.githubusercontent.com/BNHM/spatial-layers/master/wkt/US_Alaska/#FILENAME#'>
+		<br>#tmuri#
 		<cfquery name="ag1" datasource="uam_god">
 			select media_id from media where media_uri='#tmuri#'
 		</cfquery>
