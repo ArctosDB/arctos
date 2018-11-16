@@ -27,27 +27,41 @@
 
 <cf_findLocality type="geog">
 
-<cfdump var=#localityResults#>
-
 <cfquery name="localityResults" dbtype="query">
 	select geog_auth_rec_id,higher_geog,has_geo_poly
 	from localityResults
 	group by geog_auth_rec_id,higher_geog,has_geo_poly
+	order by higher_geog
 </cfquery>
+<table border>
+	<tr>
+		<th>Higher Geog</th>
+		<th>Has WKT?</th>
+		<th>SearchTerms</th>
+		<th>Select</th>
+	</tr>
 <cfoutput query="localityResults">
-	<div>
-	---#has_geo_poly#---
-		<div>
-			<a href="##" onClick="useGeo('#geog_auth_rec_id#','#replace(higher_geog,"'","\'","all")#');">#higher_geog#</a>
-		</div>
-		<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
-		</cfquery>
-		<cfloop query="searchterm">
-			<div style="font-size:small;margin-left:1em;">
-				#SEARCH_TERM#
-			</div>
-		</cfloop>
-	</div>
+	<tr>
+		<td>
+		 	#higher_geog#
+		</td>
+		<td>
+			#has_geo_poly#
+		</td>
+		<td>
+			<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select SEARCH_TERM from geog_search_term where geog_auth_rec_id=#geog_auth_rec_id# order by SEARCH_TERM
+			</cfquery>
+			<cfloop query="searchterm">
+				<div style="font-size:small;margin-left:1em;">
+					#SEARCH_TERM#
+				</div>
+			</cfloop>
+		</td>
+		<td>
+			<a href="##" onClick="useGeo('#geog_auth_rec_id#','#replace(higher_geog,"'","\'","all")#');">use</a>
+		</td>
+	</tr>
 </cfoutput>
+</table>
 <cfinclude template="/includes/_pickFooter.cfm">
