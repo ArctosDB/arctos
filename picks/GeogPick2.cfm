@@ -34,6 +34,7 @@
 </cfquery>
 <cfoutput query="localityResults">
 	<div>
+	---#has_geo_poly#---
 		<div>
 			<a href="##" onClick="useGeo('#geog_auth_rec_id#','#replace(higher_geog,"'","\'","all")#');">#higher_geog#</a>
 		</div>

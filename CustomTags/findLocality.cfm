@@ -15,8 +15,8 @@
 		ISLAND_GROUP,
 		SEA,
 		SOURCE_AUTHORITY,
-		geog_remark
-
+		geog_remark,
+		case when geog_auth_rec.wkt_polygon is NULL then 'NO' else 'YES' end has_geo_poly
 ">
 <cfset frm=" from geog_auth_rec">
 <cfset whr=" 1=1">
