@@ -749,7 +749,9 @@
 				Create only barcodes claimed in the barcode spreadsheet.
 			</p>
 		</div>
-		<form name="form1" method="post" action="EditContainer.cfm">
+		<form name="form1" method="post" action="EditContainer.cfm" >
+			<!--- this disables submit with enter --->
+			<button type="submit" disabled style="display: none" aria-hidden="true"></button>
 			<input type="hidden" name="action" value="CreateNew" />
 			<label for="container_type">Container Type</label>
 			<select name="Container_Type" size="1" id="container_type" class="reqdClr" onchange="isThisAPosition();">
