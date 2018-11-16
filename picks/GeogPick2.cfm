@@ -27,6 +27,8 @@
 
 <cf_findLocality type="geog">
 
+<cfdump var=#geog#>
+
 <cfquery name="localityResults" dbtype="query">
 	select geog_auth_rec_id,higher_geog
 	from localityResults
