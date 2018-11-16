@@ -197,7 +197,7 @@ function checkCoordinateError(){
 
 
 		// add wkt if available
-        var wkt=$("#wkt_polygon").val(); //this is your WKT string
+        var wkt=$("#wkt_polygon").val();
         if (wkt.length>0){
 
         	console.log('going wkt...');
@@ -1176,10 +1176,46 @@ function checkCoordinateError(){
             <input type="hidden" name="action" value="editwktp">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <label for="wkt_polygon" class="helpLink" id="_wkt_polygon">wkt_polygon</label>
         <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
 
-		<input type="hidden" id="geopoly" value="#locDet.geopoly#">
+
+  		<cfset gp=locDet.geopoly>
+		<cfif len(gp) gt 0 and left(gp,7) is 'MEDIA::'>
+			<cfset meid=right(gp,len(gp)-7)>
+			<cfquery name="fmed" datasource="uam_god">
+				select media_uri from media where media_id=#meid#
+			</cfquery>
+			<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+			<cfif left(cfhttp.statuscode,3) is "200">
+				<cfset gp=cfhttp.filecontent>
+			<cfelse>
+				<div calss="error">WKT loopup failure</div>
+				<cfset gp="">
+			</cfif>
+		</cfif>
+
+
+		<input type="hidden" id="geopoly" value="#gp#">
 		<br><input class="savBtn" type="submit" value="save WKT">
 	</form>
 
