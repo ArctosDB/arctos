@@ -24,7 +24,10 @@
     </form>
 </cfoutput>
 <!-------------------------------------------------------------------->
+<style>
+	.haspoly{font-size:larger;font-weight:bolder}
 
+</style>
 <cf_findLocality type="geog">
 
 <cfquery name="localityResults" dbtype="query">
@@ -41,7 +44,7 @@
 		<th>Select</th>
 	</tr>
 <cfoutput query="localityResults">
-	<tr>
+	<tr <cfif has_geo_poly is "YES">class="haspoly"</cfif> >
 		<td>
 		 	#higher_geog#
 		</td>
