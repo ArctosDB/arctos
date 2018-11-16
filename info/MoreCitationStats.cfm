@@ -2,15 +2,15 @@
 <script src="/includes/sorttable.js"></script>
 <cfoutput>
 	<cfquery name="pt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
+		select
 			publication_type,
 			count(*) c
-		from 
-			publication 
-		group by publication_type 
+		from
+			publication
+		group by publication_type
 		order by publication_type
 	</cfquery>
-	
+
 	<strong>Publications by type, reviewed status, and citations:</strong>
 	<table border="1" id="a" class="sortable">
 		<tr>
@@ -24,7 +24,7 @@
 				select count(*) cnt from publication where IS_PEER_REVIEWED_FG=1 and publication_type='#publication_type#'
 			</cfquery>
 			<cfquery name="ctn" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-				select count(*) cnt from publication,citation where 
+				select count(*) cnt from publication,citation where
 				publication.publication_id=citation.publication_id and
 				publication_type='#publication_type#'
 			</cfquery>
@@ -42,55 +42,55 @@
 		select count(*) c from project
 	</cfquery>
 	<cfquery name="accn_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
+		select
 			count(distinct(project.project_id)) c
-		from 
+		from
 			project
 		where
 			project_id in (
-				select project_id from project_trans,cataloged_item 
+				select project_id from project_trans,cataloged_item
 				where project_trans.transaction_id=cataloged_item.accn_id)
 			and project_id not in (
-				select project_id from project_trans,loan_item 
+				select project_id from project_trans,loan_item
 				where project_trans.transaction_id=loan_item.transaction_id)
 	</cfquery>
 	<cfquery name="loan_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
+		select
 			count(distinct(project.project_id)) c
-		from 
-			project
-		where 
-			project_id in (
-				select project_id from project_trans,loan_item 
-				where project_trans.transaction_id=loan_item.transaction_id)
-			and project_id not in (
-				select project_id from project_trans,cataloged_item 
-				where project_trans.transaction_id=cataloged_item.accn_id)
-	</cfquery>
-	<cfquery name="both_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
-			count(distinct(project.project_id)) c
-		from 
+		from
 			project
 		where
 			project_id in (
-				select project_id from project_trans,loan_item 
+				select project_id from project_trans,loan_item
+				where project_trans.transaction_id=loan_item.transaction_id)
+			and project_id not in (
+				select project_id from project_trans,cataloged_item
+				where project_trans.transaction_id=cataloged_item.accn_id)
+	</cfquery>
+	<cfquery name="both_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			count(distinct(project.project_id)) c
+		from
+			project
+		where
+			project_id in (
+				select project_id from project_trans,loan_item
 				where project_trans.transaction_id=loan_item.transaction_id)
 			and project_id in (
-				select project_id from project_trans,cataloged_item 
+				select project_id from project_trans,cataloged_item
 				where project_trans.transaction_id=cataloged_item.accn_id)
 	</cfquery>
 	<cfquery name="neither_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
+		select
 			count(distinct(project.project_id)) c
-		from 
+		from
 			project
-		where 
+		where
 			project_id not in (
-				select project_id from project_trans,loan_item 
+				select project_id from project_trans,loan_item
 				where project_trans.transaction_id=loan_item.transaction_id)
 			and project_id not in (
-				select project_id from project_trans,cataloged_item 
+				select project_id from project_trans,cataloged_item
 				where project_trans.transaction_id=cataloged_item.accn_id)
 	</cfquery>
 	<strong>Projects by activity:</strong>
@@ -112,21 +112,21 @@
 	</table>
 	<p>&nbsp;</p>
 	<cfquery name="loan_projects_res" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
+		select
 			count(distinct(project.project_id)) c,
 			count(distinct(project_publication.publication_id)) numPubs,
 			count(distinct(citation.collection_object_id)) numCits,
 			count(distinct(citation.publication_id)) numPubsWithCits
-		from 
+		from
 			project,
 			project_publication,
 			citation
-		where 
+		where
 			project.project_id in (
-				select project_id from project_trans,loan_item 
+				select project_id from project_trans,loan_item
 				where project_trans.transaction_id=loan_item.transaction_id)
 			and project.project_id not in (
-				select project_id from project_trans,cataloged_item 
+				select project_id from project_trans,cataloged_item
 				where project_trans.transaction_id=cataloged_item.accn_id)
 			and project.project_id = project_publication.project_id (+)
 			and project_publication.publication_id = citation.publication_id (+)
@@ -148,11 +148,11 @@
 	</table>
 	<p>&nbsp;</p>
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
+		select
 			guid_prefix,
 			collection.collection_id,
 			count(*) totSpec
-		from 
+		from
 			collection,
 			cataloged_item
 		where
@@ -160,7 +160,7 @@
 		group by
 			guid_prefix,
 			collection.collection_id
-		order by 
+		order by
 			guid_prefix
 	</cfquery>
 	<strong>Usage and results by collection:</strong>
@@ -175,14 +175,14 @@
 			<th>Citations/Loaned Specimen</th>
 		</tr>
 		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
+			select
 				count(collection_object_id) tot
 			from
 				loan_item
 		</cfquery>
 		<cfquery name="loanedSpec" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(distinct(collection_object_id)) tot from (
-				select 
+				select
 					specimen_part.derived_from_cat_item collection_object_id
 				from
 					loan_item,
@@ -190,33 +190,33 @@
 				where
 					loan_item.collection_object_id=specimen_part.collection_object_id
 				UNION
-				select 
+				select
 					cataloged_item.collection_object_id
 				from
 					loan_item,
 					cataloged_item
 				where
 					loan_item.collection_object_id=cataloged_item.collection_object_id
-				)					
+				)
 		</cfquery>
 		<cfset numLoaned=0>
 		<cfif loaned.tot gt 0>
 			<cfset numLoaned=loaned.tot>
 		</cfif>
 		<cfquery name="cited" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
+			select
 				count(*) tot
-			from 
+			from
 				citation
 		</cfquery>
 		<cfquery name="totHldf" dbtype="query">
 			select sum(c.totSpec) grandtotal from c
 		</cfquery>
-		
-		
+
+
 		<cfset percentLoaned=decimalFormat((loanedSpec.tot/totHldf.grandtotal) * 100)>
-			
-			
+
+
 		<tr>
 			<td><strong>All Collections</strong></td>
 			<td>#totHldf.grandtotal#</td>
@@ -227,17 +227,20 @@
 			<cfset cr="">
 			<cfif numLoaned is 0 and cited.tot is 0>
 				<cfset cr=0>
+				<!----
 			<cfelseif numLoaned gte cited.tot and numLoaned gt 0>
+			---->
+			<cfelse>
 				<cfset cr=cited.tot/numLoaned>
 			</cfif>
 			<td><strong>#decimalFormat(cr)#</strong></td>
 		</tr>
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
+			select
 				sum(items_loaned_by_collection)	tot
 			from (
-				select 
+				select
 					guid_prefix,
 					count(*) items_loaned_by_collection
 				from
@@ -252,7 +255,7 @@
 					collection.collection_id=#collection_id#
 				group by guid_prefix
 				union
-				select 
+				select
 					guid_prefix,
 					count(*) items_loaned_by_collection
 				from
@@ -269,7 +272,7 @@
 		</cfquery>
 		<cfquery name="loanedSpec" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(distinct(collection_object_id)) tot from (
-				select 
+				select
 					specimen_part.derived_from_cat_item collection_object_id
 				from
 					loan_item,
@@ -280,7 +283,7 @@
 					specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#
 				UNION
-				select 
+				select
 					cataloged_item.collection_object_id
 				from
 					loan_item,
@@ -288,16 +291,16 @@
 				where
 					loan_item.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#
-				)					
+				)
 		</cfquery>
 		<cfset numLoaned=0>
 		<cfif loaned.tot gt 0>
 			<cfset numLoaned=loaned.tot>
 		</cfif>
 		<cfquery name="cited" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select 
+			select
 				count(*) tot
-			from 
+			from
 				citation,
 				cataloged_item
 			where
