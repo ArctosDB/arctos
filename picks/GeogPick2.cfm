@@ -27,12 +27,12 @@
 
 <cf_findLocality type="geog">
 
-<cfdump var=#geog#>
+<cfdump var=#localityResults#>
 
 <cfquery name="localityResults" dbtype="query">
-	select geog_auth_rec_id,higher_geog
+	select geog_auth_rec_id,higher_geog,has_geo_poly
 	from localityResults
-	group by geog_auth_rec_id,higher_geog
+	group by geog_auth_rec_id,higher_geog,has_geo_poly
 </cfquery>
 <cfoutput query="localityResults">
 	<div>
