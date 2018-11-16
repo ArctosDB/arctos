@@ -44,6 +44,7 @@
 			<th>IslandGroup</th>
 			<th>Island</th>
 			<th>Sea</th>
+			<th>WKT?</th>
 			<th>Remark</th>
 			<th>SrchTerm</th>
 		</tr>
@@ -121,6 +122,9 @@
 					<cfif len(SEA) gt 0>
 						<a href="geography.cfm?SEA=#SEA#">#SEA#</a>
 					</cfif>
+				</td>
+				<td>
+					#has_geo_poly#
 				</td>
 				<td>
 					<cfif len(geog_remark) gt 0>
