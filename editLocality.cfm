@@ -1170,35 +1170,12 @@ function checkCoordinateError(){
 	</td></tr></table>
 	</form>
 	</span>
-
 	<br>
-        <form name="editwktp" method="post" action="editLocality.cfm">
-            <input type="hidden" name="action" value="editwktp">
-            <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<form name="editwktp" method="post" action="editLocality.cfm">
+        <input type="hidden" name="action" value="editwktp">
+		<input type="hidden" name="locality_id" value="#locDet.locality_id#">
         <label for="wkt_polygon" class="helpLink" id="_wkt_polygon">wkt_polygon</label>
-        <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
-
-
+   	    <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
   		<cfset gp=locDet.geopoly>
 		<cfif len(gp) gt 0 and left(gp,7) is 'MEDIA::'>
 			<cfset meid=right(gp,len(gp)-7)>
@@ -1213,8 +1190,6 @@ function checkCoordinateError(){
 				<cfset gp="">
 			</cfif>
 		</cfif>
-
-
 		<input type="hidden" id="geopoly" value="#gp#">
 		<br><input class="savBtn" type="submit" value="save WKT">
 	</form>
