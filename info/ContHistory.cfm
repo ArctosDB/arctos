@@ -5,27 +5,28 @@
 		Container ID not found. Aborting....<cfabort>
 	</cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select 
+		select
 			thisc.label clabel,
 			thisc.description cdesc,
 			thisc.container_type ctype,
 			thisc.barcode cbarcode,
 			container_history.install_date,
 			container_history.USERNAME,
+			container_history.location_stack,
 			parent.container_type ptype,
 			parent.label plabel,
 			parent.description pdesc,
 			parent.barcode pbarcode,
 			parent.container_id pid
-		from 
+		from
 			container thisc,
 			container_history,
 			container parent
-		where 
+		where
 			thisc.container_id=#container_id# and
 			thisc.container_id=container_history.container_id (+) and
 			container_history.parent_container_id = parent.container_id (+)
-		ORDER BY 
+		ORDER BY
 			install_date DESC
 	</cfquery>
 	<strong>Current Container</strong>
@@ -45,16 +46,18 @@
 			<th>Label</th>
 			<th>Description</th>
 			<th>Link</th>
+			<th>Stack</th>
 		</tr>
 		<cfloop query="d">
 			<tr>
 				<td>#install_date#</td>
-				<td>#pbarcode#</td>	
-				<td>#username#</td>	
-				<td>#ptype#</td>	
+				<td>#pbarcode#</td>
+				<td>#username#</td>
+				<td>#ptype#</td>
 				<td>#plabel#</td>
 				<td>#pdesc#</td>
-				<td><a target="_parent" href="/findContainer.cfm?container_id=#pid#">details</a></td>		
+				<td><a target="_parent" href="/findContainer.cfm?container_id=#pid#">details</a></td>
+				<td>#location_stack#</td>
 				</tr>
 			</cfloop>
 	</table>
