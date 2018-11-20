@@ -127,7 +127,7 @@ UAM@ARCTOS> UAM@ARCTOS> desc cf_temp_lbl2contr
 		</cfquery>
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
         <cfset  util = CreateObject("component","component.utilities")>
-		<cfset x=util.CSVToQuery(fileContent)>
+		<cfset x=util.CSVToQuery(fileContent.Trim())>
         <cfset cols=x.columnlist>
 		<cftransaction>
 	        <cfloop query="x">

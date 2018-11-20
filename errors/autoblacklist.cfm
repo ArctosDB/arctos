@@ -79,9 +79,30 @@
 				sysdate
 				)
 		</cfquery>
+		<!--- 
+		don't send email, this plugs up the tubes!
 		<cf_logError subject="new autoblacklist: subnet has more than 10 active blocks" message="#bl_reason#">
+		--->
+		
 		<!---- adjust the application variables ---->
 		<cfset utilities.setAppBL()>
+	<cfelseif blipc.c gte 100>
+		<!--- tube-plugging become an issue elsewhere at this point; we should probably be blocking at the firewall now ---->
+		<!--- add the subnet --->
+		<cfquery name="d" datasource="uam_god">
+			insert into uam.blacklist_subnet (
+				SUBNET,
+				INSERT_DATE,
+				STATUS,
+				LASTDATE
+			) values (
+				'#request.requestingSubnet#',
+				sysdate,
+				'autoinsert',
+				sysdate
+				)
+		</cfquery>
+		<cf_logError subject="new autoblacklist: subnet has more than 100 active blocks" message="#bl_reason#">
 	<cfelse>
 		<!---- just add the IP to the app var ---->
 		<cfset application.blacklist=listappend(application.blacklist,request.ipaddress)>

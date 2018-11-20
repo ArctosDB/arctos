@@ -14,7 +14,7 @@
 
 	<p>
 		Your IP or organization has been blocked. You may wish to check your computer for malicious software and alert
-		others who may have accessed Arctos from your IP or organization. Further intrusion attempts may result in more
+		your IP or organization. Further intrusion attempts may result in more
 		restrictive blocks.
 	</p>
 	<cfif bsn.c gt 0>
