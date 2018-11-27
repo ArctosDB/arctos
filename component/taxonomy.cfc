@@ -23,8 +23,10 @@
 				<cfif gt.statusCode is "200 OK" and len(gt.filecontent) gt 0 and isjson(gt.filecontent)>
 					<br>got gt
 					<cfset gto=DeserializeJSON(gt.filecontent)>
-
 					<cfdump var=#gto#>
+
+					<cfset sc=structcount(gto)>
+					<br>sc:#sc#
 
 				</cfif>
 			<cfelse>
