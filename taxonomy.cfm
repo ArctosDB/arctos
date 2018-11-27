@@ -499,6 +499,11 @@
 			}
 			function reloadHash(a){
 				console.log('refreshing to ' + a);
+
+
+				location.href.replace(location.hash,"");
+
+
 				location.href = location.href+'##' + a;
 				window.location.reload();
 			}
