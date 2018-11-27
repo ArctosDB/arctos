@@ -31,7 +31,7 @@
 						<br>checking #skey#
 						<cfif isdefined("#skey#")>
 							<br>#skey# exists
-							<cfif structkeyexists("#skey#","rank")>
+							<cfif structkeyexists(#skey#,"rank")>
 								<br>rank:#evaluate(skey & ".rank")#
 								<br>scientificname:#evaluate(skey & ".scientificname")#
 							<cfelse>
