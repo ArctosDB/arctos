@@ -35,7 +35,11 @@
 							<cftry>
 								<br>rank:#evaluate(skey & ".rank")#
 								<br>scientificname:#evaluate(skey & ".scientificname")#
+								<!----
 								<cfset taxonRankStringified=taxonRankStringified & "|" & evaluate(skey & ".rank") & '=' & evaluate(skey & ".scientificname")>
+								---->
+								<cfset therecord.rank1=evaluate(skey & ".rank")>
+								<cfset therecord.term2=evaluate(skey & ".scientificname")>
 							<cfcatch>
 								<br>empty....<br />
 								</cfcatch>
