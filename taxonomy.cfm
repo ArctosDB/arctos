@@ -479,14 +479,15 @@
 				});
 			});
 			function getWorms(n){
+				$("##wscallrslt").html('<img src="/images/indicator.gif">fetching from WoRMS....');
 				$.ajax({
 					url: "/component/taxonomy.cfc?queryformat=column&method=getWormsData&returnformat=json&taxon_name=#name#",
 					type: "GET",
 					dataType: "json",
 					success: function(r) {
 						if (r.STATUS=='success'){
-							var theLink="/name/#name###WoRMSviaArctos";
-							$("##wscallrslt").html('Success: click to reload - ' + theLink);
+							var theLink='<a href="/name/#name###WoRMSviaArctos">Success! click to reload</a>';
+							$("##wscallrslt").html(theLink);
 						} else {
 							$("##wscallrslt").html('The request to WoRMS failed.');
 						}
