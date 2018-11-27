@@ -499,7 +499,8 @@
 			}
 			function reloadHash(a){
 				console.log('refreshing to ' + a);
-				document.location = location.href+'##' + a;
+				location.href = location.href+'##' + a;
+				window.location.reload();
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
