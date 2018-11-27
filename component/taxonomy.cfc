@@ -8,6 +8,7 @@
 		</cfhttp>
 		<cfdump var=#ga#>
 
+		<cfoutput>
 		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 			got something good
 			<cfset gao=DeserializeJSON(ga.filecontent)>
@@ -33,7 +34,6 @@
 				no AphiaID
 			</cfif>
 		</cfif>
-		<cfoutput>
 
 		</cfoutput>
 
