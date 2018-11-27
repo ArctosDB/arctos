@@ -507,7 +507,7 @@
 				//location.href = x2;
 				//window.location.href=x2;
 				window.location.hash=a;
-				location.reload();
+				window.location.reload(true);
 
 
 
