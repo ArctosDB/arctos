@@ -26,6 +26,17 @@
 					<cfset gto=DeserializeJSON(gt.filecontent)>
 					<cfdump var=#gto#>
 
+					<cfset skey="gto.child">
+					<cfloop from ="1" to="10" index="i">
+						<br>checking #skey#
+						<cfif StructKeyExists("#skey#")>
+							<br>#skey# exists
+							<cfset skey=skey & ".child">
+						<cfelse>
+							<cfbreak >
+						</cfif>
+					</cfloop>
+<!----
 					<cfset sc=structcount(gto)>
 					<br>sc:#sc#
 					<cfset first=gto.child>
@@ -36,7 +47,7 @@
 					<cfset second=gto.child.child>
 					<br>second:
 					<cfdump var=#second#>
-
+---->
 
 				</cfif>
 			<cfelse>
