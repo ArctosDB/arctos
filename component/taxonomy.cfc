@@ -252,8 +252,6 @@
 									<cfloop from ="1" to="#therecord.number_of_cterms#" index="i">
 										<cfset t=lcase(evaluate("therecord.rank_" & i))>
 										<cfset d=evaluate("therecord.term_" & i)>
-										<br>t:#t#
-										<br>d:#d#
 										<cfquery name="meta" datasource="uam_god">
 										insert into taxon_term (
 											taxon_term_id,

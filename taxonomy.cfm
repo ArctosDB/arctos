@@ -479,7 +479,22 @@
 				});
 			});
 			function getWorms(n){
-				// first get the AphiaID
+				$.ajax({
+					url: "/component/taxonomy.cfc?queryformat=column&method=getWormsData&returnformat=json&taxon_name=#name#",
+					type: "GET",
+					dataType: "json",
+					success: function(r) {
+						if (r.STATUS=='success'){
+							var theLink="/name/#name###WoRMSviaArctos";
+							$("##wscallrslt.html('Success: click to reload - ' + theLink);
+						} else {
+							$("##wscallrslt.html('The request to WoRMS failed.');
+						}
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert('Validator Error: ' + errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
@@ -639,6 +654,8 @@
 		<a href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Create Classification ]</a>
 		<a class="external" target="_blank" href="http://resolver.globalnames.org/name_resolvers.html?names=#scientific_name.scientific_name#">[ GlobalNames (HTML) ]</a>
 		<a class="external" target="_blank" href="http://resolver.globalnames.org/name_resolvers.xml?names=#scientific_name.scientific_name#">[ GlobalNames (XML) ]</a>
+
+		<div id="wscallrslt"></div>
 	</cfif>
 	<cfquery name="sources" dbtype="query">
 		select
