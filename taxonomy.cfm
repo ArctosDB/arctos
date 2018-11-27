@@ -487,7 +487,7 @@
 					success: function(r) {
 						if (r.STATUS=='success'){
 							var theLink="/name/#name###WoRMSviaArctos";
-							$("##wscallrslt).html('Success: click to reload - ' + theLink);
+							$("##wscallrslt").html('Success: click to reload - ' + theLink);
 						} else {
 							$("##wscallrslt.html('The request to WoRMS failed.');
 						}
