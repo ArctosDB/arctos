@@ -501,7 +501,7 @@
 				var x=location.href.replace(location.hash,"");
 				var x2=x+'##' + a;
 				location.href = x2;
-				document.location=x2;
+				window.location.href=x2;
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
