@@ -27,6 +27,7 @@
 					<cfdump var=#gto#>
 
 					<cfset skey="gto">
+					<cfset taxonRankStringified="">
 					<cfloop from ="1" to="20" index="i">
 						<br>checking #skey#
 						<cfif isdefined("#skey#")>
@@ -34,6 +35,7 @@
 							<cftry>
 								<br>rank:#evaluate(skey & ".rank")#
 								<br>scientificname:#evaluate(skey & ".scientificname")#
+								<cfset taxonRankStringified=taxonRankStringified & "|" & evaluate(skey & ".rank") & '=' & evaluate(skey & ".scientificname")>
 							<cfcatch>
 								<br>empty....<br />
 								</cfcatch>
@@ -45,6 +47,8 @@
 							<cfbreak >
 						</cfif>
 					</cfloop>
+					<cfset therecord.taxonRankStringified=taxonRankStringified>
+
 <!----
 					<cfset sc=structcount(gto)>
 					<br>sc:#sc#
@@ -64,6 +68,7 @@
 			</cfif>
 		</cfif>
 
+			<cfdump var=#therecord#>
 		</cfoutput>
 
 </cffunction>
