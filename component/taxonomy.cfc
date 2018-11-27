@@ -29,7 +29,7 @@
 					<cfset skey="gto.child">
 					<cfloop from ="1" to="10" index="i">
 						<br>checking #skey#
-						<cfif StructKeyExists("#skey#")>
+						<cfif isdefined("#skey#")>
 							<br>#skey# exists
 							<cfset skey=skey & ".child">
 						<cfelse>
