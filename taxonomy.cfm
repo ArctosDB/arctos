@@ -500,7 +500,7 @@
 			function reloadHash(a){
 				var x=location.href.replace(location.hash,"");
 				var x2=x+'##' + a;
-				location.href = x2;
+				//location.href = x2;
 				window.location.href=x2,true;
 			}
 		</script>
