@@ -499,12 +499,13 @@
 			}
 			function reloadHash(a){
 				console.log('refreshing to ' + a);
+				var x=location.href.replace(location.hash,"");
+				console.log(x);
+				var x2=x+'##' + a;
+				console.log(x2);
 
 
-				location.href.replace(location.hash,"");
-
-
-				location.href = location.href+'##' + a;
+				location.href = x2;
 				window.location.reload();
 			}
 		</script>
