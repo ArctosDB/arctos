@@ -485,7 +485,7 @@
 					dataType: "json",
 					success: function(r) {
 						if (r.STATUS=='success'){
-							var theLink="/name/#name###WoRMSviaArctos";
+							var theLink="boogity";
 							$("##wscallrslt.html('Success: click to reload - ' + theLink);
 						} else {
 							$("##wscallrslt.html('The request to WoRMS failed.');
