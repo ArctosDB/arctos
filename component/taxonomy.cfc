@@ -74,7 +74,7 @@
 							<cfquery name="flushOld" datasource="uam_god">
 								delete from taxon_term where taxon_name_id=#tid.taxon_name_id# and source='#thisSrcName#'
 							</cfquery>
-							<cfif structkeyexists(therecord,"authority">
+							<cfif structkeyexists(therecord,"authority")>
 								<cfset t="author_text">
 								<cfset d=therecord.authority>
 								<cfquery name="meta" datasource="uam_god">
