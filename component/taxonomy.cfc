@@ -31,9 +31,14 @@
 						<br>checking #skey#
 						<cfif isdefined("#skey#")>
 							<br>#skey# exists
+							<cfif structkeyexists("#skey#","rank")>
+								<br>rank:#evaluate(skey & ".rank")#
+								<br>scientificname:#evaluate(skey & ".scientificname")#
+							<cfelse>
+								<br>empty....
+							</cfif>
+
 							<cfset skey=skey & ".child">
-							<br>rank:#evaluate(skey & ".rank")#
-							<br>scientificname:#evaluate(skey & ".scientificname")#
 						<cfelse>
 							<br>#skey# NOTexists
 							<cfbreak >
