@@ -8,8 +8,10 @@
 		</cfhttp>
 		<cfdump var=#ga#>
 
-		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0>
+		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 			got something good
+			<cfset gao=serializeJSON(ga.filecontent)>
+			<cfdump var=#gao#>
 		</cfif>
 		<cfoutput>
 
