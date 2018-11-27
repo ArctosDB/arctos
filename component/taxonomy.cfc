@@ -12,8 +12,8 @@
 			got something good
 			<cfset gao=DeserializeJSON(ga.filecontent)>
 			<cfdump var=#gao#>
-			<cfif isdefined("gao.AphiaID") and len(gao.AphiaID) gt 0>
-				<br>got AphiaID: #gao.AphiaID#
+			<cfif isdefined("gao[1].AphiaID") and len(gao[1].AphiaID) gt 0>
+				<br>got AphiaID: #gao[1].AphiaID#
 				<!--- now get tree --->
 				<cfhttp  result="gt" url="http://www.marinespecies.org/rest/AphiaClassificationByAphiaID/#gao.AphiaID#" method="get"></cfhttp>
 				<cfif gt.statusCode is "200 OK" and len(gt.filecontent) gt 0 and isjson(gt.filecontent)>
