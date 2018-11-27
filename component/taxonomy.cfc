@@ -26,7 +26,7 @@
 					<cfset gto=DeserializeJSON(gt.filecontent)>
 					<cfdump var=#gto#>
 
-					<cfset skey="gto.child">
+					<cfset skey="gto">
 					<cfloop from ="1" to="20" index="i">
 						<br>checking #skey#
 						<cfif isdefined("#skey#")>
