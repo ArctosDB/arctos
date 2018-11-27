@@ -32,6 +32,12 @@
 					<br>first:
 					<cfdump var=#first#>
 
+
+					<cfset second=gto.child.child>
+					<br>second:
+					<cfdump var=#second#>
+
+
 				</cfif>
 			<cfelse>
 				no AphiaID
