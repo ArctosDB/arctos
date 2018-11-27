@@ -4,182 +4,53 @@
 	<cffunction name="getWormsData" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name" type="string" required="true">
-		<cfhttp  result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByName/#urlencodedformat(taxon_name)#?like=false&marine_only=false&offset=1" method="get">
-		</cfhttp>
-		<cfdump var=#ga#>
-
-		<cfoutput>
-		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
-			got something good
-			<cfset gao=DeserializeJSON(ga.filecontent)>
-			<cfdump var=#gao#>
-			<cfset therecord=gao[1]>
-			<cfdump var=#therecord#>
-
-
-			<cfif isdefined("therecord.AphiaID") and len(therecord.AphiaID) gt 0>
-				<br>got AphiaID: #therecord.AphiaID#
-				<!--- now get tree --->
-				<cfhttp  result="gt" url="http://www.marinespecies.org/rest/AphiaClassificationByAphiaID/#therecord.AphiaID#" method="get"></cfhttp>
-				<cfif gt.statusCode is "200 OK" and len(gt.filecontent) gt 0 and isjson(gt.filecontent)>
-					<br>got gt
-					<cfset gto=DeserializeJSON(gt.filecontent)>
-					<cfdump var=#gto#>
-
-					<cfset skey="gto">
-					<cfset taxonRankStringified="">
-					<cfloop from ="1" to="100" index="i">
-						<br>checking #skey#
-						<cfif isdefined("#skey#")>
-							<br>#skey# exists
-							<cftry>
-								<br>rank:#evaluate(skey & ".rank")#
-								<br>scientificname:#evaluate(skey & ".scientificname")#
-								<!----
-								<cfset taxonRankStringified=taxonRankStringified & "|" & evaluate(skey & ".rank") & '=' & evaluate(skey & ".scientificname")>
-								---->
-								<cfset rn="rank_#i#">
-								<cfset rt="term_#i#">
-								<br>rn=#rn#
-								<br>rt=#rt#
-								<CFSET StructInsert(therecord, "#rn#", evaluate(skey & ".rank"))>
-								<CFSET StructInsert(therecord, "#rt#", evaluate(skey & ".scientificname"))>
-								<!----
-								<cfset therecord.#rn#=evaluate(skey & ".rank")>
-								<cfset therecord.#rt#=evaluate(skey & ".scientificname")>
-								---->
-							<cfcatch>
-								<br>empty....<br />
-								</cfcatch>
-							</cftry>
-
-							<cfset skey=skey & ".child">
-						<cfelse>
-							<br>#skey# NOTexists
-							<cfbreak >
-						</cfif>
-					</cfloop>
-					<cfif i gt 1>
-						<!----
-							if we made it here everything should be happy and we should have some data, so create the classification
-							try to use Arctos terms for easy copy-pasta
-						---->
-						<CFSET StructInsert(therecord, "number_of_cterms", i-1)>
-						<cftransaction>
-							<cfquery name="tid" datasource="uam_god">
-								select taxon_name_id from taxon_name where scientific_name='#taxon_name#'
-							</cfquery>
-							<cfset thisSourceID=CreateUUID()>
-							<cfset thisSrcName="WoRMS (via Arctos)">
-							<cfquery name="flushOld" datasource="uam_god">
-								delete from taxon_term where taxon_name_id=#tid.taxon_name_id# and source='#thisSrcName#'
-							</cfquery>
-							<cfif structkeyexists(therecord,"authority")>
-								<cfset t="author_text">
-								<cfset d=therecord.authority>
-								<cfquery name="meta" datasource="uam_god">
-									insert into taxon_term (
-										taxon_term_id,
-										taxon_name_id,
-										term,
-										term_type,
-										source,
-										position_in_classification,
-										classification_id
-									) values (
-										sq_taxon_term_id.nextval,
-										#tid.taxon_name_id#,
-										'#d#',
-										'#t#',
-										'#thisSrcName#',
-										NULL,
-										'#thisSourceID#'
-									)
-								</cfquery>
+		<cftry>
+			<cfhttp  result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByName/#urlencodedformat(taxon_name)#?like=false&marine_only=false&offset=1" method="get"></cfhttp>
+			<cfoutput>
+			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
+				<cfset gao=DeserializeJSON(ga.filecontent)>
+				<cfset therecord=gao[1]>
+				<cfif isdefined("therecord.AphiaID") and len(therecord.AphiaID) gt 0>
+					<!--- now get tree --->
+					<cfhttp  result="gt" url="http://www.marinespecies.org/rest/AphiaClassificationByAphiaID/#therecord.AphiaID#" method="get"></cfhttp>
+					<cfif gt.statusCode is "200 OK" and len(gt.filecontent) gt 0 and isjson(gt.filecontent)>
+						<cfset gto=DeserializeJSON(gt.filecontent)>
+						<cfset skey="gto">
+						<cfset taxonRankStringified="">
+						<cfloop from ="1" to="100" index="i">
+							<cfif isdefined("#skey#")>
+								<cftry>
+									<br>rank:#evaluate(skey & ".rank")#
+									<br>scientificname:#evaluate(skey & ".scientificname")#
+									<cfset rn="rank_#i#">
+									<cfset rt="term_#i#">
+									<CFSET StructInsert(therecord, "#rn#", evaluate(skey & ".rank"))>
+									<CFSET StructInsert(therecord, "#rt#", evaluate(skey & ".scientificname"))>
+								<cfcatch></cfcatch>
+								</cftry>
+								<cfset skey=skey & ".child">
+							<cfelse>
+								<cfbreak >
 							</cfif>
-							<cfif structkeyexists(therecord,"citation")>
-								<cfset t="citation">
-								<cfset d=therecord.citation>
-								<cfquery name="meta" datasource="uam_god">
-									insert into taxon_term (
-										taxon_term_id,
-										taxon_name_id,
-										term,
-										term_type,
-										source,
-										position_in_classification,
-										classification_id
-									) values (
-										sq_taxon_term_id.nextval,
-										#tid.taxon_name_id#,
-										'#d#',
-										'#t#',
-										'#thisSrcName#',
-										NULL,
-										'#thisSourceID#'
-									)
+						</cfloop>
+						<cfif i gt 1>
+							<!----
+								if we made it here everything should be happy and we should have some data, so create the classification
+								try to use Arctos terms for easy copy-pasta
+							---->
+							<CFSET StructInsert(therecord, "number_of_cterms", i-1)>
+							<cftransaction>
+								<cfquery name="tid" datasource="uam_god">
+									select taxon_name_id from taxon_name where scientific_name='#taxon_name#'
 								</cfquery>
-							</cfif>
-
-							<cfif structkeyexists(therecord,"isExtinct")>
-								<cfif therecord.isExtinct is "0" or therecord.isExtinct is 1>
-									<cfset t="taxon_status">
-									<cfif therecord.isExtinct is "1">
-										<cfset d='extinct'>
-									<cfelse>
-										<cfset d='extant'>
-									</cfif>
-								</cfif>
-								<cfquery name="meta" datasource="uam_god">
-									insert into taxon_term (
-										taxon_term_id,
-										taxon_name_id,
-										term,
-										term_type,
-										source,
-										position_in_classification,
-										classification_id
-									) values (
-										sq_taxon_term_id.nextval,
-										#tid.taxon_name_id#,
-										'#d#',
-										'#t#',
-										'#thisSrcName#',
-										NULL,
-										'#thisSourceID#'
-									)
+								<cfset thisSourceID=CreateUUID()>
+								<cfset thisSrcName="WoRMS (via Arctos)">
+								<cfquery name="flushOld" datasource="uam_god">
+									delete from taxon_term where taxon_name_id=#tid.taxon_name_id# and source='#thisSrcName#'
 								</cfquery>
-							</cfif>
-
-
-							<cfif structkeyexists(therecord,"status")>
-								<cfset t="taxon_status">
-								<cfset d=therecord.status>
-								<cfquery name="meta" datasource="uam_god">
-									insert into taxon_term (
-										taxon_term_id,
-										taxon_name_id,
-										term,
-										term_type,
-										source,
-										position_in_classification,
-										classification_id
-									) values (
-										sq_taxon_term_id.nextval,
-										#tid.taxon_name_id#,
-										'#d#',
-										'#t#',
-										'#thisSrcName#',
-										NULL,
-										'#thisSourceID#'
-									)
-								</cfquery>
-							</cfif>
-
-							<cfif structkeyexists(therecord,"unacceptreason")>
-								<cfif therecord.unacceptreason is not "undefined">
-									<cfset t="remark">
-									<cfset d="unacceptreason: " & therecord.unacceptreason>
+								<cfif structkeyexists(therecord,"authority")>
+									<cfset t="author_text">
+									<cfset d=therecord.authority>
 									<cfquery name="meta" datasource="uam_god">
 										insert into taxon_term (
 											taxon_term_id,
@@ -200,138 +71,226 @@
 										)
 									</cfquery>
 								</cfif>
-							</cfif>
-
-							<cfif structkeyexists(therecord,"url")>
-								<cfset t="URL">
-								<cfset d='<a href="#therecord.URL#" target="_blank" class="external">#therecord.URL#</a>'>
-								<cfquery name="meta" datasource="uam_god">
-									insert into taxon_term (
-										taxon_term_id,
-										taxon_name_id,
-										term,
-										term_type,
-										source,
-										position_in_classification,
-										classification_id
-									) values (
-										sq_taxon_term_id.nextval,
-										#tid.taxon_name_id#,
-										'#d#',
-										'#t#',
-										'#thisSrcName#',
-										NULL,
-										'#thisSourceID#'
-									)
-								</cfquery>
-							</cfif>
-
-							<cfif structkeyexists(therecord,"valid_name")>
-								<cfset t="valid_name">
-								<cfset d=therecord.valid_name>
-								<cfquery name="meta" datasource="uam_god">
-									insert into taxon_term (
-										taxon_term_id,
-										taxon_name_id,
-										term,
-										term_type,
-										source,
-										position_in_classification,
-										classification_id
-									) values (
-										sq_taxon_term_id.nextval,
-										#tid.taxon_name_id#,
-										'#d#',
-										'#t#',
-										'#thisSrcName#',
-										NULL,
-										'#thisSourceID#'
-									)
-								</cfquery>
-							</cfif>
-
-							<cfif structkeyexists(therecord,"valid_authority")>
-								<cfset t="valid_authority">
-								<cfset d=therecord.valid_name>
-								<cfquery name="meta" datasource="uam_god">
-									insert into taxon_term (
-										taxon_term_id,
-										taxon_name_id,
-										term,
-										term_type,
-										source,
-										position_in_classification,
-										classification_id
-									) values (
-										sq_taxon_term_id.nextval,
-										#tid.taxon_name_id#,
-										'#d#',
-										'#t#',
-										'#thisSrcName#',
-										NULL,
-										'#thisSourceID#'
-									)
-								</cfquery>
-							</cfif>
-
-
-
-
-
-
-
-							<cfif structkeyexists(therecord,"number_of_cterms")>
-								<cfloop from ="1" to="#therecord.number_of_cterms#" index="i">
-									<cfset t=lcase(evaluate("therecord.rank_" & i))>
-									<cfset d=evaluate("therecord.term_" & i)>
-									<br>t:#t#
-									<br>d:#d#
+								<cfif structkeyexists(therecord,"citation")>
+									<cfset t="citation">
+									<cfset d=therecord.citation>
 									<cfquery name="meta" datasource="uam_god">
-									insert into taxon_term (
-										taxon_term_id,
-										taxon_name_id,
-										term,
-										term_type,
-										source,
-										position_in_classification,
-										classification_id
-									) values (
-										sq_taxon_term_id.nextval,
-										#tid.taxon_name_id#,
-										'#d#',
-										'#t#',
-										'#thisSrcName#',
-										#i#,
-										'#thisSourceID#'
-									)
-								</cfquery>
-								</cfloop>
-							</cfif>
-						</cftransaction>
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											NULL,
+											'#thisSourceID#'
+										)
+									</cfquery>
+								</cfif>
+
+								<cfif structkeyexists(therecord,"isExtinct")>
+									<cfif therecord.isExtinct is "0" or therecord.isExtinct is 1>
+										<cfset t="taxon_status">
+										<cfif therecord.isExtinct is "1">
+											<cfset d='extinct'>
+										<cfelse>
+											<cfset d='extant'>
+										</cfif>
+									</cfif>
+									<cfquery name="meta" datasource="uam_god">
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											NULL,
+											'#thisSourceID#'
+										)
+									</cfquery>
+								</cfif>
+
+
+								<cfif structkeyexists(therecord,"status")>
+									<cfset t="taxon_status">
+									<cfset d=therecord.status>
+									<cfquery name="meta" datasource="uam_god">
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											NULL,
+											'#thisSourceID#'
+										)
+									</cfquery>
+								</cfif>
+
+								<cfif structkeyexists(therecord,"unacceptreason")>
+									<cfif therecord.unacceptreason is not "undefined">
+										<cfset t="remark">
+										<cfset d="unacceptreason: " & therecord.unacceptreason>
+										<cfquery name="meta" datasource="uam_god">
+											insert into taxon_term (
+												taxon_term_id,
+												taxon_name_id,
+												term,
+												term_type,
+												source,
+												position_in_classification,
+												classification_id
+											) values (
+												sq_taxon_term_id.nextval,
+												#tid.taxon_name_id#,
+												'#d#',
+												'#t#',
+												'#thisSrcName#',
+												NULL,
+												'#thisSourceID#'
+											)
+										</cfquery>
+									</cfif>
+								</cfif>
+
+								<cfif structkeyexists(therecord,"url")>
+									<cfset t="URL">
+									<cfset d='<a href="#therecord.URL#" target="_blank" class="external">#therecord.URL#</a>'>
+									<cfquery name="meta" datasource="uam_god">
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											NULL,
+											'#thisSourceID#'
+										)
+									</cfquery>
+								</cfif>
+
+								<cfif structkeyexists(therecord,"valid_name")>
+									<cfset t="valid_name">
+									<cfset d=therecord.valid_name>
+									<cfquery name="meta" datasource="uam_god">
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											NULL,
+											'#thisSourceID#'
+										)
+									</cfquery>
+								</cfif>
+
+								<cfif structkeyexists(therecord,"valid_authority")>
+									<cfset t="valid_authority">
+									<cfset d=therecord.valid_name>
+									<cfquery name="meta" datasource="uam_god">
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											NULL,
+											'#thisSourceID#'
+										)
+									</cfquery>
+								</cfif>
+
+								<cfif structkeyexists(therecord,"number_of_cterms")>
+									<cfloop from ="1" to="#therecord.number_of_cterms#" index="i">
+										<cfset t=lcase(evaluate("therecord.rank_" & i))>
+										<cfset d=evaluate("therecord.term_" & i)>
+										<br>t:#t#
+										<br>d:#d#
+										<cfquery name="meta" datasource="uam_god">
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											#i#,
+											'#thisSourceID#'
+										)
+									</cfquery>
+									</cfloop>
+								</cfif>
+							</cftransaction>
+						</cfif>
 					</cfif>
-
-
-
-<!----
-					<cfset sc=structcount(gto)>
-					<br>sc:#sc#
-					<cfset first=gto.child>
-					<br>first:
-					<cfdump var=#first#>
-
-
-					<cfset second=gto.child.child>
-					<br>second:
-					<cfdump var=#second#>
----->
-
+				<cfelse>
+					<cfset r.status='fail'>
+					<cfset r.msg='no aphiaid found'>
 				</cfif>
-			<cfelse>
-				no AphiaID
 			</cfif>
-		</cfif>
+			<cfcatch>
+				<cfset r.status='fail'>
+				<cfset r.msg=cfcatch.detail>
+			</cfcatch>
+			</cftry>
+			<cfset r.status='success'>
 
-		<cfdump var=#therecord#>
+			<cfreturn r>
 		</cfoutput>
 
 </cffunction>
