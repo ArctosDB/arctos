@@ -13,6 +13,9 @@
 			</cfif>
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 				<cfset gao=DeserializeJSON(ga.filecontent)>
+				<cfif debug is true>
+					<cfdump var=#gao#>
+				</cfif>
 				<cfset therecord=gao[1]>
 				<cfif isdefined("therecord.AphiaID") and len(therecord.AphiaID) gt 0>
 					<!--- now get tree --->
@@ -210,6 +213,8 @@
 								</cfif>
 
 								<cfif structkeyexists(therecord,"valid_name")>
+									<cfif structkeyexists(therecord,"authority") and therecord.valid_authority is not therecord.authority>
+
 									<cfset t="valid_name">
 									<cfset d=therecord.valid_name>
 									<cfquery name="meta" datasource="uam_god">
@@ -234,27 +239,29 @@
 								</cfif>
 
 								<cfif structkeyexists(therecord,"valid_authority")>
-									<cfset t="valid_authority">
-									<cfset d=therecord.valid_name>
-									<cfquery name="meta" datasource="uam_god">
-										insert into taxon_term (
-											taxon_term_id,
-											taxon_name_id,
-											term,
-											term_type,
-											source,
-											position_in_classification,
-											classification_id
-										) values (
-											sq_taxon_term_id.nextval,
-											#tid.taxon_name_id#,
-											'#d#',
-											'#t#',
-											'#thisSrcName#',
-											NULL,
-											'#thisSourceID#'
-										)
-									</cfquery>
+									<cfif structkeyexists(therecord,"authority") and therecord.valid_authority is not therecord.authority>
+										<cfset t="valid_authority">
+										<cfset d=therecord.valid_authority>
+										<cfquery name="meta" datasource="uam_god">
+											insert into taxon_term (
+												taxon_term_id,
+												taxon_name_id,
+												term,
+												term_type,
+												source,
+												position_in_classification,
+												classification_id
+											) values (
+												sq_taxon_term_id.nextval,
+												#tid.taxon_name_id#,
+												'#d#',
+												'#t#',
+												'#thisSrcName#',
+												NULL,
+												'#thisSourceID#'
+											)
+										</cfquery>
+									</cfif>
 								</cfif>
 
 								<cfif structkeyexists(therecord,"number_of_cterms")>
