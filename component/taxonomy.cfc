@@ -28,7 +28,7 @@
 
 					<cfset sc=structcount(gto)>
 					<br>sc:#sc#
-					<cfset first=gto.child[1]>
+					<cfset first=gto.child>
 					<br>first:#first#
 
 				</cfif>
