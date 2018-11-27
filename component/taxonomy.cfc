@@ -215,27 +215,28 @@
 								<cfif structkeyexists(therecord,"valid_name")>
 									<cfif structkeyexists(therecord,"authority") and therecord.valid_authority is not therecord.authority>
 
-									<cfset t="valid_name">
-									<cfset d=therecord.valid_name>
-									<cfquery name="meta" datasource="uam_god">
-										insert into taxon_term (
-											taxon_term_id,
-											taxon_name_id,
-											term,
-											term_type,
-											source,
-											position_in_classification,
-											classification_id
-										) values (
-											sq_taxon_term_id.nextval,
-											#tid.taxon_name_id#,
-											'#d#',
-											'#t#',
-											'#thisSrcName#',
-											NULL,
-											'#thisSourceID#'
-										)
-									</cfquery>
+										<cfset t="valid_name">
+										<cfset d=therecord.valid_name>
+										<cfquery name="meta" datasource="uam_god">
+											insert into taxon_term (
+												taxon_term_id,
+												taxon_name_id,
+												term,
+												term_type,
+												source,
+												position_in_classification,
+												classification_id
+											) values (
+												sq_taxon_term_id.nextval,
+												#tid.taxon_name_id#,
+												'#d#',
+												'#t#',
+												'#thisSrcName#',
+												NULL,
+												'#thisSourceID#'
+											)
+										</cfquery>
+									</cfif>
 								</cfif>
 
 								<cfif structkeyexists(therecord,"valid_authority")>
