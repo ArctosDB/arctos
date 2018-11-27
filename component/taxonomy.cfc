@@ -27,12 +27,13 @@
 					<cfdump var=#gto#>
 
 					<cfset skey="gto.child">
-					<cfloop from ="1" to="10" index="i">
+					<cfloop from ="1" to="20" index="i">
 						<br>checking #skey#
 						<cfif isdefined("#skey#")>
 							<br>#skey# exists
 							<cfset skey=skey & ".child">
 						<cfelse>
+							<br>#skey# NOTexists
 							<cfbreak >
 						</cfif>
 					</cfloop>
