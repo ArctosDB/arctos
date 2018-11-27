@@ -486,7 +486,7 @@
 					dataType: "json",
 					success: function(r) {
 						if (r.STATUS=='success'){
-							var theLink='<a href="/name/#name#&x=12##WoRMSviaArctos">Success! click to reload</a>';
+							var theLink='<span class="likeLink" onclick="reloadHash(\'WoRMSviaArctos\')">Success! click to reload</span>';
 							$("##wscallrslt").html(theLink);
 						} else {
 							$("##wscallrslt").html('The request to WoRMS failed.');
@@ -496,6 +496,9 @@
 					    alert('Validator Error: ' + errorThrown + ': ' + textStatus + ': ' + xhr);
 					}
 				});
+			}
+			function reloadHash(a){
+				location.href = location.href+'#' + a;
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
