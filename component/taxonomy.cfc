@@ -4,9 +4,9 @@
 	<cffunction name="getWormsData" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name" type="string" required="true">
+		<cfoutput>
 		<cftry>
 			<cfhttp  result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByName/#urlencodedformat(taxon_name)#?like=false&marine_only=false&offset=1" method="get"></cfhttp>
-			<cfoutput>
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 				<cfset gao=DeserializeJSON(ga.filecontent)>
 				<cfset therecord=gao[1]>
@@ -289,11 +289,9 @@
 			</cfcatch>
 			</cftry>
 			<cfset r.status='success'>
-
 			<cfreturn r>
 		</cfoutput>
-
-</cffunction>
+	</cffunction>
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getRelatedTaxa" access="remote">
 		<!---- hierarchical taxonomy editor ---->
