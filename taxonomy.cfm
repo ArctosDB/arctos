@@ -498,7 +498,7 @@
 				});
 			}
 			function reloadHash(a){
-				location.href = location.href+'#' + a;
+				location.href = location.href+'##' + a;
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
