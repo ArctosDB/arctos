@@ -32,6 +32,8 @@
 						<cfif isdefined("#skey#")>
 							<br>#skey# exists
 							<cfset skey=skey & ".child">
+							<br>rank:#evaluate(skey & ".rank")#
+							<br>scientificname:#evaluate(skey & ".scientificname")#
 						<cfelse>
 							<br>#skey# NOTexists
 							<cfbreak >
