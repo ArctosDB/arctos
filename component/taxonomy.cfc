@@ -1,6 +1,15 @@
 <cfcomponent>
 
 <!--------------------------------------------------------------------------------------->
+	<cffunction name="getWormsData" access="remote">
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="taxon_name" type="string" required="true">
+		<cfhttp url="http://www.marinespecies.org/rest/AphiaRecordsByName/#taxon_name#&like=false&marine_only=false&offset=1" method="get">
+
+		</cfhttp>
+		<cfdump var=#cfhttp#>
+		<cfoutput>
+<!--------------------------------------------------------------------------------------->
 	<cffunction name="getRelatedTaxa" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="TAXON_NAME_ID" type="numeric" required="true">
