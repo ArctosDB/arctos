@@ -483,7 +483,7 @@
 					url: "/component/taxonomy.cfc?queryformat=column&method=getWormsData&returnformat=json",
 					type: "GET",
 					dataType: "json",
-					taxon_name: #name#,
+					taxon_name: "#name#",
 					success: function(r) {
 						if (r.STATUS=='success'){
 							var theLink="/name/#name###WoRMSviaArctos";
