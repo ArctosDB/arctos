@@ -127,6 +127,25 @@
 									<cfset d=evaluate("therecord.term_" & i)>
 									<br>t:#t#
 									<br>d:#d#
+									<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#tid.taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										#i#,
+										'#thisSourceID#'
+									)
+								</cfquery>
 								</cfloop>
 							</cfif>
 						</cftransaction>
