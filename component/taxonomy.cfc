@@ -239,7 +239,7 @@
 								</cfif>
 
 								<cfif structkeyexists(therecord,"valid_authority")>
-									<cfif structkeyexists(therecord,"authority") and therecord.valid_authority is not therecord.authority>
+									<cfif not (structkeyexists(therecord,"authority")) or (therecord.authority is not therecord.valid_authority)>
 										<cfset t="valid_authority">
 										<cfset d=therecord.valid_authority>
 										<cfquery name="meta" datasource="uam_god">
