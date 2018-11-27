@@ -480,12 +480,13 @@
 			});
 			function getWorms(n){
 				$.ajax({
-					url: "/component/taxonomy.cfc?queryformat=column&method=getWormsData&returnformat=json&taxon_name=#name#",
+					url: "/component/taxonomy.cfc?queryformat=column&method=getWormsData&returnformat=json",
 					type: "GET",
 					dataType: "json",
+					taxon_name: #name#,
 					success: function(r) {
 						if (r.STATUS=='success'){
-							var theLink="boogity";
+							var theLink="/name/#name###WoRMSviaArctos";
 							$("##wscallrslt.html('Success: click to reload - ' + theLink);
 						} else {
 							$("##wscallrslt.html('The request to WoRMS failed.');
