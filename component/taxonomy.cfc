@@ -121,6 +121,165 @@
 								</cfquery>
 							</cfif>
 
+							<cfif structkeyexists(therecord,"isExtinct")>
+								<cfif therecord.isExtinct is "0" or therecord.isExtinct is 1>
+									<cfset t="taxon_status">
+									<cfif therecord.isExtinct is "1">
+										<cfset d='extinct'>
+									<cfelse>
+										<cfset d='extant'>
+									</cfif>
+								</cfif>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#tid.taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#'
+									)
+								</cfquery>
+							</cfif>
+
+
+							<cfif structkeyexists(therecord,"status")>
+								<cfset t="taxon_status">
+								<cfset d=therecord.status>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#tid.taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#'
+									)
+								</cfquery>
+							</cfif>
+
+							<cfif structkeyexists(therecord,"unacceptreason")>
+								<cfif therecord.unacceptreason is not "undefined">
+									<cfset t="remark">
+									<cfset d="unacceptreason: " & therecord.unacceptreason>
+									<cfquery name="meta" datasource="uam_god">
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											NULL,
+											'#thisSourceID#'
+										)
+									</cfquery>
+								</cfif>
+							</cfif>
+
+							<cfif structkeyexists(therecord,"url")>
+								<cfset t="URL">
+								<cfset d='<a href="#therecord.URL#" target="_blank" class="external">#therecord.URL#</a>'>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#tid.taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#'
+									)
+								</cfquery>
+							</cfif>
+
+							<cfif structkeyexists(therecord,"valid_name")>
+								<cfset t="valid_name">
+								<cfset d=therecord.valid_name>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#tid.taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#'
+									)
+								</cfquery>
+							</cfif>
+
+							<cfif structkeyexists(therecord,"valid_authority")>
+								<cfset t="valid_authority">
+								<cfset d=therecord.valid_name>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#tid.taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#'
+									)
+								</cfquery>
+							</cfif>
+
+
+
+
+
+
+
 							<cfif structkeyexists(therecord,"number_of_cterms")>
 								<cfloop from ="1" to="#therecord.number_of_cterms#" index="i">
 									<cfset t=lcase(evaluate("therecord.rank_" & i))>
@@ -151,59 +310,6 @@
 						</cftransaction>
 					</cfif>
 
-	<!--------
-
-
-					AphiaID 	448131
- 	MolluscaBase (2018). Oliva nitidula Duclos, 1835. Accessed through: World Register of Marine Species at: http://www.marinespecies.org/aphia.php?p=taxdetails&id=448131 on 2018-11-27
-class 	Gastropoda
-family 	Olividae
-genus 	Oliva
-isBrackish 	undefined
-isExtinct 	undefined
-isFreshwater 	undefined
-isMarine 	1
-isTerrestrial 	undefined
-kingdom 	Animalia
-lsid 	urn:lsid:marinespecies.org:taxname:448131
-match_type 	exact
-modified 	2013-09-18T23:07:59.570Z
-number_of_cterms 	12
-order 	Neogastropoda
-phylum 	Mollusca
-rank 	Species
-rank_1 	Superdomain
-rank_10 	Genus
-rank_11 	Species
-rank_2 	Kingdom
-rank_3 	Phylum
-rank_4 	Class
-rank_5 	Subclass
-rank_6 	Order
-rank_7 	Superfamily
-rank_8 	Family
-rank_9 	Subfamily
-scientificname 	Oliva nitidula
-status 	accepted
-term_1 	Biota
-term_10 	Oliva
-term_11 	Oliva nitidula
-term_2 	Animalia
-term_3 	Mollusca
-term_4 	Gastropoda
-term_5 	Caenogastropoda
-term_6 	Neogastropoda
-term_7 	Olivoidea
-term_8 	Olividae
-term_9 	Olivinae
-unacceptreason 	undefined
-url 	http://www.marinespecies.org/aphia.php?p=taxdetails&id=448131
-valid_AphiaID 	448131
-valid_authority 	Duclos, 1835
-valid_name 	Oliva nitidula
-
-
-------->
 
 
 <!----
