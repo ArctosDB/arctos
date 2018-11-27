@@ -486,7 +486,7 @@
 					dataType: "json",
 					success: function(r) {
 						if (r.STATUS=='success'){
-							var theLink='<a href="/name/#name###WoRMSviaArctos">Success! click to reload</a>';
+							var theLink='<a href="/name/#name#&x=12##WoRMSviaArctos">Success! click to reload</a>';
 							$("##wscallrslt").html(theLink);
 						} else {
 							$("##wscallrslt").html('The request to WoRMS failed.');
