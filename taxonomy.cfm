@@ -489,7 +489,11 @@
 							var theLink='<span class="likeLink" onclick="reloadHash(\'WoRMSviaArctos\')">Success! click to reload</span>';
 							$("##wscallrslt").html(theLink);
 						} else {
-							$("##wscallrslt").html('The request to WoRMS failed.');
+							var m="The request to WoRMS failed">
+							if (r.MSG){
+								m+=": " + r.MSG;
+							}
+							$("##wscallrslt").html(m);
 						}
 					},
 					error: function (xhr, textStatus, errorThrown){
