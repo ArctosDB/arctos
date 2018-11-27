@@ -89,19 +89,46 @@
 									) values (
 										sq_taxon_term_id.nextval,
 										#tid.taxon_name_id#,
-										'#t#',
 										'#d#',
+										'#t#',
 										'#thisSrcName#',
 										NULL,
 										'#thisSourceID#'
 									)
 								</cfquery>
 							</cfif>
-							<!----
-							<cfif structkeyexists(therecord,"number_of_cterms">
-
+							<cfif structkeyexists(therecord,"citation")>
+								<cfset t="citation">
+								<cfset d=therecord.citation>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#tid.taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#'
+									)
+								</cfquery>
 							</cfif>
----->
+
+							<cfif structkeyexists(therecord,"number_of_cterms")>
+								<cfloop from ="1" to="#number_of_cterms#" index="i">
+									<cfset t=evaluate("therecord.rank_" & i)>
+									<cfset d=evaluate("therecord.term_" & i)>
+									<br>t:#t#
+									<br>d:#d#
+								</cfloop>
+							</cfif>
 						</cftransaction>
 					</cfif>
 
@@ -109,8 +136,7 @@
 
 
 					AphiaID 	448131
-authority 	Duclos, 1835
-citation 	MolluscaBase (2018). Oliva nitidula Duclos, 1835. Accessed through: World Register of Marine Species at: http://www.marinespecies.org/aphia.php?p=taxdetails&id=448131 on 2018-11-27
+ 	MolluscaBase (2018). Oliva nitidula Duclos, 1835. Accessed through: World Register of Marine Species at: http://www.marinespecies.org/aphia.php?p=taxdetails&id=448131 on 2018-11-27
 class 	Gastropoda
 family 	Olividae
 genus 	Oliva
