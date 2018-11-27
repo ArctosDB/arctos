@@ -490,7 +490,7 @@
 							$("##wscallrslt").html(theLink);
 						} else {
 							var m="The request to WoRMS failed">
-							if (r.MSG){
+							if (r.hasOwnProperty("MSG")){
 								m+=": " + r.MSG;
 							}
 							$("##wscallrslt").html(m);
