@@ -282,6 +282,9 @@
 					<cfset r.status='fail'>
 					<cfset r.msg='no aphiaid found'>
 				</cfif>
+			<cfelse>
+				<cfset r.status='fail'>
+				<cfset r.msg='not found at WoRMS'>
 			</cfif>
 			<cfcatch>
 				<cfset r.status='fail'>
