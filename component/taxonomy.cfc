@@ -42,8 +42,10 @@
 								<cfset rt="term_#i#">
 								<br>rn=#rn#
 								<br>rt=#rt#
+								<!----
 								<cfset therecord.#rn#=evaluate(skey & ".rank")>
 								<cfset therecord.#rt#=evaluate(skey & ".scientificname")>
+								---->
 							<cfcatch>
 								<br>empty....<br />
 								</cfcatch>
