@@ -123,7 +123,7 @@
 
 							<cfif structkeyexists(therecord,"number_of_cterms")>
 								<cfloop from ="1" to="#therecord.number_of_cterms#" index="i">
-									<cfset t=evaluate("therecord.rank_" & i)>
+									<cfset t=toLowerCase(evaluate("therecord.rank_" & i))>
 									<cfset d=evaluate("therecord.term_" & i)>
 									<br>t:#t#
 									<br>d:#d#
