@@ -131,9 +131,9 @@
 								<cfif structkeyexists(therecord,"status")>
 									<cfset t="taxon_status">
 									<!--- try to get local terminology --->
-									<cfif therecord.status='accepted'>
+									<cfif therecord.status is 'accepted'>
 										<cfset d='valid'>
-									<cfelseif  therecord.status='unaccepted'>
+									<cfelseif therecord.status is 'unaccepted'>
 										<cfset d='invalid'>
 									<cfelse>
 										<cfset d=therecord.status>
