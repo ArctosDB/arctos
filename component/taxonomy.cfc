@@ -64,7 +64,7 @@
 							if we made it here everything should be happy and we should have some data, so create the classification
 							try to use Arctos terms for easy copy-pasta
 						---->
-						<CFSET StructInsert(therecord, "number_of_cterms", i)>
+						<CFSET StructInsert(therecord, "number_of_cterms", i-1)>
 						<cftransaction>
 							<cfquery name="tid" datasource="uam_god">
 								select taxon_name_id from taxon_name where scientific_name='#taxon_name#'
