@@ -42,6 +42,7 @@
 								<cfset rt="term_#i#">
 								<br>rn=#rn#
 								<br>rt=#rt#
+								<CFSET StructInsert(therecord, "#rn#", evaluate(skey & ".rank"))>
 								<!----
 								<cfset therecord.#rn#=evaluate(skey & ".rank")>
 								<cfset therecord.#rt#=evaluate(skey & ".scientificname")>
