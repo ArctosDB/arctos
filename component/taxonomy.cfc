@@ -13,7 +13,7 @@
 			<cfset gao=DeserializeJSON(ga.filecontent)>
 			<cfdump var=#gao#>
 			<cfif isdefined("gao.AphiaID") and len(gao.AphiaID) gt 0>
-
+				<br>got AphiaID: #gao.AphiaID#
 				<!--- now get tree --->
 				<cfhttp  result="gt" url="http://www.marinespecies.org/rest/AphiaClassificationByAphiaID/#gao.AphiaID#" method="get"></cfhttp>
 				<cfif gt.statusCode is "200 OK" and len(gt.filecontent) gt 0 and isjson(gt.filecontent)>
@@ -23,7 +23,8 @@
 					<cfdump var=#gto#>
 
 				</cfif>
-
+			<cfelse>
+				no AphiaID
 			</cfif>
 		</cfif>
 		<cfoutput>
