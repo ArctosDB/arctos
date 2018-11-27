@@ -29,7 +29,8 @@
 					<cfset sc=structcount(gto)>
 					<br>sc:#sc#
 					<cfset first=gto.child>
-					<br>first:#first#
+					<br>first:
+					<cfdump var=#first#>
 
 				</cfif>
 			<cfelse>
