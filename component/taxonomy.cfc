@@ -12,6 +12,10 @@
 			got something good
 			<cfset gao=DeserializeJSON(ga.filecontent)>
 			<cfdump var=#gao#>
+			<cfset therecord=gat[1]>
+			<cfdump var=#therecord#>
+
+
 			<cfif isdefined("gao[1].AphiaID") and len(gao[1].AphiaID) gt 0>
 				<br>got AphiaID: #gao[1].AphiaID#
 				<!--- now get tree --->
