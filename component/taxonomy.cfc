@@ -281,14 +281,17 @@
 				<cfelse>
 					<cfset r.status='fail'>
 					<cfset r.msg='no aphiaid found'>
+					<cfreturn r>
 				</cfif>
 			<cfelse>
 				<cfset r.status='fail'>
 				<cfset r.msg='not found at WoRMS'>
+				<cfreturn r>
 			</cfif>
 			<cfcatch>
 				<cfset r.status='fail'>
 				<cfset r.msg=cfcatch.detail>
+				<cfreturn r>
 			</cfcatch>
 			</cftry>
 			<cfset r.status='success'>
