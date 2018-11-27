@@ -12,7 +12,7 @@
 			got something good
 			<cfset gao=DeserializeJSON(ga.filecontent)>
 			<cfdump var=#gao#>
-			<cfset therecord=gat[1]>
+			<cfset therecord=gao[1]>
 			<cfdump var=#therecord#>
 
 
