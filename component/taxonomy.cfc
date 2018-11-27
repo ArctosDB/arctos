@@ -28,7 +28,7 @@
 
 					<cfset skey="gto">
 					<cfset taxonRankStringified="">
-					<cfloop from ="1" to="20" index="i">
+					<cfloop from ="1" to="100" index="i">
 						<br>checking #skey#
 						<cfif isdefined("#skey#")>
 							<br>#skey# exists
@@ -59,8 +59,107 @@
 							<cfbreak >
 						</cfif>
 					</cfloop>
+					<cfif i gt 1>
+						<!----
+							if we made it here everything should be happy and we should have some data, so create the classification
+							try to use Arctos terms for easy copy-pasta
+						---->
+						<CFSET StructInsert(therecord, "number_of_cterms", i)>
+						<cftransaction>
+							<cfquery name="tid" datasource="uam_god">
+								select taxon_name_id from taxon_name where scientific_name='#taxon_name#'
+							</cfquery>
+							<cfset thisSourceID=CreateUUID()>
+							<cfset thisSrcName="WoRMS (via Arctos)">
+							<cfquery name="flushOld" datasource="uam_god">
+								delete from taxon_term where taxon_name_id=#tid.taxon_name_id# and source='#thisSrcName#'
+							</cfquery>
+							<cfif structkeyexists(therecord,"authority">
+								<cfset t="author_text">
+								<cfset d=therecord.authority>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#tid.taxon_name_id#,
+										'#t#',
+										'#d#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#',
+									)
+								</cfquery>
+							</cfif>
+							<!----
+							<cfif structkeyexists(therecord,"number_of_cterms">
 
-					<CFSET StructInsert(therecord, "number_of_cterms", i)>
+							</cfif>
+---->
+						</cftransaction>
+					</cfif>
+
+	<!--------
+
+
+					AphiaID 	448131
+authority 	Duclos, 1835
+citation 	MolluscaBase (2018). Oliva nitidula Duclos, 1835. Accessed through: World Register of Marine Species at: http://www.marinespecies.org/aphia.php?p=taxdetails&id=448131 on 2018-11-27
+class 	Gastropoda
+family 	Olividae
+genus 	Oliva
+isBrackish 	undefined
+isExtinct 	undefined
+isFreshwater 	undefined
+isMarine 	1
+isTerrestrial 	undefined
+kingdom 	Animalia
+lsid 	urn:lsid:marinespecies.org:taxname:448131
+match_type 	exact
+modified 	2013-09-18T23:07:59.570Z
+number_of_cterms 	12
+order 	Neogastropoda
+phylum 	Mollusca
+rank 	Species
+rank_1 	Superdomain
+rank_10 	Genus
+rank_11 	Species
+rank_2 	Kingdom
+rank_3 	Phylum
+rank_4 	Class
+rank_5 	Subclass
+rank_6 	Order
+rank_7 	Superfamily
+rank_8 	Family
+rank_9 	Subfamily
+scientificname 	Oliva nitidula
+status 	accepted
+term_1 	Biota
+term_10 	Oliva
+term_11 	Oliva nitidula
+term_2 	Animalia
+term_3 	Mollusca
+term_4 	Gastropoda
+term_5 	Caenogastropoda
+term_6 	Neogastropoda
+term_7 	Olivoidea
+term_8 	Olividae
+term_9 	Olivinae
+unacceptreason 	undefined
+url 	http://www.marinespecies.org/aphia.php?p=taxdetails&id=448131
+valid_AphiaID 	448131
+valid_authority 	Duclos, 1835
+valid_name 	Oliva nitidula
+
+
+------->
+
 
 <!----
 					<cfset sc=structcount(gto)>
@@ -81,7 +180,7 @@
 			</cfif>
 		</cfif>
 
-			<cfdump var=#therecord#>
+		<cfdump var=#therecord#>
 		</cfoutput>
 
 </cffunction>
