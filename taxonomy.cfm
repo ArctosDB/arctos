@@ -489,7 +489,7 @@
 							var theLink="/name/#name###WoRMSviaArctos";
 							$("##wscallrslt").html('Success: click to reload - ' + theLink);
 						} else {
-							$("##wscallrslt.html('The request to WoRMS failed.');
+							$("##wscallrslt").html('The request to WoRMS failed.');
 						}
 					},
 					error: function (xhr, textStatus, errorThrown){
