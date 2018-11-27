@@ -20,8 +20,6 @@
 						<cfloop from ="1" to="100" index="i">
 							<cfif isdefined("#skey#")>
 								<cftry>
-									<br>rank:#evaluate(skey & ".rank")#
-									<br>scientificname:#evaluate(skey & ".scientificname")#
 									<cfset rn="rank_#i#">
 									<cfset rt="term_#i#">
 									<CFSET StructInsert(therecord, "#rn#", evaluate(skey & ".rank"))>
