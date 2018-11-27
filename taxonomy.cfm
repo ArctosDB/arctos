@@ -502,10 +502,11 @@
 				});
 			}
 			function reloadHash(a){
-				var x=location.href.replace(location.hash,"");
-				var x2=x+'##' + a;
+				//var x=location.href.replace(location.hash,"");
+				//var x2=x+'##' + a;
 				//location.href = x2;
-				window.location.href=x2;
+				//window.location.href=x2;
+				window.location.hash=a;
 				location.reload();
 
 
