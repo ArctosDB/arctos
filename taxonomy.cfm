@@ -506,7 +506,8 @@
 				//var x2=x+'##' + a;
 				//location.href = x2;
 				//window.location.href=x2;
-				window.location.hash=a;
+				window.
+				location.hash=a;
 				window.location.reload(true);
 
 

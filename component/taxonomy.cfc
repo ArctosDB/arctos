@@ -130,7 +130,14 @@
 
 								<cfif structkeyexists(therecord,"status")>
 									<cfset t="taxon_status">
-									<cfset d=therecord.status>
+									<!--- try to get local terminology --->
+									<cfif therecord.status='accepted'>
+										<cfset d='valid'>
+									<cfelseif  therecord.status='unaccepted'>
+										<cfset d='invalid'>
+									<cfelse>
+										<cfset d=therecord.status>
+									</cfif>
 									<cfquery name="meta" datasource="uam_god">
 										insert into taxon_term (
 											taxon_term_id,
