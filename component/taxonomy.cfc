@@ -93,7 +93,7 @@
 										'#d#',
 										'#thisSrcName#',
 										NULL,
-										'#thisSourceID#',
+										'#thisSourceID#'
 									)
 								</cfquery>
 							</cfif>
