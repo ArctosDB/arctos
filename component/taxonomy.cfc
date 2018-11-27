@@ -9,6 +9,10 @@
 		</cfhttp>
 		<cfdump var=#cfhttp#>
 		<cfoutput>
+
+		</cfoutput>
+
+</cffunction>
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getRelatedTaxa" access="remote">
 		<!---- hierarchical taxonomy editor ---->
