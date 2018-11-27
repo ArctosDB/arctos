@@ -4,9 +4,13 @@
 	<cffunction name="getWormsData" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name" type="string" required="true">
-		<cfhttp url="http://www.marinespecies.org/rest/AphiaRecordsByName/#urlencodedformat(taxon_name)#?like=false&marine_only=false&offset=1" method="get">
+		<cfhttp  result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByName/#urlencodedformat(taxon_name)#?like=false&marine_only=false&offset=1" method="get">
 		</cfhttp>
-		<cfdump var=#cfhttp#>
+		<cfdump var=#ga#>
+
+		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0>
+			got something good
+		</cfif>
 		<cfoutput>
 
 		</cfoutput>
