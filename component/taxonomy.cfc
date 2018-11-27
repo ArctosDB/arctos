@@ -43,6 +43,7 @@
 								<br>rn=#rn#
 								<br>rt=#rt#
 								<CFSET StructInsert(therecord, "#rn#", evaluate(skey & ".rank"))>
+								<CFSET StructInsert(therecord, "#rt#", evaluate(skey & ".scientificname"))>
 								<!----
 								<cfset therecord.#rn#=evaluate(skey & ".rank")>
 								<cfset therecord.#rt#=evaluate(skey & ".scientificname")>
@@ -58,7 +59,8 @@
 							<cfbreak >
 						</cfif>
 					</cfloop>
-					<cfset therecord.taxonRankStringified=taxonRankStringified>
+
+					<CFSET StructInsert(therecord, "number_of_cterms", i)>
 
 <!----
 					<cfset sc=structcount(gto)>
