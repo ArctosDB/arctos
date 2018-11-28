@@ -108,12 +108,11 @@ This form may be called in two ways:
 		<cfset theseNames=listdeleteat(theseNames,listlen(theseNames,"|"),"|")>
 	</cfloop>
 	<cfquery name="tti" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select source from ctTAXONOMY_SOURCE
+		select souce from (
+			select 'Arctos Relationships' source from dual union select source from ctTAXONOMY_SOURCE
 	</cfquery>
 	<cfset sourcesToIgnore=valuelist(tti.source,'|')>
-
 	<cfset sourcesToIgnoreComma=valuelist(tti.source)>
-
 
 
 	<cfset theseTaxonNameIds="">
