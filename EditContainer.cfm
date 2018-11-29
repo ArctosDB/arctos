@@ -162,7 +162,7 @@
 			  tube.container_id not in (select parent_container_id from container) and
 			  position.container_type='position'
 			connect by tube.parent_container_id = prior tube.container_id
-			    start with tube.container_id=#container_id#
+			    start with box.container_id=#container_id#
 		</cfquery>
 		<table border  id="t" class="sortable">
 			<tr>
