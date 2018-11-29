@@ -18,12 +18,13 @@
 				TAXON_NAME_ID=#val(taxon_name_id)#
 		</cfquery>
 		<cfquery name="dcid" dbtype="query">
-			select CLASSIFICATION_ID, TAXON_NAME_ID from raw group by CLASSIFICATION_ID,TAXON_NAME_ID
+			select CLASSIFICATION_ID, TAXON_NAME_ID, SOURCE from raw group by CLASSIFICATION_ID,TAXON_NAME_ID
 		</cfquery>
 		<cfoutput>
 			<cfset d='<div class="taxNameMeta">'>
 			<cfloop query="dcid">
 				<cfset d=d & '<div class="taxNameOne">'>
+				<cfset d=d & '<div>Source: #dcid.source#</div>'>
 				<cfquery name="dv" dbtype="query">
 					select TERM from raw where CLASSIFICATION_ID='#CLASSIFICATION_ID#' and term_type='display_name'
 				</cfquery>
