@@ -280,15 +280,10 @@
 				<cfset whr=whr & " and upper(common_name) like '#escapeQuotes(ucase(common_name))#%' ">
 				<li>common name STARTS WITH #common_name#</li>
 			</cfif>
-
-
 		</cfif>
-
-
-		<cfset sql="select scientific_name from (select scientific_name from #tabls# where 1=1 #tbljoin# #whr# ">
-
+		<cfset sql="select scientific_name,taxon_name_id from (select scientific_name, taxon_name.taxon_name_id from #tabls# where 1=1 #tbljoin# #whr# ">
 		<cfset sql=sql & "
-		group by scientific_name
+		group by scientific_name,taxon_name_id
 		order by scientific_name)
 		where rownum<1001">
 
@@ -306,7 +301,9 @@
 	</cfif>
 	<div class="taxonomyResultsDiv">
 		<cfloop query="d">
-			<br><a href="/name/#scientific_name#">#scientific_name#</a>
+			<div id="tname" data-tid='#taxon_name_id#'>
+				<a href="/name/#scientific_name#">#scientific_name#</a>
+			</div>
 		</cfloop>
 	</div>
 </cfif>
@@ -509,9 +506,6 @@
 				window.
 				location.hash=a;
 				window.location.reload(true);
-
-
-
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
