@@ -213,9 +213,10 @@
 				success: function(r) {
 					console.log(r);
 					console.log(r.DISPLAY_NAME);
-
-
-
+					var dd='<div class="classMeta">';
+					dd+='<div>' + r.DISPLAY_NAME + '</div>';
+					dd+="</div>";
+console.log(dd);
 				},
 					error: function (xhr, textStatus, errorThrown){
 			    	//alert(errorThrown + ': ' + textStatus + ': ' + xhr);
@@ -232,10 +233,10 @@
 </script>
 	<h3>Taxonomy Search Results</h3>
 <!--------------
-	var dd='<div class="classMeta">';
-					dd+='<div>' + r.DATA.DISPLAY_NAME + '</div>';
+
+
 					dd+='<div>' + r.DATA.TAXON_STATUS + '</div>';
-					dd+="</div>";
+
 					//$("##tname_" + tid).append(dd);
 					$(this).append(dd);
 
