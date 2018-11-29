@@ -18,7 +18,7 @@
 				TAXON_NAME_ID=#val(taxon_name_id)#
 		</cfquery>
 		<cfquery name="dcid" dbtype="query">
-			select CLASSIFICATION_ID from raw group by CLASSIFICATION_ID
+			select CLASSIFICATION_ID, TAXON_NAME_ID from raw group by CLASSIFICATION_ID,TAXON_NAME_ID
 		</cfquery>
 		<cfset d=StructNew()>
 		<cfloop query="dcid">

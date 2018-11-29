@@ -216,7 +216,8 @@
 
 				},
 					error: function (xhr, textStatus, errorThrown){
-			    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			    	//alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+			    	// meh, whatever, this is purely informational
 				}
 			});
 
