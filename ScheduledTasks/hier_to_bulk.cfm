@@ -1,6 +1,11 @@
 <!--- local table just for this
+drop table cf_temp_classification_fh;
 create table cf_temp_classification_fh as select * from cf_temp_classification where 1=2;
 	 alter table cf_temp_classification_fh add export_id varchar2(255);
+
+
+cf_temp_classification_fh
+
 
 	 --->
 
@@ -93,6 +98,9 @@ create table cf_temp_classification_fh as select * from cf_temp_classification w
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'EXPORT_ID'))>
+	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'DISPLAY_NAME'))>
+
+
 
 
 	<!--- AND GET RID OF NONCLASSIFICATION TERMS ---->
