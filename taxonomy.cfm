@@ -28,6 +28,12 @@
 		max-height:10em;
 		overflow:auto;
 	}
+	.taxNameOne{
+		margin:.2em .2em .2em 1em;
+		padding:.2em;
+		border:1px solid black;
+	}
+
 </style>
 <script>
 	$(function() {
