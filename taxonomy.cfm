@@ -212,14 +212,9 @@
 				},
 				success: function(r) {
 					console.log(r);
+					console.log(r.DATA.DISPLAY_NAME);
 
 
-					var dd='<div class="classMeta">';
-					dd+='<div>' + r.DATA.DISPLAY_NAME + '</div>';
-					dd+='<div>' + r.DATA.TAXON_STATUS + '</div>';
-					dd+="</div>";
-					//$("##tname_" + tid).append(dd);
-					$(this).append(dd);
 
 				},
 					error: function (xhr, textStatus, errorThrown){
@@ -237,7 +232,12 @@
 </script>
 	<h3>Taxonomy Search Results</h3>
 <!--------------
-
+	var dd='<div class="classMeta">';
+					dd+='<div>' + r.DATA.DISPLAY_NAME + '</div>';
+					dd+='<div>' + r.DATA.TAXON_STATUS + '</div>';
+					dd+="</div>";
+					//$("##tname_" + tid).append(dd);
+					$(this).append(dd);
 
 	/*
 					if (r.STATUS=='SUCCESS'){
