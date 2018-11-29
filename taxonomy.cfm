@@ -212,7 +212,7 @@
 				},
 				success: function(r) {
 					console.log(r);
-					console.log(r.DATA.DISPLAY_NAME);
+					console.log(r.DISPLAY_NAME);
 
 
 
