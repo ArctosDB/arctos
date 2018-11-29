@@ -191,6 +191,18 @@
 <hr>
 <!---------- search results ------------>
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0 or len(source) gt 0 or len(term_type) gt 0>
+<script>
+	$(document).ready(function() {
+		$("li[data-tid]").each(function( i, val ) {
+			//console.log(val);
+			var tid=$(this).attr("data-doi");
+			console.log(tid);
+			var dd="<div>" + tid + "</div>";
+			$("##tname_" + tid).append(dd);
+		});
+	});
+
+</script>
 	<h3>Taxonomy Search Results</h3>
 
 	<cfset tabls="taxon_name">
@@ -301,7 +313,7 @@
 	</cfif>
 	<div class="taxonomyResultsDiv">
 		<cfloop query="d">
-			<div id="tname" data-tid='#taxon_name_id#'>
+			<div id="tname_#taxon_name_id#" data-tid='#taxon_name_id#'>
 				<a href="/name/#scientific_name#">#scientific_name#</a>
 			</div>
 		</cfloop>
