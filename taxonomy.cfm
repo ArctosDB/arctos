@@ -212,21 +212,8 @@
 				},
 				success: function(r) {
 					console.log(r);
-					/*
-					if (r.STATUS=='SUCCESS'){
-						$.each( r.STSARY, function( k, v ) {
-							var tra='<ul>';
-							tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
-							tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
-							tra+='<li><a data-doi="' + v.DOI + '" href="/info/publicationDetails.cfm?doi=' + v.DOI + '" class="modalink">CrossRef Data</a></li>';
-							tra+='</ul>';
-							var escdoi=v.DOI.replace(/[\W_]+/g,"_");
-							$('#x' + escdoi).append(tra);
-						});
-					} else {
-						alert(r.STATUS + ': ' + r.MSG);
-					}
-					*/
+
+
 				},
 					error: function (xhr, textStatus, errorThrown){
 			    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
@@ -245,7 +232,27 @@
 
 </script>
 	<h3>Taxonomy Search Results</h3>
+<!--------------
 
+
+	/*
+					if (r.STATUS=='SUCCESS'){
+						$.each( r.STSARY, function( k, v ) {
+							var tra='<ul>';
+							tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
+							tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
+							tra+='<li><a data-doi="' + v.DOI + '" href="/info/publicationDetails.cfm?doi=' + v.DOI + '" class="modalink">CrossRef Data</a></li>';
+							tra+='</ul>';
+							var escdoi=v.DOI.replace(/[\W_]+/g,"_");
+							$('#x' + escdoi).append(tra);
+						});
+					} else {
+						alert(r.STATUS + ': ' + r.MSG);
+					}
+					*/
+
+
+					----------->
 	<cfset tabls="taxon_name">
 	<cfset tbljoin="">
 	<cfset whr="">
