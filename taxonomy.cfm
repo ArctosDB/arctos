@@ -197,10 +197,11 @@
 		console.log('ready...');
 		$("div[data-tid]").each(function( i, val ) {
 			console.log(val);
-			var tid=$(this).attr("data-doi");
+			var tid=$(this).attr("data-tid");
 			console.log(tid);
 			var dd="<div>" + tid + "</div>";
-			$("##tname_" + tid).append(dd);
+			//$("##tname_" + tid).append(dd);
+			$(this).append(dd);
 		});
 	});
 
