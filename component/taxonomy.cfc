@@ -1,6 +1,16 @@
 <cfcomponent>
 
 <!--------------------------------------------------------------------------------------->
+	<cffunction name="getDisplayClassData" access="remote">
+		<cfargument name="taxon_name_id" type="numeric" required="true">
+		<cfquery name="d" datasource="uam_god">
+			select 'skippy' taxon_status from dual
+		</cfquery>
+		
+		<cfreturn d>
+	
+	</cffunction>
+<!--------------------------------------------------------------------------------------->
 	<cffunction name="getWormsData" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name" type="string" required="true">

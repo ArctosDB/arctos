@@ -199,6 +199,44 @@
 			console.log(val);
 			var tid=$(this).attr("data-tid");
 			console.log(tid);
+
+			$.ajax({
+				url: "/component/taxonomy.cfc?queryformat=column",
+				type: "GET",
+				dataType: "json",
+				//async: false,
+				data: {
+					method:  "getDisplayClassData",
+					taxon_name_id : tid,
+					returnformat : "json"
+				},
+				success: function(r) {
+					console.log(r);
+					/*
+					if (r.STATUS=='SUCCESS'){
+						$.each( r.STSARY, function( k, v ) {
+							var tra='<ul>';
+							tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
+							tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
+							tra+='<li><a data-doi="' + v.DOI + '" href="/info/publicationDetails.cfm?doi=' + v.DOI + '" class="modalink">CrossRef Data</a></li>';
+							tra+='</ul>';
+							var escdoi=v.DOI.replace(/[\W_]+/g,"_");
+							$('#x' + escdoi).append(tra);
+						});
+					} else {
+						alert(r.STATUS + ': ' + r.MSG);
+					}
+					*/
+				},
+					error: function (xhr, textStatus, errorThrown){
+			    	alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+
+
+
+
+
 			var dd="<div>" + tid + "</div>";
 			//$("##tname_" + tid).append(dd);
 			$(this).append(dd);
