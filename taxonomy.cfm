@@ -203,13 +203,12 @@
 			$.ajax({
 				url: "/component/taxonomy.cfc?",
 				type: "GET",
-				dataType: "plain",
-				returnFormat: "plain",
+				dataType: "text",
 				//async: false,
 				data: {
 					method:  "getDisplayClassData",
 					taxon_name_id : tid,
-					returnformat : "json"
+					returnformat : "plain"
 				},
 				success: function(r) {
 
