@@ -98,7 +98,6 @@ cf_temp_classification_fh
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'TAXON_NAME_ID'))>
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'SCIENTIFIC_NAME'))>
 	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'EXPORT_ID'))>
-	<cfset tterms=listDeleteAt(tterms,listFind(tterms,'DISPLAY_NAME'))>
 
 
 
