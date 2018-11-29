@@ -203,7 +203,7 @@
 			$.ajax({
 				url: "/component/taxonomy.cfc?queryformat=column",
 				type: "GET",
-				dataType: "json",
+				dataType: "plain",
 				//async: false,
 				data: {
 					method:  "getDisplayClassData",
@@ -211,13 +211,10 @@
 					returnformat : "json"
 				},
 				success: function(r) {
+
 					console.log(r);
-					console.log(r.DISPLAY_NAME);
-					var dd='<div class="classMeta">';
-					dd+='<div>' + r.DISPLAY_NAME + '</div>';
-					dd+='<div>' + r.DATA.TAXON_STATUS + '</div>';
-					dd+="</div>";
-console.log(dd);
+
+					$("##tname_" + tid).append(r);
 				},
 					error: function (xhr, textStatus, errorThrown){
 			    	//alert(errorThrown + ': ' + textStatus + ': ' + xhr);
