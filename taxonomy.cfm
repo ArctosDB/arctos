@@ -201,9 +201,10 @@
 			console.log(tid);
 
 			$.ajax({
-				url: "/component/taxonomy.cfc?queryformat=column",
+				url: "/component/taxonomy.cfc?",
 				type: "GET",
 				dataType: "plain",
+				returnFormat: "plain",
 				//async: false,
 				data: {
 					method:  "getDisplayClassData",

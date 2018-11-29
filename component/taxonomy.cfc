@@ -17,7 +17,6 @@
 				term_type in ('taxon_status','display_name') and
 				TAXON_NAME_ID=#val(taxon_name_id)#
 		</cfquery>
-		<cfdump var=#raw#>
 		<cfquery name="dcid" dbtype="query">
 			select CLASSIFICATION_ID, TAXON_NAME_ID from raw group by CLASSIFICATION_ID,TAXON_NAME_ID
 		</cfquery>
