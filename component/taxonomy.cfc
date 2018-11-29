@@ -21,28 +21,26 @@
 		<cfquery name="dcid" dbtype="query">
 			select CLASSIFICATION_ID, TAXON_NAME_ID from raw group by CLASSIFICATION_ID,TAXON_NAME_ID
 		</cfquery>
-		<cfset d=StructNew()>
-		<cfloop query="dcid">
-			<cfset o.CLASSIFICATION_ID=dcid.CLASSIFICATION_ID>
-			<cfquery name="ts" dbtype="query">
-				select TERM from raw where CLASSIFICATION_ID='#CLASSIFICATION_ID#' and term_type='taxon_status'
-			</cfquery>
-			<cfset o.taxon_status=valuelist(ts.term,"|")>
-			<cfquery name="dv" dbtype="query">
-				select TERM from raw where CLASSIFICATION_ID='#CLASSIFICATION_ID#' and term_type='display_name'
-			</cfquery>
-			<cfset o.display_name=valuelist(dv.term,"|")>
-			<br>o
-			<cfdump var=#o#>
-			<br>preappendD
-	<cfdump var=#d#>
-
-			<cfset StructAppend(d, o)>
-			<br>postappendD
-	<cfdump var=#d#>
-		</cfloop>
-<br>finald
-	<cfdump var=#d#>
+		<cfsavecontent variable="d">
+			<div class="taxNameMeta">
+				<cfloop query="dcid">
+					<div class="taxNameOne">
+						<cfquery name="dv" dbtype="query">
+							select TERM from raw where CLASSIFICATION_ID='#CLASSIFICATION_ID#' and term_type='display_name'
+						</cfquery>
+						<cfloop query="dv">
+							<div>Display Name: #dv.term#</div>
+						</cfloop>
+						<cfquery name="ts" dbtype="query">
+							select TERM from raw where CLASSIFICATION_ID='#CLASSIFICATION_ID#' and term_type='taxon_status'
+						</cfquery>
+						<cfloop query="ts">
+							<div>Taxon Status: #ts.term#</div>
+						</cfloop>
+					</div>
+				</cfloop>
+			</div>
+		</cfsavecontent>
 		<cfreturn d>
 
 	</cffunction>
