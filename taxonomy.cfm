@@ -193,6 +193,8 @@
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0 or len(source) gt 0 or len(term_type) gt 0>
 <script>
 	$(document).ready(function() {
+
+		console.log('ready...');
 		$("li[data-tid]").each(function( i, val ) {
 			console.log(val);
 			var tid=$(this).attr("data-doi");
