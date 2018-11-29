@@ -618,6 +618,27 @@
 <!-------------------------------------------------------------->
 
 
+
+<cfif action is "deleteEmptyPositions">
+	<cfoutput>
+		<cfquery name="pp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select container_id from container where parent_container_id=#container_id#
+		</cfquery>
+		<cftransaction>
+			<cfloop query="pp">
+				<cfstoredproc procedure="deleteContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfprocparam cfsqltype="cf_sql_number" value="#pp.container_id#"><!---- v_container_id --->
+				</cfstoredproc>
+			</cfloop>
+		</cftransaction>
+		<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">
+	</cfoutput>
+</cfif>
+
+<!-------------------------------------------------------------->
+
+
+
 <cfif action is "update">
 	<cfoutput>
 		<cfif len(newParentBarcode) gt 0>
