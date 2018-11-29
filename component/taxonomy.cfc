@@ -19,9 +19,10 @@
 		</cfquery>
 		<cfquery name="dcid" dbtype="query">
 			select CLASSIFICATION_ID, TAXON_NAME_ID, SOURCE from raw
-			order by
+			 group by CLASSIFICATION_ID,TAXON_NAME_ID,SOURCE
+			 order by
 				source,
-				classification_id group by CLASSIFICATION_ID,TAXON_NAME_ID,SOURCE
+				classification_id
 		</cfquery>
 		<cfoutput>
 			<cfset d='<div class="taxNameMeta">'>
