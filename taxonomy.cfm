@@ -215,6 +215,7 @@
 					console.log(r.DISPLAY_NAME);
 					var dd='<div class="classMeta">';
 					dd+='<div>' + r.DISPLAY_NAME + '</div>';
+					dd+='<div>' + r.DATA.TAXON_STATUS + '</div>';
 					dd+="</div>";
 console.log(dd);
 				},
@@ -235,7 +236,6 @@ console.log(dd);
 <!--------------
 
 
-					dd+='<div>' + r.DATA.TAXON_STATUS + '</div>';
 
 					//$("##tname_" + tid).append(dd);
 					$(this).append(dd);
