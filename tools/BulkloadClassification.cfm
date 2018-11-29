@@ -126,7 +126,6 @@ sho err;
 
 	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'TAXON_NAME_ID'))>
 	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'CLASSIFICATION_ID'))>
-	<cfset BulkTableColList=listDeleteAt(BulkTableColList,listfindnocase(BulkTableColList,'SUBSP'))>
 
 
 
