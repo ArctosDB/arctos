@@ -16,6 +16,9 @@
 				SOURCE in (select SOURCE from CTTAXONOMY_SOURCE) and
 				term_type in ('taxon_status','display_name') and
 				TAXON_NAME_ID=#val(taxon_name_id)#
+			order by
+				source,
+				classification_id
 		</cfquery>
 		<cfquery name="dcid" dbtype="query">
 			select CLASSIFICATION_ID, TAXON_NAME_ID, SOURCE from raw group by CLASSIFICATION_ID,TAXON_NAME_ID,SOURCE

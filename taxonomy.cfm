@@ -32,6 +32,7 @@
 		margin:.2em .2em .2em 1em;
 		padding:.2em;
 		border:1px solid black;
+		display:table;
 	}
 
 </style>
