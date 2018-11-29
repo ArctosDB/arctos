@@ -4,11 +4,22 @@
 	<cffunction name="getDisplayClassData" access="remote">
 		<cfargument name="taxon_name_id" type="numeric" required="true">
 		<cfquery name="d" datasource="uam_god">
-			select 'skippy' taxon_status from dual
+			select
+				TERM,
+				TERM_TYPE,
+				SOURCE,
+				CLASSIFICATION_ID,
+				TAXON_NAME_ID
+			from
+				taxon_term
+			where
+				SOURCE in (select SOURCE from CTTAXONOMY_SOURCE) and
+				term_type in ('taxon_status','display_name') and
+				TAXON_NAME_ID=#val(taxon_name_id)#
 		</cfquery>
-		
+
 		<cfreturn d>
-	
+
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getWormsData" access="remote">
