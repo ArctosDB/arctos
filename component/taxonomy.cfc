@@ -24,11 +24,11 @@
 		<cfloop query="dcid">
 			<cfset o.CLASSIFICATION_ID=dcid.CLASSIFICATION_ID>
 			<cfquery name="ts" dbtype="query">
-				select TERM from raw where CLASSIFICATION_ID=#CLASSIFICATION_ID# and term_type='taxon_status'
+				select TERM from raw where CLASSIFICATION_ID='#CLASSIFICATION_ID#' and term_type='taxon_status'
 			</cfquery>
 			<cfset o.taxon_status=valuelist(ts.term,"|")>
 			<cfquery name="dv" dbtype="query">
-				select TERM from raw where CLASSIFICATION_ID=#CLASSIFICATION_ID# and term_type='display_name'
+				select TERM from raw where CLASSIFICATION_ID='#CLASSIFICATION_ID#' and term_type='display_name'
 			</cfquery>
 			<cfset o.display_name=valuelist(dv.term,"|")>
 			<cfset StructAppend(d, o)>
