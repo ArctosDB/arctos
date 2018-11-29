@@ -20,7 +20,7 @@
 		<cfquery name="dcid" dbtype="query">
 			select CLASSIFICATION_ID from raw group by CLASSIFICATION_ID
 		</cfquery>
-		<cfset StructNew("d")>
+		<cfset d=StructNew()>
 		<cfloop query="dcid">
 			<cfset o.CLASSIFICATION_ID=dcid.CLASSIFICATION_ID>
 			<cfquery name="ts" dbtype="query">
