@@ -214,6 +214,13 @@
 					console.log(r);
 
 
+					var dd='<div class="classMeta">';
+					dd+='<div>' + r.DISPLAY_NAME + '</div>';
+					dd+='<div>' + r.TAXON_STATUS + '</div>';
+					dd+="</div>";
+					//$("##tname_" + tid).append(dd);
+					$(this).append(dd);
+
 				},
 					error: function (xhr, textStatus, errorThrown){
 			    	//alert(errorThrown + ': ' + textStatus + ': ' + xhr);
@@ -224,10 +231,6 @@
 
 
 
-
-			var dd="<div>" + tid + "</div>";
-			//$("##tname_" + tid).append(dd);
-			$(this).append(dd);
 		});
 	});
 
