@@ -32,10 +32,16 @@
 				select TERM from raw where CLASSIFICATION_ID='#CLASSIFICATION_ID#' and term_type='display_name'
 			</cfquery>
 			<cfset o.display_name=valuelist(dv.term,"|")>
+			<br>o
 			<cfdump var=#o#>
-			<cfset StructAppend(d, o)>
-		</cfloop>
+			<br>preappendD
+	<cfdump var=#d#>
 
+			<cfset StructAppend(d, o)>
+			<br>postappendD
+	<cfdump var=#d#>
+		</cfloop>
+<br>finald
 	<cfdump var=#d#>
 		<cfreturn d>
 
