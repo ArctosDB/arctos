@@ -3,7 +3,7 @@
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getDisplayClassData" access="remote">
 		<cfargument name="taxon_name_id" type="numeric" required="true">
-		<cfquery name="d" datasource="uam_god">
+		<cfquery name="raw" datasource="uam_god">
 			select
 				TERM,
 				TERM_TYPE,
@@ -17,6 +17,22 @@
 				term_type in ('taxon_status','display_name') and
 				TAXON_NAME_ID=#val(taxon_name_id)#
 		</cfquery>
+		<cfquery name="dcid" dbtype="query">
+			select CLASSIFICATION_ID from raw group by CLASSIFICATION_ID
+		</cfquery>
+		<cfset StructNew("d")>
+		<cfloop query="dcid">
+			<cfset o.CLASSIFICATION_ID=dcid.CLASSIFICATION_ID>
+			<cfquery name="ts" dbtype="query">
+				select TERM from raw where CLASSIFICATION_ID=#CLASSIFICATION_ID# and term_type='taxon_status'
+			</cfquery>
+			<cfset o.taxon_status=valuelist(ts.term,"|")>
+			<cfquery name="dv" dbtype="query">
+				select TERM from raw where CLASSIFICATION_ID=#CLASSIFICATION_ID# and term_type='display_name'
+			</cfquery>
+			<cfset o.display_name=valuelist(dv.term,"|")>
+			<cfset StructAppend(d, o)>
+		</cfloop>
 
 		<cfreturn d>
 
