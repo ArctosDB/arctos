@@ -195,7 +195,7 @@
 	$(document).ready(function() {
 
 		console.log('ready...');
-		$("li[data-tid]").each(function( i, val ) {
+		$("div[data-tid]").each(function( i, val ) {
 			console.log(val);
 			var tid=$(this).attr("data-doi");
 			console.log(tid);
