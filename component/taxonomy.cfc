@@ -5,7 +5,7 @@
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getWormsByAphiaID" access="remote">
 		<!---- hierarchical taxonomy editor ---->
-		<cfargument name="aphiaID" type="number" required="true">
+		<cfargument name="aphiaID" type="string" required="true">
 		<cfparam name="debug" default="false">
 		<cfoutput>
 		<cftry>
