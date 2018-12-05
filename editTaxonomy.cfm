@@ -654,7 +654,7 @@
 				</cfloop>
 			</select>
 			<h3>
-				Non-Classification Terms
+				Non-Classification Data
 			</h3>
 			<p style="font-size:small;">
 				These are paired terms; unpaired terms will be ignored. That means you can ignore the defaulted-in suggestions if you want.
@@ -1896,7 +1896,7 @@
 		</cfquery>
 		<cfset title="Edit non-classification data for #thisname.scientific_name#">
 		<p>Editing non-classification data for <strong><em>#thisname.scientific_name#</em></strong></p>
-		<br><a href="/name/#thisname.scientific_name#">Return to taxon overview</a> to edit classifications
+		<br><a href="/name/#thisname.scientific_name#">[View Taxon Page]</a> then click to edit classifications
 
 		<form name="name" method="post" action="editTaxonomy.cfm">
 			<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
@@ -1905,6 +1905,7 @@
 			<input type="text" id="scientific_name" name="scientific_name" value="#thisname.scientific_name#" size="80">
 			<input type="submit" value="Save Change" class="savBtn">
 		</form>
+		<hr>
 		<cfquery name="ctRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select taxon_relationship from cttaxon_relation order by taxon_relationship
 		</cfquery>
@@ -1950,6 +1951,7 @@
 				</ul>
 			</cfif>
 		</table>
+		<hr>
 		<cfquery name="relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				taxon_relations_id,
@@ -2034,6 +2036,7 @@
 				<cfset i = i+1>
 			</cfloop>
 		</table>
+		<hr>
 		<cfquery name="common" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
 				common_name,
@@ -2060,7 +2063,7 @@
 			</div>
 			<br><input type="submit" value="save common name changes">
 		</form>
-
+		<hr>
 		<div class="importantNotification">
 			Before deleting this taxon, you must
 			<ul>
