@@ -55,6 +55,10 @@
 		<cfparam name="debug" default="false">
 		<cfoutput>
 		<cftry>
+			<cfquery name="cttaxon_term" datasource="uam_god">
+				select taxon_term from cttaxon_term
+			</cfquery>
+
 			<cfhttp  result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByName/#urlencodedformat(taxon_name)#?like=false&marine_only=false&offset=1" method="get"></cfhttp>
 			<cfif debug is true>
 				<cfdump var=#ga#>
