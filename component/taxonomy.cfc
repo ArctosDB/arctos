@@ -23,7 +23,7 @@
 				<cfif debug is true>
 					<cfdump var=#gao#>
 				</cfif>
-				<cfset therecord=gao[1]>
+				<cfset therecord=gao>
 				<cfif isdefined("therecord.AphiaID") and len(therecord.AphiaID) gt 0>
 					<!--- now get tree --->
 					<cfhttp  result="gt" url="http://www.marinespecies.org/rest/AphiaClassificationByAphiaID/#therecord.AphiaID#" method="get"></cfhttp>
