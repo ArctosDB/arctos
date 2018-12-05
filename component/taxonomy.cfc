@@ -133,7 +133,7 @@
 											classification_id
 										) values (
 											sq_taxon_term_id.nextval,
-											#tid.taxon_name_id#,
+											#taxon_name_id#,
 											'#d#',
 											'#t#',
 											'#thisSrcName#',
@@ -168,7 +168,7 @@
 												classification_id
 											) values (
 												sq_taxon_term_id.nextval,
-												#tid.taxon_name_id#,
+												#taxon_name_id#,
 												'#d#',
 												'#t#',
 												'#thisSrcName#',
@@ -194,7 +194,7 @@
 												classification_id
 											) values (
 												sq_taxon_term_id.nextval,
-												#tid.taxon_name_id#,
+												#taxon_name_id#,
 												'#d#',
 												'#t#',
 												'#thisSrcName#',
@@ -308,7 +308,7 @@
 											classification_id
 										) values (
 											sq_taxon_term_id.nextval,
-											#tid.taxon_name_id#,
+											#taxon_name_id#,
 											'#d#',
 											'#t#',
 											'#thisSrcName#',
