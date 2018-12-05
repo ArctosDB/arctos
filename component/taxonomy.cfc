@@ -6,6 +6,7 @@
 	<cffunction name="getWormsByAphiaID" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="aphiaID" type="string" required="true">
+		<cfargument name="taxon_name_id" type="string" required="true">
 		<cfparam name="debug" default="false">
 		<cfoutput>
 		<cftry>
@@ -51,12 +52,9 @@
 							---->
 							<CFSET StructInsert(therecord, "number_of_cterms", i-1)>
 							<cftransaction>
-								<cfquery name="tid" datasource="uam_god">
-									select taxon_name_id from taxon_name where scientific_name='#taxon_name#'
-								</cfquery>
 								<cfset thisSrcName="WoRMS (via Arctos)">
 								<cfquery name="getSrcID" datasource="uam_god">
-									select classification_id from taxon_term where taxon_name_id=#tid.taxon_name_id# and source='#thisSrcName#' group by classification_id
+									select classification_id from taxon_term where taxon_name_id=#taxon_name_id# and source='#thisSrcName#' group by classification_id
 								</cfquery>
 								<cfif getSrcID.recordcount is 1 and len(getSrcID.classification_id) gt 0>
 									<cfset thisSourceID=getSrcID.classification_id>
@@ -64,7 +62,7 @@
 									<cfset thisSourceID=CreateUUID()>
 								</cfif>
 								<cfquery name="flushOld" datasource="uam_god">
-									delete from taxon_term where taxon_name_id=#tid.taxon_name_id# and source='#thisSrcName#'
+									delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#thisSrcName#'
 								</cfquery>
 								<cfif structkeyexists(therecord,"authority")>
 									<cfset t="author_text">
@@ -80,7 +78,7 @@
 											classification_id
 										) values (
 											sq_taxon_term_id.nextval,
-											#tid.taxon_name_id#,
+											#taxon_name_id#,
 											'#d#',
 											'#t#',
 											'#thisSrcName#',
