@@ -334,6 +334,9 @@
 				<cfreturn r>
 			</cfif>
 			<cfcatch>
+				<cfif debug is true>
+					<cfdump var=#cfcatch#>
+				</cfif>
 				<cfset r.status='fail'>
 				<cfset r.msg=cfcatch.detail>
 				<cfreturn r>
