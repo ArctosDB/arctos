@@ -10,7 +10,7 @@
 		<cfparam name="debug" default="false">
 		<cfoutput>
 		<cftry>
-			<cfquery name="cttaxon_term" datasource="uam_god">
+			<cfquery name="cttaxon_term" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select taxon_term from cttaxon_term
 			</cfquery>
 
@@ -297,25 +297,27 @@
 									<cfloop from ="1" to="#therecord.number_of_cterms#" index="i">
 										<cfset t=lcase(evaluate("therecord.rank_" & i))>
 										<cfset d=evaluate("therecord.term_" & i)>
-										<cfquery name="meta" datasource="uam_god">
-										insert into taxon_term (
-											taxon_term_id,
-											taxon_name_id,
-											term,
-											term_type,
-											source,
-											position_in_classification,
-											classification_id
-										) values (
-											sq_taxon_term_id.nextval,
-											#taxon_name_id#,
-											'#d#',
-											'#t#',
-											'#thisSrcName#',
-											#i#,
-											'#thisSourceID#'
-										)
-									</cfquery>
+										<cfif listFind(valuelist(cttaxon_term.taxon_term),t)>
+											<cfquery name="meta" datasource="uam_god">
+											insert into taxon_term (
+												taxon_term_id,
+												taxon_name_id,
+												term,
+												term_type,
+												source,
+												position_in_classification,
+												classification_id
+											) values (
+												sq_taxon_term_id.nextval,
+												#taxon_name_id#,
+												'#d#',
+												'#t#',
+												'#thisSrcName#',
+												#i#,
+												'#thisSourceID#'
+											)
+										</cfquery>
+									</cfif>
 									</cfloop>
 								</cfif>
 							</cftransaction>
