@@ -38,4 +38,15 @@ needs rebuilt to something like this once that's done
 <cfloop query="d">
 	<cfset x=tc.updateWormsArctosByAphiaID(aphiaid,taxon_name_id)>
 	<cfdump var=#x#>
+	<cfif isdefined(x.status) and x.status is "success">
+		success
+	<cfelse>
+		fail
+	</cfif>
+	<!--------
+	<cfquery name="g" datasource="uam_god">
+		update temp_worms set init_pull=1 where
+	</cfquery>
+	---------->
+
 </cfloop>
