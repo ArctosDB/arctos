@@ -292,33 +292,63 @@
 								----------->
 
 
-
+								<cfset ncode="">
 								<cfif structkeyexists(therecord,"number_of_cterms")>
 									<cfloop from ="1" to="#therecord.number_of_cterms#" index="i">
 										<cfset t=lcase(evaluate("therecord.rank_" & i))>
 										<cfset d=evaluate("therecord.term_" & i)>
+										<cfif t is "kingdom">
+											<cfif d is "Animalia">
+												<cfset ncode='ICZN'>
+											<cfelseif d is "Plantae" or d is "Chromista">
+												<cfset ncode='ICBN'>
+											</cfif>
+										</cfif>
 										<cfif listFind(valuelist(cttaxon_term.taxon_term),t)>
 											<cfquery name="meta" datasource="uam_god">
-											insert into taxon_term (
-												taxon_term_id,
-												taxon_name_id,
-												term,
-												term_type,
-												source,
-												position_in_classification,
-												classification_id
-											) values (
-												sq_taxon_term_id.nextval,
-												#taxon_name_id#,
-												'#d#',
-												'#t#',
-												'#thisSrcName#',
-												#i#,
-												'#thisSourceID#'
-											)
-										</cfquery>
-									</cfif>
+												insert into taxon_term (
+													taxon_term_id,
+													taxon_name_id,
+													term,
+													term_type,
+													source,
+													position_in_classification,
+													classification_id
+												) values (
+													sq_taxon_term_id.nextval,
+													#taxon_name_id#,
+													'#d#',
+													'#t#',
+													'#thisSrcName#',
+													#i#,
+													'#thisSourceID#'
+												)
+											</cfquery>
+										</cfif>
 									</cfloop>
+								</cfif>
+								<cfif isdefined("ncode") and len(ncode) gt 0>
+									<cfset t="nomenclatural_code">
+									<cfset d=ncode>
+									<cfquery name="meta" datasource="uam_god">
+										insert into taxon_term (
+											taxon_term_id,
+											taxon_name_id,
+											term,
+											term_type,
+											source,
+											position_in_classification,
+											classification_id
+										) values (
+											sq_taxon_term_id.nextval,
+											#tid.taxon_name_id#,
+											'#d#',
+											'#t#',
+											'#thisSrcName#',
+											NULL,
+											'#thisSourceID#'
+										)
+									</cfquery>
 								</cfif>
 							</cftransaction>
 						</cfif>
