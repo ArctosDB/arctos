@@ -214,7 +214,7 @@
 				Do NOT try to use this form to create names - use "create name" or "clone classification into new name" for that.
 			</p>
 			<p>
-				Do NOT use this form to assert taxon relationships - use "edit non-classification data" for that.
+				Do NOT use this form to assert taxon relationships - use "Edit Name + Related Data" for that.
 			</p>
 			<p>
 				Pick a source below, click the button, and then you'll have a chance to edit the classification you've created.
@@ -1083,7 +1083,7 @@
 			<cfset title="Edit Classification: #thisName.scientific_name#">
 			<br>
 			<a href="/name/#thisname.scientific_name#">[ View Taxon Page ]</a>
-			<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#thisname.taxon_name_id#">[ Edit Non-Classification Data ]</a>
+			<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#thisname.taxon_name_id#">[ Edit Name + Related Data ]</a>
 			<span class="likeLink" onclick="deleteClassification('#classification_id#','#thisname.taxon_name_id#');">[ Delete Classification ]</span>
 		</p>
 		<p>
@@ -1861,7 +1861,7 @@
 		When you successfully create a namestring here, you'll be redirected to the main taxonomy page, where you can
 		<ul>
 			<li>Pull information from GlobalNames, and then clone those into other classifications if necessary.</li>
-			<li>"Edit non-classification data" to create relationships, common names, etc.</li>
+			<li>"Edit Name + Related Data" to create relationships, common names, etc.</li>
 			<li>Manually create classifications and non-classificatoin metadata</li>
 		</ul>
 	</p>
@@ -1894,7 +1894,7 @@
 		<cfquery name="thisname" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select scientific_name from taxon_name where taxon_name_id=#taxon_name_id#
 		</cfquery>
-		<cfset title="Edit non-classification data for #thisname.scientific_name#">
+		<cfset title="Edit Name + Related Data for #thisname.scientific_name#">
 		<p>Editing non-classification data for <strong><em>#thisname.scientific_name#</em></strong></p>
 		<br><a href="/name/#thisname.scientific_name#">[View Taxon Page]</a> then click to edit classifications
 
