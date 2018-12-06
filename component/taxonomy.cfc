@@ -64,6 +64,29 @@
 								<cfquery name="flushOld" datasource="uam_god">
 									delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#thisSrcName#'
 								</cfquery>
+								<cfset t="aphiaid">
+								<cfset d=therecord.AphiaID>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#'
+									)
+								</cfquery>
+
+
 								<cfif structkeyexists(therecord,"authority")>
 									<cfset t="author_text">
 									<cfset d=therecord.authority>
