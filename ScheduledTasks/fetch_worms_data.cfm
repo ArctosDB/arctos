@@ -38,7 +38,7 @@ needs rebuilt to something like this once that's done
 <cfloop query="d">
 	<cfset x=tc.updateWormsArctosByAphiaID(aphiaid,taxon_name_id)>
 	<cfdump var=#x#>
-	<cfif isdefined(x.status) and x.status is "success">
+	<cfif isdefined("x.STATUS") and x.STATUS is "success">
 		success
 	<cfelse>
 		fail
