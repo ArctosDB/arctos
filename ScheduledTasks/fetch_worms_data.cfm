@@ -31,7 +31,6 @@ needs rebuilt to something like this once that's done
 		init_pull is null and
 		rownum<5
 </cfquery>
-<cfdump var=#d#>
 
 <cfset tc = CreateObject("component","component.taxonomy")>
 
@@ -50,6 +49,8 @@ needs rebuilt to something like this once that's done
 		update temp_worms set init_pull=#ps# where taxon_name_id='#taxon_name_id#'
 	</cfquery>
 	<br><a target="_blank" href="/name/#scientificname###WoRMSviaArctos">#scientificname#</a>
+	<!--- be nice, take a short nap --->
+	<cfset sleep(5000)>
 
 </cfloop>
 </cfoutput>
