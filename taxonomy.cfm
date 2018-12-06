@@ -228,40 +228,11 @@
 			    	// meh, whatever, this is purely informational
 				}
 			});
-
-
-
-
 		});
 	});
 
 </script>
 	<h3>Taxonomy Search Results</h3>
-<!--------------
-
-
-
-					//$("##tname_" + tid).append(dd);
-					$(this).append(dd);
-
-	/*
-					if (r.STATUS=='SUCCESS'){
-						$.each( r.STSARY, function( k, v ) {
-							var tra='<ul>';
-							tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
-							tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
-							tra+='<li><a data-doi="' + v.DOI + '" href="/info/publicationDetails.cfm?doi=' + v.DOI + '" class="modalink">CrossRef Data</a></li>';
-							tra+='</ul>';
-							var escdoi=v.DOI.replace(/[\W_]+/g,"_");
-							$('#x' + escdoi).append(tra);
-						});
-					} else {
-						alert(r.STATUS + ': ' + r.MSG);
-					}
-					*/
-
-
-					----------->
 	<cfset tabls="taxon_name">
 	<cfset tbljoin="">
 	<cfset whr="">
@@ -270,13 +241,13 @@
 	<ul>
 		<cfif len(taxon_name) gt 0>
 			<cfif left(taxon_name,1) is "=">
-				<cfset whr=whr & " and upper(scientific_name) = '#escapeQuotes(ucase(right(taxon_name,len(taxon_name)-1)))#'">
+				<cfset whr=whr & " and upper(taxon_name.scientific_name) = '#escapeQuotes(ucase(right(taxon_name,len(taxon_name)-1)))#'">
 				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
 			<cfelseif left(taxon_name,1) is "%">
-				<cfset whr=whr & " and upper(scientific_name) like '%#ucase(escapeQuotes(right(taxon_name,len(taxon_name)-1)))#%'">
+				<cfset whr=whr & " and upper(taxon_name.scientific_name) like '%#ucase(escapeQuotes(right(taxon_name,len(taxon_name)-1)))#%'">
 				<li>scientific_name CONTAINS #taxon_term#</li>
 			<cfelse>
-				<cfset whr=whr & " and upper(scientific_name) like '#ucase(escapeQuotes(taxon_name))#%'">
+				<cfset whr=whr & " and upper(taxon_name.scientific_name) like '#ucase(escapeQuotes(taxon_name))#%'">
 				<li>scientific_name STARTS WITH #taxon_name#</li>
 			</cfif>
 		</cfif>
@@ -285,7 +256,6 @@
 				<cfset tabls=tabls & " , taxon_term">
 				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=taxon_term.taxon_name_id">
 			</cfif>
-
 			<cfif  left(taxon_term,1) is "=">
 				<cfset whr=whr & " and upper(term) = '#escapeQuotes(ucase(right(taxon_term,len(taxon_term)-1)))#'">
 				<li>taxa term IS #right(taxon_term,len(taxon_term)-1)#</li>
@@ -350,10 +320,10 @@
 				<li>common name STARTS WITH #common_name#</li>
 			</cfif>
 		</cfif>
-		<cfset sql="select scientific_name,taxon_name_id from (select scientific_name, taxon_name.taxon_name_id from #tabls# where 1=1 #tbljoin# #whr# ">
+		<cfset sql="select scientific_name,taxon_name_id from (select taxon_name.scientific_name, taxon_name.taxon_name_id from #tabls# where 1=1 #tbljoin# #whr# ">
 		<cfset sql=sql & "
-		group by scientific_name,taxon_name_id
-		order by scientific_name)
+		group by taxon_name.scientific_name,taxon_name.taxon_name_id
+		order by taxon_name.scientific_name)
 		where rownum<1001">
 
 	</ul>
