@@ -37,10 +37,5 @@ needs rebuilt to something like this once that's done
 
 <cfloop query="d">
 	<cfset x=tc.updateWormsArctosByAphiaID(aphiaid,taxon_name_id)>
+	<cfdump var=#x#>
 </cfloop>
-
-
-<cfset <cffunction name="getWormsByAphiaID" access="remote">
-		<!---- hierarchical taxonomy editor ---->
-		<cfargument name="aphiaID" type="string" required="true">
-		<cfargument name="taxon_name_id" type="string" required="true">
