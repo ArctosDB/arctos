@@ -46,7 +46,7 @@ needs rebuilt to something like this once that's done
 		<cfset ps=0>
 	</cfif>
 	<cfquery name="g" datasource="uam_god">
-		update temp_worms set init_pull=#ps# where taxonID='#aphiaid#'
+		update temp_worms set init_pull=#ps# where taxon_name_id='#taxon_name_id#'
 	</cfquery>
 
 </cfloop>
