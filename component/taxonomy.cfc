@@ -3,7 +3,7 @@
 
 
 <!--------------------------------------------------------------------------------------->
-	<cffunction name="getWormsByAphiaID" access="remote">
+	<cffunction name="updateWormsArctosByAphiaID" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="aphiaID" type="string" required="true">
 		<cfargument name="taxon_name_id" type="string" required="true">
