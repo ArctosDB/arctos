@@ -40,13 +40,13 @@ needs rebuilt to something like this once that's done
 	<cfdump var=#x#>
 	<cfif isdefined("x.STATUS") and x.STATUS is "success">
 		success
+		<cfset ps=1>
 	<cfelse>
 		fail
+		<cfset ps=0>
 	</cfif>
-	<!--------
 	<cfquery name="g" datasource="uam_god">
-		update temp_worms set init_pull=1 where
+		update temp_worms set init_pull=#ps# where taxonID='#taxonID#'
 	</cfquery>
-	---------->
 
 </cfloop>
