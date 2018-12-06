@@ -845,7 +845,11 @@
 					</cfif>
 					<p>
 						<cfloop query="notclass">
-							<br>#term_type#: #term#
+							<cfif term_type is "aphiaid">
+								<br>#term_type#: <a target="_blank" class="external" href="http://www.marinespecies.org/aphia.php?p=taxdetails&id=#term#">#term#</a>
+							<cfelse>
+								<br>#term_type#: #term#
+							</cfif>
 						</cfloop>
 					</p>
 					<cfif thisone.recordcount gt 0>
