@@ -18,7 +18,7 @@ needs rebuilt to something like this once that's done
 </cfquery>
 ------------>
 
-
+<cfoutput>
 <cfquery name="d" datasource="uam_god">
 	select
 		taxon_name_id,
@@ -29,7 +29,7 @@ needs rebuilt to something like this once that's done
 	where
 		seeded_class=1 and
 		init_pull is null and
-		rownum<2
+		rownum<5
 </cfquery>
 <cfdump var=#d#>
 
@@ -37,16 +37,19 @@ needs rebuilt to something like this once that's done
 
 <cfloop query="d">
 	<cfset x=tc.updateWormsArctosByAphiaID(aphiaid,taxon_name_id)>
-	<cfdump var=#x#>
 	<cfif isdefined("x.STATUS") and x.STATUS is "success">
 		success
 		<cfset ps=1>
 	<cfelse>
 		fail
+			<cfdump var=#x#>
+
 		<cfset ps=0>
 	</cfif>
 	<cfquery name="g" datasource="uam_god">
 		update temp_worms set init_pull=#ps# where taxon_name_id='#taxon_name_id#'
 	</cfquery>
+	<br><a target="_blank" href="/name/#scientificname###WoRMSviaArctos">#scientificname#</a>
 
 </cfloop>
+</cfoutput>
