@@ -3,7 +3,7 @@
 <cfoutput>
 	<cfquery name="d" datasource="uam_god">
 		SELECT * FROM (
-			SELECT '/' || scientificName || '##WoRMSviaArctos' x,scientificName FROM temp_worms2 where is_seeded=3
+			SELECT '/name/' || scientificName || '##WoRMSviaArctos' x,scientificName FROM temp_worms2 where is_seeded=3
 			ORDER BY dbms_random.value
 		) WHERE rownum <= 1000
 	</cfquery>
