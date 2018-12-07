@@ -13,6 +13,9 @@
 			<cfquery name="cttaxon_term" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select taxon_term from cttaxon_term
 			</cfquery>
+			<cfquery name="CTTAXON_STATUS" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select TAXON_STATUS from CTTAXON_STATUS
+			</cfquery>
 
 			<cfhttp  result="ga" url="http://www.marinespecies.org/rest/AphiaRecordByAphiaID/#aphiaID#" method="get"></cfhttp>
 			<cfif debug is true>
@@ -181,11 +184,10 @@
 										<cfset d='valid'>
 									<cfelseif therecord.status is 'unaccepted'>
 										<cfset d='invalid'>
-									<!----
-										we may need a cfelse here if anything falls out of the Issue
-									---->
+									<cfelse>
+										<cfset d=therecord.status>
 									</cfif>
-									<cfif len(d) gt 0>
+									<cfif len(d) gt 0 and listfind(CTTAXON_STATUS.TAXON_STATUS,d)>
 										<cfquery name="meta" datasource="uam_god">
 											insert into taxon_term (
 												taxon_term_id,
