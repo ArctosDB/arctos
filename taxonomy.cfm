@@ -568,7 +568,6 @@
 				});
 			}
 
-												<span id="" class="likeLink" onclick="('#taxon_name_id.taxon_name_id#','#term#');">refresh</span>
 
 
 
