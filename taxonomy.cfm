@@ -537,6 +537,41 @@
 					}
 				});
 			}
+
+			function refreshWorms(tid,aid){
+				$("##RefreshWormsSpan").html('<img src="/images/indicator.gif">fetching....');
+				$.ajax({
+					url: "/component/taxonomy.cfc?queryformat=column&&=#name#",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "updateWormsArctosByAphiaID",
+						taxon_name_id : tid,
+						aphiaid : aid,
+						returnformat : "json"
+					},
+					success: function(r) {
+						if (r.STATUS=='success'){
+							var theLink='<span class="likeLink" onclick="reloadHash(\'WoRMSviaArctos\')">Success! click to reload</span>';
+							$("##RefreshWormsSpan").html(theLink);
+						} else {
+							var m="The request to WoRMS failed";
+							if (r.hasOwnProperty("MSG")){
+								m+=": " + r.MSG;
+							}
+							$("##RefreshWormsSpan").html(m);
+						}
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert('Validator Error: ' + errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
+			}
+
+												<span id="" class="likeLink" onclick="('#taxon_name_id.taxon_name_id#','#term#');">refresh</span>
+
+
+
 			function reloadHash(a){
 				//var x=location.href.replace(location.hash,"");
 				//var x2=x+'##' + a;
@@ -847,6 +882,9 @@
 						<cfloop query="notclass">
 							<cfif term_type is "aphiaid">
 								<br>#term_type#: <a target="_blank" class="external" href="http://www.marinespecies.org/aphia.php?p=taxdetails&id=#term#">#term#</a>
+								<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+									<span id="RefreshWormsSpan" class="likeLink" onclick="refreshWorms('#taxon_name_id.taxon_name_id#','#term#');">refresh</span>
+								</cfif>
 							<cfelse>
 								<br>#term_type#: #term#
 							</cfif>
