@@ -883,7 +883,7 @@
 							<cfif term_type is "aphiaid">
 								<br>#term_type#: <a target="_blank" class="external" href="http://www.marinespecies.org/aphia.php?p=taxdetails&id=#term#">#term#</a>
 								<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-									<span id="RefreshWormsSpan" class="likeLink" onclick="refreshWorms('#taxon_name_id.taxon_name_id#','#term#');">refresh</span>
+									<span id="RefreshWormsSpan" class="likeLink" onclick="refreshWorms('#taxon_name_id.taxon_name_id#','#notclass.term#');">refresh</span>
 								</cfif>
 							<cfelse>
 								<br>#term_type#: #term#
