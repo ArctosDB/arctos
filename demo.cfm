@@ -1,5 +1,19 @@
-<cfset title="Arctos Home">
+<cfset title="demo">
 <cfinclude template="/includes/_header.cfm">
+<cfoutput>
+	<cfquery name="d" datasource="uam_god">
+		SELECT * FROM (
+			SELECT '/' || scientificName || '#WoRMSviaArctos' x,scientificName FROM temp_worms2 where is_seeded=3
+			ORDER BY dbms_random.value
+		) WHERE rownum <= 1000
+	</cfquery>
+	<cfloop query="d">
+		<a target="_blank" href="#x#">#scientificName#</a>
+	</cfloop>
+</cfoutput>
+
+<!-----------
+
 <cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&libraries=places,geometry" type="text/javascript"></script>'>
 
 <style>
@@ -533,4 +547,5 @@
 
 	</div>
 </cfoutput>
+--------->
 <cfinclude template="/includes/_footer.cfm">
