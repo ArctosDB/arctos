@@ -8,7 +8,7 @@
 		) WHERE rownum <= 1000
 	</cfquery>
 	<cfloop query="d">
-		<a target="_blank" href="#x#">#scientificName#</a>
+		<br><a target="_blank" href="#x#">#scientificName#</a>
 	</cfloop>
 </cfoutput>
 
