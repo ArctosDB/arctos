@@ -29,6 +29,9 @@
 					<cfhttp  result="gt" url="http://www.marinespecies.org/rest/AphiaClassificationByAphiaID/#therecord.AphiaID#" method="get"></cfhttp>
 					<cfif gt.statusCode is "200 OK" and len(gt.filecontent) gt 0 and isjson(gt.filecontent)>
 						<cfset gto=DeserializeJSON(gt.filecontent)>
+						<cfif debug is true>
+							<cfdump var=#gto#>
+						</cfif>
 						<cfset skey="gto">
 						<cfset taxonRankStringified="">
 						<cfloop from ="1" to="100" index="i">
@@ -45,6 +48,9 @@
 								<cfbreak >
 							</cfif>
 						</cfloop>
+						<cfif debug is true>
+							<cfdump var=#therecord#>
+						</cfif>
 						<cfif i gt 1>
 							<!----
 								if we made it here everything should be happy and we should have some data, so create the classification
