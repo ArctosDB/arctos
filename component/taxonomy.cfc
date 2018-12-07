@@ -353,6 +353,10 @@
 													'#thisSourceID#'
 												)
 											</cfquery>
+										<cfelse>
+											<cfif debug is true>
+												<br>didn't find #t#
+											</cfif>
 										</cfif>
 									</cfloop>
 								</cfif>
