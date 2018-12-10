@@ -128,7 +128,7 @@ variable = "x">
 
 <cffile
 action = "read"
-file = "#application.webDirectory#/cache/tests.kml"
+file = "#application.webDirectory#/cache/test.kml"
 variable = "f">
 
 			<textarea>#f#</textarea>
