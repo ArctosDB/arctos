@@ -97,6 +97,9 @@
 			variables.joFileWriter.close();
 		</cfscript>
 	</cfif>
+	<cfdump var=#kml#>
+
+
 	<span style="font-size:smaller;color:red;">Encumbered records are excluded.</span>
 	<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 	<script language="javascript" type="text/javascript">
