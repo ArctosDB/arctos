@@ -114,7 +114,7 @@
 			  mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
         	map = new google.maps.Map(document.getElementById("taxarangemap"), mapOptions);
-			var georssLayer = new google.maps.KmlLayer('http://arctos.database.museum/cache/test.kml');
+			var georssLayer = new google.maps.KmlLayer('http://arctos.database.museum/cache/testb.kml');
 			georssLayer.setMap(map);
 		});
 	</script>
