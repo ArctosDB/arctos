@@ -114,7 +114,7 @@
 			  mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
         	map = new google.maps.Map(document.getElementById("taxarangemap"), mapOptions);
-			var georssLayer = new google.maps.KmlLayer('https://arctos.database.museum/cache/test.kml ');
+			var georssLayer = new google.maps.KmlLayer('http://arctos.database.museum/cache/test.kml');
 			georssLayer.setMap(map);
 		});
 	</script>
@@ -128,8 +128,13 @@ variable = "x">
 
 <cffile
 action = "read"
-file = "#application.webDirectory#/cache/_Nicrophorus-vespilloides.kml"
+file = "#application.webDirectory#/cache/tests.kml"
 variable = "f">
+
+			<textarea>#f#</textarea>
+
+
+
 
 <table border>
 	<tr>
