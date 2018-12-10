@@ -58,6 +58,8 @@
 		 		dec_long,
 		 		datum,
 		 		COORDINATEUNCERTAINTYINMETERS
+		 	order by
+		 		locality_id
 		</cfquery>
 		<cfif d.recordcount is 0>
 			<cfabort>
