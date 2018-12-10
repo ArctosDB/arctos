@@ -102,7 +102,6 @@
 
 <cfoutput>
 #externalPath##fn#
-</cfoutput>
 	<span style="font-size:smaller;color:red;">Encumbered records are excluded.</span>
 	<div id="taxarangemap" style="width: 100%;; height: 400px;"></div>
 	<script language="javascript" type="text/javascript">
@@ -115,10 +114,15 @@
 			  mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
         	map = new google.maps.Map(document.getElementById("taxarangemap"), mapOptions);
-			var georssLayer = new google.maps.KmlLayer('https://arctos.database.museum/cache/_Nicrophorus-vespilloides.kml');
+			var georssLayer = new google.maps.KmlLayer('#externalPath##fn#');
 			georssLayer.setMap(map);
 		});
 	</script>
+
+
+</cfoutput>
+
+
 	<span id="toggleExactmatch">
 		<cfif method is "exact">
 			Showing exact matches - <span class="likeLink" onclick="loadTaxonomyMap('#scientific_name#')"> show matches for '#scientific_name#%'</span>
