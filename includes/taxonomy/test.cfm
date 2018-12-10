@@ -121,7 +121,26 @@
 
 
 </cfoutput>
+<cffile
+action = "read"
+file = "https://arctos.database.museum/cache/_Nicrophorus-vespilloides.kml"
+variable = "x">
 
+<cffile
+action = "read"
+file = "https://arctos.database.museum/cache/_Nicrophorus-vespilloides.kml"
+variable = "f">
+
+<table border>
+	<tr>
+		<td>
+			<textarea>#f#</textarea>
+		</td>
+		<td>
+			<textarea>#x#</textarea>
+		</td>
+	</tr>
+</table>
 
 	<span id="toggleExactmatch">
 		<cfif method is "exact">
