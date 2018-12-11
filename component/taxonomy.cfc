@@ -177,6 +177,9 @@
 
 
 								<cfif structkeyexists(therecord,"status")>
+									<cfif debug is true>
+										<br>therecord.status::#therecord.status#
+									</cfif>
 									<cfset t="taxon_status">
 									<!--- try to get local terminology --->
 									<cfset d="">
@@ -187,7 +190,9 @@
 									<cfelse>
 										<cfset d=therecord.status>
 									</cfif>
+									<br>d:#d#
 									<cfif len(d) gt 0 and listfind(CTTAXON_STATUS.TAXON_STATUS,d)>
+										<br>foundit
 										<cfquery name="meta" datasource="uam_god">
 											insert into taxon_term (
 												taxon_term_id,

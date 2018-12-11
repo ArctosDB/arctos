@@ -56,6 +56,7 @@
 );
 
 
+alter table cf_temp_classification add aphiaid varchar2(255);
 
 
 create or replace public synonym cf_temp_classification for cf_temp_classification;

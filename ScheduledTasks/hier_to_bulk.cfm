@@ -3,6 +3,7 @@ drop table cf_temp_classification_fh;
 create table cf_temp_classification_fh as select * from cf_temp_classification where 1=2;
 	 alter table cf_temp_classification_fh add export_id varchar2(255);
 
+alter table cf_temp_classification_fh add aphiaid varchar2(255);
 
 cf_temp_classification_fh
 
