@@ -514,6 +514,7 @@
 					}
 				});
 			});
+			/*
 			function getWorms(n){
 				$("##wscallrslt").html('<img src="/images/indicator.gif">fetching from WoRMS....');
 				$.ajax({
@@ -537,7 +538,7 @@
 					}
 				});
 			}
-
+			*/
 			function refreshWorms(tid,aid){
 				$("##RefreshWormsSpan").html('<img src="/images/indicator.gif">fetching....');
 				$.ajax({
@@ -733,7 +734,9 @@
 	<h4>Classifications</h4>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/ScheduledTasks/globalnames_refresh.cfm?name=#name#">[ Refresh/pull GlobalNames ]</a>
+		<!----
 		<span class="likeLink" onclick="getWorms('#name#');">[ Pull to "WoRMS (via Arctos)" classification ]</span>
+		---->
 		<a href="/editTaxonomy.cfm?action=forceDeleteNonLocal&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Force-delete all non-local metadata ]</a>
 		<a href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Create Classification ]</a>
 		<a class="external" target="_blank" href="http://resolver.globalnames.org/name_resolvers.html?names=#scientific_name.scientific_name#">[ GlobalNames (HTML) ]</a>
