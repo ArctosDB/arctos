@@ -190,9 +190,7 @@
 									<cfelse>
 										<cfset d=therecord.status>
 									</cfif>
-									<br>d:#d#
 									<cfif len(d) gt 0 and listfind(valuelist(CTTAXON_STATUS.TAXON_STATUS),d)>
-										<br>foundit
 										<cfquery name="meta" datasource="uam_god">
 											insert into taxon_term (
 												taxon_term_id,
