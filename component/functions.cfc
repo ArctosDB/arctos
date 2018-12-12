@@ -137,6 +137,7 @@
 
 			<cfset doi=replace(doi,'"','all')>
 			<cfif isdefined("debug") and debug is true>
+				<hr>
 				<cfdump var=#doi#>
 			</cfif>
 			<cfset ta=structNew()>
