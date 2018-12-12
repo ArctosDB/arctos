@@ -165,16 +165,17 @@
 					</cfquery>
 					<cfset x=DeserializeJSON(d.filecontent)>
 				</cfif>
-				<cfif len(x) gt 0>
-					<cfif structKeyExists(x.message,"reference-count")>
-						<cfset ta.reference_count=x.message["reference-count"]>
-					</cfif>
-					<cfif structKeyExists(x.message,"is-referenced-by-count")>
-						<cfset ta.reference_by_count=x.message["is-referenced-by-count"]>
-					</cfif>
-					<cfset ta.doi=doi>
-					<cfset arrayAppend(ar,ta)>
+			</cfif>
+			<cfif len(x) gt 0>
+				<cfif structKeyExists(x.message,"reference-count")>
+					<cfset ta.reference_count=x.message["reference-count"]>
 				</cfif>
+				<cfif structKeyExists(x.message,"is-referenced-by-count")>
+					<cfset ta.reference_by_count=x.message["is-referenced-by-count"]>
+				</cfif>
+				<cfset ta.doi=doi>
+				<cfset arrayAppend(ar,ta)>
+			</cfif>
 
 				<!----
 				<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
