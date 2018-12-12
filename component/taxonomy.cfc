@@ -119,9 +119,8 @@
 										)
 									</cfquery>
 								</cfif>
-								<!---
 								<cfif structkeyexists(therecord,"citation")>
-									<cfset t="citation">
+									<cfset t="source_authority">
 									<cfset d=therecord.citation>
 									<cfquery name="meta" datasource="uam_god">
 										insert into taxon_term (
@@ -143,7 +142,6 @@
 										)
 									</cfquery>
 								</cfif>
-								---->
 
 								<cfif structkeyexists(therecord,"isExtinct")>
 									<cfif therecord.isExtinct is "0" or therecord.isExtinct is 1>
