@@ -154,6 +154,27 @@
 					<cfhttpparam type = "header" name = "User-Agent" value = "Arctos (https://arctos.database.museum; mailto:dustymc@gmail.com)">
 					<cfhttpparam type = "header" name = "Accept" value = "text/bibliography; style=journal-of-mammalogy">
 				</cfhttp>
+				<!--- if something failed, just ignore it ---->
+				<cfif isjson(d.Filecontent) and left(d.statuscode,3) is "200" and left(jmc.statuscode,3) is "200">
+					<cfquery name="dc" datasource="uam_god">
+						delete from cache_publication_sdata where source='crossref' and doi='#doi#'
+					</cfquery>
+					<cfquery name="uc" datasource="uam_god">
+						insert into cache_publication_sdata (doi,json_data,jmamm_citation,source,last_date) values
+						 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
+					</cfquery>
+					<cfset x=DeserializeJSON(d.filecontent)>
+					<cfif structKeyExists(x.message,"reference-count")>
+						<cfset ta.reference_count=x.message["reference-count"]>
+					</cfif>
+					<cfif structKeyExists(x.message,"is-referenced-by-count")>
+						<cfset ta.reference_by_count=x.message["is-referenced-by-count"]>
+					</cfif>
+					<cfset ta.doi=doi>
+					<cfset arrayAppend(ar,ta)>
+				</cfif>
+
+				<!----
 				<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
 					<cfset r.STATUS='FAIL'>
 					<cfset r.MSG='http fetch failed; bad DOI?'>
@@ -180,6 +201,7 @@
 			</cfif>
 			<cfset ta.doi=doi>
 			<cfset arrayAppend(ar,ta)>
+			---->
 		</cfloop>
 		<cfset r.stsary=ar>
 		<cfcatch>
