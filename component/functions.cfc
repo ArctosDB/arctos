@@ -134,7 +134,11 @@
 		<cfset r.STATUS='SUCCESS'>
 		<cfset ar=[]>
 		<cfloop list="#doilist#" index="doi">
+
 			<cfset doi=replace(doi,'"','all')>
+			<cfif isdefined("debug") and debug is true>
+				<cfdump var=#doi#>
+			</cfif>
 			<cfset ta=structNew()>
 			<cfquery name="c" datasource="uam_god">
 				select * from cache_publication_sdata where source='crossref' and doi='#doi#'
@@ -153,6 +157,9 @@
 					<cfset r.STATUS='FAIL'>
 					<cfset r.MSG='http fetch failed; bad DOI?'>
 					<cfreturn r>
+					<cfif isdefined("debug") and debug is true>
+						<cfdump var=#d#>
+					</cfif>
 				<cfelse>
 					<cfquery name="dc" datasource="uam_god">
 						delete from cache_publication_sdata where source='crossref' and doi='#doi#'
