@@ -166,11 +166,9 @@
 					<cfset x=DeserializeJSON(d.filecontent)>
 				</cfif>
 			</cfif>
-<cfdump var=#x#>
-<cfif IsStruct(x)><br>x is a  struct....</cfif>
-			<!----
-			<cfif not StructIsEmpty(x)>
-				<cfif structKeyExists(x.message,"reference-count")>
+<cfif IsStruct(x)
+
+<cfif structKeyExists(x.message,"reference-count")>
 					<cfset ta.reference_count=x.message["reference-count"]>
 				</cfif>
 				<cfif structKeyExists(x.message,"is-referenced-by-count")>
@@ -178,6 +176,13 @@
 				</cfif>
 				<cfset ta.doi=doi>
 				<cfset arrayAppend(ar,ta)>
+
+<cfelse>
+	fail for #doi#
+</cfif>
+			<!----
+			<cfif not StructIsEmpty(x)>
+
 			</cfif>
 ---->
 
