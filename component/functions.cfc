@@ -166,7 +166,7 @@
 					<cfset x=DeserializeJSON(d.filecontent)>
 				</cfif>
 			</cfif>
-<cfif IsStruct(x)
+<cfif IsStruct(x)>
 
 <cfif structKeyExists(x.message,"reference-count")>
 					<cfset ta.reference_count=x.message["reference-count"]>
