@@ -166,6 +166,8 @@
 					<cfset x=DeserializeJSON(d.filecontent)>
 				</cfif>
 			</cfif>
+<cfdump var=#x#>
+			<!----
 			<cfif not StructIsEmpty(x)>
 				<cfif structKeyExists(x.message,"reference-count")>
 					<cfset ta.reference_count=x.message["reference-count"]>
@@ -176,6 +178,7 @@
 				<cfset ta.doi=doi>
 				<cfset arrayAppend(ar,ta)>
 			</cfif>
+---->
 
 				<!----
 				<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
