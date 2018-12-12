@@ -134,7 +134,7 @@
 		<cfset r.STATUS='SUCCESS'>
 		<cfset ar=[]>
 		<cfloop list="#doilist#" index="doi">
-
+			<cfset x="">
 			<cfset doi=replace(doi,'"','all')>
 			<cfif isdefined("debug") and debug is true>
 				<hr>
@@ -164,6 +164,8 @@
 						 ('#doi#', <cfqueryparam value="#d.Filecontent#" cfsqltype="cf_sql_clob">,'#jmc.fileContent#','crossref',sysdate)
 					</cfquery>
 					<cfset x=DeserializeJSON(d.filecontent)>
+				</cfif>
+				<cfif len(x) gt 0>
 					<cfif structKeyExists(x.message,"reference-count")>
 						<cfset ta.reference_count=x.message["reference-count"]>
 					</cfif>
