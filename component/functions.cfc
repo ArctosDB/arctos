@@ -167,6 +167,7 @@
 				</cfif>
 			</cfif>
 <cfdump var=#x#>
+<cfif IsStruct(x)><br>x is a  struct....</cfif>
 			<!----
 			<cfif not StructIsEmpty(x)>
 				<cfif structKeyExists(x.message,"reference-count")>
