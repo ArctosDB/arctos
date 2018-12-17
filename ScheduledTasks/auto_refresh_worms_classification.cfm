@@ -1,4 +1,4 @@
-
+<cfsetting requestTimeOut = "120">
 <!---------
 for the first run get this from the temp table
 needs rebuilt to something like this once that's done
@@ -49,8 +49,15 @@ update cf_temp_worms_stale set status='used_in_id' where taxon_name_id in (selec
 
 select status, count(*) from cf_temp_worms_stale group by status;
 
+alter table cf_temp_worms_stale modify  status varchar2(4000);
+
+update cf_temp_worms_stale set status=trim(status);
 
 <cfset sdate=now()>
+
+
+select scientific_name from taxon_name where taxon_name_id in (select taxon_name_id from cf_temp_worms_stale where status='refreshed');
+select scientific_name from taxon_name where taxon_name_id in (select taxon_name_id from cf_temp_worms_stale where status='refreshed') and taxon_name_id in (select taxon_name_id from taxon_relations);
 
 --->
 
