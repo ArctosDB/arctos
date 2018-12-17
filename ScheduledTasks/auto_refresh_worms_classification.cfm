@@ -49,12 +49,12 @@ update cf_temp_worms_stale set status='used_in_id' where taxon_name_id in (selec
 
 select status, count(*) from cf_temp_worms_stale group by status;
 
---->
+
 <cfset sdate=now()>
 
-<p>
-	sdate: #sdate# s
-</p>
+--->
+
+
 <cfquery name="d" datasource="uam_god">
 	select
 		taxon_name_id,
@@ -66,11 +66,11 @@ select status, count(*) from cf_temp_worms_stale group by status;
 		sysdate-lastdate > 7 and
 		rownum<25
 </cfquery>
+<cfdump var=#d#>
 
 
 <cfoutput>
 	<cfset tc = CreateObject("component","component.taxonomy")>
-
 	<cfloop query="d">
 		<cfset x=tc.updateWormsArctosByAphiaID(aphiaid,taxon_name_id)>
 		<cfif isdefined("x.STATUS") and x.STATUS is "success">
@@ -82,40 +82,17 @@ select status, count(*) from cf_temp_worms_stale group by status;
 				update cf_temp_worms_stale set lastdate=sysdate ,status='refresh_fail' where taxon_name_id=#d.taxon_name_id# and aphiaid='#d.aphiaid#'
 			</cfquery>
 		</cfif>
-		<!----
-		<cfquery name="g" datasource="uam_god">
-			update temp_worms set init_pull=#ps# where taxon_name_id='#taxon_name_id#'
-		</cfquery>
-		<cfquery name="g" datasource="uam_god">
-			select scientific_name from taxon_name where taxon_name_id=#d.taxon_name_id#
-		</cfquery>
-
-
-
-
-
-
-		<br><a target="_blank" href="/name/#g.scientific_name###WoRMSviaArctos">#g.scientific_name#</a>
-		<!--- be nice, take a short nap
-		<cfset sleep(5000)>
-		--->
-		---->
 		<!--- by request, one query per second at most ---->
 		<cfset sleep(1000)>
-		<cfset ordate=now()>
-
-<p>
-	ordate: #ordate# s
-</p>
-
 	</cfloop>
+<!----
 
+	<cfset fdate=now()>
 
-<cfset fdate=now()>
+	<cfset ctime=datediff('s',sdate,fdate)>
 
-<cfset ctime=datediff('s',sdate,fdate)>
-<p>
-	elapsed time: #ctime# s
-</p>
-
+		<p>
+			elapsed time: #ctime# s
+		</p>
+	---->
 </cfoutput>
