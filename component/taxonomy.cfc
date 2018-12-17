@@ -313,7 +313,11 @@
 												<br>er:::
 												<cfdump var=#er#>
 											</cfif>
-											<cfif er.recordcount is 0>
+											<cfif er.c is 0>
+
+												<cfif debug is true>
+													<br>creating relationship
+												</cfif>
 												<!--- create the relationship ---->
 												<cfquery name="mkreln" datasource="uam_god">
 													insert into taxon_relations (
@@ -347,7 +351,10 @@
 												<br>err:::
 												<cfdump var=#err#>
 											</cfif>
-											<cfif err.recordcount is 0>
+											<cfif err.c is 0>
+												<cfif debug is true>
+													<br>creating reciprocal relationship
+												</cfif>
 												<!--- create the relationship ---->
 												<cfquery name="mkreln" datasource="uam_god">
 													insert into taxon_relations (
