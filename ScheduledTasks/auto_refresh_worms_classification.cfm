@@ -52,6 +52,9 @@ select status, count(*) from cf_temp_worms_stale group by status;
 --->
 <cfset sdate=now()>
 
+<p>
+	sdate: #sdate# s
+</p>
 <cfquery name="d" datasource="uam_god">
 	select
 		taxon_name_id,
@@ -97,7 +100,13 @@ select status, count(*) from cf_temp_worms_stale group by status;
 		<cfset sleep(5000)>
 		--->
 		---->
+		<!--- by request, one query per second at most ---->
 		<cfset sleep(1000)>
+		<cfset ordate=now()>
+
+<p>
+	ordate: #ordate# s
+</p>
 
 	</cfloop>
 
@@ -106,7 +115,7 @@ select status, count(*) from cf_temp_worms_stale group by status;
 
 <cfset ctime=datediff('s',sdate,fdate)>
 <p>
-	time: #ctime# s
+	elapsed time: #ctime# s
 </p>
 
 </cfoutput>
