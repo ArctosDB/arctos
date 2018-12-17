@@ -47,6 +47,7 @@ where
 
 update cf_temp_worms_stale set status='used_in_id' where taxon_name_id in (select taxon_name_id from identification_taxonomy);
 
+select status, count(*) from cf_temp_worms_stale group by status;
 
 --->
 <cfset sdate=now()>
@@ -60,7 +61,7 @@ update cf_temp_worms_stale set status='used_in_id' where taxon_name_id in (selec
 	where
 		status='used_in_id' and
 		sysdate-lastdate > 7 and
-		rownum<13
+		rownum<31
 </cfquery>
 
 <cfdump var=#d#>
