@@ -273,7 +273,13 @@
 
 
 								<cfif structkeyexists(therecord,"valid_name")>
+									<cfif debug is true>
+										<br>therecord.valid_name::#therecord.valid_name#
+									</cfif>
 									<cfif not (structkeyexists(therecord,"scientificname")) or (therecord.valid_name is not therecord.scientificname)>
+										<cfif debug is true>
+											<br>therecord,"scientificname")) or (therecord.valid_name is not therecord.scientificname)
+										</cfif>
 										<cfset relauth="">
 										<cfif structkeyexists(therecord,"valid_authority")>
 											<cfset relauth=therecord.valid_authority>
@@ -284,6 +290,10 @@
 										<cfquery name="rname" datasource="uam_god">
 											select taxon_name_id from taxon_name where scientific_name='#therecord.valid_name#'
 										</cfquery>
+										<cfif debug is true>
+											<br>rname:::
+											<cfdump var=#rname#>
+										</cfif>
 										<cfif len(rname.taxon_name_id) gt 0>
 											<!---
 												got it; see if the relationship exists
@@ -299,6 +309,10 @@
 													taxon_name_id=#taxon_name_id# and
 													related_taxon_name_id=#rname.taxon_name_id#
 											</cfquery>
+											<cfif debug is true>
+												<br>er:::
+												<cfdump var=#er#>
+											</cfif>
 											<cfif er.recordcount is 0>
 												<!--- create the relationship ---->
 												<cfquery name="mkreln" datasource="uam_god">
@@ -329,6 +343,10 @@
 													taxon_name_id=#rname.taxon_name_id# and
 													related_taxon_name_id=#taxon_name_id#
 											</cfquery>
+											<cfif debug is true>
+												<br>err:::
+												<cfdump var=#err#>
+											</cfif>
 											<cfif err.recordcount is 0>
 												<!--- create the relationship ---->
 												<cfquery name="mkreln" datasource="uam_god">
