@@ -176,12 +176,7 @@
 				<cfset ta.doi=doi>
 				<cfset arrayAppend(ar,ta)>
 			</cfif>
-			<!----
-			<cfif not StructIsEmpty(x)>
-
-			</cfif>
----->
-
+			
 				<!----
 				<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
 					<cfset r.STATUS='FAIL'>

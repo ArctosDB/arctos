@@ -264,35 +264,95 @@
 								----->
 
 								<!---
+									https://github.com/ArctosDB/arctos/issues/1136
+
+									is resolved-enough to proceed with "synonym of" in both directions
 
 
-								can't deal with this until relationships are resolved at github
+								----------->
+
 
 								<cfif structkeyexists(therecord,"valid_name")>
 									<cfif not (structkeyexists(therecord,"scientificname")) or (therecord.valid_name is not therecord.scientificname)>
-										<cfset t="valid_name">
-										<cfset d=therecord.valid_name>
-										<cfquery name="meta" datasource="uam_god">
-											insert into taxon_term (
-												taxon_term_id,
-												taxon_name_id,
-												term,
-												term_type,
-												source,
-												position_in_classification,
-												classification_id
-											) values (
-												sq_taxon_term_id.nextval,
-												#tid.taxon_name_id#,
-												'#d#',
-												'#t#',
-												'#thisSrcName#',
-												NULL,
-												'#thisSourceID#'
-											)
+										<cfset relauth="">
+										<cfif structkeyexists(therecord,"valid_authority")>
+											<cfset relauth=therecord.valid_authority>
+										</cfif>
+										<!--- see if we have an existing relationship --->
+										<!--- first need the related name --->
+
+										<cfquery name="rname" datasource="uam_god">
+											select taxon_name_id from taxon_name where scientific_name='#therecord.valid_name#'
 										</cfquery>
+										<cfif len(rname.taxon_name_id) gt 0>
+											<!---
+												got it; see if the relationship exists
+												https://github.com/ArctosDB/arctos/issues/1136
+												we are using "synonym of" for everything, so just ignore type for this for now
+											---->
+											<cfquery name="er" datasource="uam_god">
+												select
+													count(*) c
+												from
+													taxon_relations
+												where
+													taxon_name_id=#taxon_name_id# and
+													related_taxon_name_id=#rname.taxon_name_id#
+											</cfquery>
+											<cfif er.recordcount is 0>
+												<!--- create the relationship ---->
+												<cfquery name="mkreln" datasource="uam_god">
+													insert into taxon_relations (
+														TAXON_RELATIONS_ID,
+														TAXON_NAME_ID,
+														RELATED_TAXON_NAME_ID,
+														TAXON_RELATIONSHIP,
+														RELATION_AUTHORITY,
+														STALE_FG
+													) values (
+														sq_TAXON_RELATIONS_ID.nextval,
+														#taxon_name_id#,
+														#rname.taxon_name_id#,
+														'synonym of',
+														'WoRMS',
+														1
+													)
+												</cfquery>
+											</cfif>
+											<!---- now see if the reciprocal exists --->
+											<cfquery name="err" datasource="uam_god">
+												select
+													count(*) c
+												from
+													taxon_relations
+												where
+													taxon_name_id=#rname.taxon_name_id# and
+													related_taxon_name_id=#taxon_name_id#
+											</cfquery>
+											<cfif err.recordcount is 0>
+												<!--- create the relationship ---->
+												<cfquery name="mkreln" datasource="uam_god">
+													insert into taxon_relations (
+														TAXON_RELATIONS_ID,
+														TAXON_NAME_ID,
+														RELATED_TAXON_NAME_ID,
+														TAXON_RELATIONSHIP,
+														RELATION_AUTHORITY,
+														STALE_FG
+													) values (
+														sq_TAXON_RELATIONS_ID.nextval,
+														#rname.taxon_name_id#,
+														#taxon_name_id#,
+														'synonym of',
+														'WoRMS',
+														1
+													)
+												</cfquery>
+											</cfif>
+										</cfif>
 									</cfif>
 								</cfif>
+								<!----
 
 
 								<cfif structkeyexists(therecord,"valid_authority")>
@@ -320,8 +380,7 @@
 										</cfquery>
 									</cfif>
 								</cfif>
-
-								----------->
+								---->
 
 
 								<cfset ncode="">

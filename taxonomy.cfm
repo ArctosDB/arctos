@@ -582,7 +582,7 @@
 				window.location.reload(true);
 			}
 		</script>
-		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
+		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Name + Related Data ]</a>
 		<div id="validatorResults"></div>
 		<cfquery name="wdi" datasource="uam_god">
 			select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=#taxon_name_id.taxon_name_id#
