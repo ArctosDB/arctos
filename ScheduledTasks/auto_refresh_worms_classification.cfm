@@ -47,8 +47,9 @@ needs rebuilt to something like this once that's done
 		</cfquery>
 
 		<br><a target="_blank" href="/name/#g.scientific_name###WoRMSviaArctos">#g.scientific_name#</a>
-		<!--- be nice, take a short nap --->
+		<!--- be nice, take a short nap
 		<cfset sleep(5000)>
+		--->
 
 	</cfloop>
 </cfoutput>
