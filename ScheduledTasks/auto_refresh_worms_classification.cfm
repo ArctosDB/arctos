@@ -50,6 +50,7 @@ needs rebuilt to something like this once that's done
 		<!--- be nice, take a short nap
 		<cfset sleep(5000)>
 		--->
+		<cfset sleep(1000)>
 
 	</cfloop>
 </cfoutput>
