@@ -61,7 +61,7 @@ select status, count(*) from cf_temp_worms_stale group by status;
 	where
 		status='used_in_id' and
 		sysdate-lastdate > 7 and
-		rownum<31
+		rownum<25
 </cfquery>
 
 <cfdump var=#d#>
