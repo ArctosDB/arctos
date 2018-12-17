@@ -64,8 +64,6 @@ select status, count(*) from cf_temp_worms_stale group by status;
 		rownum<25
 </cfquery>
 
-<cfdump var=#d#>
-
 
 <cfoutput>
 	<cfset tc = CreateObject("component","component.taxonomy")>
@@ -73,25 +71,22 @@ select status, count(*) from cf_temp_worms_stale group by status;
 	<cfloop query="d">
 		<cfset x=tc.updateWormsArctosByAphiaID(aphiaid,taxon_name_id)>
 		<cfif isdefined("x.STATUS") and x.STATUS is "success">
-			success
-			<cfset ps=1>
+			<cfquery name="mud" datasource="uam_god">
+				update cf_temp_worms_stale set lastdate=sysdate ,status='refreshed' where taxon_name_id=#d.taxon_name_id# and aphiaid='#d.aphiaid#'
+			</cfquery>
 		<cfelse>
-			fail
-				<cfdump var=#x#>
-
-			<cfset ps=0>
+			<cfquery name="mud" datasource="uam_god">
+				update cf_temp_worms_stale set lastdate=sysdate ,status='refresh_fail' where taxon_name_id=#d.taxon_name_id# and aphiaid='#d.aphiaid#'
+			</cfquery>
 		</cfif>
 		<!----
 		<cfquery name="g" datasource="uam_god">
 			update temp_worms set init_pull=#ps# where taxon_name_id='#taxon_name_id#'
 		</cfquery>
-		---->
 		<cfquery name="g" datasource="uam_god">
 			select scientific_name from taxon_name where taxon_name_id=#d.taxon_name_id#
 		</cfquery>
-		<cfquery name="mud" datasource="uam_god">
-			update cf_temp_worms_stale set lastdate=sysdate ,status='refreshed' where taxon_name_id=#d.taxon_name_id# and aphiaid='#d.aphiaid#'
-		</cfquery>
+
 
 
 
@@ -101,6 +96,7 @@ select status, count(*) from cf_temp_worms_stale group by status;
 		<!--- be nice, take a short nap
 		<cfset sleep(5000)>
 		--->
+		---->
 		<cfset sleep(1000)>
 
 	</cfloop>
