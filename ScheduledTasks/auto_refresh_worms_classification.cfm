@@ -66,7 +66,6 @@ select status, count(*) from cf_temp_worms_stale group by status;
 		sysdate-lastdate > 7 and
 		rownum<25
 </cfquery>
-<cfdump var=#d#>
 
 
 <cfoutput>
