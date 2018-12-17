@@ -49,6 +49,7 @@ update cf_temp_worms_stale set status='used_in_id' where taxon_name_id in (selec
 
 
 --->
+<cfset sdate=now()>
 
 <cfquery name="d" datasource="uam_god">
 	select
@@ -102,4 +103,13 @@ update cf_temp_worms_stale set status='used_in_id' where taxon_name_id in (selec
 		<cfset sleep(1000)>
 
 	</cfloop>
+
+
+<cfset fdate=now()>
+
+<cfset ctime=datediff('s',sdate,fdate)>
+<p>
+	time: #ctime# s
+</p>
+
 </cfoutput>
