@@ -17,7 +17,7 @@ needs rebuilt to something like this once that's done
 		source='WoRMS (via Arctos)' and
 		term_type='aphiaid' and
 		sysdate-lastdate > 7 and
-		rownum<2
+		rownum<13
 </cfquery>
 
 <cfdump var=#d#>
