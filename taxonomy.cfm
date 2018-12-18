@@ -884,7 +884,7 @@
 						<cfloop query="notclass">
 							<cfif term_type is "aphiaid">
 								<br>#term_type#: <a target="_blank" class="external" href="http://www.marinespecies.org/aphia.php?p=taxdetails&id=#term#">#term#</a>
-								<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+								<cfif sources.source is 'WoRMS (via Arctos)' and isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 									<span id="RefreshWormsSpan">
 										<span class="likeLink" onclick="refreshWorms('#taxon_name_id.taxon_name_id#','#notclass.term#');"> [refresh]</span>
 									</span>
@@ -916,7 +916,6 @@
 								<cfif (sources.source is 'Arctos' or sources.source is 'Arctos Plants') and isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 									<a href="/tools/taxonomyTree.cfm?action=autocreateandseed&seed_term=#term#&source=#sources.source#&trm_rank=#sttyp#"> [ seed hierarchy ]</a>
 								</cfif>
-
 							</div>
 							<cfset indent=indent+1>
 						</cfloop>
