@@ -62,21 +62,41 @@ select status, count(*) from cf_temp_worms_stale group by status;
 select scientific_name from taxon_name where taxon_name_id in (select taxon_name_id from cf_temp_worms_stale where status='refresh_fail');
 select scientific_name from taxon_name where taxon_name_id in (select taxon_name_id from cf_temp_worms_stale where status='refreshed') and taxon_name_id in (select taxon_name_id from taxon_relations);
 
+
+update cf_temp_worms_stale set status='init_import' where status='refresh_fail';
+
+update cf_temp_worms_stale set status='init_import' where status='used_in_id';
+
+------------------------------------------------------------------------------------------------------------------------
+  COUNT(*)
+----------
+used_in_id
+	17
+
+refreshed
+     16497
+
+init_import
+    528915
+
+refresh_fail
+	12
+
 --->
 
 
 <cfquery name="d" datasource="uam_god">
-	select
-		taxon_name_id,
-		aphiaid
-	from
-		cf_temp_worms_stale
-	where
-		status='used_in_id' and
-		sysdate-lastdate > 7 and
-		rownum<25
+	select * from (
+		select
+			lastdate,
+			taxon_name_id,
+			aphiaid
+		from
+			cf_temp_worms_stale
+		where
+			status='init_import' order by lastdate
+	) where rownum<20
 </cfquery>
-
 
 <cfoutput>
 	<cfset tc = CreateObject("component","component.taxonomy")>
