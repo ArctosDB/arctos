@@ -46,17 +46,20 @@ where
 ;
 
 update cf_temp_worms_stale set status='used_in_id' where taxon_name_id in (select taxon_name_id from identification_taxonomy);
+alter table cf_temp_worms_stale modify  status varchar2(4000);
+update cf_temp_worms_stale set status=trim(status);
+
+
+
 
 select status, count(*) from cf_temp_worms_stale group by status;
 
-alter table cf_temp_worms_stale modify  status varchar2(4000);
 
-update cf_temp_worms_stale set status=trim(status);
 
 <cfset sdate=now()>
 
 
-select scientific_name from taxon_name where taxon_name_id in (select taxon_name_id from cf_temp_worms_stale where status='refreshed');
+select scientific_name from taxon_name where taxon_name_id in (select taxon_name_id from cf_temp_worms_stale where status='refresh_fail');
 select scientific_name from taxon_name where taxon_name_id in (select taxon_name_id from cf_temp_worms_stale where status='refreshed') and taxon_name_id in (select taxon_name_id from taxon_relations);
 
 --->
