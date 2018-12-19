@@ -6,6 +6,15 @@ see if we can make full records from worms download
 first pass: do something with the stuff we just made
 ---->
 <cfoutput>
+
+	<cfquery name="cttaxon_term" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select taxon_term from cttaxon_term
+		</cfquery>
+		<cfquery name="CTTAXON_STATUS" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select TAXON_STATUS from CTTAXON_STATUS
+		</cfquery>
+
+
 	<cfquery name="d" datasource="uam_god">
 		select * from temp_worms where status='valid' and rownum<2
 	</cfquery>
@@ -44,6 +53,140 @@ first pass: do something with the stuff we just made
 					'#thisClassID#'
 				)
 			</cfquery>
+
+
+			<cfif len(ACCEPTEDNAMEUSAGE) gt 0 and ACCEPTEDNAMEUSAGE is not scientificname>
+				<!--- see if we have an existing relationship --->
+				<!--- first need the related name --->
+				<cfquery name="rname" datasource="uam_god">
+					select taxon_name_id from taxon_name where scientific_name='#ACCEPTEDNAMEUSAGE#'
+				</cfquery>
+				<br>rname:::
+				<cfdump var=#rname#>
+				<cfif len(rname.taxon_name_id) gt 0>
+					<!---
+						got it; see if the relationship exists
+						https://github.com/ArctosDB/arctos/issues/1136
+						we are using "synonym of" for everything, so just ignore type for this for now
+					---->
+					<cfquery name="er" datasource="uam_god">
+						select
+							count(*) c
+						from
+							taxon_relations
+						where
+							taxon_name_id=#taxon_name_id# and
+							related_taxon_name_id=#rname.taxon_name_id#
+					</cfquery>
+					<br>er:::
+					<cfdump var=#er#>
+					<cfif er.c is 0>
+						<br>creating relationship
+						<!--- create the relationship ---->
+						<cfquery name="mkreln" datasource="uam_god">
+							insert into taxon_relations (
+								TAXON_RELATIONS_ID,
+								TAXON_NAME_ID,
+								RELATED_TAXON_NAME_ID,
+								TAXON_RELATIONSHIP,
+								RELATION_AUTHORITY,
+								STALE_FG
+							) values (
+								sq_TAXON_RELATIONS_ID.nextval,
+								#taxon_name_id#,
+								#rname.taxon_name_id#,
+								'synonym of',
+								'WoRMS',
+								1
+							)
+						</cfquery>
+					</cfif>
+					<!---- now see if the reciprocal exists --->
+					<cfquery name="err" datasource="uam_god">
+						select
+							count(*) c
+						from
+							taxon_relations
+						where
+							taxon_name_id=#rname.taxon_name_id# and
+							related_taxon_name_id=#taxon_name_id#
+					</cfquery>
+					<br>err:::
+					<cfdump var=#err#>
+					<cfif err.c is 0>
+						<br>creating reciprocal relationship
+						<!--- create the relationship ---->
+						<cfquery name="mkreln" datasource="uam_god">
+							insert into taxon_relations (
+								TAXON_RELATIONS_ID,
+								TAXON_NAME_ID,
+								RELATED_TAXON_NAME_ID,
+								TAXON_RELATIONSHIP,
+								RELATION_AUTHORITY,
+								STALE_FG
+							) values (
+								sq_TAXON_RELATIONS_ID.nextval,
+								#rname.taxon_name_id#,
+								#taxon_name_id#,
+								'synonym of',
+								'WoRMS',
+								1
+							)
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<cfif len(TAXONOMICSTATUS) gt 0>
+				<cfset t="taxon_status">
+				<cfif TAXONOMICSTATUS is 'accepted'>
+					<cfset d='valid'>
+				<cfelseif TAXONOMICSTATUS is 'unaccepted'>
+					<cfset d='invalid'>
+				<cfelse>
+					<cfset d=TAXONOMICSTATUS>
+				</cfif>
+				<cfif len(d) gt 0 and listfind(valuelist(CTTAXON_STATUS.TAXON_STATUS),d)>
+					<cfquery name="meta" datasource="uam_god">
+						insert into taxon_term (
+							taxon_term_id,
+							taxon_name_id,
+							term_type,
+							term,
+							source,
+							position_in_classification,
+							classification_id
+						) values (
+							sq_taxon_term_id.nextval,
+							#taxon_name_id#,
+							'#t#',
+							'#d#',
+							'WoRMS (via Arctos)',
+							NULL,
+							'#thisClassID#'
+						)
+					</cfquery>
+				</cfif>
+			</cfif>
+
+
+			<!---- isExtinct ?? ---->
+			<!---- unacceptreason ?? ---->
 
 
 
