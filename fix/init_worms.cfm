@@ -360,7 +360,7 @@ select status from temp_worms where scientificname='Castrada viridis';
 					update temp_worms set status='insert_classification_fail' where scientificname='#scientificname#'
 				</cfquery>
 				<p>
-					fail!! #cfcatch.Message#
+					fail!! #cfcatch.Message# #cfcatch.detail#
 				</p>
 			</cfcatch>
 		</cftry>
