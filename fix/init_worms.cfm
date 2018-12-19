@@ -35,7 +35,7 @@ first pass: do something with the stuff we just made
 				where
 					PARENTNAMEUSAGEID is not null
 				connect by
-					prior PARENTNAMEUSAGEID=taxonid
+					prior taxonid=PARENTNAMEUSAGEID
 				start with
 					taxonid='#taxonid#'
 			</cfquery>
