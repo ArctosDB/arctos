@@ -1,6 +1,6 @@
 <!----
 
-see if we can make full records from worms download
+make full classification records including relationships from worms download
 
 
 first pass: do something with the stuff we just made
@@ -13,6 +13,10 @@ select NOMENCLATURALCODE, count(*) from temp_worms group by NOMENCLATURALCODE;
 select status, count(*) from temp_worms group by status;
 
 update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
+
+-- speed up setting status
+
+create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace uam_idx_1;
 ---->
 <cfoutput>
 
@@ -22,14 +26,14 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 	<cfquery name="CTTAXON_STATUS" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select TAXON_STATUS from CTTAXON_STATUS
 	</cfquery>
-
-
 	<cfquery name="d" datasource="uam_god">
 		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<20
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
 	---->
+	<cfset sdate=now()>
+
 	<cfloop query="d">
 		<cftransaction>
 			<cftry>
@@ -45,7 +49,6 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 				<cfset taxon_name_id=tnid.taxon_name_id>
 
 				<cfset thisClassID='aphiaid::#TAXONID#'>
-
 
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_term (
@@ -66,7 +69,6 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 						'#thisClassID#'
 					)
 				</cfquery>
-
 
 				<cfif len(ACCEPTEDNAMEUSAGE) gt 0 and ACCEPTEDNAMEUSAGE is not scientificname>
 					<!--- see if we have an existing relationship --->
@@ -381,4 +383,12 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 			</cftry>
 		</cftransaction>
 	</cfloop>
+
+	<cfset fdate=now()>
+
+	<cfset ctime=datediff('s',sdate,fdate)>
+
+	<p>
+		elapsed time: #ctime# s
+	</p>
 </cfoutput>
