@@ -34,7 +34,7 @@ select status from temp_worms where scientificname='Castrada viridis';
 		select TAXON_STATUS from CTTAXON_STATUS
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<200
+		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<400
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
