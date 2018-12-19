@@ -334,7 +334,7 @@ select status from temp_worms where scientificname='Castrada viridis';
 				---->
 				<cfset pic=1>
 				<cfloop query="classh">
-					<cfif listfind(valuelist(ctcttaxon_term.cttaxon_term),lcase(TAXONRANK))>
+					<cfif listfind(valuelist(ctcttaxon_term.cttaxon_term,lcase(TAXONRANK)))>
 						<br>insert #lcase(TAXONRANK)#
 						<cfquery name="meta" datasource="uam_god">
 							insert into taxon_term (
