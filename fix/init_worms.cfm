@@ -26,13 +26,10 @@ first pass: do something with the stuff we just made
 
 			<cfquery name="classh" datasource="uam_god">
 				select
-					rownum,
-					scientificname,
-					PARENTNAMEUSAGEID,
-					TAXONRANK,
-					lvl
+					*
 				from (
 					select
+						rownum pic
 						scientificname,
 						PARENTNAMEUSAGEID,
 						TAXONRANK,
@@ -48,6 +45,7 @@ first pass: do something with the stuff we just made
 					) order by lvl desc
 			</cfquery>
 			<cfdump var=#classh#>
+			<cfset pic=1>
 			<cfloop query="classh">
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_term (
@@ -64,10 +62,11 @@ first pass: do something with the stuff we just made
 						'#lcase(TAXONRANK)#',
 						'#scientificname#',
 						'WoRMS (via Arctos)',
-						#rownum#,
+						#pic#,
 						'#thisClassID#'
 					)
 				</cfquery>
+				<cfset pic=pic+1>
 
 			</cfloop>
 
