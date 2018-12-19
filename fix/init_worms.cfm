@@ -26,18 +26,26 @@ first pass: do something with the stuff we just made
 
 			<cfquery name="classh" datasource="uam_god">
 				select
+					rownum,
 					scientificname,
 					PARENTNAMEUSAGEID,
 					TAXONRANK,
-					level
-				from
-					temp_worms
-				where
-					PARENTNAMEUSAGEID is not null
-				connect by
-					prior taxonid=PARENTNAMEUSAGEID
-				start with
-					taxonid='#taxonid#'
+					lvl
+				from (
+					select
+						scientificname,
+						PARENTNAMEUSAGEID,
+						TAXONRANK,
+						level lvl
+					from
+						temp_worms
+					where
+						PARENTNAMEUSAGEID is not null
+					connect by
+						prior PARENTNAMEUSAGEID=taxonid
+					start with
+						taxonid='#taxonid#'
+					) order by lvl desc
 			</cfquery>
 			<cfdump var=#classh#>
 			<cfloop query="classh">
@@ -56,7 +64,7 @@ first pass: do something with the stuff we just made
 						'#lcase(TAXONRANK)#',
 						'#scientificname#',
 						'WoRMS (via Arctos)',
-						#level#,
+						#rownum#,
 						'#thisClassID#'
 					)
 				</cfquery>
