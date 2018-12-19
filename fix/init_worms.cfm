@@ -25,7 +25,7 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 
 
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<2
+		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<20
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
@@ -335,7 +335,9 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 							taxonid='#taxonid#'
 						) order by lvl desc
 				</cfquery>
+				<!----
 				<cfdump var=#classh#>
+				---->
 				<cfset pic=1>
 				<cfloop query="classh">
 					<cfquery name="meta" datasource="uam_god">
