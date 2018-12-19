@@ -23,9 +23,12 @@ first pass: do something with the stuff we just made
 			select
 				scientificname,
 				PARENTNAMEUSAGEID,
-				TAXONRANK
+				TAXONRANK,
+				level
 			from
 				temp_worms
+			where
+				PARENTNAMEUSAGEID is not null
 			connect by
 				prior PARENTNAMEUSAGEID=taxonid
 			start with
