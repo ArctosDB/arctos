@@ -7,6 +7,11 @@ first pass: do something with the stuff we just made
  - first-first: accepted
 
 select TAXONOMICSTATUS, count(*) from temp_worms group by TAXONOMICSTATUS;
+
+
+select status, count(*) from temp_worms group by status;
+
+update temp_worms set status='valid' where scientificname='Ceratocancris';
 ---->
 <cfoutput>
 
@@ -326,6 +331,12 @@ select TAXONOMICSTATUS, count(*) from temp_worms group by TAXONOMICSTATUS;
 					<cfquery name="gotit" datasource="uam_god">
 						update temp_worms set status='insert_classification_fail' where scientificname='#scientificname#'
 					</cfquery>
+
+					<p>
+						fail!!
+
+						<cfdump var=#cfcatch#>
+					</p>
 				</cfcatch>
 
 			</cftry>
