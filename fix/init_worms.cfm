@@ -35,8 +35,8 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 	<cfset sdate=now()>
 
 	<cfloop query="d">
-		<cftransaction>
-			<cftry>
+		<cftry>
+			<cftransaction>
 				<cfquery name="tnid" datasource="uam_god">
 					select taxon_name_id from taxon_name where scientific_name='#scientificname#'
 				</cfquery>
@@ -286,7 +286,6 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 					</cfif>
 				</cfif>
 
-
 				<cfif len(SCIENTIFICNAMEAUTHORSHIP) gt 0>
 					<cfset t="author_text">
 					<cfset d=SCIENTIFICNAMEAUTHORSHIP>
@@ -312,11 +311,6 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 						</cfquery>
 					</cfif>
 				</cfif>
-
-
-
-
-
 
 				<cfquery name="classh" datasource="uam_god">
 					select
@@ -362,13 +356,15 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 						)
 					</cfquery>
 					<cfset pic=pic+1>
-
 				</cfloop>
 
 				<cfquery name="gotit" datasource="uam_god">
 					update temp_worms set status='inserted_classification' where scientificname='#scientificname#'
 				</cfquery>
-				<cfcatch>
+
+
+			</cftransaction>
+			<cfcatch>
 					<cfquery name="gotit" datasource="uam_god">
 						update temp_worms set status='insert_classification_fail' where scientificname='#scientificname#'
 					</cfquery>
@@ -381,7 +377,6 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 				</cfcatch>
 
 			</cftry>
-		</cftransaction>
 	</cfloop>
 
 	<cfset fdate=now()>
