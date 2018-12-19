@@ -19,7 +19,7 @@ select scientificname from temp_worms where status='insert_classification_fail';
 
 
 
-update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
+update temp_worms set status='valid' where scientificname='Stoliczia panhai';
 -- speed up setting status
 create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace uam_idx_1;
 -- speed up hierarchical query
@@ -334,31 +334,31 @@ select status from temp_worms where scientificname='Castrada viridis';
 				---->
 				<cfset pic=1>
 				<cfloop query="classh">
-					<cfset thisRank=lcase(TAXONRANK)>
-					<cfif thisRank is "">
-						<cfset thisRank=''>
+					<cfif listfind(valuelist(ctcttaxon_term.cttaxon_term),lcase(TAXONRANK))>
+						<br>insert #lcase(TAXONRANK)#
+						<cfquery name="meta" datasource="uam_god">
+							insert into taxon_term (
+								taxon_term_id,
+								taxon_name_id,
+								term_type,
+								term,
+								source,
+								position_in_classification,
+								classification_id
+							) values (
+								sq_taxon_term_id.nextval,
+								#taxon_name_id#,
+								'#lcase(TAXONRANK)#',
+								'#scientificname#',
+								'WoRMS (via Arctos)',
+								#pic#,
+								'#thisClassID#'
+							)
+						</cfquery>
+						<cfset pic=pic+1>
+					<cfelse>
+						<br>fail for #lcase(TAXONRANK)#
 					</cfif>
-
-					<cfquery name="meta" datasource="uam_god">
-						insert into taxon_term (
-							taxon_term_id,
-							taxon_name_id,
-							term_type,
-							term,
-							source,
-							position_in_classification,
-							classification_id
-						) values (
-							sq_taxon_term_id.nextval,
-							#taxon_name_id#,
-							'#lcase(TAXONRANK)#',
-							'#scientificname#',
-							'WoRMS (via Arctos)',
-							#pic#,
-							'#thisClassID#'
-						)
-					</cfquery>
-					<cfset pic=pic+1>
 				</cfloop>
 
 				<cfquery name="gotit" datasource="uam_god">
