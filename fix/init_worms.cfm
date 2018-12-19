@@ -17,25 +17,28 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 <cfoutput>
 
 	<cfquery name="cttaxon_term" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select taxon_term from cttaxon_term
-		</cfquery>
-		<cfquery name="CTTAXON_STATUS" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select TAXON_STATUS from CTTAXON_STATUS
-		</cfquery>
+		select taxon_term from cttaxon_term
+	</cfquery>
+	<cfquery name="CTTAXON_STATUS" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select TAXON_STATUS from CTTAXON_STATUS
+	</cfquery>
 
 
 	<cfquery name="d" datasource="uam_god">
 		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<2
 	</cfquery>
+	<!----
 	<cfdump var=#d#>
+	---->
 	<cfloop query="d">
 		<cftransaction>
 			<cftry>
-
 				<cfquery name="tnid" datasource="uam_god">
 					select taxon_name_id from taxon_name where scientific_name='#scientificname#'
 				</cfquery>
+				<!----
 				<cfdump var=#tnid#>
+				---->
 				<p>
 					<a href="/name/#scientificname#">#scientificname#</a>
 				</p>
@@ -71,8 +74,10 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 					<cfquery name="rname" datasource="uam_god">
 						select taxon_name_id from taxon_name where scientific_name='#ACCEPTEDNAMEUSAGE#'
 					</cfquery>
+					<!----
 					<br>rname:::
 					<cfdump var=#rname#>
+					---->
 					<cfif len(rname.taxon_name_id) gt 0>
 						<!---
 							got it; see if the relationship exists
@@ -88,8 +93,10 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 								taxon_name_id=#taxon_name_id# and
 								related_taxon_name_id=#rname.taxon_name_id#
 						</cfquery>
+						<!----
 						<br>er:::
 						<cfdump var=#er#>
+						---->
 						<cfif er.c is 0>
 							<br>creating relationship
 							<!--- create the relationship ---->
@@ -121,8 +128,10 @@ update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 								taxon_name_id=#rname.taxon_name_id# and
 								related_taxon_name_id=#taxon_name_id#
 						</cfquery>
+						<!----
 						<br>err:::
 						<cfdump var=#err#>
+						----->
 						<cfif err.c is 0>
 							<br>creating reciprocal relationship
 							<!--- create the relationship ---->
