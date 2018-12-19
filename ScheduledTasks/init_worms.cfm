@@ -26,6 +26,9 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 create index ix_tmp_wrms_tmp_pnuid on temp_worms(PARENTNAMEUSAGEID) tablespace uam_idx_1;
 create unique index ix_u_tmp_wrms_tmp_pntnid on temp_worms(taxonid) tablespace uam_idx_1;
 
+select TAXONRANK from temp_worms where scientificname='Brachysira brebissonii f. brebissonii';
+select TAXONRANK, count(*) from temp_worms group by TAXONRANK;
+
 
 							prior PARENTNAMEUSAGEID=taxonid
 
@@ -334,7 +337,13 @@ select status from temp_worms where scientificname='Castrada viridis';
 				---->
 				<cfset pic=1>
 				<cfloop query="classh">
-					<cfif listfind(valuelist(cttaxon_term.taxon_term),lcase(TAXONRANK))>
+					<cfset thisrank=lcase(TAXONRANK)>
+					<cfif thisrank is "form">
+						<cfset thisrank='forma'>
+					</cfif>
+
+
+					<cfif listfind(valuelist(cttaxon_term.taxon_term),thisrank)>
 						<cfquery name="meta" datasource="uam_god">
 							insert into taxon_term (
 								taxon_term_id,
@@ -347,7 +356,7 @@ select status from temp_worms where scientificname='Castrada viridis';
 							) values (
 								sq_taxon_term_id.nextval,
 								#taxon_name_id#,
-								'#lcase(TAXONRANK)#',
+								'#thisrank#',
 								'#scientificname#',
 								'WoRMS (via Arctos)',
 								#pic#,
