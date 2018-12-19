@@ -29,7 +29,6 @@ first pass: do something with the stuff we just made
 					*
 				from (
 					select
-						rownum pic
 						scientificname,
 						PARENTNAMEUSAGEID,
 						TAXONRANK,
