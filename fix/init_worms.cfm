@@ -24,6 +24,87 @@ first pass: do something with the stuff we just made
 
 			<cfset thisClassID='aphiaid::#TAXONID#'>
 
+
+			<cfquery name="meta" datasource="uam_god">
+				insert into taxon_term (
+					taxon_term_id,
+					taxon_name_id,
+					term_type,
+					term,
+					source,
+					position_in_classification,
+					classification_id
+				) values (
+					sq_taxon_term_id.nextval,
+					#taxon_name_id#,
+					'aphiaid',
+					'#TAXONID#',
+					'WoRMS (via Arctos)',
+					NULL,
+					'#thisClassID#'
+				)
+			</cfquery>
+
+
+
+			<cfif len(BIBLIOGRAPHICCITATION) gt 0>
+				<cfset t="source_authority">
+				<cfset d=BIBLIOGRAPHICCITATION>
+				<cfif len(d) gt 0>
+					<cfquery name="meta" datasource="uam_god">
+						insert into taxon_term (
+							taxon_term_id,
+							taxon_name_id,
+							term_type,
+							term,
+							source,
+							position_in_classification,
+							classification_id
+						) values (
+							sq_taxon_term_id.nextval,
+							#taxon_name_id#,
+							'#t#',
+							'#d#',
+							'WoRMS (via Arctos)',
+							NULL,
+							'#thisClassID#'
+						)
+					</cfquery>
+				</cfif>
+			</cfif>
+
+
+			<cfif len(SCIENTIFICNAMEAUTHORSHIP) gt 0>
+				<cfset t="author_text">
+				<cfset d=SCIENTIFICNAMEAUTHORSHIP>
+				<cfif len(d) gt 0>
+					<cfquery name="meta" datasource="uam_god">
+						insert into taxon_term (
+							taxon_term_id,
+							taxon_name_id,
+							term_type,
+							term,
+							source,
+							position_in_classification,
+							classification_id
+						) values (
+							sq_taxon_term_id.nextval,
+							#taxon_name_id#,
+							'#t#',
+							'#d#',
+							'WoRMS (via Arctos)',
+							NULL,
+							'#thisClassID#'
+						)
+					</cfquery>
+				</cfif>
+			</cfif>
+
+
+
+
+
+
 			<cfquery name="classh" datasource="uam_god">
 				select
 					*
@@ -75,25 +156,7 @@ first pass: do something with the stuff we just made
 	1
 
 
-			<cfquery name="meta" datasource="uam_god">
-				insert into taxon_term (
-					taxon_term_id,
-					taxon_name_id,
-					term_type,
-					term,
-					source,
-					position_in_classification,
-					classification_id
-				) values (
-					sq_taxon_term_id.nextval,
-					#taxon_name_id#,
-					'aphiaid',
-					'#TAXONID#',
-					'WoRMS (via Arctos)',
-					NULL,
-					'#thisClassID#'
-				)
-			</cfquery>
+
 			---->
 
 
