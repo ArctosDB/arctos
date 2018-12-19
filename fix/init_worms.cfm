@@ -53,7 +53,7 @@ first pass: do something with the stuff we just made
 					) values (
 						sq_taxon_term_id.nextval,
 						#taxon_name_id#,
-						'#TAXONRANK#',
+						'#lcase(TAXONRANK)#',
 						'#scientificname#',
 						'WoRMS (via Arctos)',
 						NULL,
