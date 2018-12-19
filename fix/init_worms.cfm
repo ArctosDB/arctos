@@ -15,8 +15,15 @@ select status, count(*) from temp_worms group by status;
 update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 
 -- speed up setting status
-
 create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace uam_idx_1;
+-- speed up hierarchical query
+create index ix_tmp_wrms_tmp_pnuid on temp_worms(PARENTNAMEUSAGEID) tablespace uam_idx_1;
+create unique index ix_u_tmp_wrms_tmp_pntnid on temp_worms(taxonid) tablespace uam_idx_1;
+
+
+							prior PARENTNAMEUSAGEID=taxonid
+
+select status from temp_worms where scientificname='Castrada viridis';
 ---->
 <cfoutput>
 
@@ -27,7 +34,7 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 		select TAXON_STATUS from CTTAXON_STATUS
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<20
+		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<200
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
