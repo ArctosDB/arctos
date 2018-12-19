@@ -151,7 +151,29 @@ first pass: do something with the stuff we just made
 
 
 
-
+			<cfif len(NOMENCLATURALCODE) gt 0>
+				<cfset t="nomenclatural_code">
+				<cfset d=NOMENCLATURALCODE>
+				<cfquery name="meta" datasource="uam_god">
+					insert into taxon_term (
+						taxon_term_id,
+						taxon_name_id,
+						term_type,
+						term,
+						source,
+						position_in_classification,
+						classification_id
+					) values (
+						sq_taxon_term_id.nextval,
+						#taxon_name_id#,
+						'#t#',
+						'#d#',
+						'WoRMS (via Arctos)',
+						NULL,
+						'#thisClassID#'
+					)
+				</cfquery>
+			</cfif>
 			<cfif len(TAXONOMICSTATUS) gt 0>
 				<cfset t="taxon_status">
 				<cfif TAXONOMICSTATUS is 'accepted'>
