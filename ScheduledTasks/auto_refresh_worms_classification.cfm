@@ -55,6 +55,8 @@ update cf_temp_worms_stale set status=trim(status);
 select status, count(*) from cf_temp_worms_stale group by status;
 
 
+update cf_temp_worms_stale set status='pause' where status='init_import';
+
 
 <cfset sdate=now()>
 
