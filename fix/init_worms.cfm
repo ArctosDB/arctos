@@ -56,7 +56,7 @@ first pass: do something with the stuff we just made
 						'#lcase(TAXONRANK)#',
 						'#scientificname#',
 						'WoRMS (via Arctos)',
-						NULL,
+						#level#,
 						'#thisClassID#'
 					)
 				</cfquery>
