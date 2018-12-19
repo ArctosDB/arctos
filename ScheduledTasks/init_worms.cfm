@@ -14,6 +14,12 @@ select status, count(*) from temp_worms group by status;
 
 update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 
+select distinct TAXONRANK from temp_worms where TAXONRANK not in (select distinct taxon_term from cttaxon_term);
+select scientificname from temp_worms where status='insert_classification_fail';
+
+
+
+update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 -- speed up setting status
 create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace uam_idx_1;
 -- speed up hierarchical query
@@ -34,7 +40,7 @@ select status from temp_worms where scientificname='Castrada viridis';
 		select TAXON_STATUS from CTTAXON_STATUS
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<400
+		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<2
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
@@ -328,6 +334,11 @@ select status from temp_worms where scientificname='Castrada viridis';
 				---->
 				<cfset pic=1>
 				<cfloop query="classh">
+					<cfset thisRank=lcase(TAXONRANK)>
+					<cfif thisRank is "">
+						<cfset thisRank=''>
+					</cfif>
+
 					<cfquery name="meta" datasource="uam_god">
 						insert into taxon_term (
 							taxon_term_id,
