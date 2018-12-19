@@ -8,6 +8,7 @@ first pass: do something with the stuff we just made
 
 select TAXONOMICSTATUS, count(*) from temp_worms group by TAXONOMICSTATUS;
 
+select NOMENCLATURALCODE, count(*) from temp_worms group by NOMENCLATURALCODE;
 
 select status, count(*) from temp_worms group by status;
 
@@ -163,6 +164,9 @@ update temp_worms set status='valid' where scientificname='Ceratocancris';
 				<cfif len(NOMENCLATURALCODE) gt 0>
 					<cfset t="nomenclatural_code">
 					<cfset d=NOMENCLATURALCODE>
+					<cfif d is "ICN">
+						<cfset d='ICBN'>
+					</cfif>
 					<cfquery name="meta" datasource="uam_god">
 						insert into taxon_term (
 							taxon_term_id,
