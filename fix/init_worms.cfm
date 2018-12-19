@@ -33,7 +33,6 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 	<cfdump var=#d#>
 	---->
 	<cfset sdate=now()>
-
 	<cfloop query="d">
 		<cftry>
 			<cftransaction>
@@ -158,20 +157,6 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 					</cfif>
 				</cfif>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				<cfif len(NOMENCLATURALCODE) gt 0>
 					<cfset t="nomenclatural_code">
 					<cfset d=NOMENCLATURALCODE>
@@ -231,7 +216,7 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 				</cfif>
 
 
-				<!---- isExtinct ?? ---->
+				<!---- isExtinct ?? got it from the weird dagger thing---->
 				<!---- unacceptreason ?? ---->
 
 
@@ -362,21 +347,17 @@ create index ix_tmp_wrms_tmp_sciname on temp_worms(scientificname) tablespace ua
 					update temp_worms set status='inserted_classification' where scientificname='#scientificname#'
 				</cfquery>
 
-
 			</cftransaction>
 			<cfcatch>
-					<cfquery name="gotit" datasource="uam_god">
-						update temp_worms set status='insert_classification_fail' where scientificname='#scientificname#'
-					</cfquery>
-
-					<p>
-						fail!!
-
-						<cfdump var=#cfcatch#>
-					</p>
-				</cfcatch>
-
-			</cftry>
+				<cfquery name="gotit" datasource="uam_god">
+					update temp_worms set status='insert_classification_fail' where scientificname='#scientificname#'
+				</cfquery>
+				<p>
+					fail!!
+					<cfdump var=#cfcatch#>
+				</p>
+			</cfcatch>
+		</cftry>
 	</cfloop>
 
 	<cfset fdate=now()>
