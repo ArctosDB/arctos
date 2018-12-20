@@ -77,6 +77,18 @@ select scientificname from temp_worms where status='xxxx' order by scientificnam
 
 select status || ' @ ' || count(*) from temp_worms group by status order by status;
 
+update temp_worms set status='in_arctos_no_wrms' where status='is_in_arctos' and scientificname in (
+select scientificname from
+temp_worms,
+taxon_name
+where
+temp_worms.scientificname=taxon_name.scientific_name and
+taxon_name.taxon_name_id not in (select taxon_name_id from taxon_term where source='WoRMS (via Arctos)')
+)
+;
+
+
+select scientificname from temp_worms where status='in_arctos_no_wrms' and rownum<1000;
 ---->
 <cfoutput>
 
@@ -87,7 +99,7 @@ select status || ' @ ' || count(*) from temp_worms group by status order by stat
 		select TAXON_STATUS from CTTAXON_STATUS
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_worms where status='valid' and rownum<300
+		select * from temp_worms where status='in_arctos_no_wrms' and rownum<300
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
