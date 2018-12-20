@@ -83,7 +83,7 @@ select status || ' @ ' || count(*) from temp_worms group by status order by stat
 		select TAXON_STATUS from CTTAXON_STATUS
 	</cfquery>
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_worms where TAXONOMICSTATUS='accepted' and status='valid' and rownum<400
+		select * from temp_worms where TAXONOMICSTATUS='unaccepted' and status='valid' and rownum<400
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
