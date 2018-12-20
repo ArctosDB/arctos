@@ -69,6 +69,7 @@ select scientificname from temp_worms where status='xxxx' order by scientificnam
 
 
 
+		select count(*) from temp_worms where TAXONOMICSTATUS='unaccepted' and status='valid' ;
 
 
 select status || ' @ ' || count(*) from temp_worms group by status order by status;
