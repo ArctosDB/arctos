@@ -201,33 +201,38 @@
 <script>
 	$(document).ready(function() {
 
-		console.log('ready...');
+		//console.log('ready...');
+		// this may have killed the DB, so only grab the first 10 or something
+		var ln=0;
 		$("div[data-tid]").each(function( i, val ) {
-			console.log(val);
-			var tid=$(this).attr("data-tid");
-			console.log(tid);
+			if (ln<10){
+				//console.log(val);
+				var tid=$(this).attr("data-tid");
+				//console.log(tid);
 
-			$.ajax({
-				url: "/component/taxonomy.cfc?",
-				type: "GET",
-				dataType: "text",
-				//async: false,
-				data: {
-					method:  "getDisplayClassData",
-					taxon_name_id : tid,
-					returnformat : "plain"
-				},
-				success: function(r) {
+				$.ajax({
+					url: "/component/taxonomy.cfc?",
+					type: "GET",
+					dataType: "text",
+					//async: false,
+					data: {
+						method:  "getDisplayClassData",
+						taxon_name_id : tid,
+						returnformat : "plain"
+					},
+					success: function(r) {
 
-					console.log(r);
+						console.log(r);
 
-					$("##tname_" + tid).append(r);
-				},
-					error: function (xhr, textStatus, errorThrown){
-			    	//alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-			    	// meh, whatever, this is purely informational
-				}
-			});
+						$("##tname_" + tid).append(r);
+					},
+						error: function (xhr, textStatus, errorThrown){
+				    	//alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				    	// meh, whatever, this is purely informational
+					}
+				});
+				ln++;
+			}
 		});
 	});
 

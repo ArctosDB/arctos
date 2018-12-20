@@ -10,7 +10,7 @@ select TAXONOMICSTATUS, count(*) from temp_worms group by TAXONOMICSTATUS;
 
 select NOMENCLATURALCODE, count(*) from temp_worms group by NOMENCLATURALCODE;
 
-select status, count(*) from temp_worms group by status;
+select status || '@ ' || count(*) from temp_worms group by status order by status;
 
 update temp_worms set status='valid' where scientificname='Ataxophragmiidae';
 
@@ -32,7 +32,47 @@ select TAXONRANK, count(*) from temp_worms group by TAXONRANK;
 
 							prior PARENTNAMEUSAGEID=taxonid
 
-select status from temp_worms where scientificname='Castrada viridis';
+STATUS||'@'||COUNT(*)
+------------------------------------------------------------------------------------------------------------------------
+"sp" is not a valid name-part@ 1
+Contains incertae sedis@ 520
+Double spaces detected@ 1
+@ 203
+.@ 49995
+@ 8
+@ 10
+@ 764
+@ 239
+s@ 2569
+inserted_classification@ 26744
+is_in_arctos@ 731022
+valid@ 191403
+
+
+select scientificname from temp_worms where status='xxxx' order by scientificname;
+select scientificname from temp_worms where status='xxxx' order by scientificname;
+select scientificname from temp_worms where status='xxxx' order by scientificname;
+select scientificname from temp_worms where status='xxxx' order by scientificname;
+select scientificname from temp_worms where status='xxxx' order by scientificname;
+select scientificname from temp_worms where status='"sp" is not a valid name-part' order by scientificname;
+select scientificname from temp_worms where status='Double spaces detected' order by scientificname;
+select scientificname from temp_worms where status='Invalid abbreviation.' order by scientificname;
+select scientificname from temp_worms where status='Invalid characters.' order by scientificname;
+select scientificname from temp_worms where status='Looks like a hybrid.' order by scientificname;
+select scientificname from temp_worms where status='Names should not be all lower-case' order by scientificname;
+select scientificname from temp_worms where status='Too many terms or invalid infraspecific rank' order by scientificname;
+select scientificname from temp_worms where status='Too many terms.' order by scientificname;
+select scientificname from temp_worms where status='Too many uppercase characters' order by scientificname;
+select scientificname from temp_worms where status='xxxx' order by scientificname;
+
+
+
+
+
+
+
+select status || ' @ ' || count(*) from temp_worms group by status order by status;
+
 ---->
 <cfoutput>
 
