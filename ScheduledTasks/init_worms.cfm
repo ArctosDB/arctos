@@ -136,7 +136,7 @@ select status || ' @ ' || count(*) from temp_worms group by status order by stat
 		<cftry>
 			<cftransaction>
 				<cfquery name="tnid" datasource="uam_god">
-					select taxon_name_id from taxon_name where TAXON_NAME_ID='#TAXON_NAME_ID#'
+					select taxon_name_id from taxon_name where scientific_name='#scientificname#'
 				</cfquery>
 				<cfif tnid.recordcount is not 1 or len(tnid.taxon_name_id) is 0>
 					<cfthrow>
