@@ -125,7 +125,7 @@ select status || ' @ ' || count(*) from temp_worms group by status order by stat
 	</cfquery>
 
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_worms where status='need_refreshed' and rownum<20
+		select * from temp_worms where status='need_refreshed' and rownum<100
 	</cfquery>
 
 	<!----
