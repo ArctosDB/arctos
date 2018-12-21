@@ -484,6 +484,7 @@ select status || ' @ ' || count(*) from temp_worms group by status order by stat
 				<p>
 					fail!! #cfcatch.Message# #cfcatch.detail#
 				</p>
+				<cfdump var=#cfcatch#>
 			</cfcatch>
 		</cftry>
 	</cfloop>
