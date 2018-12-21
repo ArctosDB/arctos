@@ -85,10 +85,32 @@ temp_worms.scientificname=taxon_name.scientific_name and
 taxon_name.taxon_name_id not in (select taxon_name_id from taxon_term where source='WoRMS (via Arctos)')
 )
 ;
+update temp_worms set status='is_in_arctos' where status='need_refreshed';
 
 
-select scientificname from temp_worms where status='in_arctos_no_wrms' and rownum<1000;
+update temp_worms set status='need_refreshed' where status='is_in_arctos' and scientificname in (
+	select scientific_name from taxon_name,cf_temp_worms_stale
+	where taxon_name.taxon_name_id=cf_temp_worms_stale.taxon_name_id and
+	cf_temp_worms_stale.status='pause');
 
+-- nope
+update temp_worms set status='is_in_arctos' where status='need_refreshed';
+
+
+update temp_worms set status='need_refreshed' where status='is_in_arctos' and taxonid in (select aphiaid from cf_temp_worms_stale where status='pause');
+
+
+select scientificname from temp_worms where status='is_in_arctos' and rownum<1000;
+
+select scientificname from temp_worms where status='need_refreshed' and rownum<1000;
+
+
+select
+			lastdate,
+			taxon_name_id,
+			aphiaid
+		from
+			cf_temp_worms_stale
 
 select status || ' @ ' || count(*) from temp_worms group by status order by status;
 
@@ -101,9 +123,11 @@ select status || ' @ ' || count(*) from temp_worms group by status order by stat
 	<cfquery name="CTTAXON_STATUS" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select TAXON_STATUS from CTTAXON_STATUS
 	</cfquery>
+
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_worms where status='in_arctos_no_wrms' and rownum<250
+		select * from temp_worms where status='need_refreshed' and rownum<2
 	</cfquery>
+
 	<!----
 	<cfdump var=#d#>
 	---->
@@ -112,17 +136,39 @@ select status || ' @ ' || count(*) from temp_worms group by status order by stat
 		<cftry>
 			<cftransaction>
 				<cfquery name="tnid" datasource="uam_god">
-					select taxon_name_id from taxon_name where scientific_name='#scientificname#'
+					select taxon_name_id from taxon_name where TAXON_NAME_ID='#TAXON_NAME_ID#'
 				</cfquery>
+				<cfif tnid.recordcount is not 1 or len(tnid.taxon_name_id) is 0>
+					<cfthrow>
+				</cfif>
+				<cfset taxon_name_id=tnid.taxon_name_id>
 				<!----
 				<cfdump var=#tnid#>
 				---->
 				<p>
 					<a href="/name/#scientificname#">#scientificname#</a>
 				</p>
-				<cfset taxon_name_id=tnid.taxon_name_id>
+				<!---
 
+				if at some point there's reason to keep CID or to have multiple classifications...
+
+				<cfquery name="clid" datasource="uam_god">
+					select distinct classification_id from taxon_term where
+						taxon_name_id=#taxon_name_id#  and
+						term_type='aphiaid' and
+						term='#aphiaid#' and
+						source='WoRMS (via Arctos)'
+				</cfquery>
+				<cfif clid.recordcount is 1 and len(clid.classification_id) gt 0>
+					<cfset thisClassID=clid.classification_id>
+				<cfelse>
+					<cfset thisClassID='aphiaid::#TAXONID#'>
+				</cfif>
+				---->
 				<cfset thisClassID='aphiaid::#TAXONID#'>
+				<cfquery name="cleanup" datasource="uam_god">
+					delete from taxon_term where taxon_name_id=#taxon_name_id# and source='WoRMS (via Arctos)'
+				</cfquery>
 
 				<cfquery name="meta" datasource="uam_god">
 					insert into taxon_term (
