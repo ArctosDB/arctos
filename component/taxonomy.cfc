@@ -3,6 +3,16 @@
 
 
 <!--------------------------------------------------------------------------------------->
+	<cffunction name="getWormsChanged" access="remote">
+		<cfargument name="thedate" type="string" required="true">
+		<cfoutput>
+			<!--- for one day, loop until we get everything --->
+			<cfhttp result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#thedate#&enddate=#thedate#&marine_only=false&offset=#o#" method="get"></cfhttp>
+			<cfdump var=#ga#>
+		</cfoutput>
+	</cffunction>
+
+<!--------------------------------------------------------------------------------------->
 	<cffunction name="updateWormsArctosByAphiaID" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="aphiaID" type="string" required="true">
