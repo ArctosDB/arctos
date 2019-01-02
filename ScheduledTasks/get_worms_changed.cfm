@@ -94,7 +94,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 <cfif action is "set_taxon_status">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			update cf_worms_refreshed set taxon_status=isValidTaxonName(name) where status ='found_taxon_id' and taxon_name_id is not null and rownum < 200
+			update cf_worms_refreshed set taxon_status=isValidTaxonName(name) where status ='taxon_not_in_arctos' and taxon_status is null
 		</cfquery>
 	</cfoutput>
 
