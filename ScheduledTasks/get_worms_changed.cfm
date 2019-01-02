@@ -21,7 +21,11 @@ insert into cf_worms_refresh_job(last_run_date,last_status,last_page) values (to
 		<cfabort>
 	</cfif>
 	<cfif rs.last_status is "204">
-		<br>last status was 204; abort
+		<br>last status was 204; increment the date
+		<cfset edate=DateAdd("d", 1, rs.last_run_date)>
+		<cfquery name="irs" datasource="uam_god">
+			update cf_worms_refresh_job set last_run_date='#edate#'
+		</cfquery>
 		<cfabort>
 	</cfif>
 
@@ -32,6 +36,24 @@ insert into cf_worms_refresh_job(last_run_date,last_status,last_page) values (to
 	<cfset o=rs.last_page+1>
 	<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#o#">
 	<cfdump var=#theURL#>
+	<cfhttp result="ga" url="#theURL#" method="get"></cfhttp>
+	<cfdump var=#ga#>
+	<cfif left(ga.Statuscode,3) is "200">
+		<br>found some stuff; going to process it below, do nothing here
+	<cfelseif left(ga.Statuscode,3) is "204">
+		<br>nothing left, update status
+		<cfquery name="irs" datasource="uam_god">
+			update cf_worms_refresh_job set last_status='204'
+		</cfquery>
+		<cfabort>
+	<cfelse>
+		<br>some sort of error
+		<cfquery name="irs" datasource="uam_god">
+			update cf_worms_refresh_job set last_status='random error'
+		</cfquery>
+		<cfabort>
+	</cfif>
+	here we go now....
 
 
 </cfoutput>
