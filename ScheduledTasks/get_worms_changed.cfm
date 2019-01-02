@@ -10,6 +10,16 @@ create table cf_worms_refresh_job (
 -- initial seed
 insert into cf_worms_refresh_job(last_run_date,last_status,last_page) values (to_date('2018-12-20'),'new',0);
 
+create table cf_worms_refreshed (
+	aphiaid varchar2(255),
+	name varchar2(255)
+);
+
+
+		<br>insert into cf_worms_refreshed (aphiaid,name) values ('#rec.AphiaID#','#rec.scientificname#')
+
+
+
 --->
 <cfoutput>
 	<cfquery name="rs" datasource="uam_god">
@@ -37,7 +47,10 @@ insert into cf_worms_refresh_job(last_run_date,last_status,last_page) values (to
 	<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#o#">
 	<cfdump var=#theURL#>
 	<cfhttp result="ga" url="#theURL#" method="get"></cfhttp>
+	<!----
 	<cfdump var=#ga#>
+	---->
+
 	<cfif left(ga.Statuscode,3) is "200">
 		<br>found some stuff; going to process it below, do nothing here
 	<cfelseif left(ga.Statuscode,3) is "204">
@@ -55,16 +68,24 @@ insert into cf_worms_refresh_job(last_run_date,last_status,last_page) values (to
 	</cfif>
 	here we go now....
 	<cfset gao=DeserializeJSON(ga.filecontent)>
+	<!----
 	<cfdump var=#gao#>
+	---->
 	<cfloop from="1" to="#ArrayLen(gao)#" index="i">
 		<cfset rec=gao[i]>
+		<!----
 		<cfdump var=#rec#>
+		---->
 		<!----
 		<cfset theAID=rec.AphiaID>
 		<cfset theName=rec.scientificname>
 		---->
-		<br>insert into cf_worms_refreshed (aphiaid,name) values ('#rec.AphiaID#','#rec.scientificname#')
+		<cfquery name="icr" datasource="uam_god">
+			insert into cf_worms_refreshed (aphiaid,name) values ('#rec.AphiaID#','#rec.scientificname#')
+		</cfquery>
 	</cfloop>
-
+	<cfquery name="irs" datasource="uam_god">
+		update cf_worms_refresh_job set last_page='#o#'
+	</cfquery>
 
 </cfoutput>
