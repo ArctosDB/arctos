@@ -211,7 +211,6 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			</cfquery>
 			<cfif d.recordcount gt 0>
 				<br>making name
-				<cfdump var=#d#>
 				<cfloop query="d">
 					<cftransaction>
 						<br>making #name#
