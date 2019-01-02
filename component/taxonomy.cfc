@@ -9,7 +9,7 @@
 			<!--- for one day, loop until we get everything --->
 			<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#thedate#T00:00:00+00:00&enddate=#thedate#T24:00:00+00:00&marine_only=false&offset=#o#">
 			<cfdump var=#theURL#>
-			<cfset theURL=urlencodedFormat(tehURL)>
+			<cfset theURL=urlencodedFormat(theURL)>
 			<cfdump var=#theURL#>
 
 			<cfhttp result="ga" url="#theURL#" method="get"></cfhttp>
