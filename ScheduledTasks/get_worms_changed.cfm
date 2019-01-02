@@ -96,7 +96,6 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 		<cfquery name="d" datasource="uam_god">
 			update cf_worms_refreshed set taxon_status=isValidTaxonName(name) where status ='found_taxon_id' and taxon_name_id is not null and rownum < 200
 		</cfquery>
-
 	</cfoutput>
 
 </cfif>
@@ -113,7 +112,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			The following taxa have changed in WoRMS recently and are not in Arctos
 		</p>
 		<cfloop query="tnf">
-			<br>#name#
+			<br>#name# - #taxon_status#
 		</cfloop>
 
 		<cfquery name="cnf" dbtype="query">
