@@ -9,6 +9,13 @@
 			<!--- for one day, loop until we get everything --->
 			<cfhttp result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#thedate#&enddate=#thedate#&marine_only=false&offset=#o#" method="get"></cfhttp>
 			<cfdump var=#ga#>
+			<cfif left(ga.Statuscode,3) is "204">
+				<br>got nothing no more loopy
+			<cfelseif left(ga.Statuscode,3) is "200">
+				<br>got some stuff
+			<cfelse>
+				<br>bah bad status!
+			</cfif>
 		</cfoutput>
 	</cffunction>
 
