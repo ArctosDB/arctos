@@ -39,7 +39,7 @@ delete from cf_worms_refreshed;
 		<cfset edate=DateAdd("d", 1, rs.last_run_date)>
 		<cfquery name="irs" datasource="uam_god">
 			update cf_worms_refresh_job set
-				last_run_date='#dateformat(edate,"YYYY-MM-DD")#',"YYYY-MM-DD"),
+				last_run_date='#dateformat(edate,"YYYY-MM-DD")#',
 				last_status='incremented',
 				last_page=0
 		</cfquery>
