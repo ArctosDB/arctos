@@ -10,7 +10,7 @@ create table cf_worms_refresh_job (
 -- initial seed
 insert into cf_worms_refresh_job(last_run_date,last_status,last_page) values (to_date('2018-12-20'),'new',0);
 
-update cf_worms_refresh_job set last_run_date=to_date('2018-12-20'),last_status='new',last_page=0;
+update cf_worms_refresh_job set last_run_date=to_date('2018-12-21'),last_status='new',last_page=0;
 
 create table cf_worms_refreshed (
 	aphiaid varchar2(255),
@@ -35,10 +35,13 @@ delete from cf_worms_refreshed;
 		<cfabort>
 	</cfif>
 	<cfif rs.last_status is "204">
-		<br>last status was 204; increment the date
+		<br>last status was 204; increment the date and reset status
 		<cfset edate=DateAdd("d", 1, rs.last_run_date)>
 		<cfquery name="irs" datasource="uam_god">
-			update cf_worms_refresh_job set last_run_date='#dateformat(edate,"YYYY-MM-DD")#'
+			update cf_worms_refresh_job set
+				last_run_date='#dateformat(edate,"YYYY-MM-DD")#',"YYYY-MM-DD"),
+				last_status='incremented',
+				last_page=0
 		</cfquery>
 		<cfabort>
 	</cfif>
