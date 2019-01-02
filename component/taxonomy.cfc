@@ -7,7 +7,7 @@
 		<cfargument name="thedate" type="string" required="true">
 		<cfoutput>
 			<!--- for one day, loop until we get everything --->
-			<cfhttp result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#thedate#&enddate=#thedate#&marine_only=false&offset=#o#" method="get"></cfhttp>
+			<cfhttp result="ga" url="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#thedate#T00:00:00+00:00&enddate=#thedate#T24:00:00+00:00&marine_only=false&offset=#o#" method="get"></cfhttp>
 			<cfdump var=#ga#>
 			<cfif left(ga.Statuscode,3) is "204">
 				<br>got nothing no more loopy
