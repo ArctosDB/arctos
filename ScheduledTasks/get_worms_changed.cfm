@@ -94,9 +94,14 @@ delete from cf_worms_refreshed;
 		<cfset theAID=rec.AphiaID>
 		<cfset theName=rec.scientificname>
 		---->
-		<cfquery name="icr" datasource="uam_god">
-			insert into cf_worms_refreshed (aphiaid,name) values ('#rec.AphiaID#','#rec.scientificname#')
-		</cfquery>
+		<cfif isdefined("rec.AphiaID") and isdefined("rec.scientificname")>
+			<cfquery name="icr" datasource="uam_god">
+				insert into cf_worms_refreshed (aphiaid,name) values ('#rec.AphiaID#','#rec.scientificname#')
+			</cfquery>
+		<cfelse>
+			wat??
+			<cfdump var=#rec#>
+		</cfif>
 	</cfloop>
 	<cfquery name="irs" datasource="uam_god">
 		update cf_worms_refresh_job set last_page='#o#'
