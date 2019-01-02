@@ -44,7 +44,8 @@ create table cf_worms_refreshed (
 	<cfset st=thedate & "T00%3A00%3A00%2B00%3A00">
 	<cfset et=thedate & "T24%3A00%3A00%2B00%3A00">
 	<cfset o=rs.last_page+1>
-	<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#o#">
+	<cfset lrn=o * 50>
+	<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#lrn#">
 	<cfdump var=#theURL#>
 	<cfhttp result="ga" url="#theURL#" method="get"></cfhttp>
 	<!----
