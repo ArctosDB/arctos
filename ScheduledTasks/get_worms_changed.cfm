@@ -257,8 +257,19 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 				<cfabort>
 			</cfif>
 
-
-
+			<!---- fifth job: seed a classification for anything that we DO have taxa and DO NOT have any worms classification ---->
+			<br>fifth job: seed a classification for anything that we DO have taxa and DO NOT have any worms classification
+			<cfquery name="d" datasource="uam_god">
+				select * from cf_worms_refreshed where status ='classification_not_found' and rownum < 2
+			</cfquery>
+			<cfif d.recordcount gt 0>
+				<br>making classifications
+				<cfloop query="d">
+					<br>#name#
+				</cfloop>
+				<!--- if we did something here just abort so as not to push available resources. If we didn't we'll move on to the next job --->
+				<cfabort>
+			</cfif>
 
 
 
