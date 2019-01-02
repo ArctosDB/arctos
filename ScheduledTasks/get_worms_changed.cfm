@@ -22,6 +22,8 @@ insert into cf_worms_refresh_job(last_run_date,last_status) values (to_date('201
 	<cfset thedate=dateformat(rs.last_run_date,"YYYY-MM-DD")>
 	<cfset st=thedate & "T00%3A00%3A00%2B00%3A00">
 	<cfset et=thedate & "T24%3A00%3A00%2B00%3A00">
+
+	<cfset o=1>
 	<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#o#">
 	<cfdump var=#theURL#>
 
