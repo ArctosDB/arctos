@@ -50,11 +50,46 @@ update cf_worms_refreshed set taxon_name_id=(
 
 	update cf_worms_refreshed set taxon_name_id=null,status=null;
 
+
+select status,count(*) from cf_worms_refreshed group by status;
 --->
 <p>
+	<br><a href="get_worms_changed.cfm?action=process_get_aid">process_get_aid</a>
 	<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">process_changed_get_tid</a>
 	<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">get_changed</a>
 </p>
+
+
+
+<cfif action is "process_get_aid">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_worms_refreshed where status is null and taxon_name_id is not null
+		</cfquery>
+		<cfloop query="d">
+			<cfquery name="n" datasource="uam_god">
+				select classification_id from taxon_term where
+					taxon_name_id=#d.taxon_name_id# and
+					taxon_term.source='WoRMS (via Arctos)' and
+					taxon_term.term_type='aphiaid' and
+					taxon_term.term='#aphiaid#'
+			</cfquery>
+			<cfif len(n.classification_id) gt 0>
+				<cfquery name="u" datasource="uam_god">
+					update cf_worms_refreshed set status='found_classification' where key=#key#
+				</cfquery>
+			<cfelse>
+				<cfquery name="u" datasource="uam_god">
+					update cf_worms_refreshed set status='classification_not_found' where key=#key#
+				</cfquery>
+			</cfif>
+		</cfloop>
+	</cfoutput>
+</cfif>
+
+
+
+
 <cfif action is "process_changed_get_tid">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
