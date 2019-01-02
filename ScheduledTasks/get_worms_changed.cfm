@@ -59,6 +59,11 @@ insert into cf_worms_refresh_job(last_run_date,last_status,last_page) values (to
 	<cfloop from="1" to="#ArrayLen(gao)#" index="i">
 		<cfset rec=gao[i]>
 		<cfdump var=#rec#>
+		<!----
+		<cfset theAID=rec.AphiaID>
+		<cfset theName=rec.scientificname>
+		---->
+		<br>insert into cf_worms_refreshed (aphiaid,name) values ('#rec.AphiaID#','#rec.scientificname#')
 	</cfloop>
 
 
