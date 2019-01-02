@@ -64,7 +64,7 @@ select status,count(*) from cf_worms_refreshed group by status;
 <cfif action is "process_get_aid">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_worms_refreshed where status is null and taxon_name_id is not null
+			select * from cf_worms_refreshed where status ='found_taxon_id' and taxon_name_id is not null
 		</cfquery>
 		<cfloop query="d">
 			<cfquery name="n" datasource="uam_god">
