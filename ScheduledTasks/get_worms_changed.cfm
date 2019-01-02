@@ -212,38 +212,45 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<cfif d.recordcount gt 0>
 				<br>making name
 				<cfloop query="d">
-					<cftransaction>
-						<br>making #name#
-						<!---- create the name ---->
-						<cfquery name="mkname" datasource="uam_god">
-							INSERT INTO taxon_name (TAXON_NAME_ID,SCIENTIFIC_NAME) VALUES (sq_TAXON_NAME_ID.nextval,'#name#')
-						</cfquery>
-						<!---- seed the classification ---->
+					<cftry>
+						<cftransaction>
+							<br>making #name#
+							<!---- create the name ---->
+							<cfquery name="mkname" datasource="uam_god">
+								INSERT INTO taxon_name (TAXON_NAME_ID,SCIENTIFIC_NAME) VALUES (sq_TAXON_NAME_ID.nextval,'#name#')
+							</cfquery>
+							<!---- seed the classification ---->
 
-						<cfset thisSourceID=CreateUUID()>
+							<cfset thisSourceID=CreateUUID()>
 
-						<cfquery name="seedClassification" datasource="uam_god">
-							insert into taxon_term (
-								TAXON_NAME_ID,
-								CLASSIFICATION_ID,
-								TERM,
-								TERM_TYPE,
-								SOURCE,
-								POSITION_IN_CLASSIFICATION
-							) values (
-								sq_TAXON_NAME_ID.currval,
-								'#thisSourceID#',
-								'#aphiaid#',
-								'aphiaid',
-								'WoRMS (via Arctos)',
-								NULL
-							)
-						</cfquery>
-						<!---- mark to be refreshed ---->
+							<cfquery name="seedClassification" datasource="uam_god">
+								insert into taxon_term (
+									TAXON_NAME_ID,
+									CLASSIFICATION_ID,
+									TERM,
+									TERM_TYPE,
+									SOURCE,
+									POSITION_IN_CLASSIFICATION
+								) values (
+									sq_TAXON_NAME_ID.currval,
+									'#thisSourceID#',
+									'#aphiaid#',
+									'aphiaid',
+									'WoRMS (via Arctos)',
+									NULL
+								)
+							</cfquery>
+							<!---- mark to be refreshed ---->
+							<cfquery name="mkmd" datasource="uam_god">
+								update cf_worms_refreshed set status='needs_refreshed' where key=#key#
+							</cfquery>
+						</cftransaction>
+					<cfcatch>
 						<cfquery name="mkmd" datasource="uam_god">
-							update cf_worms_refreshed set status='needs_refreshed' where key=#key#
+							update cf_worms_refreshed set status='create_name_fail' where key=#key#
 						</cfquery>
-					</cftransaction>
+					</cfcatch>
+					</cftry>
 				</cfloop>
 				<!--- if we did something here just abort so as not to push available resources. If we didn't we'll move on to the next job --->
 				<cfabort>
