@@ -135,12 +135,14 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 		<cfdump var=#rs#>
 		<cfif rs.last_run_date eq dateformat(now(),"YYYY-MM-DD")>
 			<!---- last run was today; we're current, see if there's other stuff to do ---->
-
+			<br>last run was today; we're current, see if there's other stuff to do
 			<!---- first job: see if there's anything that's just been inserted, and find a taxon_name_id for it if so ---->
+			<br>first job: see if there's anything that's just been inserted, and find a taxon_name_id for it if so
 			<cfquery name="d" datasource="uam_god">
 				select * from cf_worms_refreshed where status is null and rownum < 1000
 			</cfquery>
 			<cfif d.recordcount gt 0>
+				<br>going....
 				<cfloop query="d">
 					<cfquery name="n" datasource="uam_god">
 						select taxon_name_id from taxon_name where scientific_name='#name#'
@@ -164,8 +166,9 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<cfquery name="d" datasource="uam_god">
 				select * from cf_worms_refreshed where status ='found_taxon_id' and taxon_name_id is not null and rownum < 200
 			</cfquery>
-
+			<br>second job: for anything that we just got taxon_name_id, see if we have a matching classification
 			<cfif d.recordcount gt 0>
+				<br>going....
 				<cfloop query="d">
 					<cfquery name="n" datasource="uam_god">
 						select term from taxon_term where
@@ -195,12 +198,14 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<!---- END::second job: for anything that we just got taxon_name_id, see if we have a matching classification ---->
 
 			<!---- third job: set taxon_status to indicate whether we can make the name or not ---->
+			<br>third job: set taxon_status to indicate whether we can make the name or not
 			<cfquery name="d" datasource="uam_god">
 				update cf_worms_refreshed set taxon_status=isValidTaxonName(name) where status ='taxon_not_in_arctos' and taxon_status is null
 			</cfquery>
 			<!---- END::third job: set taxon_status to indicate whether we can make the name or not ---->
 
 			<!---- fourth job: make any taxa that we can ---->
+			<br>fourth job: make any taxa that we can
 			<cfquery name="d" datasource="uam_god">
 				select * from cf_worms_refreshed where taxon_status='valid ' and status='taxon_not_in_arctos' and rownum < 2
 			</cfquery>
