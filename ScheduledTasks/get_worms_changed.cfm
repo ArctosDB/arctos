@@ -52,15 +52,54 @@ update cf_worms_refreshed set taxon_name_id=(
 
 
 select status,count(*) from cf_worms_refreshed group by status;
+
+
+alter table cf_worms_refreshed add taxon_status varchar2(255);
+
+
 --->
 <p>
-	<br><a href="get_worms_changed.cfm?action=notify">notify</a>
-	<br><a href="get_worms_changed.cfm?action=process_get_aid">process_get_aid</a>
-	<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">process_changed_get_tid</a>
-	<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">get_changed</a>
+	<p>
+		send email; daily
+		<br><a href="get_worms_changed.cfm?action=notify">notify</a>
+	</p>
+
+	<p>
+		Indicate if a name might be valid in Arctos. Do this last, before notifying.
+
+		<br><a href="get_worms_changed.cfm?action=set_taxon_status">set_taxon_status</a>
+	</p>
+
+
+	<p>
+		see how changed and local classifications line up. this is a little slow,
+		but usually completes in one run. A few times per day should be sufficient.
+
+		<br><a href="get_worms_changed.cfm?action=process_get_aid">process_get_aid</a>
+	</p>
+
+
+	<p>
+		get taxon_name_id for stuff that's changed. This is fast, once per day is sufficient
+		<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">process_changed_get_tid</a>
+	</p>
+
+	<p>
+		see what's changed in worms. This should run several times per day - once per hour is PROBABLY enough
+		<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">get_changed</a>
+	</p>
 </p>
 
 
+<cfif action is "set_taxon_status">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			update cf_worms_refreshed set taxon_status=isValidTaxonName(name) where status ='found_taxon_id' and taxon_name_id is not null and rownum < 200
+		</cfquery>
+
+	</cfoutput>
+
+</cfif>
 
 <cfif action is "notify">
 	<cfoutput>
@@ -94,21 +133,27 @@ select status,count(*) from cf_worms_refreshed group by status;
 <cfif action is "process_get_aid">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_worms_refreshed where status ='found_taxon_id' and taxon_name_id is not null
+			select * from cf_worms_refreshed where status ='found_taxon_id' and taxon_name_id is not null and rownum < 200
 		</cfquery>
 		<cfloop query="d">
 			<cfquery name="n" datasource="uam_god">
-				select classification_id from taxon_term where
+				select term from taxon_term where
 					taxon_name_id=#d.taxon_name_id# and
 					taxon_term.source='WoRMS (via Arctos)' and
-					taxon_term.term_type='aphiaid' and
-					taxon_term.term='#aphiaid#'
+					taxon_term.term_type='aphiaid'
 			</cfquery>
-			<cfif len(n.classification_id) gt 0>
+
+			<cfif listfind(valuelist(n.term),'#aphiaid#')>
+				<!--- found an exact match ---->
 				<cfquery name="u" datasource="uam_god">
 					update cf_worms_refreshed set status='found_classification' where key=#key#
 				</cfquery>
-			<cfelse>
+			 <cfelseif n.recordcount gt 0 and len(n.term) gt 0>
+			 	<!--- we have something, they have something, it's not the same ---->
+				<cfquery name="u" datasource="uam_god">
+					update cf_worms_refreshed set status='alternative_classification_found' where key=#key#
+				</cfquery>
+			 <cfelse>
 				<cfquery name="u" datasource="uam_god">
 					update cf_worms_refreshed set status='classification_not_found' where key=#key#
 				</cfquery>
