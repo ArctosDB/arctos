@@ -38,7 +38,7 @@ delete from cf_worms_refreshed;
 		<br>last status was 204; increment the date
 		<cfset edate=DateAdd("d", 1, rs.last_run_date)>
 		<cfquery name="irs" datasource="uam_god">
-			update cf_worms_refresh_job set last_run_date='#edate#'
+			update cf_worms_refresh_job set last_run_date='#dateformat(edate,"YYYY-MM-DD")#'
 		</cfquery>
 		<cfabort>
 	</cfif>
