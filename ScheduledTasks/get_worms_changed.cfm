@@ -164,7 +164,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 
 			<!---- second job: for anything that we just got taxon_name_id, see if we have a matching classification ---->
 			<cfquery name="d" datasource="uam_god">
-				select * from cf_worms_refreshed where status ='found_taxon_id' and taxon_name_id is not null and rownum < 200
+				select * from cf_worms_refreshed where status ='found_taxon_id' and taxon_name_id is not null and rownum < 100
 			</cfquery>
 			<br>second job: for anything that we just got taxon_name_id, see if we have a matching classification
 			<cfif d.recordcount gt 0>
