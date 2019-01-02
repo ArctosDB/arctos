@@ -246,6 +246,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 							</cfquery>
 						</cftransaction>
 					<cfcatch>
+						<cfdump var=#cfcatch#>
 						<cfquery name="mkmd" datasource="uam_god">
 							update cf_worms_refreshed set status='create_name_fail' where key=#key#
 						</cfquery>
