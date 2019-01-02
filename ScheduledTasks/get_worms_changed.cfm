@@ -260,12 +260,34 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<!---- fifth job: seed a classification for anything that we DO have taxa and DO NOT have any worms classification ---->
 			<br>fifth job: seed a classification for anything that we DO have taxa and DO NOT have any worms classification
 			<cfquery name="d" datasource="uam_god">
-				select * from cf_worms_refreshed where status ='classification_not_found' and rownum < 2
+				select * from cf_worms_refreshed where taxon_name_id is not null and status='classification_not_found' and rownum < 2
 			</cfquery>
 			<cfif d.recordcount gt 0>
 				<br>making classifications
 				<cfloop query="d">
 					<br>#name#
+					<cfset thisSourceID=CreateUUID()>
+					<cfquery name="seedClassification" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM,
+							TERM_TYPE,
+							SOURCE,
+							POSITION_IN_CLASSIFICATION
+						) values (
+							#taxon_name_id#,
+							'#thisSourceID#',
+							'#aphiaid#',
+							'aphiaid',
+							'WoRMS (via Arctos)',
+							NULL
+						)
+					</cfquery>
+					<!---- mark to be refreshed ---->
+					<cfquery name="mkmd" datasource="uam_god">
+						update cf_worms_refreshed set status='needs_refreshed' where key=#key#
+					</cfquery>
 				</cfloop>
 				<!--- if we did something here just abort so as not to push available resources. If we didn't we'll move on to the next job --->
 				<cfabort>
