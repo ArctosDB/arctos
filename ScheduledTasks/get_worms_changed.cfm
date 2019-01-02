@@ -56,7 +56,9 @@ insert into cf_worms_refresh_job(last_run_date,last_status,last_page) values (to
 	here we go now....
 	<cfset gao=DeserializeJSON(ga.filecontent)>
 	<cfdump var=#gao#>
-
+	<cfloop array="#gao#" index="rec">
+	   #rec#
+	</cfloop>
 
 
 </cfoutput>
