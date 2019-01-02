@@ -19,7 +19,9 @@
 				<cfset edate=dateformat(edate,"YYYY-MM-DD")>
 				<cfdump var=#edate#>
 
-			<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#thedate#&enddate=#edate#&marine_only=false&offset=#o#">
+				<cfset st=urlencodedFormat(thedate & "T00:00:00+00:00")>
+				<cfset et=urlencodedFormat(thedate & "T24:00:00+00:00")>
+			<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#o#">
 			<cfdump var=#theURL#>
 			<!----
 			<cfset theURL=urlencodedFormat(theURL)>
