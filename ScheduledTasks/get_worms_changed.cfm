@@ -21,7 +21,7 @@ delete from cf_worms_refreshed;
 
 		<br>insert into cf_worms_refreshed (aphiaid,name) values ('#rec.AphiaID#','#rec.scientificname#')
 
-
+alter table cf_worms_refreshed add changed_date date;
 
 --->
 <cfparam name="debug" default="false">
@@ -99,7 +99,7 @@ delete from cf_worms_refreshed;
 		---->
 		<cfif isdefined("rec.AphiaID") and isdefined("rec.scientificname")>
 			<cfquery name="icr" datasource="uam_god">
-				insert into cf_worms_refreshed (aphiaid,name) values ('#rec.AphiaID#','#rec.scientificname#')
+				insert into cf_worms_refreshed (aphiaid,name,changed_date) values ('#rec.AphiaID#','#rec.scientificname#',sysdate)
 			</cfquery>
 		<cfelse>
 			wat??
