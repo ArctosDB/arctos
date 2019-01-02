@@ -54,12 +54,42 @@ update cf_worms_refreshed set taxon_name_id=(
 select status,count(*) from cf_worms_refreshed group by status;
 --->
 <p>
+	<br><a href="get_worms_changed.cfm?action=notify">notify</a>
 	<br><a href="get_worms_changed.cfm?action=process_get_aid">process_get_aid</a>
 	<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">process_changed_get_tid</a>
 	<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">get_changed</a>
 </p>
 
 
+
+<cfif action is "notify">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_worms_refreshed where status in ('taxon_not_in_arctos','classification_not_found')
+		</cfquery>
+		<cfquery name="tnf" dbtype="query">
+			select * from d where status='taxon_not_in_arctos'
+		</cfquery>
+		<p>
+			The following taxa have changed in WoRMS recently and are not in Arctos
+		</p>
+		<cfloop query="tnf">
+			<br>#name#
+		</cfloop>
+
+		<cfquery name="cnf" dbtype="query">
+			select * from d where status='classification_not_found'
+		</cfquery>
+		<p>
+			The following taxa have changed in WoRMS recently, are not in Arctos, but do not have a classification in "Arctos (via WoRMS)"
+		</p>
+		<cfloop query="cnf">
+			<br>#name#
+		</cfloop>
+
+
+	</cfoutput>
+</cfif>
 
 <cfif action is "process_get_aid">
 	<cfoutput>
