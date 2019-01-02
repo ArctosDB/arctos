@@ -207,7 +207,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<!---- fourth job: make any taxa that we can ---->
 			<br>fourth job: make any taxa that we can
 			<cfquery name="d" datasource="uam_god">
-				select * from cf_worms_refreshed where taxon_status='valid' and status='taxon_not_in_arctos' and rownum < 20
+				select * from cf_worms_refreshed where taxon_status='valid' and status='taxon_not_in_arctos' and rownum < 100
 			</cfquery>
 			<cfif d.recordcount gt 0>
 				<br>making name
