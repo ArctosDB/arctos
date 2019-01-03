@@ -62,7 +62,9 @@ select status,count(*) from cf_worms_refreshed group by status;
 
 alter table cf_worms_refreshed add taxon_status varchar2(255);
 
+select * from cf_worms_refreshed where name='Streptaxis footei';
 
+update cf_worms_refreshed set status='' where status='';
 --->
 
 <!--------
@@ -329,6 +331,8 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 						<cfquery name="mud" datasource="uam_god">
 							update cf_worms_refreshed set status='refresh_fail' where key=#key#
 						</cfquery>
+						<p>FAIL!!</p>
+						<cfdump var=#x#>
 					</cfif>
 					<!--- by request, one query per second at most ---->
 					<cfset sleep(1000)>
