@@ -65,6 +65,19 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 select * from cf_worms_refreshed where name='Streptaxis footei';
 
 update cf_worms_refreshed set status='needs_refreshed' where status='refresh_fail';
+
+
+select count(*) from cf_worms_refreshed where status='needs_refreshed' and taxon_name_id is null;
+
+
+	update cf_worms_refreshed set taxon_name_id=(select taxon_name_id from taxon_name where scientific_name=name) where
+	status='needs_refreshed' and taxon_name_id is null;
+
+
+	#n.taxon_name_id# where key=#key#
+
+
+
 --->
 
 <!--------
@@ -259,7 +272,7 @@ update cf_worms_refreshed set status='needs_refreshed' where status='refresh_fai
 							</cfquery>
 							<!---- mark to be refreshed ---->
 							<cfquery name="mkmd" datasource="uam_god">
-								update cf_worms_refreshed set status='needs_refreshed' where key=#key#
+								update cf_worms_refreshed set taxon_name_id=sq_TAXON_NAME_ID.currval,status='needs_refreshed' where key=#key#
 							</cfquery>
 						</cftransaction>
 					<cfcatch>
