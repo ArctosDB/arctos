@@ -64,7 +64,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 
 select * from cf_worms_refreshed where name='Streptaxis footei';
 
-update cf_worms_refreshed set status='' where status='';
+update cf_worms_refreshed set status='needs_refreshed' where status='refresh_fail';
 --->
 
 <!--------
