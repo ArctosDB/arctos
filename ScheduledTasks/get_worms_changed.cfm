@@ -315,6 +315,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<cfif d.recordcount gt 0>
 				<cfset tc = CreateObject("component","component.taxonomy")>
 				<cfloop query="d">
+					<br><a href="/name/#name#">#name#</a>
 					<cfset x=tc.updateWormsArctosByAphiaID(aphiaid,taxon_name_id)>
 					<cfif isdefined("x.STATUS") and x.STATUS is "success">
 						<cfquery name="mud" datasource="uam_god">
