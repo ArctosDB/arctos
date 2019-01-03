@@ -310,7 +310,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<!---- sixth job: refresh stuff ---->
 
 			<cfquery name="d" datasource="uam_god">
-				select * from cf_worms_refreshed where status='needs_refreshed' and rownum<2
+				select * from cf_worms_refreshed where status='needs_refreshed' and rownum<20
 			</cfquery>
 			<cfif d.recordcount gt 0>
 				<cfset tc = CreateObject("component","component.taxonomy")>
