@@ -326,6 +326,8 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 							update cf_worms_refreshed set status='refresh_fail' where key=#key#
 						</cfquery>
 					</cfif>
+					<!--- by request, one query per second at most ---->
+					<cfset sleep(1000)>
 				</cfloop>
 				<!--- if we did something here just abort so as not to push available resources. If we didn't we'll move on to the next job --->
 				<cfabort>
