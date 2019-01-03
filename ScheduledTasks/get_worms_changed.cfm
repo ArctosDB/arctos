@@ -51,6 +51,11 @@ update cf_worms_refreshed set taxon_name_id=(
 	update cf_worms_refreshed set taxon_name_id=null,status=null;
 
 
+
+update cf_worms_refreshed set status='found_taxon_id' where status in ('alternative_classification_found','classification_not_found');
+
+
+
 select status,count(*) from cf_worms_refreshed group by status;
 
 
@@ -181,7 +186,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 						<cfquery name="u" datasource="uam_god">
 							update cf_worms_refreshed set status='needs_refreshed' where key=#key#
 						</cfquery>
-					 <cfelseif n.recordcount gt 0 and len(n.term) gt 0>
+					 <cfelseif n.recordcount gt 0 and len(n.term) is 0>
 					 	<!--- we have something, they have something, it's not the same ---->
 						<cfquery name="u" datasource="uam_god">
 							update cf_worms_refreshed set status='alternative_classification_found' where key=#key#
@@ -293,7 +298,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 				<cfabort>
 			</cfif>
 
-
+			<!---- END::fifth job: seed a classification for anything that we DO have taxa and DO NOT have any worms classification ---->
 
 
 			<!---- END::last run was today; we're current, see if there's other stuff to do ---->
