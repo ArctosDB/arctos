@@ -183,13 +183,14 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 							taxon_term.term_type='aphiaid'
 					</cfquery>
 					<cfdump var=#n#>
+					#aphiaid#
 					<cfif listfind(valuelist(n.term),'#aphiaid#')>
 						<!--- found an exact match ---->
 						<cfquery name="u" datasource="uam_god">
 							update cf_worms_refreshed set status='needs_refreshed' where key=#key#
 						</cfquery>
 						'needs_refreshed'
-					 <cfelseif n.recordcount gt 0 and len(n.term) is 0>
+					 <cfelseif n.recordcount gt 0 and not listfind(valuelist(n.term),'#aphiaid#')>
 					 	<!--- we have something, they have something, it's not the same ---->
 						<cfquery name="u" datasource="uam_god">
 							update cf_worms_refreshed set status='alternative_classification_found' where key=#key#
