@@ -270,7 +270,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<!---- fifth job: seed a classification for anything that we DO have taxa and DO NOT have any worms classification ---->
 			<br>fifth job: seed a classification for anything that we DO have taxa and DO NOT have any worms classification
 			<cfquery name="d" datasource="uam_god">
-				select * from cf_worms_refreshed where taxon_name_id is not null and status='classification_not_found' and rownum < 2
+				select * from cf_worms_refreshed where taxon_name_id is not null and status='classification_not_found' and rownum < 20
 			</cfquery>
 			<cfif d.recordcount gt 0>
 				<br>making classifications
