@@ -54,6 +54,7 @@ update cf_worms_refreshed set taxon_name_id=(
 
 update cf_worms_refreshed set status='found_taxon_id' where status in ('alternative_classification_found','classification_not_found');
 
+update cf_worms_refreshed set status='found_taxon_id' where status in ('found_classification');
 
 
 select status,count(*) from cf_worms_refreshed group by status;
@@ -304,6 +305,33 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			</cfif>
 
 			<!---- END::fifth job: seed a classification for anything that we DO have taxa and DO NOT have any worms classification ---->
+
+
+			<!---- sixth job: refresh stuff ---->
+
+			<cfquery name="d" datasource="uam_god">
+				select * from cf_worms_refreshed where status='needs_refreshed' and rownum<2
+			</cfquery>
+			<cfif d.recordcount gt 0>
+				<cfset tc = CreateObject("component","component.taxonomy")>
+				<cfloop query="d">
+					<cfset x=tc.updateWormsArctosByAphiaID(aphiaid,taxon_name_id)>
+					<cfif isdefined("x.STATUS") and x.STATUS is "success">
+						<cfquery name="mud" datasource="uam_god">
+							update cf_worms_refreshed set status='refreshed' where key=#key#
+						</cfquery>
+					<cfelse>
+						<cfquery name="mud" datasource="uam_god">
+							update cf_worms_refreshed set status='refresh_fail' where key=#key#
+						</cfquery>
+					</cfif>
+				</cfloop>
+				<!--- if we did something here just abort so as not to push available resources. If we didn't we'll move on to the next job --->
+				<cfabort>
+			</cfif>
+
+			<!---- END::sixth job: refresh stuff ---->
+
 
 
 			<!---- END::last run was today; we're current, see if there's other stuff to do ---->
