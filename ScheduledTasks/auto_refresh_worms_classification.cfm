@@ -1,3 +1,5 @@
+deprecated - use get_worms_changes
+<cfabort>
 <cfsetting requestTimeOut = "120">
 <!---------
 for the first run get this from the temp table

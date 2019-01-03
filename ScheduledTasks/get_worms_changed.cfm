@@ -61,7 +61,7 @@ select status,count(*) from cf_worms_refreshed group by status;
 
 select to_char(CHANGED_DATE,'YYYY-MM-DD'),count(*) from cf_worms_refreshed group by to_char(CHANGED_DATE,'YYYY-MM-DD');
 
-select SCIENTIFIC_NAME from taxon_name where CREATED_DATE > sysdate-48 order by scientific_name;
+select SCIENTIFIC_NAME from taxon_name where CREATED_DATE > sysdate-2 order by scientific_name;
 select count(*) from taxon_name where CREATED_DATE < sysdate-48 order by scientific_name;
 
 Elapsed: 00:00:00.00
