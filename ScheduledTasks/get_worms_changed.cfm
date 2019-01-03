@@ -182,7 +182,6 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 							taxon_term.source='WoRMS (via Arctos)' and
 							taxon_term.term_type='aphiaid'
 					</cfquery>
-					<cfdump var=#n#>
 					#aphiaid#
 					<cfif listfind(valuelist(n.term),'#aphiaid#')>
 						<!--- found an exact match ---->
