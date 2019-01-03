@@ -64,6 +64,9 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 
 
 --->
+
+<!--------
+
 <p>
 	<p>
 		send email; daily
@@ -95,7 +98,6 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 		<br><a href="get_worms_changed.cfm?action=process_changed_get_tid">get_changed</a>
 	</p>
 </p>
-
 
 
 <cfif action is "notify">
@@ -133,6 +135,8 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 
 
 <cfif action is "get_changed">
+
+--------->
 	<cfparam name="debug" default="false">
 	<cfoutput>
 		<cfquery name="rs" datasource="uam_god">
@@ -417,10 +421,14 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			</cfquery>
 		</cfif>
 	</cfoutput>
+
+	<!------------
+
+
+
 </cfif>
 
 
-<!------------
 
 
 
