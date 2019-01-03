@@ -175,6 +175,7 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 			<cfif d.recordcount gt 0>
 				<br>going....
 				<cfloop query="d">
+					<br>#name#....
 					<cfquery name="n" datasource="uam_god">
 						select term from taxon_term where
 							taxon_name_id=#d.taxon_name_id# and
@@ -186,15 +187,18 @@ alter table cf_worms_refreshed add taxon_status varchar2(255);
 						<cfquery name="u" datasource="uam_god">
 							update cf_worms_refreshed set status='needs_refreshed' where key=#key#
 						</cfquery>
+						'needs_refreshed'
 					 <cfelseif n.recordcount gt 0 and len(n.term) is 0>
 					 	<!--- we have something, they have something, it's not the same ---->
 						<cfquery name="u" datasource="uam_god">
 							update cf_worms_refreshed set status='alternative_classification_found' where key=#key#
 						</cfquery>
+						alternative_classification_found
 					 <cfelse>
 						<cfquery name="u" datasource="uam_god">
 							update cf_worms_refreshed set status='classification_not_found' where key=#key#
 						</cfquery>
+						classification_not_found
 					</cfif>
 				</cfloop>
 				<!--- if we did something here just abort so as not to push available resources. If we didn't we'll move on to the next job --->
