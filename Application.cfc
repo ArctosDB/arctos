@@ -277,8 +277,6 @@
 		<cfabort>
 	</cfif>
 	---->
-		<cffile action="append" file="#Application.requestlog#" output="-test-">
-
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
 	<!---
