@@ -1,7 +1,7 @@
 <cfif action is "getKeys">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select distinct DYNAMICPROPERTIES from temp_apsu_fish where DYNAMICPROPERTIES is not null
+		select distinct DYNAMICPROPERTIES from temp_almnhvp where DYNAMICPROPERTIES is not null
 	</cfquery>
 
 
