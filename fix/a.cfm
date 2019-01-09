@@ -13,6 +13,11 @@ wtf
 		<cfset setDbUser()>
 	</cfif>
 
+
+<!--------
+
+
+
 	<!----
 	cachedwithin="#createtimespan(0,0,60,0)#"
 	---->
@@ -533,7 +538,7 @@ wtf
 
 
 
-
+---->
 
 
 
@@ -544,6 +549,22 @@ wtf
 	</cfquery>
 	<cfdump var=#d#>
 <cfabort>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <cfinclude template="/includes/_header.cfm">
