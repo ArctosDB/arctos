@@ -14,7 +14,6 @@ wtf
 	</cfif>
 
 
-<!--------
 
 
 
@@ -24,6 +23,7 @@ wtf
 	<cfquery name="g_a_t" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select announcement_text from cf_global_settings where  announcement_expires>=trunc(sysdate)
 	</cfquery>
+<!--------
 
 	<script language="javascript" type="text/javascript">
 		jQuery(document).ready(function(){
