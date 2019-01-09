@@ -53,7 +53,7 @@ alter table temp_apsu_fish add dummy  varchar2(4000);
 <cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select catalognumber, DYNAMICPROPERTIES from temp_almnhvp where DYNAMICPROPERTIES is not null and ext_d_p is null and rownum<2
+		select catalognumber, DYNAMICPROPERTIES from temp_almnhvp where DYNAMICPROPERTIES is not null and ext_d_p is null and rownum<200
 	</cfquery>
 
 <cfdump var=#d#>
