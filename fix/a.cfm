@@ -1,4 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+hi
+<cfabort>
+
+
+
+
 <cfset Application.serverrooturl='http://arctos-test.tacc.utexas.edu'>
 
 <cfoutput>#CreateObject("java", "java.lang.System").getProperty("java.version")#
