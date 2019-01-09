@@ -1,7 +1,42 @@
+<cfoutput>
 
-hi
+<cfloop from="1" to="#x#" index="i">
+	<!--- nada---->
+</cfloop>
+all looped out
+<cfif isdefined('rq') and rq is true >
+		<cfquery name="g_a_t" datasource="uam_god">
+			select 'boogity' from dual
+		</cfquery>
 
-wtf
+</cfif>
+
+
+
+<cfset intRunTimeInSeconds = DateDiff(
+    "s",
+    GetPageContext().GetFusionContext().GetStartTime(),
+    Now()
+    ) />
+
+
+<!---
+    Output the number of seconds in which the page has
+    been processing.
+--->
+<p>
+    Page has been processing for:
+    #intRunTimeInSeconds# Seconds
+</p>
+</cfoutput>
+
+<cfabort>
+
+
+
+
+
+
 
 
 
@@ -592,24 +627,6 @@ wtf
 
 
 
-
-<cfset intRunTimeInSeconds = DateDiff(
-    "s",
-    GetPageContext().GetFusionContext().GetStartTime(),
-    Now()
-    ) />
-
-
-<!---
-    Output the number of seconds in which the page has
-    been processing.
---->
-<cfoutput>
-<p>
-    Page has been processing for:
-    #intRunTimeInSeconds# Seconds
-</p>
-</cfoutput>
 
 
 <cfabort>
