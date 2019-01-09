@@ -560,6 +560,7 @@ wtf
 			</div>
 		</div><!--- end header div --->
 
+		<cf_rolecheck>
 
 		<!--------
 
@@ -569,7 +570,6 @@ wtf
 	</cfquery>
 	<cfdump var=#d#>
 
-		<cf_rolecheck>
 		---->
 	</cfoutput>
 <br><br>
