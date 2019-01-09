@@ -1,9 +1,9 @@
-<cfinclude template="/includes/_header.cfm">
-
 
 hi
 <cfabort>
 
+
+<cfinclude template="/includes/_header.cfm">
 
 
 
