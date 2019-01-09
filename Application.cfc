@@ -277,7 +277,13 @@
 		<cfabort>
 	</cfif>
 	---->
-	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider" cgi.HTTP_USER_AGENT contains "bing">
+	<cfif
+		cgi.HTTP_USER_AGENT contains "bot" or
+		cgi.HTTP_USER_AGENT contains "slurp" or
+		cgi.HTTP_USER_AGENT contains "spider" or
+		cgi.HTTP_USER_AGENT contains "bing" or
+		cgi.HTTP_USER_AGENT contains "msn"
+		>
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
 		<cfheader name="retry-after" value="3600"/>
 		Down for maintenance
