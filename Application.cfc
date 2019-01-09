@@ -269,7 +269,7 @@
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
 	<!--- uncomment for a break from googlebot
-	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
+	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider" cgi.HTTP_USER_AGENT contains "bing">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
 		<cfheader name="retry-after" value="3600"/>
 		Down for maintenance
@@ -277,6 +277,14 @@
 		<cfabort>
 	</cfif>
 	---->
+	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider" cgi.HTTP_USER_AGENT contains "bing">
+		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
+		<cfheader name="retry-after" value="3600"/>
+		Down for maintenance
+		<cfreturn false>
+		<cfabort>
+	</cfif>
+
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
 	<!---
