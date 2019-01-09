@@ -548,6 +548,36 @@ wtf
 		select * from cataloged_item where rownum<20
 	</cfquery>
 	<cfdump var=#d#>
+
+
+
+
+
+
+
+
+
+
+
+<cfset intRunTimeInSeconds = DateDiff(
+    "s",
+    GetPageContext().GetFusionContext().GetStartTime(),
+    Now()
+    ) />
+
+
+<!---
+    Output the number of seconds in which the page has
+    been processing.
+--->
+<cfoutput>
+<p>
+    Page has been processing for:
+    #intRunTimeInSeconds# Seconds
+</p>
+</cfoutput>
+
+
 <cfabort>
 
 
