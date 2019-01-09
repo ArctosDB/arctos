@@ -534,6 +534,7 @@ wtf
 		<!--------
 
 		<cf_rolecheck>
+		---->
 	</cfoutput>
 <br><br>
 
