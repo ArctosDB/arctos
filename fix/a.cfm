@@ -253,13 +253,7 @@ wtf
 
 
 						<!---
-						<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-							select form_path from cf_form_permissions
-							where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
-							minus select form_path from cf_form_permissions
-							where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
-						</cfquery>
-						<cfset formList = valuelist(roles.form_path)>
+
 
 						-------->
 
@@ -269,7 +263,13 @@ wtf
 
 
 
-
+<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+							select form_path from cf_form_permissions
+							where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
+							minus select form_path from cf_form_permissions
+							where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
+						</cfquery>
+						<cfset formList = valuelist(roles.form_path)>
 
 
 
