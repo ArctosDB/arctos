@@ -241,6 +241,17 @@ wtf
 						<cfset r = replace(session.roles,",","','","all")>
 						<cfset r = "'#r#'">
 						<!--- "--->
+
+
+
+
+
+
+
+
+
+
+
 						<!---
 						<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 							select form_path from cf_form_permissions
@@ -251,7 +262,22 @@ wtf
 						<cfset formList = valuelist(roles.form_path)>
 
 						-------->
+
+
+
 						<cfset formList="">
+
+
+
+
+
+
+
+
+
+
+
+
 						<li><a href="##">Enter Data</a>
 							<ul>
 								<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
@@ -537,6 +563,12 @@ wtf
 
 		<!--------
 
+
+	<cfquery name="d" datasource="uam_god">
+		select * from cataloged_item where rownum<20
+	</cfquery>
+	<cfdump var=#d#>
+
 		<cf_rolecheck>
 		---->
 	</cfoutput>
@@ -545,12 +577,6 @@ wtf
 
 
 
-
-
-	<cfquery name="d" datasource="uam_god">
-		select * from cataloged_item where rownum<20
-	</cfquery>
-	<cfdump var=#d#>
 
 
 
