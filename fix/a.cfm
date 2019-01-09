@@ -241,6 +241,7 @@ wtf
 						<cfset r = replace(session.roles,",","','","all")>
 						<cfset r = "'#r#'">
 						<!--- "--->
+						<!---
 						<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 							select form_path from cf_form_permissions
 							where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
@@ -248,6 +249,9 @@ wtf
 							where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
 						</cfquery>
 						<cfset formList = valuelist(roles.form_path)>
+
+						-------->
+						<cfset formList="">
 						<li><a href="##">Enter Data</a>
 							<ul>
 								<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
