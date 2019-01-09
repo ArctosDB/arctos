@@ -7,7 +7,7 @@ wtf
 	<cfquery name="d" datasource="uam_god">
 		select * from cataloged_item where rownum<20
 	</cfquery>
-	<cfdump>
+	<cfdump var=#d#>
 <cfabort>
 
 
