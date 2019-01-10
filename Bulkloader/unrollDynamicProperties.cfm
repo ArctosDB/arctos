@@ -67,15 +67,8 @@ alter table temp_apsu_fish add dummy  varchar2(4000);
 		</cfquery>
 		<p></p>
 	</cfloop>
-
-	</cfoutput>
-
-
+</cfoutput>
 </cfif>
-
-
-
-unrollDynamicProperties.cfm
 
 
 <!----
