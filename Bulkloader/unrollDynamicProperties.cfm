@@ -55,7 +55,6 @@ alter table temp_apsu_fish add dummy  varchar2(4000);
 	<cfquery name="d" datasource='uam_god'>
 		select catalognumber, DYNAMICPROPERTIES from temp_almnhvp where DYNAMICPROPERTIES is not null and ext_d_p is null and rownum<20000
 	</cfquery>
-
 	<cfloop query="d">
 		<cfquery name="pbu" datasource='uam_god'>
 			update temp_almnhvp set ext_d_p='gotit'
