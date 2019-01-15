@@ -138,7 +138,6 @@
 					PW_CHANGE_DATE=sysdate
 					WHERE upper(username) = '#ucase(session.username)#'
 				</cfquery>
-				#newpassword#
 			</cftransaction>
 			<cfcatch>
 				<cfsavecontent variable="errortext">
@@ -234,6 +233,9 @@ You will be redirected soon, or you may use the menu above now.
 					alter trigger CF_PW_CHANGE enable
 				</cfquery>
 			</cftransaction>
+
+
+				#newPass#
 			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
 				Your Arctos username/password is
 
