@@ -138,6 +138,7 @@
 					PW_CHANGE_DATE=sysdate
 					WHERE upper(username) = '#ucase(session.username)#'
 				</cfquery>
+				#newpassword#
 			</cftransaction>
 			<cfcatch>
 				<cfsavecontent variable="errortext">
