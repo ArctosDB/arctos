@@ -1,3 +1,5 @@
+this was onetime use now see /ScheduledTasks/get_worms_changed
+<cfabort>
 <!----
 
 make full classification records including relationships from worms download
