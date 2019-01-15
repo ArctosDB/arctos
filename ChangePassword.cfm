@@ -234,8 +234,6 @@ You will be redirected soon, or you may use the menu above now.
 				</cfquery>
 			</cftransaction>
 
-
-				#newPass#
 			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
 				Your Arctos username/password is
 
