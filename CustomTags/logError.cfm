@@ -8,12 +8,12 @@
 <cfif isdefined("attributes.sql")>
 	<cfset exception.sql=attributes.sql>
 </cfif>
-<cfif isdefined("attributes.cause") and structKeyExists(attributes.cause,"tagcontext")>
 <cftry>
-	<cfset exception.line=attributes.cause.tagContext[1].line>
-<cfcatch></cfcatch>
+	<cfif isdefined("attributes.cause") and structKeyExists(attributes.cause,"tagcontext")>
+		<cfset exception.line=attributes.cause.tagContext[1].line>
+	</cfif>
+	<cfcatch></cfcatch>
 </cftry>
-</cfif>
 <!---- see if we can figure out why there's an error ---->
 <!--- first, just see if it's being explicitly handed in ---->
 <cfif isdefined("attributes.subject") and len(attributes.subject) gt 0>
