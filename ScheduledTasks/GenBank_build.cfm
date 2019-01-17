@@ -15,7 +15,7 @@
 	select * from cf_global_settings
 </cfquery>
 <!--- we have to keep this under 10MB, so write multiple files ---->
-<cfset numberOfRecords="50000">
+<cfset numberOfRecords="25000">
 
 <!--------------------------------------------------------------->
 
