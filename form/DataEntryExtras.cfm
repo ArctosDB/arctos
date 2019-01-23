@@ -494,7 +494,7 @@
 
 
 
-
+/*
 
 
 			if ($("#part_attribute_type_" + i).val().length > 0) {
@@ -503,6 +503,8 @@
 			} else {
 				$("#part_attribute_value_" + i).removeClass().prop('required',false);
 			}
+
+			*/
 		}
 	</script>
 
