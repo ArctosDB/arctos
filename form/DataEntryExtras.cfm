@@ -399,12 +399,16 @@
 					element: 'nothing'
 				},
 				success: function(r) {
+					console.log('success');
 					var result=r.DATA;
 					var resType=result.V[0];
 					var x;
 					var n=result.V.length;
 					$("#pavcl_" + ptnum).html('');
 					$("#paucl_" + ptnum).html('');
+
+
+					console.log('chktyp');
 					if (resType == 'value'){
 						console.log('value');
 						// value pick, no units
@@ -435,6 +439,8 @@
 						$("#part_attribute_value_" + ptnum).select();
 						$("#part_attribute_units_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_' + ptnum + '" value="">');
 					} else if (resType == 'units') {
+
+						console.log('units');
 						var s=document.createElement('SELECT');
 						s.name='part_attribute_units_' + ptnum;
 						s.id=s.name;
