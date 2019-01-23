@@ -401,18 +401,6 @@
 					var resType=result.V[0];
 					var x;
 					var n=result.V.length;
-
-
-						<td id="pavcl_#i#">
-									<input type="text" name="part_attribute_value_#i#" id="part_attribute_value_#i#">
-								</td>
-								<td id="paucl_#i#">
-									<input type="text" name="part_attribute_units_#i#" id="part_attribute_units_#i#">
-								</td>
-
-
-
-
 					$("#pavcl_" + i).html('');
 					$("#paucl_" + 1).html('');
 					if (resType == 'value'){
