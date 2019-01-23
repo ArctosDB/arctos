@@ -21,10 +21,10 @@
 
 
 <cffile action = "write"
-    file = "#Application.webDirectory#/download/tempeml.csv"
+    file = "#Application.webDirectory#/download/tempeml.eml"
     output = "#eml#"
     addNewLine = "no">
-	<a href="/download/tempeml.csv">/download/tempeml.csv</a>
+	<a href="/download/tempeml.eml">/download/tempeml.eml</a>
 
 
 
