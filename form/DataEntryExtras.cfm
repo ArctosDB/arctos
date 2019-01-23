@@ -439,6 +439,8 @@
 						$("#pavcl_" + ptnum).append(s);
 						$("#part_attribute_value_" + ptnum).select();
 						$("#part_attribute_units_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_' + ptnum + '" value="">');
+
+						$("#part_attribute_value_" + ptnum).addClass('reqdClr').prop('required',true);
 					} else if (resType == 'units') {
 
 						console.log('units');
