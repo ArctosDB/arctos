@@ -464,7 +464,8 @@
 						}
 						//$("#paucl_" + i).append('<label for="part_attribute_units_' + i + '">Units</label>');
 						$("#paucl_" + ptnum).append(s);
-						var s='<label for="part_attribute_value_' + ptnum + '">Value</label><input type="number" step="any" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
+						//<label for="part_attribute_value_' + ptnum + '">Value</label>
+						var s='<input type="number" step="any" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
 						$("#pavcl_" + ptnum).append(s);
 						$("#part_attribute_value_" + ptnum).focus();
 						$("#part_attribute_units_" + ptnum).addClass('reqdClr').prop('required',true);
@@ -492,17 +493,16 @@
 
 
 
-/*
 
 
-			if ($("#part_attribute_type_" + i).val().length > 0) {
 
-				$("#part_attribute_value_" + i).addClass('reqdClr').prop('required',true);
+			if ($("#part_attribute_type_" + ptnum).val().length > 0) {
+
+				$("#part_attribute_value_" + ptnum).addClass('reqdClr').prop('required',true);
 			} else {
-				$("#part_attribute_value_" + i).removeClass().prop('required',false);
+				$("#part_attribute_value_" + ptnum).removeClass().prop('required',false);
 			}
 
-			*/
 		}
 	</script>
 
