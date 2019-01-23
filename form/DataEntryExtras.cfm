@@ -384,8 +384,8 @@
 			});
 		});
 
-		function pattrChg(i){
-			var theVal=$("#part_attribute_type_" + i).val();
+		function pattrChg(ptnum){
+			var theVal=$("#part_attribute_type_" + ptnum).val();
 
 			$.ajax({
 				url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
@@ -393,7 +393,7 @@
 				dataType: "json",
 				data: {
 					method:  "getPartAttCodeTbl",
-					attribute: $("#part_attribute_type_" + i).val(),
+					attribute: $("#part_attribute_type_" + ptnum).val(),
 					element: 'nothing'
 				},
 				success: function(r) {
@@ -401,12 +401,13 @@
 					var resType=result.V[0];
 					var x;
 					var n=result.V.length;
-					$("#pavcl_" + i).html('');
-					$("#paucl_" + i).html('');
+					$("#pavcl_" + ptnum).html('');
+					$("#paucl_" + ptnum).html('');
 					if (resType == 'value'){
+						console.log('value');
 						// value pick, no units
 						var s=document.createElement('SELECT');
-						s.name='part_attribute_value_' + i;
+						s.name='part_attribute_value_' + ptnum;
 						s.id=s.name;
 						var a = document.createElement("option");
 						a.text = '';
@@ -425,13 +426,15 @@
 							a.value = theStr;
 							s.appendChild(a);
 						}
-						$("#part_attribute_value_" + i).append('<label for="part_attribute_value_' + i + '">Value</label>');
-						$("#pavcl_" + i).append(s);
-						$("#part_attribute_value_" + i).select();
-						$("#part_attribute_units_" + i).append('<input type="hidden" name="part_attribute_units_ ' + i + '" id="part_attribute_units_' + i + '" value="">');
+						console.log('ptnum::' + ptnum);
+
+						//$("#part_attribute_value_" + i).append('<label for="part_attribute_value_' + i + '">Value</label>');
+						$("#pavcl_" + ptnum).append(s);
+						$("#part_attribute_value_" + ptnum).select();
+						$("#part_attribute_units_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_' + ptnum + '" value="">');
 					} else if (resType == 'units') {
 						var s=document.createElement('SELECT');
-						s.name='part_attribute_units_' + i;
+						s.name='part_attribute_units_' + ptnum;
 						s.id=s.name;
 						var a = document.createElement("option");
 						a.text = '';
@@ -450,17 +453,17 @@
 							a.value = theStr;
 							s.appendChild(a);
 						}
-						$("#paucl_" + i).append('<label for="part_attribute_units_' + i + '">Units</label>');
-						$("#paucl_" + i).append(s);
-						var s='<label for="part_attribute_value_' + i + '">Value</label><input type="number" step="any" class="reqdClr" required name="part_attribute_value_' + i + '" id="part_attribute_value_' + i + '">';
-						$("#pavcl_" + i).append(s);
-						$("#part_attribute_value_" + i ).focus();
-						$("#part_attribute_units_" + i).addClass('reqdClr').prop('required',true);
+						//$("#paucl_" + i).append('<label for="part_attribute_units_' + i + '">Units</label>');
+						$("#paucl_" + ptnum).append(s);
+						var s='<label for="part_attribute_value_' + ptnum + '">Value</label><input type="number" step="any" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
+						$("#pavcl_" + ptnum).append(s);
+						$("#part_attribute_value_" + ptnum).focus();
+						$("#part_attribute_units_" + ptnum).addClass('reqdClr').prop('required',true);
 					} else if (resType == 'NONE') {
-						var s='<label for="part_attribute_value_' + i + '">Value</label><input type="text" class="reqdClr" required name="part_attribute_value_' + i + '" id="part_attribute_value_' + i + '">';
-						$("#pavcl_" + i).append(s);
-						$('#part_attribute_value_' + i).focus();
-						$("#paucl_" + i).append('<input type="hidden" name="part_attribute_units_ ' + i + '" id="part_attribute_units_ ' + i + '" value="">');
+						var s='<label for="part_attribute_value_' + ptnum + '">Value</label><input type="text" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
+						$("#pavcl_" + ptnum).append(s);
+						$('#part_attribute_value_' + ptnum).focus();
+						$("#paucl_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_ ' + ptnum + '" value="">');
 					} else {
 						alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 					}
