@@ -29,6 +29,17 @@
 
 
 	</cfif>
+
+	<cfabort>
+
+
+
+
+
+
+
+
+
 	<!--------------------------------------------------------->
 	<cfset title="IPT/Collection Metadata report">
 	<cfif (isdefined("session.roles") and session.roles contains "coldfusion_user")>
