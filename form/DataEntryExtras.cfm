@@ -470,11 +470,11 @@
 					} else if (resType == 'NONE') {
 						console.log('none');
 						//<label for="part_attribute_value_' + ptnum + '">Value</label>
-						var s='<input type="text" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
-						console.log(s);
-						$("#pavcl_" + ptnum).append(s);
-						$('#part_attribute_value_' + ptnum).focus();
-						$("#paucl_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_ ' + ptnum + '" value="">');
+						//var s='<input type="text" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
+						//console.log(s);
+						//$("#pavcl_" + ptnum).append(s);
+						//$('#part_attribute_value_' + ptnum).focus();
+						//$("#paucl_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_ ' + ptnum + '" value="">');
 					} else {
 						alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 					}
