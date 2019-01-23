@@ -1,5 +1,222 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+	<!--------------------------------------------------------->
+	<cfif action is "geneml">
+		<cfsavecontent variable="eml">
+			<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"
+		         xmlns:dc="http://purl.org/dc/terms/"
+		         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		         xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.1/eml.xsd"
+		         packageId="f85f5c5c-ce02-4337-9317-23fe54769ff2/v1.3" system="http://gbif.org" scope="system"
+		         xml:lang="eng">
+
+		</cfsavecontent>
+
+
+<hr>
+
+<cfdump var=#eml#>
+
+<hr>
+
+
+<dataset>
+  <alternateIdentifier>f85f5c5c-ce02-4337-9317-23fe54769ff2</alternateIdentifier>
+  <alternateIdentifier>http://ipt.vertnet.org:8080/ipt/resource?r=utep_zoo</alternateIdentifier>
+  <title xml:lang="eng">UTEP Zoo (Arctos)</title>
+      <creator>
+    <individualName>
+        <givenName>Teresa</givenName>
+      <surName>Mayfield</surName>
+    </individualName>
+    <organizationName>University of Texas at El Paso</organizationName>
+    <positionName>Manager, UTEP Biodiversity Collections</positionName>
+    <address>
+        <deliveryPoint>500 West University Avenue, Biology Bldg. #222</deliveryPoint>
+        <city>El Paso</city>
+        <administrativeArea>TX</administrativeArea>
+        <postalCode>79968</postalCode>
+        <country>US</country>
+    </address>
+    <phone>+01 915-747-5479</phone>
+    <electronicMailAddress>tmayfield.utepbc@jegelewicz.net</electronicMailAddress>
+    <onlineUrl>https://www.utep.edu/biodiversity/collections/invertebrate-biology.html</onlineUrl>
+      </creator>
+      <metadataProvider>
+    <individualName>
+        <givenName>Teresa</givenName>
+      <surName>Mayfield</surName>
+    </individualName>
+    <organizationName>University of Texas at El Paso</organizationName>
+    <positionName>Manager, UTEP Biodiversity Collections</positionName>
+    <address>
+        <deliveryPoint>500 West University Avenue, Biology Bldg. #222</deliveryPoint>
+        <city>El Paso</city>
+        <administrativeArea>TX</administrativeArea>
+        <postalCode>79968</postalCode>
+        <country>US</country>
+    </address>
+    <phone>+01 915-747-5479</phone>
+    <electronicMailAddress>tmayfield.utepbc@jegelewicz.net</electronicMailAddress>
+    <onlineUrl>https://www.utep.edu/biodiversity/</onlineUrl>
+      </metadataProvider>
+      <associatedParty>
+    <individualName>
+        <givenName>Laura</givenName>
+      <surName>Russell</surName>
+    </individualName>
+    <organizationName>VertNet</organizationName>
+    <positionName>Programmer</positionName>
+    <electronicMailAddress>larussell@vertnet.org</electronicMailAddress>
+    <onlineUrl>http://www.vertnet.org</onlineUrl>
+    <role>programmer</role>
+      </associatedParty>
+      <associatedParty>
+    <individualName>
+        <givenName>David</givenName>
+      <surName>Bloom</surName>
+    </individualName>
+    <organizationName>VertNet</organizationName>
+    <positionName>Coordinator</positionName>
+    <electronicMailAddress>dbloom@vertnet.org</electronicMailAddress>
+    <onlineUrl>http://www.vertnet.org</onlineUrl>
+    <role>programmer</role>
+      </associatedParty>
+      <associatedParty>
+    <individualName>
+        <givenName>John</givenName>
+      <surName>Wieczorek</surName>
+    </individualName>
+    <organizationName>Museum of Vertebrate Zoology at UC Berkeley</organizationName>
+    <positionName>Information Architect</positionName>
+    <electronicMailAddress>tuco@berkeley.edu</electronicMailAddress>
+    <role>programmer</role>
+      </associatedParty>
+      <associatedParty>
+    <individualName>
+        <givenName>Dusty</givenName>
+      <surName>McDonald</surName>
+    </individualName>
+    <organizationName>University of Alaska Museum</organizationName>
+    <positionName>Arctos Database Programmer</positionName>
+    <electronicMailAddress>dlmcdonald@alaska.edu</electronicMailAddress>
+    <onlineUrl>http://arctos.database.museum</onlineUrl>
+    <role>pointOfContact</role>
+      </associatedParty>
+  <pubDate>
+      2018-02-08
+  </pubDate>
+  <language>eng</language>
+  <abstract>
+    <para>The University of Texas at El Paso Biodiversity Collections Zooplankton material includes a collection of rotifers curated by Dr. Elizabeth Walsh. Dr. Walsh’s laboratory uses molecular techniques to address evolutionary and ecological questions.</para>
+  </abstract>
+      <keywordSet>
+            <keyword>Occurrence</keyword>
+        <keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type.xml</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+            <keyword>Specimen</keyword>
+        <keywordThesaurus>GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml</keywordThesaurus>
+      </keywordSet>
+  <intellectualRights>
+    <para>To the extent possible under law, the publisher has waived all rights to these data and has dedicated them to the <ulink url="http://creativecommons.org/publicdomain/zero/1.0/legalcode"><citetitle>Public Domain (CC0 1.0)</citetitle></ulink>. Users may copy, modify, distribute and use the work, including for commercial purposes, without restriction.</para>
+  </intellectualRights>
+  <distribution scope="document">
+    <online>
+      <url function="information">https://www.utep.edu/biodiversity/collections/invertebrate-biology.html</url>
+    </online>
+  </distribution>
+  <coverage>
+      <geographicCoverage>
+          <geographicDescription>Specimens were collected primarily in the United States.</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-180</westBoundingCoordinate>
+          <eastBoundingCoordinate>180</eastBoundingCoordinate>
+          <northBoundingCoordinate>90</northBoundingCoordinate>
+          <southBoundingCoordinate>-90</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+          <taxonomicCoverage>
+              <generalTaxonomicCoverage>Rotifera</generalTaxonomicCoverage>
+              <taxonomicClassification>
+                  <taxonRankName>phylum</taxonRankName>
+                <taxonRankValue>Rotifera</taxonRankValue>
+              </taxonomicClassification>
+          </taxonomicCoverage>
+  </coverage>
+  <purpose>
+    <para>Data set was developed through the work of University of Texas at El Paso faculty and students and is created to support future research.</para>
+  </purpose>
+  <maintenance>
+    <description>
+      <para></para>
+    </description>
+    <maintenanceUpdateFrequency>monthly</maintenanceUpdateFrequency>
+  </maintenance>
+
+      <contact>
+    <individualName>
+        <givenName>Teresa</givenName>
+      <surName>Mayfield</surName>
+    </individualName>
+    <organizationName>University of Texas at El Paso</organizationName>
+    <positionName>Manager, UTEP Biodiversity Collections</positionName>
+    <address>
+        <deliveryPoint>500 West University Avenue, Biology Bldg. #222</deliveryPoint>
+        <city>El Paso</city>
+        <administrativeArea>TX</administrativeArea>
+        <postalCode>79968</postalCode>
+        <country>US</country>
+    </address>
+    <phone>+01 915-747-5479</phone>
+    <electronicMailAddress>tmayfield.utepbc@jegelewicz.net</electronicMailAddress>
+    <onlineUrl>https://www.utep.edu/biodiversity/</onlineUrl>
+      </contact>
+      <contact>
+    <individualName>
+        <givenName>Elizabeth</givenName>
+      <surName>Walsh</surName>
+    </individualName>
+    <organizationName>University of Texas at El Paso</organizationName>
+    <positionName>Curator, UTEP Biodiversity Collections</positionName>
+    <address>
+        <deliveryPoint>500 West University Avenue, Biology Bldg. #222</deliveryPoint>
+        <city>El Paso</city>
+        <administrativeArea>Texas</administrativeArea>
+        <postalCode>79968</postalCode>
+        <country>US</country>
+    </address>
+    <phone>01 915-747-5479</phone>
+    <electronicMailAddress>ewalsh@utep.edu</electronicMailAddress>
+      </contact>
+  <methods>
+        <methodStep>
+          <description>
+            <para></para>
+          </description>
+        </methodStep>
+  </methods>
+</dataset>
+  <additionalMetadata>
+    <metadata>
+      <gbif>
+          <dateStamp>2016-10-04T01:12:33.886-05:00</dateStamp>
+          <hierarchyLevel>dataset</hierarchyLevel>
+            <citation>Mayfield T (2018): UTEP Zoo (Arctos). v1.3. University of Texas at El Paso Biodiversity Collections. Dataset/Occurrence. http://ipt.vertnet.org:8080/ipt/resource?r=utep_bird&amp;v=1.3</citation>
+              <collection>
+                  <parentCollectionIdentifier>UTEP</parentCollectionIdentifier>
+                  <collectionIdentifier>UTEP:Zoo</collectionIdentifier>
+                <collectionName>Univerisity of Texas at El Paso Biodiversity Collections - Zooplankton</collectionName>
+              </collection>
+                <specimenPreservationMethod>ethanol, formalin, trophi</specimenPreservationMethod>
+              <livingTimePeriod>1900-present</livingTimePeriod>
+          <dc:replaces>f85f5c5c-ce02-4337-9317-23fe54769ff2/v1.3.xml</dc:replaces>
+      </gbif>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>
+	</cfif>
+	<!--------------------------------------------------------->
 	<cfset title="IPT/Collection Metadata report">
 	<cfif (isdefined("session.roles") and session.roles contains "coldfusion_user")>
 		<cfset session.iptauthenticated=true>
