@@ -337,106 +337,19 @@
 <cfif action is "addPart">
 	<script>
 		jQuery(document).ready(function() {
-			
-			
-			
-			
-			$( "#attribute_type" ).change(function() {
-				$.ajax({
-					url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
-					type: "GET",
-					dataType: "json",
-					data: {
-						method:  "getAttCodeTbl",
-						attribute: $( "#attribute_type" ).val(),
-						guid_prefix: $( "#guid_prefix" ).val(),
-						element: 'nothing'
-					},
-					success: function(r) {
-						var result=r.DATA;
-						var resType=result.V[0];
-						var x;
-						var n=result.V.length;
-						$("#attrvalcell").html('');
-						$("#attrunitcell").html('');
-						if (resType == 'value'){
-							// value pick, no units
-							var s=document.createElement('SELECT');
-							s.name='attribute_value';
-							s.id=s.name;
-							var a = document.createElement("option");
-							a.text = '';
-					    	a.value = '';
-							s.appendChild(a);
-							for (i=2;i<result.V.length;i++) {
-								var theStr = result.V[i];
-								if(theStr=='_yes_'){
-									theStr='yes';
-								}
-								if(theStr=='_no_'){
-									theStr='no';
-								}
-								var a = document.createElement("option");
-								a.text = theStr;
-								a.value = theStr;
-								s.appendChild(a);
-							}
-							$("#attrvalcell").append('<label for="attribute_value">Value</label>');
-							$("#attrvalcell").append(s);
-							$("#attribute_value").select();
-							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">');
-						} else if (resType == 'units') {
-							var s=document.createElement('SELECT');
-							s.name='attribute_units';
-							s.id=s.name;
-							var a = document.createElement("option");
-							a.text = '';
-					    	a.value = '';
-							s.appendChild(a);
-							for (i=2;i<result.V.length;i++) {
-								var theStr = result.V[i];
-								if(theStr=='_yes_'){
-									theStr='yes';
-								}
-								if(theStr=='_no_'){
-									theStr='no';
-								}
-								var a = document.createElement("option");
-								a.text = theStr;
-								a.value = theStr;
-								s.appendChild(a);
-							}
-							$("#attrunitcell").append('<label for="attribute_units">Units</label>');
-							$("#attrunitcell").append(s);
-							var s='<label for="attribute_value">Value</label><input type="number" step="any" class="reqdClr" required name="attribute_value" id="attribute_value">';
-							$("#attrvalcell").append(s);
 
-							$("#attribute_value").focus();
-							$("#attribute_units").addClass('reqdClr').prop('required',true);
-						} else if (resType == 'NONE') {
-							var s='<label for="attribute_value">Value</label><input type="text" class="reqdClr" required name="attribute_value" id="attribute_value">';
-							$("#attrvalcell").append(s);
-							$("#attribute_value").focus();
-							$("#attrunitcell").append('<input type="hidden" name="attribute_units" id="attribute_units" value="">');
 
-						} else {
-							alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
-						}
 
-					},
-					error: function (xhr, textStatus, errorThrown){
-					    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-					}
-				});
-			});
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
+
+
 			$("input[id^='part_attribute_date_']").each(function(e){
 			    $(this).datepicker();
 			});
@@ -472,7 +385,114 @@
 		});
 
 		function pattrChg(i){
+			var theVal=$("#part_attribute_type_" + i).val();
+
+			$.ajax({
+				url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
+				type: "GET",
+				dataType: "json",
+				data: {
+					method:  "getPartAttCodeTbl",
+					attribute: $("#part_attribute_type_" + i).val(),
+					element: 'nothing'
+				},
+				success: function(r) {
+					var result=r.DATA;
+					var resType=result.V[0];
+					var x;
+					var n=result.V.length;
+
+
+						<td id="pavcl_#i#">
+									<input type="text" name="part_attribute_value_#i#" id="part_attribute_value_#i#">
+								</td>
+								<td id="paucl_#i#">
+									<input type="text" name="part_attribute_units_#i#" id="part_attribute_units_#i#">
+								</td>
+
+
+
+
+					$("#pavcl_" + i).html('');
+					$("#paucl_" + 1).html('');
+					if (resType == 'value'){
+						// value pick, no units
+						var s=document.createElement('SELECT');
+						s.name='part_attribute_value_' + i;
+						s.id=s.name;
+						var a = document.createElement("option");
+						a.text = '';
+					    a.value = '';
+						s.appendChild(a);
+						for (i=2;i<result.V.length;i++) {
+							var theStr = result.V[i];
+							if(theStr=='_yes_'){
+								theStr='yes';
+							}
+							if(theStr=='_no_'){
+								theStr='no';
+							}
+							var a = document.createElement("option");
+							a.text = theStr;
+							a.value = theStr;
+							s.appendChild(a);
+						}
+						$("#part_attribute_value_" + i).append('<label for="part_attribute_value_' + i + '">Value</label>');
+						$("#pavcl_" + i).append(s);
+						$("#part_attribute_value_" + i).select();
+						$("#part_attribute_units_" + i).append('<input type="hidden" name="part_attribute_units_ ' + i + '" id="part_attribute_units_' + i + '" value="">');
+					} else if (resType == 'units') {
+						var s=document.createElement('SELECT');
+						s.name='part_attribute_units_' + i;
+						s.id=s.name;
+						var a = document.createElement("option");
+						a.text = '';
+					    a.value = '';
+						s.appendChild(a);
+						for (i=2;i<result.V.length;i++) {
+							var theStr = result.V[i];
+							if(theStr=='_yes_'){
+								theStr='yes';
+							}
+							if(theStr=='_no_'){
+								theStr='no';
+							}
+							var a = document.createElement("option");
+							a.text = theStr;
+							a.value = theStr;
+							s.appendChild(a);
+						}
+						$("#paucl_" + i).append('<label for="part_attribute_units_' + i + '">Units</label>');
+						$("#paucl_" + i).append(s);
+						var s='<label for="part_attribute_value_' + i + '">Value</label><input type="number" step="any" class="reqdClr" required name="part_attribute_value_' + i + '" id="part_attribute_value_' + i + '">';
+						$("#pavcl_" + i).append(s);
+						$("#part_attribute_value_" + i ").focus();
+						$("#part_attribute_units_" + i).addClass('reqdClr').prop('required',true);
+					} else if (resType == 'NONE') {
+						var s='<label for="part_attribute_value_' + i + '">Value</label><input type="text" class="reqdClr" required name="part_attribute_value_' + i + '" id="part_attribute_value_' + i + '">';
+						$("#pavcl_" + i).append(s);
+						$('#part_attribute_value_' + i).focus();
+						$("#paucl_" + i).append('<input type="hidden" name="part_attribute_units_ ' + i + '" id="part_attribute_units_ ' + i + '" value="">');
+					} else {
+						alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
+					}
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+
+
+
+
+
+
+
+
+
+
 			if ($("#part_attribute_type_" + i).val().length > 0) {
+
 				$("#part_attribute_value_" + i).addClass('reqdClr').prop('required',true);
 			} else {
 				$("#part_attribute_value_" + i).removeClass().prop('required',false);
@@ -581,10 +601,10 @@
 							          </select>
 
 								</td>
-								<td>
+								<td id="pavcl_#i#">
 									<input type="text" name="part_attribute_value_#i#" id="part_attribute_value_#i#">
 								</td>
-								<td>
+								<td id="paucl_#i#">
 									<input type="text" name="part_attribute_units_#i#" id="part_attribute_units_#i#">
 								</td>
 								<td>
