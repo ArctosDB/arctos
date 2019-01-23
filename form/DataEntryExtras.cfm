@@ -462,7 +462,9 @@
 						$("#part_attribute_value_" + ptnum).focus();
 						$("#part_attribute_units_" + ptnum).addClass('reqdClr').prop('required',true);
 					} else if (resType == 'NONE') {
-						var s='<label for="part_attribute_value_' + ptnum + '">Value</label><input type="text" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
+						//<label for="part_attribute_value_' + ptnum + '">Value</label>
+						var s='<input type="text" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
+						console.log(s);
 						$("#pavcl_" + ptnum).append(s);
 						$('#part_attribute_value_' + ptnum).focus();
 						$("#paucl_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_ ' + ptnum + '" value="">');
