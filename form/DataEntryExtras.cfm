@@ -400,6 +400,8 @@
 				},
 				success: function(r) {
 					console.log('success');
+
+					/*
 					var result=r.DATA;
 					var resType=result.V[0];
 					var x;
@@ -478,6 +480,8 @@
 					} else {
 						alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 					}
+
+					*/
 				},
 				error: function (xhr, textStatus, errorThrown){
 				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
