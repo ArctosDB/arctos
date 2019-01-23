@@ -402,7 +402,7 @@
 					var x;
 					var n=result.V.length;
 					$("#pavcl_" + i).html('');
-					$("#paucl_" + 1).html('');
+					$("#paucl_" + i).html('');
 					if (resType == 'value'){
 						// value pick, no units
 						var s=document.createElement('SELECT');
@@ -454,7 +454,7 @@
 						$("#paucl_" + i).append(s);
 						var s='<label for="part_attribute_value_' + i + '">Value</label><input type="number" step="any" class="reqdClr" required name="part_attribute_value_' + i + '" id="part_attribute_value_' + i + '">';
 						$("#pavcl_" + i).append(s);
-						$("#part_attribute_value_" + i ").focus();
+						$("#part_attribute_value_" + i ).focus();
 						$("#part_attribute_units_" + i).addClass('reqdClr').prop('required',true);
 					} else if (resType == 'NONE') {
 						var s='<label for="part_attribute_value_' + i + '">Value</label><input type="text" class="reqdClr" required name="part_attribute_value_' + i + '" id="part_attribute_value_' + i + '">';
