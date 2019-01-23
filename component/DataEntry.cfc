@@ -8,8 +8,6 @@
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from CTSPEC_PART_ATT_ATT where attribute_type='#attribute#'
 	</cfquery>
-
-	<cfdump var=#isCtControlled#>
 	<cfif isCtControlled.recordcount is 1>
 		<cfif len(isCtControlled.VALUE_CODE_TABLE) gt 0>
 			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
