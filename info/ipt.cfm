@@ -20,6 +20,14 @@
 		<hr>
 
 
+<cffile action = "write"
+    file = "#Application.webDirectory#/download/tempeml.csv"
+    output = "#eml#"
+    addNewLine = "no">
+	<a href="/download/tempeml.csv">/download/tempeml.csv</a>
+
+
+
 	</cfif>
 	<!--------------------------------------------------------->
 	<cfset title="IPT/Collection Metadata report">
