@@ -385,8 +385,10 @@
 		});
 
 		function pattrChg(ptnum){
+						console.log('ptnum::' + ptnum);
 			var theVal=$("#part_attribute_type_" + ptnum).val();
 
+						console.log('ptnum::' + ptnum);
 			$.ajax({
 				url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
 				type: "GET",
