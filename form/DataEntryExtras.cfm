@@ -438,7 +438,7 @@
 						//$("#part_attribute_value_" + i).append('<label for="part_attribute_value_' + i + '">Value</label>');
 						$("#pavcl_" + ptnum).append(s);
 						$("#part_attribute_value_" + ptnum).select();
-						$("#part_attribute_units_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_' + ptnum + '" value="">');
+						$("#paucl_" + ptnum).append('<input type="hidden" name="part_attribute_units_ ' + ptnum + '" id="part_attribute_units_' + ptnum + '" value="">');
 
 						$("#part_attribute_value_" + ptnum).addClass('reqdClr').prop('required',true);
 					} else if (resType == 'units') {
