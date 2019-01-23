@@ -58,13 +58,13 @@
 				<cfset i=i+1>
 			</cfloop>
 
-		<cfelseif #isCtControlled.UNITS_CODE_TABLE# gt 0>
+		<cfelseif #isCtControlled.UNIT_CODE_TABLE# gt 0>
 			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNITS_CODE_TABLE)#'
+				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNIT_CODE_TABLE)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
 			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-				select * from #isCtControlled.UNITS_CODE_TABLE#
+				select * from #isCtControlled.UNIT_CODE_TABLE#
 			</cfquery>
 			<cfset collCode = "">
 			<cfset columnName = "">
@@ -86,7 +86,7 @@
 					SELECT #columnName# as valCodes from valCT order by #columnName#
 				</cfquery>
 			</cfif>
-			<cfset result = "unit - #isCtControlled.UNITS_CODE_TABLE#">
+			<cfset result = "unit - #isCtControlled.UNIT_CODE_TABLE#">
 			<cfset result = QueryNew("V")>
 			<cfset newRow = QueryAddRow(result, 1)>
 			<cfset temp = QuerySetCell(result, "v", "units")>
