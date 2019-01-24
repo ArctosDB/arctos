@@ -138,8 +138,12 @@
 
 			<cfset rslt=SerializeJSON(j)>
 
-			<pre>#rslt#</pre>
 			<input type="hidden" name="inp" value="#rslt#">
+
+			<cfset dr=DeserializeJSON(rslt)>
+
+
+			<pre>#dr#</pre>
 			<cfdump var=#rslt#>
 </cfif>
 
