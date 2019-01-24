@@ -12,7 +12,7 @@
 
 		<cfif gbr.statusCode is "200 OK" and len(gbr.filecontent) gt 0 and isjson(gbr.filecontent)>
 				<cfset gb=DeserializeJSON(gbr.filecontent)>
-			<cfdump var=#gbr#>
+			<cfdump var=#gb#>
 		</cfif>
 
 
