@@ -28,6 +28,8 @@
         json[this.name] = this.value || '';
     });
     console.log(json);
+
+    $('#r_inp').val(json);
 	}
 
 
