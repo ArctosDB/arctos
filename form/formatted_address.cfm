@@ -41,10 +41,12 @@
 	<cfif isdefined('r_inp') and len('r_inp') gt 0>
 		<cfset inp=r_inp>
 	</cfif>
+<label for="inp" value="Input"></label>
+	<textarea name="inp" id="inp"  class="hugetextarea">#inp#</textarea>
+
 
 <form name="x" id="x" method="post" action="formatted_address.cfm">
-	<label for="inp" value="Input"></label>
-	<textarea name="inp" id="inp"  class="hugetextarea">#inp#</textarea>
+
 
 	<div id="perr"></div>
 
