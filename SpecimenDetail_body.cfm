@@ -1329,7 +1329,7 @@
 
 
 			<!------------- DWC portals -------------------------->
-				<div class="detailCell" id="rellnks" style='display:none';>
+				<div class="detailCell" id="rellnks" style="display:none">
 					<div class="detailLabel">Links
 						<span class="expandoHolder" id="expando_rel_links"></span>
 					</div>
