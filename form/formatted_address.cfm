@@ -120,23 +120,23 @@
 				<label for="country">country</label>
 				<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
 
-<cfif isdefined("form")>
-	form.first_name::#form.first_name#
-</cfif>
-			<cfset j.first_name=first_name>
-			<cfset j.last_name=last_name>
-			<cfset j.middle_initial=middle_initial>
-			<cfset j.email=email>
-			<cfset j.organization=organization>
-			<cfset j.department=department>
-			<cfset j.phone=phone>
-			<cfset j.street=street>
-			<cfset j.state_prov=state_prov>
-			<cfset j.postal_code=postal_code>
-			<cfset j.country=country>
+<cfif isdefined("form.first_name")>
+	<cfset j.first_name=form.first_name>
+			<cfset j.last_name=form.last_name>
+			<cfset j.middle_initial=form.middle_initial>
+			<cfset j.email=form.email>
+			<cfset j.organization=form.organization>
+			<cfset j.department=form.department>
+			<cfset j.phone=form.phone>
+			<cfset j.street=form.street>
+			<cfset j.state_prov=form.state_prov>
+			<cfset j.postal_code=form.postal_code>
+			<cfset j.country=form.country>
 
 			<cfset rslt=SerializeJSON(j)>
 			<cfdump var=#rslt#>
+</cfif>
+
 			---->
 			</form>
 			</cfoutput>
