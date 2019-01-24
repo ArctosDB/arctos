@@ -139,7 +139,7 @@
 
 			<cfset rslt=SerializeJSON(j)>
 
-			<input type="hidden" name="inp" id="inp" value="#rslt#">
+			<input type="hidden" name="inp" id="inp" value="#escapeQuotes(rslt)#">
 
 
 <script>
@@ -154,6 +154,5 @@
 			<cfdump var=#rslt#>
 </cfif>
 
-			---->
 			</form>
 			</cfoutput>
