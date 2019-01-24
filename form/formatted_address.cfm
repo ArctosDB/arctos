@@ -112,6 +112,5 @@
 						<div style="border:2px solid red" id="jdp"></div>
 
 
-</cfif>
 
 			</cfoutput>
