@@ -1,13 +1,15 @@
 
 <cfoutput>
-<form name="x">
+	<cfparam name="inp" default="">
+	<cfparam name="b.first_name" default="">
+<form name="x" method="post" action="formatted_address.cfm">
 	<label for="inp" value="Input"></label>
 	<textarea name="inp" class="hugetextarea"></textarea>
-	
-	If you have a formatted address, you can paste it in above and <input type="button" value="break input into components">
+
+	If you have a formatted address, you can paste it in above and <input type="submit" value="break input into components">
 				<label for="first_name">first_name </label>
 				<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
-
+<!----
 				<label for="last_name">last_name</label>
 				<input type="text" name="last_name" id="last_name" value="#b.last_name#"size="80" class="reqdClr">
 
@@ -22,7 +24,7 @@
 
 				<label for="department">department</label>
 				<input type="text" name="department" id="department" value="#b.department#"  size="80" class="reqdClr">
-				
+
 				<label for="position">position</label>
 				<input type="text" name="position" id="position" value="#b.position#"  size="80" class="reqdClr">
 
@@ -46,7 +48,7 @@
 
 				<label for="country">country</label>
 				<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
-				
+
 					<cfset j.first_name=first_name>
 			<cfset j.last_name=last_name>
 			<cfset j.middle_initial=middle_initial>
@@ -60,5 +62,6 @@
 			<cfset j.country=country>
 
 			<cfset x=SerializeJSON(j)>
+			---->
 			</form>
 			</cfoutput>
