@@ -4,7 +4,7 @@
 	<cfparam name="b.first_name" default="">
 <form name="x" method="post" action="formatted_address.cfm">
 	<label for="inp" value="Input"></label>
-	<textarea name="inp" class="hugetextarea"></textarea>
+	<textarea name="inp" class="hugetextarea">#inp#</textarea>
 
 	If you have a formatted address, you can paste it in above and <input type="submit" value="break input into components">
 				<label for="first_name">first_name </label>
