@@ -1,10 +1,13 @@
 <cfcomponent>
-<cffunction name="getAggregatorLinks" output="false" returnType="any" access="remote">
+<cffunction name="getAggregatorLinks" output="true" returnType="any" access="remote">
 	<cfargument name="guid" required="yes"><!--- DWC triplet --->
 	hi
 	<cfoutput>
 		<cfset theFullGuid="http://arctos.database.museum/guid/#guid#">
-		<cfhttp  url="http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#" method="get"></cfhttp>
+		http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#
+
+
+		<cfhttp url="http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#" method="get"></cfhttp>
 		<cfdump var=#cfhttp#>
 
 	</cfoutput>
