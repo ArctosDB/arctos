@@ -151,14 +151,14 @@
 
 			<textarea name="r_inp" id="r_inp">#rslt#</textarea>
 
-
+<!------------
 <script>
 	var r = $.parseJSON("#rslt#");
 	console.log(r);
 			var str = JSON.stringify(r, null, 2);
 			$("##jdp").html('<pre>' + str + '</pre>');
 </script>
-
+--------------->
 
 			<div style="border:2px solid red" id="jdp"></div>
 			<cfdump var=#rslt#>
