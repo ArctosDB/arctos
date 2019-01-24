@@ -14,8 +14,8 @@
 					<cfset r=r & '<div><a href="https://www.gbif.org/occurrence/#thisGBID#" target="_blank" class="external">GBIF Occurrence</a></div>'>
 				</cfloop>
 			</cfif>
-			<cfset idburl=URLEncodedFormat('{"data":{"type":"fulltext","value":"#theFullGuid#","catalognumber":"#guid#"}}')>
-						<cfset idburl=URLEncodedFormat('{"catalognumber":"#guid#"}')>
+			<cfset idburl=URLEncodedFormat('{"data":{"type":"fulltext","value":"#theFullGuid#"}}')>
+
 
 			<cfhttp result="idbr" url="https://search.idigbio.org/v2/search/records?fields=uuid&rq=#idburl#" method="get"></cfhttp>
 			<cfif idbr.statusCode is "200 OK" and len(idbr.filecontent) gt 0 and isjson(idbr.filecontent)>
@@ -48,7 +48,13 @@
 					<cfset r=r & '<div><a href="https://www.gbif.org/occurrence/#thisGBID#" target="_blank" class="external">GBIF Occurrence</a></div>'>
 				</cfloop>
 			</cfif>
-			<cfset idburl=URLEncodedFormat('{"data":{"type":"fulltext","value":"#theFullGuid#"}}')>
+			<!---
+				idigbio's undocumented fulltext search matches substrings, so this gets really crazy with catnum=1
+				we're providing catnum as DWC triplets so the alternative sort of works....
+
+				<cfset idburl=URLEncodedFormat('{"data":{"type":"fulltext","value":"#theFullGuid#"}}')>
+			--->
+			<cfset idburl=URLEncodedFormat('{"catalognumber":"#guid#"}')>
 			<cfhttp result="idbr" url="https://search.idigbio.org/v2/search/records?fields=uuid&rq=#idburl#" method="get"></cfhttp>
 			<cfif idbr.statusCode is "200 OK" and len(idbr.filecontent) gt 0 and isjson(idbr.filecontent)>
 				<cfset idb=DeserializeJSON(idbr.filecontent)>
