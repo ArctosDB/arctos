@@ -3,8 +3,9 @@
 	function breakInputUp(){
 		var inp=$("#inp").val();
 		console.log(inp);
-
-		$.each(inp, function(key, value){
+		var j=$.parseJSON(inp);
+		console.log(j);
+		$.each(j, function(key, value){
 		    console.log(key, value);
 		});
 	}
