@@ -142,18 +142,6 @@
             });
 
 
-
-			<!------------- DWC portals -------------------------->
-				<div class="detailCell" id="rellnks" style='display:none';>
-					<div class="detailLabel">Links
-						<span class="expandoHolder" id="expando_rel_links"></span>
-					</div>
-					<div class="detailBlock expandoscroll-small" id="rel_links" data-expandoclass="expandoscroll-small">
-
-					</div>
-				</div>
-
-
 				$.ajax({
 					url: "/component/utilities.cfc",
 					type: "GET",
