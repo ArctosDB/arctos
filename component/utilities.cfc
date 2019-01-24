@@ -7,8 +7,15 @@
 		http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#
 
 
-		<cfhttp url="http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#" method="get"></cfhttp>
-		<cfdump var=#cfhttp#>
+		<cfhttp result="gbr" url="http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#" method="get"></cfhttp>
+		<cfdump var=#gbr#>
+
+		<cfif gbr.statusCode is "200 OK" and len(gbr.filecontent) gt 0 and isjson(gbr.filecontent)>
+				<cfset gb=DeserializeJSON(gbr.filecontent)>
+			<cfdump var=#gbr#>
+		</cfif>
+
+
 
 	</cfoutput>
 
