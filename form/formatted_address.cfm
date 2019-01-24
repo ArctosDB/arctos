@@ -20,6 +20,12 @@
 		    }
 		});
 	}
+	function form2json(){
+		var fd=$( "#x" ).serializeArray() ;
+		console.log(fd);
+	}
+
+
 </script>
 <cfoutput>
 	<cfparam name="inp" default="">
@@ -167,8 +173,8 @@
 			<cfdump var=#j#>
 
 			<cfset rslt=SerializeJSON(j)>
-
-			<textarea name="r_inp" id="r_inp">#rslt#</textarea>
+ <input type="button" onclick="form2json()" value="create JSON from form components">
+			<textarea name="r_inp" id="r_inp"></textarea>
 
 <!------------
 <script>
