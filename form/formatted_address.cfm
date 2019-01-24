@@ -122,21 +122,24 @@
 
 <cfif isdefined("form.first_name")>
 	<cfset j.first_name=form.first_name>
-			<cfset j.last_name=form.last_name>
-			<cfset j.middle_initial=form.middle_initial>
-			<cfset j.email=form.email>
-			<cfset j.organization=form.organization>
-			<cfset j.department=form.department>
-			<cfset j.phone=form.phone>
-			<cfset j.street=form.street>
-			<cfset j.state_prov=form.state_prov>
-			<cfset j.postal_code=form.postal_code>
-			<cfset j.country=form.country>
+	<cfset j.last_name=form.last_name>
+	<cfset j.middle_initial=form.middle_initial>
+	<cfset j.email=form.email>
+	<cfset j.organization=form.organization>
+	<cfset j.department=form.department>
+	<cfset j.phone=form.phone>
+	<cfset j.street=form.street>
+	<cfset j.state_prov=form.state_prov>
+	<cfset j.postal_code=form.postal_code>
+	<cfset j.country=form.country>
 
 
 			<cfdump var=#j#>
 
 			<cfset rslt=SerializeJSON(j)>
+
+			<pre>#rslt#</pre>
+			<input type="hidden" name="inp" value="#rslt#">
 			<cfdump var=#rslt#>
 </cfif>
 
