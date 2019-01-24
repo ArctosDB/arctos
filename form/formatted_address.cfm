@@ -2,7 +2,19 @@
 <cfoutput>
 	<cfparam name="inp" default="">
 	<cfparam name="b.first_name" default="">
+	<cfparam name="b.last_name" default="">
+	<cfparam name="b.email" default="">
+	<cfparam name="b.organization" default="">
+	<cfparam name="b.department" default="">
 	<cfparam name="b.position" default="">
+	<cfparam name="b.phone" default="">
+	<cfparam name="b.fax" default="">
+	<cfparam name="b.street" default="">
+	<cfparam name="b.city" default="">
+	<cfparam name="b.state_prov" default="">
+	<cfparam name="b.postal_code" default="">
+	<cfparam name="b.country" default="">
+
 <form name="x" method="post" action="formatted_address.cfm">
 	<label for="inp" value="Input"></label>
 	<textarea name="inp" class="hugetextarea">#inp#</textarea>
@@ -19,16 +31,50 @@
 		<cfif StructKeyExists(jinp, "first_name")>
 			<cfset b.first_name=jinp.first_name>
 		</cfif>
+		<cfif StructKeyExists(jinp, "last_name")>
+			<cfset b.last_name=jinp.last_name>
+		</cfif>
+		<cfif StructKeyExists(jinp, "email")>
+			<cfset b.email=jinp.email>
+		</cfif>
+		<cfif StructKeyExists(jinp, "organization")>
+			<cfset b.organization=jinp.organization>
+		</cfif>
+		<cfif StructKeyExists(jinp, "department")>
+			<cfset b.department=jinp.department>
+		</cfif>
 		<cfif StructKeyExists(jinp, "position")>
-			<cfset b.first_name=jinp.position>
+			<cfset b.position=jinp.position>
+		</cfif>
+		<cfif StructKeyExists(jinp, "phone")>
+			<cfset b.phone=jinp.phone>
+		</cfif>
+		<cfif StructKeyExists(jinp, "fax")>
+			<cfset b.fax=jinp.fax>
+		</cfif>
+		<cfif StructKeyExists(jinp, "street")>
+			<cfset b.street=jinp.street>
+		</cfif>
+		<cfif StructKeyExists(jinp, "city")>
+			<cfset b.city=jinp.city>
+		</cfif>
+		<cfif StructKeyExists(jinp, "state_prov")>
+			<cfset b.state_prov=jinp.state_prov>
+		</cfif>
+		<cfif StructKeyExists(jinp, "postal_code")>
+			<cfset b.postal_code=jinp.postal_code>
+		</cfif>
+		<cfif StructKeyExists(jinp, "country")>
+			<cfset b.country=jinp.country>
 		</cfif>
 	</cfif>
+
+
+
+
 				<label for="first_name">first_name </label>
 				<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
 
-				<label for="position">position</label>
-				<input type="text" name="position" id="position" value="#b.position#"  size="80" class="reqdClr">
-<!----
 				<label for="last_name">last_name</label>
 				<input type="text" name="last_name" id="last_name" value="#b.last_name#"size="80" class="reqdClr">
 
@@ -45,6 +91,8 @@
 				<input type="text" name="department" id="department" value="#b.department#"  size="80" class="reqdClr">
 
 
+				<label for="position">position</label>
+				<input type="text" name="position" id="position" value="#b.position#"  size="80" class="reqdClr">
 
 				<label for="phone">phone</label>
 				<input type="text" name="phone" id="phone" value="#b.phone#" size="80" class="reqdClr">
@@ -67,7 +115,7 @@
 				<label for="country">country</label>
 				<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
 
-					<cfset j.first_name=first_name>
+			<cfset j.first_name=first_name>
 			<cfset j.last_name=last_name>
 			<cfset j.middle_initial=middle_initial>
 			<cfset j.email=email>
@@ -79,7 +127,8 @@
 			<cfset j.postal_code=postal_code>
 			<cfset j.country=country>
 
-			<cfset x=SerializeJSON(j)>
+			<cfset rslt=SerializeJSON(j)>
+			<cfdump var=#rslt#>
 			---->
 			</form>
 			</cfoutput>
