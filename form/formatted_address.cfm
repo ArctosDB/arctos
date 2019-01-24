@@ -4,9 +4,13 @@
 		var inp=$("#inp").val();
 		console.log(inp);
 		var j=$.parseJSON(inp);
+		var lk;
 		console.log(j);
 		$.each(j, function(key, value){
 		    console.log(key, value);
+		    lk=key.toLowerCase();
+		    console.log(lk);
+
 		});
 	}
 </script>
