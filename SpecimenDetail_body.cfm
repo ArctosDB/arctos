@@ -152,7 +152,7 @@
 						returnformat : "plain"
 					},
 					success: function(r) {
-						console.log('happy');
+						//console.log('happy');
 						$("##rellnks").show();
 						$("##rel_links").html(r);
 					},
