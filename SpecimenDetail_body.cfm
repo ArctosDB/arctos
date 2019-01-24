@@ -1241,7 +1241,6 @@
 						</cfif>
 					</div>
 					<div class="detailBlock expandoscroll-small" id="id_ids" data-expandoclass="expandoscroll-small">
-
 						<cfloop query="ids">
 							<div class="detailBlock">
 								<span class="innerDetailLabel">

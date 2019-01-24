@@ -126,16 +126,19 @@
 	packageId="f85f5c5c-ce02-4337-9317-23fe54769ff2/v1.3" system="http://gbif.org" scope="system"
 	xml:lang="eng">
 	<dataset>
+	<!---- what is this? ---->
   	<alternateIdentifier>f85f5c5c-ce02-4337-9317-23fe54769ff2</alternateIdentifier>
   	<alternateIdentifier>http://ipt.vertnet.org:8080/ipt/resource?r=#d.guid_prefix#</alternateIdentifier>
   	<title xml:lang="eng">#d.collection# (Arctos)</title>
+	<!---- where do I get this? Using me for now... ---->
     <creator>
 	    <individualName>
-	        <givenName>Teresa</givenName>
-	      <surName>Mayfield</surName>
+	      <givenName>Dusty</givenName>
+	      <surName>McDonald</surName>
 	    </individualName>
-    <organizationName>University of Texas at El Paso</organizationName>
-    <positionName>Manager, UTEP Biodiversity Collections</positionName>
+    	<organizationName>#d.INSTITUTION#</organizationName>
+		<!---- where do I get this? Using me for now... ---->
+    	<positionName>Data Janitor</positionName>
     <address>
         <deliveryPoint>500 West University Avenue, Biology Bldg. ##222</deliveryPoint>
         <city>El Paso</city>

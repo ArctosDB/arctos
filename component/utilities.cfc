@@ -1,5 +1,15 @@
 <cfcomponent>
+<cffunction name="getAggregatorLinks" output="false" returnType="any" access="remote">
+	<cfargument name="guid" required="yes"><!--- DWC triplet --->
+	<cfoutput>
+		<cfset theFullGuid="http://arctos.database.museum/guid/#guid#">
+		<cfhttp result="ga" url="http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#" method="get"></cfhttp>
+		<cfdump var=#result#>
 
+	</cfoutput>
+
+</cffunction>
+<!-------------------------------------------------->
 <cffunction name="sandboxToS3" output="false" returnType="any" access="remote">
 	<!---
 		upload a file and return a URL
