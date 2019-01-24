@@ -145,7 +145,7 @@
 				$.ajax({
 					url: "/component/utilities.cfc",
 					type: "GET",
-					dataType: "json",
+					dataType: "text",
 					data: {
 						method:  "getAggregatorLinks",
 						guid: '#guid#',
