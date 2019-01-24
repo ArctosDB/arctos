@@ -3,6 +3,7 @@
 	<cfparam name="inp" default="">
 	<cfparam name="b.first_name" default="">
 	<cfparam name="b.last_name" default="">
+	<cfparam name="b.middle_initial" default="">
 	<cfparam name="b.email" default="">
 	<cfparam name="b.organization" default="">
 	<cfparam name="b.department" default="">
@@ -33,6 +34,9 @@
 		</cfif>
 		<cfif StructKeyExists(jinp, "last_name")>
 			<cfset b.last_name=jinp.last_name>
+		</cfif>
+		<cfif StructKeyExists(jinp, "middle_initial")>
+			<cfset b.middle_initial=jinp.middle_initial>
 		</cfif>
 		<cfif StructKeyExists(jinp, "email")>
 			<cfset b.email=jinp.email>
