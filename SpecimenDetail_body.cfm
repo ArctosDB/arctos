@@ -140,23 +140,21 @@
 					}
 				);
             });
-
-
-				$.ajax({
-					url: "/component/utilities.cfc",
-					type: "GET",
-					dataType: "text",
-					data: {
-						method:  "getAggregatorLinks",
-						guid: '#guid#',
-						returnformat : "plain"
-					},
-					success: function(r) {
-						//console.log('happy');
-						$("##rellnks").show();
-						$("##rel_links").html(r);
-					},
-					error: function (xhr, textStatus, errorThrown){
+			$.ajax({
+				url: "/component/utilities.cfc",
+				type: "GET",
+				dataType: "text",
+				data: {
+					method:  "getAggregatorLinks",
+					guid: '#guid#',
+					returnformat : "plain"
+				},
+				success: function(r) {
+					//console.log('happy');
+					$("##rellnks").show();
+					$("##rel_links").html(r);
+				},
+				error: function (xhr, textStatus, errorThrown){
 				    // show error
 				    console.log(errorThrown);
 				  }
