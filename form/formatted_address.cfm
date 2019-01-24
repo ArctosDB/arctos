@@ -2,6 +2,7 @@
 <cfoutput>
 	<cfparam name="inp" default="">
 	<cfparam name="b.first_name" default="">
+	<cfparam name="b.position" default="">
 <form name="x" method="post" action="formatted_address.cfm">
 	<label for="inp" value="Input"></label>
 	<textarea name="inp" class="hugetextarea">#inp#</textarea>
@@ -18,9 +19,15 @@
 		<cfif StructKeyExists(jinp, "first_name")>
 			<cfset b.first_name=jinp.first_name>
 		</cfif>
+		<cfif StructKeyExists(jinp, "position")>
+			<cfset b.first_name=jinp.position>
+		</cfif>
 	</cfif>
 				<label for="first_name">first_name </label>
 				<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
+
+				<label for="position">position</label>
+				<input type="text" name="position" id="position" value="#b.position#"  size="80" class="reqdClr">
 <!----
 				<label for="last_name">last_name</label>
 				<input type="text" name="last_name" id="last_name" value="#b.last_name#"size="80" class="reqdClr">
@@ -37,8 +44,7 @@
 				<label for="department">department</label>
 				<input type="text" name="department" id="department" value="#b.department#"  size="80" class="reqdClr">
 
-				<label for="position">position</label>
-				<input type="text" name="position" id="position" value="#b.position#"  size="80" class="reqdClr">
+
 
 				<label for="phone">phone</label>
 				<input type="text" name="phone" id="phone" value="#b.phone#" size="80" class="reqdClr">
