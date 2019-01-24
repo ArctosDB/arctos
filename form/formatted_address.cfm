@@ -10,6 +10,9 @@
 		    console.log(key, value);
 		    lk=key.toLowerCase();
 		    console.log(lk);
+		    if ($('#' + lk).length){
+		    	$('#' + lk).val(value);
+		    }
 
 		});
 	}
