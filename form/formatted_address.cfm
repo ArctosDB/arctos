@@ -138,12 +138,17 @@
 
 			<cfset rslt=SerializeJSON(j)>
 
-			<input type="hidden" name="inp" value="#rslt#">
-
-			<cfset dr=DeserializeJSON(rslt)>
+			<input type="hidden" name="inp" id="inp" value="#rslt#">
 
 
-			<pre>#dr#</pre>
+<script>
+	var r = $.parseJSON($("##inp").val());
+			var str = JSON.stringify(r, null, 2);
+			$("##jdp").html('<pre>' + str + '</pre>');
+</script>
+
+
+			<<div id="jdp"></div>
 			<cfdump var=#rslt#>
 </cfif>
 
