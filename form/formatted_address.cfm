@@ -155,7 +155,8 @@
 
 				<label for="country">country</label>
 				<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
-
+ <input type="button" onclick="form2json()" value="create JSON from form components">
+			<textarea name="r_inp" id="r_inp"></textarea>
 <cfif isdefined("form.first_name")>
 	<cfset j.first_name=form.first_name>
 	<cfset j.last_name=form.last_name>
@@ -173,8 +174,7 @@
 			<cfdump var=#j#>
 
 			<cfset rslt=SerializeJSON(j)>
- <input type="button" onclick="form2json()" value="create JSON from form components">
-			<textarea name="r_inp" id="r_inp"></textarea>
+
 
 <!------------
 <script>
