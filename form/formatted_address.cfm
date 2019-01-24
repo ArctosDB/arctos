@@ -120,7 +120,7 @@
 				<label for="country">country</label>
 				<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
 
-<cfif isdefined("form.first_name")>
+<cfif isdefined("form")>
 	form.first_name::#form.first_name#
 </cfif>
 			<cfset j.first_name=first_name>
