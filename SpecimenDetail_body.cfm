@@ -124,7 +124,7 @@
 						related_key_value: spid
 					},
 						function (data) {
-							console.log(data);
+							//console.log(data);
 							if (data.ROWCOUNT>0){
 								var seid=data.DATA.SPECIMEN_EVENT_ID[0];
 							} else {
@@ -154,8 +154,8 @@
 					success: function(r) {
 						console.log('happy');
 						$("##rellnks").html(r).show();
-				},
-				error: function (xhr, textStatus, errorThrown){
+					},
+					error: function (xhr, textStatus, errorThrown){
 				    // show error
 				    console.log(errorThrown);
 				  }
@@ -163,10 +163,10 @@
 		});
 
 		function addSpecEvtLnkLnks(typ,id,seid){
-			console.log('i am addSpecEvtLnkLnks');
-			console.log('typ:' + typ);
-			console.log('id:' + id);
-			console.log('seid:' + seid);
+			//console.log('i am addSpecEvtLnkLnks');
+			//console.log('typ:' + typ);
+			//console.log('id:' + id);
+			//console.log('seid:' + seid);
 
 			var theHTML='';
 			if (typ='specimen_part'){
@@ -263,7 +263,7 @@
 
 
 		function highlightEventDerivedJunk(seid){
-			console.log('highlightEventDerivedJunk: ' + seid);
+			//console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
 			var sct='linkedEvent:' + seid ;
 			//$( "span:contains(" + sct + ")").addClass('highlightedEventRelated');
