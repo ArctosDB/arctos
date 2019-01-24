@@ -1,38 +1,4 @@
 <cfcomponent>
-<cffunction name="getAggregatorLinks2" output="true" returnType="any" access="remote">
-	<cfargument name="guid" required="yes"><!--- DWC triplet --->
-	<cfset r="">
-	<cftry>
-		<cfoutput>
-			<cfset theFullGuid="http://arctos.database.museum/guid/#guid#">
-			<cfhttp result="gbr" url="http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#" method="get"></cfhttp>
-			<cfif gbr.statusCode is "200 OK" and len(gbr.filecontent) gt 0 and isjson(gbr.filecontent)>
-				<cfset gb=DeserializeJSON(gbr.filecontent)>
-				<cfloop from ="1" to="#arraylen(gb.results)#" index="i">
-					<cfset thisStruct=gb.results[i]>
-					<cfset thisGBID=thisStruct.gbifID>
-					<cfset r=r & '<div><a href="https://www.gbif.org/occurrence/#thisGBID#" target="_blank" class="external">GBIF Occurrence</a></div>'>
-				</cfloop>
-			</cfif>
-			<cfset idburl=URLEncodedFormat('{"data":{"type":"fulltext","value":"#theFullGuid#"}}')>
-
-
-			<cfhttp result="idbr" url="https://search.idigbio.org/v2/search/records?fields=uuid&rq=#idburl#" method="get"></cfhttp>
-			<cfif idbr.statusCode is "200 OK" and len(idbr.filecontent) gt 0 and isjson(idbr.filecontent)>
-				<cfset idb=DeserializeJSON(idbr.filecontent)>
-				<cfloop from ="1" to="#arraylen(idb.items)#" index="i">
-					<cfset thisStruct=idb.items[i]>
-					<cfset thisIDBID=thisStruct.indexTerms.uuid>
-					<cfset r=r & '<div><a href="https://www.idigbio.org/portal/records/#thisIDBID#" target="_blank" class="external">iDigBio Occurrence</a></div>'>
-				</cfloop>
-			</cfif>
-		</cfoutput>
-		<cfcatch>
-			<cfset r="">
-		</cfcatch>
-	</cftry>
-	<cfreturn r>
-</cffunction>
 <cffunction name="getAggregatorLinks" output="true" returnType="any" access="remote">
 	<cfargument name="guid" required="yes"><!--- DWC triplet --->
 	<cfset r="">
