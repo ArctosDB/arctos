@@ -7,6 +7,15 @@
 	<textarea name="inp" class="hugetextarea">#inp#</textarea>
 
 	If you have a formatted address, you can paste it in above and <input type="submit" value="break input into components">
+
+	<cfif len(inp) is 0>
+		<br>no input...
+	</cfif>
+	<cfif len(inp) gt 0 and isjson(inp)>
+		<br>got JSON...
+		<cfset jinp=DeserializeJSON(inp)>
+		<cfdump var=#jinp#>
+	</cfif>
 				<label for="first_name">first_name </label>
 				<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
 <!----
