@@ -1,3 +1,4 @@
+	<cfinclude template="/includes/alwaysInclude.cfm">
 
 <cfoutput>
 	<cfparam name="inp" default="">
