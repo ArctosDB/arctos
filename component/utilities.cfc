@@ -1,5 +1,43 @@
 <cfcomponent>
+<cffunction name="getAggregatorLinks" output="true" returnType="any" access="remote">
+	<cfargument name="guid" required="yes"><!--- DWC triplet --->
+	<cfset r="">
+	<cftry>
+		<cfoutput>
+			<cfset theFullGuid="http://arctos.database.museum/guid/#guid#">
+			<cfhttp result="gbr" url="http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#" method="get"></cfhttp>
+			<cfif gbr.statusCode is "200 OK" and len(gbr.filecontent) gt 0 and isjson(gbr.filecontent)>
+				<cfset gb=DeserializeJSON(gbr.filecontent)>
+				<cfloop from ="1" to="#arraylen(gb.results)#" index="i">
+					<cfset thisStruct=gb.results[i]>
+					<cfset thisGBID=thisStruct.gbifID>
+					<cfset r=r & '<div><a href="https://www.gbif.org/occurrence/#thisGBID#" target="_blank" class="external">GBIF Occurrence</a></div>'>
+				</cfloop>
+			</cfif>
+			<!---
+				idigbio's undocumented fulltext search matches substrings, so this gets really crazy with catnum=1
+				we're providing catnum as DWC triplets so the alternative sort of works....
 
+				<cfset idburl=URLEncodedFormat('{"data":{"type":"fulltext","value":"#theFullGuid#"}}')>
+			--->
+			<cfset idburl=URLEncodedFormat('{"catalognumber":"#guid#"}')>
+			<cfhttp result="idbr" url="https://search.idigbio.org/v2/search/records?fields=uuid&rq=#idburl#" method="get"></cfhttp>
+			<cfif idbr.statusCode is "200 OK" and len(idbr.filecontent) gt 0 and isjson(idbr.filecontent)>
+				<cfset idb=DeserializeJSON(idbr.filecontent)>
+				<cfloop from ="1" to="#arraylen(idb.items)#" index="i">
+					<cfset thisStruct=idb.items[i]>
+					<cfset thisIDBID=thisStruct.indexTerms.uuid>
+					<cfset r=r & '<div><a href="https://www.idigbio.org/portal/records/#thisIDBID#" target="_blank" class="external">iDigBio Occurrence</a></div>'>
+				</cfloop>
+			</cfif>
+		</cfoutput>
+		<cfcatch>
+			<cfset r="">
+		</cfcatch>
+	</cftry>
+	<cfreturn r>
+</cffunction>
+<!-------------------------------------------------->
 <cffunction name="sandboxToS3" output="false" returnType="any" access="remote">
 	<!---
 		upload a file and return a URL
@@ -1771,7 +1809,7 @@
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
 			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts,COMMIT_EDITMSG,console,CHANGELOG,com_sun_web_ui,cfdocs">
 			<cfset x=x & ",classLoader,cacheObjectMaxSize">
-			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config">
+			<cfset x=x & ",drithsx,Dashboard,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config,dbm">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway">
 			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git">
@@ -1797,6 +1835,8 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
+
+
 
 
 			<!--- just remember to not add these...---->
