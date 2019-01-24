@@ -3,6 +3,10 @@
 	function breakInputUp(){
 		var inp=$("#inp").val();
 		console.log(inp);
+
+		$.each(inp, function(key, value){
+		    console.log(key, value);
+		});
 	}
 </script>
 <cfoutput>
