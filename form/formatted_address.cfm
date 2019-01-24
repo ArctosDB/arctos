@@ -20,6 +20,7 @@
 	<label for="inp" value="Input"></label>
 	<textarea name="inp" class="hugetextarea">#inp#</textarea>
 
+
 	If you have a formatted address, you can paste it in above and <input type="submit" value="break input into components">
 
 	<cfif len(inp) is 0>
@@ -119,6 +120,9 @@
 				<label for="country">country</label>
 				<input type="text" name="country" id="country" value="#b.country#" size="80" class="reqdClr">
 
+<cfif isdefined("form.first_name")>
+	form.first_name::#form.first_name#
+</cfif>
 			<cfset j.first_name=first_name>
 			<cfset j.last_name=last_name>
 			<cfset j.middle_initial=middle_initial>
