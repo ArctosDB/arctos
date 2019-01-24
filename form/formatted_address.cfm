@@ -35,7 +35,7 @@
 		<br>got JSON...
 		<cfset jinp=DeserializeJSON(inp)>
 		<cfdump var=#jinp#>
-		<cfif StructKeyExists(jinp, "first_name")>
+		<cfif StructKeyExists(jinp, "FIRST_NAME")>
 			<cfset b.first_name=jinp.first_name>
 		</cfif>
 		<cfif StructKeyExists(jinp, "last_name")>
