@@ -17,6 +17,10 @@
 	<cfparam name="b.postal_code" default="">
 	<cfparam name="b.country" default="">
 
+	<cfif isdefined('r_inp') and len('r_inp') gt 0>
+		<cfset inp=r_inp>
+	</cfif>
+
 <form name="x" method="post" action="formatted_address.cfm">
 	<label for="inp" value="Input"></label>
 	<textarea name="inp" class="hugetextarea">#inp#</textarea>
@@ -139,7 +143,7 @@
 
 			<cfset rslt=SerializeJSON(j)>
 
-			<input type="hidden" name="inp" id="inp" value="#escapeQuotes(rslt)#">
+			<input type="hidden" name="r_inp" id="r_inp" value="#escapeQuotes(rslt)#">
 
 
 <script>
