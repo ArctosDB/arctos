@@ -77,6 +77,7 @@
 		<cfif StructKeyExists(jinp, "country")>
 			<cfset b.country=jinp.country>
 		</cfif>
+		<cfdump var=#b#>
 	</cfif>
 
 
