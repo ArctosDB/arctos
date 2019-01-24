@@ -148,7 +148,7 @@
 					dataType: "json",
 					data: {
 						method:  "getAggregatorLinks",
-						guid: '#guid#'
+						guid: '#guid#',
 						returnformat : "plain"
 					},
 					success: function(r) {
