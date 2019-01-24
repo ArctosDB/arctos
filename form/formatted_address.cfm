@@ -15,6 +15,9 @@
 		<br>got JSON...
 		<cfset jinp=DeserializeJSON(inp)>
 		<cfdump var=#jinp#>
+		<cfif StructKeyExists(jinp, "first_name")>
+			<cfset b.first_name=jinp.first_name>
+		</cfif>
 	</cfif>
 				<label for="first_name">first_name </label>
 				<input type="text" name="first_name" id="first_name" value="#b.first_name#" size="80" class="reqdClr">
