@@ -153,7 +153,8 @@
 					},
 					success: function(r) {
 						console.log('happy');
-						$("##rellnks").html(r).show();
+						$("##rellnks").show();
+						$("##rel_links").html(r);
 					},
 					error: function (xhr, textStatus, errorThrown){
 				    // show error
