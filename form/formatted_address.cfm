@@ -133,6 +133,9 @@
 			<cfset j.postal_code=form.postal_code>
 			<cfset j.country=form.country>
 
+
+			<cfdump var=#j#>
+
 			<cfset rslt=SerializeJSON(j)>
 			<cfdump var=#rslt#>
 </cfif>
