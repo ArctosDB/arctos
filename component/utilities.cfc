@@ -22,14 +22,7 @@
 		</cfif>
 
 
-<cfset d="
-{
-  "data": {
-    "type": "fulltext",
-    "value": "aster"
-  }
-}
-">
+
 <!----
 curl -s 'https://search.idigbio.org/v2/search/records/?rq=%7B%22data%22%3A%7B%22type%22%3A%22fulltext%22%2C%22value%22%3A%22http%3A%2F%2Farctos.database.museum%2Fguid%2FMSB%3AMamm%3A292063%22%7D%7D'
 ---->
