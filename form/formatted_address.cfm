@@ -32,7 +32,7 @@
     console.log(jsonstr);
     $('#r_inp').val(jsonstr);
 
-			var str = JSON.stringify(r, null, 2);
+			var str = JSON.stringify(json, null, 2);
 			$("#jdp").html('<pre>' + str + '</pre>');
 
 
