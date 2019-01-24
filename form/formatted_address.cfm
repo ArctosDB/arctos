@@ -12,8 +12,9 @@
 		    console.log(lk);
 		    if ($('#' + lk).length){
 		    	$('#' + lk).val(value);
+		    } else {
+		    	$('#perr').append('<div>Unable to handle ' + key + '; proceed with caution</div>');
 		    }
-
 		});
 	}
 </script>
@@ -42,6 +43,7 @@
 	<label for="inp" value="Input"></label>
 	<textarea name="inp" id="inp"  class="hugetextarea">#inp#</textarea>
 
+	<div id="perr"></div>
 
 	If you have a formatted address, you can paste it in above and <input type="button" onclick="breakInputUp()" value="break input into components">
 
