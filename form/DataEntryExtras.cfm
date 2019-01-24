@@ -343,7 +343,6 @@
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
 			});
-
 			$( "#theForm" ).submit(function( event ) {
 				event.preventDefault();
 				$.ajax({
@@ -371,12 +370,98 @@
 			});
 		});
 
-		function pattrChg(i){
-			if ($("#part_attribute_type_" + i).val().length > 0) {
-				$("#part_attribute_value_" + i).addClass('reqdClr').prop('required',true);
-			} else {
+		function pattrChg(ptnum){
+			var theVal=$("#part_attribute_type_" + ptnum).val();
+			$.ajax({
+				url: "/component/DataEntry.cfc?queryformat=column&returnformat=json",
+				type: "GET",
+				dataType: "json",
+				data: {
+					method:  "getPartAttCodeTbl",
+					attribute: $("#part_attribute_type_" + ptnum).val(),
+					element: 'nothing'
+				},
+				success: function(r) {
+					var result=r.DATA;
+					var resType=result.V[0];
+					var x;
+					var n=result.V.length;
+					$("#pavcl_" + ptnum).html('');
+					$("#paucl_" + ptnum).html('');
+					if (resType == 'value'){
+						// value pick, no units
+						var s=document.createElement('SELECT');
+						s.name='part_attribute_value_' + ptnum;
+						s.id=s.name;
+						var a = document.createElement("option");
+						a.text = '';
+					    a.value = '';
+						s.appendChild(a);
+						for (i=2;i<result.V.length;i++) {
+							var theStr = result.V[i];
+							if(theStr=='_yes_'){
+								theStr='yes';
+							}
+							if(theStr=='_no_'){
+								theStr='no';
+							}
+							var a = document.createElement("option");
+							a.text = theStr;
+							a.value = theStr;
+							s.appendChild(a);
+						}
+						//$("#part_attribute_value_" + i).append('<label for="part_attribute_value_' + i + '">Value</label>');
+						$("#pavcl_" + ptnum).append(s);
+						$("#part_attribute_value_" + ptnum).select();
+						$("#paucl_" + ptnum).append('<input type="hidden" name="part_attribute_units_' + ptnum + '" id="part_attribute_units_' + ptnum + '" value="">');
+						$("#part_attribute_value_" + ptnum).addClass('reqdClr').prop('required',true);
+					} else if (resType == 'units') {
+						var s=document.createElement('SELECT');
+						s.name='part_attribute_units_' + ptnum;
+						s.id=s.name;
+						var a = document.createElement("option");
+						a.text = '';
+					    a.value = '';
+						s.appendChild(a);
+						for (i=2;i<result.V.length;i++) {
+							var theStr = result.V[i];
+							if(theStr=='_yes_'){
+								theStr='yes';
+							}
+							if(theStr=='_no_'){
+								theStr='no';
+							}
+							var a = document.createElement("option");
+							a.text = theStr;
+							a.value = theStr;
+							s.appendChild(a);
+						}
+						//$("#paucl_" + i).append('<label for="part_attribute_units_' + i + '">Units</label>');
+						$("#paucl_" + ptnum).append(s);
+						//<label for="part_attribute_value_' + ptnum + '">Value</label>
+						var s='<input type="number" step="any" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
+						$("#pavcl_" + ptnum).append(s);
+						$("#part_attribute_value_" + ptnum).focus();
+						$("#part_attribute_units_" + ptnum).addClass('reqdClr').prop('required',true);
+					} else if (resType == 'NONE') {
+						//<label for="part_attribute_value_' + ptnum + '">Value</label>
+						var s='<input type="text" class="reqdClr" required name="part_attribute_value_' + ptnum + '" id="part_attribute_value_' + ptnum + '">';
+						$("#pavcl_" + ptnum).append(s);
+						$('#part_attribute_value_' + ptnum).focus();
+						$("#paucl_" + ptnum).append('<input type="hidden" name="part_attribute_units_' + ptnum + '" id="part_attribute_units_' + ptnum + '" value="">');
+					} else {
+						alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
+					}
 
-				$("#part_attribute_value_" + i).removeClass().prop('required',false);
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				}
+			});
+			if ($("#part_attribute_type_" + ptnum).val().length > 0) {
+				$("#part_attribute_value_" + ptnum).addClass('reqdClr').prop('required',true);
+			} else {
+				$("#part_attribute_value_" + ptnum).removeClass().prop('required',false);
 			}
 		}
 	</script>
@@ -482,10 +567,10 @@
 							          </select>
 
 								</td>
-								<td>
+								<td id="pavcl_#i#">
 									<input type="text" name="part_attribute_value_#i#" id="part_attribute_value_#i#">
 								</td>
-								<td>
+								<td id="paucl_#i#">
 									<input type="text" name="part_attribute_units_#i#" id="part_attribute_units_#i#">
 								</td>
 								<td>

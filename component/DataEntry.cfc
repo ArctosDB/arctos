@@ -1,5 +1,121 @@
 <cfcomponent>
 <!------------------------------------------------------------------------------->
+
+
+<cffunction name="getPartAttCodeTbl"  access="remote">
+	<cfargument name="attribute" type="string" required="yes">
+	<cfargument name="element" type="string" required="yes">
+	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from CTSPEC_PART_ATT_ATT where attribute_type='#attribute#'
+	</cfquery>
+	<cfif isCtControlled.recordcount is 1>
+		<cfif len(isCtControlled.VALUE_CODE_TABLE) gt 0>
+			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#'
+				and column_name <> 'DESCRIPTION'
+			</cfquery>
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select * from #isCtControlled.value_code_table#
+			</cfquery>
+			<cfset collCode = "">
+			<cfset columnName = "">
+			<cfloop query="getCols">
+				<cfif getCols.column_name is "COLLECTION_CDE">
+					<cfset collCode = "yes">
+				  <cfelse>
+					<cfset columnName = "#getCols.column_name#">
+				</cfif>
+			</cfloop>
+			<cfif len(collCode) gt 0>
+				<cfquery name="valCodes" dbtype="query" >
+					SELECT #columnName# as valCodes from valCT
+					WHERE collection_cde='#collection_cde#'
+					order by #columnName#
+				</cfquery>
+			  <cfelse>
+				<cfquery name="valCodes" dbtype="query">
+					SELECT  #columnName# as valCodes from valCT order by #columnName#
+				</cfquery>
+			</cfif>
+			<cfset result = QueryNew("V")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "value",1)>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
+			<cfset i=3>
+			<cfloop query="valCodes">
+				<cfset newRow = QueryAddRow(result, 1)>
+				<cfif valcodes is "yes">
+					<cfset rval="_yes_">
+				<cfelseif valcodes is "no">
+					<cfset rval="_no_">
+				<cfelse>
+					<cfset rval=valcodes>
+				</cfif>
+				<cfset temp = QuerySetCell(result, "v", rval,i)>
+				<cfset i=i+1>
+			</cfloop>
+
+		<cfelseif #isCtControlled.UNIT_CODE_TABLE# gt 0>
+			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNIT_CODE_TABLE)#'
+				and column_name <> 'DESCRIPTION'
+			</cfquery>
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+				select * from #isCtControlled.UNIT_CODE_TABLE#
+			</cfquery>
+			<cfset collCode = "">
+			<cfset columnName = "">
+			<cfloop query="getCols">
+				<cfif getCols.column_name is "COLLECTION_CDE">
+					<cfset collCode = "yes">
+				  <cfelse>
+					<cfset columnName = "#getCols.column_name#">
+				</cfif>
+			</cfloop>
+			<cfif len(#collCode#) gt 0>
+				<cfquery name="valCodes" dbtype="query">
+					SELECT #columnName# as valCodes from valCT
+					WHERE collection_cde='#collection_cde#'
+					order by #columnName#
+				</cfquery>
+			  <cfelse>
+				<cfquery name="valCodes" dbtype="query">
+					SELECT #columnName# as valCodes from valCT order by #columnName#
+				</cfquery>
+			</cfif>
+			<cfset result = "unit - #isCtControlled.UNIT_CODE_TABLE#">
+			<cfset result = QueryNew("V")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "units")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
+			<cfset i=3>
+			<cfloop query="valCodes">
+				<cfset newRow = QueryAddRow(result, 1)>
+				<cfset temp = QuerySetCell(result, "v", "#valCodes#",#i#)>
+				<cfset i=#i#+1>
+			</cfloop>
+		<cfelse>
+			<cfset result = QueryNew("V")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "ERROR")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
+		</cfif>
+	<cfelse>
+		<cfset result = QueryNew("V")>
+		<cfset newRow = QueryAddRow(result, 1)>
+		<cfset temp = QuerySetCell(result, "v", "NONE")>
+		<cfset newRow = QueryAddRow(result, 1)>
+		<cfset temp = QuerySetCell(result, "v", "#element#",2)>
+	</cfif>
+
+	<cfreturn result>
+
+</cffunction>
+
+<!------------------------------------------------------------------------------->
 <cffunction name="checkExtendedData" access="remote" returnformat="json">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
