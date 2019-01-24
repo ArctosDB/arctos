@@ -15,6 +15,9 @@
 			<cfdump var=#gb#>
 			<cfloop from ="1" to="#arraylen(gb.results)#" index="i">
 				<br>--#i#--
+				<cfset thisStruct=gb.results[i]>
+				<cfset thisGBID=thisStruct.gbifID>
+				<br>https://www.gbif.org/occurrence/#thisGBID#
 			</cfloop>
 		</cfif>
 
