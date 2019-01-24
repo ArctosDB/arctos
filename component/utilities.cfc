@@ -29,7 +29,7 @@ curl -s 'https://search.idigbio.org/v2/search/records/?rq=%7B%22data%22%3A%7B%22
 
 
 <cfset idburl=URLEncodedFormat('{"data":{"type":"fulltext","value":"#theFullGuid#"}}')>
-		<cfhttp result="idbr" url="https://search.idigbio.org/v2/search/records?rq=#idburl#" method="get">
+		<cfhttp result="idbr" url="https://search.idigbio.org/v2/search/records?fields=uuid&rq=#idburl#" method="get">
 		</cfhttp>
 
 		<cfdump var=#idbr#>
