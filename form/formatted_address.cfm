@@ -28,7 +28,7 @@
         json[this.name] = this.value || '';
     });
     console.log(json);
-	var jsonstr=json.stringify();
+	var jsonstr=JSON.stringify(json);
     console.log(jsonstr);
     $('#r_inp').val(jsonstr);
 	}
