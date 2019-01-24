@@ -29,12 +29,23 @@ curl -s 'https://search.idigbio.org/v2/search/records/?rq=%7B%22data%22%3A%7B%22
 
 
 <cfset idburl=URLEncodedFormat('{"data":{"type":"fulltext","value":"#theFullGuid#"}}')>
-		<cfhttp result="idb" url="https://search.idigbio.org/v2/search/records?rq=#idburl#" method="get">
+		<cfhttp result="idbr" url="https://search.idigbio.org/v2/search/records?rq=#idburl#" method="get">
 		</cfhttp>
 
 		<cfdump var=#idb#>
 
-
+<cfif idbr.statusCode is "200 OK" and len(idbr.filecontent) gt 0 and isjson(idbr.filecontent)>
+			<cfset idb=DeserializeJSON(idbr.filecontent)>
+			<cfdump var=#gb#>
+			<!----
+			<cfloop from ="1" to="#arraylen(gb.results)#" index="i">
+				<br>--#i#--
+				<cfset thisStruct=gb.results[i]>
+				<cfset thisGBID=thisStruct.gbifID>
+				<br>https://www.gbif.org/occurrence/#thisGBID#
+			</cfloop>
+			----->
+		</cfif>
 
 
 	</cfoutput>
