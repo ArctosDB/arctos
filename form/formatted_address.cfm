@@ -33,7 +33,9 @@
 	</p>
 	<label for="inp" value="Paste an existing address here"></label>
 	<textarea name="inp" id="inp"  class="hugetextarea"></textarea>
-	<input type="button" onclick="breakInputUp()" value="Click here"> to break a pasted-in address into components which can be edited.
+	<p>
+		<input type="button" onclick="breakInputUp()" value="Click here"> to break a pasted-in address into components which can be edited.
+	</p>
 	<p>
 		<div id="perr"></div>
 	</p>
