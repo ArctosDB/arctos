@@ -37,14 +37,12 @@ curl -s 'https://search.idigbio.org/v2/search/records/?rq=%7B%22data%22%3A%7B%22
 <cfif idbr.statusCode is "200 OK" and len(idbr.filecontent) gt 0 and isjson(idbr.filecontent)>
 			<cfset idb=DeserializeJSON(idbr.filecontent)>
 			<cfdump var=#idb#>
-			<!----
-			<cfloop from ="1" to="#arraylen(gb.results)#" index="i">
+			<cfloop from ="1" to="#arraylen(idb.items)#" index="i">
 				<br>--#i#--
-				<cfset thisStruct=gb.results[i]>
-				<cfset thisGBID=thisStruct.gbifID>
-				<br>https://www.gbif.org/occurrence/#thisGBID#
+				<cfset thisStruct=idb.items[i]>
+				<cfset thisIDBID=thisStruct.indexTerms.uuid>
+				<br>https://www.idigbio.org/portal/records/#thisIDBID#
 			</cfloop>
-			----->
 		</cfif>
 
 
