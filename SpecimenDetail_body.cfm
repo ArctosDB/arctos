@@ -140,6 +140,38 @@
 					}
 				);
             });
+
+
+
+			<!------------- DWC portals -------------------------->
+				<div class="detailCell" id="rellnks" style='display:none';>
+					<div class="detailLabel">Links
+						<span class="expandoHolder" id="expando_rel_links"></span>
+					</div>
+					<div class="detailBlock expandoscroll-small" id="rel_links" data-expandoclass="expandoscroll-small">
+
+					</div>
+				</div>
+
+
+				$.ajax({
+					url: "/component/utilities.cfc",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "getAggregatorLinks",
+						guid: '#guid#'
+						returnformat : "plain"
+					},
+					success: function(r) {
+						console.log('happy');
+						$("##rellnks").html(r).show();
+				},
+				error: function (xhr, textStatus, errorThrown){
+				    // show error
+				    console.log(errorThrown);
+				  }
+			});
 		});
 
 		function addSpecEvtLnkLnks(typ,id,seid){
@@ -1306,6 +1338,17 @@
 					</div>
 				</div>
 			</cfif>
+
+
+			<!------------- DWC portals -------------------------->
+				<div class="detailCell" id="rellnks" style='display:none';>
+					<div class="detailLabel">Links
+						<span class="expandoHolder" id="expando_rel_links"></span>
+					</div>
+					<div class="detailBlock expandoscroll-small" id="rel_links" data-expandoclass="expandoscroll-small">
+
+					</div>
+				</div>
 
 
 <!------------------------------------ parts ---------------------------------------------->
