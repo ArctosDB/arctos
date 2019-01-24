@@ -4,7 +4,7 @@
 	<cfoutput>
 		<cfset theFullGuid="http://arctos.database.museum/guid/#guid#">
 		<cfhttp result="ga" url="http://api.gbif.org/v1/occurrence/search?organismId=#theFullGuid#" method="get"></cfhttp>
-		<cfdump var=#result#>
+		<cfdump var=#ga#>
 
 	</cfoutput>
 
