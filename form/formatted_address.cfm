@@ -143,7 +143,7 @@
 
 			<cfset rslt=SerializeJSON(j)>
 
-			<input type="hidden" name="r_inp" id="r_inp" value="#escapeQuotes(rslt)#">
+			<textarea name="r_inp" id="r_inp">#rslt#</textarea>
 
 
 <script>
