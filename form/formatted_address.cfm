@@ -23,6 +23,10 @@
 	function form2json(){
 		var fd=$( "#x" ).serializeArray() ;
 		console.log(fd);
+		 jQuery.each(fd, function() {
+        json[this.name] = this.value || '';
+    });
+    console.log(json);
 	}
 
 
