@@ -124,7 +124,7 @@
 						related_key_value: spid
 					},
 						function (data) {
-							console.log(data);
+							//console.log(data);
 							if (data.ROWCOUNT>0){
 								var seid=data.DATA.SPECIMEN_EVENT_ID[0];
 							} else {
@@ -140,13 +140,34 @@
 					}
 				);
             });
+
+
+				$.ajax({
+					url: "/component/utilities.cfc",
+					type: "GET",
+					dataType: "text",
+					data: {
+						method:  "getAggregatorLinks",
+						guid: '#guid#',
+						returnformat : "plain"
+					},
+					success: function(r) {
+						//console.log('happy');
+						$("##rellnks").show();
+						$("##rel_links").html(r);
+					},
+					error: function (xhr, textStatus, errorThrown){
+				    // show error
+				    console.log(errorThrown);
+				  }
+			});
 		});
 
 		function addSpecEvtLnkLnks(typ,id,seid){
-			console.log('i am addSpecEvtLnkLnks');
-			console.log('typ:' + typ);
-			console.log('id:' + id);
-			console.log('seid:' + seid);
+			//console.log('i am addSpecEvtLnkLnks');
+			//console.log('typ:' + typ);
+			//console.log('id:' + id);
+			//console.log('seid:' + seid);
 
 			var theHTML='';
 			if (typ='specimen_part'){
@@ -243,7 +264,7 @@
 
 
 		function highlightEventDerivedJunk(seid){
-			console.log('highlightEventDerivedJunk: ' + seid);
+			//console.log('highlightEventDerivedJunk: ' + seid);
 			// parts
 			var sct='linkedEvent:' + seid ;
 			//$( "span:contains(" + sct + ")").addClass('highlightedEventRelated');
@@ -1241,7 +1262,6 @@
 						</cfif>
 					</div>
 					<div class="detailBlock expandoscroll-small" id="id_ids" data-expandoclass="expandoscroll-small">
-
 						<cfloop query="ids">
 							<div class="detailBlock">
 								<span class="innerDetailLabel">
@@ -1307,6 +1327,17 @@
 					</div>
 				</div>
 			</cfif>
+
+
+			<!------------- DWC portals -------------------------->
+				<div class="detailCell" id="rellnks" style="display:none">
+					<div class="detailLabel">Links
+						<span class="expandoHolder" id="expando_rel_links"></span>
+					</div>
+					<div class="detailBlock expandoscroll-small" id="rel_links" data-expandoclass="expandoscroll-small">
+
+					</div>
+				</div>
 
 
 <!------------------------------------ parts ---------------------------------------------->
