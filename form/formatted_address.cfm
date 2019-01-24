@@ -31,7 +31,7 @@
 	<textarea name="inp" id="inp"  class="hugetextarea">#inp#</textarea>
 
 
-	If you have a formatted address, you can paste it in above and <input type="submit" value="break input into components">
+	If you have a formatted address, you can paste it in above and <input type="button" onclick="breakInputUp()" value="break input into components">
 
 	<cfif len(inp) is 0>
 		<br>no input...
