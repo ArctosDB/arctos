@@ -201,67 +201,43 @@
 <script>
 	$(document).ready(function() {
 
-		console.log('ready...');
+		//console.log('ready...');
+		// this may have killed the DB, so only grab the first 10 or something
+		var ln=0;
 		$("div[data-tid]").each(function( i, val ) {
-			console.log(val);
-			var tid=$(this).attr("data-tid");
-			console.log(tid);
+			if (ln<10){
+				//console.log(val);
+				var tid=$(this).attr("data-tid");
+				//console.log(tid);
 
-			$.ajax({
-				url: "/component/taxonomy.cfc?",
-				type: "GET",
-				dataType: "text",
-				//async: false,
-				data: {
-					method:  "getDisplayClassData",
-					taxon_name_id : tid,
-					returnformat : "plain"
-				},
-				success: function(r) {
+				$.ajax({
+					url: "/component/taxonomy.cfc?",
+					type: "GET",
+					dataType: "text",
+					//async: false,
+					data: {
+						method:  "getDisplayClassData",
+						taxon_name_id : tid,
+						returnformat : "plain"
+					},
+					success: function(r) {
 
-					console.log(r);
+						console.log(r);
 
-					$("##tname_" + tid).append(r);
-				},
-					error: function (xhr, textStatus, errorThrown){
-			    	//alert(errorThrown + ': ' + textStatus + ': ' + xhr);
-			    	// meh, whatever, this is purely informational
-				}
-			});
-
-
-
-
+						$("##tname_" + tid).append(r);
+					},
+						error: function (xhr, textStatus, errorThrown){
+				    	//alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+				    	// meh, whatever, this is purely informational
+					}
+				});
+				ln++;
+			}
 		});
 	});
 
 </script>
 	<h3>Taxonomy Search Results</h3>
-<!--------------
-
-
-
-					//$("##tname_" + tid).append(dd);
-					$(this).append(dd);
-
-	/*
-					if (r.STATUS=='SUCCESS'){
-						$.each( r.STSARY, function( k, v ) {
-							var tra='<ul>';
-							tra+='<li>References Count: ' + v.REFERENCE_COUNT + '</li>';
-							tra+='<li>Referenced By Count: ' + v.REFERENCE_BY_COUNT + '</li>';
-							tra+='<li><a data-doi="' + v.DOI + '" href="/info/publicationDetails.cfm?doi=' + v.DOI + '" class="modalink">CrossRef Data</a></li>';
-							tra+='</ul>';
-							var escdoi=v.DOI.replace(/[\W_]+/g,"_");
-							$('#x' + escdoi).append(tra);
-						});
-					} else {
-						alert(r.STATUS + ': ' + r.MSG);
-					}
-					*/
-
-
-					----------->
 	<cfset tabls="taxon_name">
 	<cfset tbljoin="">
 	<cfset whr="">
@@ -270,13 +246,13 @@
 	<ul>
 		<cfif len(taxon_name) gt 0>
 			<cfif left(taxon_name,1) is "=">
-				<cfset whr=whr & " and upper(scientific_name) = '#escapeQuotes(ucase(right(taxon_name,len(taxon_name)-1)))#'">
+				<cfset whr=whr & " and upper(taxon_name.scientific_name) = '#escapeQuotes(ucase(right(taxon_name,len(taxon_name)-1)))#'">
 				<li>scientific_name IS #right(taxon_name,len(taxon_name)-1)#</li>
 			<cfelseif left(taxon_name,1) is "%">
-				<cfset whr=whr & " and upper(scientific_name) like '%#ucase(escapeQuotes(right(taxon_name,len(taxon_name)-1)))#%'">
+				<cfset whr=whr & " and upper(taxon_name.scientific_name) like '%#ucase(escapeQuotes(right(taxon_name,len(taxon_name)-1)))#%'">
 				<li>scientific_name CONTAINS #taxon_term#</li>
 			<cfelse>
-				<cfset whr=whr & " and upper(scientific_name) like '#ucase(escapeQuotes(taxon_name))#%'">
+				<cfset whr=whr & " and upper(taxon_name.scientific_name) like '#ucase(escapeQuotes(taxon_name))#%'">
 				<li>scientific_name STARTS WITH #taxon_name#</li>
 			</cfif>
 		</cfif>
@@ -285,7 +261,6 @@
 				<cfset tabls=tabls & " , taxon_term">
 				<cfset tbljoin=tbljoin & " AND taxon_name.taxon_name_id=taxon_term.taxon_name_id">
 			</cfif>
-
 			<cfif  left(taxon_term,1) is "=">
 				<cfset whr=whr & " and upper(term) = '#escapeQuotes(ucase(right(taxon_term,len(taxon_term)-1)))#'">
 				<li>taxa term IS #right(taxon_term,len(taxon_term)-1)#</li>
@@ -350,10 +325,10 @@
 				<li>common name STARTS WITH #common_name#</li>
 			</cfif>
 		</cfif>
-		<cfset sql="select scientific_name,taxon_name_id from (select scientific_name, taxon_name.taxon_name_id from #tabls# where 1=1 #tbljoin# #whr# ">
+		<cfset sql="select scientific_name,taxon_name_id from (select taxon_name.scientific_name, taxon_name.taxon_name_id from #tabls# where 1=1 #tbljoin# #whr# ">
 		<cfset sql=sql & "
-		group by scientific_name,taxon_name_id
-		order by scientific_name)
+		group by taxon_name.scientific_name,taxon_name.taxon_name_id
+		order by taxon_name.scientific_name)
 		where rownum<1001">
 
 	</ul>
@@ -544,6 +519,7 @@
 					}
 				});
 			});
+			/*
 			function getWorms(n){
 				$("##wscallrslt").html('<img src="/images/indicator.gif">fetching from WoRMS....');
 				$.ajax({
@@ -567,6 +543,40 @@
 					}
 				});
 			}
+			*/
+			function refreshWorms(tid,aid){
+				$("##RefreshWormsSpan").html('<img src="/images/indicator.gif">fetching....');
+				$.ajax({
+					url: "/component/taxonomy.cfc?queryformat=column&&=#name#",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "updateWormsArctosByAphiaID",
+						taxon_name_id : tid,
+						aphiaid : aid,
+						returnformat : "json"
+					},
+					success: function(r) {
+						if (r.STATUS=='success'){
+							var theLink='<span class="likeLink" onclick="reloadHash(\'WoRMSviaArctos\')">Success! click to reload</span>';
+							$("##RefreshWormsSpan").html(theLink);
+						} else {
+							var m="The request to WoRMS failed";
+							if (r.hasOwnProperty("MSG")){
+								m+=": " + r.MSG;
+							}
+							$("##RefreshWormsSpan").html(m);
+						}
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert('Validator Error: ' + errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
+			}
+
+
+
+
 			function reloadHash(a){
 				//var x=location.href.replace(location.hash,"");
 				//var x2=x+'##' + a;
@@ -577,7 +587,7 @@
 				window.location.reload(true);
 			}
 		</script>
-		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Non-Classification Data ]</a>
+		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Name + Related Data ]</a>
 		<div id="validatorResults"></div>
 		<cfquery name="wdi" datasource="uam_god">
 			select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=#taxon_name_id.taxon_name_id#
@@ -729,7 +739,9 @@
 	<h4>Classifications</h4>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/ScheduledTasks/globalnames_refresh.cfm?name=#name#">[ Refresh/pull GlobalNames ]</a>
+		<!----
 		<span class="likeLink" onclick="getWorms('#name#');">[ Pull to "WoRMS (via Arctos)" classification ]</span>
+		---->
 		<a href="/editTaxonomy.cfm?action=forceDeleteNonLocal&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Force-delete all non-local metadata ]</a>
 		<a href="/editTaxonomy.cfm?action=newClassification&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Create Classification ]</a>
 		<a class="external" target="_blank" href="http://resolver.globalnames.org/name_resolvers.html?names=#scientific_name.scientific_name#">[ GlobalNames (HTML) ]</a>
@@ -875,7 +887,16 @@
 					</cfif>
 					<p>
 						<cfloop query="notclass">
-							<br>#term_type#: #term#
+							<cfif term_type is "aphiaid">
+								<br>#term_type#: <a target="_blank" class="external" href="http://www.marinespecies.org/aphia.php?p=taxdetails&id=#term#">#term#</a>
+								<cfif sources.source is 'WoRMS (via Arctos)' and isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+									<span id="RefreshWormsSpan">
+										<span class="likeLink" onclick="refreshWorms('#taxon_name_id.taxon_name_id#','#notclass.term#');"> [refresh]</span>
+									</span>
+								</cfif>
+							<cfelse>
+								<br>#term_type#: #term#
+							</cfif>
 						</cfloop>
 					</p>
 					<cfif thisone.recordcount gt 0>
@@ -900,7 +921,6 @@
 								<cfif (sources.source is 'Arctos' or sources.source is 'Arctos Plants') and isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 									<a href="/tools/taxonomyTree.cfm?action=autocreateandseed&seed_term=#term#&source=#sources.source#&trm_rank=#sttyp#"> [ seed hierarchy ]</a>
 								</cfif>
-
 							</div>
 							<cfset indent=indent+1>
 						</cfloop>
