@@ -11,8 +11,11 @@
 		<cfdump var=#gbr#>
 
 		<cfif gbr.statusCode is "200 OK" and len(gbr.filecontent) gt 0 and isjson(gbr.filecontent)>
-				<cfset gb=DeserializeJSON(gbr.filecontent)>
+			<cfset gb=DeserializeJSON(gbr.filecontent)>
 			<cfdump var=#gb#>
+			<cfloop from ="1" to =arraylen(gb.results) index="i">
+				<br>--#i#--
+			</cfloop>
 		</cfif>
 
 
