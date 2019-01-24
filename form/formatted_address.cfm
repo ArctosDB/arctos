@@ -21,7 +21,7 @@
 		    if ($('#' + lk).length){
 		    	$('#' + lk).val(value);
 		    } else {
-		    	$('#perr').append('<div>Unable to handle ' + key + '; proceed with caution</div>');
+		    	$('#perr').show().append('<div>Unable to handle ' + key + '; proceed with caution</div>');
 		    }
 		});
 	}
@@ -48,7 +48,7 @@
 		<input type="button" onclick="breakInputUp()" value="Click here"> to break a pasted-in address into components which can be edited.
 	</p>
 	<p>
-		<div id="perr"></div>
+		<div id="perr" style="display:none"></div>
 	</p>
 	<form name="x" id="x" method="post" action="formatted_address.cfm">
 		<label for="first_name">first_name </label>
