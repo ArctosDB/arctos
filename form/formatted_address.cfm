@@ -1,6 +1,9 @@
 	<cfinclude template="/includes/alwaysInclude.cfm">
 <script>
 	function breakInputUp(){
+		$(':input','#x').not(':button, :submit, :reset, :hidden').val('');
+
+
 		var inp=$("#inp").val();
 		console.log(inp);
 		var j=$.parseJSON(inp);
@@ -39,7 +42,7 @@
 		<cfset inp=r_inp>
 	</cfif>
 
-<form name="x" method="post" action="formatted_address.cfm">
+<form name="x" id="x" method="post" action="formatted_address.cfm">
 	<label for="inp" value="Input"></label>
 	<textarea name="inp" id="inp"  class="hugetextarea">#inp#</textarea>
 
