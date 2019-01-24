@@ -143,7 +143,7 @@
 
 
 <script>
-	var r = $.parseJSON($("##inp").val());
+	var r = $.parseJSON("#rslt#");
 	console.log(r);
 			var str = JSON.stringify(r, null, 2);
 			$("##jdp").html('<pre>' + str + '</pre>');
