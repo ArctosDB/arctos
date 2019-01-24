@@ -148,7 +148,7 @@
 </script>
 
 
-			<<div id="jdp"></div>
+			<div style="border:2px solid red" id="jdp"></div>
 			<cfdump var=#rslt#>
 </cfif>
 
