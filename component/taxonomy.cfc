@@ -3,15 +3,83 @@
 
 
 <!--------------------------------------------------------------------------------------->
-	<cffunction name="getWormsByAphiaID" access="remote">
+	<cffunction name="getWormsChanged" access="remote">
+		<cfargument name="thedate" type="string" required="true">
+		<cfoutput>
+			<!---
+
+				<!--- blargh need a temp table to handle this; it can take a while ---->
+				drop table cf_worms_refresh_job;
+				create table cf_worms_refresh_job (
+					last_run_date date,
+					last_status varchar2(255)
+				);
+
+				insert into cf_worms_refresh_job(last_run_date,last_status) values (to_date('2018-12-20'),'new');
+
+				select last_run_date-sysdate from cf_worms_refresh_job;
+
+				for one day, loop until we get everything
+				worms date handling is a little wonky, so "start" today and "end" tomorrow??
+
+				DateAdd(datepart, number, date)
+
+			--->
+			<cfquery name="rs" datasource="uam_god">
+				select * from cf_worms_refresh_job
+			</cfquery>
+			<cfdump var=#rs#>
+			<cfif rs.last_run_date neq dateformat(now(),"YYYY-MM-DD")>
+				<br>we have not run today
+			</cfif>
+
+			<cfset lastRunDate=listgetat(Application.wrmsbkmrk,1,"|")>
+			<cfset lastRunLoop=listgetat(Application.wrmsbkmrk,2,"|")>
+
+			<br>lastRunDate:#lastRunDate#
+			<br>lastRunLoop:#lastRunLoop#
+
+				<cfset edate=DateAdd("d", 1, thedate)>
+				<cfdump var=#edate#>
+				<cfset edate=dateformat(edate,"YYYY-MM-DD")>
+				<cfdump var=#edate#>
+
+				<cfset st=thedate & "T00%3A00%3A00%2B00%3A00">
+				<cfset et=thedate & "T24%3A00%3A00%2B00%3A00">
+
+
+
+			<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#o#">
+			<cfdump var=#theURL#>
+			<!----
+			<cfset theURL=urlencodedFormat(theURL)>
+			<cfdump var=#theURL#>
+---->
+			<cfhttp result="ga" url="#theURL#" method="get"></cfhttp>
+			<cfdump var=#ga#>
+			<cfif left(ga.Statuscode,3) is "204">
+				<br>got nothing no more loopy
+			<cfelseif left(ga.Statuscode,3) is "200">
+				<br>got some stuff
+			<cfelse>
+				<br>bah bad status!
+			</cfif>
+		</cfoutput>
+	</cffunction>
+
+<!--------------------------------------------------------------------------------------->
+	<cffunction name="updateWormsArctosByAphiaID" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="aphiaID" type="string" required="true">
 		<cfargument name="taxon_name_id" type="string" required="true">
 		<cfparam name="debug" default="false">
 		<cfoutput>
 		<cftry>
-			<cfquery name="cttaxon_term" datasource="uam_god">
+			<cfquery name="cttaxon_term" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select taxon_term from cttaxon_term
+			</cfquery>
+			<cfquery name="CTTAXON_STATUS" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select TAXON_STATUS from CTTAXON_STATUS
 			</cfquery>
 
 			<cfhttp  result="ga" url="http://www.marinespecies.org/rest/AphiaRecordByAphiaID/#aphiaID#" method="get"></cfhttp>
@@ -29,6 +97,9 @@
 					<cfhttp  result="gt" url="http://www.marinespecies.org/rest/AphiaClassificationByAphiaID/#therecord.AphiaID#" method="get"></cfhttp>
 					<cfif gt.statusCode is "200 OK" and len(gt.filecontent) gt 0 and isjson(gt.filecontent)>
 						<cfset gto=DeserializeJSON(gt.filecontent)>
+						<cfif debug is true>
+							<cfdump var=#gto#>
+						</cfif>
 						<cfset skey="gto">
 						<cfset taxonRankStringified="">
 						<cfloop from ="1" to="100" index="i">
@@ -45,6 +116,9 @@
 								<cfbreak >
 							</cfif>
 						</cfloop>
+						<cfif debug is true>
+							<cfdump var=#therecord#>
+						</cfif>
 						<cfif i gt 1>
 							<!----
 								if we made it here everything should be happy and we should have some data, so create the classification
@@ -64,9 +138,57 @@
 								<cfquery name="flushOld" datasource="uam_god">
 									delete from taxon_term where taxon_name_id=#taxon_name_id# and source='#thisSrcName#'
 								</cfquery>
+								<cfset t="aphiaid">
+								<cfset d=therecord.AphiaID>
+								<cfquery name="meta" datasource="uam_god">
+									insert into taxon_term (
+										taxon_term_id,
+										taxon_name_id,
+										term,
+										term_type,
+										source,
+										position_in_classification,
+										classification_id
+									) values (
+										sq_taxon_term_id.nextval,
+										#taxon_name_id#,
+										'#d#',
+										'#t#',
+										'#thisSrcName#',
+										NULL,
+										'#thisSourceID#'
+									)
+								</cfquery>
+
+
 								<cfif structkeyexists(therecord,"authority")>
 									<cfset t="author_text">
 									<cfset d=therecord.authority>
+									<cfif len(d) gt 0>
+										<cfquery name="meta" datasource="uam_god">
+											insert into taxon_term (
+												taxon_term_id,
+												taxon_name_id,
+												term,
+												term_type,
+												source,
+												position_in_classification,
+												classification_id
+											) values (
+												sq_taxon_term_id.nextval,
+												#taxon_name_id#,
+												'#d#',
+												'#t#',
+												'#thisSrcName#',
+												NULL,
+												'#thisSourceID#'
+											)
+										</cfquery>
+									</cfif>
+								</cfif>
+								<cfif structkeyexists(therecord,"citation")>
+									<cfset t="source_authority">
+									<cfset d=therecord.citation>
 									<cfquery name="meta" datasource="uam_god">
 										insert into taxon_term (
 											taxon_term_id,
@@ -87,31 +209,6 @@
 										)
 									</cfquery>
 								</cfif>
-								<!---
-								<cfif structkeyexists(therecord,"citation")>
-									<cfset t="citation">
-									<cfset d=therecord.citation>
-									<cfquery name="meta" datasource="uam_god">
-										insert into taxon_term (
-											taxon_term_id,
-											taxon_name_id,
-											term,
-											term_type,
-											source,
-											position_in_classification,
-											classification_id
-										) values (
-											sq_taxon_term_id.nextval,
-											#tid.taxon_name_id#,
-											'#d#',
-											'#t#',
-											'#thisSrcName#',
-											NULL,
-											'#thisSourceID#'
-										)
-									</cfquery>
-								</cfif>
-								---->
 
 								<cfif structkeyexists(therecord,"isExtinct")>
 									<cfif therecord.isExtinct is "0" or therecord.isExtinct is 1>
@@ -145,6 +242,9 @@
 
 
 								<cfif structkeyexists(therecord,"status")>
+									<cfif debug is true>
+										<br>therecord.status::#therecord.status#
+									</cfif>
 									<cfset t="taxon_status">
 									<!--- try to get local terminology --->
 									<cfset d="">
@@ -152,11 +252,10 @@
 										<cfset d='valid'>
 									<cfelseif therecord.status is 'unaccepted'>
 										<cfset d='invalid'>
-									<!----
-										we may need a cfelse here if anything falls out of the Issue
-									---->
+									<cfelse>
+										<cfset d=therecord.status>
 									</cfif>
-									<cfif len(d) gt 0>
+									<cfif len(d) gt 0 and listfind(valuelist(CTTAXON_STATUS.TAXON_STATUS),d)>
 										<cfquery name="meta" datasource="uam_god">
 											insert into taxon_term (
 												taxon_term_id,
@@ -232,35 +331,120 @@
 								----->
 
 								<!---
+									https://github.com/ArctosDB/arctos/issues/1136
+
+									is resolved-enough to proceed with "synonym of" in both directions
 
 
-								can't deal with this until relationships are resolved at github
+								----------->
+
 
 								<cfif structkeyexists(therecord,"valid_name")>
+									<cfif debug is true>
+										<br>therecord.valid_name::#therecord.valid_name#
+									</cfif>
 									<cfif not (structkeyexists(therecord,"scientificname")) or (therecord.valid_name is not therecord.scientificname)>
-										<cfset t="valid_name">
-										<cfset d=therecord.valid_name>
-										<cfquery name="meta" datasource="uam_god">
-											insert into taxon_term (
-												taxon_term_id,
-												taxon_name_id,
-												term,
-												term_type,
-												source,
-												position_in_classification,
-												classification_id
-											) values (
-												sq_taxon_term_id.nextval,
-												#tid.taxon_name_id#,
-												'#d#',
-												'#t#',
-												'#thisSrcName#',
-												NULL,
-												'#thisSourceID#'
-											)
+										<cfif debug is true>
+											<br>therecord,"scientificname")) or (therecord.valid_name is not therecord.scientificname)
+										</cfif>
+										<cfset relauth="">
+										<cfif structkeyexists(therecord,"valid_authority")>
+											<cfset relauth=therecord.valid_authority>
+										</cfif>
+										<!--- see if we have an existing relationship --->
+										<!--- first need the related name --->
+
+										<cfquery name="rname" datasource="uam_god">
+											select taxon_name_id from taxon_name where scientific_name='#therecord.valid_name#'
 										</cfquery>
+										<cfif debug is true>
+											<br>rname:::
+											<cfdump var=#rname#>
+										</cfif>
+										<cfif len(rname.taxon_name_id) gt 0>
+											<!---
+												got it; see if the relationship exists
+												https://github.com/ArctosDB/arctos/issues/1136
+												we are using "synonym of" for everything, so just ignore type for this for now
+											---->
+											<cfquery name="er" datasource="uam_god">
+												select
+													count(*) c
+												from
+													taxon_relations
+												where
+													taxon_name_id=#taxon_name_id# and
+													related_taxon_name_id=#rname.taxon_name_id#
+											</cfquery>
+											<cfif debug is true>
+												<br>er:::
+												<cfdump var=#er#>
+											</cfif>
+											<cfif er.c is 0>
+
+												<cfif debug is true>
+													<br>creating relationship
+												</cfif>
+												<!--- create the relationship ---->
+												<cfquery name="mkreln" datasource="uam_god">
+													insert into taxon_relations (
+														TAXON_RELATIONS_ID,
+														TAXON_NAME_ID,
+														RELATED_TAXON_NAME_ID,
+														TAXON_RELATIONSHIP,
+														RELATION_AUTHORITY,
+														STALE_FG
+													) values (
+														sq_TAXON_RELATIONS_ID.nextval,
+														#taxon_name_id#,
+														#rname.taxon_name_id#,
+														'synonym of',
+														'WoRMS',
+														1
+													)
+												</cfquery>
+											</cfif>
+											<!---- now see if the reciprocal exists --->
+											<cfquery name="err" datasource="uam_god">
+												select
+													count(*) c
+												from
+													taxon_relations
+												where
+													taxon_name_id=#rname.taxon_name_id# and
+													related_taxon_name_id=#taxon_name_id#
+											</cfquery>
+											<cfif debug is true>
+												<br>err:::
+												<cfdump var=#err#>
+											</cfif>
+											<cfif err.c is 0>
+												<cfif debug is true>
+													<br>creating reciprocal relationship
+												</cfif>
+												<!--- create the relationship ---->
+												<cfquery name="mkreln" datasource="uam_god">
+													insert into taxon_relations (
+														TAXON_RELATIONS_ID,
+														TAXON_NAME_ID,
+														RELATED_TAXON_NAME_ID,
+														TAXON_RELATIONSHIP,
+														RELATION_AUTHORITY,
+														STALE_FG
+													) values (
+														sq_TAXON_RELATIONS_ID.nextval,
+														#rname.taxon_name_id#,
+														#taxon_name_id#,
+														'synonym of',
+														'WoRMS',
+														1
+													)
+												</cfquery>
+											</cfif>
+										</cfif>
 									</cfif>
 								</cfif>
+								<!----
 
 
 								<cfif structkeyexists(therecord,"valid_authority")>
@@ -288,16 +472,52 @@
 										</cfquery>
 									</cfif>
 								</cfif>
-
-								----------->
-
+								---->
 
 
+								<cfset ncode="">
 								<cfif structkeyexists(therecord,"number_of_cterms")>
 									<cfloop from ="1" to="#therecord.number_of_cterms#" index="i">
 										<cfset t=lcase(evaluate("therecord.rank_" & i))>
 										<cfset d=evaluate("therecord.term_" & i)>
-										<cfquery name="meta" datasource="uam_god">
+										<cfif t is "kingdom">
+											<cfif d is "Animalia">
+												<cfset ncode='ICZN'>
+											<cfelseif d is "Plantae" or d is "Chromista">
+												<cfset ncode='ICBN'>
+											</cfif>
+										</cfif>
+										<cfif listFind(valuelist(cttaxon_term.taxon_term),t)>
+											<cfquery name="meta" datasource="uam_god">
+												insert into taxon_term (
+													taxon_term_id,
+													taxon_name_id,
+													term,
+													term_type,
+													source,
+													position_in_classification,
+													classification_id
+												) values (
+													sq_taxon_term_id.nextval,
+													#taxon_name_id#,
+													'#d#',
+													'#t#',
+													'#thisSrcName#',
+													#i#,
+													'#thisSourceID#'
+												)
+											</cfquery>
+										<cfelse>
+											<cfif debug is true>
+												<br>didn't find #t#
+											</cfif>
+										</cfif>
+									</cfloop>
+								</cfif>
+								<cfif isdefined("ncode") and len(ncode) gt 0>
+									<cfset t="nomenclatural_code">
+									<cfset d=ncode>
+									<cfquery name="meta" datasource="uam_god">
 										insert into taxon_term (
 											taxon_term_id,
 											taxon_name_id,
@@ -312,11 +532,10 @@
 											'#d#',
 											'#t#',
 											'#thisSrcName#',
-											#i#,
+											NULL,
 											'#thisSourceID#'
 										)
 									</cfquery>
-									</cfloop>
 								</cfif>
 							</cftransaction>
 						</cfif>
