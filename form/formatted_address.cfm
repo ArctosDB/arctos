@@ -1,4 +1,15 @@
-	<cfinclude template="/includes/alwaysInclude.cfm">
+<cfinclude template="/includes/alwaysInclude.cfm">
+<style>
+#perr {
+    background-color: black;
+    color: green;
+    padding: 1em;
+    margin: 1em;
+    font-family: courier;
+    font-size: smaller;
+
+}
+</style>
 <script>
 	function breakInputUp(){
 		$(':input','#x').not(':button, :submit, :reset, :hidden').val('');
