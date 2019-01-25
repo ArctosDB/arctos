@@ -31,6 +31,8 @@
 	<label for="in">Paste most anything</label>
 	<textarea name="in" id="in" class="enormoustextarea"></textarea>
 	<br><input type="button" onclick="listerize()" value="Listerize!">
+	<br>
+	<label for="out">comma-list</label>
 	<textarea name="out" id="out" class="enormoustextarea"></textarea>
 
 </cfoutput>
