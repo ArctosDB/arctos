@@ -1,6 +1,9 @@
 <!----
 	alter table cf_global_settings add announcement_text varchar2 (255);
 	alter table cf_global_settings add announcement_expires date;
+
+		alter table cf_global_settings add GENBANK_ENDPOINT varchar2(255);
+update cf_global_settings set GENBANK_ENDPOINT='ftp-private.ncbi.nlm.nih.gov';
 ---->
 <!---- force-refresh cache---->
 	<cfquery name="g_a_t" datasource="uam_god" cachedwithin="#createtimespan(0,0,0,0)#">
