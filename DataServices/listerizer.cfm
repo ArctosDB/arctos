@@ -35,6 +35,7 @@
 		str.select();
 		document.execCommand("copy");
 		$('<div>Copied to clipboard</div>').insertBefore('#btncpy').delay(3000).fadeOut();
+	}
 
 </script>
 <cfoutput>
