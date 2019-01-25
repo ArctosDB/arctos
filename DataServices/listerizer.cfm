@@ -13,6 +13,9 @@
 		//multiple
 		str = str.replace(/[, ]+/g, ",").trim();
 		console.log(str);
+		// lead/trail
+		str = str.replace(/(^,)|(,$)/g, "");
+		console.log(str);
 
 		$("#out").val(str);
 	}
