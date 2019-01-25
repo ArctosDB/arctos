@@ -154,11 +154,11 @@
 				$("#address_new" + i).removeClass('reqdClr').prop('required',false);
 			}
 		});
+	});
+
 		function editFJSON(aid) {
 			console.log(aid);
 		}
-
-	});
 </script>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif not isdefined("agent_id") OR agent_id lt 0 >
