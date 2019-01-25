@@ -5,6 +5,9 @@
     	margin: .3em;
     	width: 100em;
 	}
+
+
+}
 </style>
 <script>
 	function listerize(){
@@ -26,6 +29,13 @@
 
 		$("#out").val(str);
 	}
+
+	function cptc() {
+  		var str=$("#out");
+		str.select();
+		document.execCommand("copy");
+		$('<div>Copied to clipboard</div>').insertBefore('#btncpy').delay(3000).fadeOut();
+
 </script>
 <cfoutput>
 	<label for="in">Paste most anything</label>
@@ -34,5 +44,6 @@
 	<br>
 	<label for="out">comma-list</label>
 	<textarea name="out" id="out" class="enormoustextarea"></textarea>
+	<br><input type="button" onclick="cptc()" id="btncpy" value="Copy to clipboard">
 
 </cfoutput>
