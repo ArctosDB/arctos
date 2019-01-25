@@ -156,34 +156,31 @@
 		});
 	});
 
-		function editFJSON(aid) {
-			console.log(aid);
-			var adr=encodeURIComponent($("#address_" + aid).val());
-			console.log(adr);
-			var guts = "/form/formatted_address.cfm?inp=" + adr;
-			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
-				autoOpen: true,
-				closeOnEscape: true,
-				height: 'auto',
-				modal: true,
-				position: ['center', 'top'],
-				title: 'Format Address',
-					width:800,
-		 			height:600,
-				close: function() {
-					$( this ).remove();
-				}
-			}).width(800-10).height(600-10);
-			$(window).resize(function() {
-				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-			});
-			$(".ui-widget-overlay").click(function(){
-			    $(".ui-dialog-titlebar-close").trigger('click');
-			});
-
-
-
-		}
+	function editFJSON(aid) {
+		console.log(aid);
+		var adr=encodeURIComponent($("#address_" + aid).val());
+		console.log(adr);
+		var guts = "/form/formatted_address.cfm?inp=" + adr;
+		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'top'],
+			title: 'Format Address',
+				width:800,
+	 			height:600,
+			close: function() {
+				$( this ).remove();
+			}
+		}).width(800-10).height(600-10);
+		$(window).resize(function() {
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+	}
 </script>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif not isdefined("agent_id") OR agent_id lt 0 >
@@ -652,7 +649,7 @@
 						</cfloop>
 					</select>
 					<cfif address_type is "formatted JSON">
-						<span class="likeLink" onclick="editFJSON('#address_id#')">[ edit tool ]</span>
+						<br><span class="infoLink" onclick="editFJSON('#address_id#')">[ edit tool ]</span>
 					</cfif>
 
 					<cfif numshipfrom gt 0 or numshipto gt 0>
