@@ -157,9 +157,7 @@
 	});
 
 	function editFJSON(aid) {
-		console.log(aid);
 		var adr=encodeURIComponent($("#address_" + aid).val());
-		console.log(adr);
 		var guts = "/form/formatted_address.cfm?inp=" + adr;
 		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
 			autoOpen: true,
@@ -666,12 +664,8 @@
 						<option value="0" <cfif valid_addr_fg is 0> selected="selected" </cfif>>invalid</option>
 					</select>
 					<textarea class="smalltextarea" placeholder="remark" name="address_remark_#address_id#" id="address_remark_#address_id#">#address_remark#</textarea>
-
-
-
 				</div>
 			</cfloop>
-
 			<input type="hidden" id="nnea" value="1">
 			<div class="newRec" id="eaddiv1">
 				<select name="address_type_new1" id="address_type_new1" size="1">
