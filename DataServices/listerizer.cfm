@@ -4,6 +4,8 @@
 		var str=$("#in").val();
 		//str = str.replace(/ *chr(13) */g, ',');
 		str = str.replace(/\n/g, " ");
+
+		$("#out").val(str);
 	}
 </script>
 <cfoutput>
