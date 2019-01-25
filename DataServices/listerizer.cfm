@@ -1,4 +1,4 @@
-<cfinclude tempplate="/includes/alwaysInclude.cfm">
+<cfinclude template="/includes/alwaysInclude.cfm">
 <script>
 	function listerize(){
 		var str=$("#in").val();
