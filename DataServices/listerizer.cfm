@@ -2,13 +2,17 @@
 <script>
 	function listerize(){
 		var str=$("#in").val();
+		console.log(str);
 		//str = str.replace(/ *chr(13) */g, ',');
 		// newline
 		str = str.replace(/\n/g, ",");
+		console.log(str);
 		// tab
 		str = str.replace(/\t/g, ",");
+		console.log(str);
 		//multiple
 		res = str.replace(/[, ]+/g, ",").trim();
+		console.log(str);
 
 		$("#out").val(str);
 	}
