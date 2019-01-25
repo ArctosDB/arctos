@@ -3,7 +3,8 @@
 	function listerize(){
 		var str=$("#in").val();
 		//str = str.replace(/ *chr(13) */g, ',');
-		str = str.replace(/\n/g, " ");
+		str = str.replace(/\n/g, ",");
+		str = str.replace(/\t/g, ",");
 
 		$("#out").val(str);
 	}
