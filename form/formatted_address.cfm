@@ -43,8 +43,8 @@
 		any JSON can be used as an address, but this form won't help.
 	</p>
 	<cfparam name="inp" default="">
-	<label for="inp" value="Paste an existing address here">#inp#</label>
-	<textarea name="inp" id="inp"  class="hugetextarea"></textarea>
+	<label for="inp">Paste an existing address here</label>
+	<textarea name="inp" id="inp"  class="hugetextarea">#inp#</textarea>
 	<p>
 		<input type="button" onclick="breakInputUp()" value="Click here"> to break a pasted-in address into components which can be edited.
 	</p>
