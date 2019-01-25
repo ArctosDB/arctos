@@ -1,4 +1,11 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<style>
+	.enormoustextarea {
+	    height: 20em;
+    	margin: .3em;
+    	width: 100em;
+	}
+</style>
 <script>
 	function listerize(){
 		var str=$("#in").val();
@@ -22,8 +29,8 @@
 </script>
 <cfoutput>
 	<label for="in">Paste most anything</label>
-	<textarea name="in" id="in" class="hugetextarea"></textarea>
+	<textarea name="in" id="in" class="enormoustextarea"></textarea>
 	<br><input type="button" onclick="listerize()" value="Listerize!">
-	<textarea name="out" id="out" class="hugetextarea"></textarea>
+	<textarea name="out" id="out" class="enormoustextarea"></textarea>
 
 </cfoutput>
