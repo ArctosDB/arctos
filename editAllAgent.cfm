@@ -648,21 +648,18 @@
 							>#ctaddress_type.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
-					<cfif address_type is "formatted JSON">
-						<br><span class="infoLink" onclick="editFJSON('#address_id#')">[ edit tool ]</span>
-					</cfif>
-
 					<cfif numshipfrom gt 0 or numshipto gt 0>
 						<cfset addrClass="shippingAddress">
 					<cfelse>
 						<cfset addrClass="">
 					</cfif>
-
-
 					<cfif ttype is 'textarea'>
 						<textarea class="reqdClr addresstextarea #addrClass#" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
 					<cfelse>
 						<input type="#ttype#" class="reqdClr minput #addrClass#" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
+					</cfif>
+					<cfif address_type is "formatted JSON">
+						<br><span class="infoLink" onclick="editFJSON('#address_id#')">[ edit tool ]</span>
 					</cfif>
 					<select name="valid_addr_fg_#address_id#" id="valid_addr_fg_#address_id#" class="reqdClr">
 						<option value="1" <cfif valid_addr_fg is 1> selected="selected" </cfif>>valid</option>
