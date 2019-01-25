@@ -37,6 +37,7 @@
 <cfoutput>
 	<label for="in">Paste most anything (eg, column from Excel)</label>
 	<input type="button" onclick="clrin()" value="Clear Input">
+	<br>
 	<textarea name="in" id="in" class="enormoustextarea"></textarea>
 	<br><input type="button" onclick="listerize()" value="Listerize">
 	<br>
