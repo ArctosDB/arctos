@@ -158,7 +158,7 @@
 
 		function editFJSON(aid) {
 			console.log(aid);
-			var adr=encodeURIComponent(#("address_" + aid).val());
+			var adr=encodeURIComponent($("#address_" + aid).val());
 			console.log(adr);
 			var guts = "/form/formatted_address.cfm?inp=" + adr;
 			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
