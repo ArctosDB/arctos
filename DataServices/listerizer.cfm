@@ -42,7 +42,7 @@
   		var str=$("#out");
 		str.select();
 		document.execCommand("copy");
-		$('<div class="copyalert">Copied to clipboard</div>').insertBefore('#btncpy').delay(3000).fadeOut();
+		$('<div class="copyalert">Copied to clipboard</div>').insertAfter('#btncpy').delay(3000).fadeOut();
 	}
 
 </script>
