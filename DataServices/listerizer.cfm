@@ -2,7 +2,8 @@
 <script>
 	function listerize(){
 		var str=$("#in").val();
-		str = str.replace(/ *chr(13) */g, ',');
+		//str = str.replace(/ *chr(13) */g, ',');
+		str = str.replace(/\n/g, " ");
 	}
 </script>
 <cfoutput>
