@@ -3,8 +3,12 @@
 	function listerize(){
 		var str=$("#in").val();
 		//str = str.replace(/ *chr(13) */g, ',');
+		// newline
 		str = str.replace(/\n/g, ",");
+		// tab
 		str = str.replace(/\t/g, ",");
+		//multiple
+		res = str.replace(/[, ]+/g, " ").trim();
 
 		$("#out").val(str);
 	}
