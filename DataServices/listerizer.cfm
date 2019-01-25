@@ -11,7 +11,7 @@
 		str = str.replace(/\t/g, ",");
 		console.log(str);
 		//multiple
-		res = str.replace(/[, ]+/g, ",").trim();
+		str = str.replace(/[, ]+/g, ",").trim();
 		console.log(str);
 
 		$("#out").val(str);
