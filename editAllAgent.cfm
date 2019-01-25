@@ -154,6 +154,10 @@
 				$("#address_new" + i).removeClass('reqdClr').prop('required',false);
 			}
 		});
+		function editFJSON(aid) {
+			console.log(aid);
+		}
+
 	});
 </script>
 <!------------------------------------------------------------------------------------------------------------->
@@ -622,6 +626,10 @@
 							>#ctaddress_type.ADDRESS_TYPE#</option>
 						</cfloop>
 					</select>
+					<cfif address_type is "formatted JSON">
+						<span class="likeLink" onclick="editFJSON('#address_id#')">[ edit tool ]</span>
+					</cfif>
+
 					<cfif numshipfrom gt 0 or numshipto gt 0>
 						<cfset addrClass="shippingAddress">
 					<cfelse>

@@ -42,7 +42,8 @@
 		This form helps manage and format addresses as JSON. These are used by the GenBank packager and various other components. "Standard" fields are handled;
 		any JSON can be used as an address, but this form won't help.
 	</p>
-	<label for="inp" value="Paste an existing address here"></label>
+	<cfparam name="inp" default="">
+	<label for="inp" value="Paste an existing address here">#inp#</label>
 	<textarea name="inp" id="inp"  class="hugetextarea"></textarea>
 	<p>
 		<input type="button" onclick="breakInputUp()" value="Click here"> to break a pasted-in address into components which can be edited.
