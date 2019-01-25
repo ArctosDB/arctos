@@ -158,6 +158,31 @@
 
 		function editFJSON(aid) {
 			console.log(aid);
+			var adr=encodeURIComponent(#("address_" + aid).val());
+			console.log(adr);
+			var guts = "/form/formatted_address.cfm?inp=" + adr;
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'top'],
+				title: 'Format Address',
+					width:800,
+		 			height:600,
+				close: function() {
+					$( this ).remove();
+				}
+			}).width(800-10).height(600-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+
+
+
 		}
 </script>
 <!------------------------------------------------------------------------------------------------------------->
