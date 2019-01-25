@@ -5,7 +5,15 @@
     	margin: .3em;
     	width: 100em;
 	}
-
+	.copyalert{
+	background-color: #555;
+	  color: white;
+	  text-decoration: none;
+	  padding: 15px 26px;
+	  position: relative;
+	  display: inline-block;
+	  border-radius: 2px;
+	}
 
 }
 </style>
@@ -34,7 +42,7 @@
   		var str=$("#out");
 		str.select();
 		document.execCommand("copy");
-		$('<div>Copied to clipboard</div>').insertBefore('#btncpy').delay(3000).fadeOut();
+		$('<div class="copyalert">Copied to clipboard</div>').insertBefore('#btncpy').delay(3000).fadeOut();
 	}
 
 </script>
