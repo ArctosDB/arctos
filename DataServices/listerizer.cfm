@@ -30,9 +30,13 @@
 		document.execCommand("copy");
 		$('<div class="copyalert">Copied to clipboard</div>').insertAfter('#btncpy').delay(3000).fadeOut();
 	}
+	function clrin() {
+  		$("#in").val('');
+	}
 </script>
 <cfoutput>
 	<label for="in">Paste most anything (eg, column from Excel)</label>
+	<input type="button" onclick="clrin()" value="Clear Input">
 	<textarea name="in" id="in" class="enormoustextarea"></textarea>
 	<br><input type="button" onclick="listerize()" value="Listerize">
 	<br>
