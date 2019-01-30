@@ -55,6 +55,7 @@
 		variety varchar2(4000)
 );
 
+alter table cf_temp_classification add preferred_name varchar2(255);
 
 alter table cf_temp_classification add aphiaid varchar2(255);
 
