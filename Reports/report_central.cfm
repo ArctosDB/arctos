@@ -97,6 +97,7 @@ order by
 </cfquery>
 <cfif cnc.recordcount gt 0>
 	<script src="/includes/sorttable.js"></script>
+	<cfoutput>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Collection</th>
@@ -115,6 +116,7 @@ order by
 			</tr>
 		</cfloop>
 	</table>
+	</cfoutput>
 
 </cfif>
 
