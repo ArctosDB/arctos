@@ -73,6 +73,7 @@ order by
 
 
 ---->
+
 <!--- get data for collections in which this user is a contact ---->
 <cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 	select
@@ -90,6 +91,32 @@ order by
 		cf_report_cache.guid_prefix=collection.guid_prefix and
 		collection.collection_id=collection_contacts.collection_id and
 		collection_contacts.CONTACT_AGENT_ID=#session.myAgentID#
+	order by
+		cf_report_cache.GUID_PREFIX,
+		REPORT_NAME
 </cfquery>
+<cfif cnc.recordcount gt 0>
+	<script src="/includes/sorttable.js"></script>
+	<table border id="t" class="sortable">
+		<tr>
+			<th>Collection</th>
+			<th>Report</th>
+			<th>Link</th>
+			<th>Detail</th>
+			<th>CacheDate</th>
+		</tr>
+		<cfloop query="cnc">
+			<tr>
+				<td>#GUID_PREFIX#</td>
+				<td>#REPORT_NAME#</td>
+				<td>#REPORT_URL#</td>
+				<td>#SUMMARY_DATA#</td>
+				<td>#REPORT_DATE#</td>
+			</tr>
+		</cfloop>
+	</table>
+
+</cfif>
+
 
 <cfdump var=#cnc#>
