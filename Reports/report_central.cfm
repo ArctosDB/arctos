@@ -76,7 +76,7 @@ order by
 <!--- get data for collections in which this user is a contact ---->
 <cfquery name="cnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 	select
-		GUID_PREFIX,
+		cf_report_cache.GUID_PREFIX,
 		REPORT_NAME,
 		REPORT_URL,
 		REPORT_DESCR,
