@@ -110,7 +110,7 @@ order by
 			<tr>
 				<td>#GUID_PREFIX#</td>
 				<td>#REPORT_NAME#</td>
-				<td>#REPORT_URL#</td>
+				<td><a href="#REPORT_URL#">#REPORT_URL#</a></td>
 				<td>#SUMMARY_DATA#</td>
 				<td>#REPORT_DATE#</td>
 			</tr>
