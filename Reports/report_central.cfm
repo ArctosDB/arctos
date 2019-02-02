@@ -47,6 +47,7 @@ order by
 			      )
 			;
 
+--'Parts entered more than 365 days ago with disposition being processed',
 
 select
    collection.guid_prefix || ':' || cataloged_item.cat_num guid,
@@ -62,8 +63,8 @@ from
    specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
    cataloged_item.collection_id=collection.collection_id and
    coll_object.COLL_OBJ_DISPOSITION='being processed' and
-   sysdate-coll_object.COLL_OBJECT_ENTERED_DATE>365 and
-	guid_prefix='UAM:Mamm'
+   sysdate-coll_object.COLL_OBJECT_ENTERED_DATE>365 
+--and	guid_prefix='UAM:Mamm'
 order by
 	collection.guid_prefix || ':' || cataloged_item.cat_num,
 	part_name

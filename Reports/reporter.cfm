@@ -124,6 +124,7 @@
 				cf_report_sql
 			where
 				report_id=#report_id#
+			)
     </cfquery>
 
 
