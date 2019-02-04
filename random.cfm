@@ -15,8 +15,10 @@
 </cfquery>
 <cfset hasAdm=false>
 <!----
+
+---->
 <cfif isdefined("session.roles") and session.roles contains "manage_collection">
-	<cfquery name="admlnk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+	<cfquery name="admlnk" datasource="uam_god" >
 		select * from (
 			select
 				cf_report_cache.GUID_PREFIX,
@@ -40,7 +42,6 @@
 		<cfset hasAdm=true>
 	</cfif>
 </cfif>
----->
 <cfoutput>
 	<ul>
 		<cfif hasAdm is true>
