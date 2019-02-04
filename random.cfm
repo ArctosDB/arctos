@@ -14,6 +14,7 @@
 	WHERE rownum <= 25
 </cfquery>
 <cfset hasAdm=false>
+<!----
 <cfif isdefined("session.roles") and session.roles contains "manage_collection">
 	<cfquery name="admlnk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 		select * from (
@@ -39,6 +40,7 @@
 		<cfset hasAdm=true>
 	</cfif>
 </cfif>
+---->
 <cfoutput>
 	<ul>
 		<cfif hasAdm is true>
