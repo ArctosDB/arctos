@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Data Problems">
 <!----
 report_central.cfm
 for https://github.com/ArctosDB/arctos/issues/1419
@@ -121,3 +122,4 @@ order by
 	</cfoutput>
 
 </cfif>
+<cfinclude template="/includes/footer.cfm">
