@@ -1,3 +1,4 @@
+<cfinclude template="/include/header.cfm">
 <!----
 report_central.cfm
 for https://github.com/ArctosDB/arctos/issues/1419
