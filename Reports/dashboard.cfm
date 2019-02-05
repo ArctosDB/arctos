@@ -1,7 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title="Data Problems">
+<cfset title="Dashboard: Data Problems">
 <!----
-report_central.cfm
 for https://github.com/ArctosDB/arctos/issues/1419
 
 
@@ -101,25 +100,24 @@ order by
 <cfif cnc.recordcount gt 0>
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
-	<table border id="t" class="sortable">
-		<tr>
-			<th>Collection</th>
-			<th>Report</th>
-			<th>Link</th>
-			<th>Detail</th>
-			<th>CacheDate</th>
-		</tr>
-		<cfloop query="cnc">
+		<table border id="t" class="sortable">
 			<tr>
-				<td>#GUID_PREFIX#</td>
-				<td>#REPORT_NAME#</td>
-				<td><a href="#REPORT_URL#">#REPORT_URL#</a></td>
-				<td>#SUMMARY_DATA#</td>
-				<td>#REPORT_DATE#</td>
+				<th>Collection</th>
+				<th>Report</th>
+				<th>Link</th>
+				<th>Detail</th>
+				<th>CacheDate</th>
 			</tr>
-		</cfloop>
-	</table>
+			<cfloop query="cnc">
+				<tr>
+					<td>#GUID_PREFIX#</td>
+					<td>#REPORT_NAME#</td>
+					<td><a href="#REPORT_URL#">#REPORT_URL#</a></td>
+					<td>#SUMMARY_DATA#</td>
+					<td>#REPORT_DATE#</td>
+				</tr>
+			</cfloop>
+		</table>
 	</cfoutput>
-
 </cfif>
-<cfinclude template="/includes/footer.cfm">
+<cfinclude template="/includes/_footer.cfm">
