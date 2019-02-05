@@ -17,6 +17,7 @@
 			)
 		WHERE rownum <= 25
 	</cfquery>
+	<cfset hasadm=false>
 	<cfif isdefined("session.roles") and session.roles contains "manage_collection">
 		<cfquery name="admlnk" datasource="uam_god" >
 			select * from (
