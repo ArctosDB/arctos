@@ -463,6 +463,7 @@
 									</li>
 									 <li><a target="_top" href="##">Find Low-Quality Data</a>
 										<ul>
+											<li><a target="_top" href="/Reports/dashboard.cfm">Dashboard</a></li>
 											<li><a target="_top" href="/info/dispVRemark.cfm">Disposition vs. Remark</a></li>
 											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
 											<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank Discovery Tool</a></li>
