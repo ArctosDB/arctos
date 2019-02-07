@@ -1,5 +1,19 @@
 <cfoutput>
 
+<!----
+
+create table temp_c_t (
+	id varchar2(255),
+	p_id varchar2(255),
+	e_trm varchar2(255),
+	f_trm varchar2(255),
+	alt_trm varchar2(255),
+
+	http://nomenclature.info/nom/291
+
+
+	---->
+
 <cffile action = "read"
 file = "/usr/local/httpd/htdocs/wwwarctos/temp/ctax.jsonld"
 variable = "x">
@@ -7,7 +21,12 @@ variable = "x">
 
 <cfset j=DeserializeJSON(x)>
 
-<cfdump var=#j#>
+
+
+<cfset ar=j[1][1]>
+
+
+<cfdump var=#ar#>
 </cfoutput>
 
 <cfabort>
