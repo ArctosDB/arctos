@@ -241,8 +241,10 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 		<cfelseif old_status is "administrative_approval_granted" and status is not "approve_to_create_collections">
 			Out of order - request denied<cfabort>
 		<cfelseif old_status is "approve_to_create_collections" and status is not "complete">
-			Out of order - request denied<cfabort>
-
+			Out of order - request denied
+			<!---
+			<cfabort>
+--->
 		<cfelseif status is "administrative_approval_granted">
 		<p> status is "administrative_approval_granted"</p>
 			<cfif len(institutional_mentor) is 0 or len(institutional_mentor_email) is 0>
