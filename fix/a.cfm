@@ -33,6 +33,8 @@ variable = "x">
 	<cfset thisrec=ar[i]>
 
 	<cfdump var=#thisrec#>
+	<cfset thisID=thisrec["@id"]>
+	<br>thisID::#thisID#
 
 </cfloop>
 
