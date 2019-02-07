@@ -295,9 +295,42 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 				<cfset scnrm="true">
 			</cfif>
 		<cfelse>
+			<!--- https://github.com/ArctosDB/arctos/issues/1909 --->
+			<cfset rulist=listappend(admin_username,mentor)>
+			<cfloop list="#rulist#" index="i">
+				<cfquery name="isDbUser" datasource="uam_god">
+					select account_status from dba_users where username='#ucase(i)#'
+				</cfquery>
+				<cfif isDbUser.account_status neq 'OPEN'>
+					<p>
+						#i# does not have an open Arctos account<cfabort>
+					</p>
+				</cfif>
+				<cfquery name="roles" datasource="uam_god">
+					select
+						granted_role role_name
+					from
+						dba_role_privs,
+						cf_ctuser_roles
+					where
+						upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
+						upper(grantee) = '#ucase(i)#'
+				</cfquery>
+				<cfif not listfind(valuelist(roles.role_name),'COLDFUSION_USER')
+					or not listfind(valuelist(roles.role_name),'GLOBAL_ADMIN')
+					not listfind(valuelist(roles.role_name),'MANAGE_COLLECTION')>
+					<P>
+						Roles COLDFUSION_USER (basic access), MANAGE_COLLECTION (manage collection), and GLOBAL_ADMIN (invite users) are required for mentors and the collection's admin_username.
+						<cfabort>
+					</P>
+				</cfif>
+			</cfloop>
+
+
 			<cfset scnrm="true">
 			<br>happy>
 		</cfif>
+
 		<cfif isdefined("scnrm") and scnrm is "true">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_new_institution set status='#status#'
@@ -848,8 +881,8 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 						</select>
 					</div>
 					<div class="infoDiv">
-						Person(s) who will work with the collection during import and initial use.
-						<label for="mentor">mentor (Arctos username preferred; comma-list OK)</label>
+						Person(s) willing to provide hands-on support to the collection during import and initial use. Will be granted access to the collection at creation.
+						<label for="mentor">mentor (Arctos username required; comma-list OK)</label>
 						<input type="text" name="mentor" id="mentor"  value="#c.mentor#" size="80">
 					</div>
 					<div class="infoDiv">
@@ -858,9 +891,8 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 						<input type="text" name="mentor_contact" id="mentor_contact" value="#c.mentor_contact#" size="80">
 					</div>
 					<div class="infoDiv">
-						Arctos username(s) who will receive initial manage_collection access. Comma-separated list OK. These Operators can
-						create and manage other collection users. Anyone listed here should already have an Arctos account arranged by the Mentor.
-
+						Arctos username(s) who will receive initial access to the new collection. Comma-separated list OK. These Operators can
+						create and manage other collection users. MENTORS: Anyone listed here should have an Arctos account with appropriate roles; you may need to invite them.
 						<ul>
 							<li><span class="helpLink" data-helplink="users">User Documentation</span></li>
 							<li><span class="helpLink" data-helplink="create_team">Team Documentation</span></li>
