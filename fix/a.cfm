@@ -42,6 +42,13 @@ variable = "x">
 		<cfset thisPID='NOEXIST'>
 	</cfif>
 
+	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core#altLabel")>
+		<cfset al=thisrec["http://www.w3.org/2004/02/skos/core#altLabel"]>
+		<cfdump var=#al#>
+	</cfif>
+
+
+
 	<br>thisPID::#thisPID#
 </cfloop>
 
