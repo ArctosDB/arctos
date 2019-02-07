@@ -459,7 +459,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <!------------------------------------------------------>
 <cfif action is "edit_collection">
 	<cfoutput>
-		<cfif status is not "approved_to_create_collections">
+		<cfif status is "approved_to_create_collections">
 			Changes are not allowed with the current status.
 		</cfif>
 		<!--- pre-check this ---->
