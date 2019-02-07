@@ -230,29 +230,34 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			<!---
 			<cfabort>
 			---->
-		<cfelseif status is "denied">
+		</cfif>
+		<cfif status is "denied">
 			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
 			<p>
 				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&old_status=#old_status#&status=#status#&niid=#niid#">continue to set status</a>
 			</p>
 			<cfabort>
-		<cfelseif old_status is "new" and status is not "administrative_approval_granted">
+		</cfif>
+		<cfif old_status is "new" and status is not "administrative_approval_granted">
 			Out of order - request denied<cfabort>
-		<cfelseif old_status is "administrative_approval_granted" and status is not "approve_to_create_collections">
+		</cfif>
+		<cfif  old_status is "administrative_approval_granted" and status is not "approve_to_create_collections">
 			Out of order - request denied<cfabort>
-		<cfelseif old_status is "approve_to_create_collections" and status is not "complete">
+		</cfif>
+		<cfif  old_status is "approve_to_create_collections" and status is not "complete">
 			Out of order - request denied
 			<!---
 			<cfabort>
 			---->
-		<cfelseif status is "administrative_approval_granted">
+		</cfif>
+		<cfif  status is "administrative_approval_granted">
 		<p> status is "administrative_approval_granted"</p>
 			<cfif len(institutional_mentor) is 0 or len(institutional_mentor_email) is 0>
 				institutional_mentor and institutional_mentor_email are required for status=administrative_approval_granted
 				<cfabort>
 			</cfif>
-			<cfset scnrm="true">
-		<cfelseif  status is "approve_to_create_collections">
+		</cfif>
+		<cfif  status is "approve_to_create_collections">
 			<cfquery name="cs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from pre_new_collection where niid=#niid#
 			</cfquery>
@@ -330,24 +335,14 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					</P>
 				</cfif>
 			</cfloop>
-
-			<cfif len(probs) eq 0>
-				<cfset scnrm="true">
-			</cfif>
-		<cfelse>
-
-
-
-
-
-			<cfset scnrm="true">
-			<br>happy>
 		</cfif>
 
 
 
 maintenance...<cfabort>
-		<cfif isdefined("scnrm") and scnrm is "true">
+
+
+
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_new_institution set status='#status#'
 				<cfif isdefined("institutional_mentor") and len(institutional_mentor)  gt 0>
@@ -365,7 +360,6 @@ maintenance...<cfabort>
 				Status has changed to #status# for pending institution #q.institution#
 			</cfmail>
 			<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
-		</cfif>
 	</cfoutput>
 </cfif>
 <!-------------------------------------->
