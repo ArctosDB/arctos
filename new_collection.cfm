@@ -291,10 +291,16 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<cfabort>
 				</cfif>
 			</cfloop>
+
+
+
 			<cfif len(probs) eq 0>
 				<cfset scnrm="true">
 			</cfif>
 		<cfelse>
+
+
+		at else
 			<!--- https://github.com/ArctosDB/arctos/issues/1909 --->
 			<cfset rulist=listappend(admin_username,mentor)>
 			<cfloop list="#rulist#" index="i">
@@ -331,6 +337,9 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			<br>happy>
 		</cfif>
 
+
+
+maintenance...<cfabort>
 		<cfif isdefined("scnrm") and scnrm is "true">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_new_institution set status='#status#'
