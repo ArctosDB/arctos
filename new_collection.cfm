@@ -297,16 +297,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 				</cfif>
 			</cfloop>
 
-
-
-			<cfif len(probs) eq 0>
-				<cfset scnrm="true">
-			</cfif>
-		<cfelse>
-
-
-		at else
-			<!--- https://github.com/ArctosDB/arctos/issues/1909 --->
+			 <!--- https://github.com/ArctosDB/arctos/issues/1909 --->
 			<cfset rulist=listappend(admin_username,mentor)>
 			<cfloop list="#rulist#" index="i">
 				<cfquery name="isDbUser" datasource="uam_god">
@@ -336,6 +327,14 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					</P>
 				</cfif>
 			</cfloop>
+
+			<cfif len(probs) eq 0>
+				<cfset scnrm="true">
+			</cfif>
+		<cfelse>
+
+
+
 
 
 			<cfset scnrm="true">
