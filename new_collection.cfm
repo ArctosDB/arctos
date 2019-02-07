@@ -884,9 +884,10 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 						<p>
 							Arctos Username of persons willing to provide hands-on support to the collection during import and initial use.
 							This/these user(s) will be granted access to the collection at creation. (Any user's access can be revoked at any time.)
-							<div style="border:1px solid red;">
+							<br>
+							<span style="border:1px solid red;">
 								This is required to finalize collection creation.
-							</div>
+							</span>
 						</p>
 
 						<label for="mentor">mentor (Arctos username; comma-list OK)</label>
@@ -900,9 +901,10 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<div class="infoDiv">
 						Arctos username(s) who will receive initial access to the new collection. Comma-separated list OK. These Operators can
 						create and manage other collection users. MENTORS: Anyone listed here should have an Arctos account with appropriate roles; you may need to invite them.
-						<div style="border:1px solid red;">
+						<br>
+						<span style="border:1px solid red;">
 							This is required to finalize collection creation.
-						</div>
+						</span>
 						<ul>
 							<li><span class="helpLink" data-helplink="users">User Documentation</span></li>
 							<li><span class="helpLink" data-helplink="create_team">Team Documentation</span></li>
