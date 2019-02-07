@@ -300,41 +300,44 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					</p>
 					<cfabort>
 				</cfif>
+				 <!--- https://github.com/ArctosDB/arctos/issues/1909 --->
+
+				<cfset rulist=listappend(admin_username,mentor)>
+				<cfloop list="#rulist#" index="i">
+					<cfquery name="isDbUser" datasource="uam_god">
+						select account_status from dba_users where username='#ucase(i)#'
+					</cfquery>
+					<cfif isDbUser.account_status neq 'OPEN'>
+						<p>
+							#i# does not have an open Arctos account<cfabort>
+						</p>
+					</cfif>
+					<cfquery name="roles" datasource="uam_god">
+						select
+							granted_role role_name
+						from
+							dba_role_privs,
+							cf_ctuser_roles
+						where
+							upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
+							upper(grantee) = '#ucase(i)#'
+					</cfquery>
+					<cfif not listfind(valuelist(roles.role_name),'COLDFUSION_USER')
+						or not listfind(valuelist(roles.role_name),'GLOBAL_ADMIN')
+						or not listfind(valuelist(roles.role_name),'MANAGE_COLLECTION')>
+						<P>
+							Roles COLDFUSION_USER (basic access), MANAGE_COLLECTION (manage collection), and GLOBAL_ADMIN (invite users) are required for mentors and the collection's admin_username.
+							<cfabort>
+						</P>
+					</cfif>
+				</cfloop>
+
 			</cfloop>
 
 			<p>
 				checking users
 			</p>
-			 <!--- https://github.com/ArctosDB/arctos/issues/1909 --->
-			<cfset rulist=listappend(admin_username,mentor)>
-			<cfloop list="#rulist#" index="i">
-				<cfquery name="isDbUser" datasource="uam_god">
-					select account_status from dba_users where username='#ucase(i)#'
-				</cfquery>
-				<cfif isDbUser.account_status neq 'OPEN'>
-					<p>
-						#i# does not have an open Arctos account<cfabort>
-					</p>
-				</cfif>
-				<cfquery name="roles" datasource="uam_god">
-					select
-						granted_role role_name
-					from
-						dba_role_privs,
-						cf_ctuser_roles
-					where
-						upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
-						upper(grantee) = '#ucase(i)#'
-				</cfquery>
-				<cfif not listfind(valuelist(roles.role_name),'COLDFUSION_USER')
-					or not listfind(valuelist(roles.role_name),'GLOBAL_ADMIN')
-					or not listfind(valuelist(roles.role_name),'MANAGE_COLLECTION')>
-					<P>
-						Roles COLDFUSION_USER (basic access), MANAGE_COLLECTION (manage collection), and GLOBAL_ADMIN (invite users) are required for mentors and the collection's admin_username.
-						<cfabort>
-					</P>
-				</cfif>
-			</cfloop>
+
 		</cfif>
 
 
