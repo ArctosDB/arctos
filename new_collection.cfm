@@ -226,9 +226,9 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <cfif action is "setColnStatus">
 	<cfoutput>
 		<cfif old_status is status>
-			No changes - request denied
+			No changes - request denied<cfabort>
 			<!---
-			<cfabort>
+
 			---->
 		</cfif>
 		<cfif status is "denied">
@@ -245,7 +245,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			Out of order - request denied<cfabort>
 		</cfif>
 		<cfif  old_status is "approve_to_create_collections" and status is not "complete">
-			Out of order - request denied
+			Out of order - request denied<cfabort>
 			<!---
 			<cfabort>
 			---->
@@ -333,19 +333,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 				</cfloop>
 
 			</cfloop>
-
-			<p>
-				checking users
-			</p>
-
 		</cfif>
-
-
-
-maintenance...<cfabort>
-
-
-
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_new_institution set status='#status#'
 				<cfif isdefined("institutional_mentor") and len(institutional_mentor)  gt 0>
