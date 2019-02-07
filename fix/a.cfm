@@ -36,6 +36,9 @@ variable = "x">
 	<cfset thisID=thisrec["@id"]>
 	<br>thisID::#thisID#
 
+	<cfset thisPID=thisrec["http://www.w3.org/2004/02/skos/core##broader"]>
+
+	<br>thisPID::#thisPID#
 </cfloop>
 
 </cfoutput>
