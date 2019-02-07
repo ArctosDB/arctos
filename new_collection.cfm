@@ -538,11 +538,11 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<li>new: new request, neeeds administrative approval</li>
 					<li>
 						administrative_approval_granted: Administrative approval granted, the organization has at least one Mentor.
-						When this is set you will get a new option below. Read is CAREFULLY before proceeding.
+						When this is set you will get a new option below. Read it CAREFULLY before proceeding.
 					</li>
 					<li>
 						approve_to_create_collections: ALL Collections have been pre-created and should be created as VPDs.
-						Changing this sends DBA email.
+						Changing this sends DBA email and LOCKS this page.
 					</li>
 					<li>
 						complete: Collections have been created, Arctos is ready to accept data, these data/this form is no longer useful.
