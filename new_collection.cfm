@@ -226,7 +226,10 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <cfif action is "setColnStatus">
 	<cfoutput>
 		<cfif old_status is status>
-			No changes - request denied<cfabort>
+			No changes - request denied
+			<!---
+			<cfabort>
+			---->
 		<cfelseif status is "denied">
 			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
 			<p>
