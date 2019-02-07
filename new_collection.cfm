@@ -244,6 +244,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			Out of order - request denied
 			<!---
 			<cfabort>
+			---->
 --->
 		<cfelseif status is "administrative_approval_granted">
 		<p> status is "administrative_approval_granted"</p>
