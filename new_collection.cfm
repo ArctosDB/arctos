@@ -318,7 +318,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 				</cfquery>
 				<cfif not listfind(valuelist(roles.role_name),'COLDFUSION_USER')
 					or not listfind(valuelist(roles.role_name),'GLOBAL_ADMIN')
-					not listfind(valuelist(roles.role_name),'MANAGE_COLLECTION')>
+					or not listfind(valuelist(roles.role_name),'MANAGE_COLLECTION')>
 					<P>
 						Roles COLDFUSION_USER (basic access), MANAGE_COLLECTION (manage collection), and GLOBAL_ADMIN (invite users) are required for mentors and the collection's admin_username.
 						<cfabort>
