@@ -23,7 +23,7 @@ variable = "x">
 
 
 
-<cfset ar=j[1][1]>
+<cfset ar=j[1]["@graph"]>
 
 
 <cfdump var=#ar#>
