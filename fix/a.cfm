@@ -22,11 +22,20 @@ variable = "x">
 <cfset j=DeserializeJSON(x)>
 
 
-
+<!--- outer array and struct are meaningless --->
 <cfset ar=j[1]["@graph"]>
 
-
+<!----
 <cfdump var=#ar#>
+---->
+
+<cfloop from ="1" to="10" index="i">
+	<cfset thisrec=ar[i]>
+
+	<cfdump var=#thisrec#>
+
+</cfloop>
+
 </cfoutput>
 
 <cfabort>
