@@ -36,7 +36,11 @@ variable = "x">
 	<cfset thisID=thisrec["@id"]>
 	<br>thisID::#thisID#
 
-	<cfset thisPID=thisrec["http://www.w3.org/2004/02/skos/core##broader"]>
+	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##broader")>
+		<cfset thisPID=thisrec["http://www.w3.org/2004/02/skos/core##broader"]>
+	<cfelse>
+		<cfset thisPID='NOEXIST'>
+	</cfif>
 
 	<br>thisPID::#thisPID#
 </cfloop>
