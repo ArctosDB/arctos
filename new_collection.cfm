@@ -245,7 +245,6 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 			<!---
 			<cfabort>
 			---->
---->
 		<cfelseif status is "administrative_approval_granted">
 		<p> status is "administrative_approval_granted"</p>
 			<cfif len(institutional_mentor) is 0 or len(institutional_mentor_email) is 0>
@@ -298,6 +297,9 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 				</cfif>
 			</cfloop>
 
+			<p>
+				checking users
+			</p>
 			 <!--- https://github.com/ArctosDB/arctos/issues/1909 --->
 			<cfset rulist=listappend(admin_username,mentor)>
 			<cfloop list="#rulist#" index="i">
