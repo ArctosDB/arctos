@@ -52,7 +52,10 @@ variable = "x">
 
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##prefLabel")>
 		<cfset tary=thisrec["http://www.w3.org/2004/02/skos/core##prefLabel"]>
-		<cfloop array="#tary#" index="idx">
+		<cfloop from="1" to="#ArrayLen(tary)"# index="idx">
+			<cfset thisLG=tary[idx]["@language"]>
+	<br>thisLG::#thisLG#
+
 			<cfdump var=#idx#>
 		</cfloop>
 
