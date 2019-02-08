@@ -59,13 +59,14 @@ variable = "x">
 		<cfloop from="1" to="#ArrayLen(tary)#" index="idx">
 			<cfset thisLG=tary[idx]["@language"]>
 			<br>thisLG::#thisLG#
+			<cfif thisLG is 'en'>
+				#tary[idx]["@value"]#
+				<cfset thisET=tary[idx]["@value"]>
+			<cfelseif thisLG is 'fr'>
+				<cfset thisFT=tary[idx]["@value"]>
+			</cfif>
 		</cfloop>
-		<cfif thisLG is 'en'>
-			#tary[idx]["@value"]#
-			<cfset thisET=tary[idx]["@value"]>
-		<cfelseif thisLG is 'fr'>
-			<cfset thisFT=tary[idx]["@value"]>
-		</cfif>
+
 	</cfif>
 
 	<br>thisET::#thisET#
