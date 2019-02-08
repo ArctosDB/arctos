@@ -63,7 +63,7 @@ variable = "x">
 			<cfset thisET=tary[idx]["@value"]>
 		<cfelseif thisLG is 'fr'>
 			<cfset thisFT=tary[idx]["@value"]>
-
+		</cfif>
 	</cfif>
 
 	<br>thisET::#thisET#
