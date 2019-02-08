@@ -43,8 +43,11 @@ variable = "x">
 	</cfif>
 
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##altLabel")>
-		<cfset al=thisrec["http://www.w3.org/2004/02/skos/core##altLabel"][1]["@value"]>
-		<cfdump var=#al#>
+		<cfset thisAL=thisrec["http://www.w3.org/2004/02/skos/core##altLabel"][1]["@value"]>
+	<br>thisAL::#thisAL#
+
+	<cfelse>
+		<cfset thisAL='NOEXIST'>
 	</cfif>
 
 
