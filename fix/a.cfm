@@ -7,7 +7,8 @@ create table temp_c_t (
 	p_id varchar2(255),
 	e_trm varchar2(255),
 	f_trm varchar2(255),
-	alt_trm varchar2(255),
+	alt_trm varchar2(255)
+);
 
 	http://nomenclature.info/nom/291
 
@@ -28,7 +29,7 @@ variable = "x">
 <!----
 <cfdump var=#ar#>
 ---->
-
+<cftransaction>
 <cfloop from ="1" to="10" index="i">
 	<cfset thisrec=ar[i]>
 
@@ -74,8 +75,24 @@ variable = "x">
 
 
 	<br>thisPID::#thisPID#
-</cfloop>
 
+
+	create table temp_c_t (
+	id varchar2(255),
+	p_id varchar2(255),
+	e_trm varchar2(255),
+	f_trm varchar2(255),
+	alt_trm varchar2(255)
+);
+
+
+
+	<cfquery name="ist" datasource="uam_god">
+		insert into temp_c_t (id,p_id,e_trm ,f_trm ,alt_trm) values ('#thisID#','#thisPID#','#thisET#','#thisFT#','#thisAL#')
+	</cfquery>
+
+</cfloop>
+</cftransaction>
 </cfoutput>
 
 <cfabort>
