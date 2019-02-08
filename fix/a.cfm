@@ -51,7 +51,8 @@ variable = "x">
 	</cfif>
 
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##prefLabel")>
-		<cfloop array="thisrec[http://www.w3.org/2004/02/skos/core##prefLabel]" index="idx">
+		<cfset tary=thisrec["http://www.w3.org/2004/02/skos/core##prefLabel"]>
+		<cfloop array="#tary#" index="idx">
 			<cfdump var=#idx#>
 		</cfloop>
 
