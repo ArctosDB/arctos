@@ -50,6 +50,18 @@ variable = "x">
 		<cfset thisAL='NOEXIST'>
 	</cfif>
 
+	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##prefLabel")>
+		<cfloop array="http://www.w3.org/2004/02/skos/core##prefLabel" index="idx">
+			<cfdump var=#idx#>
+		</cfloop>
+
+		<cfset thisEN=thisrec["http://www.w3.org/2004/02/skos/core##prefLabel"][1]["@value"]>
+	<br>thisEN::#thisEN#
+
+	<cfelse>
+		<cfset thisEN='NOEXIST'>
+	</cfif>
+
 
 
 	<br>thisPID::#thisPID#
