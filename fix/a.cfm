@@ -15,13 +15,9 @@ create table temp_c_t (
 
 	---->
 
-<cffile action = "read"
-file = "/usr/local/httpd/htdocs/wwwarctos/temp/ctax.jsonld"
-variable = "x">
-
+<cffile action = "read" file = "/usr/local/httpd/htdocs/wwwarctos/temp/ctax.jsonld" variable = "x">
 
 <cfset j=DeserializeJSON(x)>
-
 
 <!--- outer array and struct are meaningless --->
 <cfset ar=j[1]["@graph"]>
@@ -32,10 +28,13 @@ variable = "x">
 <cftransaction>
 <cfloop from ="1" to="10" index="i">
 	<cfset thisrec=ar[i]>
-
+<!---
 	<cfdump var=#thisrec#>
+	---->
 	<cfset thisID=thisrec["@id"]>
+	<!---
 	<br>thisID::#thisID#
+	--->
 
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##broader")>
 		<cfset thisPID=thisrec["http://www.w3.org/2004/02/skos/core##broader"][1]["@id"]>
@@ -45,45 +44,38 @@ variable = "x">
 
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##altLabel")>
 		<cfset thisAL=thisrec["http://www.w3.org/2004/02/skos/core##altLabel"][1]["@value"]>
-	<br>thisAL::#thisAL#
-
+		<!---
+		<br>thisAL::#thisAL#
+		--->
 	<cfelse>
 		<cfset thisAL='NOEXIST'>
 	</cfif>
-
-			<cfset thisET="">
-
-			<cfset thisFT="">
+	<cfset thisET="">
+	<cfset thisFT="">
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##prefLabel")>
 		<cfset tary=thisrec["http://www.w3.org/2004/02/skos/core##prefLabel"]>
+		<!----
 		<cfdump var=#tary#>
+		---->
 		<cfloop from="1" to="#ArrayLen(tary)#" index="idx">
 			<cfset thisLG=tary[idx]["@language"]>
+			<!----
 			<br>thisLG::#thisLG#
+			---->
 			<cfif thisLG is 'en'>
-				#tary[idx]["@value"]#
 				<cfset thisET=tary[idx]["@value"]>
 			<cfelseif thisLG is 'fr'>
 				<cfset thisFT=tary[idx]["@value"]>
 			</cfif>
 		</cfloop>
-
 	</cfif>
-
+<!---
 	<br>thisET::#thisET#
 	<br>thisFT::#thisFT#
 
 
 	<br>thisPID::#thisPID#
-
-
-	create table temp_c_t (
-	id varchar2(255),
-	p_id varchar2(255),
-	e_trm varchar2(255),
-	f_trm varchar2(255),
-	alt_trm varchar2(255)
-);
+--->
 
 
 
