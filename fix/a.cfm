@@ -12,7 +12,7 @@ create table temp_c_t (
 
 	http://nomenclature.info/nom/291
 
-
+delete from temp_c_t;
 	---->
 
 <cffile action = "read" file = "/usr/local/httpd/htdocs/wwwarctos/temp/ctax.jsonld" variable = "x">
@@ -26,7 +26,7 @@ create table temp_c_t (
 <cfdump var=#ar#>
 ---->
 <cftransaction>
-<cfloop from ="1" to="10" index="i">
+<cfloop from ="1" to="#ArrayLen(ar)#" index="i">
 	<cfset thisrec=ar[i]>
 <!---
 	<cfdump var=#thisrec#>
