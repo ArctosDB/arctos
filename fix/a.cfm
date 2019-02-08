@@ -39,7 +39,7 @@ delete from temp_c_t;
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##broader")>
 		<cfset thisPID=thisrec["http://www.w3.org/2004/02/skos/core##broader"][1]["@id"]>
 	<cfelse>
-		<cfset thisPID='NOEXIST'>
+		<cfset thisPID=''>
 	</cfif>
 
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##altLabel")>
@@ -48,7 +48,7 @@ delete from temp_c_t;
 		<br>thisAL::#thisAL#
 		--->
 	<cfelse>
-		<cfset thisAL='NOEXIST'>
+		<cfset thisAL=''>
 	</cfif>
 	<cfset thisET="">
 	<cfset thisFT="">
