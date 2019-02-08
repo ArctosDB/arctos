@@ -50,22 +50,24 @@ variable = "x">
 		<cfset thisAL='NOEXIST'>
 	</cfif>
 
+			<cfset thisET="">
+
+			<cfset thisFT="">
 	<cfif structkeyexists(thisrec,"http://www.w3.org/2004/02/skos/core##prefLabel")>
 		<cfset tary=thisrec["http://www.w3.org/2004/02/skos/core##prefLabel"]>
 		<cfloop from="1" to="#ArrayLen(tary)#" index="idx">
 			<cfset thisLG=tary[idx]["@language"]>
-	<br>thisLG::#thisLG#
-
-			<cfdump var=#idx#>
+			<br>thisLG::#thisLG#
 		</cfloop>
+		<cfif thisLG is 'en'>
+			<cfset thisET=tary[idx]["@value"]>
+		<cfelseif thisLG is 'fr'>
+			<cfset thisFT=tary[idx]["@value"]>
 
-		<cfset thisEN=thisrec["http://www.w3.org/2004/02/skos/core##prefLabel"][1]["@value"]>
-	<br>thisEN::#thisEN#
-
-	<cfelse>
-		<cfset thisEN='NOEXIST'>
 	</cfif>
 
+	<br>thisET::#thisET#
+	<br>thisFT::#thisFT#
 
 
 	<br>thisPID::#thisPID#
