@@ -350,7 +350,7 @@
 		accn_id,
 		collection,
 		EnteredBy,
-		LASTUSER EditedBy,
+		getPreferredNameFromUsername(LASTUSER) EditedBy,
 		entereddate,
 		LASTDATE,
 		accession,
