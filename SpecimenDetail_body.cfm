@@ -328,6 +328,30 @@
 
 
 		}
+		function showEditHist(){
+
+
+			var guts = "/includes/forms/specimen_edit_history.cfm?collection_object_id=#collection_object_id#";
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'top'],
+				title: 'Edit History',
+					width:800,
+		 			height:600,
+				close: function() {
+					$( this ).remove();
+				}
+			}).width(800-10).height(600-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+		}
 
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
@@ -1797,6 +1821,7 @@
 								<span class="detailData">
 									<span class="innerDetailLabel">Last Edited By:</span>
 									#one.EditedBy# on #dateformat(one.lastdate,"yyyy-mm-dd")#
+									<span class="likeLink" onclick="showEditHist()">More</span>
 								</span>
 							</div>
 						</cfif>
