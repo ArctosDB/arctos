@@ -86,6 +86,9 @@
 			<a href="/containerPositions.cfm?container_id=#container_id#" class="external" target="_blank">Positions</a>
 		</div>
 		<div>
+			<a href="/findEmptyFBP.cfm?container_id=#container_id#" class="external" target="_blank">Empty Positions</a>
+		</div>
+		<div>
 			<a href="javascript:void(0)" onClick="getHistory('#container_id#'); return false;">History</a>
 		</div>
 		<cfquery name="posn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
