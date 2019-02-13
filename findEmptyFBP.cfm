@@ -13,7 +13,8 @@ Find empty freezer box positions.
 		SELECT
 			label,
 			barcode,
-			container_id
+			container_id,
+			getContainerParentage(container_id) plp
 		FROM
 			container
 		where
@@ -28,6 +29,7 @@ Find empty freezer box positions.
 			<th>Box Label</th>
 			<th>## Empty Positions</th>
 			<th>Positions</th>
+			<th>BoxPath</th>
 		</tr>
 	<cfloop query="fb">
 		<cfquery name="nep" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -45,6 +47,7 @@ Find empty freezer box positions.
 			<td>#label#</td>
 			<td>#nep.c#</td>
 			<td><a href="/containerPositions.cfm?container_id=#fb.container_id#">open</a></td>
+			<td>#plp#</td>
 		</tr>
 	</cfloop>
 	</table>
