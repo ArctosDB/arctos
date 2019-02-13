@@ -6,7 +6,7 @@ Find empty freezer box positions.
 	INPUT: container containing containers of type "freeer box."
 </p>
 <p>
-	OUTPUT: freezer boxes with number of type "postition" children which do not have children.
+	OUTPUT: freezer boxes with number of type "postition" children which do not have children - empty positions.
 </p>
 <cfoutput>
 	<cfquery name="fb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
