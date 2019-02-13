@@ -48,8 +48,8 @@ Find empty freezer box positions.
 			<td>#nep.c#</td>
 			<td>#plp#</td>
 			<td>
-				<a href="/containerPositions.cfm?container_id=#fb.container_id#">[ position ]</a>
-				<a href="/findContainer.cfm?container_id=#fb.container_id#">[ tree ]</a>
+				<a href="/containerPositions.cfm?container_id=#fb.container_id#">[&nbsp;position&nbsp;]</a>&nbsp;
+				<a href="/findContainer.cfm?container_id=#fb.container_id#">[&nbsp;tree&nbsp;]</a>
 			</td>
 		</tr>
 	</cfloop>
