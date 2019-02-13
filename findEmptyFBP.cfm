@@ -28,8 +28,8 @@ Find empty freezer box positions.
 			<th>Box Barcode</th>
 			<th>Box Label</th>
 			<th>## Empty Positions</th>
-			<th>Positions</th>
 			<th>BoxPath</th>
+			<th>CTL</th>
 		</tr>
 	<cfloop query="fb">
 		<cfquery name="nep" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -46,8 +46,11 @@ Find empty freezer box positions.
 			<td>#barcode#</td>
 			<td>#label#</td>
 			<td>#nep.c#</td>
-			<td><a href="/containerPositions.cfm?container_id=#fb.container_id#">open</a></td>
 			<td>#plp#</td>
+			<td>
+				<a href="/containerPositions.cfm?container_id=#fb.container_id#">[ position ]</a>
+				<a href="/findContainer.cfm?container_id=#fb.container_id#">[ tree ]</a>
+			</td>
 		</tr>
 	</cfloop>
 	</table>
