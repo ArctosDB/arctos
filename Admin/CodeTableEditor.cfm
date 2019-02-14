@@ -1566,7 +1566,6 @@ Terms must be lower-case
 		start with parent_id is null
 		CONNECT BY PRIOR
 			geology_attribute_hierarchy_id = parent_id
-			order by attribute_value,attribute
 	</cfquery>
 	<cfquery name="terms"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select geology_attribute_hierarchy_id,
