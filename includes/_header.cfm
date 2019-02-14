@@ -314,6 +314,7 @@
 											<li><a target="_top" href="/Locality.cfm?action=newHG">Create Geography</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=findLO">Find Locality</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=newLocality">Create Locality</a></li>
+											<li><a target="_top" href="/info/localityArchive.cfm">Locality Archive</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=findCO">Find Event</a></li>
 										</ul>
 									</li>
