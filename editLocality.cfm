@@ -573,84 +573,94 @@ function checkCoordinateError(){
 		select VerificationStatus from ctVerificationStatus order by VerificationStatus
 	</cfquery>
 	<cfset contents = obj.getLocalityContents(locality_id="#locality_id#")>
-	#contents#
-	<br>
-	<a target="_blank" href="/info/localityArchive.cfm?locality_id=#locality_id#">view edit archive</a>
-   	<div class="importantNotification">
-		<br>Red is scary. This form is dangerous. Make sure you know what it's doing before you get all clicky.
-		<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				verificationstatus,
-				guid_prefix,
-				count(*) c
-			from
-				specimen_event,
-				cataloged_item,
-				collection,
-				collecting_event
-			where
-				specimen_event.collection_object_id=cataloged_item.collection_object_id and
-				cataloged_item.collection_id=collection.collection_id and
-				specimen_event.collecting_event_id=collecting_event.collecting_event_id and
-				collecting_event.locality_id=#locDet.locality_id#
-			group by
-				verificationstatus,
-				guid_prefix
-		</cfquery>
-		<label for="dfs">"Your" specimens in this locality:</label>
-		<table id="dfs" border>
-			<tr>
-				<th>Collection</th>
-				<th>VerificationStatus</th>
-				<th>NumberSpecimenEvents</th>
-			</tr>
-			<cfloop query="vstat">
-				<tr>
-					<td>#guid_prefix#</td>
-					<td>#verificationstatus#</td>
-					<td>#c#</td>
-				</tr>
-			</cfloop>
-		</table>
-		<form name="x" method="post" action="editLocality.cfm">
-		    <input type="hidden" name="locality_id" value="#locDet.locality_id#">
-	    	<input type="hidden" name="action" value="updateAllVerificationStatus">
-			<label for="VerificationStatus" class="helpLink" id="_verification_status">
-				Update Verification Status for ALL specimen_events in this Locality to....
-				(enter user and date to update, leave blank to retain current values)
-			</label>
-			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-				<option value=""></option>
-				<cfloop query="ctVerificationStatus">
-					<option value="#VerificationStatus#">#VerificationStatus#</option>
-				</cfloop>
-			</select>
+	<table width="100%">
+		<tr>
+			<td>
+				#contents#
+				<br>
+				<a target="_blank" href="/info/localityArchive.cfm?locality_id=#locality_id#">view edit archive</a>
+			</td>
+			<td>
+					<div class="importantNotification">
+					<br>Red is scary. This form is dangerous. Make sure you know what it's doing before you get all clicky.
+					<cfquery name="vstat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						select
+							verificationstatus,
+							guid_prefix,
+							count(*) c
+						from
+							specimen_event,
+							cataloged_item,
+							collection,
+							collecting_event
+						where
+							specimen_event.collection_object_id=cataloged_item.collection_object_id and
+							cataloged_item.collection_id=collection.collection_id and
+							specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+							collecting_event.locality_id=#locDet.locality_id#
+						group by
+							verificationstatus,
+							guid_prefix
+					</cfquery>
+					<label for="dfs">"Your" specimens in this locality:</label>
+					<table id="dfs" border>
+						<tr>
+							<th>Collection</th>
+							<th>VerificationStatus</th>
+							<th>NumberSpecimenEvents</th>
+						</tr>
+						<cfloop query="vstat">
+							<tr>
+								<td>#guid_prefix#</td>
+								<td>#verificationstatus#</td>
+								<td>#c#</td>
+							</tr>
+						</cfloop>
+					</table>
+					<form name="x" method="post" action="editLocality.cfm">
+					    <input type="hidden" name="locality_id" value="#locDet.locality_id#">
+				    	<input type="hidden" name="action" value="updateAllVerificationStatus">
+						<label for="VerificationStatus" class="helpLink" id="_verification_status">
+							Update Verification Status for ALL specimen_events in this Locality to....
+							(enter user and date to update, leave blank to retain current values)
+						</label>
+						<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+							<option value=""></option>
+							<cfloop query="ctVerificationStatus">
+								<option value="#VerificationStatus#">#VerificationStatus#</option>
+							</cfloop>
+						</select>
 
-			<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name_fu" value="" size="40"
-				 onchange="pickAgentModal('verified_by_agent_id_fu',this.id,this.value); return false;"
-				 onKeyPress="return noenter(event);">
+						<input placeholder="verified by agent" type="text" name="verified_by_agent_name" id="verified_by_agent_name_fu" value="" size="40"
+							 onchange="pickAgentModal('verified_by_agent_id_fu',this.id,this.value); return false;"
+							 onKeyPress="return noenter(event);">
 
-			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id_fu">
+						<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id_fu">
 
-			<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date_fu" value="">
-			<span class="infoLink" onclick="verifByMe('_fu','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
-
-
+						<input type="datetime" placeholder="verified date" name="verified_date" id="verified_date_fu" value="">
+						<span class="infoLink" onclick="verifByMe('_fu','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
 
-			<label for="VerificationStatusIs">
-				.....where current verificationstatus IS (leave blank to get everything)
-			</label>
-			<select name="VerificationStatusIs" id="VerificationStatusIs" size="1" class="">
-				<option value=""></option>
-				<cfloop query="ctVerificationStatus">
-					<option value="#VerificationStatus#">#VerificationStatus#</option>
-				</cfloop>
-			</select>
-			<br>
-			<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this locality to value in pick above">
-		</form>
-	</div>
+
+
+						<label for="VerificationStatusIs">
+							.....where current verificationstatus IS (leave blank to get everything)
+						</label>
+						<select name="VerificationStatusIs" id="VerificationStatusIs" size="1" class="">
+							<option value=""></option>
+							<cfloop query="ctVerificationStatus">
+								<option value="#VerificationStatus#">#VerificationStatus#</option>
+							</cfloop>
+						</select>
+						<br>
+						<input type="submit" class="lnkBtn" value="Update Verification Status for all of your specimen_events in this locality to value in pick above">
+					</form>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+
 	<span style="margin:1em;display:inline-block;padding:1em;border:3px solid black;">
 	<table width="100%"><tr><td valign="top">
 	   <form name="locality" id="locality" method="post" action="editLocality.cfm">
