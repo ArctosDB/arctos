@@ -81,6 +81,7 @@
 				<p>
 					You are receiving this report because you are a collection "data quality" contact,
 					or because you are receiving forwarded email from arctos.database@gmail.com.
+					Before attempting to view the report via the link below, sign in to Arctos. You must be logged in to view the report.
 				</p>
 				<p>
 					This report is available at #application.serverRootURL#/ScheduledTasks/authority_change.cfm?start=#start#&stop=#stop#
