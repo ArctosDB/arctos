@@ -58,6 +58,11 @@
 						<br><i><cfoutput>#exception.message#
 						<cfif isdefined("exception.detail")>
 							<br>#exception.detail#
+							<cfif exception.detail is 'access denied'>
+								<p>
+									You must log in to see this page. Please log in and try again. If you are still unable to access the report, contact the person who manages your Arctos collection to request appropriate privileges.
+								</p>
+							</cfif>
 						</cfif>
 						</cfoutput></i>
 					<cfif subject is "Execution timeout expired." and request.rdurl contains "SpecimenResults.cfm">
