@@ -206,6 +206,7 @@
 			$('*[class*="expandoscroll"]').each(function(i, obj) {
 			   var tid=this.id;
 			   console.log(tid);
+			   noscrollify(tid);
 			});
 		}
 		function rescrollify(id){
