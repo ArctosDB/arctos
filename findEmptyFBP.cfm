@@ -52,9 +52,6 @@ find empty positions within containers of type....
 		CONNECT BY PRIOR
 			container_id = parent_container_id
 	</cfquery>
-
-
-	<cfdump var=#fb#>
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Parent Barcode</th>
