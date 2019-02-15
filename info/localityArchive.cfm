@@ -44,6 +44,7 @@
 		}
 		for(var i in result){
 		    clr=randomColor();
+		    console.log(clr);
 			$('.datarow[data-lid="' + result[i] + '"]').css({'background-color': clr});
 		}
 	}
