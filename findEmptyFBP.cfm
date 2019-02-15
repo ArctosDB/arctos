@@ -4,9 +4,12 @@
 Find empty positions.
 <cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select container_type from ctcontainer_type order by container_type
+</cfquery><cfoutput>
+<cfquery name="ctr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select getContainerParentage(#container_id#) thisP from dual
 </cfquery>
-<cfoutput>
 <cfparam name="hptype" default="">
+Within this container (#ctr.thisP#), find empty positions within containers of type....
 <form name="x" method="get" action='findEmptyFBP.cfm'>
 	<input type="hidden" name="container_id" value="#container_id#">
 	<label for="hptype">Container Type in which to find empty positions</label>
@@ -18,12 +21,15 @@ Find empty positions.
 	</select>
 	<br><input type="submit" value="go">
 </form>
+<!----
+... with empty
 <p>
 	INPUT: container containing containers of type "freeer box."
 </p>
 <p>
 	OUTPUT: freezer boxes with number of type "postition" children which do not have children - empty positions.
 </p>
+------>
 <cfif not isdefined("hptype") or len(hptype) is 0>
 	<cfabort>
 </cfif>
