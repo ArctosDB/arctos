@@ -19,9 +19,7 @@ find empty positions within containers of type....
 	<label for="hptype">Container Type in which to find empty positions</label>
 	<select name="hptype" id="hptype">
 		<option value="">pick one</option>
-		<cfloop query="ctcontainer_type">
-			<option <cfif hptype is container_type>selected="selected" </cfif>value="#container_type#">#container_type#</option>
-		</cfloop>
+		<cfloop query="ctcontainer_type"><option <cfif hptype is container_type>selected="selected" </cfif>value="#container_type#">#container_type#</option></cfloop>
 	</select>
 	<br><input type="submit" value="go">
 </form>
