@@ -5,6 +5,7 @@ Find empty positions.
 <cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select container_type from ctcontainer_type order by container_type
 </cfquery>
+<cfoutput>
 <form name="x" method="get" action='findEmptyFBP.cfm'>
 	<label for="hptype">Container Type in which to find empty positions</label>
 	<select name="hptype" id="hptype">
@@ -24,7 +25,7 @@ Find empty positions.
 <cfif not isdefined("hptype") or len(hptype) is 0>
 	<cfabort>
 </cfif>
-<cfoutput>
+
 	<cfquery name="fb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		SELECT
 			label,
