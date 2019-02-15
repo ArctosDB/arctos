@@ -620,8 +620,8 @@
 			<input type="hidden" name="Srch" value="Part">
 	</cfif>
 
-	<span class="infoLink" onclick="noscrollall()">expandall</span>
-	<span class="infoLink" onclick="scrollifyall()">collapseall</span>
+	<span class="infoLink" onclick="noscrollall()">[ expand all ]</span>
+	<span class="infoLink" onclick="scrollifyall()">[ collapse all ]</span>
 
 
 	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
