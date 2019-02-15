@@ -6,13 +6,14 @@ Find empty positions.
 	select container_type from ctcontainer_type order by container_type
 </cfquery>
 <cfoutput>
+<cfparam name="hptype" default="">
 <form name="x" method="get" action='findEmptyFBP.cfm'>
 	<input type="hidden" name="container_id" value="#container_id#">
 	<label for="hptype">Container Type in which to find empty positions</label>
 	<select name="hptype" id="hptype">
 		<option value="">pick one</option>
 		<cfloop query="ctcontainer_type">
-			<option value="#container_type#">#container_type#</option>
+			<option <cfif hptype is container_type> selected="selected" </cfif>value="#container_type#">#container_type#</option>
 		</cfloop>
 	</select>
 	<br><input type="submit" value="go">
