@@ -202,6 +202,12 @@
 			$("##expando-" + id).html(s);
 		}
 
+		function noscrollall(){
+			$('*[class*="expandoscroll"]').each(function(i, obj) {
+			   var tid=this.id;
+			   console.log(tid);
+			});
+		}
 		function rescrollify(id){
 			$("##" + id).addClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
@@ -604,6 +610,8 @@
 			<input type="hidden" name="action" value="nothing">
 			<input type="hidden" name="Srch" value="Part">
 	</cfif>
+
+	<span class="infoLink" onclick="noscrollall()">expandall</span>
 	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
 		<tr>
 			<td valign="top" width="50%">
