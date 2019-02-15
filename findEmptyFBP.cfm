@@ -1,7 +1,7 @@
 <cfinclude template = "/includes/_header.cfm">
 <cfset title='Empty Positions'>
 <script src="/includes/sorttable.js"></script>
-Find empty positions.
+<h2>Find empty positions.</h2>
 <cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select container_type from ctcontainer_type order by container_type
 </cfquery><cfoutput>
