@@ -7,6 +7,7 @@ Find empty positions.
 </cfquery>
 <cfoutput>
 <form name="x" method="get" action='findEmptyFBP.cfm'>
+	<input type="hidden" name="container_id" value="#container_id#">
 	<label for="hptype">Container Type in which to find empty positions</label>
 	<select name="hptype" id="hptype">
 		<option value="">pick one</option>
