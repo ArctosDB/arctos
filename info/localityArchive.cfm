@@ -44,7 +44,6 @@
 		}
 		for(var i in result){
 		    clr=randomColor({luminosity: 'light'});
-		    console.log(clr);
 			$('.datarow[data-lid="' + result[i] + '"]').css({'background-color': clr});
 		}
 	}
