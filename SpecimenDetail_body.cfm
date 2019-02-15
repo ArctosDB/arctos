@@ -826,6 +826,61 @@
 					</div>
 				</div>
 			</cfif>
+
+
+			<!------------------------------------ Media ---------------------------------------------->
+<cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+    select distinct
+        tag.tag_id,
+		media.media_id,
+        media.media_uri,
+        media.mime_type,
+        media.media_type,
+        media.preview_uri
+     from
+        media,
+		tag
+     where
+         media.media_id=tag.media_id and
+		tag.collection_object_id = #collection_object_id#
+</cfquery>
+<cfif mediaTag.recordcount gt 0>
+	 <div class="detailCell">
+		<div class="detailLabel">Tagged in Media
+		</div>
+		<div class="detailBlock">
+			<cfloop query="mediaTag">
+				<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
+				 <span class="detailData">
+					<cfif media_type is "multi-page document">
+						<a href="/document.cfm?media_id=#media_id#&tag_id=#tag_id#" target="_blank"><img src="#puri#"></a>
+					<cfelse>
+						<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
+					</cfif>
+				</span>
+			</cfloop>
+		</div>
+	</div>
+</cfif>
+<div class="detailCell">
+	<div class="detailLabel">
+		Media
+		<cfif isdefined("session.roles") and session.roles contains "manage_media">
+			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
+		</cfif>
+	</div>
+
+	<div class="detailBlock">
+		<span class="detailData">
+		<div id="specMediaDv"></div>
+	</div>
+</div>
+
+<!------------------------------------ /Media ---------------------------------------------->
+
+
+
+
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
@@ -1891,53 +1946,10 @@
 					</cfif>
 				</div>
 		</cfif>
-<!------------------------------------ Media ---------------------------------------------->
-<cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    select distinct
-        tag.tag_id,
-		media.media_id,
-        media.media_uri,
-        media.mime_type,
-        media.media_type,
-        media.preview_uri
-     from
-        media,
-		tag
-     where
-         media.media_id=tag.media_id and
-		tag.collection_object_id = #collection_object_id#
-</cfquery>
-<cfif mediaTag.recordcount gt 0>
-	 <div class="detailCell">
-		<div class="detailLabel">Tagged in Media
-		</div>
-		<div class="detailBlock">
-			<cfloop query="mediaTag">
-				<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-				 <span class="detailData">
-					<cfif media_type is "multi-page document">
-						<a href="/document.cfm?media_id=#media_id#&tag_id=#tag_id#" target="_blank"><img src="#puri#"></a>
-					<cfelse>
-						<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
-					</cfif>
-				</span>
-			</cfloop>
-		</div>
-	</div>
-</cfif>
-<div class="detailCell">
-	<div class="detailLabel">
-		Media
-		<cfif isdefined("session.roles") and session.roles contains "manage_media">
-			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
-		</cfif>
-	</div>
 
-	<div class="detailBlock">
-		<span class="detailData">
-		<div id="specMediaDv"></div>
-	</div>
-</div>
+
+		<!------------------------------------------------------------ media was here ----------------------------------------------------------->
+
 		<cftry>
 			<!--- this thing is dicey sometimes.... ---->
 			<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
