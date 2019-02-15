@@ -202,6 +202,13 @@
 			$("##expando-" + id).html(s);
 		}
 
+
+		function rescrollify(id){
+			$("##" + id).addClass($("##" + id).attr("data-expandoclass"));
+			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
+			$("##expando-" + id).html(s);
+		}
+
 		function noscrollall(){
 			$('*[class*="expandoscroll"]').each(function(i, obj) {
 			   var tid=this.id;
@@ -209,10 +216,12 @@
 			   noscrollify(tid);
 			});
 		}
-		function rescrollify(id){
-			$("##" + id).addClass($("##" + id).attr("data-expandoclass"));
-			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
-			$("##expando-" + id).html(s);
+		function scrollifyall(){
+			$('*[class*="expandoscroll"]').each(function(i, obj) {
+			   var tid=this.id;
+			   console.log(tid);
+			   rescrollify(tid);
+			});
 		}
 		function madeSpecimenEventLink(specimen_event_id,related_thing,related_key){
 			//alert('madeSpecimenEventLink from' +  specimen_event_id + ' to ' + related_thing + ' value ' + related_key);
@@ -613,6 +622,9 @@
 	</cfif>
 
 	<span class="infoLink" onclick="noscrollall()">expandall</span>
+	<span class="infoLink" onclick="scrollifyall()">collapseall</span>
+
+
 	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
 		<tr>
 			<td valign="top" width="50%">
