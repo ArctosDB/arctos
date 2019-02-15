@@ -212,19 +212,15 @@
 		function noscrollall(){
 			$("div[data-expandoclass]").each(function(i, obj){
 			   var tid=this.id;
-			   console.log(tid);
 			   noscrollify(tid);
 			});
 		}
 		function scrollifyall(){
 			$("div[data-expandoclass]").each(function(i, obj){
 			   var tid=this.id;
-			   console.log(tid);
 			   rescrollify(tid);
 			});
 		}
-
-
 
 		function madeSpecimenEventLink(specimen_event_id,related_thing,related_key){
 			//alert('madeSpecimenEventLink from' +  specimen_event_id + ' to ' + related_thing + ' value ' + related_key);
