@@ -74,16 +74,18 @@ find empty positions within containers of type....
 			    WHERE container.parent_container_id = x.container_id
 			)
 		</cfquery>
-		<tr>
-			<td>#barcode#</td>
-			<td>#label#</td>
-			<td>#nep.c#</td>
-			<td>#plp#</td>
-			<td>
-				<a href="/containerPositions.cfm?container_id=#fb.container_id#">[&nbsp;position&nbsp;]</a>&nbsp;
-				<a href="/findContainer.cfm?container_id=#fb.container_id#">[&nbsp;tree&nbsp;]</a>
-			</td>
-		</tr>
+		<cfif nep.c gt 0>
+			<tr>
+				<td>#barcode#</td>
+				<td>#label#</td>
+				<td>#nep.c#</td>
+				<td>#plp#</td>
+				<td>
+					<a href="/containerPositions.cfm?container_id=#fb.container_id#">[&nbsp;position&nbsp;]</a>&nbsp;
+					<a href="/findContainer.cfm?container_id=#fb.container_id#">[&nbsp;tree&nbsp;]</a>
+				</td>
+			</tr>
+		</cfif>
 	</cfloop>
 	</table>
 </cfoutput>
