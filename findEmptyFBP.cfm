@@ -9,7 +9,11 @@
 	select getContainerParentage(#container_id#) thisP from dual
 </cfquery>
 <cfparam name="hptype" default="">
-Within this container (#ctr.thisP#), find empty positions within containers of type....
+Within container
+<blockquote>
+#ctr.thisP#
+</blockquote>
+find empty positions within containers of type....
 <form name="x" method="get" action='findEmptyFBP.cfm'>
 	<input type="hidden" name="container_id" value="#container_id#">
 	<label for="hptype">Container Type in which to find empty positions</label>
