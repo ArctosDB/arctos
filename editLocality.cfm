@@ -301,7 +301,7 @@ function checkCoordinateError(){
 
 	function geolocate(method) {
 		//alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
-		var guri='http://www.geo-locate.org/web/WebGeoreflight.aspx?georef=run';
+		var guri='https://www.geo-locate.org/web/WebGeoreflight.aspx?georef=run';
 		if (method=='adjust'){
 			guri+="&tab=result&points=" + $("#dec_lat").val() + "|" + $("#dec_long").val() + "|||" + $("#error_in_meters").val();
 		} else {
@@ -340,7 +340,7 @@ function checkCoordinateError(){
 	}
 	function getGeolocate(evt) {
 		var message;
-		if (evt.origin !== "http://www.geo-locate.org") {
+		if (evt.origin !== "https://www.geo-locate.org") {
 	    	alert( "iframe url does not have permision to interact with me" );
 	        closeGeoLocate('intruder alert');
 	    }
