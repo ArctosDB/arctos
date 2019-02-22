@@ -106,7 +106,7 @@
 		<input type="text" id="sdate" name="sdate" value="#sdate#">
 		<label for="edate">Before date</label>
 		<input type="text" id="edate" name="edate" value="#edate#">
-		<label for="who">Username</label>
+		<label for="who">Agent</label>
 		<input type="text" id="who" name="who" value="#who#">
 		<br><input type="submit" value="filter">
 	</form>
@@ -169,9 +169,9 @@
 			</cfif>
 			<cfif len(who) gt 0>
 				and locality_id in (
-					select locality_id from locality_archive where upper(whodunit) like '%#ucase(who)#%'
+					select locality_id from locality_archive, agent_name where locality_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
 					union
-					select locality_id from geology_archive where upper(whodunit) like '%#ucase(who)#%'
+					select locality_id from geology_archive, agent_name where locality_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
 				)
 			</cfif>
 	</cfquery>
