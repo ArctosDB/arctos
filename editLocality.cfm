@@ -530,7 +530,8 @@ function checkCoordinateError(){
 			to_meters(locality.minimum_elevation,locality.orig_elev_units) min_elev_in_m,
 			to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m,
 			locality.wkt_polygon,
-			geog_auth_rec.wkt_polygon geopoly
+			geog_auth_rec.wkt_polygon geopoly,
+			getLastCoordsEdit(locality.locality_id) lastCoordsEdit
 		from
 			locality,
 			geog_auth_rec
@@ -572,12 +573,16 @@ function checkCoordinateError(){
 	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VerificationStatus from ctVerificationStatus order by VerificationStatus
 	</cfquery>
+
 	<cfset contents = obj.getLocalityContents(locality_id="#locality_id#")>
 	<table width="100%">
 		<tr>
 			<td>
 				#contents#
 				<br>
+				<cfif len(locDet.lastCoordsEdit) gt 0>
+					Coordinates last edited by #locDet.lastCoordsEdit#
+				</cfif>
 				<a target="_blank" href="/info/localityArchive.cfm?locality_id=#locality_id#">view edit archive</a>
 			</td>
 			<td>
