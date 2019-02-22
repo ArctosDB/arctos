@@ -137,7 +137,7 @@
 			GEOREFERENCE_PROTOCOL,
 			LOCALITY_NAME,
 		 	md5hash(WKT_POLYGON) polyhash,
-		 	whodunit,
+		 	getPreferredAgentName(changed_agent_id) whodunit,
 		 	changedate
 		 from
 		 	locality_archive
