@@ -171,7 +171,7 @@
 				and locality_id in (
 					select locality_id from locality_archive, agent_name where locality_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
 					union
-					select locality_id from geology_archive where geology_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
+					select locality_id from geology_archive,agent_name where geology_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
 				)
 			</cfif>
 	</cfquery>
