@@ -353,7 +353,8 @@ just fooling idiot cfclipse into using the right colors
 					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
 				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Herb') OR
 					(institution_acronym is 'MSB') OR
-					(institution_acronym is 'DGR')>
+					(institution_acronym is 'DGR') OR
+					(institution_acronym is 'UMNH')>
 					<!---- yyyy.n.CCDE format --->
 					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
 					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
