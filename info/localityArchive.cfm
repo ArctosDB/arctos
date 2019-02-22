@@ -79,8 +79,13 @@
 			</li>
 			<li>Polygons are represented by a "fingerprint" - contact a DBA if you need to know specific changes.</li>
 			<li>
-				Every row should represent at least one change; saves which do not change "primary data" (eg, those that
+				Every row except INSERT (see below) should represent at least one change; saves which do not change "primary data" (eg, those that
 				do nothing, or updates to webservice-derived data) are not archived.
+			</li>
+
+			<li>
+				INSERTs are archived in order to capture the creating agent. Unedited localities will have one "change" which does not differ from "current";
+				only the creating user information is useful.
 			</li>
 			<li>All links open in a new window/tab</li>
 			<li>
