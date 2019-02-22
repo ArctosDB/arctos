@@ -14,7 +14,7 @@
 			select
 				collection.collection_id,
 				collection.guid_prefix,
-				whodunit,
+				getPreferredAgentName(locality_archive.changed_agent_id) whodunit,
 				locality_archive.locality_id,
 				count(distinct(locality_archive.locality_archive_id)) numChanges
 			from
@@ -34,7 +34,7 @@
 			group by
 				collection.collection_id,
 				collection.guid_prefix,
-				whodunit,
+				getPreferredAgentName(locality_archive.changed_agent_id),
 				locality_archive.locality_id
 		</cfquery>
 
