@@ -436,7 +436,7 @@
 					to_char(GEO_ATT_DETERMINED_DATE,'YYYY-MM-DD') detdate,
 					GEO_ATT_DETERMINED_METHOD,
 					GEO_ATT_REMARK,
-					whodunit,
+					getPreferredAgentName(changed_agent_id) whodunit,
 					to_char(changedate,'YYYY-MM-DD') changedate,
 					triggering_event
 				 from
