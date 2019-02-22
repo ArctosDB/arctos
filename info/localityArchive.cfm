@@ -87,6 +87,9 @@
 				INSERTs are archived in order to capture the creating agent. Unedited localities will have one "change" which does not differ from "current";
 				only the creating user information is useful.
 			</li>
+			<li>
+				INSERTs by 'unknown' are from procedures, such as bulkloading specimens. (These are called by the schema owner, who is an Operator but not an Agent.)
+			</li>
 			<li>All links open in a new window/tab</li>
 			<li>
 				You can
@@ -175,8 +178,6 @@
 				)
 			</cfif>
 	</cfquery>
-
-	<cfdump var=#d#>
 	<cfquery name="dlocid" dbtype="query">
 		select distinct(locality_id) from d
 	</cfquery>
