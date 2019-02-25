@@ -246,8 +246,12 @@ Step 1: Upload a comma-delimited text file (csv).
 	<cfloop from ="1" to="6" index="i">
 		<cfset tas=evaluate("TRANS_AGENT_" & i)>
 		<cfset tai=evaluate("i$agent_id_" & i)>
+		<cfset tar=evaluate("TRANS_AGENT_ROLE_" & i)>
 		<cfif len(tas) gt 0 and len(tai) is 0>
 			<cfset status=listappend(status,'TRANS_AGENT_#i# could not be resolved.',';')>
+		</cfif>
+		<cfif (len(tas) gt 0 and len(tar) is 0) or (len(tas) is 0 and len(tar) gt 0)>
+			<cfset status=listappend(status,'TRANS_AGENT and TRANS_AGENT_ROLE must be paired.',';')>
 		</cfif>
 	</cfloop>
 
