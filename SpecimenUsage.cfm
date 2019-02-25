@@ -475,13 +475,13 @@
 		</cfif>
 
 
-		<cfif isdefined("spec_reslt_tbl") AND len(spec_reslt_tbl) gt 0>
+		<cfif isdefined("SpecSrchTab") AND len(SpecSrchTab) gt 0>
 			<cfset go="yes">
 			<cfif #basFrom# does not contain "citation">
 				<cfset basFrom = "#basFrom#,citation">
 				<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
 			</cfif>
-			<cfset basFrom = "#basFrom#,#session.username#.#spec_reslt_tbl# srtbl">
+			<cfset basFrom = "#basFrom#,#session.username#.#SpecSrchTab# srtbl">
 			<cfset basWhere = "#basWhere# AND citation.collection_object_id=srtbl.collection_object_id">
 		</cfif>
 
