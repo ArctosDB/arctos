@@ -484,13 +484,19 @@
 					</p>
 					<p>Pending Relationships:</p>
 					<ul>
-						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">All unreciprocated relationships to your collection(s)</a></li>
-						<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#">
-							All unreciprocated relationships ---> #collection.GUID_PREFIX# (#collection.totalrecs# relationships)</a>
+						<li>All unreciprocated relationships to your collection(s):
+							<a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip">#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip</a>
+						</li>
+						<li>All unreciprocated relationships ---> #collection.GUID_PREFIX# (#collection.totalrecs# relationships):
+							<a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#">
+								#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#
+							</a>
 						</li>
 						<cfloop query="r">
-							<li><a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#&ref=#NEW_OTHER_ID_REFERENCES#">
-								#NEW_OTHER_ID_REFERENCES# ---> #collection.GUID_PREFIX#  (#numRecs# relationships)</a>
+							<li>#NEW_OTHER_ID_REFERENCES# ---> #collection.GUID_PREFIX#  (#numRecs# relationships):
+								<a href="#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#&ref=#NEW_OTHER_ID_REFERENCES#">
+									#Application.serverRootUrl#/tools/BulkloadOtherId.cfm?action=getRecip&gp=#collection.GUID_PREFIX#&ref=#NEW_OTHER_ID_REFERENCES#
+								</a>
 							</li>
 						</cfloop>
 					</ul>
