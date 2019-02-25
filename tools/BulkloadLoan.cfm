@@ -243,9 +243,14 @@ Step 1: Upload a comma-delimited text file (csv).
 	<cfif len(i$collection_id) is 0>
 		<cfset status=listappend(status,'guid_prefix could not be resolved.',';')>
 	</cfif>
-	<cfif len(TRANS_AGENT_1) gt 0 and len(i$agent_id_1) is 0>
-		<cfset status=listappend(status,'TRANS_AGENT_1 could not be resolved.',';')>
-	</cfif>
+	<cfloop from ="1" to="6" index="1">
+		<cfset tas=evaluate("TRANS_AGENT_" & i)>
+		<cfset tai=evaluate("i$agent_id_" & i)>
+		<cfif len(tas) gt 0 and len(tai) is 0>
+			<cfset status=listappend(status,'TRANS_AGENT_#i# could not be resolved.',';')>
+		</cfif>
+	</cfloop>
+
 	<cfif len(status) gt 0>
 		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update CF_TEMP_LOAN set i$status='#status#' where i$key=#i$key#
