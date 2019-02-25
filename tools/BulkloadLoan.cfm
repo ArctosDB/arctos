@@ -243,7 +243,7 @@ Step 1: Upload a comma-delimited text file (csv).
 	<cfif len(i$collection_id) is 0>
 		<cfset status=listappend(status,'guid_prefix could not be resolved.',';')>
 	</cfif>
-	<cfloop from ="1" to="6" index="1">
+	<cfloop from ="1" to="6" index="i">
 		<cfset tas=evaluate("TRANS_AGENT_" & i)>
 		<cfset tai=evaluate("i$agent_id_" & i)>
 		<cfif len(tas) gt 0 and len(tai) is 0>
