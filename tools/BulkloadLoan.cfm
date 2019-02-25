@@ -332,7 +332,7 @@ Step 1: Upload a comma-delimited text file (csv).
 				VALUES (
 					sq_transaction_id.currval,
 					'#LOAN_TYPE#'
-					,'#LOAN_NUMBER#'
+					,'#LOAN_NUMBER#',
 					'#LOAN_STATUS#',
 					'#LOAN_INSTRUCTIONS#',
 					<cfif len(DUE_DATE) gt 0>
