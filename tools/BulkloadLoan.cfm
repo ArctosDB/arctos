@@ -206,6 +206,21 @@ Step 1: Upload a comma-delimited text file (csv).
 		i$agent_id_5=getAgentID(TRANS_AGENT_5),
 		i$agent_id_6=getAgentID(TRANS_AGENT_6)
 </cfquery>
+
+
+<cfquery name="td" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	update CF_TEMP_LOAN set i$status='invalid trans_date' where is_iso8601(trans_date) != 'valid'
+</cfquery>
+
+<cfquery name="cdc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	update CF_TEMP_LOAN set i$status='invalid CLOSED_DATE' where isdate(CLOSED_DATE)!=1
+</cfquery>
+<cfquery name="cdc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	update CF_TEMP_LOAN set i$status='invalid DUE_DATE' where isdate(DUE_DATE)!=1
+</cfquery>
+
+
+
 <cfquery name="cid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	update CF_TEMP_LOAN set
 		i$collection_id=(select collection_id from collection where collection.guid_prefix=CF_TEMP_LOAN.guid_prefix)
