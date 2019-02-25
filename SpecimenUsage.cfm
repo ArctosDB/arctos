@@ -482,7 +482,7 @@
 				<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
 			</cfif>
 			<cfset basFrom = "#basFrom#,#session.username#.#spec_reslt_tbl# srtbl">
-			<cfset basWhere = "#basWhere# AND citation.collection_object_id= = srtbl.collection_object_id">
+			<cfset basWhere = "#basWhere# AND citation.collection_object_id=srtbl.collection_object_id">
 		</cfif>
 
 
