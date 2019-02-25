@@ -12,7 +12,7 @@ create table cf_temp_loan (
 	LOAN_TYPE varchar2(255) not null,
 	LOAN_STATUS varchar2(255) not null,
 	LOAN_DESCRIPTION varchar2(4000),
-	NATURE_OF_MATERIAL varchar2(4000),
+	NATURE_OF_MATERIAL varchar2(4000) not null,
 	TRANS_DATE varchar2(30),
 	DUE_DATE varchar2(30),
 	CLOSED_DATE varchar2(30),
@@ -342,9 +342,9 @@ Step 1: Upload a comma-delimited text file (csv).
 					</cfif>
 					'#LOAN_DESCRIPTION#',
 					<cfif len(CLOSED_DATE) gt 0>
-						to_date('#CLOSED_DATE#'),
+						to_date('#CLOSED_DATE#')
 					<cfelse>
-						NULL,
+						NULL
 					</cfif>
 					)
 			</cfquery>
