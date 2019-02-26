@@ -626,7 +626,7 @@
 				<a href="/info/agentActivity.cfm?agent_id=#agent.agent_id###shipping" target="_blank">shipment details</a>
 			</legend>
 			<cfloop query="address">
-				<cfif address_type is "url">
+				<cfif address_type is "url" or address_type is "Wikidata">
 					<cfset ttype='url'>
 				<cfelseif address_type is "email">
 					<cfset ttype='email'>
