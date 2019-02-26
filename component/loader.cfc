@@ -349,7 +349,7 @@
 			    			'#q.ORIG_LAT_LONG_UNITS#'
 			    		)
 	  				</cfquery>
-	  				<cfif isdefined("q.no_verbatim_coordinates" and q.no_verbatim_coordinates eq "true">
+	  				<cfif isdefined("q.no_verbatim_coordinates") and q.no_verbatim_coordinates eq "true">
 						<!--- remove verbatim from the event we just made ---->
 						<cfquery name="removeVerbatimCoords" datasource="uam_god">
 			    			update collecting_event  set
