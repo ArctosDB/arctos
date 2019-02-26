@@ -439,7 +439,7 @@
 			from
 				address
 			where
-				address.address_type in ('url','ORCID') and
+				address.address_type in ('url','ORCID','Wikidata') and
 				address.agent_id=#val(agent_id)#
 			order by
 				address

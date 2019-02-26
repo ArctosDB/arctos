@@ -100,7 +100,7 @@ Groups:
 		<cfloop query="address">
 			<li>
 				#ADDRESS_TYPE#:
-				<cfif ADDRESS_TYPE is "url" or ADDRESS_TYPE is "ORCID">
+				<cfif ADDRESS_TYPE is "url" or ADDRESS_TYPE is "ORCID" or ADDRESS_TYPE is "Wikidata">
 					<a href="#ADDRESS#" class="external" target="_blank">#ADDRESS#</a>
 				<cfelse>
 					#ADDRESS#
