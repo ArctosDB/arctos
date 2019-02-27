@@ -500,7 +500,7 @@ Locality Edits:
 			count(distinct(locality_id)) dct from locality_archive where CHANGED_AGENT_ID=#agent_id#
 	</cfquery>
 	<ul>
-		<li><a href="/info/localityArchive.cfm?who=#agent.PREFERRED_AGENT_NAME#">#locality_archive.cnt# edits for for #locality_archive.dct# localities</a></li>
+		<li><a href="/info/localityArchive.cfm?who=#agent.PREFERRED_AGENT_NAME#">#locality_archive.cnt# edits to #locality_archive.dct# localities</a></li>
 	</ul>
 
 
