@@ -489,7 +489,7 @@ Collecting Event Edits:
 			count(distinct(collecting_event_id)) dct from collecting_event_archive where CHANGED_AGENT_ID=#agent_id#
 	</cfquery>
 	<ul>
-		<li>#collecting_event_archive.cnt# edits for for #collecting_event_archive.dct# localities</li>
+		<li>#collecting_event_archive.cnt# edits for for #collecting_event_archive.dct# Collecting Events</li>
 	</ul>
 
 
