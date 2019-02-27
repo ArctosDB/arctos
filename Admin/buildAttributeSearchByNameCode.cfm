@@ -92,6 +92,7 @@
 			<cfelse>
 				<cfset srchsql="concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#'')">
 			</cfif>
+			---#srchsql#---
 <cfset v="insert into ssrch_field_doc (
 	CATEGORY,
 	CF_VARIABLE,
