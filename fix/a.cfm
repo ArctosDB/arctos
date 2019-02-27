@@ -3,11 +3,16 @@
 	select RESULTCOLUMNLIST from cf_users
 </cfquery>
 
+<cfset x=querynew('t')>
 <cfloop query="d">
 	<cfloop list="#RESULTCOLUMNLIST#" index="w">
 		--#w#--
+		<cfset queryAddRow(x, [ {t=w}])>
 	</cfloop>
 </cfloop>
+
+
+<cfdump var=#x#>
 </cfoutput>
 
 <cfabort>
