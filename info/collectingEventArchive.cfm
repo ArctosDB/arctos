@@ -134,10 +134,6 @@
 				and collecting_event_id in (select collecting_event_id from collecting_event_archive where changedate <= '#edate#')
 			</cfif>
 			<cfif len(who) gt 0>
-				and collecting_event_id in (select collecting_event_id from collecting_event_archive where upper(whodunit) like '%#ucase(who)#%')
-			</cfif>
-
-			<cfif len(who) gt 0>
 				and collecting_event_id in (
 					select collecting_event_id from collecting_event_archive, agent_name where collecting_event_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
 				)
