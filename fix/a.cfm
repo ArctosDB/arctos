@@ -1,3 +1,14 @@
+<cfoutput>
+<cfquery name="d" datasource="uam_god">
+	select RESULTCOLUMNLIST from cf_users
+</cfquery>
+
+<cfloop query="d">
+	<cfloop list="#RESULTCOLUMNLIST#" index="w">
+		--#w#--
+	</cfloop>
+</cfloop>
+</cfoutput>
 
 <cfabort>
 
