@@ -140,7 +140,6 @@
 			</cfif>
 	</cfquery>
 
-	<cfdump var=#d#>
 	<cfquery name="dlocid" dbtype="query">
 		select distinct(collecting_event_id) from d
 	</cfquery>
