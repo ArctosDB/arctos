@@ -16,8 +16,15 @@
 </cfquery>
 
 <cfquery name="t2s" dbtype="query">
-	select * from ts order by c
+	select * from ts order by c desc
 </cfquery>
+<cfloop query="t2s">
+	<br>#c#--#t#
+	<cfquery name="se" datasource="uam_god">
+		select SQL_ELEMENT from ssrch_field_doc where CF_VARIABLE='#t#'
+	</cfquery>
+	#se.SQL_ELEMENT#
+</cfloop>
 <cfdump var=#t2s#>
 </cfoutput>
 
