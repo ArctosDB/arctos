@@ -482,6 +482,20 @@ Specimen-Events:
 		<li>Verified #VERIFIED_BY_AGENT_ID.cnt# events for #VERIFIED_BY_AGENT_ID.specs# specimens</li>
 	</ul>
 
+Locality Edits:
+	<cfquery name="locality_archive" datasource="uam_god">
+		select
+			count(*) cnt,
+			count(distinct(locality_id)) dct from locality_archive where CHANGED_AGENT_ID=#agent_id#
+	</cfquery>
+	<ul>
+		<li>#locality_archive.cnt# edits for for #locality_archive.dct# localities</li>
+	</ul>
+
+
+
+
+
 
 Permits:
 	<cfquery name="permit_to" datasource="uam_god">
