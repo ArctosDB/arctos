@@ -18,6 +18,15 @@
 			scroll: true,
 			scrollHeight: 300
 		});
+		jQuery("#state_prov").autocomplete("/ajax/tData.cfm?action=suggestStateProv", {
+			width: 320,
+			max: 20,
+			autofill: true,
+			highlight: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300
+		});
 	});
 </script>
 <cfquery name="ctElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
