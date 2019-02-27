@@ -482,6 +482,17 @@ Specimen-Events:
 		<li>Verified #VERIFIED_BY_AGENT_ID.cnt# events for #VERIFIED_BY_AGENT_ID.specs# specimens</li>
 	</ul>
 
+Collecting Event Edits:
+	<cfquery name="collecting_event_archive" datasource="uam_god">
+		select
+			count(*) cnt,
+			count(distinct(collecting_event_id)) dct from collecting_event_archive where CHANGED_AGENT_ID=#agent_id#
+	</cfquery>
+	<ul>
+		<li>#collecting_event_archive.cnt# edits for for #collecting_event_archive.dct# localities</li>
+	</ul>
+
+
 Locality Edits:
 	<cfquery name="locality_archive" datasource="uam_god">
 		select
@@ -490,6 +501,17 @@ Locality Edits:
 	</cfquery>
 	<ul>
 		<li>#locality_archive.cnt# edits for for #locality_archive.dct# localities</li>
+	</ul>
+
+
+Geology Edits:
+	<cfquery name="geology_archive" datasource="uam_god">
+		select
+			count(*) cnt,
+			count(distinct(locality_id)) dct from geology_archive where CHANGED_AGENT_ID=#agent_id#
+	</cfquery>
+	<ul>
+		<li>#geology_archive.cnt# edits for for #geology_archive.dct# geology attributes</li>
 	</ul>
 
 
