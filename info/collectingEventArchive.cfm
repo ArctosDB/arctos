@@ -98,7 +98,7 @@
 		<input type="text" id="sdate" name="sdate" value="#sdate#">
 		<label for="edate">Before date</label>
 		<input type="text" id="edate" name="edate" value="#edate#">
-		<label for="who">Username</label>
+		<label for="who">Agent</label>
 		<input type="text" id="who" name="who" value="#who#">
 		<br><input type="submit" value="filter">
 	</form>
@@ -135,6 +135,12 @@
 			</cfif>
 			<cfif len(who) gt 0>
 				and collecting_event_id in (select collecting_event_id from collecting_event_archive where upper(whodunit) like '%#ucase(who)#%')
+			</cfif>
+
+			<cfif len(who) gt 0>
+				and collecting_event_id in (
+					select collecting_event_id from collecting_event_archive, agent_name where collecting_event_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
+				)
 			</cfif>
 	</cfquery>
 	<cfquery name="dlocid" dbtype="query">
