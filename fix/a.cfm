@@ -11,10 +11,8 @@
 </cfloop>
 
 
-<cfset s=querynew('s')>
-
 <cfquery name="ts" dbtype="query">
-	select t, count(*) c from x group by t order by count(*)
+	select t, count(*) c from x group by t
 </cfquery>
 <cfdump var=#ts#>
 </cfoutput>
