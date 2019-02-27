@@ -14,7 +14,11 @@
 <cfquery name="ts" dbtype="query">
 	select t, count(*) c from x group by t
 </cfquery>
-<cfdump var=#ts#>
+
+<cfquery name="t2s" dbtype="query">
+	select * from ts order by c
+</cfquery>
+<cfdump var=#t2s#>
 </cfoutput>
 
 <cfabort>
