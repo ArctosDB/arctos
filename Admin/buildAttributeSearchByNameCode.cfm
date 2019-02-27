@@ -86,6 +86,12 @@
 			</cfif>
 
 			<cfset listOfArrtCfVals=listappend(listOfArrtCfVals,attrvar)>
+			<!--- special handling for flattened things --->
+			<cfif ATTRIBUTE_TYPE is "sex">
+				<cfset srchsql="flatTableName.sex">
+			<cfelse>
+				<cfset srchsql="concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#'')">
+			</cfif>
 <cfset v="insert into ssrch_field_doc (
 	CATEGORY,
 	CF_VARIABLE,
@@ -108,7 +114,7 @@
 	'#Application.docURL#/attributes.html##searching-with-attributes',
 	'#ATTRIBUTE_TYPE#',
 	'#srchhint#',
-	'concatAttributeValue(flatTableName.collection_object_id,''#ATTRIBUTE_TYPE#'')',
+	'#srchsql#',
 	1,
 	#n#,
 	1
