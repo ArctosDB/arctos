@@ -6,13 +6,17 @@
 <cfset x=querynew('t')>
 <cfloop query="d">
 	<cfloop list="#RESULTCOLUMNLIST#" index="w">
-		--#w#--
 		<cfset queryAddRow(x, [ {t=w}])>
 	</cfloop>
 </cfloop>
 
 
-<cfdump var=#x#>
+<cfset s=querynew('s')>
+
+<cfquery name="ts" dbtype="query">
+	select t, count(*) c from x group by t order by count(*)
+</cfquery>
+<cfdump var=#ts#>
 </cfoutput>
 
 <cfabort>
