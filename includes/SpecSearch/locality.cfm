@@ -27,6 +27,43 @@
 			scroll: true,
 			scrollHeight: 300
 		});
+		jQuery("#quad").autocomplete("/ajax/tData.cfm?action=suggestQuad", {
+			width: 320,
+			max: 20,
+			autofill: true,
+			highlight: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300
+		});
+
+		jQuery("#county").autocomplete("/ajax/tData.cfm?action=suggestCounty", {
+			width: 320,
+			max: 20,
+			autofill: true,
+			highlight: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300
+		});
+		jQuery("#island").autocomplete("/ajax/tData.cfm?action=suggestIsland", {
+			width: 320,
+			max: 20,
+			autofill: true,
+			highlight: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300
+		});
+		jQuery("#drainage").autocomplete("/ajax/tData.cfm?action=suggestDrainage", {
+			width: 320,
+			max: 20,
+			autofill: true,
+			highlight: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300
+		});
 	});
 </script>
 <cfquery name="ctElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">

@@ -40,3 +40,62 @@
 	<cfoutput query="ins">#state_prov##chr(10)#
 	</cfoutput>
 </cfif>
+
+<cfif action is "suggestQuad">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			distinct(quad)
+		from
+			geog_auth_rec
+		where
+			quad is not null and
+			upper(quad) LIKE '%#ucase(q)#%'
+		 order by quad
+	</cfquery>
+	<cfoutput query="ins">#quad##chr(10)#
+	</cfoutput>
+</cfif>
+
+<cfif action is "suggestCounty">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			distinct(county)
+		from
+			geog_auth_rec
+		where
+			county is not null and
+			upper(county) LIKE '%#ucase(q)#%'
+		 order by county
+	</cfquery>
+	<cfoutput query="ins">#county##chr(10)#
+	</cfoutput>
+</cfif>
+
+<cfif action is "suggestIsland">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			distinct(island)
+		from
+			geog_auth_rec
+		where
+			island is not null and
+			upper(island) LIKE '%#ucase(q)#%'
+		 order by island
+	</cfquery>
+	<cfoutput query="ins">#island##chr(10)#
+	</cfoutput>
+</cfif>
+<cfif action is "suggestDrainage">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select
+			distinct(drainage)
+		from
+			geog_auth_rec
+		where
+			drainage is not null and
+			upper(drainage) LIKE '%#ucase(q)#%'
+		 order by drainage
+	</cfquery>
+	<cfoutput query="ins">#drainage##chr(10)#
+	</cfoutput>
+</cfif>
