@@ -489,7 +489,7 @@ Collecting Event Edits:
 			count(distinct(collecting_event_id)) dct from collecting_event_archive where CHANGED_AGENT_ID=#agent_id#
 	</cfquery>
 	<ul>
-		<li><a href="/info/collectingEventArchive.cfm?who=Anna+Chinn">#collecting_event_archive.cnt# edits for for #collecting_event_archive.dct# Collecting Events</a></li>
+		<li><a href="/info/collectingEventArchive.cfm?who=#agent.PREFERRED_AGENT_NAME#">#collecting_event_archive.cnt# edits to #collecting_event_archive.dct# Collecting Events</a></li>
 	</ul>
 
 
@@ -500,7 +500,7 @@ Locality Edits:
 			count(distinct(locality_id)) dct from locality_archive where CHANGED_AGENT_ID=#agent_id#
 	</cfquery>
 	<ul>
-		<li>#locality_archive.cnt# edits for for #locality_archive.dct# localities</li>
+		<li><a href="/info/localityArchive.cfm?who=#agent.PREFERRED_AGENT_NAME#">#locality_archive.cnt# edits for for #locality_archive.dct# localities</a></li>
 	</ul>
 
 
