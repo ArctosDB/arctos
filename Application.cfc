@@ -281,7 +281,7 @@
 		<cfreturn false>
 		<cfabort>
 	</cfif>
-	---->
+
 	<cfif
 		cgi.HTTP_USER_AGENT contains "bot" or
 		cgi.HTTP_USER_AGENT contains "slurp" or
@@ -295,6 +295,10 @@
 		<cfreturn false>
 		<cfabort>
 	</cfif>
+
+
+	---->
+
 
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>
