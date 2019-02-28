@@ -155,6 +155,30 @@
 			}
 		});
 	});
+
+	function editFJSON(aid) {
+		var adr=encodeURIComponent($("#address_" + aid).val());
+		var guts = "/form/formatted_address.cfm?inp=" + adr;
+		$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+			autoOpen: true,
+			closeOnEscape: true,
+			height: 'auto',
+			modal: true,
+			position: ['center', 'top'],
+			title: 'Format Address',
+				width:800,
+	 			height:600,
+			close: function() {
+				$( this ).remove();
+			}
+		}).width(800-10).height(600-10);
+		$(window).resize(function() {
+			$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+		});
+		$(".ui-widget-overlay").click(function(){
+		    $(".ui-dialog-titlebar-close").trigger('click');
+		});
+	}
 </script>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif not isdefined("agent_id") OR agent_id lt 0 >
@@ -602,7 +626,7 @@
 				<a href="/info/agentActivity.cfm?agent_id=#agent.agent_id###shipping" target="_blank">shipment details</a>
 			</legend>
 			<cfloop query="address">
-				<cfif address_type is "url">
+				<cfif address_type is "url" or address_type is "Wikidata">
 					<cfset ttype='url'>
 				<cfelseif address_type is "email">
 					<cfset ttype='email'>
@@ -627,24 +651,21 @@
 					<cfelse>
 						<cfset addrClass="">
 					</cfif>
-
-
 					<cfif ttype is 'textarea'>
 						<textarea class="reqdClr addresstextarea #addrClass#" name="address_#address_id#" id="address_#address_id#">#ADDRESS#</textarea>
 					<cfelse>
 						<input type="#ttype#" class="reqdClr minput #addrClass#" name="address_#address_id#" id="address_#address_id#" value="#ADDRESS#">
+					</cfif>
+					<cfif address_type is "formatted JSON">
+						<span class="infoLink" onclick="editFJSON('#address_id#')">[ edit tool ]</span>
 					</cfif>
 					<select name="valid_addr_fg_#address_id#" id="valid_addr_fg_#address_id#" class="reqdClr">
 						<option value="1" <cfif valid_addr_fg is 1> selected="selected" </cfif>>valid</option>
 						<option value="0" <cfif valid_addr_fg is 0> selected="selected" </cfif>>invalid</option>
 					</select>
 					<textarea class="smalltextarea" placeholder="remark" name="address_remark_#address_id#" id="address_remark_#address_id#">#address_remark#</textarea>
-
-
-
 				</div>
 			</cfloop>
-
 			<input type="hidden" id="nnea" value="1">
 			<div class="newRec" id="eaddiv1">
 				<select name="address_type_new1" id="address_type_new1" size="1">

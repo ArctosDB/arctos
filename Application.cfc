@@ -58,6 +58,11 @@
 						<br><i><cfoutput>#exception.message#
 						<cfif isdefined("exception.detail")>
 							<br>#exception.detail#
+							<cfif exception.detail is 'access denied'>
+								<p>
+									You must log in to see this page. Please log in and try again. If you are still unable to access the report, contact the person who manages your Arctos collection to request appropriate privileges.
+								</p>
+							</cfif>
 						</cfif>
 						</cfoutput></i>
 					<cfif subject is "Execution timeout expired." and request.rdurl contains "SpecimenResults.cfm">
@@ -269,7 +274,7 @@
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
 	<!--- uncomment for a break from googlebot
-	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider">
+	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider" cgi.HTTP_USER_AGENT contains "bing">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
 		<cfheader name="retry-after" value="3600"/>
 		Down for maintenance
@@ -277,6 +282,19 @@
 		<cfabort>
 	</cfif>
 	---->
+	<cfif
+		cgi.HTTP_USER_AGENT contains "bot" or
+		cgi.HTTP_USER_AGENT contains "slurp" or
+		cgi.HTTP_USER_AGENT contains "spider" or
+		cgi.HTTP_USER_AGENT contains "bing" or
+		cgi.HTTP_USER_AGENT contains "msn"
+		>
+		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
+		<cfheader name="retry-after" value="3600"/>
+		Down for maintenance
+		<cfreturn false>
+		<cfabort>
+	</cfif>
 
 	<cfset request.rdurl=replacenocase(cgi.query_string,"path=","","all")>
 	<cfset utilities.getIpAddress()>

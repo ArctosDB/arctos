@@ -24,7 +24,7 @@
 	timeout="3000"
 	username="#cf_global_settings.GENBANK_USERNAME#"
 	password="#cf_global_settings.GENBANK_PASSWORD#"
-	server="ftp-private.ncbi.nih.gov"
+	server="#cf_global_settings.GENBANK_ENDPOINT#"
 	connection="genbankn"
 	passive="true"
 	>

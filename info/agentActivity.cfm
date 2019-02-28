@@ -100,7 +100,7 @@ Groups:
 		<cfloop query="address">
 			<li>
 				#ADDRESS_TYPE#:
-				<cfif ADDRESS_TYPE is "url" or ADDRESS_TYPE is "ORCID">
+				<cfif ADDRESS_TYPE is "url" or ADDRESS_TYPE is "ORCID" or ADDRESS_TYPE is "Wikidata">
 					<a href="#ADDRESS#" class="external" target="_blank">#ADDRESS#</a>
 				<cfelse>
 					#ADDRESS#
@@ -481,6 +481,42 @@ Specimen-Events:
 	<ul>
 		<li>Verified #VERIFIED_BY_AGENT_ID.cnt# events for #VERIFIED_BY_AGENT_ID.specs# specimens</li>
 	</ul>
+
+Collecting Event Edits:
+	<cfquery name="collecting_event_archive" datasource="uam_god">
+		select
+			count(*) cnt,
+			count(distinct(collecting_event_id)) dct from collecting_event_archive where CHANGED_AGENT_ID=#agent_id#
+	</cfquery>
+	<ul>
+		<li><a href="/info/collectingEventArchive.cfm?who=#agent.PREFERRED_AGENT_NAME#">#collecting_event_archive.cnt# edits to #collecting_event_archive.dct# Collecting Events</a></li>
+	</ul>
+
+
+Locality Edits:
+	<cfquery name="locality_archive" datasource="uam_god">
+		select
+			count(*) cnt,
+			count(distinct(locality_id)) dct from locality_archive where CHANGED_AGENT_ID=#agent_id#
+	</cfquery>
+	<ul>
+		<li><a href="/info/localityArchive.cfm?who=#agent.PREFERRED_AGENT_NAME#">#locality_archive.cnt# edits to #locality_archive.dct# localities</a></li>
+	</ul>
+
+
+Geology Edits:
+	<cfquery name="geology_archive" datasource="uam_god">
+		select
+			count(*) cnt,
+			count(distinct(locality_id)) dct from geology_archive where CHANGED_AGENT_ID=#agent_id#
+	</cfquery>
+	<ul>
+		<li>#geology_archive.cnt# edits for for #geology_archive.dct# geology attributes</li>
+	</ul>
+
+
+
+
 
 
 Permits:

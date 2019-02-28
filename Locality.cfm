@@ -1067,7 +1067,7 @@
 				<input type="text" name="verbatim_locality" id="verbatim_locality" value='#stripQuotes(locDet.verbatim_locality)#' size="50">
 				<div id="specific_locality" style="display:none;border:2px solid red;">
 					<label for="picked_spec_locality">
-						If you're seeing this, you've picked the below specloc and havne't saved changes. Save to refresh
+						If you're seeing this, you've picked the below specloc and haven't saved changes. Save to refresh
 					 	locality information in the right pane and get rid of this annoying red box.
 					</label>
 					<input type="text" name="picked_spec_locality" id="picked_spec_locality" size="75" >

@@ -42,10 +42,11 @@
 		This form helps manage and format addresses as JSON. These are used by the GenBank packager and various other components. "Standard" fields are handled;
 		any JSON can be used as an address, but this form won't help.
 	</p>
-	<label for="inp" value="Paste an existing address here"></label>
-	<textarea name="inp" id="inp"  class="hugetextarea"></textarea>
+	<cfparam name="inp" default="">
+	<label for="inp">Paste an existing JSON address here</label>
+	<textarea name="inp" id="inp"  class="hugetextarea">#inp#</textarea>
 	<p>
-		<input type="button" onclick="breakInputUp()" value="Click here"> to break a pasted-in address into components which can be edited.
+		<input type="button" onclick="breakInputUp()" value="Click here"> to break the input address into components which can be edited.
 	</p>
 	<p>
 		<div id="perr" style="display:none"></div>
@@ -94,7 +95,9 @@
 		<label for="country">country</label>
 		<input type="text" name="country" id="country"  size="80">
 		<p>
-			<input type="button" onclick="form2json()" value="create JSON from form components">
+			Edit the data in the form above, then
+			<input type="button" onclick="form2json()" value="click here">
+			to create JSON from form components.
 		</p>
 	</form>
 	<label for="r_inp">After clicking the button, you can copy and paste the JSON from this box.</label>

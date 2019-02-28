@@ -140,21 +140,23 @@
 					}
 				);
             });
-			$.ajax({
-				url: "/component/utilities.cfc",
-				type: "GET",
-				dataType: "text",
-				data: {
-					method:  "getAggregatorLinks",
-					guid: '#guid#',
-					returnformat : "plain"
-				},
-				success: function(r) {
-					//console.log('happy');
-					$("##rellnks").show();
-					$("##rel_links").html(r);
-				},
-				error: function (xhr, textStatus, errorThrown){
+
+
+				$.ajax({
+					url: "/component/utilities.cfc",
+					type: "GET",
+					dataType: "text",
+					data: {
+						method:  "getAggregatorLinks",
+						guid: '#guid#',
+						returnformat : "plain"
+					},
+					success: function(r) {
+						//console.log('happy');
+						$("##rellnks").show();
+						$("##rel_links").html(r);
+					},
+					error: function (xhr, textStatus, errorThrown){
 				    // show error
 				    console.log(errorThrown);
 				  }
@@ -200,11 +202,26 @@
 			$("##expando-" + id).html(s);
 		}
 
+
 		function rescrollify(id){
 			$("##" + id).addClass($("##" + id).attr("data-expandoclass"));
 			var s="<span class=\"likeLink\" onclick=\"noscrollify('" + id + "');\">[ expand ]</span>";
 			$("##expando-" + id).html(s);
 		}
+
+		function noscrollall(){
+			$("div[data-expandoclass]").each(function(i, obj){
+			   var tid=this.id;
+			   noscrollify(tid);
+			});
+		}
+		function scrollifyall(){
+			$("div[data-expandoclass]").each(function(i, obj){
+			   var tid=this.id;
+			   rescrollify(tid);
+			});
+		}
+
 		function madeSpecimenEventLink(specimen_event_id,related_thing,related_key){
 			//alert('madeSpecimenEventLink from' +  specimen_event_id + ' to ' + related_thing + ' value ' + related_key);
 			//console.log(related_thing);
@@ -326,6 +343,30 @@
 
 
 		}
+		function showEditHist(){
+
+
+			var guts = "/includes/forms/specimen_edit_history.cfm?collection_object_id=#collection_object_id#";
+			$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:600px;height:600px;'></iframe>").dialog({
+				autoOpen: true,
+				closeOnEscape: true,
+				height: 'auto',
+				modal: true,
+				position: ['center', 'top'],
+				title: 'Edit History',
+					width:800,
+		 			height:600,
+				close: function() {
+					$( this ).remove();
+				}
+			}).width(800-10).height(600-10);
+			$(window).resize(function() {
+				$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+			});
+			$(".ui-widget-overlay").click(function(){
+			    $(".ui-dialog-titlebar-close").trigger('click');
+			});
+		}
 
 	</script>
 	<cfif not isdefined("seid") or seid is "undefined">
@@ -348,7 +389,7 @@
 		accn_id,
 		collection,
 		EnteredBy,
-		LASTUSER EditedBy,
+		getPreferredNameFromUsername(LASTUSER) EditedBy,
 		entereddate,
 		LASTDATE,
 		accession,
@@ -578,6 +619,11 @@
 			<input type="hidden" name="action" value="nothing">
 			<input type="hidden" name="Srch" value="Part">
 	</cfif>
+
+	<span class="infoLink" onclick="noscrollall()">[ expand all ]</span>
+	<span class="infoLink" onclick="scrollifyall()">[ collapse all ]</span>
+
+
 	<table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
 		<tr>
 			<td valign="top" width="50%">
@@ -800,6 +846,61 @@
 					</div>
 				</div>
 			</cfif>
+
+
+			<!------------------------------------ Media ---------------------------------------------->
+<cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+    select distinct
+        tag.tag_id,
+		media.media_id,
+        media.media_uri,
+        media.mime_type,
+        media.media_type,
+        media.preview_uri
+     from
+        media,
+		tag
+     where
+         media.media_id=tag.media_id and
+		tag.collection_object_id = #collection_object_id#
+</cfquery>
+<cfif mediaTag.recordcount gt 0>
+	 <div class="detailCell">
+		<div class="detailLabel">Tagged in Media
+		</div>
+		<div class="detailBlock">
+			<cfloop query="mediaTag">
+				<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
+				 <span class="detailData">
+					<cfif media_type is "multi-page document">
+						<a href="/document.cfm?media_id=#media_id#&tag_id=#tag_id#" target="_blank"><img src="#puri#"></a>
+					<cfelse>
+						<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
+					</cfif>
+				</span>
+			</cfloop>
+		</div>
+	</div>
+</cfif>
+<div class="detailCell">
+	<div class="detailLabel">
+		Media
+		<cfif isdefined("session.roles") and session.roles contains "manage_media">
+			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
+		</cfif>
+	</div>
+
+	<div class="detailBlock">
+		<span class="detailData">
+		<div id="specMediaDv"></div>
+	</div>
+</div>
+
+<!------------------------------------ /Media ---------------------------------------------->
+
+
+
+
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">
@@ -1795,6 +1896,7 @@
 								<span class="detailData">
 									<span class="innerDetailLabel">Last Edited By:</span>
 									#one.EditedBy# on #dateformat(one.lastdate,"yyyy-mm-dd")#
+									<span class="likeLink" onclick="showEditHist()">More</span>
 								</span>
 							</div>
 						</cfif>
@@ -1864,53 +1966,10 @@
 					</cfif>
 				</div>
 		</cfif>
-<!------------------------------------ Media ---------------------------------------------->
-<cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    select distinct
-        tag.tag_id,
-		media.media_id,
-        media.media_uri,
-        media.mime_type,
-        media.media_type,
-        media.preview_uri
-     from
-        media,
-		tag
-     where
-         media.media_id=tag.media_id and
-		tag.collection_object_id = #collection_object_id#
-</cfquery>
-<cfif mediaTag.recordcount gt 0>
-	 <div class="detailCell">
-		<div class="detailLabel">Tagged in Media
-		</div>
-		<div class="detailBlock">
-			<cfloop query="mediaTag">
-				<cfset puri = obj.getMediaPreview(preview_uri="#preview_uri#",media_type="#media_type#")>
-				 <span class="detailData">
-					<cfif media_type is "multi-page document">
-						<a href="/document.cfm?media_id=#media_id#&tag_id=#tag_id#" target="_blank"><img src="#puri#"></a>
-					<cfelse>
-						<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
-					</cfif>
-				</span>
-			</cfloop>
-		</div>
-	</div>
-</cfif>
-<div class="detailCell">
-	<div class="detailLabel">
-		Media
-		<cfif isdefined("session.roles") and session.roles contains "manage_media">
-			<a  class="detailEditCell" id="mediaUpClickThis">Attach/Upload Media</a>
-		</cfif>
-	</div>
 
-	<div class="detailBlock">
-		<span class="detailData">
-		<div id="specMediaDv"></div>
-	</div>
-</div>
+
+		<!------------------------------------------------------------ media was here ----------------------------------------------------------->
+
 		<cftry>
 			<!--- this thing is dicey sometimes.... ---->
 			<cfquery name="barcode"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">

@@ -55,8 +55,11 @@
 		variety varchar2(4000)
 );
 
+alter table cf_temp_classification add preferred_name varchar2(255);
 
+alter table cf_temp_classification add aphiaid varchar2(255);
 
+alter table cf_temp_classification add epifamily varchar2(255);
 
 create or replace public synonym cf_temp_classification for cf_temp_classification;
 

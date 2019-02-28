@@ -406,6 +406,12 @@
 				mr_created_by_agent.related_primary_key=an_created_by_agent.agent_id">
 			<cfset srch="#srch# AND upper(an_created_by_agent.agent_name) like '#ucase(created_by_agent)#%' ">
 		</cfif>
+		<cfif isdefined("created_by_agent_id") and len(created_by_agent_id) gt 0>
+			<cfset mapurl="#mapurl#&created_by_agent_id=#created_by_agent_id#">
+			<cfset tabls = "#tabls#,media_relations mr_created_by_agent_id">
+			<cfset whr ="#whr# AND media_flat.media_id = mr_created_by_agent_id.media_id and mr_created_by_agent_id.MEDIA_RELATIONSHIP='created by agent' ">
+			<cfset srch="#srch# AND mr_created_by_agent_id.RELATED_PRIMARY_KEY=#val(created_by_agent_id)# ">
+		</cfif>
 		<cfif (isdefined("description") and len(description) gt 0)>
 			<cfset tabls = "#tabls#,media_labels ml_descr">
 			<cfset whr ="#whr# AND media_flat.media_id = ml_descr.media_id ">

@@ -43,7 +43,7 @@
 		    result.push(i);
 		}
 		for(var i in result){
-		    clr=randomColor();
+		    clr=randomColor({luminosity: 'light'});
 			$('.datarow[data-lid="' + result[i] + '"]').css({'background-color': clr});
 		}
 	}
@@ -79,8 +79,16 @@
 			</li>
 			<li>Polygons are represented by a "fingerprint" - contact a DBA if you need to know specific changes.</li>
 			<li>
-				Every row should represent at least one change; saves which do not change "primary data" (eg, those that
+				Every row except INSERT (see below) should represent at least one change; saves which do not change "primary data" (eg, those that
 				do nothing, or updates to webservice-derived data) are not archived.
+			</li>
+
+			<li>
+				INSERTs are archived in order to capture the creating agent. Unedited localities will have one "change" which does not differ from "current";
+				only the creating user information is useful.
+			</li>
+			<li>
+				INSERTs by 'unknown' are from procedures, such as bulkloading specimens. (These are called by the schema owner, who is an Operator but not an Agent.)
 			</li>
 			<li>All links open in a new window/tab</li>
 			<li>
@@ -101,7 +109,7 @@
 		<input type="text" id="sdate" name="sdate" value="#sdate#">
 		<label for="edate">Before date</label>
 		<input type="text" id="edate" name="edate" value="#edate#">
-		<label for="who">Username</label>
+		<label for="who">Agent</label>
 		<input type="text" id="who" name="who" value="#who#">
 		<br><input type="submit" value="filter">
 	</form>
@@ -137,7 +145,7 @@
 			GEOREFERENCE_PROTOCOL,
 			LOCALITY_NAME,
 		 	md5hash(WKT_POLYGON) polyhash,
-		 	whodunit,
+		 	getPreferredAgentName(changed_agent_id) whodunit,
 		 	changedate
 		 from
 		 	locality_archive
@@ -164,9 +172,9 @@
 			</cfif>
 			<cfif len(who) gt 0>
 				and locality_id in (
-					select locality_id from locality_archive where upper(whodunit) like '%#ucase(who)#%'
+					select locality_id from locality_archive, agent_name where locality_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
 					union
-					select locality_id from geology_archive where upper(whodunit) like '%#ucase(who)#%'
+					select locality_id from geology_archive,agent_name where geology_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
 				)
 			</cfif>
 	</cfquery>
@@ -429,7 +437,7 @@
 					to_char(GEO_ATT_DETERMINED_DATE,'YYYY-MM-DD') detdate,
 					GEO_ATT_DETERMINED_METHOD,
 					GEO_ATT_REMARK,
-					whodunit,
+					getPreferredAgentName(changed_agent_id) whodunit,
 					to_char(changedate,'YYYY-MM-DD') changedate,
 					triggering_event
 				 from

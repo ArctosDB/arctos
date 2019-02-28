@@ -227,27 +227,37 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 	<cfoutput>
 		<cfif old_status is status>
 			No changes - request denied<cfabort>
-		<cfelseif status is "denied">
+			<!---
+
+			---->
+		</cfif>
+		<cfif status is "denied">
 			Are you sure you want to set status to DENIED? This can be un-done only by a DBA with the authorization of the Arctos Working Group.
 			<p>
 				<a href="/new_collection.cfm?action=setColnStatus&scnrm=true&old_status=#old_status#&status=#status#&niid=#niid#">continue to set status</a>
 			</p>
 			<cfabort>
-		<cfelseif old_status is "new" and status is not "administrative_approval_granted">
+		</cfif>
+		<cfif old_status is "new" and status is not "administrative_approval_granted">
 			Out of order - request denied<cfabort>
-		<cfelseif old_status is "administrative_approval_granted" and status is not "approve_to_create_collections">
+		</cfif>
+		<cfif  old_status is "administrative_approval_granted" and status is not "approve_to_create_collections">
 			Out of order - request denied<cfabort>
-		<cfelseif old_status is "approve_to_create_collections" and status is not "complete">
+		</cfif>
+		<cfif  old_status is "approve_to_create_collections" and status is not "complete">
 			Out of order - request denied<cfabort>
-
-		<cfelseif status is "administrative_approval_granted">
+			<!---
+			<cfabort>
+			---->
+		</cfif>
+		<cfif  status is "administrative_approval_granted">
 		<p> status is "administrative_approval_granted"</p>
 			<cfif len(institutional_mentor) is 0 or len(institutional_mentor_email) is 0>
 				institutional_mentor and institutional_mentor_email are required for status=administrative_approval_granted
 				<cfabort>
 			</cfif>
-			<cfset scnrm="true">
-		<cfelseif  status is "approve_to_create_collections">
+		</cfif>
+		<cfif  status is "approve_to_create_collections">
 			<cfquery name="cs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select * from pre_new_collection where niid=#niid#
 			</cfquery>
@@ -290,15 +300,40 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					</p>
 					<cfabort>
 				</cfif>
+				 <!--- https://github.com/ArctosDB/arctos/issues/1909 --->
+
+				<cfset rulist=listappend(admin_username,mentor)>
+				<cfloop list="#rulist#" index="i">
+					<cfquery name="isDbUser" datasource="uam_god">
+						select account_status from dba_users where username='#ucase(i)#'
+					</cfquery>
+					<cfif isDbUser.account_status neq 'OPEN'>
+						<p>
+							#i# does not have an open Arctos account<cfabort>
+						</p>
+					</cfif>
+					<cfquery name="roles" datasource="uam_god">
+						select
+							granted_role role_name
+						from
+							dba_role_privs,
+							cf_ctuser_roles
+						where
+							upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
+							upper(grantee) = '#ucase(i)#'
+					</cfquery>
+					<cfif not listfind(valuelist(roles.role_name),'COLDFUSION_USER')
+						or not listfind(valuelist(roles.role_name),'GLOBAL_ADMIN')
+						or not listfind(valuelist(roles.role_name),'MANAGE_COLLECTION')>
+						<P>
+							Roles COLDFUSION_USER (basic access), MANAGE_COLLECTION (manage collection), and GLOBAL_ADMIN (invite users) are required for mentors and the collection's admin_username.
+							<cfabort>
+						</P>
+					</cfif>
+				</cfloop>
+
 			</cfloop>
-			<cfif len(probs) eq 0>
-				<cfset scnrm="true">
-			</cfif>
-		<cfelse>
-			<cfset scnrm="true">
-			<br>happy>
 		</cfif>
-		<cfif isdefined("scnrm") and scnrm is "true">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				update pre_new_institution set status='#status#'
 				<cfif isdefined("institutional_mentor") and len(institutional_mentor)  gt 0>
@@ -316,7 +351,6 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 				Status has changed to #status# for pending institution #q.institution#
 			</cfmail>
 			<cflocation addtoken="false" url="/new_collection.cfm?action=manage&id=#hash(niid)#">
-		</cfif>
 	</cfoutput>
 </cfif>
 <!-------------------------------------->
@@ -426,7 +460,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 <!------------------------------------------------------>
 <cfif action is "edit_collection">
 	<cfoutput>
-		<cfif status is not "approved_to_create_collections">
+		<cfif status is "approved_to_create_collections">
 			Changes are not allowed with the current status.
 		</cfif>
 		<!--- pre-check this ---->
@@ -505,11 +539,11 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 					<li>new: new request, neeeds administrative approval</li>
 					<li>
 						administrative_approval_granted: Administrative approval granted, the organization has at least one Mentor.
-						When this is set you will get a new option below. Read is CAREFULLY before proceeding.
+						When this is set you will get a new option below. Read it CAREFULLY before proceeding.
 					</li>
 					<li>
 						approve_to_create_collections: ALL Collections have been pre-created and should be created as VPDs.
-						Changing this sends DBA email.
+						Changing this sends DBA email and LOCKS this page.
 					</li>
 					<li>
 						complete: Collections have been created, Arctos is ready to accept data, these data/this form is no longer useful.
@@ -848,8 +882,16 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 						</select>
 					</div>
 					<div class="infoDiv">
-						Person(s) who will work with the collection during import and initial use.
-						<label for="mentor">mentor (Arctos username preferred; comma-list OK)</label>
+						<p>
+							Arctos Username of persons willing to provide hands-on support to the collection during import and initial use.
+							This/these user(s) will be granted access to the collection at creation. (Any user's access can be revoked at any time.)
+							<br>
+							<span style="border:1px solid red;">
+								This is required to finalize collection creation.
+							</span>
+						</p>
+
+						<label for="mentor">mentor (Arctos username; comma-list OK)</label>
 						<input type="text" name="mentor" id="mentor"  value="#c.mentor#" size="80">
 					</div>
 					<div class="infoDiv">
@@ -858,9 +900,12 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 						<input type="text" name="mentor_contact" id="mentor_contact" value="#c.mentor_contact#" size="80">
 					</div>
 					<div class="infoDiv">
-						Arctos username(s) who will receive initial manage_collection access. Comma-separated list OK. These Operators can
-						create and manage other collection users. Anyone listed here should already have an Arctos account arranged by the Mentor.
-
+						Arctos username(s) who will receive initial access to the new collection. Comma-separated list OK. These Operators can
+						create and manage other collection users. MENTORS: Anyone listed here should have an Arctos account with appropriate roles; you may need to invite them.
+						<br>
+						<span style="border:1px solid red;">
+							This is required to finalize collection creation.
+						</span>
 						<ul>
 							<li><span class="helpLink" data-helplink="users">User Documentation</span></li>
 							<li><span class="helpLink" data-helplink="create_team">Team Documentation</span></li>

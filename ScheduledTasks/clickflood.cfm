@@ -123,7 +123,9 @@
 	</cfif>
 </cfloop>
 
-
+<cfif listlen("#maybeBad#") lt 1>
+	<cfabort>
+</cfif>
 
 <cfmail to="#application.logemail#" subject="click flood detection" from="clickflood@#Application.fromEmail#" type="html">
 	<p>

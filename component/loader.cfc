@@ -349,6 +349,31 @@
 			    			'#q.ORIG_LAT_LONG_UNITS#'
 			    		)
 	  				</cfquery>
+	  				<cfif isdefined("q.no_verbatim_coordinates") and q.no_verbatim_coordinates eq "true">
+						<!--- remove verbatim from the event we just made ---->
+						<cfquery name="removeVerbatimCoords" datasource="uam_god">
+			    			update collecting_event  set
+			    				LAT_DEG=null,
+				    			DEC_LAT_MIN=null,
+				    			LAT_MIN=null,
+				    			LAT_SEC=null,
+				    			LAT_DIR=null,
+				    			LONG_DEG=null,
+				    			DEC_LONG_MIN=null,
+				    			LONG_MIN=null,
+				    			LONG_SEC=null,
+				    			LONG_DIR=null,
+				    			DEC_LAT=null,
+				    			DEC_LONG=null,
+				    			DATUM=null,
+				    			UTM_ZONE=null,
+				    			UTM_EW=null,
+				    			UTM_NS=null,
+				    			ORIG_LAT_LONG_UNITS=null
+				    		where
+				    			collecting_event=#ceid#
+				    	</cfquery>
+					</cfif>
 				</cfif>
 				<cfquery name="makeSpecEvent"  datasource="uam_god">
 					INSERT INTO specimen_event (

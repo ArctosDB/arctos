@@ -206,12 +206,17 @@
 		        media_flat,
 		        media_relations,
 		        collecting_event ubsce,
+		        locality,
 		        collecting_event hmlce
       		where
-		      ubsce.locality_id=hmlce.locality_id and
+		      ubsce.locality_id=locality.locality_id and
+		      locality.locality_id = hmlce.locality_id and
 		      media_relations.related_primary_key=hmlce.collecting_event_id and
 		      media_flat.media_id=media_relations.media_id and
 		      media_relations.media_relationship like '% collecting_event' and
+		      locality.dec_lat is not null and
+		      locality.MAX_ERROR_DISTANCE > 0 and
+		      to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) < 10000 and
 		      ubsce.collecting_event_id=#q#
      		group by
 	        	media_flat.media_id,

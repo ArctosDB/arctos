@@ -201,6 +201,38 @@
 				</ul>
 			</p>
 		</cfif>
+		<!--- this is a public page; don't share internal address info --->
+		<cfquery name="address" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select
+				ADDRESS_TYPE,
+				address
+			from
+				address
+			where
+				address.address_type in ('url','ORCID','Wikidata') and
+				address.agent_id=#val(agent_id)#
+			order by
+				address
+		</cfquery>
+		<cfif len(address.address) gt 0>
+			<p>
+				Address
+				<ul>
+					<cfloop query="address">
+						<li>
+							#ADDRESS_TYPE#:
+							<cfif ADDRESS_TYPE is "url" or ADDRESS_TYPE is "ORCID" or ADDRESS_TYPE is "Wikidata">
+								<a href="#ADDRESS#" class="external" target="_blank">#ADDRESS#</a>
+							<cfelse>
+								#ADDRESS#
+							</cfif>
+						</li>
+					</cfloop>
+				</ul>
+			</p>
+		</cfif>
+
+
 		<cfquery name="collector" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				count(distinct(collector.collection_object_id)) cnt,
@@ -339,6 +371,27 @@
 				</ul>
 			</p>
 		</cfif>
+
+		<cfquery name="createdmedia" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(*) c
+			from
+				media_relations
+			where
+				media_relations.media_relationship='created by agent' AND
+				media_relations.related_primary_key=#val(agent_id)#
+		</cfquery>
+		<cfif createdmedia.c gt 0>
+			<p>
+				Create Media:
+				<ul>
+					<li>
+						<a href="/MediaSearch.cfm?action=search&created_by_agent_id=#agent_id#">
+							#createdmedia.c#  Media records created
+						</a>
+					</li>
+				</ul>
+			</p>
+		</cfif>
 		<cfquery name="project_agent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				project_name,
@@ -410,36 +463,7 @@
 				</ul>
 			</p>
 		</cfif>
-		<!--- this is a public page; don't share internal address info --->
-		<cfquery name="address" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select
-				ADDRESS_TYPE,
-				address
-			from
-				address
-			where
-				address.address_type in ('url','ORCID') and
-				address.agent_id=#val(agent_id)#
-			order by
-				address
-		</cfquery>
-		<cfif len(address.address) gt 0>
-			<p>
-				Address
-				<ul>
-					<cfloop query="address">
-						<li>
-							#ADDRESS_TYPE#:
-							<cfif ADDRESS_TYPE is "url" or ADDRESS_TYPE is "ORCID">
-								<a href="#ADDRESS#" class="external" target="_blank">#ADDRESS#</a>
-							<cfelse>
-								#ADDRESS#
-							</cfif>
-						</li>
-					</cfloop>
-				</ul>
-			</p>
-		</cfif>
+
 	</cfif>
 </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">

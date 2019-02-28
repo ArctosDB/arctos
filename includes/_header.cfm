@@ -284,6 +284,7 @@
 											<li><a target="_top" href="/tools/BulkDeleteOtherId.cfm">Bulk Delete Identifiers/Relationships</a></li>
 
 
+											<li><a target="_top" href="/tools/BulkloadLoan.cfm">Bulkload Loans</a></li>
 											<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
 											<li><a target="_top" href="/tools/DataLoanBulkload.cfm">Bulkload DataLoan Items</a></li>
 
@@ -314,6 +315,7 @@
 											<li><a target="_top" href="/Locality.cfm?action=newHG">Create Geography</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=findLO">Find Locality</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=newLocality">Create Locality</a></li>
+											<li><a target="_top" href="/info/localityArchive.cfm">Locality Edit History</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=findCO">Find Event</a></li>
 										</ul>
 									</li>
@@ -451,6 +453,9 @@
 											<li><a target="_top" href="/DataServices/getGeogFromSpecloc.cfm">Find Higher Geography from Specific Locality</a></li>
 											<li><a target="_top" href="/DataServices/findNonprintingCharacters.cfm">Find/Replace Nonprinting Characters</a></li>
 											<li><a target="_top" href="/DataServices/geog_lookup.cfm">Higher Geog Lookup</a></li>
+											<li><a target="_top" href="/DataServices/listerizer.cfm">Make Comma-list from anything</a></li>
+
+
 
 											<li><a target="_top" href="/tools/genbank_submit.cfm">Package GenBank Data</a></li>
 
@@ -460,6 +465,7 @@
 									</li>
 									 <li><a target="_top" href="##">Find Low-Quality Data</a>
 										<ul>
+											<li><a target="_top" href="/Reports/dashboard.cfm">Dashboard</a></li>
 											<li><a target="_top" href="/info/dispVRemark.cfm">Disposition vs. Remark</a></li>
 											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
 											<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank Discovery Tool</a></li>

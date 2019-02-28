@@ -19,7 +19,7 @@
 		filter="nucleotide_*">
 
 <cfftp action="open" username="#cf_global_settings.GENBANK_USERNAME#"
-	password="#cf_global_settings.GENBANK_PASSWORD#" server="ftp-private.ncbi.nih.gov" connection="genbank" passive="true">
+	password="#cf_global_settings.GENBANK_PASSWORD#" server="#cf_global_settings.GENBANK_ENDPOINT#" connection="genbank" passive="true">
 		<cfftp connection="genbank" action="changedir" passive="true" directory="holdings">
 		<cfloop query="rfiles">
 			<cfftp

@@ -520,6 +520,9 @@
 								 <option value="/Locality.cfm?action=findCollEvent">
 									CollectingEvent
 								</option>
+								 <option value="/SpecimenUsage.cfm?action=search">
+									Publications
+								</option>
 							</optgroup>
 						</select>
 					</td>
