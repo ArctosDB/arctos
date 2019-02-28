@@ -372,7 +372,7 @@
 									<form name='upe' method="post" action="AdminUsers.cfm">
 										<input type="hidden" name="action" value="updateUserEmail">
 										<input type="hidden" name="username" value="#username#">
-										<input type='email' size="40" class="reqdClr" required value="#getUsers.EMAIL#">
+										<input type='email' name="email" size="40" class="reqdClr" required value="#getUsers.EMAIL#">
 										<input type="submit" value="update email" class="savBtn">
 									</form>
 								<cfelse>
