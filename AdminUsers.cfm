@@ -7,6 +7,21 @@
 	<input name="username">&nbsp;<input type="submit" value="Find">
 </form>
 <hr>
+<cfif action is "updateUserEmail">
+	<cfoutput>
+		<cfquery name="uact" datasource="uam_god">
+			select user_id from cf_users where username='#username#'
+		</cfquery>
+		<cfif uact.recordcount is 1 and len(uact.user_id) gt 0>
+			<cfquery name="uem" datasource="uam_god">
+				update cf_user_data set email='#email#' where user_id=#uact.user_id#
+			</cfquery>
+		<cfelse>
+			fail<cfabort>
+		</cfif>
+		<cflocation url="AdminUsers.cfm?action=edit&username=#username#" addtoken="false">
+	</cfoutput>
+</cfif>
 <cfif action is "unlockOracleAccount">
 	<cfoutput>
 		<p>
@@ -352,7 +367,18 @@
 						</tr>
 						<tr>
 							<td align="right">Reported Email:</td>
-							<td>#getUsers.EMAIL#</td>
+							<td>
+								<cfif listfindnocase(session.roles,'GLOBAL_ADMIN')>
+									<form name='upe' method="post" action="AdminUsers.cfm">
+										<input type="hidden" name="action" value="updateUserEmail">
+										<input type="hidden" name="username" value="#username#">
+										<input type='email' size="40" class="reqdClr" required value="#getUsers.EMAIL#">
+										<input type="submit" value="update email" class="savBtn">
+									</form>
+								<cfelse>
+									#getUsers.EMAIL#
+								</cfif>
+							</td>
 						</tr>
 						<tr>
 							<td align="right">Database User Status:</td>
