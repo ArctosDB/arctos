@@ -69,6 +69,10 @@
 						<p>
 							We impose no strict limits on the number of records that may be returned, but query time is limited. Following are some
 							suggestions for dealing with timeout problems. Use the Contact link below if you are unable to get what you need.
+
+							<cfif isdefined("any_geog") and len(any_geog) gt 0>
+								<br>Try specific fields, such as state or country, instead of "any geography."
+							</cfif>
 							<ul>
 								<li>
 									Remove unnecessary results columns. Attributes are particularly expensive.
