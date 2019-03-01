@@ -208,7 +208,7 @@ function showmetadata(){
 		//console.log('ready...');
 		// this may have killed the DB, so only grab the first 10 or something
 		//var ln=0;
-				$("#s_showmetadata").remove();
+				$("##s_showmetadata").remove();
 
 		$("div[data-tid]").each(function( i, val ) {
 			//if (ln<10){
