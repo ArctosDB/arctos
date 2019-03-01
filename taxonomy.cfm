@@ -200,7 +200,11 @@
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0 or len(source) gt 0 or len(term_type) gt 0>
 <script>
 	$(document).ready(function() {
-		function showmetadata(){
+
+	});
+
+
+function showmetadata(){
 		//console.log('ready...');
 		// this may have killed the DB, so only grab the first 10 or something
 		//var ln=0;
@@ -208,7 +212,7 @@
 			//if (ln<10){
 				//console.log(val);
 				var tid=$(this).attr("data-tid");
-				//console.log(tid);
+				console.log(tid);
 
 				$.ajax({
 					url: "/component/taxonomy.cfc?",
@@ -235,7 +239,7 @@
 			//}
 		});
 			}
-	});
+
 
 </script>
 	<h3>Taxonomy Search Results</h3>
