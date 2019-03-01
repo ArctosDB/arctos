@@ -200,12 +200,12 @@
 <cfif len(taxon_name) gt 0 or len(taxon_term) gt 0 or len(common_name) gt 0 or len(source) gt 0 or len(term_type) gt 0>
 <script>
 	$(document).ready(function() {
-
+		function showmetadata(){
 		//console.log('ready...');
 		// this may have killed the DB, so only grab the first 10 or something
-		var ln=0;
+		//var ln=0;
 		$("div[data-tid]").each(function( i, val ) {
-			if (ln<10){
+			//if (ln<10){
 				//console.log(val);
 				var tid=$(this).attr("data-tid");
 				//console.log(tid);
@@ -231,9 +231,10 @@
 				    	// meh, whatever, this is purely informational
 					}
 				});
-				ln++;
-			}
+				//ln++;
+			//}
 		});
+			}
 	});
 
 </script>
@@ -340,6 +341,7 @@
 	</cfquery>
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results - click results for more information.
+	<br><span class="likeLink" onclick="showmetadata()">Show Metadata</span>
 	<cfif d.recordcount is 1000>
 		<span class="warningOverflow">This form will return a maximum of 1,000 records.</span>
 	</cfif>
