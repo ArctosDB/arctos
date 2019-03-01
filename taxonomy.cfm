@@ -212,7 +212,7 @@ function showmetadata(){
 			//if (ln<10){
 				//console.log(val);
 				var tid=$(this).attr("data-tid");
-				console.log(tid);
+				//console.log(tid);
 
 				$.ajax({
 					url: "/component/taxonomy.cfc?",
@@ -226,7 +226,7 @@ function showmetadata(){
 					},
 					success: function(r) {
 
-						console.log(r);
+						//console.log(r);
 
 						$("##tname_" + tid).append(r);
 					},
