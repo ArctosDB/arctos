@@ -238,6 +238,8 @@ function showmetadata(){
 				//ln++;
 			//}
 		});
+
+		$("#s_showmetadata").remove();
 			}
 
 
@@ -345,7 +347,7 @@ function showmetadata(){
 	</cfquery>
 	<cfset title="Taxonomy Search Results">
 	#d.recordcount# results - click results for more information.
-	<br><span class="likeLink" onclick="showmetadata()">Show Metadata</span>
+	<br><span is="s_showmetadata" class="likeLink" onclick="showmetadata()">Show Metadata</span>
 	<cfif d.recordcount is 1000>
 		<span class="warningOverflow">This form will return a maximum of 1,000 records.</span>
 	</cfif>
