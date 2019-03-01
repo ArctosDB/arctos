@@ -69,10 +69,6 @@
 						<p>
 							We impose no strict limits on the number of records that may be returned, but query time is limited. Following are some
 							suggestions for dealing with timeout problems. Use the Contact link below if you are unable to get what you need.
-
-							<cfif isdefined("any_geog") and len(any_geog) gt 0>
-								<br>Try specific fields, such as state or country, instead of "any geography."
-							</cfif>
 							<ul>
 								<li>
 									Remove unnecessary results columns. Attributes are particularly expensive.
@@ -81,6 +77,7 @@
 								<li>Try a more specific search.
 									<ul>
 										<li>Scientific Name instead of Higher Taxonomy.</li>
+										<li>Use Country, State, County, etc. instead of Any Geography</li>
 										<li>Use longer substrings. (<em>E.g.</em>, OtherID contains 1 finds >1.5m specimens and will time out.)</li>
 									</ul>
 								 </li>
