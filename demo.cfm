@@ -23,7 +23,8 @@ the element with your mouse, the title attribute is displayed in a little box ne
 <a href="http://jqueryui.com/themeroller/" title="ThemeRoller: jQuery UI&apos;s theme builder application">ThemeRoller</a>
 will also style tooltips accordingly.</p>
 <p>Tooltips are also useful for form elements, to show some additional information in the context of each field.</p>
-<p><label for="age">Your age:</label><input id="age" title="We ask for your age only for statistical purposes."></p>
+<p><label for="age">Fake Any Geog</label><input id="age" title="Consider using Country, State, County, etc. for better performance."></p>
+<p><label for="age">Fake Any Taxon</label><input id="arge" title="Consider using Identification, Family, Class, etc. for better performance."></p>
 <p>Hover the field to see the tooltip.</p>
 
 
