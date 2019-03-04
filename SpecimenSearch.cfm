@@ -291,7 +291,7 @@
 				<span class="helpLink" id="_taxon_name">Any taxon, ID, common name:</span>
 			</td>
 			<td class="srch">
-				<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="identification; classification + related term; common name">
+				<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="identification; classification + related term; common name" title="Consider using Country, State, County, etc. for better performance.">
 			</td>
 		</tr>
 	</table>
@@ -582,6 +582,7 @@
 </cfoutput>
 <script type='text/javascript' language='javascript'>
 	$(document).ready(function() {
+   		$( document ).tooltip();
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
 		//changeGrp('groupBy');
