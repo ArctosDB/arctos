@@ -11,6 +11,9 @@
 	<!---- if we don't have a name or an ID, abort ---->
 	<!--- if we DO NOT have an ID and we DO have a name,  search ---->
 	<cfif (not isdefined("agent_id") or len(agent_id) is 0) and len(agent_name) gt 0>
+		<cfif len(agent_name) lt 3>
+			At least three characters are required to search.<cfabort>
+		</cfif>
 		<cfquery name="srch" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				agent.agent_id,
