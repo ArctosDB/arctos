@@ -11,7 +11,7 @@
 
 
 <p><label for="age">Fake Any Geog</label><input id="age" title="Consider using Country, State, County, etc. for better performance."></p>
-<p><label for="age">Fake Any Taxon</label><input id="arge" title="Consider using Identification, Family, Class, etc. for better performance."></p>
+<p><label for="age">Fake Any Taxon</label><input id="arge"></p>
 
 
 

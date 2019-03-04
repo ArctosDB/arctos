@@ -291,7 +291,7 @@
 				<span class="helpLink" id="_taxon_name">Any taxon, ID, common name:</span>
 			</td>
 			<td class="srch">
-				<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="identification; classification + related term; common name" title="Consider using Country, State, County, etc. for better performance.">
+				<input type="text" name="taxon_name" id="taxon_name" size="50" placeholder="identification; classification + related term; common name" title="Consider using Identification, Family, Class, etc. for better performance.">
 			</td>
 		</tr>
 	</table>
@@ -310,7 +310,7 @@
 				<span class="helpLink" id="_any_geog">Any&nbsp;Geographic&nbsp;Element:</span>
 			</td>
 			<td class="srch">
-				<input type="text" name="any_geog" id="any_geog" size="50">
+				<input type="text" name="any_geog" id="any_geog" size="50"  title="Consider using Country, State, County, etc. for better performance.">
 				<span class="secControl" style="font-size:.9em;" id="c_spatial_query" onclick="showHide('spatial_query',1)">Select on Google Map</span>
 			</td>
 		</tr>
