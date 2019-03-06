@@ -1,14 +1,25 @@
 <cfoutput>
 <cfquery name="d" datasource="uam_god">
-	select RESULTCOLUMNLIST from cf_users
+	select  * from temp_r_t where s is null
 </cfquery>
+	<cfset x = CreateObject("component","component.taxonomy")>
 
-<cfset x=querynew('t')>
 <cfloop query="d">
-	<cfloop list="#RESULTCOLUMNLIST#" index="w">
-		<cfset queryAddRow(x, [ {t=w}])>
-	</cfloop>
+	<cfset r=x.validateName(scientific_name)>
+	<cfquery name="dv" datasource="uam_god">
+		update temp_r_t set s='#r#' where scientific_name='#scientific_name#'
+	</cfquery>
+
 </cfloop>
+
+
+</cfoutput>
+
+<cfabort>
+
+
+
+
 
 
 <cfquery name="ts" dbtype="query">
@@ -26,15 +37,6 @@
 	#se.SQL_ELEMENT#
 </cfloop>
 <cfdump var=#t2s#>
-</cfoutput>
-
-<cfabort>
-
-
-
-
-
-
 
 
 
