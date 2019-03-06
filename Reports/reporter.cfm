@@ -44,6 +44,9 @@
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
 	<span class="helpLink" data-helplink="create_label">READ THE DOCUMENTATION!</span>
+	<div>
+		<a href="reporter.cfm?action=flatFieldNames">FLAT column headers</a>
+	</div>
     <form method="get" action="reporter.cfm" enctype="text/plain">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="report_id" value="#e.report_id#">
