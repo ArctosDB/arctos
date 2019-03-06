@@ -272,5 +272,14 @@
 	<cfcontent type="application/vnd.coldfusion-reporter" file="#Application.webDirectory#/Reports/templates/#report_template#">
 </cfif>
 <!-------------------------------------------------------------->
+<cfif #action# is "flatFieldNames">
+	<cfquery name="d" datasource="uam_god">
+		select COLUMN_NAME from user_tab_cols where table_name='FLAT' order by INTERNAL_COLUMN_ID
+	</cfquery>
+	<cfloop query="d">
+		<br>#column_name#
+	</cfloop>
+</cfif>
+<!-------------------------------------------------------------->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
