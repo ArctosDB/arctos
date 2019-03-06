@@ -7,7 +7,7 @@
 <cfloop query="d">
 	<cfset r=x.validateName(scientific_name)>
 	<cfquery name="dv" datasource="uam_god">
-		update temp_r_t set s='#r#' where scientific_name='#scientific_name#'
+		update temp_r_t set s='#r.consensus#' where scientific_name='#scientific_name#'
 	</cfquery>
 
 </cfloop>
