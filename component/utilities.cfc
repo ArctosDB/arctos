@@ -1835,10 +1835,6 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress">
 			<cfset x=x & ",YandexImages">
 			<cfset x=x & ",zboard">
-
-
-
-
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME,dashboard">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
