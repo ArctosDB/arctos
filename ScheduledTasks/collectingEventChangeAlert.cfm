@@ -155,3 +155,4 @@
 			#emailFooter#
 		</cfmail>
 #bdy#
+</cfoutput>
