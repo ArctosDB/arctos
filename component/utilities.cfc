@@ -1703,6 +1703,7 @@
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
 	<cfset badbot=badbot & ",Exabot">
+	<cfset badbot=badbot & ",FemtosearchBot">
 	<cfset badbot=badbot & ",Gluten,Gluten Free Crawler,GrapeshotCrawler,Go-http-client">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",ltx71">

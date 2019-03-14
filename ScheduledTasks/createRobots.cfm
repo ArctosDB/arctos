@@ -134,11 +134,12 @@
 		<!----
 			keep this synced up with /component/utilities.cfc
 		---->
-			<cfset badbot="Apache-HttpClient,AlphaBot,admx">
+		<cfset badbot="Apache-HttpClient,AlphaBot,admx">
 	<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler,BLEXBot">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
 	<cfset badbot=badbot & ",Exabot">
+	<cfset badbot=badbot & ",FemtosearchBot">
 	<cfset badbot=badbot & ",Gluten,Gluten Free Crawler,GrapeshotCrawler,Go-http-client">
 	<cfset badbot=badbot & ",HubSpot">
 	<cfset badbot=badbot & ",ltx71">
@@ -149,10 +150,9 @@
 	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot,Seekport">
 	<cfset badbot=badbot & ",TweetmemeBot,TurnitinBot">
 	<cfset badbot=badbot & ",UnisterBot">
-	<cfset badbot=badbot & ",Wotbox">
 	<cfset badbot=badbot & ",VelenPublicWebCrawler">
-	<cfset badbot=badbot & ",YandexBot,Yeti">i">
-
+	<cfset badbot=badbot & ",Wotbox">
+	<cfset badbot=badbot & ",YandexBot,Yeti">
 
 
 		<cfloop list="#badbot#" index="i">
