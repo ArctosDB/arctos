@@ -29,7 +29,7 @@
 			group by
 				collection.collection_id,
 				collection.guid_prefix,
-				whodunit,
+				getPreferredAgentName(collecting_event_archive.changed_agent_id),
 				collecting_event_archive.collecting_event_id
 		</cfquery>
 
