@@ -1,6 +1,9 @@
 ---
 name: Authority request
 about: Request a new code table or other authority value
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
@@ -37,4 +40,4 @@ For OtherIDs, URL with which to prepend value (resolvable identifiers only)
 Describe why this new value is necessary and existing values are not.
 
 **Priority**
-I would like to have this resolved by date: _______
+Please assign a priority-label.

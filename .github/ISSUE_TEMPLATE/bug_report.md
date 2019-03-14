@@ -1,6 +1,9 @@
 ---
 name: Bug report
 about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
@@ -31,4 +34,4 @@ If applicable, add screenshots to help explain your problem.
 Add any other context about the problem here.
 
 **Priority**
-I would like to have this resolved by date: _______
+Please assign a priority-label.

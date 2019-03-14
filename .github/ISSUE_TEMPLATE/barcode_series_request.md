@@ -1,6 +1,9 @@
 ---
 name: Barcode Series Request
 about: Request a new barcode series
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
@@ -17,4 +20,5 @@ Rules for creating random letters or digits (i.e. I would like all barcodes to h
 
 Additional context Add any other context or screenshots about the feature request here.
 
-Priority I would like to have this resolved by date: _______
+**Priority**
+Please assign a priority-label.
