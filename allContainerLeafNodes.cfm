@@ -14,7 +14,7 @@
 			container.description,
 			p.barcode,
 			container.container_remarks,
-			getContainerParentage(container.container_id) fullPath
+			getContainerParentage(p.container_id) fullPath
 		from
 			container,
 			container p
