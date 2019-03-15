@@ -10,7 +10,7 @@
 	select * from BULKLOADER_STAGE
 </cfquery>
 <cfset  util = CreateObject("component","component.utilities")>
-<cfset csv = util.QueryToCSV2(Query=data,Fields=data.columnlist)>
+<cfset csv = util.QueryToCSV2(Query=data,fields=valuelist(getCols.column_name))>
 <cffile action = "write"
     file = "#Application.webDirectory#/download/bulkloader_stage.csv"
    	output = "#csv#"
