@@ -77,7 +77,10 @@
 				<a href="ContDet.cfm?container_id=#container_id#" target="_detail">#label#</a>
 			&nbsp;</td>
 			<td>#description#&nbsp;</td>
-			<td>#barcode#&nbsp;</td>
+			<td>
+				#fullPath#
+				<!----#barcode#&nbsp;---->
+			</td>
 			<td>#container_remarks#&nbsp;</td>
 			<td>#specData.part_name#</td>
 			<td>#specData.COLL_OBJ_DISPOSITION#</td>
