@@ -36,6 +36,7 @@
 			<td><strong>Label</strong></td>
 			<td><strong>Description</strong></td>
 			<td><strong>In Barcode</strong></td>
+			<td><strong>Next2Layers</strong></td>
 			<td><strong>Remarks</strong></td>
 			<td><strong>Part Name</strong></td>
 			<td><strong>Disposition</strong></td>
@@ -71,15 +72,20 @@
 		<cfset partIDs=listappend(partIDs,specData.partID)>
 		<cfset displ=listappend(displ,specData.COLL_OBJ_DISPOSITION)>
 
-
 		<tr>
 			<td>
 				<a href="ContDet.cfm?container_id=#container_id#" target="_detail">#label#</a>
 			&nbsp;</td>
 			<td>#description#&nbsp;</td>
+			<td>#barcode#</td>
+			<cftry>
+				<cfset l=listgetat(fullpath,listlen(fullpath,':')-1,":") & ":" & listlast(fullpath,":")>
+			<cfcatch>
+				<cfset l=fullpath>
+			</cfcatch>
+			</cftry>
 			<td>
-				#fullPath#
-				<!----#barcode#&nbsp;---->
+				#l#
 			</td>
 			<td>#container_remarks#&nbsp;</td>
 			<td>#specData.part_name#</td>
