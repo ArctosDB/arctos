@@ -142,10 +142,9 @@
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-				<cfset fname = "BulkPendingData_#left(session.sessionKey,10)#.csv">
-
+		<cfset fname = "BulkPendingData_#left(session.sessionKey,10)#.csv">
 		<cfset  util = CreateObject("component","component.utilities")>
-		<cfset csv = util.QueryToCSV2(Query=data,Fields=data.columnlist)>
+		<cfset csv = util.QueryToCSV2(Query=data,Fields=valuelist(cNames.column_name))>
 		<cffile action = "write"
 		    file = "#Application.webDirectory#/download/#fname#"
 	    	output = "#csv#"

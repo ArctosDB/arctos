@@ -410,7 +410,7 @@ Upload CSV:
 		</tr>
 		<tr>
 			<td>SPEC_LOCALITY</td>
-			<td>required if LOCALITY_ID, LOCALITY_NAME, COLLECTING_EVENT_ID, or COLLECTING_EVENT_NAME not given</td>
+			<td>required if LOCALITY_NAME or COLLECTING_EVENT_NAME not given</td>
 			<td></td>
 		</tr>
 		<tr>
