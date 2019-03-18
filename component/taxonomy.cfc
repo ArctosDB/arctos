@@ -17,7 +17,7 @@
 				select TERM,TERM_TYPE, source from taxon_term where POSITION_IN_CLASSIFICATION is not null and taxon_name_id=#tid# and classification_id='#cid#' order by POSITION_IN_CLASSIFICATION desc
 			</cfquery>
 			<cfloop query="d">
-				<cfif TERM is "species" or term is "genus">
+				<cfif TERM_type is "species" or TERM_type is "genus">
 					<!---- find any lower terms --->
 					<cfquery name="ssp" datasource="uam_god">
 						select scientific_name, taxon_name_id from taxon_name where scientific_name like '#taxon.scientific_name# %'
