@@ -128,110 +128,27 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='previewed' and rownum=1
 		</cfquery>
-		<cfdump var=#d#>
 		<cfif d.recordcount is 0>
 			<cfabort>
 		</cfif>
-		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
-		</cfquery>
-		<!---- make a username bucket. This will create or return an error of some sort. ---->
-		<cfset currentTime = getHttpTimeString( now() ) />
-		<cfset contentType = "text/html" />
-		<cfset bucket="#lcase(d.username)#">
-		<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket
-			] />
-		<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-		<cfset signature = binaryEncode(
-			binaryDecode(
-				hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
-				"hex"
-			),
-			"base64"
-		)>
-		<cfhttp result="mkunamebkt"  method="put" url="#s3.s3_endpoint#/#bucket#">
-			<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
-		    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
-		    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-		</cfhttp>
-
-
-		<cfquery name="f" datasource="uam_god">
-			select * from cf_temp_zipfiles where zid=#d.zid# and status='previewed' and rownum=1
-		</cfquery>
-		<cfdump var=#f#>
-		<cfloop query="f">
-			<cffile variable="content" action="readBinary" file="#Application.webDirectory#/temp/#d.zid#/#new_filename#">
-			<cfset lmd5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
-			<cfquery name="ckck" datasource="uam_god">
-				select media_id from media_labels where MEDIA_LABEL='MD5 checksum' and LABEL_VALUE='#md5#'
+		<cftry>
+			<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+				select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
 			</cfquery>
-			<cfif ckck.recordcount gt 0>
-				<cfquery name="fail" datasource="uam_god">
-					update cf_temp_zipload set status='FATAL ERROR: #new_filename# exists as #Application.serverRootURL#/media/#ckck.media_id#' where zid=#d.zid#
-				</cfquery>
-				<cfbreak>
-			</cfif>
-			<cfset fext=listlast(new_filename,".")>
-			<cfif fext is "jpg" or fext is "jpeg">
-				<cfset mimetype="image/jpeg">
-				<cfset mediatype="image">
-			<cfelseif fext is "dng">
-				<cfset mimetype="image/dng">
-				<cfset mediatype="image">
-			<cfelseif fext is "pdf">
-				<cfset mimetype="application/pdf">
-				<cfset mediatype="text">
-			<cfelseif fext is "png">
-				<cfset mimetype="image/png">
-				<cfset mediatype="image">
-			<cfelseif fext is "txt">
-				<cfset mimetype="text/plain">
-				<cfset mediatype="text">
-			<cfelseif fext is "wav">
-				<cfset mimetype="audio/x-wav">
-				<cfset mediatype="audio">
-			<cfelseif fext is "m4v">
-				<cfset mimetype="video/mp4">
-				<cfset mediatype="video">
-			<cfelseif fext is "tif" or fext is "tiff">
-				<cfset mimetype="image/tiff">
-				<cfset mediatype="image">
-			<cfelseif fext is "mp3">
-				<cfset mimetype="audio/mpeg3">
-				<cfset mediatype="audio">
-			<cfelseif fext is "mov">
-				<cfset mimetype="video/quicktime">
-				<cfset mediatype="video">
-			<cfelseif fext is "xml">
-				<cfset mimetype="application/xml">
-				<cfset mediatype="text">
-			<cfelseif fext is "wkt">
-				<cfset mimetype="text/plain">
-				<cfset mediatype="text">
-			<cfelse>
-				<cfquery name="fail" datasource="uam_god">
-					update cf_temp_zipload set status='FATAL ERROR: Mime/Media Type unknown for #new_filename#' where zid=#d.zid#
-				</cfquery>
-				<cfbreak>
-			</cfif>
-			<cfset bucket="#lcase(d.username)#/#dateformat(now(),'YYYY-MM-DD')#">
+			<cfquery name="f" datasource="uam_god">
+				select * from cf_temp_zipfiles where zid=#d.zid# and status='previewed' and rownum=1
+			</cfquery>
+			<!---- make a username bucket. This will create or return an error of some sort. ---->
 			<cfset currentTime = getHttpTimeString( now() ) />
-			<cfset contentType=mimetype>
-			<cfset contentLength=arrayLen( content )>
+			<cfset contentType = "text/html" />
+			<cfset bucket="#lcase(d.username)#">
 			<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket & "/" & new_filename
-			] />
-
+				    "PUT",
+				    "",
+				    contentType,
+				    currentTime,
+				    "/" & bucket
+				] />
 			<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
 			<cfset signature = binaryEncode(
 				binaryDecode(
@@ -240,64 +157,151 @@
 				),
 				"base64"
 			)>
-			<cfhttp result="putfile" method="put" url="#s3.s3_endpoint#/#bucket#/#new_filename#">
+			<cfhttp result="mkunamebkt"  method="put" url="#s3.s3_endpoint#/#bucket#">
 				<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
-			    <cfhttpparam type="header" name="Content-Length" value="#contentLength#" />
-			    <cfhttpparam type="header" name="Content-Type" value="#contentType#"/>
+			    <cfhttpparam type="header" name="Content-Type" value="#contentType#" />
 			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-			    <cfhttpparam type="body" value="#content#" />
 			</cfhttp>
-			<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#new_filename#">
 
 
 
-			<!---- load thumbnail ---->
-			<cfset bucket="#lcase(d.username)#/#dateformat(now(),'YYYY-MM-DD')#/tn">
-			<cfset currentTime = getHttpTimeString( now() ) />
-			<cfset contentType = "image/jpeg" />
-			<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/temp/#d.zid#/tn/#preview_filename#">
-			<cfset contentLength=arrayLen( content )>
-			<cfset stringToSignParts = [
-			    "PUT",
-			    "",
-			    contentType,
-			    currentTime,
-			    "/" & bucket & "/" & preview_filename
-			] />
-			<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
-			<cfset signature = binaryEncode(
-				binaryDecode(
-					hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
-					"hex"
-				),
-				"base64"
-			)>
-			<cfhttp result="putTN" method="put" url="#s3.s3_endpoint#/#bucket#/#preview_filename#">
-				<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
-			    <cfhttpparam type="header" name="Content-Length"  value="#contentLength#" />
-			    <cfhttpparam type="header" name="Content-Type"  value="#contentType#" />
-			    <cfhttpparam type="header" name="Date" value="#currentTime#" />
-			    <cfhttpparam type="body" value="#content#" />
-			</cfhttp>
-			<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#preview_filename#">
-		<!--- statuscode of putting the actual file - the important thing--->
+			<cfloop query="f">
+				<cffile variable="content" action="readBinary" file="#Application.webDirectory#/temp/#d.zid#/#new_filename#">
+				<cfset lmd5 = createObject("component","includes.cfc.hashBinary").hashBinary(content)>
+				<cfquery name="ckck" datasource="uam_god">
+					select media_id from media_labels where MEDIA_LABEL='MD5 checksum' and LABEL_VALUE='#md5#'
+				</cfquery>
+				<cfif ckck.recordcount gt 0>
+					<cfquery name="fail" datasource="uam_god">
+						update cf_temp_zipload set status='FATAL ERROR: #new_filename# exists as #Application.serverRootURL#/media/#ckck.media_id#' where zid=#d.zid#
+					</cfquery>
+					<cfbreak>
+				</cfif>
+				<cfset fext=listlast(new_filename,".")>
+				<cfif fext is "jpg" or fext is "jpeg">
+					<cfset mimetype="image/jpeg">
+					<cfset mediatype="image">
+				<cfelseif fext is "dng">
+					<cfset mimetype="image/dng">
+					<cfset mediatype="image">
+				<cfelseif fext is "pdf">
+					<cfset mimetype="application/pdf">
+					<cfset mediatype="text">
+				<cfelseif fext is "png">
+					<cfset mimetype="image/png">
+					<cfset mediatype="image">
+				<cfelseif fext is "txt">
+					<cfset mimetype="text/plain">
+					<cfset mediatype="text">
+				<cfelseif fext is "wav">
+					<cfset mimetype="audio/x-wav">
+					<cfset mediatype="audio">
+				<cfelseif fext is "m4v">
+					<cfset mimetype="video/mp4">
+					<cfset mediatype="video">
+				<cfelseif fext is "tif" or fext is "tiff">
+					<cfset mimetype="image/tiff">
+					<cfset mediatype="image">
+				<cfelseif fext is "mp3">
+					<cfset mimetype="audio/mpeg3">
+					<cfset mediatype="audio">
+				<cfelseif fext is "mov">
+					<cfset mimetype="video/quicktime">
+					<cfset mediatype="video">
+				<cfelseif fext is "xml">
+					<cfset mimetype="application/xml">
+					<cfset mediatype="text">
+				<cfelseif fext is "wkt">
+					<cfset mimetype="text/plain">
+					<cfset mediatype="text">
+				<cfelse>
+					<cfquery name="fail" datasource="uam_god">
+						update cf_temp_zipload set status='FATAL ERROR: Mime/Media Type unknown for #new_filename#' where zid=#d.zid#
+					</cfquery>
+					<cfbreak>
+				</cfif>
+				<cfset bucket="#lcase(d.username)#/#dateformat(now(),'YYYY-MM-DD')#">
+				<cfset currentTime = getHttpTimeString( now() ) />
+				<cfset contentType=mimetype>
+				<cfset contentLength=arrayLen( content )>
+				<cfset stringToSignParts = [
+				    "PUT",
+				    "",
+				    contentType,
+				    currentTime,
+				    "/" & bucket & "/" & new_filename
+				] />
+
+				<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+				<cfset signature = binaryEncode(
+					binaryDecode(
+						hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
+						"hex"
+					),
+					"base64"
+				)>
+				<cfhttp result="putfile" method="put" url="#s3.s3_endpoint#/#bucket#/#new_filename#">
+					<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
+				    <cfhttpparam type="header" name="Content-Length" value="#contentLength#" />
+				    <cfhttpparam type="header" name="Content-Type" value="#contentType#"/>
+				    <cfhttpparam type="header" name="Date" value="#currentTime#" />
+				    <cfhttpparam type="body" value="#content#" />
+				</cfhttp>
+				<cfset media_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#new_filename#">
 
 
+
+				<!---- load thumbnail ---->
+				<cfset bucket="#lcase(d.username)#/#dateformat(now(),'YYYY-MM-DD')#/tn">
+				<cfset currentTime = getHttpTimeString( now() ) />
+				<cfset contentType = "image/jpeg" />
+				<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/temp/#d.zid#/tn/#preview_filename#">
+				<cfset contentLength=arrayLen( content )>
+				<cfset stringToSignParts = [
+				    "PUT",
+				    "",
+				    contentType,
+				    currentTime,
+				    "/" & bucket & "/" & preview_filename
+				] />
+				<cfset stringToSign = arrayToList( stringToSignParts, chr( 10 ) ) />
+				<cfset signature = binaryEncode(
+					binaryDecode(
+						hmac( stringToSign, s3.s3_secretKey, "HmacSHA1", "utf-8" ),
+						"hex"
+					),
+					"base64"
+				)>
+				<cfhttp result="putTN" method="put" url="#s3.s3_endpoint#/#bucket#/#preview_filename#">
+					<cfhttpparam type="header" name="Authorization" value="AWS #s3.s3_accesskey#:#signature#"/>
+				    <cfhttpparam type="header" name="Content-Length"  value="#contentLength#" />
+				    <cfhttpparam type="header" name="Content-Type"  value="#contentType#" />
+				    <cfhttpparam type="header" name="Date" value="#currentTime#" />
+				    <cfhttpparam type="body" value="#content#" />
+				</cfhttp>
+				<cfset preview_uri = "https://web.corral.tacc.utexas.edu/arctos-s3/#bucket#/#preview_filename#">
+			<!--- statuscode of putting the actual file - the important thing--->
+
+
+				<cfquery name="lldd" datasource="uam_god">
+					update cf_temp_zipfiles set
+						md5='#lmd5#',
+						remotepath='#media_uri#',
+						mime_type='#mimetype#',
+						media_type='#mediatype#',
+						remote_preview='#preview_uri#',
+						status='loaded_to_s3'
+					where
+						new_filename='#new_filename#'
+				</cfquery>
+
+			</cfloop>
+		<cfcatch>
 			<cfquery name="lldd" datasource="uam_god">
-				update cf_temp_zipfiles set
-					md5='#lmd5#',
-					remotepath='#media_uri#',
-					mime_type='#mimetype#',
-					media_type='#mediatype#',
-					remote_preview='#preview_uri#',
-					status='loaded_to_s3'
-				where
-					new_filename='#new_filename#'
+				update cf_temp_zipfiles set status='FATAL ERROR: loaded_to_s3 fail'	where new_filename='#f.new_filename#'
 			</cfquery>
-
-
-
-		</cfloop>
+		</cfcatch>
+		</cftry>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
@@ -306,17 +310,20 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='renamed' and rownum=1
 		</cfquery>
-		<cfif d.recordcount lt 1>
-			<cfabort>
-		</cfif>
-		<cfquery name="d_f" datasource="uam_god">
-			select distinct status from cf_temp_zipfiles where zid=#d.zid#
-		</cfquery>
-		<cfif valuelist(d_f.status) is "previewed">
-			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='previewed' where zid=#d.zid#
+		<cftry>
+			<cfif d.recordcount lt 1>
+				<cfabort>
+			</cfif>
+			<cfquery name="d_f" datasource="uam_god">
+				select distinct status from cf_temp_zipfiles where zid=#d.zid#
 			</cfquery>
-		</cfif>
+			<cfif valuelist(d_f.status) is "previewed">
+				<cfquery name="r" datasource="uam_god">
+					update cf_temp_zipload set status='previewed' where zid=#d.zid#
+				</cfquery>
+			</cfif>
+
+		</cftry>
 	</cfoutput>
 </cfif>
 
