@@ -49,8 +49,10 @@
 						<cfdump var=#sspdata#>
 						<!---- get the relative position of the term we're working from ---->
 						<cfquery name="thisRelPos" dbtype="query">
-							select RELATIVE_POSITION from sspdata where term_type='#d.TERM_TYPE#'
+							select POSITION_IN_CLASSIFICATION from sspdata where term_type='#d.TERM_TYPE#'
 						</cfquery>
+
+						<!----
 						<cfdump var=#thisRelPos#>
 
 						<cfloop query="sspdata">
@@ -59,6 +61,7 @@
 							</cfquery>
 
 						</cfloop>
+						---------->
 					</cfloop>
 				</cfif>
 			</cfloop>
