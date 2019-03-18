@@ -10,6 +10,9 @@
 			<br>cid:#cid#
 
 
+			<cfquery name="cttaxon_term" datasource="uam_god">
+				select RELATIVE_POSITION,TAXON_TERM from  cttaxon_term where IS_CLASSIFICATION=1
+			</cfquery>
 			<cfquery name="taxon" datasource="uam_god">
 				select scientific_name from taxon_name where taxon_name_id=#tid#
 			</cfquery>
@@ -22,6 +25,16 @@
 			</cfquery>
 			<cfloop query="d">
 				<cfif TERM_type is "species" or TERM_type is "genus">
+					<cfquery name="rAbsPosn" dbtype="query">
+						select RELATIVE_POSITION from cttaxon_term where TAXON_TERM='#TERM_type#'
+					</cfquery>
+					<!---- copy of the query that we cna diff --->
+					<cfquery name="rJSON" dbtype="query">
+						select  TERM,TERM_TYPE from d order by POSITION_IN_CLASSIFICATION
+					</cfquery>
+					<cfset rJsonStr=SerializeJSON(rJSON)>
+
+
 					<!---- find any lower terms --->
 					<cfquery name="ssp" datasource="uam_god">
 						select scientific_name, taxon_name_id from taxon_name where scientific_name like '#taxon.scientific_name# %'
@@ -34,6 +47,12 @@
 							 order by POSITION_IN_CLASSIFICATION desc
 						</cfquery>
 						<cfdump var=#sspdata#>
+						<cfloop query="sspdata">
+							<cfquery name="rAbsPosn" dbtype="query">
+								select RELATIVE_POSITION from cttaxon_term where TAXON_TERM='#TERM_type#'
+							</cfquery>
+
+						</cfloop>
 					</cfloop>
 				</cfif>
 			</cfloop>
