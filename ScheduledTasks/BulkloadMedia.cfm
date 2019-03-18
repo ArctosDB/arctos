@@ -41,57 +41,64 @@
 			<cfabort>
 		</cfif>
 
-		<cfif d.status contains "FATAL ERROR">
-			<cfmail to="#d.email#" bcc="arctos.database@gmail.com" subject="ZIP upload status" cc="#Application.LogEmail#" from="zipmedia@#Application.fromEmail#" type="html">
-				Dear #d.username#,
-				<p>
-					Your image zip upload job #d.jobname# has failed with error #d.status#
-				</p>
-				<p>
-					Please review the instructions on the upload page, and contact us if you need assistance to resolve the problem.
-				</p>
-				<p>
-					More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
-				</p>
-			</cfmail>
+		<cftry>
+			<cfif d.status contains "FATAL ERROR">
+				<cfmail to="#d.email#" bcc="arctos.database@gmail.com" subject="ZIP upload status" cc="#Application.LogEmail#" from="zipmedia@#Application.fromEmail#" type="html">
+					Dear #d.username#,
+					<p>
+						Your image zip upload job #d.jobname# has failed with error #d.status#
+					</p>
+					<p>
+						Please review the instructions on the upload page, and contact us if you need assistance to resolve the problem.
+					</p>
+					<p>
+						More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
+					</p>
+				</cfmail>
 
+				<cfquery name="r" datasource="uam_god">
+					update cf_temp_zipload set status='complete_email_sent - ' || status where zid=#d.zid#
+				</cfquery>
+			<cfelse>
+				<cfset utilities = CreateObject("component","component.utilities")>
+				<cfset utilities.makeMBLDownloadFile(#d.zid#)>
+				<cfmail to="#d.email#" bcc="arctos.database@gmail.com" subject="ZIP upload status" cc="#Application.LogEmail#" from="zipmedia@#Application.fromEmail#" type="html">
+					Dear #d.username#,
+					<p>
+						Your image zip upload job #d.jobname# is complete.
+					</p>
+					<p>
+						A file is available at #application.serverRootUrl#/download/media_bulk_zip#d.zid#.csv. This file will be deleted in three days,
+						but may be regenerated from the more information link below.
+					</p>
+					<p>
+						The file is NOT ready to upload in the media bulkloader.
+					</p>
+					<p>
+						* TEMP_original_filename is the filename as supplied.
+						<br>* TEMP_new_filename is the filename as loaded.
+					</p>
+					<p>
+						Please delete these columns before attempting upload. Instructions for adding columns or data are available from the Media Bulkloader.
+					</p>
+					<p>
+						Please do NOT delete the "MD5 checksum" (in MEDIA_LABEL_1 and MEDIA_LABEL_VALUE_1). This is important to preventing duplicate creation
+						and ensuring that files have not inadvertantly been changed over time.
+					</p>
+					<p>
+						More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
+					</p>
+				</cfmail>
+				<cfquery name="r" datasource="uam_god">
+					update cf_temp_zipload set status='complete_email_sent' where zid=#d.zid#
+				</cfquery>
+			</cfif>
+		<cfcatch>
 			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='complete_email_sent - ' || status where zid=#d.zid#
+				update cf_temp_zipload set status='FATAL ERROR: complete_email_sent failed' where zid=#d.zid#
 			</cfquery>
-		<cfelse>
-			<cfset utilities = CreateObject("component","component.utilities")>
-			<cfset utilities.makeMBLDownloadFile(#d.zid#)>
-			<cfmail to="#d.email#" bcc="arctos.database@gmail.com" subject="ZIP upload status" cc="#Application.LogEmail#" from="zipmedia@#Application.fromEmail#" type="html">
-				Dear #d.username#,
-				<p>
-					Your image zip upload job #d.jobname# is complete.
-				</p>
-				<p>
-					A file is available at #application.serverRootUrl#/download/media_bulk_zip#d.zid#.csv. This file will be deleted in three days,
-					but may be regenerated from the more information link below.
-				</p>
-				<p>
-					The file is NOT ready to upload in the media bulkloader.
-				</p>
-				<p>
-					* TEMP_original_filename is the filename as supplied.
-					<br>* TEMP_new_filename is the filename as loaded.
-				</p>
-				<p>
-					Please delete these columns before attempting upload. Instructions for adding columns or data are available from the Media Bulkloader.
-				</p>
-				<p>
-					Please do NOT delete the "MD5 checksum" (in MEDIA_LABEL_1 and MEDIA_LABEL_VALUE_1). This is important to preventing duplicate creation
-					and ensuring that files have not inadvertantly been changed over time.
-				</p>
-				<p>
-					More information may be available at #application.serverRootUrl#/tools/uploadMedia.cfm?action=preview###d.zid#
-				</p>
-			</cfmail>
-			<cfquery name="r" datasource="uam_god">
-				update cf_temp_zipload set status='complete_email_sent' where zid=#d.zid#
-			</cfquery>
-		</cfif>
+		</cfcatch>
+		</cftry>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------>
