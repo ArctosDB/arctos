@@ -27,6 +27,12 @@
 						select scientific_name, taxon_name_id from taxon_name where scientific_name like '#taxon.scientific_name# %'
 					</cfquery>
 					<cfdump var=#ssp#>
+					<cfloop query="ssp">
+						<cfquery name="sspdate">
+							select TERM,TERM_TYPE from taxon_term where POSITION_IN_CLASSIFICATION is not null and taxon_name_id=#ssp.taxon_name_id# and source='#source.source#' order by POSITION_IN_CLASSIFICATION desc
+						</cfquery>
+						<cfdump var=#sspdata#>
+					</cfloop>
 				</cfif>
 			</cfloop>
 
