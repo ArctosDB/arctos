@@ -297,6 +297,10 @@
 
 			</cfloop>
 		<cfcatch>
+			caught
+			<cfdump var=#cfcatch#>
+			-----------------------------------
+
 			<cfquery name="lldd" datasource="uam_god">
 				update cf_temp_zipfiles set status='FATAL ERROR: loaded_to_s3 fail'	where new_filename='#f.new_filename#'
 			</cfquery>
