@@ -371,7 +371,7 @@
 				    			UTM_NS=null,
 				    			ORIG_LAT_LONG_UNITS=null
 				    		where
-				    			collecting_event=#ceid#
+				    			collecting_event_id=#ceid#
 				    	</cfquery>
 					</cfif>
 				</cfif>
