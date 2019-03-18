@@ -47,6 +47,12 @@
 							 order by POSITION_IN_CLASSIFICATION desc
 						</cfquery>
 						<cfdump var=#sspdata#>
+						<!---- get the relative position of the term we're working from ---->
+						<cfquery name="thisRelPos" dbtype="query">
+							select RELATIVE_POSITION from sspdata where term_type='#d.TERM_TYPE#'
+						</cfquery>
+						<cfdump var=#thisRelPos#>
+
 						<cfloop query="sspdata">
 							<cfquery name="rAbsPosn" dbtype="query">
 								select RELATIVE_POSITION from cttaxon_term where TAXON_TERM='#TERM_type#'
