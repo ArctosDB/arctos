@@ -10,8 +10,10 @@
 			<br>cid:#cid#
 
 			<cfquery name="d" datasource="uam_god">
-				select * from taxon_term where taxon_name_id=#tid# and classification_id='#cid#'
+				select TERM,TERM_TYPE from taxon_term where POSITION_IN_CLASSIFICATION is not null and taxon_name_id=#tid# and classification_id='#cid#' order by POSITION_IN_CLASSIFICATION desc
 			</cfquery>
+
+
 			<cfdump var=#d#>
 		</cfoutput>
 	</cffunction>
