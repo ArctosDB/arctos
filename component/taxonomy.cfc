@@ -28,7 +28,7 @@
 					</cfquery>
 					<cfdump var=#ssp#>
 					<cfloop query="ssp">
-						<cfquery name="sspdate" datasource="uam_god">
+						<cfquery name="sspdata" datasource="uam_god">
 							select TERM,TERM_TYPE from taxon_term where POSITION_IN_CLASSIFICATION is not null and taxon_name_id=#ssp.taxon_name_id# and source='#source.source#' order by POSITION_IN_CLASSIFICATION desc
 						</cfquery>
 						<cfdump var=#sspdata#>
