@@ -1,5 +1,15 @@
 <cfcomponent>
 
+<!--------------------------------------------------------------------------------------->
+	<cffunction name="checkConsistency" access="remote">
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="tid" type="numeric" required="true">
+		<cfargument name="cid" type="string" required="true">
+		<cfoutput>
+			<br>#tid#:#tid#
+			<br>cid:#cid#
+		</cfoutput>
+	</cffunction>
 
 
 <!--------------------------------------------------------------------------------------->
@@ -7,24 +17,24 @@
 		<cfargument name="thedate" type="string" required="true">
 		<cfoutput>
 			<!---
-			
+
 				<!--- blargh need a temp table to handle this; it can take a while ---->
 				drop table cf_worms_refresh_job;
 				create table cf_worms_refresh_job (
 					last_run_date date,
 					last_status varchar2(255)
 				);
-				
+
 				insert into cf_worms_refresh_job(last_run_date,last_status) values (to_date('2018-12-20'),'new');
-				
+
 				select last_run_date-sysdate from cf_worms_refresh_job;
-			
+
 				for one day, loop until we get everything
 				worms date handling is a little wonky, so "start" today and "end" tomorrow??
 
 				DateAdd(datepart, number, date)
 
-			--->			
+			--->
 			<cfquery name="rs" datasource="uam_god">
 				select * from cf_worms_refresh_job
 			</cfquery>
@@ -35,10 +45,10 @@
 
 			<cfset lastRunDate=listgetat(Application.wrmsbkmrk,1,"|")>
 			<cfset lastRunLoop=listgetat(Application.wrmsbkmrk,2,"|")>
-			
+
 			<br>lastRunDate:#lastRunDate#
 			<br>lastRunLoop:#lastRunLoop#
-			
+
 				<cfset edate=DateAdd("d", 1, thedate)>
 				<cfdump var=#edate#>
 				<cfset edate=dateformat(edate,"YYYY-MM-DD")>
