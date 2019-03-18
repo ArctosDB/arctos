@@ -6,8 +6,13 @@
 		<cfargument name="tid" type="numeric" required="true">
 		<cfargument name="cid" type="string" required="true">
 		<cfoutput>
-			<br>#tid#:#tid#
+			<br>tid:#tid#
 			<br>cid:#cid#
+
+			<cfquery name="d" datasource="uam_god">
+				select * from taxon_term where taxon_name_id=#tid# and classification_id='#cid#'
+			</cfquery>
+			<cfdump var=#d#>
 		</cfoutput>
 	</cffunction>
 
