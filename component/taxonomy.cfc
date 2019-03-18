@@ -31,7 +31,7 @@
 						<cfquery name="sspdata" datasource="uam_god">
 							select TERM,TERM_TYPE,POSITION_IN_CLASSIFICATION from taxon_term where POSITION_IN_CLASSIFICATION is not null and
 							taxon_name_id=#ssp.taxon_name_id# and source='#source.source#'
-							and POSITION_IN_CLASSIFICATION < #d.POSITION_IN_CLASSIFICATION# order by POSITION_IN_CLASSIFICATION desc
+							 order by POSITION_IN_CLASSIFICATION desc
 						</cfquery>
 						<cfdump var=#sspdata#>
 					</cfloop>

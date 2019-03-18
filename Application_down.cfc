@@ -12,34 +12,34 @@
      name="TargetPage"
      type="string"
      required="true"/>
-      
+
      <!--- Define the local scope. --->
      <cfset var LOCAL = StructNew() />
-      
-      
+
+
      <!--- Set header code. --->
      <cfheader
      statuscode="503"
      statustext="Service Temporarily Unavailable"
      />
-      
+
      <!--- Set retry time. --->
      <cfheader
      name="retry-after"
      value="3600"
      />
-      
-      
+
+
      <h1>
      Down For Maintenance
      </h1>
-      
+
      <p>
      Arctos currently down for maintenance and will
-     be back up shortly. Sorry for the inconvenience.
+     be back up shortly. We apologize for the inconvenience.
      </p>
-      
-      
+
+
      <!---
      By returning false, the rest of the page
      rendering will hault.
