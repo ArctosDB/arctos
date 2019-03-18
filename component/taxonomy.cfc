@@ -52,6 +52,7 @@
 							select POSITION_IN_CLASSIFICATION from sspdata where term_type='#d.TERM_TYPE#'
 						</cfquery>
 
+						<cfdump var=#thisRelPos#>
 						<!----
 						<cfdump var=#thisRelPos#>
 
