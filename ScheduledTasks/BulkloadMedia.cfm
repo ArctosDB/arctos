@@ -326,7 +326,12 @@
 					update cf_temp_zipload set status='previewed' where zid=#d.zid#
 				</cfquery>
 			</cfif>
+			<cfcatch>
 
+				<cfquery name="r" datasource="uam_god">
+					update cf_temp_zipload set status='FATAL ERROR: at previewed' where zid=#d.zid#
+				</cfquery>
+			</cfcatch>
 		</cftry>
 	</cfoutput>
 </cfif>
