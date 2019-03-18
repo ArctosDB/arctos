@@ -14,7 +14,7 @@
 				select scientific_name from taxon_name where taxon_name_id=#tid#
 			</cfquery>
 			<cfquery name="source" datasource="uam_god">
-				select term source from taxon_term where classification_id='#cid#' and taxon_name_id=#tid#
+				select source from taxon_term where  classification_id='#cid#' and taxon_name_id=#tid#
 			</cfquery>
 			<cfdump var=#source#>
 			<cfquery name="d" datasource="uam_god">
