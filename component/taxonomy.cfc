@@ -17,13 +17,14 @@
 				select scientific_name from taxon_name where taxon_name_id=#tid#
 			</cfquery>
 			<cfquery name="source" datasource="uam_god">
-				select source from taxon_term where  classification_id='#cid#' and taxon_name_id=#tid#
+				select distinct source from taxon_term where  classification_id='#cid#' and taxon_name_id=#tid#
 			</cfquery>
 			<cfdump var=#source#>
 			<cfquery name="d" datasource="uam_god">
 				select TERM,TERM_TYPE,POSITION_IN_CLASSIFICATION from taxon_term where POSITION_IN_CLASSIFICATION is not null and taxon_name_id=#tid# and classification_id='#cid#' order by POSITION_IN_CLASSIFICATION desc
 			</cfquery>
 			<cfloop query="d">
+				<br>#TERM_type# #term#
 				<cfif TERM_type is "species" or TERM_type is "genus">
 					<cfquery name="rAbsPosn" dbtype="query">
 						select RELATIVE_POSITION from cttaxon_term where TAXON_TERM='#TERM_type#'
