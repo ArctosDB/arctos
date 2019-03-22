@@ -1812,14 +1812,14 @@
 			<cfset x=x & ",classLoader,cacheObjectMaxSize">
 			<cfset x=x & ",drithsx,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config,dbm">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment">
-			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway">
+			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gatewa,FxCodeShell">
 			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana,hooks,heads">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla,jsf,jobs">
 			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization,logs,logon">
 			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg,modules,mychat">
-			<cfset x=x & ",news,nyet,newdsn">
+			<cfset x=x & ",news,nyet,newdsn,node">
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol,objects,owa,openshift,onrequestend,openings">
 			<cfset x=x & ",php,phppath,phpMyAdmin,PHPADMIN,phpldapadmin,phpMyAdminLive,_phpMyAdminLive,printenv,proc,plugins,passwd,pma2,pmc">
 			<cfset x=x & ",pma4,php5,pre-receive">
