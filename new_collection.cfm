@@ -1095,8 +1095,7 @@ create table temp_old_pre_new_collection as select * from pre_new_collection;
 				handles all of our data storage and security on their
 				<a target="_blank" class="external" href="https://www.tacc.utexas.edu/systems/corral">Corral</a> system.
 			</li>
-			<li><a target="_blank" class="external" href="https://arctosdb.org/join-arctos/costs/">current pricing structure</a></li>
-			<li><a target="_blank" class="external" href="https://arctosdb.org/learn/webinars/">webinars</a></li>
+			<li>See <a target="_blank" class="external" href="https://arctosdb.org/join-arctos/">ArctosDB.org</a> for current pricing structure, webinars, etc.</li>
 			<li><a target="_blank" class="external" href="http://handbook.arctosdb.org">Arctos Handbook</a></li>
 			<li><a target="_blank" class="external" href="http://handbook.arctosdb.org/how_to/How-to-Manage-a-Collection-in-Arctos.html">How-To: Manage Collection</a></li>
 		</ul>

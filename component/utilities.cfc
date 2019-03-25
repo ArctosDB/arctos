@@ -1698,7 +1698,7 @@
 	</cfif>
 	<!--- these are user-agents that regularly ignore the robots.txt file --->
 	<!--- keep this synced up with /ScheduledTasks/createRobots.cfm ---->
-	<cfset badbot="Apache-HttpClient,AlphaBot,admx">
+	<cfset badbot="Apache-HttpClient,AlphaBot,admx,arquivo">
 	<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler,BLEXBot">
 	<cfset badbot=badbot & ",ca-crawler,CCBot">
 	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
