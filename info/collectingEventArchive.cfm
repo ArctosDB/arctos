@@ -115,7 +115,7 @@
 			ENDED_DATE,
 			COLLECTING_EVENT_NAME,
 			VERBATIM_COORDINATES,
-			whodunit,
+			getPreferredAgentName(changed_agent_id) whodunit,
 			changedate,
 		 	VERBATIM_DATE,
 		 	VERBATIM_LOCALITY,
