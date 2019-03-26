@@ -353,28 +353,40 @@ select count(*) from cf_worms_refreshed where status='needs_refreshed' and taxon
 						<br>#name#
 					</cfif>
 
-					<cfset thisSourceID=CreateUUID()>
-					<cfquery name="seedClassification" datasource="uam_god">
-						insert into taxon_term (
-							TAXON_NAME_ID,
-							CLASSIFICATION_ID,
-							TERM,
-							TERM_TYPE,
-							SOURCE,
-							POSITION_IN_CLASSIFICATION
-						) values (
-							#taxon_name_id#,
-							'#thisSourceID#',
-							'#aphiaid#',
-							'aphiaid',
-							'WoRMS (via Arctos)',
-							NULL
-						)
+					<!--- double-triple check that it's not there eg, because they updates multiple things and we just put it there ---->
+
+					<cfquery name="agone_dc" datasource="uam_god">
+						select count(*) c from taxon_term where TAXON_NAME_ID=#taxon_name_id# and SOURCE='WoRMS (via Arctos)' and TERM_TYPE='aphiaid' and term='#aphiaid#'
 					</cfquery>
-					<!---- mark to be refreshed ---->
-					<cfquery name="mkmd" datasource="uam_god">
-						update cf_worms_refreshed set status='needs_refreshed' where key=#key#
-					</cfquery>
+					<cfif agone_dc.c is 0>
+						<cfset thisSourceID=CreateUUID()>
+						<cfquery name="seedClassification" datasource="uam_god">
+							insert into taxon_term (
+								TAXON_NAME_ID,
+								CLASSIFICATION_ID,
+								TERM,
+								TERM_TYPE,
+								SOURCE,
+								POSITION_IN_CLASSIFICATION
+							) values (
+								#taxon_name_id#,
+								'#thisSourceID#',
+								'#aphiaid#',
+								'aphiaid',
+								'WoRMS (via Arctos)',
+								NULL
+							)
+						</cfquery>
+						<!---- mark to be refreshed ---->
+						<cfquery name="mkmd" datasource="uam_god">
+							update cf_worms_refreshed set status='needs_refreshed' where key=#key#
+						</cfquery>
+					<cfelse>
+						<cfquery name="mkmd" datasource="uam_god">
+							update cf_worms_refreshed set status='doublechec_cought_dup' where key=#key#
+						</cfquery>
+					</cfif>
+
 				</cfloop>
 				<!--- if we did something here just abort so as not to push available resources. If we didn't we'll move on to the next job --->
 				<cfabort>
