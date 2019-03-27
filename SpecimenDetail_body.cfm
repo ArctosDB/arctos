@@ -802,6 +802,9 @@
 						CITATION_REMARKS,
 						doi
 				</cfquery>
+				<cfif isdefined("debug") and debug is true>
+					<cfdump var=#citations#>
+				</cfif>
 				<div class="detailCell">
 					<div class="detailLabel">
 							Citations
