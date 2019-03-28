@@ -651,7 +651,7 @@ UAM@ARCTOS> desc temp_pdbd
 			start with taxon_no='#d.taxon_no#'
 		</cfquery>
 		<cfloop query="c">
-			<cfset thisrec.#TAXON_RANK#=#c.TAXON_NAME#>
+			<cfset "thisrec.#TAXON_RANK#"="#c.TAXON_NAME#">
 		</cfloop>
 		<cfdump var=#thisrec#>
 
