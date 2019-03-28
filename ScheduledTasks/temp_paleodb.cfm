@@ -594,7 +594,7 @@ alter table temp_flat_pbdb add misses varchar2(4000);
 	<cfdump var=#cols#>
 
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_pdbd where rownum < 2 and got_this_one is null
+		select * from temp_pdbd where rownum < 20 and got_this_one is null
 	</cfquery>
 	<cfdump var=#d#>
 	<cfloop query="d">
