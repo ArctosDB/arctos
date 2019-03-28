@@ -488,7 +488,7 @@ start with taxon_no=363;
    			CONNECT BY PRIOR parent_no=taxon_no
 			start with taxon_no=#d.taxon_no#
 		</cfquery>
-		<cfdump var=#d#><br>##
+		<cfdump var=#c#><br>##
 
 
 	</cfloop>
