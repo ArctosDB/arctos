@@ -9,19 +9,52 @@ curl -o pdb.json https://paleobiodb.org/data1.2/taxa/list.json?all_taxa&variant=
 {"oid":"txn:585",  "rnk":5,"nam":"Neowrangellium",   "tdf":"subjective synonym of","acc":"txn:452","acr":5,"acn":"Canoptum","par":"txn:86390","rid":"ref:40780","ext":0,"noc":645},
 {"oid":"txn:4997", "rnk":5,"nam":"Pleurosiphonella","par":"txn:54332","rid":"ref:6930","ext":0,"noc":16},
 
+
+create table temp_pdb (
+	oid varchar2(255),
+	rnk varchar2(255),
+	nam varchar2(255),
+	tdf varchar2(255),
+	acc varchar2(255),
+	acr varchar2(255),
+	acn varchar2(255),
+	par varchar2(255),
+	rid varchar2(255),
+	ext varchar2(255),
+	noc varchar2(255)
+);
 ---->
 
 <cffile action = "read" file = "/usr/local/tmp/test.json" variable = "x">
 <cfset j=DeserializeJSON(x)>
 <cfdump var=#j#>
+ 5
+oid: txn:17
+par: txn:5
+noc: 0
+rid: ref:6930
+ext: 1
+rnk: 5
+nam: Amphistylus
+
 
 <cfoutput>
 <cfloop array="#j.records#" index="rec">
 	<cfdump var=#rec#>
-	<cfloop collection="#rec#" item="key">
-    	 #key#: #rec[key]#<br />
-	</cfloop>
 
+	<p>
+		insert into temp_pdb (
+
+	<cfloop collection="#rec#" item="key">
+    	 #key#,
+	</cfloop>
+	) values (
+	<cfloop collection="#rec#" item="key">
+    	 '#rec[key]'
+	</cfloop>
+	)
+
+</p>
 
 
 </cfloop>
