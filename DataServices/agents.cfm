@@ -199,6 +199,19 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		Status has been reset. Use the link above, or <a href="agents.cfm?action=validatecsv">proceed to validate</a>
 	</p>
 </cfif>
+
+<!------------------------------------------------------->
+<cfif action is "template">
+	<cfoutput>
+		<cfset h="agent_type,preferred_name,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,other_name_4,other_name_type_4,other_name_5,other_name_type_5,other_name_6,other_name_type_6,agent_status_1,agent_status_date_1,agent_status_2,agent_status_date_2,agent_remark">
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/BulkloadAgent.csv"
+		   	output = "#h#"
+		   	addNewLine = "no">
+		<cflocation url="/download.cfm?file=BulkloadAgent.csv" addtoken="false">
+		<a href="/download/BulkloadAgent.csv">Click here if your file does not automatically download.</a>
+	</cfoutput>
+</cfif>
 <!------------------------------------------------>
 <cfif action is "nothing">
 	<cftry>
@@ -314,10 +327,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 	<a href="/info/ctDocumentation.cfm?table=ctagent_name_type">Valid agent name types</a>
 	<br>
 	<a href="/info/ctDocumentation.cfm?table=ctagent_type">Valid agent types</a>
-	<div id="template">
-		<label for="t">Copy and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,other_name_1,other_name_type_1,other_name_2,other_name_type_2,other_name_3,other_name_type_3,other_name_4,other_name_type_4,other_name_5,other_name_type_5,other_name_6,other_name_type_6,agent_status_1,agent_status_date_1,agent_status_2,agent_status_date_2,agent_remark</textarea>
-	</div>
+	<br><a href="agents.cfm?action=template">get a template</a>
 	<p>
 		<table border>
 			<tr>
