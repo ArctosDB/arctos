@@ -28,6 +28,8 @@ create table temp_pdb (
 );
 
 select * from temp_pdb;
+select count(*) from temp_pdb;
+truncate table temp_pdb;
 
 ---->
 
