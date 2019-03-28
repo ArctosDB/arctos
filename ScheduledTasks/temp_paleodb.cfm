@@ -578,55 +578,11 @@ create table temp_flat_pbdb as select * from cf_temp_classification where 1=2;
 alter table temp_flat_pbdb add common_name varchar2(4000);
 alter table temp_flat_pbdb add preferred_name varchar2(4000);
 alter table temp_flat_pbdb add extinctyn varchar2(4000);
+alter table temp_flat_pbdb rename column extinctyn to extinct;
+
 alter table temp_flat_pbdb add misses varchar2(4000);
 
 ---->
-
-
-UAM@ARCTOS> desc temp_pdbd
- Name								   Null?    Type
- ----------------------------------------------------------------- -------- --------------------------------------------
- ORIG_NO								    VARCHAR2(4000)
- TAXON_NO								    VARCHAR2(4000)
- RECORD_TYPE								    VARCHAR2(4000)
- FLAGS									    VARCHAR2(4000)
- TAXON_RANK								    VARCHAR2(4000)
- TAXON_NAME								    VARCHAR2(4000)
- TAXON_ATTR								    VARCHAR2(4000)
- DIFFERENCE								    VARCHAR2(4000)
- ACCEPTED_NO								    VARCHAR2(4000)
- ACCEPTED_RANK								    VARCHAR2(4000)
- ACCEPTED_NAME								    VARCHAR2(4000)
- PARENT_NO								    VARCHAR2(4000)
- REFERENCE_NO								    VARCHAR2(4000)
- IS_EXTANT								    VARCHAR2(4000)
- N_OCCS 								    VARCHAR2(4000)
- EARLY_INTERVAL 							    VARCHAR2(4000)
- LATE_INTERVAL								    VARCHAR2(4000)
- TAXON_SIZE								    VARCHAR2(4000)
- EXTANT_SIZE								    VARCHAR2(4000)
- PHYLUM 								    VARCHAR2(4000)
- CLASS									    VARCHAR2(4000)
- PORDER 								    VARCHAR2(4000)
- FAMILY 								    VARCHAR2(4000)
- GENUS									    VARCHAR2(4000)
- TYPE_TAXON								    VARCHAR2(4000)
- TAXON_ENVIRONMENT							    VARCHAR2(4000)
- ENVIRONMENT_BASIS							    VARCHAR2(4000)
- MOTILITY								    VARCHAR2(4000)
- LIFE_HABIT								    VARCHAR2(4000)
- VISION 								    VARCHAR2(4000)
- DIET									    VARCHAR2(4000)
- REPRODUCTION								    VARCHAR2(4000)
- ONTOGENY								    VARCHAR2(4000)
- ECOSPACE_COMMENTS							    VARCHAR2(4000)
- COMPOSITION								    VARCHAR2(4000)
- ARCHITECTURE								    VARCHAR2(4000)
- THICKNESS								    VARCHAR2(4000)
- REINFORCEMENT								    VARCHAR2(4000)
- GOT_THIS_ONE								    VARCHAR2(255)
-
-
 
 
 
@@ -644,6 +600,13 @@ UAM@ARCTOS> desc temp_pdbd
 	<cfloop query="d">
 		<cfset thisRec=StructNew()>
 		<cfset thisRec.preferred_name=d.TAXON_NAME>
+		<cfset thisRec.extinct=d.IS_EXTANT>
+		<cfset thisRec.common_name=d.COMMON_NAME>
+		<cfset thisRec.taxon_status=d.DIFFERENCE>
+		<cfset thisRec.author_text=d.TAXON_ATTR>
+
+		DIFFERENCE
+
 		<cfif d.TAXON_NAME neq ACCEPTED_NAME>
 			<cfset thisRec.preferred_name=d.ACCEPTED_NAME>
 		</cfif>
@@ -676,7 +639,7 @@ UAM@ARCTOS> desc temp_pdbd
 		<cfdump var=#c#><br>
 
 
-
+<br>		update....GOT_THIS_ONE
 
 	</cfloop>
 
