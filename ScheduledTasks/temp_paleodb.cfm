@@ -631,6 +631,10 @@ UAM@ARCTOS> desc temp_pdbd
 
 
 <cfoutput>
+	<cfquery name="cols" datasource="uam_god">
+		select * from temp_flat_pbdb where 1=2
+	</cfquery>
+	<cfdump var=#cols#>
 
 	<cfquery name="d" datasource="uam_god">
 		select * from temp_pdbd where rownum < 2 and got_this_one is null
