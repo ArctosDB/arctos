@@ -43,7 +43,7 @@ truncate table temp_pdb;
 <!----
 <cfdump var=#j#>
 ---->
-
+<cftransaction>
 <cfoutput>
 	<cfloop array="#j.records#" index="rec">
 		<cfquery name="ins" datasource="uam_god">
@@ -59,4 +59,4 @@ truncate table temp_pdb;
 		</cfquery>
 	</cfloop>
 </cfoutput>
-
+</cftransaction>
