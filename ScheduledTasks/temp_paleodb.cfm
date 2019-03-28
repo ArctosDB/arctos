@@ -14,3 +14,12 @@ curl -o pdb.json https://paleobiodb.org/data1.2/taxa/list.json?all_taxa&variant=
 <cffile action = "read" file = "/usr/local/tmp/test.json" variable = "x">
 <cfset j=DeserializeJSON(x)>
 <cfdump var=#j#>
+
+
+<cfloop collection=#j.records# item="r">
+	<cfloop collection=#j# item="r">
+       <cfdump var=#r#>
+    </cfloop>
+</table>
+
+
