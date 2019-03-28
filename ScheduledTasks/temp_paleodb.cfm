@@ -27,16 +27,9 @@ create table temp_pdb (
 
 <cffile action = "read" file = "/usr/local/tmp/test.json" variable = "x">
 <cfset j=DeserializeJSON(x)>
+<!----
 <cfdump var=#j#>
- 5
-oid: txn:17
-par: txn:5
-noc: 0
-rid: ref:6930
-ext: 1
-rnk: 5
-nam: Amphistylus
-
+---->
 
 <cfoutput>
 <cfloop array="#j.records#" index="rec">
