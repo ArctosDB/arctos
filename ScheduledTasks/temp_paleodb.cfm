@@ -16,10 +16,8 @@ curl -o pdb.json https://paleobiodb.org/data1.2/taxa/list.json?all_taxa&variant=
 <cfdump var=#j#>
 
 
-<cfloop collection=#j.records# item="r">
-	<cfloop collection=#j# item="r">
-       <cfdump var=#r#>
-    </cfloop>
+<cfloop array="#j.records#" index="idx">
+       <cfdump var=#idx#>
 </cfloop>
 </table>
 
