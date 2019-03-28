@@ -23,12 +23,18 @@ create table temp_pdb (
 	ext varchar2(255),
 	noc varchar2(255),
 	vid varchar2(255),
+	FLG varchar2(255),
 	dummy varchar2(255)
 );
 
 select * from temp_pdb;
 
 ---->
+
+
+<cfsetting requestTimeOut = "600">
+
+
 
 <cffile action = "read" file = "/usr/local/tmp/pdb.json" variable = "x">
 <cfset j=DeserializeJSON(x)>
