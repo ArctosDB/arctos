@@ -617,7 +617,7 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 		<cfset thisRec.preferred_name=d.ACCEPTED_NAME>
 		DIFFERENCE
 
-		<cfif d.TAXON_NAME neq ACCEPTED_NAME>
+		<cfif d.TAXON_NAME neq d.ACCEPTED_NAME>
 			<cfset thisRec.preferred_name=d.ACCEPTED_NAME>
 		</cfif>
 
