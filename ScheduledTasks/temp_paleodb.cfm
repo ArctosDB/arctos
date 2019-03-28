@@ -25,9 +25,12 @@ create table temp_pdb (
 	vid varchar2(255),
 	dummy varchar2(255)
 );
+
+select * from temp_pdb;
+
 ---->
 
-<cffile action = "read" file = "/usr/local/tmp/test.json" variable = "x">
+<cffile action = "read" file = "/usr/local/tmp/pdb.json" variable = "x">
 <cfset j=DeserializeJSON(x)>
 <!----
 <cfdump var=#j#>
