@@ -634,6 +634,7 @@ UAM@ARCTOS> desc temp_pdbd
 	<cfquery name="cols" datasource="uam_god">
 		select * from temp_flat_pbdb where 1=2
 	</cfquery>
+	<cfset hasCols=cols.columnlist>
 	<cfdump var=#cols#>
 
 	<cfquery name="d" datasource="uam_god">
@@ -654,12 +655,21 @@ UAM@ARCTOS> desc temp_pdbd
    			CONNECT BY PRIOR parent_no=taxon_no
 			start with taxon_no='#d.taxon_no#'
 		</cfquery>
+		<cfset xtras=''>
 		<cfloop query="c">
+			<cfif listcontainsnocase(hasCols,c.TAXON_RANK)>
+				<br>#TAXON_RANK#"="#c.TAXON_NAME#"
+			<cfelse>
+				<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
+			</cfif>
+
+
 			#TAXON_RANK#"="#c.TAXON_NAME#"
 			<!----
 			<cfset "thisrec.#TAXON_RANK#"="#c.TAXON_NAME#">
 			---->
 		</cfloop>
+		<cfset thisrec.misses=xtras>
 		<cfdump var=#thisrec#>
 
 
