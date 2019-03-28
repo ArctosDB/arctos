@@ -579,6 +579,7 @@ alter table temp_flat_pbdb add common_name varchar2(4000);
 alter table temp_flat_pbdb add preferred_name varchar2(4000);
 alter table temp_flat_pbdb add extinctyn varchar2(4000);
 alter table temp_flat_pbdb rename column extinctyn to extinct;
+alter table temp_flat_pbdb add dummy varchar2(4000);
 
 alter table temp_flat_pbdb add misses varchar2(4000);
 
@@ -653,6 +654,18 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 
 
 		<cfdump var=#c#><br>
+		<p>
+			insert into temp_flat_pbdb (
+		<cfloop collection="#thisrec#" item="key">
+		    	 #key#,
+			</cfloop>
+			dummy) values (
+			<cfloop collection="#thisrec#" item="key">
+		    	 '#rec[key]#',
+			</cfloop>
+			NULL)
+			</p>
+
 
 
 <br>		update....GOT_THIS_ONE
