@@ -594,17 +594,17 @@ alter table temp_flat_pbdb add misses varchar2(4000);
 	<cfdump var=#cols#>
 
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_pdbd where rownum < 20 and got_this_one is null
+		select * from temp_pdbd where rownum < 2 and got_this_one is null
 	</cfquery>
 	<cfdump var=#d#>
 	<cfloop query="d">
 		<cfset thisRec=StructNew()>
-		<cfset thisRec.preferred_name=d.TAXON_NAME>
+		<cfset thisRec.scientific_name=d.TAXON_NAME>
 		<cfset thisRec.extinct=d.IS_EXTANT>
 		<cfset thisRec.common_name=d.COMMON_NAME>
 		<cfset thisRec.taxon_status=d.DIFFERENCE>
 		<cfset thisRec.author_text=d.TAXON_ATTR>
-
+		<cfset thisRec.preferred_name=d.ACCEPTED_NAME>
 		DIFFERENCE
 
 		<cfif d.TAXON_NAME neq ACCEPTED_NAME>
