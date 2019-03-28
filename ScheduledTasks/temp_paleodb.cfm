@@ -658,7 +658,7 @@ UAM@ARCTOS> desc temp_pdbd
 		<cfset xtras=''>
 		<cfloop query="c">
 			<cfif listcontainsnocase(hasCols,c.TAXON_RANK)>
-				<br>#TAXON_RANK#"="#c.TAXON_NAME#"
+				<cfset "thisrec.#TAXON_RANK#"="#c.TAXON_NAME#">
 			<cfelse>
 				<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
 			</cfif>
@@ -666,7 +666,7 @@ UAM@ARCTOS> desc temp_pdbd
 
 			#TAXON_RANK#"="#c.TAXON_NAME#"
 			<!----
-			<cfset "thisrec.#TAXON_RANK#"="#c.TAXON_NAME#">
+
 			---->
 		</cfloop>
 		<cfset thisrec.misses=xtras>
