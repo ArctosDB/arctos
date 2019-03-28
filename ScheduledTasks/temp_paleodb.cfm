@@ -537,19 +537,51 @@ create table temp_flat_pbdb as select * from cf_temp_classification where 1=2;
 alter table temp_flat_pbdb modify USERNAME  null;
 alter table temp_flat_pbdb modify SOURCE  null;
 
+
+select taxon_no from temp_pdbd having count(*) > 1 group by taxon_no;
+select count(*) from temp_pdbd where taxon_no is null;
+
+select count(*) from temp_pdbd where taxon_no =parent_no;
+select count(*) from temp_pdbd where parent_no is null;
+
+select taxon_no,parent_no from temp_pdbd where taxon_name='Animalia';
+
+select taxon_no,parent_no from temp_pdbd where taxon_no='212579';
+
+select taxon_no,parent_no from temp_pdbd where taxon_no='1';
+select taxon_no,parent_no from temp_pdbd where taxon_no='28595';
+select taxon_no,parent_no from temp_pdbd where taxon_no='0';
+
+
+update temp_pdbd set parent_no=0 where taxon_no =parent_no;
+
+
+
+select * from 212579
+
+
+SELECT *
+  			 FROM temp_pdbd
+   			CONNECT BY PRIOR parent_no=taxon_no
+			start with taxon_no='1'
+			;
+
+			delete from temp_pdbd where orig_no='orig_no';
+
 ---->
 <cfoutput>
 
 	<cfquery name="d" datasource="uam_god">
 		select * from temp_pdbd where rownum < 2 and got_this_one is null
 	</cfquery>
+	<cfdump var=#d#>
 	<cfloop query="d">
 		<br>d.taxon_no::#d.taxon_no#
 		<cfquery name="c" datasource="uam_god">
 			SELECT *
   			 FROM temp_pdbd
    			CONNECT BY PRIOR parent_no=taxon_no
-			start with taxon_no=#d.taxon_no#
+			start with taxon_no='#d.taxon_no#'
 		</cfquery>
 		<cfdump var=#c#><br>##
 
