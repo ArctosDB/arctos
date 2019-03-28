@@ -568,7 +568,68 @@ SELECT *
 
 			delete from temp_pdbd where orig_no='orig_no';
 
+select distinct IS_EXTANT from temp_pdbd;
+
+
+select TAXON_NAME, ACCEPTED_NAME from temp_pdbd;
+
+
+create table temp_flat_pbdb as select * from cf_temp_classification where 1=2;
+alter table temp_flat_pbdb add common_name varchar2(4000);
+alter table temp_flat_pbdb add preferred_name varchar2(4000);
+alter table temp_flat_pbdb add extinctyn varchar2(4000);
+alter table temp_flat_pbdb add misses varchar2(4000);
+
 ---->
+
+
+UAM@ARCTOS> desc temp_pdbd
+ Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ ORIG_NO								    VARCHAR2(4000)
+ TAXON_NO								    VARCHAR2(4000)
+ RECORD_TYPE								    VARCHAR2(4000)
+ FLAGS									    VARCHAR2(4000)
+ TAXON_RANK								    VARCHAR2(4000)
+ TAXON_NAME								    VARCHAR2(4000)
+ TAXON_ATTR								    VARCHAR2(4000)
+ DIFFERENCE								    VARCHAR2(4000)
+ ACCEPTED_NO								    VARCHAR2(4000)
+ ACCEPTED_RANK								    VARCHAR2(4000)
+ ACCEPTED_NAME								    VARCHAR2(4000)
+ PARENT_NO								    VARCHAR2(4000)
+ REFERENCE_NO								    VARCHAR2(4000)
+ IS_EXTANT								    VARCHAR2(4000)
+ N_OCCS 								    VARCHAR2(4000)
+ EARLY_INTERVAL 							    VARCHAR2(4000)
+ LATE_INTERVAL								    VARCHAR2(4000)
+ TAXON_SIZE								    VARCHAR2(4000)
+ EXTANT_SIZE								    VARCHAR2(4000)
+ PHYLUM 								    VARCHAR2(4000)
+ CLASS									    VARCHAR2(4000)
+ PORDER 								    VARCHAR2(4000)
+ FAMILY 								    VARCHAR2(4000)
+ GENUS									    VARCHAR2(4000)
+ TYPE_TAXON								    VARCHAR2(4000)
+ TAXON_ENVIRONMENT							    VARCHAR2(4000)
+ ENVIRONMENT_BASIS							    VARCHAR2(4000)
+ MOTILITY								    VARCHAR2(4000)
+ LIFE_HABIT								    VARCHAR2(4000)
+ VISION 								    VARCHAR2(4000)
+ DIET									    VARCHAR2(4000)
+ REPRODUCTION								    VARCHAR2(4000)
+ ONTOGENY								    VARCHAR2(4000)
+ ECOSPACE_COMMENTS							    VARCHAR2(4000)
+ COMPOSITION								    VARCHAR2(4000)
+ ARCHITECTURE								    VARCHAR2(4000)
+ THICKNESS								    VARCHAR2(4000)
+ REINFORCEMENT								    VARCHAR2(4000)
+ GOT_THIS_ONE								    VARCHAR2(255)
+
+
+
+
+
 <cfoutput>
 
 	<cfquery name="d" datasource="uam_god">
@@ -576,14 +637,28 @@ SELECT *
 	</cfquery>
 	<cfdump var=#d#>
 	<cfloop query="d">
+		<cfset thisRec=[]>
+		<cfset thisRec.preferred_name=d.TAXON_NAME>
+		<cfif d.TAXON_NAME neq ACCEPTED_NAME>
+			<cfset thisRec.preferred_name=d.ACCEPTED_NAME>
+		</cfif>
+
 		<br>d.taxon_no::#d.taxon_no#
 		<cfquery name="c" datasource="uam_god">
-			SELECT *
+			SELECT TAXON_RANK,TAXON_NAME
   			 FROM temp_pdbd
    			CONNECT BY PRIOR parent_no=taxon_no
 			start with taxon_no='#d.taxon_no#'
 		</cfquery>
-		<cfdump var=#c#><br>##
+		<cfloop query="c">
+			<cfset thisrec.#TAXON_RANK#=#c.TAXON_NAME#>
+		</cfloop>
+		<cfdump var=#thisrec#>
+
+
+		<cfdump var=#c#><br>
+
+
 
 
 	</cfloop>
