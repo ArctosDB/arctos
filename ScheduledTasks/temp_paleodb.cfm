@@ -582,6 +582,16 @@ alter table temp_flat_pbdb rename column extinctyn to extinct;
 
 alter table temp_flat_pbdb add misses varchar2(4000);
 
+
+-- deal with out weird naming restrictions
+update temp_pdbd set TAXON_RANK='phylorder' where TAXON_RANK='order';
+
+-- go faster please
+
+create unique index iu_temp_pdbd_tn on temp_pdbd (taxon_no) tablespace uam_idx_1;
+create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
+
+
 ---->
 
 
@@ -620,15 +630,17 @@ alter table temp_flat_pbdb add misses varchar2(4000);
 		</cfquery>
 		<cfset xtras=''>
 		<cfloop query="c">
-			<cfif listfindnocase(hasCols,c.TAXON_RANK)>
-				<cfif StructKeyExists(thisrec, "#TAXON_RANK#")>
-					<!--- has multiple eg order --->
-					<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
+			<cfif TAXON_NAME new "Life">
+				<cfif listfindnocase(hasCols,c.TAXON_RANK)>
+					<cfif StructKeyExists(thisrec, "#TAXON_RANK#")>
+						<!--- has multiple eg order --->
+						<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
+					<cfelse>
+						<cfset "thisrec.#TAXON_RANK#"="#c.TAXON_NAME#">
+					</cfif>
 				<cfelse>
-					<cfset "thisrec.#TAXON_RANK#"="#c.TAXON_NAME#">
+					<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
 				</cfif>
-			<cfelse>
-				<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
 			</cfif>
 
 
