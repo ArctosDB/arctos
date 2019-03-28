@@ -322,7 +322,7 @@ create unique index iu_dsagnt_prefname on ds_temp_agent (preferred_name) tablesp
 		(The interactive form code is preserved as agents_interactive.)
 	</p>
 	Step 1: Upload a comma-delimited text file (csv).
-	Include column headings, spelled exactly as below. This will delete anything currently in the agent bulkloader.
+	Include column headings in the template below. This will delete anything currently in the agent bulkloader.
 	<br>
 	<a href="/info/ctDocumentation.cfm?table=ctagent_name_type">Valid agent name types</a>
 	<br>
