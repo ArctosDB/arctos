@@ -9,7 +9,7 @@ curl -o pdb.json https://paleobiodb.org/data1.2/taxa/list.json?all_taxa&variant=
 {"oid":"txn:585",  "rnk":5,"nam":"Neowrangellium",   "tdf":"subjective synonym of","acc":"txn:452","acr":5,"acn":"Canoptum","par":"txn:86390","rid":"ref:40780","ext":0,"noc":645},
 {"oid":"txn:4997", "rnk":5,"nam":"Pleurosiphonella","par":"txn:54332","rid":"ref:6930","ext":0,"noc":16},
 
-
+drop table temp_pdb;
 create table temp_pdb (
 	oid varchar2(255),
 	rnk varchar2(255),
@@ -22,6 +22,7 @@ create table temp_pdb (
 	rid varchar2(255),
 	ext varchar2(255),
 	noc varchar2(255),
+	vid varchar2(255),
 	dummy varchar2(255)
 );
 ---->
@@ -33,25 +34,17 @@ create table temp_pdb (
 ---->
 
 <cfoutput>
-<cfloop array="#j.records#" index="rec">
-	<cfdump var=#rec#>
-
-	<p>
-		insert into temp_pdb (
-
-	<cfloop collection="#rec#" item="key">
-    	 #key#,
+	<cfloop array="#j.records#" index="rec">
+		<cfquery name="ins" datasource="uam_god">
+			insert into temp_pdb (
+			<cfloop collection="#rec#" item="key">
+		    	 #key#,
+			</cfloop>
+			dummy) values (
+			<cfloop collection="#rec#" item="key">
+		    	 '#rec[key]#',
+			</cfloop>
+			NULL)
 	</cfloop>
-	dummy) values (
-	<cfloop collection="#rec#" item="key">
-    	 '#rec[key]#',
-	</cfloop>
-	NULL)
-
-</p>
-
-
-</cfloop>
-
 </cfoutput>
 
