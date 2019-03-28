@@ -21,7 +21,8 @@ create table temp_pdb (
 	par varchar2(255),
 	rid varchar2(255),
 	ext varchar2(255),
-	noc varchar2(255)
+	noc varchar2(255),
+	dummy varchar2(255)
 );
 ---->
 
@@ -41,11 +42,11 @@ create table temp_pdb (
 	<cfloop collection="#rec#" item="key">
     	 #key#,
 	</cfloop>
-	) values (
+	dummy) values (
 	<cfloop collection="#rec#" item="key">
-    	 '#rec[key]#'
+    	 '#rec[key]#',
 	</cfloop>
-	)
+	NULL)
 
 </p>
 
