@@ -15,7 +15,7 @@ curl -o pdb.json https://paleobiodb.org/data1.2/taxa/list.json?all_taxa&variant=
 <cfset j=DeserializeJSON(x)>
 <cfdump var=#j#>
 
-
+<cfoutput>
 <cfloop array="#j.records#" index="rec">
 	<cfdump var=#rec#>
 	<cfloop collection="#rec#" item="key">
@@ -25,6 +25,6 @@ curl -o pdb.json https://paleobiodb.org/data1.2/taxa/list.json?all_taxa&variant=
 
 
 </cfloop>
-</table>
 
+</cfoutput>
 
