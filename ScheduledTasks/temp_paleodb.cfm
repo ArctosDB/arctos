@@ -655,6 +655,7 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 
 		<cfdump var=#c#><br>
 		<p>
+		<cfquery name="ins" datasource="uam_god">
 			insert into temp_flat_pbdb (
 		<cfloop collection="#thisrec#" item="key">
 		    	 #key#,
@@ -664,11 +665,14 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 		    	 '#thisrec[key]#',
 			</cfloop>
 			NULL)
+		</cfquery>
+		<cfquery name="log" datasource="uam_god">
+			update temp_pdbd set got_this_one='yup' where taxon_no='#d.taxon_no#'
+		</cfquery>
 			</p>
 
 
 
-<br>		update....GOT_THIS_ONE
 
 	</cfloop>
 
