@@ -630,7 +630,7 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 		</cfquery>
 		<cfset xtras=''>
 		<cfloop query="c">
-			<cfif TAXON_NAME new "Life">
+			<cfif TAXON_NAME neq "Life">
 				<cfif listfindnocase(hasCols,c.TAXON_RANK)>
 					<cfif StructKeyExists(thisrec, "#TAXON_RANK#")>
 						<!--- has multiple eg order --->
