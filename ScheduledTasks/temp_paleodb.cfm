@@ -620,8 +620,13 @@ alter table temp_flat_pbdb add misses varchar2(4000);
 		</cfquery>
 		<cfset xtras=''>
 		<cfloop query="c">
-			<cfif listcontainsnocase(hasCols,c.TAXON_RANK)>
-				<cfset "thisrec.#TAXON_RANK#"="#c.TAXON_NAME#">
+			<cfif listfindnocase(hasCols,c.TAXON_RANK)>
+				<cfif StructKeyExists(thisrec, "#TAXON_RANK#")>
+					<!--- has multiple eg order --->
+					<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
+				<cfelse>
+					<cfset "thisrec.#TAXON_RANK#"="#c.TAXON_NAME#">
+				</cfif>
 			<cfelse>
 				<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
 			</cfif>
