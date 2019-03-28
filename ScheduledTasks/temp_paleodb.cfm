@@ -607,7 +607,7 @@ grant select on temp_flat_pbdb to public;
 	<cfdump var=#cols#>
 	---->
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_pdbd where rownum < 200 and got_this_one is null
+		select * from temp_pdbd where rownum < 2000 and got_this_one is null
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
