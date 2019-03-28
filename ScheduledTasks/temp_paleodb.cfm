@@ -43,7 +43,7 @@ create table temp_pdb (
 	</cfloop>
 	) values (
 	<cfloop collection="#rec#" item="key">
-    	 '#rec[key]'
+    	 '#rec[key]#'
 	</cfloop>
 	)
 
