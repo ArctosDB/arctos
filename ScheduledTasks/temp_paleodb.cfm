@@ -607,7 +607,7 @@ grant select on temp_flat_pbdb to public;
 	<cfdump var=#cols#>
 	---->
 	<cfquery name="d" datasource="uam_god">
-		select * from temp_pdbd where rownum < 20 and got_this_one is null
+		select * from temp_pdbd where rownum < 200 and got_this_one is null
 	</cfquery>
 	<!----
 	<cfdump var=#d#>
@@ -644,7 +644,9 @@ grant select on temp_flat_pbdb to public;
 			</cfif>
 		</cfloop>
 		<cfset thisrec.misses=xtras>
+		<!----
 		<cfdump var=#thisrec#>
+		---->
 		<cfquery name="ins" datasource="uam_god">
 			insert into temp_flat_pbdb (
 			<cfloop collection="#thisrec#" item="key">
