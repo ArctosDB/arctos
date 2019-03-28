@@ -637,7 +637,7 @@ UAM@ARCTOS> desc temp_pdbd
 	</cfquery>
 	<cfdump var=#d#>
 	<cfloop query="d">
-		<cfset thisRec=[]>
+		<cfset thisRec=StructNew()>
 		<cfset thisRec.preferred_name=d.TAXON_NAME>
 		<cfif d.TAXON_NAME neq ACCEPTED_NAME>
 			<cfset thisRec.preferred_name=d.ACCEPTED_NAME>
