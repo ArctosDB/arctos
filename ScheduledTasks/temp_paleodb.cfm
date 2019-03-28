@@ -592,7 +592,8 @@ update temp_pdbd set TAXON_RANK='phylorder' where TAXON_RANK='order';
 create unique index iu_temp_pdbd_tn on temp_pdbd (taxon_no) tablespace uam_idx_1;
 create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 
-
+create public synonym temp_flat_pbdb for temp_flat_pbdb;
+grant select on temp_flat_pbdb to public;
 ---->
 
 
@@ -602,12 +603,15 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 		select * from temp_flat_pbdb where 1=2
 	</cfquery>
 	<cfset hasCols=cols.columnlist>
+	<!----
 	<cfdump var=#cols#>
-
+	---->
 	<cfquery name="d" datasource="uam_god">
 		select * from temp_pdbd where rownum < 20 and got_this_one is null
 	</cfquery>
+	<!----
 	<cfdump var=#d#>
+	---->
 	<cfloop query="d">
 		<cfset thisRec=StructNew()>
 		<cfset thisRec.scientific_name=d.TAXON_NAME>
@@ -615,13 +619,9 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 		<cfset thisRec.common_name=d.COMMON_NAME>
 		<cfset thisRec.taxon_status=d.DIFFERENCE>
 		<cfset thisRec.author_text=d.TAXON_ATTR>
-
 		<cfif d.TAXON_NAME neq d.ACCEPTED_NAME>
-			<br>#d.TAXON_NAME# neq #d.ACCEPTED_NAME#
 			<cfset thisRec.preferred_name=d.ACCEPTED_NAME>
 		</cfif>
-
-		<br>d.taxon_no::#d.taxon_no#
 		<cfquery name="c" datasource="uam_god">
 			SELECT TAXON_RANK,TAXON_NAME
   			 FROM temp_pdbd
@@ -642,22 +642,12 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 					<cfset xtras=listappend(xtras,"#TAXON_RANK#=#c.TAXON_NAME#",";")>
 				</cfif>
 			</cfif>
-
-
-			#TAXON_RANK#"="#c.TAXON_NAME#"
-			<!----
-
-			---->
 		</cfloop>
 		<cfset thisrec.misses=xtras>
 		<cfdump var=#thisrec#>
-
-
-		<cfdump var=#c#><br>
-		<p>
 		<cfquery name="ins" datasource="uam_god">
 			insert into temp_flat_pbdb (
-		<cfloop collection="#thisrec#" item="key">
+			<cfloop collection="#thisrec#" item="key">
 		    	 #key#,
 			</cfloop>
 			dummy) values (
@@ -669,13 +659,7 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 		<cfquery name="log" datasource="uam_god">
 			update temp_pdbd set got_this_one='yup' where taxon_no='#d.taxon_no#'
 		</cfquery>
-			</p>
-
-
-
-
 	</cfloop>
-
 </cfoutput>
 
 
