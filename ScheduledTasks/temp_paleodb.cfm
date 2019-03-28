@@ -661,7 +661,7 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 			</cfloop>
 			dummy) values (
 			<cfloop collection="#thisrec#" item="key">
-		    	 '#rec[key]#',
+		    	 '#thisrec[key]#',
 			</cfloop>
 			NULL)
 			</p>
