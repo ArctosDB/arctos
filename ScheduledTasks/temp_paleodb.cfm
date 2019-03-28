@@ -1,11 +1,17 @@
+
 <!----
 
+https://paleobiodb.org/data1.2/taxa/list.txt?id=69296&rel=all_children&show=full,attr,common
+
+curl -o pdb.txt "https://paleobiodb.org/data1.2/taxa/list.txt?all_records&show=full,attr,common"
+
+
+curl -o  tst.txt "https://paleobiodb.org/data1.2/taxa/list.txt?id=69296&rel=all_children&show=full,attr,common"
 
 
 curl -o pdb.txt https://paleobiodb.org/data1.2/taxa/list.json?all_taxa&variant=all&show=full
 
 
-curl -o pdb.txt https://paleobiodb.org/data1.2/taxa/list.json?all_records&show=full
 
 
 
@@ -13,8 +19,49 @@ curl -o pdb.txt https://paleobiodb.org/data1.2/taxa/list.txt?all_taxa&variant=al
 scp data.csv dustylee@arctos-test.tacc.utexas.edu:/usr/local/tmp/data.csv
 
 
+drop table temp_pdbd;
 
-
+create table temp_pdbd (
+	orig_no VARCHAR2(4000),
+	taxon_no VARCHAR2(4000),
+	record_type VARCHAR2(4000),
+	flags VARCHAR2(4000),
+	taxon_rank VARCHAR2(4000),
+	taxon_name VARCHAR2(4000),
+	taxon_attr VARCHAR2(4000),
+	common_name VARCHAR2(4000),
+	difference VARCHAR2(4000),
+	accepted_no VARCHAR2(4000),
+	accepted_rank VARCHAR2(4000),
+	accepted_name VARCHAR2(4000),
+	parent_no VARCHAR2(4000),
+	reference_no VARCHAR2(4000),
+	is_extant VARCHAR2(4000),
+	n_occs VARCHAR2(4000),
+	early_interval VARCHAR2(4000),
+	late_interval VARCHAR2(4000),
+	taxon_size VARCHAR2(4000),
+	extant_size VARCHAR2(4000),
+	phylum VARCHAR2(4000),
+	class VARCHAR2(4000),
+	order VARCHAR2(4000),
+	family VARCHAR2(4000),
+	genus VARCHAR2(4000),
+	type_taxon VARCHAR2(4000),
+	taxon_environment VARCHAR2(4000),
+	environment_basis VARCHAR2(4000),
+	motility VARCHAR2(4000),
+	life_habit VARCHAR2(4000),
+	vision VARCHAR2(4000),
+	diet VARCHAR2(4000),
+	reproduction VARCHAR2(4000),
+	ontogeny VARCHAR2(4000),
+	ecospace_comments VARCHAR2(4000),
+	composition VARCHAR2(4000),
+	architecture VARCHAR2(4000),
+	thickness VARCHAR2(4000),
+	reinforcement VARCHAR2(4000)
+);
 
 create table temp_pdbd (
 orig_no VARCHAR2(4000),
@@ -474,11 +521,27 @@ SELECT taxon_rank, taxon_name
    CONNECT BY PRIOR parent_no=taxon_no
 start with taxon_no=363;
 
+
+
+create table temp_flat_pbdb as select * from cf_temp_classification where 1=2;
+
+
+ CLASSIFICATION_ID							    VARCHAR2(4000)
+ USERNAME							   NOT NULL VARCHAR2(255)
+ SOURCE 							   NOT NULL VARCHAR2(255)
+ TAXON_NAME_ID								    NUMBER
+ SCIENTIFIC_NAME						   NOT NULL VARCHAR2(255)
+ AUTHOR_TEXT								    VARCHAR2(255)
+
+
+alter table temp_flat_pbdb modify USERNAME  null;
+alter table temp_flat_pbdb modify SOURCE  null;
+
 ---->
 <cfoutput>
 
 	<cfquery name="d" datasource="uam_god">
-		select taxon_no,taxon_rank, taxon_name from temp_pdbd where rownum < 10 and got_this_one is null
+		select * from temp_pdbd where rownum < 2 and got_this_one is null
 	</cfquery>
 	<cfloop query="d">
 		<br>d.taxon_no::#d.taxon_no#
