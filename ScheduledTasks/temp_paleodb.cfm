@@ -45,6 +45,7 @@ create table temp_pdb (
 		    	 '#rec[key]#',
 			</cfloop>
 			NULL)
+		</cfquery>
 	</cfloop>
 </cfoutput>
 
