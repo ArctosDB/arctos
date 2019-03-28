@@ -34,7 +34,7 @@ truncate table temp_pdb;
 ---->
 
 
-<cfsetting requestTimeOut = "600">
+<cfsetting requestTimeOut = "6000">
 
 
 
