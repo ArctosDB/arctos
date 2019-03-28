@@ -20,6 +20,7 @@
 	</cfquery>
 	<cfsavecontent variable="guts">
 		<p>
+			<p>Webserver Disk</p>
 			df -h #application.webDirectory#
 			<br><cfdump var=#x#>
 		</p>
@@ -53,12 +54,7 @@
 
 
 
-	<!----
 	<cfmail to="#Application.bugReportEmail#" subject="Arctos Server Stats Report" from="serverstats@#Application.fromEmail#" type="html">
-		<p>
-			df -h #application.webDirectory#
-			<br><cfdump var=#x#>
-		</p>
+		#guts#
 	</cfmail>
-	--------->
 </cfoutput>
