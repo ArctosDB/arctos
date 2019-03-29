@@ -619,6 +619,39 @@ SELECT TAXON_RANK || ' = ' || TAXON_NAME
    			CONNECT BY PRIOR parent_no=taxon_no
 			start with taxon_no='48574';
 genus
+
+
+
+
+
+
+
+
+
+create names while waiting around for other stuff
+alter table temp_pdbd add name_status varchar2(255);
+update temp_pdbd set name_status='already_got_one' where TAXON_NAME in (select scientific_name from taxon_name);
+
+update temp_pdbd set name_status=isValidTaxonName(TAXON_NAME) where name_status is null;
+
+select name_status, count(*) from temp_pdbd group by name_status;
+
+isValidTaxonName
+update temp_pdbd set name_status='already_got_one' where TAXON_NAME in (select scientific_name from taxon_name);
+
+create table temp_nti as select distinct TAXON_NAME from temp_pdbd where name_status='valid';
+
+UAM@ARCTOS> select count(*) from temp_nti;
+
+  COUNT(*)
+----------
+    290861
+
+1 row selected.
+
+insert into taxon_name (scientific_name,taxon_name_id) (select  TAXON_NAME,sq_taxon_name_id.nextval from temp_nti);
+
+select TAXON_NAME from temp_pdbd where name_status='valid' and TAXON_NAME in (select scientific_name from taxon_name);
 ---->
 
 
