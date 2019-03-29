@@ -584,6 +584,8 @@ alter table temp_flat_pbdb add dummy varchar2(4000);
 alter table temp_flat_pbdb add misses varchar2(4000);
 
 
+select TAXON_RANK from temp_pdbd where upper(taxon_rank) not in (select column_name from user_tab_cols where lower(table_name)='temp_flat_pbdb') group by taxon_rank;
+
 -- deal with out weird naming restrictions
 update temp_pdbd set TAXON_RANK='phylorder' where TAXON_RANK='order';
 
@@ -594,6 +596,29 @@ create index ix_temp_pdbd_pn on temp_pdbd (parent_no) tablespace uam_idx_1;
 
 create public synonym temp_flat_pbdb for temp_flat_pbdb;
 grant select on temp_flat_pbdb to public;
+
+select misses from temp_flat_pbdb group by misses order by misses;
+
+select family from temp_flat_pbdb where misses like '%family%' group by family;
+ 
+select genus,misses from temp_flat_pbdb where misses like '%genus%' order by genus,misses ;
+
+select subgenus,misses from temp_flat_pbdb where misses like '%subgenus%' order by subgenus,misses ;
+
+
+select scientific_name,kingdom ,misses from temp_flat_pbdb where misses like '%Animalia%' order by kingdom,misses ;
+
+select count(*) from temp_flat_pbdb;
+
+select taxon_no from temp_pdbd where TAXON_NAME='Microtus cautus';
+
+48574
+
+SELECT TAXON_RANK || ' = ' || TAXON_NAME
+  			 FROM temp_pdbd
+   			CONNECT BY PRIOR parent_no=taxon_no
+			start with taxon_no='48574';
+genus
 ---->
 
 
