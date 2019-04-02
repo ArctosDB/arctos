@@ -196,6 +196,10 @@ sho err
 			</cfif>
 		</cfloop>
 	</cfoutput>
+
+	<cfif isdefined("debug") and debug is true>
+		<cfabort>
+	</cfif>
 	<cflocation url="BulkloadPartContainer.cfm?action=load" addtoken="false">
 </cfif>
 <!--------------------------------------->
