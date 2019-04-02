@@ -158,6 +158,9 @@ sho err
 						display_value= '#oidnum#' AND
 						part_name='#part_name#'
 				</cfquery>
+					<cfif isdefined("debug") and debug is true>
+		<cfdump var=#coll_obj#>
+	</cfif>
 			</cfif>
 			<cfif coll_obj.recordcount is not 1>
 				<cfset sts='item_not_found'>
