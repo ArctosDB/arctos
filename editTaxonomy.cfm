@@ -2067,9 +2067,9 @@
 		<div class="importantNotification">
 			Before deleting this taxon, you must
 			<ul>
-				<li>Delete all relationships</li>
+				<li>Delete all relationships, including those originating from other Names.</li>
 				<li>Delete all common names</li>
-				<li>Delete all publication</li>
+				<li>Delete all publications</li>
 				<li>Delete all identifications which use this taxon</li>
 				<li>Delete any other data which references this taxon in any way</li>
 			</ul>
