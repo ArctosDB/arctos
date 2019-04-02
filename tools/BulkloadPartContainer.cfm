@@ -201,6 +201,13 @@ sho err
 	</cfoutput>
 
 	<cfif isdefined("debug") and debug is true>
+
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_barcode_parts
+	</cfquery>
+
+			<cfdump var=#d#>
+
 		<cfabort>
 	</cfif>
 	<cflocation url="BulkloadPartContainer.cfm?action=load" addtoken="false">
