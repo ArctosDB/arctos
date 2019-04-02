@@ -25,6 +25,9 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+** Data**
+If this involves external data, attach the __actual__ data that caused the problem. Do not attach a transformation or subset. You may ZIP most formats to attach, or request a Box email address for very large files.
+
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
  - Browser [e.g. chrome, safari]
