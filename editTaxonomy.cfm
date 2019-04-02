@@ -2108,6 +2108,9 @@
 <cfif action is "deleteTaxon">
 <cfoutput>
 	<cftransaction>
+		<cfquery name="deleteAnno" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from annotations where TAXON_NAME_ID=#taxon_name_id#
+		</cfquery>
 		<cfquery name="deletetaxontrm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from taxon_term where TAXON_NAME_ID=#taxon_name_id#
 		</cfquery>
