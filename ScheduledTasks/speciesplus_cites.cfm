@@ -38,5 +38,10 @@
 		<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 	</cfhttp>
 	<cfdump var=#ga#>
-
+	<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
+		<cfset rslt=DeserializeJSON(ga.filecontent)>
+		<cfdump var=#rslt#>
+	<cfelse>
+		<cfthrow message='speciesplus json parse failure'>
+	</cfif>
 </cfoutput>
