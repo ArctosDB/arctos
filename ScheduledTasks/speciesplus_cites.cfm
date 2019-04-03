@@ -17,13 +17,17 @@
 
 	drop table temp_speciesplus;
 
-	create table temp_speciesplus (concept_id number, name varchar2(255));
 
 
 	-- keep track of iteration
 	create table temp_sp_iteration (lastpage number);
 	insert into temp_sp_iteration(lastpage) values (0);
 
+	-- this is likely to get complicated, so just cache everything via webservice and deal with it later
+
+	create table temp_speciesplus_core (concept_id number, name varchar2(255));
+
+	create table temp_speciesplus_meta (concept_id number, term varchar2(255), value varchar2(255));
 
 
 --->
@@ -44,6 +48,28 @@
 			<cfset thisConcept=rslt.taxon_concepts[i]>
 			<p>#i#</p>
 			<cfdump var=#thisConcept#>
+
+			<cfset thisID=thisConcept.id>
+			<cfset thisName=thisConcept.full_name>
+			<br>thisID=#thisID#
+			<br>thisName=#thisName#
+			<cfloop from="1" to ="#arraylen(thisConcept.cites_listings)#" index="cli">
+				<cfset thisCitesAppendix=thisConcept.cites_listings[cli].appendix>
+				<br>thisCitesAppendix=#thisCitesAppendix#
+			</cfloop>
+
+			<cfloop from="1" to ="#arraylen(thisConcept.common_names)#" index="cni">
+				<cfset thisCommonName=thisConcept.common_names[cni].name>
+				<br>thisCommonName=#thisCommonName#
+			</cfloop>
+
+
+			<cfloop collection="#thisConcept.higher_taxa#" item="key">
+			    <br>higher_taxa:: #key#: #thisConcept.higher_taxa[key]#<br />
+			</cfloop>
+
+
+
 
 		</cfloop>
 	<cfelse>
