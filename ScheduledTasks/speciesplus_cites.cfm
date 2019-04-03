@@ -37,10 +37,15 @@
 	<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?page=#pg.nextpage#&per_page=50" method="get">
 		<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 	</cfhttp>
-	<cfdump var=#ga#>
 	<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 		<cfset rslt=DeserializeJSON(ga.filecontent)>
 		<cfdump var=#rslt#>
+		<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
+			<cfset thisConcept=rslt.taxon_concepts[i]>
+			<p>#i#</p>
+			<cfdump var=#thisConcept#>
+
+		</cfloop>
 	<cfelse>
 		<cfthrow message='speciesplus json parse failure'>
 	</cfif>
