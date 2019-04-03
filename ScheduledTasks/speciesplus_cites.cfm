@@ -73,6 +73,15 @@
 
 
 
+			<cfloop from="1" to ="#arraylen(thisConcept.synonyms)#" index="syi">
+				<cfset thisSynonym=thisConcept.synonyms[syi].full_name>
+				<br>thisSynonym=#thisSynonym#
+			</cfloop>
+
+
+
+
+
 
 		</cfloop>
 	<cfelse>
