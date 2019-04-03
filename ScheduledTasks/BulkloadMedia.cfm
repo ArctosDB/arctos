@@ -379,10 +379,10 @@
 					</cfif>
 				</cftransaction>
 				<cfcatch>
-					<br>fail:						update cf_temp_zipfiles set preview_filename='',status='FATAL_ERROR: zip_makepreview failure' where zid=#d.zid# and new_filename='#f.new_filename#'
+				<br>						update cf_temp_zipload set status='FATAL_ERROR: zip_makepreview failure' where zid=#d.zid#
 
 					<cfquery name="r" datasource="uam_god">
-						update cf_temp_zipfiles set preview_filename='',status='FATAL_ERROR: zip_makepreview failure' where zid=#d.zid# and new_filename='#f.new_filename#'
+						update cf_temp_zipload set status='FATAL_ERROR: zip_makepreview failure' where zid=#d.zid#
 					</cfquery>
 				</cfcatch>
 				</cftry>
