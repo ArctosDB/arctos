@@ -51,15 +51,25 @@
 
 			<cfset thisID=thisConcept.id>
 			<cfset thisName=thisConcept.full_name>
+			<cfquery name="insCore" datasource="uam_god">
+				insert into temp_speciesplus_core (concept_id,name) values (#thisID#,'#thisName#')
+			</cfquery>
+
 			<br>thisID=#thisID#
 			<br>thisName=#thisName#
 			<cfloop from="1" to ="#arraylen(thisConcept.cites_listings)#" index="cli">
 				<cfset thisCitesAppendix=thisConcept.cites_listings[cli].appendix>
 				<br>thisCitesAppendix=#thisCitesAppendix#
+				<cfquery name="insMeta" datasource="uam_god">
+					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'cites_appendix','#thisCitesAppendix#')
+				</cfquery>
 			</cfloop>
 
 			<cfloop from="1" to ="#arraylen(thisConcept.common_names)#" index="cni">
 				<cfset thisCommonName=thisConcept.common_names[cni].name>
+				<cfquery name="insMeta" datasource="uam_god">
+					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'common_name','#thisCommonName#')
+				</cfquery>
 				<br>thisCommonName=#thisCommonName#
 			</cfloop>
 
@@ -67,6 +77,9 @@
 			<cfloop collection="#thisConcept.higher_taxa#" item="key">
 				<cftry>
 			    <br>higher_taxa:: #key#: #thisConcept.higher_taxa[key]#<br />
+			    <cfquery name="insMeta" datasource="uam_god">
+					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'#key#','#thisConcept.higher_taxa[key]#')
+				</cfquery>
 			    <cfcatch><br>fail....</cfcatch>
 			    </cftry>
 			</cfloop>
@@ -76,6 +89,9 @@
 			<cfloop from="1" to ="#arraylen(thisConcept.synonyms)#" index="syi">
 				<cfset thisSynonym=thisConcept.synonyms[syi].full_name>
 				<br>thisSynonym=#thisSynonym#
+				<cfquery name="insMeta" datasource="uam_god">
+					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'synonym','#thisSynonym#')
+				</cfquery>
 			</cfloop>
 
 
