@@ -348,7 +348,6 @@
 			select * from cf_temp_zipload where status='renamed' and rownum=1
 		</cfquery>
 		<cfloop query="d">
-			<cftry>
 			<!--- create a thumb directory if it doesn't already exist ---->
 			<cfif not DirectoryExists("#Application.webDirectory#/temp/#d.zid#/tn")>
 				<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#d.zid#/tn" >
@@ -357,6 +356,7 @@
 				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <100
 			</cfquery>
 			<cfloop query="f">
+			<cftry>
 				<cftransaction>
 					<cfif len(f.preview_filename) is 0>
 						<!--- we haven't been here, process this one ---->
@@ -379,6 +379,8 @@
 					</cfif>
 				</cftransaction>
 				<cfcatch>
+					<br>fail:						update cf_temp_zipfiles set preview_filename='',status='FATAL_ERROR: zip_makepreview failure' where zid=#d.zid# and new_filename='#f.new_filename#'
+
 					<cfquery name="r" datasource="uam_god">
 						update cf_temp_zipfiles set preview_filename='',status='FATAL_ERROR: zip_makepreview failure' where zid=#d.zid# and new_filename='#f.new_filename#'
 					</cfquery>
