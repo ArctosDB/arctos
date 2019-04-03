@@ -136,7 +136,7 @@
 				select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
 			</cfquery>
 			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid# and status='previewed' and rownum=1
+				select * from cf_temp_zipfiles where zid=#d.zid# and status='previewed' and rownum<10
 			</cfquery>
 			<!---- make a username bucket. This will create or return an error of some sort. ---->
 			<cfset currentTime = getHttpTimeString( now() ) />
@@ -353,7 +353,7 @@
 				<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#d.zid#/tn" >
 			</cfif>
 			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <100
+				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <20
 			</cfquery>
 			<cfloop query="f">
 			<cftry>
