@@ -72,7 +72,8 @@ order by
 ;
 
 
-
+this is all cached from 
+/Users/dlm/git/DDL/procedures/report_cache.pkg.sql:
 
 ---->
 

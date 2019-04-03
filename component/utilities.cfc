@@ -1816,7 +1816,7 @@
 			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana,hooks,heads">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
-			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla,jsf,jobs">
+			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla,jsf,jobs,jd_rsa">
 			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization,logs,logon">
 			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg,modules,mychat">
 			<cfset x=x & ",news,nyet,newdsn,node">
@@ -1825,7 +1825,7 @@
 			<cfset x=x & ",pma4,php5,pre-receive">
 			<cfset x=x & ",pma,phppgadmin,prescription,phpmychat,pre-push">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel">
-			<cfset x=x & ",remote-sync,regex,register,rar,refs,receive,remotes">
+			<cfset x=x & ",remote-sync,regex,register,rar,refs,receive,remotes,rsa">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sftp-config,store,shop,server_info">
 			<cfset x=x & ",sysobjects,svn,sap,ssh,stash">
