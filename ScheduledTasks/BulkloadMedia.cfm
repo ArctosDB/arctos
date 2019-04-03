@@ -314,6 +314,7 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='renamed' and rownum=1
 		</cfquery>
+		<cfdump var=#d#>
 		<cftry>
 			<cfif d.recordcount lt 1>
 				<cfabort>

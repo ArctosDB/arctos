@@ -29,6 +29,20 @@
 
 	create table temp_speciesplus_meta (concept_id number, term varchar2(255), value varchar2(255));
 
+	begin
+		for r in (select * from temp_speciesplus_core order by name) loop
+
+			dbms_output.put_line('[' || r.name || '](https://speciesplus.net/#/taxon_concepts/' ||r.concept_id || ')');
+			for c in (select term,value from temp_speciesplus_meta where concept_id=r.concept_id group by term,value order by term,value) loop
+				dbms_output.put_line('    ' || c.term ||' = ' || c.value);
+			end loop;
+			dbms_output.put_line('');
+			dbms_output.put_line('----------------------------------');
+			dbms_output.put_line('');
+		end loop;
+	end;
+	/
+				
 
 --->
 <cfoutput>
