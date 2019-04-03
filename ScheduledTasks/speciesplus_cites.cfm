@@ -65,7 +65,10 @@
 
 
 			<cfloop collection="#thisConcept.higher_taxa#" item="key">
+				<cftry>
 			    <br>higher_taxa:: #key#: #thisConcept.higher_taxa[key]#<br />
+			    <cfcatch><br>fail....</cfcatch>
+			    </cftry>
 			</cfloop>
 
 
