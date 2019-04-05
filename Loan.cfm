@@ -1428,13 +1428,25 @@ just fooling idiot cfclipse into using the right colors
 		<tr>
 			<td align="right"><strong>Find Loan:</strong></td>
 			<td>
-				<select name="collection_id" size="1">
-					<option value=""></option>
-					<cfloop query="ctcollection">
-						<option value="#collection_id#">#guid_prefix#</option>
-					</cfloop>
-				</select>
-				<input type="text" name="loan_number">
+				<table>
+					<tr>
+						<td>
+							<label for="collection_id">Collection</label>
+							<select name="collection_id" size="1">
+								<option value=""></option>
+								<cfloop query="ctcollection">
+									<option value="#collection_id#">#guid_prefix#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<label for="loan_number">Loan Number</label>
+							<input type="text" name="loan_number">
+						</td>
+					</tr>
+				</table>
+
+
 			</td>
 		</tr>
 		<tr>
