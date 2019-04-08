@@ -42,7 +42,7 @@
 		end loop;
 	end;
 	/
-				
+
 
 --->
 <cfoutput>
@@ -114,6 +114,9 @@
 
 
 		</cfloop>
+				<cfquery name="logit" datasource="uam_god">
+					update temp_sp_iteration set lastpage=lastpage+1
+				</cfquery>
 	<cfelse>
 		<cfthrow message='speciesplus json parse failure'>
 	</cfif>
