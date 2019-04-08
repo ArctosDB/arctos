@@ -29,6 +29,17 @@
 
 	create table temp_speciesplus_meta (concept_id number, term varchar2(255), value varchar2(255));
 
+	-- flush/start over
+	delete from temp_speciesplus_meta;
+	delete from temp_speciesplus_core;
+	update temp_sp_iteration set lastpage=0;
+
+
+	desc temp_speciesplus_core
+
+	select name from temp_speciesplus_core order by name;
+
+
 	begin
 		for r in (select * from temp_speciesplus_core order by name) loop
 
@@ -57,23 +68,29 @@
 	</cfhttp>
 	<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 		<cfset rslt=DeserializeJSON(ga.filecontent)>
+		<!----
 		<cfdump var=#rslt#>
+		---->
 		<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 			<cfset thisConcept=rslt.taxon_concepts[i]>
+			<!----
 			<p>#i#</p>
 			<cfdump var=#thisConcept#>
-
+			---->
 			<cfset thisID=thisConcept.id>
 			<cfset thisName=thisConcept.full_name>
 			<cfquery name="insCore" datasource="uam_god">
 				insert into temp_speciesplus_core (concept_id,name) values (#thisID#,'#thisName#')
 			</cfquery>
-
+			<!----
 			<br>thisID=#thisID#
 			<br>thisName=#thisName#
+			---->
 			<cfloop from="1" to ="#arraylen(thisConcept.cites_listings)#" index="cli">
 				<cfset thisCitesAppendix=thisConcept.cites_listings[cli].appendix>
+				<!----
 				<br>thisCitesAppendix=#thisCitesAppendix#
+				---->
 				<cfquery name="insMeta" datasource="uam_god">
 					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'cites_appendix','#thisCitesAppendix#')
 				</cfquery>
@@ -84,13 +101,17 @@
 				<cfquery name="insMeta" datasource="uam_god">
 					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'common_name','#thisCommonName#')
 				</cfquery>
+				<!---
 				<br>thisCommonName=#thisCommonName#
+				---->
 			</cfloop>
 
 
 			<cfloop collection="#thisConcept.higher_taxa#" item="key">
 				<cftry>
+					<!----
 			    <br>higher_taxa:: #key#: #thisConcept.higher_taxa[key]#<br />
+			    ---->
 			    <cfquery name="insMeta" datasource="uam_god">
 					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'#key#','#thisConcept.higher_taxa[key]#')
 				</cfquery>
@@ -102,7 +123,9 @@
 
 			<cfloop from="1" to ="#arraylen(thisConcept.synonyms)#" index="syi">
 				<cfset thisSynonym=thisConcept.synonyms[syi].full_name>
+				<!----
 				<br>thisSynonym=#thisSynonym#
+				---->
 				<cfquery name="insMeta" datasource="uam_god">
 					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'synonym','#thisSynonym#')
 				</cfquery>
