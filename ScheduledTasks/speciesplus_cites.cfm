@@ -118,30 +118,30 @@
 					---->
 				</cfloop>
 			</cfif>
-
-			<cfloop collection="#thisConcept.higher_taxa#" item="key">
-				<cftry>
+			<cfif structkeyexists(thisConcept,"higher_taxa")>
+				<cfloop collection="#thisConcept.higher_taxa#" item="key">
+					<cftry>
+						<!----
+				    <br>higher_taxa:: #key#: #thisConcept.higher_taxa[key]#<br />
+				    ---->
+				    <cfquery name="insMeta" datasource="uam_god">
+						insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'#key#','#thisConcept.higher_taxa[key]#')
+					</cfquery>
+				    <cfcatch><br>fail....</cfcatch>
+				    </cftry>
+				</cfloop>
+			</cfif>
+			<cfif structkeyexists(thisConcept,"synonyms")>
+				<cfloop from="1" to ="#arraylen(thisConcept.synonyms)#" index="syi">
+					<cfset thisSynonym=thisConcept.synonyms[syi].full_name>
 					<!----
-			    <br>higher_taxa:: #key#: #thisConcept.higher_taxa[key]#<br />
-			    ---->
-			    <cfquery name="insMeta" datasource="uam_god">
-					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'#key#','#thisConcept.higher_taxa[key]#')
-				</cfquery>
-			    <cfcatch><br>fail....</cfcatch>
-			    </cftry>
-			</cfloop>
-
-
-
-			<cfloop from="1" to ="#arraylen(thisConcept.synonyms)#" index="syi">
-				<cfset thisSynonym=thisConcept.synonyms[syi].full_name>
-				<!----
-				<br>thisSynonym=#thisSynonym#
-				---->
-				<cfquery name="insMeta" datasource="uam_god">
-					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'synonym','#thisSynonym#')
-				</cfquery>
-			</cfloop>
+					<br>thisSynonym=#thisSynonym#
+					---->
+					<cfquery name="insMeta" datasource="uam_god">
+						insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'synonym','#thisSynonym#')
+					</cfquery>
+				</cfloop>
+			</cfif>
 
 
 
