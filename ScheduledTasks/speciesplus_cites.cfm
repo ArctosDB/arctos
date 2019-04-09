@@ -39,6 +39,7 @@
 
 	select name from temp_speciesplus_core order by name;
 
+	select count(distinct(name)) from temp_speciesplus_core;
 
 	begin
 		for r in (select * from temp_speciesplus_core order by name) loop
@@ -75,7 +76,17 @@
 		<cfif isdefined("debug") and debug is true>
 			<cfdump var=#rslt#>
 		</cfif>
-		---->
+		<cfset numberAvailablePages=rslt.pagination.total_entries / rslt.pagination.per_page>
+		<cfif isdefined("debug") and debug is true>
+			<br>numberAvailablePages::#numberAvailablePages#
+		</cfif>
+		<cfif numberAvailablePages gte pg.lastpage>
+			<br>numberAvailablePages::#numberAvailablePages#
+			<br>pg.lastpage::#pg.lastpage#
+			<br>all done aborting
+			<cfabort>
+		</cfif>
+
 		<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 			<cfset thisConcept=rslt.taxon_concepts[i]>
 			<!----
