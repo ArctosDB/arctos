@@ -151,7 +151,7 @@ alter table temp_speciesplus_core add arctosstuff varchar2(4000);
 			<cfset src='Arctos'>
 
 		<cfelseif k.value is 'Plantae'>
-			<cfset src='Arctos Plants'
+			<cfset src='Arctos Plants'>
 		<cfelse>
 			no kingdom die<cfabort>
 		</cfif>
