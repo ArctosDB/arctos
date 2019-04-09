@@ -156,7 +156,7 @@ alter table temp_speciesplus_core add arctosstuff varchar2(4000);
 			no kingdom die<cfabort>
 		</cfif>
 		<cfquery name="exist"  datasource='uam_god'>
-			select  TERM, TERM_TYPE	from taxon_term where source='#src#' and taxon_name_id=(select taxon_name_id from taxon_name where scientific_name='#name#'
+			select  TERM, TERM_TYPE	from taxon_term where source='#src#' and taxon_name_id=(select taxon_name_id from taxon_name where scientific_name='#name#')
 		</cfquery>
 		<cfdump var=#exist#>
 	</cfloop>
