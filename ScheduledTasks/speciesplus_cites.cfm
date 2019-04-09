@@ -81,7 +81,7 @@
 			<br>numberAvailablePages::#numberAvailablePages#
 			<br>pg.lastpage::#pg.lastpage#
 		</cfif>
-		<cfif numberAvailablePages gte pg.lastpage>
+		<cfif pg.lastpage gte numberAvailablePages>
 			<br>numberAvailablePages::#numberAvailablePages#
 			<br>pg.lastpage::#pg.lastpage#
 			<br>all done aborting
