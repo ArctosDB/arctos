@@ -94,15 +94,17 @@
 			<br>thisID=#thisID#
 			<br>thisName=#thisName#
 			---->
-			<cfloop from="1" to ="#arraylen(thisConcept.cites_listings)#" index="cli">
-				<cfset thisCitesAppendix=thisConcept.cites_listings[cli].appendix>
-				<!----
-				<br>thisCitesAppendix=#thisCitesAppendix#
-				---->
-				<cfquery name="insMeta" datasource="uam_god">
-					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'cites_appendix','#thisCitesAppendix#')
-				</cfquery>
-			</cfloop>
+			<cfif structkeyexists(thisConcept,"cites_listings")>
+				<cfloop from="1" to ="#arraylen(thisConcept.cites_listings)#" index="cli">
+					<cfset thisCitesAppendix=thisConcept.cites_listings[cli].appendix>
+					<!----
+					<br>thisCitesAppendix=#thisCitesAppendix#
+					---->
+					<cfquery name="insMeta" datasource="uam_god">
+						insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'cites_appendix','#thisCitesAppendix#')
+					</cfquery>
+				</cfloop>
+			</cfif>
 
 			<cfloop from="1" to ="#arraylen(thisConcept.common_names)#" index="cni">
 				<cfset thisCommonName=thisConcept.common_names[cni].name>
