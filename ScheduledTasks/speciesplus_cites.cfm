@@ -141,16 +141,16 @@ alter table temp_speciesplus_core add arctosstuff varchar2(4000);
 	<cfloop query="d">
 		<br>#name#
 		<cfquery name="m" datasource='uam_god'>
-			select distinct TERM,VALUE from temp_speciesplus_meta where concept_id='#concept_id#'
+			select distinct TERM,VALUE vlu from temp_speciesplus_meta where concept_id='#concept_id#'
 		</cfquery>
 		<cfdump var=#m#>
 		<cfquery name="k" dbtype="query">
-			select value from m where term='kingdom'
+			select vlu from m where term='kingdom'
 		</cfquery>
-		<cfif k.value is 'Animalia'>
+		<cfif k.vlu is 'Animalia'>
 			<cfset src='Arctos'>
 
-		<cfelseif k.value is 'Plantae'>
+		<cfelseif k.vlu is 'Plantae'>
 			<cfset src='Arctos Plants'>
 		<cfelse>
 			no kingdom die<cfabort>
