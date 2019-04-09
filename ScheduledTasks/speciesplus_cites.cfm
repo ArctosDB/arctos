@@ -59,7 +59,7 @@
 --->
 <cfoutput>
 	<cfquery name="pg" datasource='uam_god'>
-		select lastpage+1 nextpage from temp_sp_iteration
+		select lastpage,lastpage+1 nextpage from temp_sp_iteration
 	</cfquery>
 	<cfquery name="auth" datasource='uam_god'>
 		select SPECIESPLUS_TOKEN from cf_global_settings
