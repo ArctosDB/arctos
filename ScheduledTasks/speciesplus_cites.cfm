@@ -56,7 +56,106 @@
 	/
 
 
+alter table temp_speciesplus_core add status varchar2(255);
+
+update temp_speciesplus_core set status='in_arctos' where name in (select scientific_name from taxon_name);
+
+update temp_speciesplus_core set status=isvalidtaxonname(name) where status is null;
+
+select status,count(*) from temp_speciesplus_core group by status;
+
+select name,status from temp_speciesplus_core where status not in ('in_arctos','valid');
+
+-- meh, ignore the garbage
+
+create table temp_makethis as select name from temp_speciesplus_core where status='valid' group by name;
+
+drop table temp_makethis2;
+
+create table temp_makethis2 as select value name from temp_speciesplus_meta where term='synonym' group by value;
+
+select count(*) from temp_makethis2;
+
+alter table temp_makethis2 add status varchar2(255);
+update temp_makethis2 set status='in_arctos' where name in (select scientific_name from taxon_name);
+update temp_makethis2 set status=isvalidtaxonname(name) where status is null;
+update temp_makethis2 set status=isvalidtaxonname(name) where status ='valid';
+
+select status,count(*) from temp_makethis2 group by status;
+select name from temp_makethis2  where status='valid'
+
+insert into taxon_name (scientific_name,taxon_name_id) (select name,sq_taxon_name_id.nextval from temp_makethis2 where status='valid');
+
+select scientific_name,isvalidtaxonname(scientific_name) from taxon_name where to_char(CREATED_DATE,'YYYY-MM-DD')='2019-04-09' and isvalidtaxonname(scientific_name)!='valid';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UAM@ARCTOS> select distinct term from temp_speciesplus_meta;
+
+TERM
+------------------------------------------------------------------------------------------------------------------------
+common_name
+class
+synonym
+phylum
+order
+kingdom
+family
+cites_appendix
+
+
+
+alter table temp_speciesplus_core add arctosstuff varchar2(4000);
+
+
+
+     14101
+
+
+
 --->
+
+<cfoutput>
+	<cfquery name="d" datasource='uam_god'>
+		select name,concept_id from temp_speciesplus_core where arctosstuff is null and rownum<5 group by name,concept_id
+	</cfquery>
+	<cfloop query="d">
+		<br>#name#
+		<cfquery name="m" datasource='uam_god'>
+			select distinct TERM,VALUE from temp_speciesplus_meta where concept_id='#concept_id#'
+		</cfquery>
+		<cfdump var=#m#>
+	</cfloop>
+</cfoutput>
+
+
+
+
+
+
+
+
+
+<cfif action is "fetch_original">
 <cfoutput>
 	<cfquery name="pg" datasource='uam_god'>
 		select lastpage,lastpage+1 nextpage from temp_sp_iteration
@@ -168,3 +267,5 @@
 		<cfthrow message='speciesplus json parse failure'>
 	</cfif>
 </cfoutput>
+
+</cfif>
