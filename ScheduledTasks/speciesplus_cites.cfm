@@ -79,6 +79,7 @@
 		<cfset numberAvailablePages=rslt.pagination.total_entries / rslt.pagination.per_page>
 		<cfif isdefined("debug") and debug is true>
 			<br>numberAvailablePages::#numberAvailablePages#
+			<br>pg.lastpage::#pg.lastpage#
 		</cfif>
 		<cfif numberAvailablePages gte pg.lastpage>
 			<br>numberAvailablePages::#numberAvailablePages#
