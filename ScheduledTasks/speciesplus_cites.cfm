@@ -82,6 +82,9 @@
 			<p>#i#</p>
 			<cfdump var=#thisConcept#>
 			---->
+			<cfif isdefined("debug") and debug is true>
+				<cfdump var=#thisConcept#>
+			</cfif>
 			<cfset thisID=thisConcept.id>
 			<cfset thisName=thisConcept.full_name>
 			<cfquery name="insCore" datasource="uam_god">
