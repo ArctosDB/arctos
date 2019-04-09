@@ -136,7 +136,7 @@ alter table temp_speciesplus_core add arctosstuff varchar2(4000);
 
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select name,concept_id from temp_speciesplus_core where arctosstuff is null and rownum<5 group by name,concept_id
+		select name,concept_id from temp_speciesplus_core where status='in_arctos' and arctosstuff is null and rownum<5 group by name,concept_id
 	</cfquery>
 	<cfloop query="d">
 		<br>#name#
@@ -144,6 +144,21 @@ alter table temp_speciesplus_core add arctosstuff varchar2(4000);
 			select distinct TERM,VALUE from temp_speciesplus_meta where concept_id='#concept_id#'
 		</cfquery>
 		<cfdump var=#m#>
+		<cfquery name="k" dbtype="query">
+			select value from m where term='kingdom'
+		</cfquery>
+		<cfif k.value is 'Animalia'>
+			<cfset src='Arctos'>
+
+		<cfelseif k.value is 'Plantae'>
+			<cfset src='Arctos Plants'
+		<cfelse>
+			no kingdom die<cfabort>
+		</cfif>
+		<cfquery name="exist"  datasource='uam_god'>
+			select  TERM, TERM_TYPE	from taxon_term where source='#src#' and taxon_name_id=(select taxon_name_id from taxon_name where scientific_name='#name#'
+		</cfquery>
+		<cfdump var=#exist#>
 	</cfloop>
 </cfoutput>
 
