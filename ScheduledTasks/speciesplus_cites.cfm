@@ -106,16 +106,18 @@
 				</cfloop>
 			</cfif>
 
-			<cfloop from="1" to ="#arraylen(thisConcept.common_names)#" index="cni">
-				<cfset thisCommonName=thisConcept.common_names[cni].name>
-				<cfquery name="insMeta" datasource="uam_god">
-					insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'common_name','#thisCommonName#')
-				</cfquery>
-				<!---
-				<br>thisCommonName=#thisCommonName#
-				---->
-			</cfloop>
 
+			<cfif structkeyexists(thisConcept,"cites_listings")>
+				<cfloop from="1" to ="#arraylen(thisConcept.common_names)#" index="cni">
+					<cfset thisCommonName=thisConcept.common_names[cni].name>
+					<cfquery name="insMeta" datasource="uam_god">
+						insert into temp_speciesplus_meta (concept_id,term,value) values (#thisID#,'common_name','#thisCommonName#')
+					</cfquery>
+					<!---
+					<br>thisCommonName=#thisCommonName#
+					---->
+				</cfloop>
+			</cfif>
 
 			<cfloop collection="#thisConcept.higher_taxa#" item="key">
 				<cftry>
