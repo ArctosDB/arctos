@@ -598,7 +598,7 @@ function showmetadata(){
 			function checkCites (tid,n){
 				console.log(tid);
 				console.log(n);
-				$("##ckCites").html('/images/indicator.gif');
+				$("##ckCites").html('<img src="/images/indicator.gif">');
 				$.ajax({
 					url: "/component/taxonomy.cfc?queryformat=column",
 					type: "GET",
@@ -610,6 +610,13 @@ function showmetadata(){
 						returnformat : "json"
 					},
 					success: function(r) {
+						if (r=='SUCCESS'){
+							var theLink='<span class="likeLink" onclick="reloadHash(\'ArctosLegal\')">Success! click to reload</span>';
+						} else {
+							var theLink='CITES lookup failed.';
+						}
+						$("##ckCites").html(theLink);
+
 						console.log(r);
 					},
 					error: function (xhr, textStatus, errorThrown){
