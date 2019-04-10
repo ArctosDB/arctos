@@ -26,7 +26,12 @@
 				<cfset thisID=thisConcept.id>
 				<cfset thisName=thisConcept.full_name>
 				<cfset thisNameRank=thisConcept.rank>
-				<cfset thisNameAuth=thisConcept.author_year>
+				<cftry>
+					<cfset thisNameAuth=thisConcept.author_year>
+				<cfcatch>
+					<cfset thisNameAuth="">
+				</cfcatch>
+				</cftry>
 				<cfset thisClassificationID=CreateUUID()>
 				<cfset pid=1>
 				<!---- flush all old 'legal' data ---->
@@ -128,6 +133,31 @@
 					sysdate
 				)
 			</cfquery>
+			<!---- author ---->
+			<cfif len(thisNameAuth) gt 0>
+				<cfquery name="insC" datasource="uam_god">
+					insert into taxon_term (
+						TAXON_TERM_ID,
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM_TYPE,
+						TERM,
+						SOURCE,
+						POSITION_IN_CLASSIFICATION,
+						LASTDATE
+					) values (
+						sq_TAXON_TERM_ID.nextval,
+						#d.taxon_name_id#,
+						'#thisClassificationID#',
+						'Name Author',
+						'#thisNameAuth#',
+						'Arctos Legal',
+						NULL,
+						sysdate
+					)
+				</cfquery>
+			</cfif>
+
 			<!---- CITES stuff ---->
 			<cfif structkeyexists(thisConcept,"cites_listings")>
 				<cfloop from="1" to ="#arraylen(thisConcept.cites_listings)#" index="cli">
