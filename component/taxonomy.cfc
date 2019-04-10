@@ -21,7 +21,9 @@
 				<cfif debug is true>
 					<cfdump var=#rslt#>
 				</cfif>
-
+				<cfif arraylen(rslt.taxon_concepts) is 0>
+					<cfreturn 'NO_DATA_FOUND'>
+				</cfif>
 				<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 					<cfset thisConcept=rslt.taxon_concepts[i]>
 					<cfif isdefined("debug") and debug is true>
