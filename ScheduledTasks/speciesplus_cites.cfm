@@ -272,9 +272,128 @@ update temp_speciesplus_core set arctos_class=(
 --->
 
 
-UAM@ARCTOS>
+create index ix_tmp_spm_cid on temp_speciesplus_meta (concept_id) tablespace uam_idx_1;
+create index ix_tmp_spm_trm on temp_speciesplus_meta (term) tablespace uam_idx_1;
 
 update temp_speciesplus_core set arctosstuff='create_taxa_need_class' where name in (select scientific_name from taxon_name where to_char(CREATED_DATE,'YYYY-MM-DD')='2019-04-09');
+
+drop table temp_ttl;
+drop table temp_ttl2;
+
+
+create table temp_ttl as select distinct name scientific_name, concept_id from temp_speciesplus_core where arctosstuff='create_taxa_need_class';
+
+
+
+
+alter table temp_ttl add USERNAME varchar2(255);
+alter table temp_ttl add SOURCE varchar2(255);
+alter table temp_ttl add NOMENCLATURAL_CODE varchar2(255);
+alter table temp_ttl add SOURCE_AUTHORITY varchar2(255);
+alter table temp_ttl add KINGDOM varchar2(255);
+alter table temp_ttl add PHYLUM varchar2(255);
+alter table temp_ttl add PHYLORDER varchar2(255);
+alter table temp_ttl add FAMILY varchar2(255);
+alter table temp_ttl add class varchar2(255);
+
+
+update temp_ttl set USERNAME='dlm';
+update temp_ttl set KINGDOM=(select distinct VALUE from temp_speciesplus_meta where temp_speciesplus_meta.concept_id=temp_ttl.concept_id and TERM='kingdom');
+
+update temp_ttl set PHYLUM=(select distinct VALUE from temp_speciesplus_meta where temp_speciesplus_meta.concept_id=temp_ttl.concept_id and TERM='phylum');
+
+update temp_ttl set PHYLORDER=(select distinct VALUE from temp_speciesplus_meta where temp_speciesplus_meta.concept_id=temp_ttl.concept_id and TERM='order');
+
+update temp_ttl set class=(select distinct VALUE from temp_speciesplus_meta where temp_speciesplus_meta.concept_id=temp_ttl.concept_id and TERM='class');
+
+update temp_ttl set family=(select distinct VALUE from temp_speciesplus_meta where temp_speciesplus_meta.concept_id=temp_ttl.concept_id and TERM='family');
+
+
+
+update temp_ttl set NOMENCLATURAL_CODE='ICBN',SOURCE='Arctos Plants' where kingdom='Plantae';
+update temp_ttl set NOMENCLATURAL_CODE='ICZN',SOURCE='Arctos' where kingdom='Animalia';
+
+
+
+
+
+
+
+
+
+
+
+
+create table temp_ttl2 as select * from temp_ttl where kingdom is not null;
+
+alter table temp_ttl2 drop column concept_id;
+
+
+
+select scientific_name, count(*) from temp_ttl2 having count(*) > 1 group by scientific_name;
+
+
+select * from temp_ttl where kingdom is null;
+
+
+
+
+
+
+
+
+
+
+alter table temp_ttl add SOURCE varchar2(255);
+\\							   NOT NULL VARCHAR2(255)
+  							   NOT NULL VARCHAR2(255)
+ TAXON_NAME_ID								    NUMBER
+ SCIENTIFIC_NAME						   NOT NULL VARCHAR2(255)
+ 								    VARCHAR2(255)
+ INFRASPECIFIC_AUTHOR							    VARCHAR2(255)
+ 							    VARCHAR2(255)
+ 							    VARCHAR2(4000)
+ TAXON_STATUS								    VARCHAR2(255)
+ REMARK 								    VARCHAR2(4000)
+ SUPERKINGDOM								    VARCHAR2(255)
+ 								    VARCHAR2(255)
+ SUBKINGDOM								    VARCHAR2(255)
+ INFRAKINGDOM								    VARCHAR2(255)
+ SUPERPHYLUM								    VARCHAR2(255)
+  								    VARCHAR2(255)
+ SUBPHYLUM								    VARCHAR2(255)
+ SUBDIVISION								    VARCHAR2(255)
+ INFRAPHYLUM								    VARCHAR2(255)
+ SUPERCLASS								    VARCHAR2(255)
+ 									    VARCHAR2(255)
+ SUBCLASS								    VARCHAR2(255)
+ INFRACLASS								    VARCHAR2(255)
+ SUBTERCLASS								    VARCHAR2(255)
+ HYPERORDER								    VARCHAR2(255)
+ SUPERORDER								    VARCHAR2(255)
+ 								    VARCHAR2(255)
+ SUBORDER								    VARCHAR2(255)
+ INFRAORDER								    VARCHAR2(255)
+ HYPORDER								    VARCHAR2(255)
+ SUBHYPORDER								    VARCHAR2(255)
+ SUPERFAMILY								    VARCHAR2(255)
+  								    VARCHAR2(255)
+ SUBFAMILY								    VARCHAR2(255)
+ SUPERTRIBE								    VARCHAR2(255)
+ TRIBE									    VARCHAR2(255)
+ SUBTRIBE								    VARCHAR2(255)
+ GENUS									    VARCHAR2(255)
+ SUBGENUS								    VARCHAR2(255)
+ SPECIES								    VARCHAR2(255)
+ SUBSPECIES								    VARCHAR2(255)
+ FORMA									    VARCHAR2(255)
+ VARIETY								    VARCHAR2(4000)
+ APHIAID								    VARCHAR2(255)
+ EPIFAMILY								    VARCHAR2(255)
+ PREFERRED_NAME 							    VARCHAR2(255)
+
+cites_status
+
 <cfif action is "mknew">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
