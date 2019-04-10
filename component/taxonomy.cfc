@@ -222,7 +222,7 @@
 						#tid#,
 						'#thisClassificationID#',
 						'citation',
-						'UNEP (2019). The Species+ Website. Nairobi, Kenya. Compiled by UNEP-WCMC, Cambridge, UK. Available at: www.speciesplus.net. [Accessed #dateformat(now(),"YYYY-MM-DD")#.',
+						'UNEP (2019). The Species+ Website. Nairobi, Kenya. Compiled by UNEP-WCMC, Cambridge, UK. Available at: www.speciesplus.net. Accessed #dateformat(now(),"YYYY-MM-DD")#.',
 						'Arctos Legal',
 						NULL,
 						sysdate
