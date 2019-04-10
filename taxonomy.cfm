@@ -598,12 +598,13 @@ function showmetadata(){
 			function checkCites (tid,n){
 				console.log(tid);
 				console.log(n);
+				$("##ckCites").html('/images/indicator.gif');
 				$.ajax({
 					url: "/component/taxonomy.cfc?queryformat=column",
 					type: "GET",
 					dataType: "json",
 					data: {
-						method:  "checkCites",
+						method:  "updateArctosLegalClassData",
 						tid : tid,
 						name : n,
 						returnformat : "json"
@@ -618,9 +619,7 @@ function showmetadata(){
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Name + Related Data ]</a>
-		<!----
-		<a span class="likeLink" onclick="checkCites('#taxon_name_id.taxon_name_id#','#scientific_name.scientific_name#')">[ Check CITES ]</a>
-		---->
+		<div id="ckCites"><a span class="likeLink" onclick="checkCites('#taxon_name_id.taxon_name_id#','#scientific_name.scientific_name#')">[ Check CITES ]</a></div>
 		<div id="validatorResults"></div>
 		<cfquery name="wdi" datasource="uam_god">
 			select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=#taxon_name_id.taxon_name_id#
