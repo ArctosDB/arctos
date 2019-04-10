@@ -200,7 +200,7 @@
 						sq_TAXON_TERM_ID.nextval,
 						#tid#,
 						'#thisClassificationID#',
-						'#lower(thisNameRank)#',
+						'#lcase(thisNameRank)#',
 						'#thisName#',
 						'Arctos Legal',
 						#pic#,
