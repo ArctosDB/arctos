@@ -9,7 +9,6 @@
 		<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?name=#name#" method="get">
 			<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 		</cfhttp>
-		<cfdump var=#ga#>
 		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 			<cfreturn ga.filecontent>
 		<cfelse>
