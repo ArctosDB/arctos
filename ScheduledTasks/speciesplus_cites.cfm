@@ -13,7 +13,7 @@
 	---->
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select name,taxon_name_id from temp_speciesplus_core where taxon_name_id is not null and arctosstuff is null and rownum<9 group by name,taxon_name_id
+		select name,taxon_name_id from temp_speciesplus_core where taxon_name_id is not null and arctosstuff is null and rownum<8 group by name,taxon_name_id
 	</cfquery>
 	<cfloop query="d">
 		<br>name=<a target="_blank" href="/name/#name###ArctosLegal">#name#</a>
