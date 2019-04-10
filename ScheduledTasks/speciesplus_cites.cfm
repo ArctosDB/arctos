@@ -269,9 +269,6 @@ update temp_speciesplus_core set arctos_class=(
 
 
 
---->
-
-
 create index ix_tmp_spm_cid on temp_speciesplus_meta (concept_id) tablespace uam_idx_1;
 create index ix_tmp_spm_trm on temp_speciesplus_meta (term) tablespace uam_idx_1;
 
@@ -340,7 +337,14 @@ BAH don't have enough info to use this!!
 
 update temp_speciesplus_core set ARCTOSSTUFF =null;
 
-<cfif action is "mknew">
+
+
+--->
+
+<cfif action is "nothing">
+	<!-- Plan Lots:
+		shove this stuff in the Arctos Legal source classification
+	---->
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
 		select name,concept_id from temp_speciesplus_core where arctosstuffis null  and rownum<2 group by name,concept_id
@@ -357,7 +361,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 
 </cfif>
 
-<cfif action is "nothing">
+<cfif action is "old_garbage">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
 		select name,concept_id from temp_speciesplus_core where status='in_arctos' and arctosstuff is null and rownum<5 group by name,concept_id
