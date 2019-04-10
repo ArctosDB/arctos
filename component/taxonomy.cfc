@@ -59,34 +59,137 @@
 
 				<cfif isdefined("kingdom") and len(kingdom) gt 0>
 					<br>got kingdom=#kingdom#
+					<cfquery name="insC" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM_TYPE,
+							TERM,
+							SOURCE,
+							POSITION_IN_CLASSIFICATION,
+							LASTDATE
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#tid#,
+							'#thisClassificationID#',
+							'kingdom',
+							'#kingdom#',
+							'Arctos Legal',
+							#pic#,
+							sysdate
+						)
+					</cfquery>
+					<cfset pic=pic+1>
 				</cfif>
+				<cfif isdefined("phylum") and len(phylum) gt 0>
+					<cfquery name="insC" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM_TYPE,
+							TERM,
+							SOURCE,
+							POSITION_IN_CLASSIFICATION,
+							LASTDATE
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#tid#,
+							'#thisClassificationID#',
+							'phylum',
+							'#phylum#',
+							'Arctos Legal',
+							#pic#,
+							sysdate
+						)
+					</cfquery>
+					<cfset pic=pic+1>
+				</cfif>
+
+				<cfif isdefined("class") and len(class) gt 0>
+					<cfquery name="insC" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM_TYPE,
+							TERM,
+							SOURCE,
+							POSITION_IN_CLASSIFICATION,
+							LASTDATE
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#tid#,
+							'#thisClassificationID#',
+							'class',
+							'#class#',
+							'Arctos Legal',
+							#pic#,
+							sysdate
+						)
+					</cfquery>
+					<cfset pic=pic+1>
+				</cfif>
+
+				<cfif isdefined("order") and len(order) gt 0>
+					<cfquery name="insC" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM_TYPE,
+							TERM,
+							SOURCE,
+							POSITION_IN_CLASSIFICATION,
+							LASTDATE
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#tid#,
+							'#thisClassificationID#',
+							'order',
+							'#order#',
+							'Arctos Legal',
+							#pic#,
+							sysdate
+						)
+					</cfquery>
+					<cfset pic=pic+1>
+				</cfif>
+
+				<cfif isdefined("family") and len(family) gt 0>
+					<cfquery name="insC" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM_TYPE,
+							TERM,
+							SOURCE,
+							POSITION_IN_CLASSIFICATION,
+							LASTDATE
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#tid#,
+							'#thisClassificationID#',
+							'family',
+							'#family#',
+							'Arctos Legal',
+							#pic#,
+							sysdate
+						)
+					</cfquery>
+					<cfset pic=pic+1>
+				</cfif>
+
+
+
 
 				<!----
 								<cfif isdefined("debug") and debug is true>
 									<br>HT::'#key#'='#thisConcept.higher_taxa[key]#',
 								</cfif>
-								<cfquery name="insC" datasource="uam_god">
-									insert into taxon_term (
-										TAXON_TERM_ID,
-										TAXON_NAME_ID,
-										CLASSIFICATION_ID,
-										TERM_TYPE,
-										TERM,
-										SOURCE,
-										POSITION_IN_CLASSIFICATION,
-										LASTDATE
-									) values (
-										sq_TAXON_TERM_ID.nextval,
-										#tid#,
-										'#thisClassificationID#',
-										'#key#',
-										'#thisConcept.higher_taxa[key]#',
-										'Arctos Legal',
-										#pic#,
-										sysdate
-									)
-								</cfquery>
-								<cfset pic=pic+1>
+
 
 								---->
 
