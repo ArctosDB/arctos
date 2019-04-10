@@ -3,16 +3,291 @@
 	<cffunction name="checkCites" access="remote">
 		<cfargument name="tid" type="numeric" required="true">
 		<cfargument name="name" type="string" required="true">
+		<cfif not isdefined("debug")>
+			<cfset debug=false>
+		</cfif>
 		<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
 			select SPECIESPLUS_TOKEN from cf_global_settings
 		</cfquery>
+		<!---- get all concepts for the namestring --->
 		<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?name=#name#" method="get">
 			<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 		</cfhttp>
 		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
-			<cfreturn ga.filecontent>
+			<cfset rslt=DeserializeJSON(ga.filecontent)>
+			<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
+				<cfset thisConcept=rslt.taxon_concepts[i]>
+				<cfif isdefined("debug") and debug is true>
+					<cfdump var=#thisConcept#>
+				</cfif>
+				<cfset thisID=thisConcept.id>
+				<cfset thisName=thisConcept.full_name>
+				<cfset thisNameRank=thisConcept.rank>
+				<cfset thisNameAuth=thisConcept.author_year>
+				<cfset thisClassificationID=CreateUUID()>
+				<cfset pid=1>
+				<!---- flush all old 'legal' data ---->
+				<cfquery name="flushOld" datasource="uam_god">
+					delete from taxon_term where taxon_name_id=#tid# and source='Arctos Legal'
+				</cfquery>
+				<cfif structkeyexists(thisConcept,"higher_taxa")>
+				<cfloop collection="#thisConcept.higher_taxa#" item="key">
+					<cftry>
+						<cfquery name="insC" datasource="uam_god">
+							insert into taxon_term (
+								TAXON_TERM_ID,
+								TAXON_NAME_ID,
+								CLASSIFICATION_ID,
+								TERM_TYPE,
+								TERM,
+								SOURCE,
+								POSITION_IN_CLASSIFICATION,
+								LASTDATE
+							) values (
+								sq_TAXON_TERM_ID.nextval,
+								#d.taxon_name_id#,
+								'#thisClassificationID#',
+								'#key#',
+								'#thisConcept.higher_taxa[key]#',
+								'Arctos Legal',
+								#pic#,
+								sysdate
+							)
+						</cfquery>
+						<cfset pic=pic+1>
+				    <cfcatch><!---- whatever, they don't have values sometimes ---></cfcatch>
+				    </cftry>
+				</cfloop>
+			</cfif>
+			<!--- now the data from the name ---->
+			<cfquery name="insC" datasource="uam_god">
+				insert into taxon_term (
+					TAXON_TERM_ID,
+					TAXON_NAME_ID,
+					CLASSIFICATION_ID,
+					TERM_TYPE,
+					TERM,
+					SOURCE,
+					POSITION_IN_CLASSIFICATION,
+					LASTDATE
+				) values (
+					sq_TAXON_TERM_ID.nextval,
+					#d.taxon_name_id#,
+					'#thisClassificationID#',
+					'#thisNameRank#',
+					'#thisName#',
+					'Arctos Legal',
+					#pic#,
+					sysdate
+				)
+			</cfquery>
+			<!---- attribution ---->
+			<cfquery name="insC" datasource="uam_god">
+				insert into taxon_term (
+					TAXON_TERM_ID,
+					TAXON_NAME_ID,
+					CLASSIFICATION_ID,
+					TERM_TYPE,
+					TERM,
+					SOURCE,
+					POSITION_IN_CLASSIFICATION,
+					LASTDATE
+				) values (
+					sq_TAXON_TERM_ID.nextval,
+					#d.taxon_name_id#,
+					'#thisClassificationID#',
+					'citation',
+					'UNEP (2019). The Species+ Website. Nairobi, Kenya. Compiled by UNEP-WCMC, Cambridge, UK. Available at: www.speciesplus.net. [Accessed #dateformat(now(),"YYYY-MM-DD")#.',
+					'Arctos Legal',
+					NULL,
+					sysdate
+				)
+			</cfquery>
+			<!---- link ---->
+			<cfquery name="insC" datasource="uam_god">
+				insert into taxon_term (
+					TAXON_TERM_ID,
+					TAXON_NAME_ID,
+					CLASSIFICATION_ID,
+					TERM_TYPE,
+					TERM,
+					SOURCE,
+					POSITION_IN_CLASSIFICATION,
+					LASTDATE
+				) values (
+					sq_TAXON_TERM_ID.nextval,
+					#d.taxon_name_id#,
+					'#thisClassificationID#',
+					'source_authority',
+					'<a href="https://speciesplus.net/##/taxon_concepts?taxonomy=cites_eu&taxon_concept_query=#d.name#&geo_entities_ids=&geo_entity_scope=cites&page=1">Species+</a>',
+					'Arctos Legal',
+					NULL,
+					sysdate
+				)
+			</cfquery>
+			<!---- CITES stuff ---->
+			<cfif structkeyexists(thisConcept,"cites_listings")>
+				<cfloop from="1" to ="#arraylen(thisConcept.cites_listings)#" index="cli">
+					<cfset thisCitesAppendix=thisConcept.cites_listings[cli].appendix>
+					<cfset thisCitesAnno=thisConcept.cites_listings[cli].annotation>
+					<!----
+					<br>thisCitesAppendix=#thisCitesAppendix#
+					---->
+					<cfquery name="insC" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM_TYPE,
+							TERM,
+							SOURCE,
+							POSITION_IN_CLASSIFICATION,
+							LASTDATE
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#d.taxon_name_id#,
+							'#thisClassificationID#',
+							'CITES Appendix',
+							'#thisCitesAppendix#',
+							'Arctos Legal',
+							NULL,
+							sysdate
+						)
+					</cfquery>
+					<cfquery name="insC" datasource="uam_god">
+						insert into taxon_term (
+							TAXON_TERM_ID,
+							TAXON_NAME_ID,
+							CLASSIFICATION_ID,
+							TERM_TYPE,
+							TERM,
+							SOURCE,
+							POSITION_IN_CLASSIFICATION,
+							LASTDATE
+						) values (
+							sq_TAXON_TERM_ID.nextval,
+							#d.taxon_name_id#,
+							'#thisClassificationID#',
+							'CITES Annotation',
+							'#thisCitesAppendix#: #thisCitesAnno#',
+							'Arctos Legal',
+							NULL,
+							sysdate
+						)
+					</cfquery>
+				</cfloop>
+			</cfif>
+			<!--- see if we can make some relationships --->
+			<cfif structkeyexists(thisConcept,"synonyms")>
+				<cfloop from="1" to ="#arraylen(thisConcept.synonyms)#" index="syi">
+					<cfset thisSynonym=thisConcept.synonyms[syi].full_name>
+					<cfquery name="rtid" datasource="uam_god">
+						select taxon_name_id from taxon_name where scientific_name='#thisSynonym#'
+					</cfquery>
+					<cfif length(rtid.taxon_name_id) gt 0>
+						<!---
+							got it; see if the relationship exists
+							https://github.com/ArctosDB/arctos/issues/1136
+							we are using "synonym of" for everything, so just ignore type for this for now
+						---->
+						<cfquery name="er" datasource="uam_god">
+							select
+								count(*) c
+							from
+								taxon_relations
+							where
+								taxon_name_id=#tid# and
+								related_taxon_name_id=#rtid.taxon_name_id#
+						</cfquery>
+						<cfif er.c is 0>
+							<cfif debug is true>
+								<br>creating relationship
+							</cfif>
+							<!--- create the relationship ---->
+							<cfquery name="mkreln" datasource="uam_god">
+								insert into taxon_relations (
+									TAXON_RELATIONS_ID,
+									TAXON_NAME_ID,
+									RELATED_TAXON_NAME_ID,
+									TAXON_RELATIONSHIP,
+									RELATION_AUTHORITY,
+									STALE_FG
+								) values (
+									sq_TAXON_RELATIONS_ID.nextval,
+									#tid#,
+									#rtid.taxon_name_id#,
+									'synonym of',
+									'Species+',
+									1
+								)
+							</cfquery>
+						</cfif>
+						<!---- now see if the reciprocal exists --->
+						<cfquery name="err" datasource="uam_god">
+							select
+								count(*) c
+							from
+								taxon_relations
+							where
+								taxon_name_id=#rtid.taxon_name_id# and
+								related_taxon_name_id=#tid#
+						</cfquery>
+						<cfif debug is true>
+							<br>err:::
+							<cfdump var=#err#>
+						</cfif>
+						<cfif err.c is 0>
+							<cfif debug is true>
+								<br>creating reciprocal relationship
+							</cfif>
+							<!--- create the relationship ---->
+							<cfquery name="mkreln" datasource="uam_god">
+								insert into taxon_relations (
+									TAXON_RELATIONS_ID,
+									TAXON_NAME_ID,
+									RELATED_TAXON_NAME_ID,
+									TAXON_RELATIONSHIP,
+									RELATION_AUTHORITY,
+									STALE_FG
+								) values (
+									sq_TAXON_RELATIONS_ID.nextval,
+									#rtid.taxon_name_id#,
+									#tid#,
+									'synonym of',
+									'Species+',
+									1
+								)
+							</cfquery>
+						</cfif>
+					</cfif>
+				</cfloop>
+			</cfif>
+			<!--- see if we can make some common names --->
+			<cfif structkeyexists(thisConcept,"common_names")>
+				<cfloop from="1" to ="#arraylen(thisConcept.common_names)#" index="cni">
+					<cfset thisCommonName=thisConcept.common_names[cni].name>
+					<cfquery name="ckcmn" datasource="uam_god">
+						select count(*) c from common_name where taxon_name_id=#tid# and common_name='#thisCommonName#'
+					</cfquery>
+					<cfif ckcmn.c is 0>
+						<cfquery name="icmn" datasource="uam_god">
+							insert into common_name (
+								COMMON_NAME_ID,
+								TAXON_NAME_ID,
+								COMMON_NAME
+							) values (
+								sq_COMMON_NAME_ID.nextval,
+								#tid#,
+								'#thisCommonName#'
+							)
+						</cfquery>
+					</cfif>
+				</cfloop>
+			</cfif>
+		</cfloop>
+
 		<cfelse>
-			<cfreturn "ERROR: unable to get Species+ data.">
+			<cfthrow message= "ERROR: unable to get Species+ data.">
 		</cfif>
 
 

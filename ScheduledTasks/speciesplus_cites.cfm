@@ -1,6 +1,23 @@
 <cfif not isdefined("action")><cfset action='nothing'></cfif>
 
 
+<cfif action is "boogityseefuncitons">
+	<!-- Plan Lots:
+		shove this stuff in the Arctos Legal source classification
+		first step: make the classification
+		TODO:
+			- relationships
+			- common names
+	---->
+<cfoutput>
+	<cfquery name="d" datasource='uam_god'>
+		select name,concept_id from temp_speciesplus_core where arctosstuff is null  and rownum<2 group by name,concept_id
+	</cfquery>
+	<cfloop query="d">
+	</cfif>
+	
+	
+select taxon_name_id,name from temp_speciesplus_core where taxon_name_id is not null and rownum=1;
 <!---
 	stash everything
 
@@ -341,20 +358,239 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 
 --->
 
-<cfif action is "nothing">
+<cfif action is "boogityseefuncitons">
 	<!-- Plan Lots:
 		shove this stuff in the Arctos Legal source classification
+		first step: make the classification
+		TODO:
+			- relationships
+			- common names
 	---->
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
 		select name,concept_id from temp_speciesplus_core where arctosstuff is null  and rownum<2 group by name,concept_id
 	</cfquery>
 	<cfloop query="d">
-		<br>#name#
-		<cfquery name="m" datasource='uam_god'>
-			select distinct TERM,VALUE vlu from temp_speciesplus_meta where concept_id='#concept_id#'
-		</cfquery>
-		<cfdump var=#m#>
+		<cftransaction>
+			<br><a href="/name/#name#">#name#</a>
+			<cfquery name="m" datasource='uam_god'>
+				select distinct TERM,VALUE vlu from temp_speciesplus_meta where concept_id='#concept_id#'
+			</cfquery>
+			<cfdump var=#m#>
+			<cfset thisClassificationID=CreateUUID()>
+			<cfquery name="insC" datasource="uam_god">
+				insert into taxon_term (
+					TAXON_TERM_ID,
+					TAXON_NAME_ID,
+					CLASSIFICATION_ID,
+					TERM_TYPE,
+					TERM,
+					SOURCE,
+					POSITION_IN_CLASSIFICATION,
+					LASTDATE
+				) values (
+					sq_TAXON_TERM_ID.nextval,
+					#d.taxon_name_id#,
+					'#thisClassificationID#',
+					'source_authority',
+					'UNEP (2019). The Species+ Website. Nairobi, Kenya. Compiled by UNEP-WCMC, Cambridge, UK. Available at: www.speciesplus.net. [Accessed #dateformat(now(),"YYYY-MM-DD")#.',
+					'Arctos Legal',
+					NULL,
+					sysdate
+				)					
+			</cfquery>
+			<cfquery name="insC" datasource="uam_god">
+				insert into taxon_term (
+					TAXON_TERM_ID,
+					TAXON_NAME_ID,
+					CLASSIFICATION_ID,
+					TERM_TYPE,
+					TERM,
+					SOURCE,
+					POSITION_IN_CLASSIFICATION,
+					LASTDATE
+				) values (
+					sq_TAXON_TERM_ID.nextval,
+					#d.taxon_name_id#,
+					'#thisClassificationID#',
+					'source_authority',
+					'<a href="https://speciesplus.net/##/taxon_concepts?taxonomy=cites_eu&taxon_concept_query=#d.name#&geo_entities_ids=&geo_entity_scope=cites&page=1">Species+</a>',
+					'Arctos Legal',
+					NULL,
+					sysdate
+				)
+			</cfquery>
+			<cfset pic=1>
+			<cfquery name="k" dbtype="kingdom">
+				select vlu from m where term='kingdom'			
+			</cfquery>
+			<cfloop query="k">
+				<cfquery name="insC" datasource="uam_god">
+					insert into taxon_term (
+						TAXON_TERM_ID,
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM_TYPE,
+						TERM,
+						SOURCE,
+						POSITION_IN_CLASSIFICATION,
+						LASTDATE
+					) values (
+						sq_TAXON_TERM_ID.nextval,
+						#d.taxon_name_id#,
+						'#thisClassificationID#',
+						'kingdom',
+						'#vlu#',
+						'Arctos Legal',
+						#pic#,
+						sysdate
+					)
+				</cfquery>
+				<cfset pic=pic+1>
+			</cfloop>
+			<cfquery name="k" dbtype="kingdom">
+				select vlu from m where term='phylum'			
+			</cfquery>
+			<cfloop query="k">
+				<cfquery name="insC" datasource="uam_god">
+					insert into taxon_term (
+						TAXON_TERM_ID,
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM_TYPE,
+						TERM,
+						SOURCE,
+						POSITION_IN_CLASSIFICATION,
+						LASTDATE
+					) values (
+						sq_TAXON_TERM_ID.nextval,
+						#d.taxon_name_id#,
+						'#thisClassificationID#',
+						'phylum',
+						'#vlu#',
+						'Arctos Legal',
+						#pic#,
+						sysdate
+					)
+				</cfquery>
+				<cfset pic=pic+1>
+			</cfloop>
+			<cfquery name="k" dbtype="kingdom">
+				select vlu from m where term='class'			
+			</cfquery>
+			<cfloop query="k">
+				<cfquery name="insC" datasource="uam_god">
+					insert into taxon_term (
+						TAXON_TERM_ID,
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM_TYPE,
+						TERM,
+						SOURCE,
+						POSITION_IN_CLASSIFICATION,
+						LASTDATE
+					) values (
+						sq_TAXON_TERM_ID.nextval,
+						#d.taxon_name_id#,
+						'#thisClassificationID#',
+						'class',
+						'#vlu#',
+						'Arctos Legal',
+						#pic#,
+						sysdate
+					)
+				</cfquery>
+				<cfset pic=pic+1>
+			</cfloop>
+			<cfquery name="k" dbtype="kingdom">
+				select vlu from m where term='order'			
+			</cfquery>
+			<cfloop query="k">
+				<cfquery name="insC" datasource="uam_god">
+					insert into taxon_term (
+						TAXON_TERM_ID,
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM_TYPE,
+						TERM,
+						SOURCE,
+						POSITION_IN_CLASSIFICATION,
+						LASTDATE
+					) values (
+						sq_TAXON_TERM_ID.nextval,
+						#d.taxon_name_id#,
+						'#thisClassificationID#',
+						'order',
+						'#vlu#',
+						'Arctos Legal',
+						#pic#,
+						sysdate
+					)
+				</cfquery>
+				<cfset pic=pic+1>
+			</cfloop>
+			<cfquery name="k" dbtype="kingdom">
+				select vlu from m where term='order'			
+			</cfquery>
+			<cfloop query="k">
+				<cfquery name="insC" datasource="uam_god">
+					insert into taxon_term (
+						TAXON_TERM_ID,
+						TAXON_NAME_ID,
+						CLASSIFICATION_ID,
+						TERM_TYPE,
+						TERM,
+						SOURCE,
+						POSITION_IN_CLASSIFICATION,
+						LASTDATE
+					) values (
+						sq_TAXON_TERM_ID.nextval,
+						#d.taxon_name_id#,
+						'#thisClassificationID#',
+						'order',
+						'#vlu#',
+						'Arctos Legal',
+						#pic#,
+						sysdate
+					)
+				</cfquery>
+				<cfset pic=pic+1>
+			</cfloop>
+			
+			
+			
+		------------------------------------------------------------------------------------------------------------------------
+common_name
+
+synonym
+
+
+kingdom
+
+cites_appendix
+
+
+
+			
+		</cftransaction>
+		
+		 Name								   Null?    Type
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ 							   NOT NULL NUMBER
+ 							   NOT NULL NUMBER
+ 							    VARCHAR2(4000)
+ 								   NOT NULL VARCHAR2(4000)
+ 								    VARCHAR2(255)
+  							   NOT NULL VARCHAR2(255)
+ GN_SCORE								    NUMBER
+ 						    NUMBER
+ 							   NOT NULL DATE
+ MATCH_TYPE								    VARCHAR2(255)
+
+UAM@ARCTOS> 
+
+
+
 	</cfloop>
 
 </cfoutput>
@@ -463,7 +699,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 			</cfif>
 
 
-			<cfif structkeyexists(thisConcept,"cites_listings")>
+			<cfif structkeyexists(thisConcept,"common_names")>
 				<cfloop from="1" to ="#arraylen(thisConcept.common_names)#" index="cni">
 					<cfset thisCommonName=thisConcept.common_names[cni].name>
 					<cfquery name="insMeta" datasource="uam_god">
