@@ -9,9 +9,10 @@
 		<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
 			select SPECIESPLUS_TOKEN from cf_global_settings
 		</cfquery>
-		<!---- get all concepts for the namestring --->
+		<cfoutput>
 		<cftry>
 			<cfset runstatus="SUCCESS">
+			<!---- get all concepts for the namestring --->
 			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?name=#name#" method="get">
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
@@ -43,41 +44,54 @@
 						delete from taxon_term where taxon_name_id=#tid# and source='Arctos Legal'
 					</cfquery>
 					<cfif structkeyexists(thisConcept,"higher_taxa")>
-					<cfloop collection="#thisConcept.higher_taxa#" item="key">
-						<cftry>
-							<cfif isdefined("debug") and debug is true>
-								<br>HT::'#key#'='#thisConcept.higher_taxa[key]#',
-							</cfif>
-							<cfquery name="insC" datasource="uam_god">
-								insert into taxon_term (
-									TAXON_TERM_ID,
-									TAXON_NAME_ID,
-									CLASSIFICATION_ID,
-									TERM_TYPE,
-									TERM,
-									SOURCE,
-									POSITION_IN_CLASSIFICATION,
-									LASTDATE
-								) values (
-									sq_TAXON_TERM_ID.nextval,
-									#tid#,
-									'#thisClassificationID#',
-									'#key#',
-									'#thisConcept.higher_taxa[key]#',
-									'Arctos Legal',
-									#pic#,
-									sysdate
-								)
-							</cfquery>
-							<cfset pic=pic+1>
-					    <cfcatch><!---- whatever, they don't have values sometimes --->
-							<cfif isdefined("debug") and debug is true>
-								<cfdump var=#cfcatch#>
-							</cfif>
-						</cfcatch>
+						<!---- OMFG it's not in order!! ---->
+						<cfloop collection="#thisConcept.higher_taxa#" item="key">
+							<cftry>
+								<cfset "#key#"="#thisConcept.higher_taxa[key]#">
+						    <cfcatch><!---- whatever, they don't have values sometimes --->
+								<cfif isdefined("debug") and debug is true>
+									<cfdump var=#cfcatch#>
+								</cfif>
+							</cfcatch>
 					    </cftry>
 					</cfloop>
 				</cfif>
+
+				<cfif isdefined("kingdom") and len(kingdom) gt 0>
+					<br>got kingdom=#kingdom#
+				</cfif>
+
+				<!----
+								<cfif isdefined("debug") and debug is true>
+									<br>HT::'#key#'='#thisConcept.higher_taxa[key]#',
+								</cfif>
+								<cfquery name="insC" datasource="uam_god">
+									insert into taxon_term (
+										TAXON_TERM_ID,
+										TAXON_NAME_ID,
+										CLASSIFICATION_ID,
+										TERM_TYPE,
+										TERM,
+										SOURCE,
+										POSITION_IN_CLASSIFICATION,
+										LASTDATE
+									) values (
+										sq_TAXON_TERM_ID.nextval,
+										#tid#,
+										'#thisClassificationID#',
+										'#key#',
+										'#thisConcept.higher_taxa[key]#',
+										'Arctos Legal',
+										#pic#,
+										sysdate
+									)
+								</cfquery>
+								<cfset pic=pic+1>
+
+								---->
+
+
+
 				<!--- now the data from the name ---->
 				<cfquery name="insC" datasource="uam_god">
 					insert into taxon_term (
@@ -348,6 +362,7 @@
 			</cfcatch>
 
 		</cftry>
+		</cfoutput>
 		<cfreturn runstatus>
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
