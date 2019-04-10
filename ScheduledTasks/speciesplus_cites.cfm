@@ -336,63 +336,8 @@ select scientific_name, count(*) from temp_ttl2 having count(*) > 1 group by sci
 select * from temp_ttl where kingdom is null;
 
 
+BAH don't have enough info to use this!!
 
-
-
-
-
-
-
-
-alter table temp_ttl add SOURCE varchar2(255);
-\\							   NOT NULL VARCHAR2(255)
-  							   NOT NULL VARCHAR2(255)
- TAXON_NAME_ID								    NUMBER
- SCIENTIFIC_NAME						   NOT NULL VARCHAR2(255)
- 								    VARCHAR2(255)
- INFRASPECIFIC_AUTHOR							    VARCHAR2(255)
- 							    VARCHAR2(255)
- 							    VARCHAR2(4000)
- TAXON_STATUS								    VARCHAR2(255)
- REMARK 								    VARCHAR2(4000)
- SUPERKINGDOM								    VARCHAR2(255)
- 								    VARCHAR2(255)
- SUBKINGDOM								    VARCHAR2(255)
- INFRAKINGDOM								    VARCHAR2(255)
- SUPERPHYLUM								    VARCHAR2(255)
-  								    VARCHAR2(255)
- SUBPHYLUM								    VARCHAR2(255)
- SUBDIVISION								    VARCHAR2(255)
- INFRAPHYLUM								    VARCHAR2(255)
- SUPERCLASS								    VARCHAR2(255)
- 									    VARCHAR2(255)
- SUBCLASS								    VARCHAR2(255)
- INFRACLASS								    VARCHAR2(255)
- SUBTERCLASS								    VARCHAR2(255)
- HYPERORDER								    VARCHAR2(255)
- SUPERORDER								    VARCHAR2(255)
- 								    VARCHAR2(255)
- SUBORDER								    VARCHAR2(255)
- INFRAORDER								    VARCHAR2(255)
- HYPORDER								    VARCHAR2(255)
- SUBHYPORDER								    VARCHAR2(255)
- SUPERFAMILY								    VARCHAR2(255)
-  								    VARCHAR2(255)
- SUBFAMILY								    VARCHAR2(255)
- SUPERTRIBE								    VARCHAR2(255)
- TRIBE									    VARCHAR2(255)
- SUBTRIBE								    VARCHAR2(255)
- GENUS									    VARCHAR2(255)
- SUBGENUS								    VARCHAR2(255)
- SPECIES								    VARCHAR2(255)
- SUBSPECIES								    VARCHAR2(255)
- FORMA									    VARCHAR2(255)
- VARIETY								    VARCHAR2(4000)
- APHIAID								    VARCHAR2(255)
- EPIFAMILY								    VARCHAR2(255)
- PREFERRED_NAME 							    VARCHAR2(255)
-
-cites_status
 
 <cfif action is "mknew">
 <cfoutput>

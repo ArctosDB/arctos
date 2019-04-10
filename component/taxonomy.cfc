@@ -10,6 +10,12 @@
 			<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 		</cfhttp>
 		<cfdump var=#ga#>
+		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
+			<cfreturn ga.filecontent>
+		<cfelse>
+			<cfreturn "ERROR: unable to get Species+ data.">
+		</cfif>
+
 
 
 	</cffunction>

@@ -598,6 +598,23 @@ function showmetadata(){
 			function checkCites (tid,n){
 				console.log(tid);
 				console.log(n);
+				$.ajax({
+					url: "/component/taxonomy.cfc?queryformat=column",
+					type: "GET",
+					dataType: "json",
+					data: {
+						method:  "checkCites",
+						tid : tid,
+						name : n,
+						returnformat : "json"
+					},
+					success: function(r) {
+						console.log(r);
+					},
+					error: function (xhr, textStatus, errorThrown){
+					    alert('Validator Error: ' + errorThrown + ': ' + textStatus + ': ' + xhr);
+					}
+				});
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Name + Related Data ]</a>
