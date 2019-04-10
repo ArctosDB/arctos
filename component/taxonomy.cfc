@@ -10,6 +10,9 @@
 			select SPECIESPLUS_TOKEN from cf_global_settings
 		</cfquery>
 		<!---- get all concepts for the namestring --->
+		<cftry>
+					<cfset runstatus="SUCCESS">
+
 		<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?name=#name#" method="get">
 			<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 		</cfhttp>
@@ -321,11 +324,14 @@
 		</cfloop>
 
 		<cfelse>
-			<cfthrow message= "ERROR: unable to get Species+ data.">
+			<cfset runstatus="FAIL">
 		</cfif>
+		<cfcatch>
+			<cfset runstatus="FAIL">
+		</cfcatch>
 
-
-
+		</cftry>
+		<cfreturn runstatus>
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="checkConsistency" access="remote">

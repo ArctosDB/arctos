@@ -1,7 +1,7 @@
 <cfif not isdefined("action")><cfset action='nothing'></cfif>
 
 
-<cfif action is "boogityseefuncitons">
+<cfif action is "nothign">
 	<!-- Plan Lots:
 		shove this stuff in the Arctos Legal source classification
 		first step: make the classification
@@ -11,12 +11,14 @@
 	---->
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select name,concept_id from temp_speciesplus_core where arctosstuff is null  and rownum<2 group by name,concept_id
+		select name,taxon_name_id from temp_speciesplus_core where arctosstuff is null and rownum<2 group by name,taxon_name_id
 	</cfquery>
 	<cfloop query="d">
+	
+	</cfloop>
 	</cfif>
 	
-	
+	https://arctos.database.museum/component/taxonomy.cfc?method=updateArctosLegalClassData&debug=true&tid=11635213&name=Pseudoryx
 select taxon_name_id,name from temp_speciesplus_core where taxon_name_id is not null and rownum=1;
 <!---
 	stash everything
