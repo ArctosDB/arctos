@@ -128,7 +128,7 @@
 					#tid#,
 					'#thisClassificationID#',
 					'source_authority',
-					'<a href="https://speciesplus.net/##/taxon_concepts?taxonomy=cites_eu&taxon_concept_query=#d.name#&geo_entities_ids=&geo_entity_scope=cites&page=1">Species+</a>',
+					'<a href="https://speciesplus.net/##/taxon_concepts?taxonomy=cites_eu&taxon_concept_query=#name#&geo_entities_ids=&geo_entity_scope=cites&page=1">Species+</a>',
 					'Arctos Legal',
 					NULL,
 					sysdate
