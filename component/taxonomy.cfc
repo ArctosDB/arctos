@@ -45,6 +45,9 @@
 				<cfif structkeyexists(thisConcept,"higher_taxa")>
 				<cfloop collection="#thisConcept.higher_taxa#" item="key">
 					<cftry>
+						<cfif isdefined("debug") and debug is true>
+							<br>HT::'#key#'='#thisConcept.higher_taxa[key]#',
+						</cfif>
 						<cfquery name="insC" datasource="uam_god">
 							insert into taxon_term (
 								TAXON_TERM_ID,
@@ -67,7 +70,11 @@
 							)
 						</cfquery>
 						<cfset pic=pic+1>
-				    <cfcatch><!---- whatever, they don't have values sometimes ---></cfcatch>
+				    <cfcatch><!---- whatever, they don't have values sometimes --->
+						<cfif isdefined("debug") and debug is true>
+							<cfdump var=#cfcatch#>
+						</cfif>
+					</cfcatch>
 				    </cftry>
 				</cfloop>
 			</cfif>
