@@ -228,7 +228,7 @@
 					<cfquery name="rtid" datasource="uam_god">
 						select taxon_name_id from taxon_name where scientific_name='#thisSynonym#'
 					</cfquery>
-					<cfif length(rtid.taxon_name_id) gt 0>
+					<cfif len(rtid.taxon_name_id) gt 0>
 						<!---
 							got it; see if the relationship exists
 							https://github.com/ArctosDB/arctos/issues/1136
