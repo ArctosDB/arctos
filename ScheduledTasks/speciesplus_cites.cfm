@@ -16,7 +16,7 @@
 		select name,taxon_name_id from temp_speciesplus_core where arctosstuff is null and rownum<2 group by name,taxon_name_id
 	</cfquery>
 	<cfloop query="d">
-		<br>name=<a href="/name/#name#">#name#</a>
+		<br>name=<a target="_blank" href="/name/#name###ArctosLegal">#name#</a>
 		<cfset x=tc.updateArctosLegalClassData(tid=#d.taxon_name_id#,name=#d.name#)>
 		  <br>x=#x#
 		  <br>
@@ -31,7 +31,7 @@
 <!---
 
 	update temp_speciesplus_core set arctosstuff=null where arctosstuff='FAIL';
-	
+
 
 	stash everything
 
