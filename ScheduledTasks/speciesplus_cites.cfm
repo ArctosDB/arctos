@@ -1,7 +1,9 @@
 <cfif not isdefined("action")><cfset action='nothing'></cfif>
 
 
-<cfif action is "nothign">
+<cfif action is "nothing">
+	<cfset tc = CreateObject("component","component.taxonomy")>
+
 	<!-- Plan Lots:
 		shove this stuff in the Arctos Legal source classification
 		first step: make the classification
@@ -14,12 +16,16 @@
 		select name,taxon_name_id from temp_speciesplus_core where arctosstuff is null and rownum<2 group by name,taxon_name_id
 	</cfquery>
 	<cfloop query="d">
-	
+		<br>name=#name#
+		<cfset x=tc.updateArctosLegalClassData(tid=#d.taxon_name_id#,name=#d.name#)>
+		----x=#x#
+		<cfquery name="log" datasource='uam_god'>
+			update temp_speciesplus_core set arctosstuff='#x#' where taxon_name_id=#d.taxon_name_id#
+		</cfquery>
 	</cfloop>
+	</cfoutput>
 	</cfif>
-	
-	https://arctos.database.museum/component/taxonomy.cfc?method=updateArctosLegalClassData&debug=true&tid=11635213&name=Pseudoryx
-select taxon_name_id,name from temp_speciesplus_core where taxon_name_id is not null and rownum=1;
+
 <!---
 	stash everything
 
@@ -399,7 +405,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 					'Arctos Legal',
 					NULL,
 					sysdate
-				)					
+				)
 			</cfquery>
 			<cfquery name="insC" datasource="uam_god">
 				insert into taxon_term (
@@ -424,7 +430,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 			</cfquery>
 			<cfset pic=1>
 			<cfquery name="k" dbtype="kingdom">
-				select vlu from m where term='kingdom'			
+				select vlu from m where term='kingdom'
 			</cfquery>
 			<cfloop query="k">
 				<cfquery name="insC" datasource="uam_god">
@@ -451,7 +457,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 				<cfset pic=pic+1>
 			</cfloop>
 			<cfquery name="k" dbtype="kingdom">
-				select vlu from m where term='phylum'			
+				select vlu from m where term='phylum'
 			</cfquery>
 			<cfloop query="k">
 				<cfquery name="insC" datasource="uam_god">
@@ -478,7 +484,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 				<cfset pic=pic+1>
 			</cfloop>
 			<cfquery name="k" dbtype="kingdom">
-				select vlu from m where term='class'			
+				select vlu from m where term='class'
 			</cfquery>
 			<cfloop query="k">
 				<cfquery name="insC" datasource="uam_god">
@@ -505,7 +511,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 				<cfset pic=pic+1>
 			</cfloop>
 			<cfquery name="k" dbtype="kingdom">
-				select vlu from m where term='order'			
+				select vlu from m where term='order'
 			</cfquery>
 			<cfloop query="k">
 				<cfquery name="insC" datasource="uam_god">
@@ -532,7 +538,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 				<cfset pic=pic+1>
 			</cfloop>
 			<cfquery name="k" dbtype="kingdom">
-				select vlu from m where term='order'			
+				select vlu from m where term='order'
 			</cfquery>
 			<cfloop query="k">
 				<cfquery name="insC" datasource="uam_god">
@@ -558,9 +564,9 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 				</cfquery>
 				<cfset pic=pic+1>
 			</cfloop>
-			
-			
-			
+
+
+
 		------------------------------------------------------------------------------------------------------------------------
 common_name
 
@@ -573,9 +579,9 @@ cites_appendix
 
 
 
-			
+
 		</cftransaction>
-		
+
 		 Name								   Null?    Type
  ----------------------------------------------------------------- -------- --------------------------------------------
  							   NOT NULL NUMBER
@@ -589,7 +595,7 @@ cites_appendix
  							   NOT NULL DATE
  MATCH_TYPE								    VARCHAR2(255)
 
-UAM@ARCTOS> 
+UAM@ARCTOS>
 
 
 
