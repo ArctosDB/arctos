@@ -1,5 +1,19 @@
 <cfcomponent>
 <!--------------------------------------------------------------------------------------->
+	<cffunction name="checkCites" access="remote">
+		<cfargument name="tid" type="numeric" required="true">
+		<cfargument name="name" type="string" required="true">
+		<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
+			select SPECIESPLUS_TOKEN from cf_global_settings
+		</cfquery>
+		<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?name=#name#" method="get">
+			<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
+		</cfhttp>
+		<cfdump var=#ga#>
+
+
+	</cffunction>
+<!--------------------------------------------------------------------------------------->
 	<cffunction name="checkConsistency" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="tid" type="numeric" required="true">
