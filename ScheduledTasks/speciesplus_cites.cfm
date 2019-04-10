@@ -29,6 +29,10 @@
 	</cfif>
 
 <!---
+
+	update temp_speciesplus_core set arctosstuff=null where arctosstuff='FAIL';
+	
+
 	stash everything
 
 	https://www.speciesplus.net/species

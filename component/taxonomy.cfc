@@ -166,7 +166,12 @@
 			<cfif structkeyexists(thisConcept,"cites_listings")>
 				<cfloop from="1" to ="#arraylen(thisConcept.cites_listings)#" index="cli">
 					<cfset thisCitesAppendix=thisConcept.cites_listings[cli].appendix>
-					<cfset thisCitesAnno=thisConcept.cites_listings[cli].annotation>
+					<cftry>
+						<cfset thisCitesAnno=thisConcept.cites_listings[cli].annotation>
+					<cfcatch>
+						<cfset thisCitesAnno="">
+					</cfcatch>
+					</cftry>
 					<!----
 					<br>thisCitesAppendix=#thisCitesAppendix#
 					---->
@@ -191,27 +196,29 @@
 							sysdate
 						)
 					</cfquery>
-					<cfquery name="insC" datasource="uam_god">
-						insert into taxon_term (
-							TAXON_TERM_ID,
-							TAXON_NAME_ID,
-							CLASSIFICATION_ID,
-							TERM_TYPE,
-							TERM,
-							SOURCE,
-							POSITION_IN_CLASSIFICATION,
-							LASTDATE
-						) values (
-							sq_TAXON_TERM_ID.nextval,
-							#tid#,
-							'#thisClassificationID#',
-							'CITES Annotation',
-							'#thisCitesAppendix#: #thisCitesAnno#',
-							'Arctos Legal',
-							NULL,
-							sysdate
-						)
-					</cfquery>
+					<cfif len(thisCitesAnno)>
+						<cfquery name="insC" datasource="uam_god">
+							insert into taxon_term (
+								TAXON_TERM_ID,
+								TAXON_NAME_ID,
+								CLASSIFICATION_ID,
+								TERM_TYPE,
+								TERM,
+								SOURCE,
+								POSITION_IN_CLASSIFICATION,
+								LASTDATE
+							) values (
+								sq_TAXON_TERM_ID.nextval,
+								#tid#,
+								'#thisClassificationID#',
+								'CITES Annotation',
+								'#thisCitesAppendix#: #thisCitesAnno#',
+								'Arctos Legal',
+								NULL,
+								sysdate
+							)
+						</cfquery>
+					</cfif>
 				</cfloop>
 			</cfif>
 			<!--- see if we can make some relationships --->
@@ -328,6 +335,9 @@
 		</cfif>
 		<cfcatch>
 			<cfset runstatus="FAIL">
+			<cfif debug is true>
+				<cfdump var=#cfcatch#>
+			</cfif>
 		</cfcatch>
 
 		</cftry>
