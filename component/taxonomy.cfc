@@ -326,7 +326,7 @@
 									#tid#,
 									'#thisClassificationID#',
 									'CITES Annotation',
-									'#thisCitesAppendix#: #thisCitesAnno#',
+									'(Appendix #thisCitesAppendix#): #thisCitesAnno#',
 									'Arctos Legal',
 									NULL,
 									sysdate
