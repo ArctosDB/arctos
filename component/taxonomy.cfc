@@ -1,6 +1,6 @@
 <cfcomponent>
 <!--------------------------------------------------------------------------------------->
-	<cffunction name="checkCites" access="remote">
+	<cffunction name="updateArctosLegalClassData" access="remote">
 		<cfargument name="tid" type="numeric" required="true">
 		<cfargument name="name" type="string" required="true">
 		<cfif not isdefined("debug")>
@@ -15,6 +15,9 @@
 		</cfhttp>
 		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 			<cfset rslt=DeserializeJSON(ga.filecontent)>
+			<cfif debug is true>
+				<cfdump var=#rslt#>
+			</cfif>
 			<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 				<cfset thisConcept=rslt.taxon_concepts[i]>
 				<cfif isdefined("debug") and debug is true>
