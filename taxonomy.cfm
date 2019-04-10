@@ -613,7 +613,7 @@ function showmetadata(){
 						if (r=='SUCCESS'){
 							var theLink='<span class="likeLink" onclick="reloadHash(\'ArctosLegal\')">Success! click to reload</span>';
 						} else {
-							var theLink='CITES lookup failed.';
+							var theLink=r;
 						}
 						$("##ckCites").html(theLink);
 
