@@ -1,4 +1,4 @@
-<cfif not defined("action")><cfset action='nothing'></cfif>
+<cfif not isdefined("action")><cfset action='nothing'></cfif>
 
 
 <!---
