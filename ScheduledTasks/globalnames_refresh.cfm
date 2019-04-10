@@ -111,6 +111,8 @@ This form may be called in two ways:
 		select source from (
 			select 'Arctos Relationships' source from dual
 			union
+			select 'Arctos Legal' source from dual
+			union
 			select source from ctTAXONOMY_SOURCE
 		)
 	</cfquery>

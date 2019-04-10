@@ -56,7 +56,7 @@
 );
 
 alter table cf_temp_classification add preferred_name varchar2(255);
-alter table cf_temp_classification add cites_status varchar2(255);
+alter table cf_temp_classification drop column cites_status varchar2(255);
 
 alter table cf_temp_classification add aphiaid varchar2(255);
 

@@ -338,11 +338,12 @@ select * from temp_ttl where kingdom is null;
 
 BAH don't have enough info to use this!!
 
+update temp_speciesplus_core set ARCTOSSTUFF =null;
 
 <cfif action is "mknew">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select name,concept_id from temp_speciesplus_core where arctosstuff='create_taxa_need_class'  and rownum<2 group by name,concept_id
+		select name,concept_id from temp_speciesplus_core where arctosstuffis null  and rownum<2 group by name,concept_id
 	</cfquery>
 	<cfloop query="d">
 		<br>#name#
@@ -350,18 +351,6 @@ BAH don't have enough info to use this!!
 			select distinct TERM,VALUE vlu from temp_speciesplus_meta where concept_id='#concept_id#'
 		</cfquery>
 		<cfdump var=#m#>
-		<cfquery name="k" dbtype="query">
-			select vlu from m where term='kingdom'
-		</cfquery>
-		<cfif k.vlu is 'Animalia'>
-			<cfset src='Arctos'>
-		<cfelseif k.vlu is 'Plantae'>
-			<cfset src='Arctos Plants'>
-		<cfelse>
-			no kingdom, not sure what do to....<cfabort>
-		</cfif>
-
-
 	</cfloop>
 
 </cfoutput>
