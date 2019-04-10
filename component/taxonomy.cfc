@@ -80,7 +80,7 @@
 					LASTDATE
 				) values (
 					sq_TAXON_TERM_ID.nextval,
-					#d.taxon_name_id#,
+					#tid#,
 					'#thisClassificationID#',
 					'#thisNameRank#',
 					'#thisName#',
@@ -102,7 +102,7 @@
 					LASTDATE
 				) values (
 					sq_TAXON_TERM_ID.nextval,
-					#d.taxon_name_id#,
+					#tid#,
 					'#thisClassificationID#',
 					'citation',
 					'UNEP (2019). The Species+ Website. Nairobi, Kenya. Compiled by UNEP-WCMC, Cambridge, UK. Available at: www.speciesplus.net. [Accessed #dateformat(now(),"YYYY-MM-DD")#.',
@@ -124,7 +124,7 @@
 					LASTDATE
 				) values (
 					sq_TAXON_TERM_ID.nextval,
-					#d.taxon_name_id#,
+					#tid#,
 					'#thisClassificationID#',
 					'source_authority',
 					'<a href="https://speciesplus.net/##/taxon_concepts?taxonomy=cites_eu&taxon_concept_query=#d.name#&geo_entities_ids=&geo_entity_scope=cites&page=1">Species+</a>',
@@ -147,7 +147,7 @@
 						LASTDATE
 					) values (
 						sq_TAXON_TERM_ID.nextval,
-						#d.taxon_name_id#,
+						#tid#,
 						'#thisClassificationID#',
 						'Name Author',
 						'#thisNameAuth#',
@@ -178,7 +178,7 @@
 							LASTDATE
 						) values (
 							sq_TAXON_TERM_ID.nextval,
-							#d.taxon_name_id#,
+							#tid#,
 							'#thisClassificationID#',
 							'CITES Appendix',
 							'#thisCitesAppendix#',
@@ -199,7 +199,7 @@
 							LASTDATE
 						) values (
 							sq_TAXON_TERM_ID.nextval,
-							#d.taxon_name_id#,
+							#tid#,
 							'#thisClassificationID#',
 							'CITES Annotation',
 							'#thisCitesAppendix#: #thisCitesAnno#',
