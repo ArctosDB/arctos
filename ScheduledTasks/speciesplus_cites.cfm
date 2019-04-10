@@ -347,7 +347,7 @@ update temp_speciesplus_core set ARCTOSSTUFF =null;
 	---->
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select name,concept_id from temp_speciesplus_core where arctosstuffis null  and rownum<2 group by name,concept_id
+		select name,concept_id from temp_speciesplus_core where arctosstuff is null  and rownum<2 group by name,concept_id
 	</cfquery>
 	<cfloop query="d">
 		<br>#name#
