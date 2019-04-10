@@ -272,11 +272,13 @@ update temp_speciesplus_core set arctos_class=(
 --->
 
 
-UAM@ARCTOS> update temp_speciesplus_core set arctosstuff='create_taxa_need_class' where name in (select scientific_name from taxon_name where to_char(CREATED_DATE,'YYYY-MM-DD')='2019-04-09');
+UAM@ARCTOS>
+
+update temp_speciesplus_core set arctosstuff='create_taxa_need_class' where name in (select scientific_name from taxon_name where to_char(CREATED_DATE,'YYYY-MM-DD')='2019-04-09');
 <cfif action is "mknew">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select name,concept_id from temp_speciesplus_core where arctosstuff='create_taxa_need_class' and arctosstuff is null and rownum<2 group by name,concept_id
+		select name,concept_id from temp_speciesplus_core where arctosstuff='create_taxa_need_class'  and rownum<2 group by name,concept_id
 	</cfquery>
 	<cfloop query="d">
 		<br>#name#
