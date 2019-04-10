@@ -1,3 +1,6 @@
+<cfif not defined("action")><cfset action='nothing'></cfif>
+
+
 <!---
 	stash everything
 
@@ -88,6 +91,8 @@ insert into taxon_name (scientific_name,taxon_name_id) (select name,sq_taxon_nam
 
 select scientific_name,isvalidtaxonname(scientific_name) from taxon_name where to_char(CREATED_DATE,'YYYY-MM-DD')='2019-04-09' and isvalidtaxonname(scientific_name)!='valid';
 
+update temp_speciesplus_core set arctosstuff='create_taxa_need_class' where name in (select scientific_name from taxon_name where to_char(CREATED_DATE,'YYYY-MM-DD')='2019-04-09');
+
 
 
 
@@ -118,7 +123,6 @@ class
 synonym
 phylum
 order
-kingdom
 family
 cites_appendix
 
@@ -126,14 +130,179 @@ cites_appendix
 
 alter table temp_speciesplus_core add arctosstuff varchar2(4000);
 
+alter table temp_speciesplus_core add taxon_name_id number;
+update temp_speciesplus_core set taxon_name_id=(select taxon_name_id from taxon_name where scientific_name=name);
 
 
-     14101
+alter table temp_speciesplus_core add source varchar2(255);
+update temp_speciesplus_core set source='Arctos' where concept_id in (select concept_id from temp_speciesplus_meta where term='kingdom' and value='Animalia');
+update temp_speciesplus_core set source='Arctos Plants' where concept_id in (select concept_id from temp_speciesplus_meta where term='kingdom' and value='Plantae');
+
+
+select count(*) from temp_speciesplus_core where taxon_name_id is not null and source is null;
+select count(*) from temp_speciesplus_meta where concept_id=11896900;
+
+alter table temp_speciesplus_core add arctos_kingdom varchar2(255);
+
+update temp_speciesplus_core set arctos_kingdom=(
+	select distinct term from taxon_term where
+		taxon_term.source=temp_speciesplus_core.source and
+		taxon_term.taxon_name_id=temp_speciesplus_core.taxon_name_id and
+		term_type='kingdom'
+	);
+
+	select distinct arctos_kingdom from temp_speciesplus_core;
+
+
+alter table temp_speciesplus_core add arctos_phylum varchar2(255);
+
+update temp_speciesplus_core set arctosstuff='multiple_arctos_phylum' where taxon_name_id in (select taxon_name_id from (
+select term, taxon_name_id from taxon_term where
+		taxon_term.source in ('Arctos','Arctos Plants') and
+		term_type='phylum'
+		having count(*) > 1 group by term, taxon_name_id
+	));
+
+
+update temp_speciesplus_core set arctos_phylum=(
+	select distinct term from taxon_term where
+		taxon_term.source=temp_speciesplus_core.source and
+		taxon_term.taxon_name_id=temp_speciesplus_core.taxon_name_id and
+		term_type='phylum' and
+		 arctosstuff is null
+	) where arctosstuff is null;
+
+
+
+declare t varchar2(255);
+begin
+	for r in (select name,source,taxon_name_id from temp_speciesplus_core where arctos_phylum is null and arctosstuff is null and taxon_name_id is not null and rownum<20000) loop
+	--dbms_output.put_line(r.name);
+	--dbms_output.put_line(r.source);
+	--dbms_output.put_line(r.taxon_name_id);
+
+		begin
+			select term into t from taxon_term where
+				taxon_term.source=r.source and
+				taxon_term.taxon_name_id=r.taxon_name_id and
+				term_type='phylum' group by term;
+
+			update temp_speciesplus_core set arctos_phylum=t where taxon_name_id=r.taxon_name_id;
+
+		--	dbms_output.put_line('t:'||t);
+		exception when others then
+		--	dbms_output.put_line('fail@'||r.name);
+			update temp_speciesplus_core set arctosstuff='arctos_phylum_fail' where taxon_name_id=r.taxon_name_id;
+		end;
+	end loop;
+end;
+/
+
+
+alter table temp_speciesplus_core add arctos_class varchar2(255);
+
+
+declare t varchar2(255);
+begin
+	for r in (select name,source,taxon_name_id from temp_speciesplus_core where arctos_class is null and arctosstuff is null and taxon_name_id is not null and rownum<20000) loop
+	--dbms_output.put_line(r.name);
+	--dbms_output.put_line(r.source);
+	--dbms_output.put_line(r.taxon_name_id);
+
+		begin
+			select term into t from taxon_term where
+				taxon_term.source=r.source and
+				taxon_term.taxon_name_id=r.taxon_name_id and
+				term_type='class' group by term;
+
+			update temp_speciesplus_core set arctos_class=t where taxon_name_id=r.taxon_name_id;
+
+		--	dbms_output.put_line('t:'||t);
+		exception when others then
+		--	dbms_output.put_line('fail@'||r.name);
+			update temp_speciesplus_core set arctosstuff='arctos_class_fail' where taxon_name_id=r.taxon_name_id;
+		end;
+	end loop;
+end;
+/
+
+
+create table temp_has_both as select taxon_name_id from temp_speciesplus_core where taxon_name_id is not null and taxon_name_id in (select taxon_name_id from taxon_term where source='Arctos')
+and taxon_name_id in (select taxon_name_id from taxon_term where source='Arctos Plants');
+
+----------------- stopped here -------------
+
+select term  from taxon_term where
+				taxon_term.source='Arctos' and
+				taxon_term.taxon_name_id=12 and
+				term_type='phylum';
+
+
+update temp_speciesplus_core set arctosstuff='multiple_arctos_class' where arctosstuff is null and taxon_name_id is not null and taxon_name_id in (select taxon_name_id from (
+select term, taxon_name_id from taxon_term where
+		taxon_term.source in ('Arctos','Arctos Plants') and
+		term_type='class'
+		having count(*) > 1 group by term, taxon_name_id
+	));
+
+
+
+
+	select term, taxon_name_id from taxon_term where
+		taxon_term.source in ('Arctos','Arctos Plants') and
+		term_type='phylum'
+		having count(*) > 1 group by term, taxon_name_id;
+
+	) where arctosstuff is null;
+
+
+alter table temp_speciesplus_core add arctos_class varchar2(255);
+
+update temp_speciesplus_core set arctos_class=(
+	select distinct term from taxon_term where
+		taxon_term.source=temp_speciesplus_core.source and
+		taxon_term.taxon_name_id=temp_speciesplus_core.taxon_name_id and
+		term_type='class'
+	);
+
+
 
 
 
 --->
 
+
+UAM@ARCTOS> update temp_speciesplus_core set arctosstuff='create_taxa_need_class' where name in (select scientific_name from taxon_name where to_char(CREATED_DATE,'YYYY-MM-DD')='2019-04-09');
+<cfif action is "mknew">
+<cfoutput>
+	<cfquery name="d" datasource='uam_god'>
+		select name,concept_id from temp_speciesplus_core where arctosstuff='create_taxa_need_class' and arctosstuff is null and rownum<2 group by name,concept_id
+	</cfquery>
+	<cfloop query="d">
+		<br>#name#
+		<cfquery name="m" datasource='uam_god'>
+			select distinct TERM,VALUE vlu from temp_speciesplus_meta where concept_id='#concept_id#'
+		</cfquery>
+		<cfdump var=#m#>
+		<cfquery name="k" dbtype="query">
+			select vlu from m where term='kingdom'
+		</cfquery>
+		<cfif k.vlu is 'Animalia'>
+			<cfset src='Arctos'>
+		<cfelseif k.vlu is 'Plantae'>
+			<cfset src='Arctos Plants'>
+		<cfelse>
+			no kingdom, not sure what do to....<cfabort>
+		</cfif>
+
+
+	</cfloop>
+
+</cfoutput>
+
+</cfif>
+
+<cfif action is "nothing">
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
 		select name,concept_id from temp_speciesplus_core where status='in_arctos' and arctosstuff is null and rownum<5 group by name,concept_id
@@ -149,19 +318,21 @@ alter table temp_speciesplus_core add arctosstuff varchar2(4000);
 		</cfquery>
 		<cfif k.vlu is 'Animalia'>
 			<cfset src='Arctos'>
-
 		<cfelseif k.vlu is 'Plantae'>
 			<cfset src='Arctos Plants'>
 		<cfelse>
-			no kingdom die<cfabort>
+			no kingdom, not sure what do to....<cfabort>
 		</cfif>
 		<cfquery name="exist"  datasource='uam_god'>
 			select  TERM, TERM_TYPE	from taxon_term where source='#src#' and taxon_name_id=(select taxon_name_id from taxon_name where scientific_name='#name#')
 		</cfquery>
 		<cfdump var=#exist#>
+		<cfif exist.recordcount is 0>
+
+		</cfif>
 	</cfloop>
 </cfoutput>
-
+</cfif>
 
 
 
