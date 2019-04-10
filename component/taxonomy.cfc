@@ -58,7 +58,6 @@
 				</cfif>
 
 				<cfif isdefined("kingdom") and len(kingdom) gt 0>
-					<br>got kingdom=#kingdom#
 					<cfquery name="insC" datasource="uam_god">
 						insert into taxon_term (
 							TAXON_TERM_ID,
