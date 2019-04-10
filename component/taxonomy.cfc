@@ -267,7 +267,7 @@
 							sq_TAXON_TERM_ID.nextval,
 							#tid#,
 							'#thisClassificationID#',
-							'Name Author',
+							'author_text',
 							'#thisNameAuth#',
 							'Arctos Legal',
 							NULL,
