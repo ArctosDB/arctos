@@ -185,16 +185,6 @@
 
 
 
-				<!----
-								<cfif isdefined("debug") and debug is true>
-									<br>HT::'#key#'='#thisConcept.higher_taxa[key]#',
-								</cfif>
-
-
-								---->
-
-
-
 				<!--- now the data from the name ---->
 				<cfquery name="insC" datasource="uam_god">
 					insert into taxon_term (
@@ -210,7 +200,7 @@
 						sq_TAXON_TERM_ID.nextval,
 						#tid#,
 						'#thisClassificationID#',
-						'#thisNameRank#',
+						'#lower(thisNameRank)#',
 						'#thisName#',
 						'Arctos Legal',
 						#pic#,
