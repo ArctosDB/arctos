@@ -16,9 +16,11 @@
 		select name,taxon_name_id from temp_speciesplus_core where arctosstuff is null and rownum<2 group by name,taxon_name_id
 	</cfquery>
 	<cfloop query="d">
-		<br>name=#name#
+		<br>name=<a href="/name/#name#">#name#</a>
 		<cfset x=tc.updateArctosLegalClassData(tid=#d.taxon_name_id#,name=#d.name#)>
-		----x=#x#
+		  <br>x=#x#
+		  <br>
+		  <a href="https://arctos.database.museum/component/taxonomy.cfc?method=updateArctosLegalClassData&debug=true&tid=#d.taxon_name_id#&name=#d.name#">pulldebug</a>
 		<cfquery name="log" datasource='uam_god'>
 			update temp_speciesplus_core set arctosstuff='#x#' where taxon_name_id=#d.taxon_name_id#
 		</cfquery>
