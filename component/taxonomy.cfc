@@ -26,6 +26,7 @@
 				<cfset thisID=thisConcept.id>
 				<cfset thisName=thisConcept.full_name>
 				<cfset thisNameRank=thisConcept.rank>
+
 				<cftry>
 					<cfset thisNameAuth=thisConcept.author_year>
 				<cfcatch>
@@ -33,7 +34,7 @@
 				</cfcatch>
 				</cftry>
 				<cfset thisClassificationID=CreateUUID()>
-				<cfset pid=1>
+				<cfset pic=1>
 				<!---- flush all old 'legal' data ---->
 				<cfquery name="flushOld" datasource="uam_god">
 					delete from taxon_term where taxon_name_id=#tid# and source='Arctos Legal'
