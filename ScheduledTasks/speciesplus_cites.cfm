@@ -32,6 +32,14 @@
 
 select arctosstuff, count(*) from temp_speciesplus_core group by arctosstuff;
 
+select name,taxon_name_id from temp_speciesplus_core where arctosstuff='FAIL';
+
+https://arctos.database.museum/component/taxonomy.cfc?method=updateArctosLegalClassData&debug=true&tid=2743979&name=Mammillaria pennispinosa
+
+      
+
+      
+
 	update temp_speciesplus_core set arctosstuff=null where arctosstuff='FAIL';
 
 
