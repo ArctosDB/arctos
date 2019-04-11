@@ -1103,6 +1103,9 @@
 														<td align="left">
 															<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 																#dec_lat# / #dec_long#
+																<cfif oneOfUs is 1>
+																	<a href="https://arctos.database.museum/info/localityArchive.cfm?locality_id=#locality_id#">history</a>
+																</cfif>
 															</cfif>
 															<cfif len(verbatim_coordinates) gt 0>
 																<div class="detailCellSmall">
