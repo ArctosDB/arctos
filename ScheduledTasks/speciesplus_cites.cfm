@@ -28,15 +28,23 @@
 	</cfoutput>
 	</cfif>
 
+
+
 <!---
 
 select arctosstuff, count(*) from temp_speciesplus_core group by arctosstuff;
 
+select scientific_name from taxon_name, taxon_term where taxon_name.taxon_name_id=taxon_term.taxon_name_id and source='Arctos Legal' and rownum < 1000;
+
 select name,taxon_name_id from temp_speciesplus_core where arctosstuff='FAIL';
 
-https://arctos.database.museum/component/taxonomy.cfc?method=updateArctosLegalClassData&debug=true&tid=2743979&name=Mammillaria pennispinosa
+https://arctos.database.museum/component/taxonomy.cfc?method=updateArctosLegalClassData&debug=true&tid=2704095&name=Angraecum imbricatum
 
       
+update temp_speciesplus_core set taxon_name_id=(select taxon_name_id from taxon_name where scientific_name=name) where taxon_name_id is null;
+
+Angraecum imbricatum
+      2704095
 
       
 
@@ -135,12 +143,13 @@ select scientific_name,isvalidtaxonname(scientific_name) from taxon_name where t
 update temp_speciesplus_core set arctosstuff='create_taxa_need_class' where name in (select scientific_name from taxon_name where to_char(CREATED_DATE,'YYYY-MM-DD')='2019-04-09');
 
 
+create table temp_makethis3 as select name  from temp_speciesplus_core where taxon_name_id is null and isvalidtaxonname(name)='valid';
+
+select name from temp_speciesplus_core where taxon_name_id is null and isvalidtaxonname(name)='valid';
 
 
 
-
-
-
+insert into taxon_name (scientific_name,taxon_name_id) (select name,sq_taxon_name_id.nextval from temp_makethis3 );
 
 
 
