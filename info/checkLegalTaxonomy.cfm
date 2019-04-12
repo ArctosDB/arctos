@@ -1,5 +1,7 @@
 <cfinclude template = "/includes/_header.cfm">
-
+<p>
+	This form check the Arctos Legal classification for data related to identifications. Only specimens which use taxa for which an Arctos Legal classification exists will be shown here.
+</p>
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -30,7 +32,7 @@
 		</tr>
 		<cfloop query="dg">
 			<tr>
-				<td>#guid#</td>
+				<td><a href="/guid/#guid#">#guid#</a></td>
 				<td>#scientific_name#</td>
 				<cfquery name="thisC" dbtype="query">
 					select term_type,term,position_in_classification from d where guid='#guid#' order by position_in_classification,term_type
