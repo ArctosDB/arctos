@@ -1,4 +1,4 @@
-<cfinclude template = "includes/_header.cfm">
+<cfinclude template = "/includes/_header.cfm">
 
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -45,4 +45,4 @@
 		</cfloop>
 	</table>
 </cfoutput>
-<cfinclude template = "includes/_footer.cfm">
+<cfinclude template = "/includes/_footer.cfm">
