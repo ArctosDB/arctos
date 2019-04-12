@@ -34,13 +34,23 @@
 			<tr>
 				<td><a href="/guid/#guid#">#guid#</a></td>
 				<td>#scientific_name#</td>
-				<cfquery name="thisC" dbtype="query">
-					select term_type,term,position_in_classification from d where guid='#guid#' order by position_in_classification,term_type
+				<cfquery name="thisCnc" dbtype="query">
+					select term_type,term from d where guid='#guid#' and position_in_classification is null order by term_type
+				</cfquery>
+					<cfquery name="thisC" dbtype="query">
+					select term_type,term,position_in_classification from d where guid='#guid#' and position_in_classification is not null order by position_in_classification,term_type
 				</cfquery>
 				<td>
-					<cfloop query="thisC">
-						#term_type#=#term#<br>
-					</cfloop>
+					<ul>
+						<cfloop query="thisCnc">
+							<li>#term_type#=#term#</li>
+						</cfloop>
+						<cfset sp=1>
+						<cfloop query="thisC">
+							<li><span style="width:#sp#em;"></span>#term_type#=#term#</li>
+							<cfset sp=sp+1>
+						</cfloop>
+					</ul>
 				</td>
 
 			</tr>
