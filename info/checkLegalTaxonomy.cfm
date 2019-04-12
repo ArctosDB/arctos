@@ -1,4 +1,5 @@
 <cfinclude template = "/includes/_header.cfm">
+<cfset title="legal">
 <p>
 	This form check the Arctos Legal classification for data related to identifications. Only specimens which use taxa for which an Arctos Legal classification exists will be shown here.
 </p>
