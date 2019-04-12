@@ -523,6 +523,9 @@
 								 <option value="/SpecimenUsage.cfm?action=search">
 									Publications
 								</option>
+								 <option value="/info/checkLegalTaxonomy.cfm">
+									Legal (CITES etc.)
+								</option>
 							</optgroup>
 						</select>
 					</td>
