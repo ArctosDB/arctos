@@ -47,7 +47,7 @@
 						</cfloop>
 						<cfset sp=1>
 						<cfloop query="thisC">
-							<li><span style="width:#sp#em;"></span>#term_type#=#term#</li>
+							<li style="padding-left:#sp#em;">#term# (#term_type#)</li>
 							<cfset sp=sp+1>
 						</cfloop>
 					</ul>
