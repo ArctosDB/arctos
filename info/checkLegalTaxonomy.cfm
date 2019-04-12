@@ -1,3 +1,5 @@
+<cfinclude template = "includes/_header.cfm">
+
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -17,8 +19,6 @@
 			identification_taxonomy.taxon_name_id=taxon_term.taxon_name_id and
 			taxon_term.source='Arctos Legal'
 	</cfquery>
-	<cfdump var=#d#>
-
 	<cfquery name="dg" dbtype="query">
 		select guid,scientific_name from d group by guid,scientific_name order by guid
 	</cfquery>
@@ -45,3 +45,4 @@
 		</cfloop>
 	</table>
 </cfoutput>
+<cfinclude template = "includes/_footer.cfm">
