@@ -814,38 +814,8 @@ function checkCoordinateError(){
 		<input type="text" id="locality_name" name="locality_name" value="#stripQuotes(locDet.locality_name)#" size="120">
 
 
-		<fieldset id="fs_elevation">
-		<legend>Elevation</legend>
-		<table>
-			<tr>
-				<td>
-					<label for="minimum_elevation" class="helpLink" id="_elevation">
-						Min. Elev.
-					</label>
-					<input type="number" step="any" name="minimum_elevation" id="minimum_elevation" value="#locDet.minimum_elevation#" size="3">
-				</td>
-				<td>TO</td>
-				<td>
-					<label for="maximum_elevation" class="helpLink" id="_elevation">
-						Max. Elev.
-					</label>
-					<input type="number" step="any" name="maximum_elevation" id="maximum_elevation" value="#locDet.maximum_elevation#" size="3">
-				</td>
-				<td>
-					<label for="orig_elev_units" class="helpLink" id="_elevation">
-						Elev. Unit
-					</label>
-					<select name="orig_elev_units" size="1" id="orig_elev_units">
-						<option value=""></option>
-	                    <cfloop query="ctElevUnit">
-	                    	<option <cfif ctelevunit.orig_elev_units is locdet.orig_elev_units> selected="selected" </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
-	                    </cfloop>
-	                </select>
-				</td>
-			</tr>
-		</table>
-		</div>
-		</fieldset>
+
+		<!----
 		<fieldset id="fs_depth">
 		<legend>Depth</legend>
 		<table>
@@ -871,6 +841,7 @@ function checkCoordinateError(){
 			</tr>
 		</table>
 		</fieldset>
+		---->
 		<label for="locality_remarks">Locality Remarks</label>
 		<input type="text" name="locality_remarks" id="locality_remarks" value="#stripQuotes(locDet.locality_remarks)#"  size="120">
 		<fieldset id="fs_coordinates">
@@ -1067,6 +1038,58 @@ function checkCoordinateError(){
 
 
 		</fieldset>
+
+		<fieldset id="fs_elevation">
+		<legend>Vertical</legend>
+		<table>
+			<tr>
+				<td>
+					<label for="minimum_elevation" class="helpLink" id="_elevation">
+						Min. Elev.
+					</label>
+					<input type="number" step="any" name="minimum_elevation" id="minimum_elevation" value="#locDet.minimum_elevation#" size="3">
+				</td>
+				<td>TO</td>
+				<td>
+					<label for="maximum_elevation" class="helpLink" id="_elevation">
+						Max. Elev.
+					</label>
+					<input type="number" step="any" name="maximum_elevation" id="maximum_elevation" value="#locDet.maximum_elevation#" size="3">
+				</td>
+				<td>
+					<label for="orig_elev_units" class="helpLink" id="_elevation">
+						Elev. Unit
+					</label>
+					<select name="orig_elev_units" size="1" id="orig_elev_units">
+						<option value=""></option>
+	                    <cfloop query="ctElevUnit">
+	                    	<option <cfif ctelevunit.orig_elev_units is locdet.orig_elev_units> selected="selected" </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
+	                    </cfloop>
+	                </select>
+				</td>
+				<td>
+					<label for="min_depth" class="helpLink" id="_depth">Min. Depth</label>
+					<input  type="number" step="any" name="min_depth" id="min_depth" value="#locDet.min_depth#" size="3">
+				</td>
+				<td>TO</td>
+				<td>
+					<label for="max_depth" class="helpLink" id="_depth">Max. Depth</label>
+					<input  type="number" step="any" name="max_depth"  id="max_depth" value="#locDet.max_depth#" size="3">
+				</td>
+				<td>
+					<label for="depth_units" class="helpLink" id="_depth">Depth Units</label>
+					<select name="depth_units" size="1" id="depth_units">
+						<option value=""></option>
+	                    <cfloop query="ctDepthUnit">
+	                    	<option <cfif ctDepthUnit.depth_units is locdet.depth_units> selected="selected" </cfif>value="#ctDepthUnit.depth_units#">#ctDepthUnit.depth_units#</option>
+	                    </cfloop>
+	                </select>
+				</td>
+			</tr>
+		</table>
+		</div>
+		</fieldset>
+
 		<cfquery name="canEdit" dbtype="query">
 			select count(*) c from vstat where verificationstatus like 'verified by%'
 		</cfquery>
