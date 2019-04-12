@@ -59,7 +59,7 @@ function checkElevation(){
 		$("#minimum_elevation").removeClass().prop('required',false);
 		$("#maximum_elevation").removeClass().prop('required',false);
 		$("#orig_elev_units").removeClass().prop('required',false);
-		$("#fs_elevation legend").text('Elevation');
+		$("#fs_elevation legend").text('Vertical');
 	}
 }
 
@@ -68,12 +68,14 @@ function checkDepth(){
 		$("#min_depth").addClass('reqdClr').prop('required',true);
 		$("#max_depth").addClass('reqdClr').prop('required',true);
 		$("#depth_units").addClass('reqdClr').prop('required',true);
-		$("#fs_depth legend").text('All or none of minimum depth, maximum depth, and depth units are required');
+		//$("#fs_depth legend").text('All or none of minimum depth, maximum depth, and depth units are required');
+		$("#fs_elevation legend").text('All or none of minimum depth, maximum depth, and depth units are required');
 	} else {
 		$("#min_depth").removeClass().prop('required',false);
 		$("#max_depth").removeClass().prop('required',false);
 		$("#depth_units").removeClass().prop('required',false);
-		$("#fs_depth legend").text('Depth');
+		//$("#fs_depth legend").text('Depth');
+		$("#fs_elevation legend").text('Vertical');
 	}
 }
 function checkCoordinates(){
