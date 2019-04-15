@@ -13,7 +13,7 @@
 	---->
 <cfoutput>
 	<cfquery name="d" datasource='uam_god'>
-		select name,taxon_name_id from temp_speciesplus_core where taxon_name_id is not null and arctosstuff is null and rownum<8 group by name,taxon_name_id
+		select name,taxon_name_id from temp_speciesplus_core where taxon_name_id is not null and arctosstuff is null and rownum<6 group by name,taxon_name_id
 	</cfquery>
 	<cfloop query="d">
 		<br>name=<a target="_blank" href="/name/#name###ArctosLegal">#name#</a>
@@ -40,13 +40,13 @@ select name,taxon_name_id from temp_speciesplus_core where arctosstuff='FAIL';
 
 https://arctos.database.museum/component/taxonomy.cfc?method=updateArctosLegalClassData&debug=true&tid=2704095&name=Angraecum imbricatum
 
-      
+
 update temp_speciesplus_core set taxon_name_id=(select taxon_name_id from taxon_name where scientific_name=name) where taxon_name_id is null;
 
 Angraecum imbricatum
       2704095
 
-      
+
 
 	update temp_speciesplus_core set arctosstuff=null where arctosstuff='FAIL';
 
