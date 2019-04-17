@@ -100,13 +100,11 @@ create table cf_speciesplus_status (
 						<cfset tid=ag1.taxon_name_id>
 					</cfif>
 					<cfif len(tid) gt 0>
+						<cfdump var=#tid#>
+						<cfdump var=#thisConcept#>
 						<cfset x=tc.updateArctosLegalClassData_guts(tid="#tid#",rslt="#thisConcept#")>
-
-
-
 						<cfdump var=#x#>
 					</cfif>
-
 				</cfloop>
 				<!----
 				<cfset rslt=DeserializeJSON(ga.filecontent)>
