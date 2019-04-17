@@ -442,6 +442,7 @@
 				<cfset runstatus="FAIL">
 				<cfif debug is true>
 					<cfdump var=#cfcatch#>
+					<cfset runstatus="#cfcatch#">
 				</cfif>
 			</cfcatch>
 		</cftry>
