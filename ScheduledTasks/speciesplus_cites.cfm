@@ -52,6 +52,9 @@ create table cf_speciesplus_status (
 
 	after the if....
 	<!--- see if there's anything we need to process ---->
+
+	<cfset alskj=pgsize * s.lastpage>
+<br>	pgsize * s.lastpage: #alskj#
 	<cfif pgsize * s.lastpage gte s.recordcount>
 		already processed everything; abort<cfabort>
 	</cfif>
