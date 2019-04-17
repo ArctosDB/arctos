@@ -12,8 +12,14 @@ create table cf_speciesplus_status (
 	<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
 		select SPECIESPLUS_TOKEN from cf_global_settings
 	</cfquery>
+	<!----
 
+	<cfset today='2019-04-01'>
+
+
+	---->
 	<cfset today=dateformat(now(),'YYYY-MM-DD')>
+
 	<cfquery name="s" datasource='uam_god'>
 		select * from cf_speciesplus_status
 	</cfquery>
@@ -28,9 +34,17 @@ create table cf_speciesplus_status (
 			<cfset rslt=DeserializeJSON(ga.filecontent)>
 			<cfset ttlrecs=rslt.pagination.total_entries>
 			<br>there are #ttlrecs# stale
+			<cfquery name="flush" datasource='uam_god'>
+				delete from cf_speciesplus_status
+			</cfquery>
+			<cfquery name="seed" datasource='uam_god'>
+				insert into cf_speciesplus_status (last_date,recordcount,lastpage) values (sysdate,#ttlrecs#,0)
+			</cfquery>
+			<br>seeded
 		</cfif>
 	</cfif>
 
+after the if....
 
 
 	<cfabort>
