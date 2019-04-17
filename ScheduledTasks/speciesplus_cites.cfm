@@ -62,13 +62,18 @@ after the if....
 				<cfdump var=#yesterday#>
 
 
-<cfabort>
-
 
 				<cfset tc = CreateObject("component","component.taxonomy")>
 
+			<cfset nextpage=s.lastpage+1>
 
-			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=2019-04-01&per_page=3&page=2" method="get">
+
+			https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#yesterday#&per_page=#pgsize#&page=#nextpage#
+
+
+
+
+			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#yesterday#&per_page=#pgsize#&page=#nextpage#" method="get">
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
