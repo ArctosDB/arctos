@@ -4,6 +4,7 @@
 <cfif action is "nothing">
 
 <cfoutput>
+				<cfset tc = CreateObject("component","component.taxonomy")>
 
 		<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
 			select SPECIESPLUS_TOKEN from cf_global_settings
@@ -17,6 +18,7 @@
 
 				<!--- loop over results --->
 				<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
+					<cfset tid="">
 					<cfset thisConcept=rslt.taxon_concepts[i]>
 					<!---
 					<cfdump var=#thisConcept#>
@@ -36,12 +38,25 @@
 						</cfquery>
 						<cfif vtn.v is 'valid'>
 							<br>is valid can make
+							<cfquery name="mknm" datasource='uam_god'>
+								insert into taxon_name(taxon_name_id,scientific_name) values (sq_taxon_name_id.nextval,'#thisName#')
+							</cfquery>
+							<cfquery name="ag1" datasource='uam_god'>
+								select taxon_name_id from taxon_name where scientific_name='#thisName#'
+							</cfquery>
+							<cfset tid=ag1.taxon_name_id>
 						</cfif>
+					<cfelse>
+						<cfset tid=ag1.taxon_name_id>
 					</cfif>
+					<cfif len(tid) gt 0>
+						<cfset x=tc.updateArctosLegalClassData_guts(tid="#tid#",rslt="#rslt#")>
+						<cfdump var=#x#>
+					</cfif>
+
 				</cfloop>
 				<!----
 				<cfset rslt=DeserializeJSON(ga.filecontent)>
-				<cfset tc = CreateObject("component","component.taxonomy")>
 				<cfset x=tc.updateArctosLegalClassData_guts(rslt)>
 				<cfdump var=#x#>
 				---->
