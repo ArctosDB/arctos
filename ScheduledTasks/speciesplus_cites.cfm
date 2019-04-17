@@ -113,7 +113,7 @@ create table cf_speciesplus_status (
 						<!----
 						<cfdump var=#thisConcept#>
 						---->
-						<cfset x=tc.updateArctosLegalClassData_guts(tid="#tid#",thisConcept="#thisConcept#",debug="true")>
+						<cfset x=tc.updateArctosLegalClassData_guts(tid="#tid#",thisConcept="#thisConcept#",debug="false")>
 
 						<cfdump var=#x#>
 					</cfif>
