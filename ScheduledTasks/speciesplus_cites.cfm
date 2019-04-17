@@ -21,6 +21,8 @@ create table cf_speciesplus_status (
 
 	---->
 	<cfset today=dateformat(now(),'YYYY-MM-DD')>
+	<cfset y=DateAdd("d", -1, now())>
+	<cfset yesterday=dateformat(y,'YYYY-MM-DD')>
 
 	<cfquery name="s" datasource='uam_god'>
 		select * from cf_speciesplus_status
@@ -29,7 +31,7 @@ create table cf_speciesplus_status (
 		<!---- we have not been here today---->
 		<br>we have not been here today
 		<br>grab the first page just to get counts
-		<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#today#&per_page=1&page=1" method="get">
+		<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#yesterday#&per_page=1&page=1" method="get">
 			<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 		</cfhttp>
 		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
@@ -56,7 +58,6 @@ after the if....
 
 	made it here we can do stuff
 
-				<cfset yesterday=DateAdd("d", -1, now())>
 
 				<cfdump var=#yesterday#>
 
