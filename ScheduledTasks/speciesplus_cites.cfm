@@ -12,10 +12,22 @@
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
+				<!--- loop over results --->
+				<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
+					<cfset thisName=thisConcept.full_name>
+					<br>thisName:#thisName#
+					<!--- do we already have it? --->
+					<cfquery name="ag1" datasource='uam_god'>
+						select taxon_name_id from taxon_name where scientific_name='#thisName#'
+					</cfquery>
+					<cfdump var=#ag1#>
+				</cfloop>
+				<!----
 				<cfset rslt=DeserializeJSON(ga.filecontent)>
 				<cfset tc = CreateObject("component","component.taxonomy")>
 				<cfset x=tc.updateArctosLegalClassData_guts(rslt)>
 				<cfdump var=#x#>
+				---->
 			<cfelse>
 				fail
 				<cfdump var=#ga#>

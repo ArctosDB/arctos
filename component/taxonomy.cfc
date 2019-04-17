@@ -1,24 +1,7 @@
 <cfcomponent>
 	<cffunction name="updateArctosLegalClassData_guts" access="remote">
-
-
-		<!----
 		<cfargument name="rslt" type="any" required="true">
-		---->
 
-
-			<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
-			select SPECIESPLUS_TOKEN from cf_global_settings
-		</cfquery>
-			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=2019-04-01" method="get">
-				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
-			</cfhttp>
-			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
-				<cfset rslt=DeserializeJSON(ga.filecontent)>
-			<cfelse>
-				fail
-				<cfdump var=#ga#>
-			</cfif>
 
 
 
