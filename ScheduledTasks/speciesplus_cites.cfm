@@ -18,8 +18,9 @@
 				<!--- loop over results --->
 				<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 					<cfset thisConcept=rslt.taxon_concepts[i]>
-
+					<!---
 					<cfdump var=#thisConcept#>
+					---->
 					<cfset thisName=thisConcept.full_name>
 					<br>thisName:#thisName#
 					<!--- do we already have it? --->
@@ -27,6 +28,9 @@
 						select taxon_name_id from taxon_name where scientific_name='#thisName#'
 					</cfquery>
 					<cfdump var=#ag1#>
+					<cfif len(ag1.taxon_name_id) lt 1>
+						<br>=============================need to make=====================
+					</cfif>
 				</cfloop>
 				<!----
 				<cfset rslt=DeserializeJSON(ga.filecontent)>
