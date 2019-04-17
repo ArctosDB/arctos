@@ -1,9 +1,27 @@
 <cfif not isdefined("action")><cfset action='nothing'></cfif>
 
-
+<!----
+create table cf_speciesplus_status (
+	last_date date,
+	recordcount number,
+	lastpage number);
+	---------->
 <cfif action is "nothing">
 
 <cfoutput>
+	<cfquery name="s" datasource='uam_god'>
+		select * from cf_speciesplus_status
+	</cfquery>
+	<cfif dateformat(s.last_date,'YYYY-MM-DD') neq dateformat(now(),'YYYY-MM-DD')>
+		<!---- we have not been here today---->
+		<br>we have not been here today
+	</cfif>
+
+
+
+	<cfabort>
+
+
 				<cfset tc = CreateObject("component","component.taxonomy")>
 
 		<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
