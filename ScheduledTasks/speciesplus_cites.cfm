@@ -116,7 +116,9 @@ create table cf_speciesplus_status (
 				<cfdump var=#ga#>
 			</cfif>
 
-
+				<cfquery name="incr" datasource='uam_god'>
+				update cf_speciesplus_status set lastpage=#nextpage#
+			</cfquery>
 	</cfoutput>
 </cfif>
 
