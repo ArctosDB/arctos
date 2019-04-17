@@ -59,6 +59,7 @@ create table cf_speciesplus_status (
 	<cfset tc = CreateObject("component","component.taxonomy")>
 	<cfset nextpage=s.lastpage+1>
 
+			<br>https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#yesterday#&per_page=#pgsize#&page=#nextpage#
 			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#yesterday#&per_page=#pgsize#&page=#nextpage#" method="get">
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
