@@ -41,6 +41,8 @@ create table cf_speciesplus_status (
 				insert into cf_speciesplus_status (last_date,recordcount,lastpage) values (sysdate,#ttlrecs#,0)
 			</cfquery>
 			<br>seeded
+			<!--- just abort this run --->
+			<cfabort>
 		</cfif>
 	</cfif>
 
