@@ -9,12 +9,22 @@ create table cf_speciesplus_status (
 <cfif action is "nothing">
 
 <cfoutput>
+	<cfset today=dateformat(now(),'YYYY-MM-DD')>
 	<cfquery name="s" datasource='uam_god'>
 		select * from cf_speciesplus_status
 	</cfquery>
-	<cfif dateformat(s.last_date,'YYYY-MM-DD') neq dateformat(now(),'YYYY-MM-DD')>
+	<cfif dateformat(s.last_date,'YYYY-MM-DD') neq today>
 		<!---- we have not been here today---->
 		<br>we have not been here today
+		<br>grab the first page just to get counts
+		<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#today#&per_page=1&page=1" method="get">
+			<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
+		</cfhttp>
+		<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
+			<cfset rslt=DeserializeJSON(ga.filecontent)>
+			<cfset ttlrecs=rslt.pagination.total_entries>
+			<br>there are #ttlrecs# stale
+		</cfif>
 	</cfif>
 
 
