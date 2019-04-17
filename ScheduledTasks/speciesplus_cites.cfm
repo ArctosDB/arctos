@@ -14,6 +14,12 @@
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 				<cfset rslt=DeserializeJSON(ga.filecontent)>
 				<cfdump var=#rslt#>
+				<cfset tc = CreateObject("component","component.taxonomy")>
+				<cfset x=tc.updateArctosLegalClassData_guts(rslt)>
+				<cfdump var=#x#>
+			<cfelse>
+				fail
+				<cfdump var=#ga#>
 			</cfif>
 
 
