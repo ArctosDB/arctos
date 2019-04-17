@@ -9,6 +9,8 @@ create table cf_speciesplus_status (
 <cfif action is "nothing">
 
 <cfoutput>
+	<cfset pgsize="1">
+
 	<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
 		select SPECIESPLUS_TOKEN from cf_global_settings
 	</cfquery>
@@ -47,6 +49,10 @@ create table cf_speciesplus_status (
 	</cfif>
 
 after the if....
+	<!--- see if there's anything we need to process ---->
+	<cfif pgsize * s.lastpage lt s.recordcount>
+		there's still stuff to process
+	</cfif>
 
 
 	<cfabort>
