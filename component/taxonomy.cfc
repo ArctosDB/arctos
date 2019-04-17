@@ -5,7 +5,7 @@
 ---->
 
 <cfargument name="tid" type="numeric" required="true">
-		<cfargument name="rslt" type="any" required="true">
+		<cfargument name="thisConcept" type="any" required="true">
 	<cfif not isdefined("debug")>
 			<cfset debug=false>
 		</cfif>
@@ -66,8 +66,10 @@
 			<cfif arraylen(rslt.taxon_concepts) is 0>
 				<cfreturn 'NO_DATA_FOUND'>
 			</cfif>
+			<!----
 			<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 				<cfset thisConcept=rslt.taxon_concepts[i]>
+				---->
 				<cfif isdefined("debug") and debug is true>
 					<cfdump var=#thisConcept#>
 				</cfif>
@@ -485,7 +487,9 @@
 						</cfif>
 					</cfloop>
 				</cfif>
+				<!----
 			</cfloop>
+			---->
 			<cfcatch>
 				<cfset runstatus="FAIL">
 				<cfif debug is true>
