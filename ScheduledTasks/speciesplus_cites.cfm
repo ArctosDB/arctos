@@ -56,7 +56,7 @@ after the if....
 
 	made it here we can do stuff
 
-				<cfset yesterday=DateAdd("d", 1, now())>
+				<cfset yesterday=DateAdd("d", -1, now())>
 
 				<cfdump var=#yesterday#>
 
