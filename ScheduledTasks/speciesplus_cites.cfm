@@ -30,6 +30,13 @@
 					<cfdump var=#ag1#>
 					<cfif len(ag1.taxon_name_id) lt 1>
 						<br>=============================need to make=====================
+
+						<cfquery name="vtn" datasource='uam_god'>
+							select isValidTaxonName('#thisName#') v from dual
+						</cfquery>
+						<cfif vtn.v='valid'>
+							<br>is valid can make
+						</cfif>
 					</cfif>
 				</cfloop>
 				<!----
