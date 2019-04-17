@@ -11,13 +11,12 @@
 		</cfif>
 
 
-	<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=2019-04-01&per_page=1&page=2" method="get">
+			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=2019-04-01&per_page=1&page=2" method="get">
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
-
-								<cfset rslt=DeserializeJSON(ga.filecontent)>
-								<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
+				<cfset rslt=DeserializeJSON(ga.filecontent)>
+				<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 					<cfset tid="">
 					<cfset thisConcept=rslt.taxon_concepts[i]>
 					<!---
@@ -49,6 +48,7 @@
 					<cfelse>
 						<cfset tid=ag1.taxon_name_id>
 					</cfif>
+					</cfloop>
 </cfif>
 
 
