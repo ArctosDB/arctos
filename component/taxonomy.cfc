@@ -1,6 +1,6 @@
 <cfcomponent>
 	<cffunction name="updateArctosLegalClassData_guts" access="remote">
-		<cfargument name="tid" type="numberic" required="true">
+		<cfargument name="tid" type="numeric" required="true">
 		<cfargument name="rslt" type="any" required="true">
 
 
