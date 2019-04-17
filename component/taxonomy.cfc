@@ -98,7 +98,7 @@
 							<cfset "#key#"="#thisConcept.higher_taxa[key]#">
 					    <cfcatch><!---- whatever, they don't have values sometimes --->
 							<cfif isdefined("debug") and debug is true>
-								<cfdump var=#cfcatch#>
+								<br>funky #key# probably undefined
 							</cfif>
 						</cfcatch>
 					    </cftry>
