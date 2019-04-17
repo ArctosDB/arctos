@@ -35,6 +35,7 @@
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID,
 			part_name,
 			coll_obj_cont_hist.container_id,
+			getContainerParentage(coll_obj_cont_hist.container_id) partPath,
 			COLL_OBJ_DISPOSITION,
 			decode(SAMPLED_FROM_OBJ_ID,
 				NULL,'no',
@@ -188,7 +189,9 @@
 						<cfset posn='no position available'>
 					</cfif>
 					<td>
+						#partPath#<!---
 						#posn#
+						--->
 					</td>
 					<td>#coll_obj_disposition#</td>
 				</tr>
