@@ -199,7 +199,7 @@
 					<td>#coll_obj_disposition#</td>
 				</tr>
 				<cfset a=a+1>
-				<cfset oneLine='"#guid#","#CustomID#","#pn#","#posn#","#coll_obj_disposition#"'>
+				<cfset oneLine='"#guid#","#CustomID#","#pn#","#partPath#","#coll_obj_disposition#"'>
 				<cfset oneLine=replace(oneLine,"</span>","","all")>
 				<cfset oneLine=replace(oneLine,'<span style="font-weight:bold;">',"","all")>
 				<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
