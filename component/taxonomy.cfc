@@ -10,7 +10,9 @@
 			<cfset debug=false>
 		</cfif>
 
-
+<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
+			select SPECIESPLUS_TOKEN from cf_global_settings
+		</cfquery>
 			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=2019-04-01&per_page=1&page=2" method="get">
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
