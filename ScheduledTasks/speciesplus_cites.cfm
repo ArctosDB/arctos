@@ -9,6 +9,10 @@ create table cf_speciesplus_status (
 <cfif action is "nothing">
 
 <cfoutput>
+	<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
+		select SPECIESPLUS_TOKEN from cf_global_settings
+	</cfquery>
+
 	<cfset today=dateformat(now(),'YYYY-MM-DD')>
 	<cfquery name="s" datasource='uam_god'>
 		select * from cf_speciesplus_status
@@ -34,9 +38,7 @@ create table cf_speciesplus_status (
 
 				<cfset tc = CreateObject("component","component.taxonomy")>
 
-		<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
-			select SPECIESPLUS_TOKEN from cf_global_settings
-		</cfquery>
+
 			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=2019-04-01&per_page=3&page=2" method="get">
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
