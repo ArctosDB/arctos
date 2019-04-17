@@ -63,9 +63,11 @@
 			<cfif debug is true>
 				<cfdump var=#thisConcept#>
 			</cfif>
+			<!----
 			<cfif arraylen(thisConcept.taxon_concepts) is 0>
 				<cfreturn 'NO_DATA_FOUND'>
 			</cfif>
+			---->
 			<!----
 			<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 				<cfset thisConcept=rslt.taxon_concepts[i]>
