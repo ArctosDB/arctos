@@ -12,7 +12,7 @@ create table cf_speciesplus_status (
 
 <cfoutput>
 	<!--- this should be a number that we can process in a minute ---->
-	<cfset pgsize="50">
+	<cfset pgsize="25">
 	<cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
 		select SPECIESPLUS_TOKEN from cf_global_settings
 	</cfquery>
