@@ -1,9 +1,11 @@
 <cfif not isdefined("action")><cfset action='nothing'></cfif>
 
 <!----
+drop table cf_speciesplus_status;
+
 create table cf_speciesplus_status (
 	last_date date,
-	recordcount number,
+	number_recs number,
 	lastpage number);
 	---------->
 <cfif action is "nothing">
@@ -42,7 +44,7 @@ create table cf_speciesplus_status (
 				delete from cf_speciesplus_status
 			</cfquery>
 			<cfquery name="seed" datasource='uam_god'>
-				insert into cf_speciesplus_status (last_date,recordcount,lastpage) values (sysdate,#ttlrecs#,0)
+				insert into cf_speciesplus_status (last_date,number_recs,lastpage) values (sysdate,#ttlrecs#,0)
 			</cfquery>
 			<br>seeded
 			<!--- just abort this run --->
@@ -55,9 +57,9 @@ create table cf_speciesplus_status (
 
 	<cfset alskj=pgsize * s.lastpage>
 <br>	pgsize * s.lastpage: #alskj#
-	<cfif (pgsize * s.lastpage) gte s.recordcount>
+	<cfif (pgsize * s.lastpage) gte s.number_recs>
 
-		<br>#alskj# is more than #s.recordcount#
+		<br>#alskj# is more than #s.number_recs#
 		already processed everything; abort<cfabort>
 	</cfif>
 
