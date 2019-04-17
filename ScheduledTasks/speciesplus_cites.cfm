@@ -17,6 +17,8 @@
 
 				<!--- loop over results --->
 				<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
+										<cfset thisConcept=rslt.taxon_concepts[i]>
+
 					<cfset thisName=thisConcept.full_name>
 					<br>thisName:#thisName#
 					<!--- do we already have it? --->
