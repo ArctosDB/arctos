@@ -61,9 +61,9 @@
 		<cftry>
 			<cfset runstatus="SUCCESS">
 			<cfif debug is true>
-				<cfdump var=#rslt#>
+				<cfdump var=#thisConcept#>
 			</cfif>
-			<cfif arraylen(rslt.taxon_concepts) is 0>
+			<cfif arraylen(thisConcept.taxon_concepts) is 0>
 				<cfreturn 'NO_DATA_FOUND'>
 			</cfif>
 			<!----
