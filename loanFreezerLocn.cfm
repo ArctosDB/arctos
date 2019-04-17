@@ -150,6 +150,7 @@
 		<th>Disposition</th>
 		<cfloop query="allCatItems">
 			<cfif len(container_id) gt 0>
+				<!----
 				<cfquery name="freezer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						CONTAINER_ID,
@@ -165,18 +166,7 @@
 					connect by prior parent_container_id = container_id
 					order by level DESC
 				</cfquery>
-			</cfif>
-				<tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-					<td>#guid#</td>
-					<td>#CustomID#&nbsp;</td>
-					<cfset pn=part_name>
-					<cfif is_subsample is "yes">
-						<cfset pn=pn & "(subsample)">
-					</cfif>
-					<td>
-						#pn#
-					</td>
-					<cfif len(container_id) gt 0>
+				<cfif len(container_id) gt 0>
 						<cfset posn="">
 						<cfloop query="freezer">
 							<cfif CONTAINER_TYPE is "position">
@@ -188,6 +178,19 @@
 					<cfelse>
 						<cfset posn='no position available'>
 					</cfif>
+				---->
+			</cfif>
+				<tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+					<td>#guid#</td>
+					<td>#CustomID#&nbsp;</td>
+					<cfset pn=part_name>
+					<cfif is_subsample is "yes">
+						<cfset pn=pn & "(subsample)">
+					</cfif>
+					<td>
+						#pn#
+					</td>
+
 					<td>
 						#partPath#<!---
 						#posn#
