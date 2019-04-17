@@ -13,13 +13,12 @@
 			</cfhttp>
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 				<cfset rslt=DeserializeJSON(ga.filecontent)>
-
 				<cfdump var=#rslt#>
 			</cfif>
 
 
 	</cfoutput>
-	</cfif>
+</cfif>
 
 
  curl -i "https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=2019-04-01" -H "X-Authentication-Token:7rPCCN0EuIlD13QD2YJ6QAtt"
