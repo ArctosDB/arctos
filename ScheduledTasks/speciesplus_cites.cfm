@@ -53,8 +53,6 @@
 						<cfset x=tc.updateArctosLegalClassData_guts(tid="#tid#",rslt="#rslt#")>
 
 
-						tid="#tid#",rslt="#rslt#"
-
 
 						<cfdump var=#x#>
 					</cfif>

@@ -1,14 +1,16 @@
 <cfcomponent>
 	<cffunction name="updateArctosLegalClassData_guts" access="remote">
 		<!----
-		<cfargument name="tid" type="numeric" required="true">
-		<cfargument name="rslt" type="any" required="true">
+
 ---->
 
-
-		<cfif not isdefined("debug")>
+<cfargument name="tid" type="numeric" required="true">
+		<cfargument name="rslt" type="any" required="true">
+	<cfif not isdefined("debug")>
 			<cfset debug=false>
 		</cfif>
+<!----
+
 
 <cfquery name="auth" datasource='uam_god'  cachedwithin="#createtimespan(0,0,60,0)#">
 			select SPECIESPLUS_TOKEN from cf_global_settings
@@ -52,7 +54,7 @@
 					</cfif>
 					</cfloop>
 </cfif>
-
+---->
 
 
 		<cfoutput>
