@@ -12,6 +12,9 @@
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
+
+								<cfset rslt=DeserializeJSON(ga.filecontent)>
+
 				<!--- loop over results --->
 				<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
 					<cfset thisName=thisConcept.full_name>
