@@ -23,7 +23,6 @@ create table cf_speciesplus_status (
 	<cfset today=dateformat(now(),'YYYY-MM-DD')>
 	<cfset y=DateAdd("d", -1, now())>
 	<cfset yesterday=dateformat(y,'YYYY-MM-DD')>
-
 	<cfquery name="s" datasource='uam_god'>
 		select * from cf_speciesplus_status
 	</cfquery>
@@ -50,35 +49,22 @@ create table cf_speciesplus_status (
 		</cfif>
 	</cfif>
 
-after the if....
+	after the if....
 	<!--- see if there's anything we need to process ---->
 	<cfif pgsize * s.lastpage gte s.recordcount>
 		already processed everything; abort<cfabort>
 	</cfif>
 
 	made it here we can do stuff
-
-
-				<cfdump var=#yesterday#>
-
-
-
-				<cfset tc = CreateObject("component","component.taxonomy")>
-
-			<cfset nextpage=s.lastpage+1>
-
-
-			https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#yesterday#&per_page=#pgsize#&page=#nextpage#
-
-
-
+	<cfset tc = CreateObject("component","component.taxonomy")>
+	<cfset nextpage=s.lastpage+1>
 
 			<cfhttp result="ga" url="https://api.speciesplus.net/api/v1/taxon_concepts?updated_since=#yesterday#&per_page=#pgsize#&page=#nextpage#" method="get">
 				<cfhttpparam type = "header" name = "X-Authentication-Token" value = "#auth.SPECIESPLUS_TOKEN#">
 			</cfhttp>
 			<cfif ga.statusCode is "200 OK" and len(ga.filecontent) gt 0 and isjson(ga.filecontent)>
 
-								<cfset rslt=DeserializeJSON(ga.filecontent)>
+				<cfset rslt=DeserializeJSON(ga.filecontent)>
 
 				<!--- loop over results --->
 				<cfloop from="1" to ="#arraylen(rslt.taxon_concepts)#" index="i">
@@ -114,7 +100,7 @@ after the if....
 						<cfset tid=ag1.taxon_name_id>
 					</cfif>
 					<cfif len(tid) gt 0>
-						<cfset x=tc.updateArctosLegalClassData_guts(tid="#tid#",rslt="#rslt#")>
+						<cfset x=tc.updateArctosLegalClassData_guts(tid="#tid#",rslt="#thisConcept#")>
 
 
 
