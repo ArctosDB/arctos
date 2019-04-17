@@ -26,6 +26,7 @@ create table cf_speciesplus_status (
 	<cfquery name="s" datasource='uam_god'>
 		select * from cf_speciesplus_status
 	</cfquery>
+	<cfdump var=#s#>
 	<cfif dateformat(s.last_date,'YYYY-MM-DD') neq today>
 		<!---- we have not been here today---->
 		<br>we have not been here today
