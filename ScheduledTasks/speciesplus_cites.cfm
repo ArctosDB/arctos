@@ -56,7 +56,12 @@ after the if....
 
 	made it here we can do stuff
 
-	<cfabort>
+<cfabort>
+
+
+				<cfset yesterday=DateAdd("d", 1, now())>
+
+				<cfdump var=#yesterday#>
 
 
 				<cfset tc = CreateObject("component","component.taxonomy")>
