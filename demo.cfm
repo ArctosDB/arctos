@@ -214,21 +214,21 @@ Individual IDs:
 	<tr>
 		<td>bla bla bla</td>
 		<td>8</td>
-		<td>I think they may have ARKS or something</td>
+		<td>maybe this will resolve to something eventually, but ambiguous numbers can be useful too</td>
 		<td>IDK maybe this would be useful?</td>
 		<td>We can eventually pull stuff from a service</td>
 	</tr>
 	<tr>
 		<td>there can be lots of these</td>
 		<td>8</td>
-		<td>I think they may have ARKS or something</td>
+		<td></td>
 		<td>IDK maybe this would be useful?</td>
 		<td>We can eventually pull stuff from a service</td>
 	</tr>
 	<tr>
 		<td>one for anything that might help someone find the individual</td>
 		<td>8</td>
-		<td>I think they may have ARKS or something</td>
+		<td></td>
 		<td>IDK maybe this would be useful?</td>
 		<td>We can eventually pull stuff from a service</td>
 	</tr>
