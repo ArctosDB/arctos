@@ -3,6 +3,38 @@
 
 <h3>Demo Organism Resolver</h3>
 
+<p>
+	Locate existing indivials
+</p>
+<label for="srch">Search for an ID</label>
+<input type="text" size="80" placeholder="this doesn't actually do anything">
+
+<input type="button" value="search">
+<p>
+	Create an Organism
+</p>
+
+
+<label for="srch">ID Type</label>
+<input type="text" size="80" placeholder="this doesn't actually do anything">
+
+<label for="srch">ID Value</label>
+<input type="text" size="80" placeholder="this doesn't actually do anything">
+
+<label for="srch">ID URL</label>
+<input type="text" size="80" placeholder="this doesn't actually do anything">
+
+
+<label for="srch">Your name (or maybe require ORCID as a form of crappy authentication??)</label>
+<input type="text" size="80" placeholder="this doesn't actually do anything">
+
+
+<input type="button" value="create">
+
+<p>
+	Results:
+</p>
+
 <p>OrganismID:  https://n2t.net/ark:/99999/fk4sx7j29k</p>
 
 Individual IDs:
@@ -197,6 +229,14 @@ Individual IDs:
 		<td>one for anything that might help someone find the individual</td>
 		<td>8</td>
 		<td>I think they may have ARKS or something</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+	<tr>
+		<td>OrganismID</td>
+		<td>ark:something:bla</td>
+		<td>This thing can synonomize Organisms too; there doesn't have to be only one</td>
 		<td>IDK maybe this would be useful?</td>
 		<td>We can eventually pull stuff from a service</td>
 	</tr>
