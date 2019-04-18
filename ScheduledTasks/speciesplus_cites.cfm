@@ -6,6 +6,8 @@
 		number_recs number,
 		lastpage number
 	);
+	
+	select scientific_name from taxon_name where taxon_name_id in (select taxon_name_id from taxon_term where source='Arctos Legal' and LASTDATE>'2019-04-18');
 ---------->
 <cfoutput>
 	<!--- this should be a number that we can process in a minute ---->

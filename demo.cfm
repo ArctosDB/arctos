@@ -1,6 +1,211 @@
 <cfset title="demo">
 <cfinclude template="/includes/_header.cfm">
 
+<h3>Demo Organism Resolver</h3>
+
+<p>OrganismID:  https://n2t.net/ark:/99999/fk4sx7j29k</p>
+
+Individual IDs:
+<table border>
+	<tr>
+		<th>Type</th>
+		<td>BareID</td>
+		<th>ResolvableID</th>
+		<th>SubmittedBy</th>
+		<th>Other Stuff, Maybe</th>
+	</tr>
+	<tr>
+		<td>Arctos</td>
+		<td>MSB:Mamm:193695</td>
+		<td>http://arctos.database.museum/guid/MSB:Mamm:193695</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>Arctos</td>
+		<td>MSB:Mamm:268024</td>
+		<td>http://arctos.database.museum/guid/MSB:Mamm:268024</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>Arctos</td>
+		<td>MSB:Mamm:269991</td>
+		<td>http://arctos.database.museum/guid/MSB:Mamm:269991</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+	<tr>
+		<td>Arctos</td>
+		<td>MSB:Mamm:270075</td>
+		<td>http://arctos.database.museum/guid/MSB:Mamm:270075</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+	<tr>
+		<td>Arctos</td>
+		<td>MSB:Mamm:249051</td>
+		<td>http://arctos.database.museum/guid/MSB:Mamm:249051</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+	<tr>
+		<td>Arctos</td>
+		<td>MSB:Mamm:268060</td>
+		<td>http://arctos.database.museum/guid/MSB:Mamm:268060</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+	<tr>
+		<td>Arctos</td>
+		<td>MSB:Mamm:268052</td>
+		<td>http://arctos.database.museum/guid/MSB:Mamm:268052</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>Arctos</td>
+		<td>MSB:Mamm:268103</td>
+		<td>http://arctos.database.museum/guid/MSB:Mamm:268103</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+
+
+	<tr>
+		<td>Mexican wolf studbook number:</td>
+		<td>1126</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=Mexican%20wolf%20studbook%20number&oidnum=1126</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>108232</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=108232</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>226745</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=226745</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>108465</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=108465</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>226593</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=226593</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>226636</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=226636</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>226645</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=226645</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>226684</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=226684</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>226648</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=226648</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>NK (New Mexico Karyotype):</td>
+		<td>226758</td>
+		<td>http://arctos.database.museum/SpecimenResults.cfm?oidtype=NK&oidnum=226758</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+
+	<tr>
+		<td>GBIF:</td>
+		<td>1300283353</td>
+		<td>https://www.gbif.org/occurrence/1300283353</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>GBIF:</td>
+		<td>1145224105</td>
+		<td>https://www.gbif.org/occurrence/1145224105</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+
+	<tr>
+		<td>Jimbob's Wolf Park</td>
+		<td>17</td>
+		<td></td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>AMNH</td>
+		<td>8</td>
+		<td>I think they may have ARKS or something</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>bla bla bla</td>
+		<td>8</td>
+		<td>I think they may have ARKS or something</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>there can be lots of these</td>
+		<td>8</td>
+		<td>I think they may have ARKS or something</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+	<tr>
+		<td>one for anything that might help someone find the individual</td>
+		<td>8</td>
+		<td>I think they may have ARKS or something</td>
+		<td>IDK maybe this would be useful?</td>
+		<td>We can eventually pull stuff from a service</td>
+	</tr>
+</table>
+
+<!-----------
+
+
+
 
   <script>
   $( function() {
@@ -14,9 +219,6 @@
 <p><label for="age">Fake Any Taxon</label><input id="arge"></p>
 
 
-
-
-<!-----------
 
  <style>
   label {
