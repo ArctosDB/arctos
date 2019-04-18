@@ -1809,7 +1809,7 @@
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
 			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts,COMMIT_EDITMSG,console,CHANGELOG,com_sun_web_ui,cfdocs">
-			<cfset x=x & ",classLoader,cacheObjectMaxSize">
+			<cfset x=x & ",classLoader,cacheObjectMaxSize,configs,cisco">
 			<cfset x=x & ",drithsx,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config,dbm">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gatewa,FxCodeShell">
