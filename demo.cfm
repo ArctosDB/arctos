@@ -29,7 +29,7 @@
 <input type="text" size="80" placeholder="this doesn't actually do anything">
 
 
-<input type="button" value="create">
+<input type="button" value="create and get an ARK for use in your data">
 
 <p>
 	Results:
