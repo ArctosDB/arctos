@@ -522,11 +522,13 @@ function insertEvtCt(idList) {
 	
 }
 function insertTypes(idList) {
-	var s=document.createElement('DIV');
-	s.id='ajaxStatus';
-	s.className='ajaxStatus';
+	//var s=document.createElement('DIV');
+	//s.id='ajaxStatus';
+	//s.className='ajaxStatus';
 	//s.innerHTML='Checking for Types...';
 	//document.body.appendChild(s);
+	$('<div id="ajaxStatus" class="ajaxStatus">Checking for Types...</div>').appendTo("body");
+
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getTypes",
@@ -535,8 +537,11 @@ function insertTypes(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
+			
+
 			//var sBox=document.getElementById('ajaxStatus');
 			try{
+				$("#ajaxStatus").text('Processing Types....');
 				//sBox.innerHTML='Processing Types....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
@@ -553,6 +558,7 @@ function insertTypes(idList) {
 			catch(e){}
 		}
 	);
+	$("#ajaxStatus").remove();
 }
 
 function injectLoanPick() {	
