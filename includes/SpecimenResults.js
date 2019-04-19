@@ -440,7 +440,7 @@ function insertMedia(idList) {
 	//s.innerHTML='Checking for Media...';
 	//document.body.appendChild(s);
 	
-	$('<div id="ajaxStatus" class="ajaxStatus">Checking for Media...</div>').appendTo("body");
+	$('<div id="ajaxStatusM" class="ajaxStatus">Checking for Media...</div>').appendTo("body");
 	
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
@@ -453,7 +453,7 @@ function insertMedia(idList) {
 			try{
 				//var sBox=document.getElementById('ajaxStatus');
 				//sBox.innerHTML='Processing Media....';
-				$("#ajaxStatus").text('Processing Media....');
+				$("#ajaxStatusM").text('Processing Media....');
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sel;
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
@@ -477,7 +477,7 @@ function insertMedia(idList) {
 				//document.body.removeChild(sBox);
 				}
 			catch(e) {}
-			$("#ajaxStatus").remove();
+			$("#ajaxStatusM").remove();
 		}
 	);	
 }
