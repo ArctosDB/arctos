@@ -469,6 +469,7 @@ function insertMedia(idList) {
 						el.innerHTML+=ns;
 					}
 				}
+				$( "#ajaxStatus" ).remove();
 				//document.body.removeChild(sBox);
 				}
 			catch(e) {
