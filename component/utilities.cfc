@@ -1811,9 +1811,9 @@
 			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts,COMMIT_EDITMSG,console,CHANGELOG,com_sun_web_ui,cfdocs">
 			<cfset x=x & ",classLoader,cacheObjectMaxSize,configs,cisco">
 			<cfset x=x & ",drithsx,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config,dbm">
-			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment">
+			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment,env">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gatewa,FxCodeShell">
-			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git,grandstream">
+			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git,grandstream,glp">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana,hooks,heads">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla,jsf,jobs,jd_rsa">

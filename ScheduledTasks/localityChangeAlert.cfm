@@ -23,6 +23,7 @@
 				cataloged_item,
 				collection
 			where
+				locality_archive.changed_agent_id != 0 and
 				locality_archive.locality_id=collecting_event.locality_id and
 				collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 				specimen_event.collection_object_id=cataloged_item.collection_object_id and
