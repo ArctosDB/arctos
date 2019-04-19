@@ -1050,7 +1050,7 @@
 		where
 			#session.flatTableName#.collection_object_id=specimen_event.collection_object_id and
 			#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS is not null and
-			#session.flatTableName#..COORDINATEUNCERTAINTYINMETERS< 10000 and
+			#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS< 10000 and
 			specimen_event.collecting_event_id = media_relations.related_primary_key and
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='collecting_event' and
 			#session.flatTableName#.collection_object_id in (#idList#)
