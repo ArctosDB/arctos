@@ -437,7 +437,7 @@ function insertMedia(idList) {
 	//s.innerHTML='Checking for Media...';
 	//document.body.appendChild(s);
 	
-	//$('<div id="ajaxStatus" class="ajaxStatus">Checking for Media...</div>').appendTo("body");
+	$('<div id="ajaxStatus" class="ajaxStatus">Checking for Media...</div>').appendTo("body");
 	
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
@@ -482,7 +482,7 @@ function insertMedia(idList) {
 		}
 	);
 
-	//$( "#ajaxStatus" ).remove();
+	//$("#ajaxStatus").remove();
 	console.log('exiting');
 }
 
