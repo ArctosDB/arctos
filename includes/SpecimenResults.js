@@ -452,6 +452,7 @@ function insertMedia(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
+			console.log('barelyin media');
 			try{
 				//var sBox=document.getElementById('ajaxStatus');
 				//sBox.innerHTML='Processing Media....';
