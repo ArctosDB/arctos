@@ -487,11 +487,11 @@ function insertMedia(idList) {
 }
 
 function insertEvtCt(idList) {
-	var s=document.createElement('DIV');
-	s.id='ajaxStatusE';
-	s.className='ajaxStatus';
-	s.innerHTML='Checking for Events...';
-	document.body.appendChild(s);
+	//var s=document.createElement('DIV');
+	//s.id='ajaxStatusE';
+	//s.className='ajaxStatus';
+	//s.innerHTML='Checking for Events...';
+	//document.body.appendChild(s);
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getEventCount",
@@ -502,7 +502,7 @@ function insertEvtCt(idList) {
 		function (result) {
 			var sBox=document.getElementById('ajaxStatusE');
 			try{
-				sBox.innerHTML='Processing Events....';
+				//sBox.innerHTML='Processing Events....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
 					var tl=result.DATA.NUMEVENTS[i];
@@ -515,7 +515,7 @@ function insertEvtCt(idList) {
 				}
 			}
 			catch(e){}
-			document.body.removeChild(sBox);
+			//document.body.removeChild(sBox);
 		}
 	);
 	
