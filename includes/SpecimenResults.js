@@ -449,7 +449,8 @@ function insertMedia(idList) {
 		function (result) {
 			try{
 				var sBox=document.getElementById('ajaxStatus');
-				//sBox.innerHTML='Processing Media....';				
+				//sBox.innerHTML='Processing Media....';
+				$( "#ajaxStatus" ).text('Processing Media....');
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sel;
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
