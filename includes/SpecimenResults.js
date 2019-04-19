@@ -469,16 +469,19 @@ function insertMedia(idList) {
 						el.innerHTML+=ns;
 					}
 				}
+				console.log('r1');
 				$( "#ajaxStatus" ).remove();
 				//document.body.removeChild(sBox);
 				}
 			catch(e) {
+				console.log('rcatch');
 				$( "#ajaxStatus" ).remove();
 				//sBox=document.getElementById('ajaxStatus');
 				//document.body.removeChild(sBox);
 			}
 		}
 	);
+	console.log('exiting');
 }
 
 function insertEvtCt(idList) {
