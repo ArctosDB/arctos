@@ -473,6 +473,7 @@ function insertMedia(idList) {
 				//document.body.removeChild(sBox);
 				}
 			catch(e) {
+				$( "#ajaxStatus" ).remove();
 				//sBox=document.getElementById('ajaxStatus');
 				//document.body.removeChild(sBox);
 			}
