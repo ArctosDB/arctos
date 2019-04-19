@@ -542,7 +542,7 @@ function insertTypes(idList) {
 			//var sBox=document.getElementById('ajaxStatus');
 			try{
 
-				console.log('start proc types')''
+				console.log('start proc types');
 				$("#ajaxStatus").text('Processing Types....');
 				//sBox.innerHTML='Processing Types....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
@@ -556,13 +556,13 @@ function insertTypes(idList) {
 					}
 				}
 
-				console.log('end proc types')''
+				console.log('end proc types');
 				//document.body.removeChild(sBox);
 			}
 			catch(e){}
 		}
 	);
-	console.log('exiting types')''
+	console.log('exiting types');
 	$("#ajaxStatus").remove();
 }
 
