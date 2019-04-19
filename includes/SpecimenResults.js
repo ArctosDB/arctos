@@ -481,6 +481,8 @@ function insertMedia(idList) {
 			}
 		}
 	);
+
+	$( "#ajaxStatus" ).remove();
 	console.log('exiting');
 }
 
