@@ -448,7 +448,7 @@ function insertMedia(idList) {
 		},
 		function (result) {
 			try{
-				var sBox=document.getElementById('ajaxStatus');
+				//var sBox=document.getElementById('ajaxStatus');
 				//sBox.innerHTML='Processing Media....';
 				//$( "#ajaxStatus" ).text('Processing Media....');
 				for (i=0; i<result.ROWCOUNT; ++i) {
@@ -470,7 +470,7 @@ function insertMedia(idList) {
 					}
 				}
 				console.log('r1');
-				$( "#ajaxStatus" ).remove();
+				//$( "#ajaxStatus" ).remove();
 				//document.body.removeChild(sBox);
 				}
 			catch(e) {
@@ -500,7 +500,7 @@ function insertEvtCt(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
-			var sBox=document.getElementById('ajaxStatusE');
+			//var sBox=document.getElementById('ajaxStatusE');
 			try{
 				//sBox.innerHTML='Processing Events....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
@@ -526,7 +526,7 @@ function insertTypes(idList) {
 	s.id='ajaxStatus';
 	s.className='ajaxStatus';
 	//s.innerHTML='Checking for Types...';
-	document.body.appendChild(s);
+	//document.body.appendChild(s);
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getTypes",
@@ -535,7 +535,7 @@ function insertTypes(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
-			var sBox=document.getElementById('ajaxStatus');
+			//var sBox=document.getElementById('ajaxStatus');
 			try{
 				//sBox.innerHTML='Processing Types....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
