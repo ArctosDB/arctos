@@ -318,6 +318,9 @@ function getPostLoadJunk(){
 	displayMedia();
 	formatPartDetail();
 	formatJSONLocality();
+	
+	
+	console.log('done with processing stuff');
 }
 function unexpPartDet(){
 	$("div[id^='partdetail_']").each(function() {
