@@ -514,7 +514,7 @@ function insertTypes(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
 	s.className='ajaxStatus';
-	s.innerHTML='Checking for Types...';
+	//s.innerHTML='Checking for Types...';
 	document.body.appendChild(s);
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
@@ -526,7 +526,7 @@ function insertTypes(idList) {
 		function (result) {
 			var sBox=document.getElementById('ajaxStatus');
 			try{
-				sBox.innerHTML='Processing Types....';
+				//sBox.innerHTML='Processing Types....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
 					var tl=result.DATA.TYPELIST[i];
@@ -537,7 +537,7 @@ function insertTypes(idList) {
 						el.innerHTML+=ns;
 					}
 				}
-				document.body.removeChild(sBox);
+				//document.body.removeChild(sBox);
 			}
 			catch(e){}
 		}
