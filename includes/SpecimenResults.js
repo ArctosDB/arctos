@@ -435,7 +435,7 @@ function insertMedia(idList) {
 	s.id='ajaxStatus';
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Media...';
-	document.body.appendChild(s);
+	//document.body.appendChild(s);
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getMedia",
@@ -446,7 +446,7 @@ function insertMedia(idList) {
 		function (result) {
 			try{
 				var sBox=document.getElementById('ajaxStatus');
-				sBox.innerHTML='Processing Media....';				
+				//sBox.innerHTML='Processing Media....';				
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sel;
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
@@ -465,11 +465,11 @@ function insertMedia(idList) {
 						el.innerHTML+=ns;
 					}
 				}
-				document.body.removeChild(sBox);
+				//document.body.removeChild(sBox);
 				}
 			catch(e) {
-				sBox=document.getElementById('ajaxStatus');
-				document.body.removeChild(sBox);
+				//sBox=document.getElementById('ajaxStatus');
+				//document.body.removeChild(sBox);
 			}
 		}
 	);
