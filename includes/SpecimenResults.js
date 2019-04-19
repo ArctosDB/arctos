@@ -475,14 +475,14 @@ function insertMedia(idList) {
 				}
 			catch(e) {
 				console.log('rcatch');
-				$( "#ajaxStatus" ).remove();
+				//$( "#ajaxStatus" ).remove();
 				//sBox=document.getElementById('ajaxStatus');
 				//document.body.removeChild(sBox);
 			}
 		}
 	);
 
-	$( "#ajaxStatus" ).remove();
+	//$( "#ajaxStatus" ).remove();
 	console.log('exiting');
 }
 
