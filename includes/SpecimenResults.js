@@ -490,11 +490,7 @@ function insertMedia(idList) {
 }
 
 function insertEvtCt(idList) {
-	//var s=document.createElement('DIV');
-	//s.id='ajaxStatusE';
-	//s.className='ajaxStatus';
-	//s.innerHTML='Checking for Events...';
-	//document.body.appendChild(s);
+	$('<div id="ajaxStatus" class="ajaxStatus">Checking for Events...</div>').appendTo("body");
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getEventCount",
@@ -503,9 +499,8 @@ function insertEvtCt(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
-			//var sBox=document.getElementById('ajaxStatusE');
 			try{
-				//sBox.innerHTML='Processing Events....';
+				$("#ajaxStatus").text('Processing Events....');
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
 					var tl=result.DATA.NUMEVENTS[i];
@@ -518,20 +513,14 @@ function insertEvtCt(idList) {
 				}
 			}
 			catch(e){}
-			//document.body.removeChild(sBox);
+			$("#ajaxStatus").remove();
 		}
 	);
 	
 	
 }
 function insertTypes(idList) {
-	//var s=document.createElement('DIV');
-	//s.id='ajaxStatus';
-	//s.className='ajaxStatus';
-	//s.innerHTML='Checking for Types...';
-	//document.body.appendChild(s);
 	$('<div id="ajaxStatus" class="ajaxStatus">Checking for Types...</div>').appendTo("body");
-
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getTypes",
@@ -540,12 +529,7 @@ function insertTypes(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
-			
-
-			//var sBox=document.getElementById('ajaxStatus');
 			try{
-
-				console.log('start proc types');
 				$("#ajaxStatus").text('Processing Types....');
 				//sBox.innerHTML='Processing Types....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
@@ -558,16 +542,11 @@ function insertTypes(idList) {
 						el.innerHTML+=ns;
 					}
 				}
-
-				console.log('end proc types');
-				//document.body.removeChild(sBox);
 			}
 			catch(e){}
 			$("#ajaxStatus").remove();
 		}
 	);
-	console.log('exiting types');
-	//$("#ajaxStatus").remove();
 }
 
 function injectLoanPick() {	
