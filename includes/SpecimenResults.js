@@ -490,7 +490,7 @@ function insertMedia(idList) {
 }
 
 function insertEvtCt(idList) {
-	$('<div id="ajaxStatus" class="ajaxStatus">Checking for Events...</div>').appendTo("body");
+	$('<div id="ajaxStatusE" class="ajaxStatus">Checking for Events...</div>').appendTo("body");
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getEventCount",
@@ -500,7 +500,7 @@ function insertEvtCt(idList) {
 		},
 		function (result) {
 			try{
-				$("#ajaxStatus").text('Processing Events....');
+				$("#ajaxStatusE").text('Processing Events....');
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
 					var tl=result.DATA.NUMEVENTS[i];
@@ -513,7 +513,7 @@ function insertEvtCt(idList) {
 				}
 			}
 			catch(e){}
-			$("#ajaxStatus").remove();
+			$("#ajaxStatusE").remove();
 		}
 	);
 	
