@@ -513,6 +513,7 @@ function insertEvtCt(idList) {
 	
 }
 function insertTypes(idList) {
+	console.log('start type');
 	$('<div id="ajaxStatus" class="ajaxStatus">Checking for Types...</div>').appendTo("body");
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
@@ -523,6 +524,7 @@ function insertTypes(idList) {
 		},
 		function (result) {
 			try{
+				console.log('in type');
 				$("#ajaxStatus").text('Processing Types....');
 				//sBox.innerHTML='Processing Types....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
@@ -536,7 +538,9 @@ function insertTypes(idList) {
 					}
 				}
 			}
-			catch(e){}
+			catch(e){
+				console.log('catch type');
+			}
 			console.log('remover type');
 			$("#ajaxStatus").remove();
 		}
