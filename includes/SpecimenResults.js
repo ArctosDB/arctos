@@ -318,9 +318,6 @@ function getPostLoadJunk(){
 	displayMedia();
 	formatPartDetail();
 	formatJSONLocality();
-	
-	
-	console.log('done with processing stuff');
 }
 function unexpPartDet(){
 	$("div[id^='partdetail_']").each(function() {
@@ -391,7 +388,6 @@ function formatPartDetail(){
 }
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
-		//console.log('i am doing media stuff');
 		var r = $.parseJSON($("#" + this.id).html());
 		if (r.length>0){
 			//console.log('got something');
@@ -434,16 +430,7 @@ function displayMedia(idList){
 	});
 }
 function insertMedia(idList) {
-	
-	console.log('start media');
-	//var s=document.createElement('DIV');
-	//s.id='ajaxStatus';
-	//s.className='ajaxStatus';
-	//s.innerHTML='Checking for Media...';
-	//document.body.appendChild(s);
-	
 	$('<div id="ajaxStatusM" class="ajaxStatus">Checking for Media...</div>').appendTo("body");
-	
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getMedia",
@@ -452,13 +439,10 @@ function insertMedia(idList) {
 			queryformat : 'column'
 		},
 		function (result) {
-			console.log('barelyin media');
 			try{
 				//var sBox=document.getElementById('ajaxStatus');
 				//sBox.innerHTML='Processing Media....';
 				$("#ajaxStatusM").text('Processing Media....');
-
-				console.log('in media');
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sel;
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
@@ -477,16 +461,8 @@ function insertMedia(idList) {
 						el.innerHTML+=ns;
 					}
 				}
-				console.log('r1');
-				//$( "#ajaxStatus" ).remove();
-				//document.body.removeChild(sBox);
 				}
-			catch(e) {
-				
-
-				console.log('catch media');
-			}
-			console.log('exit media');
+			catch(e) {}
 			$("#ajaxStatusM").remove();
 		}
 	);	
@@ -523,7 +499,6 @@ function insertEvtCt(idList) {
 	
 }
 function insertTypes(idList) {
-	console.log('start type');
 	$('<div id="ajaxStatusT" class="ajaxStatus">Checking for Types...</div>').appendTo("body");
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
@@ -534,7 +509,6 @@ function insertTypes(idList) {
 		},
 		function (result) {
 			try{
-				console.log('in type');
 				$("#ajaxStatusT").text('Processing Types....');
 				//sBox.innerHTML='Processing Types....';
 				for (i=0; i<result.ROWCOUNT; ++i) {
@@ -548,10 +522,7 @@ function insertTypes(idList) {
 					}
 				}
 			}
-			catch(e){
-				console.log('catch type');
-			}
-			console.log('remover type');
+			catch(e){}
 			$("#ajaxStatusT").remove();
 		}
 	);
