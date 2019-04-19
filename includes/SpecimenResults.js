@@ -563,6 +563,7 @@ function insertTypes(idList) {
 				//document.body.removeChild(sBox);
 			}
 			catch(e){}
+			$("#ajaxStatus").remove();
 		}
 	);
 	console.log('exiting types');
