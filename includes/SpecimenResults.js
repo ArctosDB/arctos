@@ -563,7 +563,7 @@ function insertTypes(idList) {
 		}
 	);
 	console.log('exiting types');
-	$("#ajaxStatus").remove();
+	//$("#ajaxStatus").remove();
 }
 
 function injectLoanPick() {	
