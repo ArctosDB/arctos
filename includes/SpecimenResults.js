@@ -537,10 +537,10 @@ function insertTypes(idList) {
 						el.innerHTML+=ns;
 					}
 				}
-				document.body.removeChild(sBox);
+				document.body.removeChild(s);
 			}
 			catch(e){}
-			document.body.removeChild(sBox);
+			document.body.removeChild(s);
 		}
 	);
 }
