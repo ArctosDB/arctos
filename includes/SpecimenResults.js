@@ -537,6 +537,7 @@ function insertTypes(idList) {
 						el.innerHTML+=ns;
 					}
 				}
+				document.body.removeChild(sBox);
 			}
 			catch(e){}
 			document.body.removeChild(sBox);
