@@ -434,6 +434,8 @@ function displayMedia(idList){
 	});
 }
 function insertMedia(idList) {
+	
+	console.log('start media');
 	//var s=document.createElement('DIV');
 	//s.id='ajaxStatus';
 	//s.className='ajaxStatus';
@@ -454,6 +456,8 @@ function insertMedia(idList) {
 				//var sBox=document.getElementById('ajaxStatus');
 				//sBox.innerHTML='Processing Media....';
 				$("#ajaxStatusM").text('Processing Media....');
+
+				console.log('in media');
 				for (i=0; i<result.ROWCOUNT; ++i) {
 					var sel;
 					var sid=result.DATA.COLLECTION_OBJECT_ID[i];
@@ -476,7 +480,12 @@ function insertMedia(idList) {
 				//$( "#ajaxStatus" ).remove();
 				//document.body.removeChild(sBox);
 				}
-			catch(e) {}
+			catch(e) {
+				
+
+				console.log('catch media');
+			}
+			console.log('exit media');
 			$("#ajaxStatusM").remove();
 		}
 	);	
