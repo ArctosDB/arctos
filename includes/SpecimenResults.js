@@ -476,17 +476,10 @@ function insertMedia(idList) {
 				//$( "#ajaxStatus" ).remove();
 				//document.body.removeChild(sBox);
 				}
-			catch(e) {
-				console.log('rcatch');
-				//$( "#ajaxStatus" ).remove();
-				//sBox=document.getElementById('ajaxStatus');
-				//document.body.removeChild(sBox);
-			}
+			catch(e) {}
+			$("#ajaxStatus").remove();
 		}
-	);
-
-	$("#ajaxStatus").remove();
-	console.log('exiting');
+	);	
 }
 
 function insertEvtCt(idList) {
