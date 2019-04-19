@@ -537,6 +537,7 @@ function insertTypes(idList) {
 				}
 			}
 			catch(e){}
+			console.log('remover type');
 			$("#ajaxStatus").remove();
 		}
 	);
