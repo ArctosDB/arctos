@@ -540,7 +540,6 @@ function insertTypes(idList) {
 				document.body.removeChild(s);
 			}
 			catch(e){}
-			document.body.removeChild(s);
 		}
 	);
 }
