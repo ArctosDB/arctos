@@ -431,11 +431,14 @@ function displayMedia(idList){
 	});
 }
 function insertMedia(idList) {
-	var s=document.createElement('DIV');
-	s.id='ajaxStatus';
-	s.className='ajaxStatus';
-	s.innerHTML='Checking for Media...';
+	//var s=document.createElement('DIV');
+	//s.id='ajaxStatus';
+	//s.className='ajaxStatus';
+	//s.innerHTML='Checking for Media...';
 	//document.body.appendChild(s);
+	
+	$('<div id="ajaxStatus" class="ajaxStatus">Checking for Media...</div>').appendTo("body");
+	
 	jQuery.getJSON("/component/SpecimenResults.cfc",
 		{
 			method : "getMedia",
