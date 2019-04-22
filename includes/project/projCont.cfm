@@ -33,8 +33,21 @@
 							project_trans.transaction_id = loan_item.transaction_id AND
 							project_trans.project_id = project.project_id AND
 							project.project_id = #project_id#
-						)
+						union
+						SELECT
+							cataloged_item.collection_object_id
+						FROM
+							project,
+							project_trans,
+							specimen_part,
+							cataloged_item
+						WHERE
+							loan_item.collection_object_id = cataloged_item.collection_object_id AND
+							project_trans.transaction_id = loan_item.transaction_id AND
+							project_trans.project_id = project.project_id AND
+							project.project_id = #project_id#
 					)
+				)
 			ORDER BY
 				project_name
 	</cfquery>
