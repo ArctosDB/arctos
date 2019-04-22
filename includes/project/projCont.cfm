@@ -39,7 +39,7 @@
 						FROM
 							project,
 							project_trans,
-							specimen_part,
+							loan_item,
 							cataloged_item
 						WHERE
 							loan_item.collection_object_id = cataloged_item.collection_object_id AND
