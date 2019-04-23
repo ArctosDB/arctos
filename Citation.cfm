@@ -170,6 +170,25 @@
 		<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
 		<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">[ View Publication ]</a>
 		Lots of citations? Try the <a href="/tools/BulkloadCitations.cfm">Citation Bulkloader</a>.
+		<form name="pub2proj" id="pub2proj" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
+			<input type="hidden" name="publication_id" id="publication_id" value="#publication_id#">
+			<input type="hidden" name="action" value="addPubToProj">
+			<label for="project_name">New Project</label>
+			<input type="hidden" name="project_id" id="project_id">
+			<input type="text"
+				size="50"
+				name="project_name"
+				id="project_name"
+				onchange="getProject('project_id','project_name','editAccn',this.value); return false;"
+				onKeyPress="return noenter(event);"
+				placeholder="Project or Project Agent then TAB">
+			<br><input type="submit" class="insClr" value="add publication to project">
+		</form>
+
+
+
+
+
 		<a name="newCitation"></a>
 		<form name="newCitation" id="newCitation" method="post" action="Citation.cfm" onkeypress="return event.keyCode != 13;">
 			<input type="hidden" name="action" value="">
