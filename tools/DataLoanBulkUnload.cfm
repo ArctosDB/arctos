@@ -147,7 +147,6 @@ sho err
 	<cfquery name="bads" dbtype="query">
 		select count(*) c from done where status is not null
 	</cfquery>
-	---------#bads.c#-------------
 	<cfif bads.c is 0 or bads.c is ''>
 		If everything in the table above looks OK, <a href="DataLoanBulkUnload.cfm?action=unloadData">click here to finalize unloading</a>.
 	<cfelse>
