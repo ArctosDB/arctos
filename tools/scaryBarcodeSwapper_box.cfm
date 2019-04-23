@@ -4,8 +4,8 @@
 
 drop table cf_temp_scaryswapper;
 
-Position	Barcode	Label	box_barcode
 
+drop table cf_temp_scaryswapper;
 
 CREATE TABLE cf_temp_scaryswapper (
 	position  NUMBER NOT NULL,
@@ -16,9 +16,11 @@ CREATE TABLE cf_temp_scaryswapper (
 	tube_id number,
 	position_id number,
 	box_id number,
-	status VARCHAR2(255) not null
+	status VARCHAR2(255)
 );
 
+create or replace public synonym cf_temp_scaryswapper for cf_temp_scaryswapper;
+grant all on cf_temp_scaryswapper to manage_container;
 ---->
 
 <cfinclude template="/includes/_header.cfm">
@@ -105,7 +107,10 @@ CREATE TABLE cf_temp_scaryswapper (
 
 	<cfquery name="dnr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_scaryswapper set donor_id=(
-			select container_id from container where container.barcode=cf_temp_scaryswapper.donor_barcode
+			select container_id from container where container.barcode=cf_temp_scaryswapper.donor_barcode and
+			container.container_type like '% label' and
+			container.PARENT_CONTAINER_ID=0 and
+			container.container_id not in (select PARENT_CONTAINER_ID from container)
 		) where status is null
 	</cfquery>
 	<cfquery name="dnrv" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
