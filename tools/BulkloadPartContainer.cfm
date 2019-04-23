@@ -73,6 +73,29 @@ sho err
 		<input type="submit" value="Upload this file" class="savBtn">
 	</cfform>
 </cfif>
+
+<!------------------------------------------------------->
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			OTHER_ID_TYPE,
+			OTHER_ID_NUMBER,
+			GUID_PREFIX,
+			PART_NAME,
+			BARCODE,
+			NEW_CONTAINER_TYPE,
+			STATUS
+		from
+			cf_temp_barcode_parts
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/BulkloadPartContainer.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkloadPartContainer.csv" addtoken="false">
+</cfif>
 <!---------------------------------------------------------------------->
   <cfif action is "getFileData">
 <cfoutput>
@@ -163,7 +186,7 @@ sho err
 				</cfif>
 			</cfif>
 			<cfif coll_obj.recordcount is not 1>
-				<cfset sts='item_not_found'>
+				<cfset sts='item_not_found::#coll_obj.recordcount#'>
 			</cfif>
 			<!--- see if they gave a valid parent container ---->
 			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -219,6 +242,7 @@ sho err
 	</cfquery>
 	<cfif listlen(valuelist(d.status)) gt 0>
 		Fix this and reload - nothing's been saved.
+		<a href="BulkloadPartContainer?action=getCSV">CSV</a>
 		<cfquery name="problemsonly" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_barcode_parts where status is not null
 		</cfquery>
