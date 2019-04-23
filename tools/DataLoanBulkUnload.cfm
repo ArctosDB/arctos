@@ -35,8 +35,8 @@ sho err
 		<p>
 		REMOVE items from data loans
 		</p>
-		Step 1: Upload a file comma-delimited text file (CSV) in the following format. (You may copy the template below and save as .CSV)
-		 Include column headers.
+		Step 1: Upload a file comma-delimited text file (CSV) in the following format. Include column headers. <a href="DataLoanBulkUnload.cfm?action=makeTemplate">Get a template</a>
+
 		<ul>
 			<li>guid ("DWC Triplet" eg, "UAM:Mamm:12"; required)</li>
 			<li>loan_guid_prefix (collection owning the loan, eg, UAM:Mamm)</li>
@@ -46,7 +46,7 @@ sho err
 
 	<p>
 		<div id="template">
-			<textarea rows="2" cols="80" id="t">guid,loan_guid_prefix,LOAN_NUMBER</textarea>
+			<textarea rows="2" cols="80" id="t">guid,loan_guid_prefix,loan_number</textarea>
 		</div>
 	</p>
 	<form name="dlul" method="post" enctype="multipart/form-data" action="DataLoanBulkUnload.cfm">
@@ -56,6 +56,14 @@ sho err
 	</form>
 </cfif>
 <!------------------------------------------------------->
+
+<cfif action is "makeTemplate">
+	<cffile action = "write"
+    file = "#Application.webDirectory#/download/BulkUnloadDataLoan.csv"
+    output = "guid,loan_guid_prefix,loan_number"
+    addNewLine = "no">
+	<cflocation url="/download.cfm?file=BulkUnloadDataLoan.csv" addtoken="false">
+</cfif>
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
