@@ -97,7 +97,7 @@ sho err
 		select * from cf_temp_unload_data_loan_item
 	</cfquery>
 	<cfdump var="#gotit#">
-	If the above table is accurate, <a href="DataLoanBulkUnload.cfm?action=verify">click here to proceed</a>.
+	If the above table is accurate, <a href="DataLoanBulkUnload.cfm?action=verify">click here to remove these items from the loan</a>.
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "verify">
