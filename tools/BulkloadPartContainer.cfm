@@ -242,7 +242,7 @@ sho err
 	</cfquery>
 	<cfif listlen(valuelist(d.status)) gt 0>
 		Fix this and reload - nothing's been saved.
-		<a href="BulkloadPartContainer?action=getCSV">CSV</a>
+		<a href="BulkloadPartContainer.cfm?action=getCSV">CSV</a>
 		<cfquery name="problemsonly" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from cf_temp_barcode_parts where status is not null
 		</cfquery>
