@@ -156,13 +156,11 @@ sho err
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "unloadData">
+<cfif action is "unloadData">
 <cfoutput>
-	<cfloop query="getTempData">
-		<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from loan_item where (transaction_id,collection_object_id) in (select transaction_id,collection_object_id from cf_temp_unload_data_loan_item)
-		</cfquery>
-	</cfloop>
+	<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from loan_item where (transaction_id,collection_object_id) in (select transaction_id,collection_object_id from cf_temp_unload_data_loan_item)
+	</cfquery>
 	Spiffy, all done.
 </cfoutput>
 </cfif>
