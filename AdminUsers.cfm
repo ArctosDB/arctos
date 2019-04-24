@@ -13,18 +13,12 @@
 			select user_id from cf_users where username='#username#'
 		</cfquery>
 		<cfif uact.recordcount is 1 and len(uact.user_id) gt 0>
-			<cfquery name="hud" datasource="uam_god">
-				select * from cf_user_data where user_id=#uact.user_id#
-			</cfquery>
-		<cfdump var=#hud#>
 			<cfquery name="uem" datasource="uam_god">
 				update cf_user_data set email='#email#' where user_id=#uact.user_id#
 			</cfquery>
 		<cfelse>
 			fail<cfabort>
 		</cfif>
-		<cfdump var=#uact#>
-		<cfabort>
 		<cflocation url="AdminUsers.cfm?action=edit&username=#username#" addtoken="false">
 	</cfoutput>
 </cfif>
