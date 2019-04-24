@@ -19,6 +19,8 @@
 		<cfelse>
 			fail<cfabort>
 		</cfif>
+		<cfdump var=#uact#>
+		<cfabort>
 		<cflocation url="AdminUsers.cfm?action=edit&username=#username#" addtoken="false">
 	</cfoutput>
 </cfif>
