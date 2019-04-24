@@ -16,7 +16,7 @@
 			<cfquery name="hud" datasource="uam_god">
 				select * from cf_user_data where user_id=#uact.user_id#
 			</cfquery>
-		<cfdump var=#uact#>
+		<cfdump var=#hud#>
 			<cfquery name="uem" datasource="uam_god">
 				update cf_user_data set email='#email#' where user_id=#uact.user_id#
 			</cfquery>
