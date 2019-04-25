@@ -158,8 +158,49 @@ grant all on cf_temp_scaryswapper to manage_container;
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_scaryswapper
 	</cfquery>
-	<cfdump var=#d#>
-
+	<cfquery name="ds" dbtype="query">
+		select count(*) c from d where status is not null
+	</cfquery>
+	<cfif dc.c gt 0>
+		<p>
+			fail; check data and reload
+		</p>
+	<cfelse>
+		<p>
+			Pass: Check everything one more time then click here to make the swaps
+		</p>
+	</cfif>
+	<table border>
+		<tr>
+			<th>box_barcode</th>
+			<th>position</th>
+			<th>receiving_label</th>
+			<th>donor_barcode</th>
+			<th>status</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>
+					#box_barcode#
+					<a href="/findContainer.cfm?container_id=#box_id#">[tree]</a>
+					<a href="//EditContainer.cfm?container_id=#box_id#">[edit]</a>
+				</td>
+				<td>
+					#position#
+					<a href="/findContainer.cfm?container_id=#position_id#">[tree]</a>
+					<a href="//EditContainer.cfm?container_id=#position_id#">[edit]</a>
+				</td>
+				<td>
+					#receiving_label#
+					<a href="/findContainer.cfm?container_id=#tube_id#">[tree]</a>
+					<a href="//EditContainer.cfm?container_id=#tube_id#">[edit]</a>
+				</td>
+				<td>
+					#donor_barcode#
+					<a href="/findContainer.cfm?container_id=#donor_id#">[tree]</a>
+					<a href="//EditContainer.cfm?container_id=#donor_id#">[edit]</a>
+				</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfif>
-
-scaryBarcodeSwapper_box.cfm
