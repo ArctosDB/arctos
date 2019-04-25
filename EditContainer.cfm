@@ -609,7 +609,7 @@
 				delete from container where container_id=#dc.container_id#
 			</cfquery>
 			<cfquery name="abc" datasource="uam_god">
-				update container set barcode='#donorBarcode#' where  container_id=#container_id#
+				update container set barcode='#donorBarcode#' where container_id=#container_id#
 			</cfquery>
 		</cftransaction>
 		<cflocation url="EditContainer.cfm?container_id=#container_id#" addtoken="false">

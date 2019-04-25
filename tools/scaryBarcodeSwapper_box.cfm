@@ -167,7 +167,7 @@ grant all on cf_temp_scaryswapper to manage_container;
 		</p>
 	<cfelse>
 		<p>
-			Pass: Check everything one more time then click here to make the swaps
+			Pass: Check everything one more time then <a href="scaryBarcodeSwapper_box.cfm?action=doit">click here to make the swaps</a>
 		</p>
 	</cfif>
 	<cfoutput>
@@ -205,5 +205,33 @@ grant all on cf_temp_scaryswapper to manage_container;
 			</tr>
 		</cfloop>
 	</table>
+	</cfoutput>
+</cfif>
+<cfif action is "doit">
+	<cfoutput>
+
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from cf_temp_scaryswapper
+		</cfquery>
+		<cfquery name="ds" dbtype="query">
+			select count(*) c from d where status is not null
+		</cfquery>
+		<cfif ds.c gt 0>
+			<p>
+				fail; check data and reload
+			</p>
+			<cfabort>
+		</cfif>
+		<cftransaction>
+			<cfquery name="ddnr" datasource="uam_god">
+				delete from container where container_id=#d.donor_id#
+			</cfquery>
+			<cfquery name="abc" datasource="uam_god">
+				update container set barcode='#donor_barcode#' where container_id=#d.tube_id#
+			</cfquery>
+		</cftransaction>
+		<p>
+			Spiffy, all done.
+		</p>
 	</cfoutput>
 </cfif>
