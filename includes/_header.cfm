@@ -340,6 +340,9 @@
 												<li><a target="_top" href="/tools/bulkEditContainer.cfm">Bulk Edit Container</a></li>
 												<li><a target="_top" href="/info/barcodeseries.cfm">Barcode Series</a></li>
 											</cfif>
+											<cfif listfind(formList,"/tools/scaryBarcodeSwapper_box.cfm")>
+												<li><a target="_top" href="/tools/scaryBarcodeSwapper_box.cfm">Scary Barcode Box Swapper</a></li>
+											</cfif>
 
 										</ul>
 									</li>

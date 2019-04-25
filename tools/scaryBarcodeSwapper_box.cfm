@@ -38,7 +38,12 @@ grant all on cf_temp_scaryswapper to manage_container;
 	<cflocation url="/download.cfm?file=scaryswapper.csv" addtoken="false">
 </cfif>
 <cfif action is "nothing">
-
+	<p>
+		Replace barcodes on all cryovials in positions in a freezer box.
+	</p>
+	<p>
+		You should be very sure of what this form does before proceeding.
+	</p>
 	<table>
 		<tr>
 			<th>Column</th>
