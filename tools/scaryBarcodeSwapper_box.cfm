@@ -46,7 +46,7 @@ grant all on cf_temp_scaryswapper to manage_container;
 		</tr>
 		<tr>
 			<td>box_barcode</td>
-			<td>Barcode of the box which contains positions which contains cryovials with labels {receiving_label}</td>
+			<td>Barcode of the freezer box which contains positions which contains cryovials with labels {receiving_label}</td>
 		</tr>
 		<tr>
 			<td>position</td>
@@ -99,7 +99,9 @@ grant all on cf_temp_scaryswapper to manage_container;
 </cfif>
 <cfif action is "verify">
 	<cfquery name="bx" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_scaryswapper set box_id=(select container_id from container where container.barcode=cf_temp_scaryswapper.box_barcode)
+		update cf_temp_scaryswapper set box_id=(
+			select container_id from container where container.container_type='freezer box' and container.barcode=cf_temp_scaryswapper.box_barcode
+			)
 	</cfquery>
 	<cfquery name="bxv" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_scaryswapper set status='box_not_found' where box_id is null
@@ -126,6 +128,7 @@ grant all on cf_temp_scaryswapper to manage_container;
 	<cfquery name="posn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_scaryswapper set position_id=(
 			select container_id from container where
+				container.container_type='position' and
 				container.LABEL=cf_temp_scaryswapper.position and
 				container.parent_container_id=cf_temp_scaryswapper.box_id
 			)
@@ -139,6 +142,7 @@ grant all on cf_temp_scaryswapper to manage_container;
 	<cfquery name="tb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_scaryswapper set tube_id=(
 			select container_id from container where
+				container.container_type='cryovial' and
 				container.LABEL=cf_temp_scaryswapper.receiving_label and
 				container.parent_container_id=cf_temp_scaryswapper.position_id
 			)
