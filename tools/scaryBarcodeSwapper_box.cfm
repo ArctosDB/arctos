@@ -228,12 +228,14 @@ grant all on cf_temp_scaryswapper to manage_container;
 			<cfabort>
 		</cfif>
 		<cftransaction>
-			<cfquery name="ddnr" datasource="uam_god">
-				delete from container where container_id=#d.donor_id#
-			</cfquery>
-			<cfquery name="abc" datasource="uam_god">
-				update container set barcode='#donor_barcode#' where container_id=#d.tube_id#
-			</cfquery>
+			<cfloop query="d">
+				<cfquery name="ddnr" datasource="uam_god">
+					delete from container where container_id=#d.donor_id#
+				</cfquery>
+				<cfquery name="abc" datasource="uam_god">
+					update container set barcode='#d.donor_barcode#' where container_id=#d.tube_id#
+				</cfquery>
+			</cfloop>
 		</cftransaction>
 		<p>
 			Spiffy, all done.
