@@ -170,6 +170,7 @@ grant all on cf_temp_scaryswapper to manage_container;
 			Pass: Check everything one more time then click here to make the swaps
 		</p>
 	</cfif>
+	<cfoutput>
 	<table border>
 		<tr>
 			<th>box_barcode</th>
@@ -203,4 +204,5 @@ grant all on cf_temp_scaryswapper to manage_container;
 			</tr>
 		</cfloop>
 	</table>
+	</cfoutput>
 </cfif>
