@@ -161,7 +161,7 @@ grant all on cf_temp_scaryswapper to manage_container;
 	<cfquery name="ds" dbtype="query">
 		select count(*) c from d where status is not null
 	</cfquery>
-	<cfif dc.c gt 0>
+	<cfif ds.c gt 0>
 		<p>
 			fail; check data and reload
 		</p>
