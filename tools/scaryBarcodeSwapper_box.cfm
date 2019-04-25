@@ -183,23 +183,23 @@ grant all on cf_temp_scaryswapper to manage_container;
 			<tr>
 				<td>
 					#box_barcode#
-					<a href="/findContainer.cfm?container_id=#box_id#">[tree]</a>
-					<a href="//EditContainer.cfm?container_id=#box_id#">[edit]</a>
+					<a target="_blank" href="/findContainer.cfm?container_id=#box_id#">[tree]</a>
+					<a  target="_blank" href="/EditContainer.cfm?container_id=#box_id#">[edit]</a>
 				</td>
 				<td>
 					#position#
-					<a href="/findContainer.cfm?container_id=#position_id#">[tree]</a>
-					<a href="//EditContainer.cfm?container_id=#position_id#">[edit]</a>
+					<a  target="_blank" href="/findContainer.cfm?container_id=#position_id#">[tree]</a>
+					<a  target="_blank" href="/EditContainer.cfm?container_id=#position_id#">[edit]</a>
 				</td>
 				<td>
 					#receiving_label#
-					<a href="/findContainer.cfm?container_id=#tube_id#">[tree]</a>
-					<a href="//EditContainer.cfm?container_id=#tube_id#">[edit]</a>
+					<a  target="_blank" href="/findContainer.cfm?container_id=#tube_id#">[tree]</a>
+					<a target="_blank"  href="/EditContainer.cfm?container_id=#tube_id#">[edit]</a>
 				</td>
 				<td>
 					#donor_barcode#
-					<a href="/findContainer.cfm?container_id=#donor_id#">[tree]</a>
-					<a href="//EditContainer.cfm?container_id=#donor_id#">[edit]</a>
+					<a  target="_blank" href="/findContainer.cfm?container_id=#donor_id#">[tree]</a>
+					<a  target="_blank" href="/EditContainer.cfm?container_id=#donor_id#">[edit]</a>
 				</td>
 			</tr>
 		</cfloop>
