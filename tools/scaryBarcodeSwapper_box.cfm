@@ -154,6 +154,11 @@ grant all on cf_temp_scaryswapper to manage_container;
 	<cfquery name="posnv" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_temp_scaryswapper set status='tube_not_found' where status is null and tube_id is null
 	</cfquery>
+	<cfquery name="dnrvd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update cf_temp_scaryswapper set status='tube_duplicate' where status is null and tube_id in (
+			select tube_id from cf_temp_scaryswapper having count(*) > 1 group by tube_id
+		)
+	</cfquery>
 
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_scaryswapper
