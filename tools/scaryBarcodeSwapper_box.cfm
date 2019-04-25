@@ -70,6 +70,10 @@ grant all on cf_temp_scaryswapper to manage_container;
 </cfif>
 <cfif action is "getFile">
 <cfoutput>
+	<cfquery name="flush" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from cf_temp_scaryswapper
+	</cfquery>
+
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
