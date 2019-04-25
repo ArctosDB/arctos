@@ -201,6 +201,7 @@ grant all on cf_temp_scaryswapper to manage_container;
 					<a  target="_blank" href="/findContainer.cfm?container_id=#donor_id#">[tree]</a>
 					<a  target="_blank" href="/EditContainer.cfm?container_id=#donor_id#">[edit]</a>
 				</td>
+				<td>#status#</td>
 			</tr>
 		</cfloop>
 	</table>
