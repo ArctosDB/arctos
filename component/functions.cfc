@@ -176,7 +176,7 @@
 				<cfset ta.doi=doi>
 				<cfset arrayAppend(ar,ta)>
 			</cfif>
-			
+
 				<!----
 				<cfif not isjson(d.Filecontent) or left(d.statuscode,3) is not "200" or left(jmc.statuscode,3) is not "200">
 					<cfset r.STATUS='FAIL'>
@@ -1342,7 +1342,8 @@
 <cffunction name="googleSignURL" access="remote">
 	<cfargument name="urlPath" type="string" required="yes">
 	<cfargument name="urlParams" type="string" required="yes">
-	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<!---- cachedwithin="#createtimespan(0,0,60,0)#"---->
+	<cfquery name="cf_global_settings" datasource="uam_god">
 		select
 			google_client_id,
 			google_private_key
