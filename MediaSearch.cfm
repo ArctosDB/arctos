@@ -929,7 +929,9 @@
 				</td>
 				<td align="middle">
 					<div id="mapgohere-media_id-#media_id#">
+						<!----
 						<img src="/images/indicator.gif">
+						---->
 					</div>
 				</td>
 				<td>
