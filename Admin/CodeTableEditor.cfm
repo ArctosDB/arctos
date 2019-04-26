@@ -126,6 +126,8 @@ CTSPEC_PART_ATT_ATT
 		<cflocation url="CodeTableEditor.cfm?action=editCollOIDT&tbl=#tbl#" addtoken="false" >
 	<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
 		<cflocation url="CodeTableEditor.cfm?action=editSpecPartOrder&tbl=#tbl#" addtoken="false" >
+	<cfelseif tbl is "CTPART_PRESERVATION"><!--- special section to handle  another  funky code table --->
+		<cflocation url="CodeTableEditor.cfm?action=editCTPART_PRESERVATION&tbl=#tbl#" addtoken="false" >
 	<cfelseif tbl is "ctcollection_cde"><!--- this IS the thing that makes this form funky.... --->
 		use SQL<cfabort>
 	<cfelse><!---------------------------- normal CTs --------------->
@@ -147,6 +149,89 @@ CTSPEC_PART_ATT_ATT
 
 
 <!--------------------------------------------------------->
+<cfif action is "editCTPART_PRESERVATION">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			*
+		from CTPART_PRESERVATION
+		ORDER BY
+			PART_PRESERVATION
+	</cfquery>
+	<cfoutput>
+		<p>
+			Tissue Values
+			<ul>
+				<li>NULL: no affect on tissueness</li>
+				<li>1: causes tissueness</li>
+				<li>0: prevents tissueness</li>
+			</ul>
+			Examples
+			<ul>
+				<li>A part with no preservation or only preservations with NULL tissue values are not tissues</li>
+				<li>A part with at least one 1 tissue value and no 0 tissue values is a tissue</li>
+				<li>A part with at least one 0 tissue values, regardless of other preservation history, is not a tissue</li>
+			</ul>
+		</p>
+		<table class="newRec" border="1">
+			<tr>
+				<th>Preservation</th>
+				<th>description</th>
+				<td>Tissue</td>
+			</tr>
+			<form name="newData" method="post" action="CodeTableEditor.cfm">
+				<input type="hidden" name="action" value="editCTPART_PRESERVATION_insert">
+				<tr>
+					<td>
+						<input type="text" name="PART_PRESERVATION" class="reqdClr">
+					</td>
+					<td>
+						<textarea name="description"  class="reqdClr" id="description" rows="4" cols="40"></textarea>
+					</td>
+					<td>
+						<select name="TISSUE_FG" id="TISSUE_FG">
+							<option value="">[ NULL ]</option>
+							<option value="1">1</option>
+							<option value="0">0</option>
+						</select>
+					</td>
+					<td>
+						<input type="submit" value="Insert" class="insBtn">
+					</td>
+				</tr>
+			</form>
+		</table>
+		<cfset i = 1>
+		Edit
+		<table border="1">
+			<tr>
+				<th>Preservation</th>
+				<th>description</th>
+				<th>Tissue</th>
+			</tr>
+			<cfloop query="q">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<form name="m#i#" id="m#i#" action="CodeTableEditor.cfm">
+						<input name="action" type="hidden">
+						<td><input type="text" name="PART_PRESERVATION" class="reqdClr" value="#PART_PRESERVATION#"></td>
+						<td><textarea name="description"  class="reqdClr" id="description" rows="4" cols="40">#description#</textarea></td>
+						<td>
+							<select name="TISSUE_FG" id="TISSUE_FG">
+								<option value="">[ NULL ]</option>
+								<option <cfif TISSUE_FG is 1> selected="selected" </cfif>value="1">1</option>
+								<option <cfif TISSUE_FG is 0> selected="selected" </cfif>value="0">0</option>
+							</select>
+						</td>
+						<td nowrap="nowrap">
+							<span class="likeLink" onclick="m#i#.action.value='editCTPART_PRESERVATION';m#i#.submit();">[ Delete ]</span>
+							<br><span class="likeLink" onclick="m#i#.action.value='editCTPART_PRESERVATION_save';m#i#.submit();">[ Update ]</span>
+						</td>
+					</form>
+				</tr>
+				<cfset i = i+1>
+			</cfloop>
+		</table>
+	</cfoutput>
+</cfif>
 
 
 
