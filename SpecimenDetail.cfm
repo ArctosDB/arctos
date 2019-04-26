@@ -6,11 +6,15 @@
 	<!---- cachedwithin="#createtimespan(0,0,60,0)#"---->
 		select
 			google_client_id,
-			google_private_key
+			google_private_key,
+			GMAP_API_KEY
 		from cf_global_settings
 	</cfquery>
 	<cfoutput>
-		<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&libraries=geometry" type="text/javascript"></script>'>
+		<!----
+		<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=#cf_global_settings.GMAP_API_KEY#&libraries=geometry" type="text/javascript"></script>'>
+		---->
+		<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?key=#cf_global_settings.GMAP_API_KEY#&libraries=geometry" type="text/javascript"></script>'>
 	</cfoutput>
 <cftry>
 	<script>
