@@ -234,7 +234,14 @@ CTSPEC_PART_ATT_ATT
 </cfif>
 <cfif action is "editCTPART_PRESERVATION_insert">
 	<cfdump var=#form#>
-
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into CTPART_PRESERVATION (
+			PART_PRESERVATION,DESCRIPTION,TISSUE_FG
+		) values (
+			'#escapeQuotes(PART_PRESERVATION)#','#escapeQuotes(description)#',<cfif len(TISSUE_FG) is 0>NULL<cfelse>#TISSUE_FG#</cfif>
+		)
+	</cfquery>
+	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=editCTPART_PRESERVATION&tbl=CTPART_PRESERVATION">
 </cfif>
 <cfif action is "editCTPART_PRESERVATION_delete">
 	<cfdump var=#form#>
