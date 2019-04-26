@@ -1,5 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
+<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	select GMAP_API_KEY	from cf_global_settings
+</cfquery>
+<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?key=#cf_global_settings.GMAP_API_KEY#&libraries=places,geometry" type="text/javascript"></script>'>
+
+<!----
 <cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?client=gme-museumofvertebrate1&sensor=false&libraries=places,geometry" type="text/javascript"></script>'>
+---->
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script src="/includes/jquery.multiselect.min.js"></script>
 <link rel="stylesheet" href="/includes/jquery.multiselect.css" />
