@@ -1893,17 +1893,18 @@
 	<!---
 		older-n-busted: cache
 		newer-n-hawt: text index
-			<cfset basQual = "#basQual# AND CONTAINS (#session.flatTableName#.locality_search_terms, '#ucase(escapeQuotes(any_geog))#') > 0">
 
 	--->
+				<cfset basQual = "#basQual# AND CONTAINS (#session.flatTableName#.locality_search_terms, '#ucase(escapeQuotes(any_geog))#') > 0">
+
 	<!---
 		old-n-busted: a bunch of SQL
 		new-n-hawt: cache
-
-	---->
 	<cfset basJoin = " #basJoin# INNER JOIN specimen_event segc ON (#session.flatTableName#.collection_object_id = segc.collection_object_id)">
 	<cfset basJoin = " #basJoin# INNER JOIN cache_anygeog  ON (segc.specimen_event_id = cache_anygeog.specimen_event_id)">
 	<cfset basQual = " #basQual# AND cache_anygeog.geostring like '%#ucase(escapeQuotes(any_geog))#%'">
+
+	---->
 	<!----
 
 	<cfset basQual = " #basQual# AND #session.flatTableName#.locality_id IN (
