@@ -210,9 +210,12 @@ CTSPEC_PART_ATT_ATT
 			</tr>
 			<cfloop query="q">
 				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-					<form name="m#i#" id="m#i#" action="CodeTableEditor.cfm">
+					<form name="m#i#" method="post" id="m#i#" action="CodeTableEditor.cfm">
 						<input name="action" type="hidden">
-						<td><input type="text" name="PART_PRESERVATION" class="reqdClr" value="#PART_PRESERVATION#"></td>
+						<td>
+							#PART_PRESERVATION#
+							<input type="hidden" name="PART_PRESERVATION"  value="#PART_PRESERVATION#">
+						</td>
 						<td><textarea name="description"  class="reqdClr" id="description" rows="4" cols="40">#description#</textarea></td>
 						<td>
 							<select name="TISSUE_FG" id="TISSUE_FG">
@@ -233,7 +236,6 @@ CTSPEC_PART_ATT_ATT
 	</cfoutput>
 </cfif>
 <cfif action is "editCTPART_PRESERVATION_insert">
-	<cfdump var=#form#>
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		insert into CTPART_PRESERVATION (
 			PART_PRESERVATION,DESCRIPTION,TISSUE_FG
@@ -244,12 +246,20 @@ CTSPEC_PART_ATT_ATT
 	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=editCTPART_PRESERVATION&tbl=CTPART_PRESERVATION">
 </cfif>
 <cfif action is "editCTPART_PRESERVATION_delete">
-	<cfdump var=#form#>
-
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from CTPART_PRESERVATION where PART_PRESERVATION='#escapeQuotes(PART_PRESERVATION)#'
+	</cfquery>
+	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=editCTPART_PRESERVATION&tbl=CTPART_PRESERVATION">
 </cfif>
 <cfif action is "editCTPART_PRESERVATION_save">
-	<cfdump var=#form#>
-
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update CTPART_PRESERVATION (
+			DESCRIPTION='#escapeQuotes(description)#',
+			TISSUE_FG=<cfif len(TISSUE_FG) is 0>NULL<cfelse>#TISSUE_FG#</cfif>
+		where
+			PART_PRESERVATION='#escapeQuotes(PART_PRESERVATION)#'
+	</cfquery>
+	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=editCTPART_PRESERVATION&tbl=CTPART_PRESERVATION">
 </cfif>
 
 
