@@ -222,7 +222,7 @@ CTSPEC_PART_ATT_ATT
 							</select>
 						</td>
 						<td nowrap="nowrap">
-							<span class="likeLink" onclick="m#i#.action.value='editCTPART_PRESERVATION';m#i#.submit();">[ Delete ]</span>
+							<span class="likeLink" onclick="m#i#.action.value='editCTPART_PRESERVATION_delete';m#i#.submit();">[ Delete ]</span>
 							<br><span class="likeLink" onclick="m#i#.action.value='editCTPART_PRESERVATION_save';m#i#.submit();">[ Update ]</span>
 						</td>
 					</form>
@@ -232,7 +232,18 @@ CTSPEC_PART_ATT_ATT
 		</table>
 	</cfoutput>
 </cfif>
+<cfif action is "editCTPART_PRESERVATION_insert">
+	<cfdump var=#form#>
 
+</cfif>
+<cfif action is "editCTPART_PRESERVATION_delete">
+	<cfdump var=#form#>
+
+</cfif>
+<cfif action is "editCTPART_PRESERVATION_save">
+	<cfdump var=#form#>
+
+</cfif>
 
 
 <cfif action is "editMediaLicense">
