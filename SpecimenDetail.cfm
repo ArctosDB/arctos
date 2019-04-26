@@ -2,13 +2,8 @@
 <cfif not isdefined("session.sdmapclass") or len(session.sdmapclass) is 0>
 	<cfset session.sdmapclass='tinymap'>
 </cfif>
-<cfquery name="cf_global_settings" datasource="uam_god">
-	<!---- cachedwithin="#createtimespan(0,0,60,0)#"---->
-		select
-			google_client_id,
-			google_private_key,
-			GMAP_API_KEY
-		from cf_global_settings
+	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select GMAP_API_KEY	from cf_global_settings
 	</cfquery>
 	<cfoutput>
 		<!----

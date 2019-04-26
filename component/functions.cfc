@@ -1341,8 +1341,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="googleSignURL" access="remote">
 	<cfargument name="urlPath" type="string" required="yes">
-	<cfargument name="urlParams" type="string" required="yes">
-	<!---- cachedwithin="#createtimespan(0,0,60,0)#"---->
+	<cfargument name="urlParams" type="string" required="yes" cachedwithin="#createtimespan(0,0,60,0)#">
 	<cfquery name="cf_global_settings" datasource="uam_god">
 		select
 			google_client_id,
