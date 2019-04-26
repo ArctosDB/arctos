@@ -253,7 +253,9 @@ CTSPEC_PART_ATT_ATT
 </cfif>
 <cfif action is "editCTPART_PRESERVATION_save">
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update CTPART_PRESERVATION (
+		update
+			CTPART_PRESERVATION
+		set
 			DESCRIPTION='#escapeQuotes(description)#',
 			TISSUE_FG=<cfif len(TISSUE_FG) is 0>NULL<cfelse>#TISSUE_FG#</cfif>
 		where
