@@ -259,6 +259,7 @@
 				});
 			}
 			jQuery(document).ready(function() {
+				/*
 				$.each($("div[id^='mapgohere-']"), function() {
 					var theElemID=this.id;
 					var theIDType=this.id.split('-')[1];
@@ -268,6 +269,7 @@
 						jQuery("#" + theElemID).html(data);
 					});
 				});
+				*/
 				$.each($("div[id^='docInfoDiv_']"), function() {
 					var theElemID=this.id;
 					var theIDType=this.id.split('_')[0];
