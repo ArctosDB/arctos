@@ -524,7 +524,8 @@
 			update bulkloader set loaded='#msg#' where collection_object_id=#collection_object_id#
 		</cfquery>
 	</cfif>
-	<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	<!---cachedwithin="#createtimespan(0,0,60,0)#"---->
+	<cfquery name="getCols" datasource="uam_god" >
 		select
 			column_name
 		from
