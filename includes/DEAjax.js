@@ -1643,6 +1643,8 @@ function switchActive(OrigUnits) {
 		u.className='doShow';
 	}
 }
+
+/*
 function setPartLabel (thisID) {
 	var thePartNum = thisID.replace('part_barcode_','');
 	var theOIDType = document.getElementById('other_id_num_type_5').value;
@@ -1660,6 +1662,7 @@ function setPartLabel (thisID) {
 		}
 	}
 }
+*/
 function doAttributeDefaults () {
 	var theDef = document.getElementById('attribute_determiner_1').value;	
 	var isDef = theDef.length;

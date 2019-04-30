@@ -1,3 +1,28 @@
+<!----
+	this form is crazy-slow
+	cache stuff
+
+
+	create table cache_sysstats (
+		lastdate date,
+		number_collections number,
+		number_institutions number,
+		number_specimens number,
+		number_taxa number,
+		number_taxon_relations number,
+		number_localities number,
+		number_georeferenced_localities number,
+		number_collecting_events number,
+		number_media number,
+		number_agents number,
+		number_publications number,
+		number_publication_doi number,
+		number_projects number,
+		number_tables number,
+		number_codetables number,
+		number_genbank number,
+		number_spec_relns number,
+---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
 <script>

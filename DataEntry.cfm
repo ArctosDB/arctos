@@ -1024,7 +1024,6 @@
 										<th><span class="f11a">Disposition</span></th>
 										<th><span class="f11a">##</span></th>
 										<th><span class="f11a">Barcode</span></th>
-										<th><span class="f11a">Label</span></th>
 										<th><span class="f11a">Remark</span></th>
 									</tr>
 									<cfloop from="1" to="12" index="i">
@@ -1053,9 +1052,6 @@
 											<td>
 												<input type="text" name="part_barcode_#i#" id="part_barcode_#i#"
 													 size="15" onchange="setPartLabel(this.id);">
-											</td>
-											<td>
-												<input type="text" name="part_container_label_#i#" id="part_container_label_#i#" size="10">
 											</td>
 											<td>
 												<textarea class="smalltextarea" name="part_remark_#i#" id="part_remark_#i#" rows="1" cols="20"></textarea>
