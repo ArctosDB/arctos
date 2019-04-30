@@ -1833,7 +1833,7 @@
 			<cfset x=x & ",trackback,texteditor,tar">
 			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra,vscode,views,vacancies">
-			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress">
+			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress,webforms">
 			<cfset x=x & ",YandexImages,yealink">
 			<cfset x=x & ",zboard">
 			<!--- just remember to not add these...---->
