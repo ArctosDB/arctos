@@ -525,7 +525,7 @@
 		</cfquery>
 	</cfif>
 	<!--- cachedwithin="#createtimespan(0,0,60,0)#"---->
-	<cfquery name="getCols" datasource="uam_god">
+	<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			column_name
 		from
