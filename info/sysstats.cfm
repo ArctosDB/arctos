@@ -337,7 +337,7 @@ sho err;
 
 <cfset title="system statistics">
 <style>
-div.rotate
+th.rotate > div
 {
  margin-left: -85px;
  position: absolute;
@@ -375,26 +375,7 @@ th.rotate
 		<table border="1" id="t" class="">
 	<thead>
 		<!----
-		<tr class="bigtable">
-			<th class="rotate"><div><span>##Collections</span></div></th>
-			<th class="rotate"><div><span>##Institutions</span></div></th>
-			<th class="rotate"><div><span>##Specimens</span></div></th>
-			<th class="rotate"><div><span>##Taxa</span></div></th>
-			<th class="rotate"><div><span>##TaxonRelations</span></div></th>
-			<th class="rotate"><div><span>##Localities</span></div></th>
-			<th class="rotate"><div><span>##GeoreferencedLocalities</span></div></th>
-			<th class="rotate"><div><span>##CollectingEvents</span></div></th>
-			<th class="rotate"><div><span>##Media</span></div></th>
-			<th class="rotate"><div><span>##Agents</span></div></th>
-			<th class="rotate"><div><span>##Publications</span></div></th>
-			<th class="rotate"><div><span>##PublicationsWithDOI</span></div></th>
-			<th class="rotate"><div><span>##Projects</span></div></th>
-			<th class="rotate"><div><span>##GenBankLinks</span></div></th>
-			<th class="rotate"><div><span>##SpecimenRelationships</span></div></th>
-			<th class="rotate"><div><span>##Annotations</span></div></th>
-			<th class="rotate"><div><span>##ReviewedAnnotations</span></div></th>
-		</tr>
-		---->
+
 		<tr class="bigtable">
 			<th class="rotate">##Collections</th>
 			<th class="rotate">##Institutions</th>
@@ -413,6 +394,26 @@ th.rotate
 			<th class="rotate">##SpecimenRelationships</th>
 			<th class="rotate">##Annotations</th>
 			<th class="rotate">##ReviewedAnnotations</th>
+		</tr>
+		---->
+		<tr class="">
+			<th class="rotate"><div><span>##Collections</span></div></th>
+			<th class="rotate"><div><span>##Institutions</span></div></th>
+			<th class="rotate"><div><span>##Specimens</span></div></th>
+			<th class="rotate"><div><span>##Taxa</span></div></th>
+			<th class="rotate"><div><span>##TaxonRelations</span></div></th>
+			<th class="rotate"><div><span>##Localities</span></div></th>
+			<th class="rotate"><div><span>##GeoreferencedLocalities</span></div></th>
+			<th class="rotate"><div><span>##CollectingEvents</span></div></th>
+			<th class="rotate"><div><span>##Media</span></div></th>
+			<th class="rotate"><div><span>##Agents</span></div></th>
+			<th class="rotate"><div><span>##Publications</span></div></th>
+			<th class="rotate"><div><span>##PublicationsWithDOI</span></div></th>
+			<th class="rotate"><div><span>##Projects</span></div></th>
+			<th class="rotate"><div><span>##GenBankLinks</span></div></th>
+			<th class="rotate"><div><span>##SpecimenRelationships</span></div></th>
+			<th class="rotate"><div><span>##Annotations</span></div></th>
+			<th class="rotate"><div><span>##ReviewedAnnotations</span></div></th>
 		</tr>
 	</thead>
 	<cfloop query="g">
