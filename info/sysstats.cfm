@@ -340,6 +340,9 @@ sho err;
 
 
 <style>
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
 
 .table-header-rotated th.row-header{
   width: auto;
@@ -492,110 +495,30 @@ sho err;
       </tr>
     </thead>
     <tbody>
-
-
-
-	<cfloop query="c">
-
-      <tr>
-        <th class="row-header">#guid_prefix#</th>
-        <td title="#guid_prefix#: Specimens">#NumberFormat(number_specimens,"999,999")#</td>
-        <td title="#guid_prefix#: Individuals">#NumberFormat(number_individuals,"999,999")#</td>
-        <td title="#guid_prefix#: UsedTaxa">#NumberFormat(number_taxa,"999,999")#</td>
-        <td title="#guid_prefix#: Localities">#NumberFormat(number_localities,"999,999")#</td>
-        <td title="#guid_prefix#: GeoreferencedLocalities">#NumberFormat(number_georef_localities,"999,999")#</td>
-        <td title="#guid_prefix#: CollectingEvents">#NumberFormat(number_collecting_events,"999,999")#</td>
-        <td title="#guid_prefix#: SpecimenMedia">#NumberFormat(number_specimen_media,"999,999")#</td>
-        <td title="#guid_prefix#: UsedPublications">#NumberFormat(number_cit_pubs,"999,999")#</td>
-        <td title="#guid_prefix#: Citations">#NumberFormat(number_citations,"999,999")#</td>
-        <td title="#guid_prefix#: LoanedItems">#NumberFormat(number_loaned_items,"999,999")#</td>
-        <td title="#guid_prefix#: GenBankLinks">#NumberFormat(number_genbank,"999,999")#</td>
-        <td title="#guid_prefix#: SpecimenRelationships">#NumberFormat(number_spec_relns,"999,999")#</td>
-        <td title="#guid_prefix#: Annotations">#NumberFormat(number_annotations,"999,999")#</td>
-        <td title="#guid_prefix#: UnreviewedAnnotations">#NumberFormat(number_rvwd_annotations,"999,999")#</td>
-      </tr>
-	</cfloop>
+		<cfloop query="c">
+	      <tr>
+	        <th class="row-header">#guid_prefix#</th>
+	        <td title="#guid_prefix#: Specimens">#NumberFormat(number_specimens,"999,999")#</td>
+	        <td title="#guid_prefix#: Individuals">#NumberFormat(number_individuals,"999,999")#</td>
+	        <td title="#guid_prefix#: UsedTaxa">#NumberFormat(number_taxa,"999,999")#</td>
+	        <td title="#guid_prefix#: Localities">#NumberFormat(number_localities,"999,999")#</td>
+	        <td title="#guid_prefix#: GeoreferencedLocalities">#NumberFormat(number_georef_localities,"999,999")#</td>
+	        <td title="#guid_prefix#: CollectingEvents">#NumberFormat(number_collecting_events,"999,999")#</td>
+	        <td title="#guid_prefix#: SpecimenMedia">#NumberFormat(number_specimen_media,"999,999")#</td>
+	        <td title="#guid_prefix#: UsedPublications">#NumberFormat(number_cit_pubs,"999,999")#</td>
+	        <td title="#guid_prefix#: Citations">#NumberFormat(number_citations,"999,999")#</td>
+	        <td title="#guid_prefix#: LoanedItems">#NumberFormat(number_loaned_items,"999,999")#</td>
+	        <td title="#guid_prefix#: GenBankLinks">#NumberFormat(number_genbank,"999,999")#</td>
+	        <td title="#guid_prefix#: SpecimenRelationships">#NumberFormat(number_spec_relns,"999,999")#</td>
+	        <td title="#guid_prefix#: Annotations">#NumberFormat(number_annotations,"999,999")#</td>
+	        <td title="#guid_prefix#: UnreviewedAnnotations">#NumberFormat(number_rvwd_annotations,"999,999")#</td>
+	      </tr>
+		</cfloop>
     </tbody>
   </table>
 </div>
 </cfoutput>
 
-
-<div class="scrollable-table">
-  <table class="table table-striped table-header-rotated">
-    <thead>
-      <tr>
-        <!-- First column header is not rotated -->
-        <th></th>
-        <!-- Following headers are rotated -->
-        <th class="rotate-45"><div><span>Column header 1</span></div></th>
-        <th class="rotate-45"><div><span>Column header 2</span></div></th>
-        <th class="rotate-45"><div><span>Column header 3</span></div></th>
-        <th class="rotate-45"><div><span>Column header 4</span></div></th>
-        <th class="rotate-45"><div><span>Column header 5</span></div></th>
-        <th class="rotate-45"><div><span>Column header 6</span></div></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th class="row-header">Row header 1</th>
-        <td><input checked="checked" name="column1[]" type="radio" value="row1-column1"></td>
-        <td><input checked="checked" name="column2[]" type="radio" value="row1-column2"></td>
-        <td><input name="column3[]" type="radio" value="row1-column3"></td>
-        <td><input name="column4[]" type="radio" value="row1-column4"></td>
-        <td><input name="column5[]" type="radio" value="row1-column5"></td>
-        <td><input name="column6[]" type="radio" value="row1-column6"></td>
-      </tr>
-      <tr>
-        <th class="row-header">Row header 2</th>
-        <td><input name="column1[]" type="radio" value="row2-column1"></td>
-        <td><input name="column2[]" type="radio" value="row2-column2"></td>
-        <td><input checked="checked" name="column3[]" type="radio" value="row2-column3"></td>
-        <td><input checked="checked" name="column4[]" type="radio" value="row2-column4"></td>
-        <td><input name="column5[]" type="radio" value="row2-column5"></td>
-        <td><input name="column6[]" type="radio" value="row2-column6"></td>
-      </tr>
-      <tr>
-        <th class="row-header">Row header 3</th>
-        <td><input name="column1[]" type="radio" value="row3-column1"></td>
-        <td><input name="column2[]" type="radio" value="row3-column2"></td>
-        <td><input name="column3[]" type="radio" value="row3-column3"></td>
-        <td><input name="column4[]" type="radio" value="row3-column4"></td>
-        <td><input checked="checked" name="column5[]" type="radio" value="row3-column5"></td>
-        <td><input checked="checked" name="column6[]" type="radio" value="row3-column6"></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
-<div class="scrollable-table">
-  <table class="table table-striped table-header-rotated">
-    <thead>
-      <tr>
-        <!-- First column header is not rotated -->
-        <!-- Following headers are rotated -->
-        <th class="rotate-45"><div><span>Column header 1</span></div></th>
-        <th class="rotate-45"><div><span>Column header 2</span></div></th>
-        <th class="rotate-45"><div><span>Column header 3</span></div></th>
-        <th class="rotate-45"><div><span>Column header 4</span></div></th>
-        <th class="rotate-45"><div><span>Column header 5</span></div></th>
-        <th class="rotate-45"><div><span>Column header 6</span></div></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input checked="checked" name="column1[]" type="radio" value="row1-column1"></td>
-        <td><input checked="checked" name="column2[]" type="radio" value="row1-column2"></td>
-        <td><input name="column3[]" type="radio" value="row1-column3"></td>
-        <td><input name="column4[]" type="radio" value="row1-column4"></td>
-        <td><input name="column5[]" type="radio" value="row1-column5"></td>
-        <td><input name="column6[]" type="radio" value="row1-column6"></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
 
 <cfinclude template="/includes/_footer.cfm">
