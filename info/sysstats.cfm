@@ -364,7 +364,7 @@ sho err;
 		<th>##Annotations</th>
 		<th>##ReviewedAnnotations</th>
 	</tr>
-	<cfloop query="">
+	<cfloop query="g">
 		<tr>
 			<td>#number_collections#</td>
 			<td>#number_institutions#</td>
