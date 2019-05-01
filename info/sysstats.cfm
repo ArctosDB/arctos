@@ -336,41 +336,24 @@ sho err;
 ---->
 <cfset title="system statistics">
 <style>
+div.rotate
+{
+ margin-left: -85px;
+ position: absolute;
+ width: 215px;
+ transform: rotate(-90deg);
+ -webkit-transform: rotate(-90deg); /* Safari/Chrome */
+ -moz-transform: rotate(-90deg); /* Firefox */
+ -o-transform: rotate(-90deg); /* Opera */
+ -ms-transform: rotate(-90deg); /* IE 9 */
+}
 
-.table-header-rotated {
-  border-collapse: collapse;
-  .csstransforms & td {
-    width: 30px;
-  }
-  .no-csstransforms & th {
-    padding: 5px 10px;
-  }
-  td {
-    text-align: center;
-    padding: 10px 5px;
-    border: 1px solid #ccc;
-  }
-  .csstransforms & th.rotate {
-    height: 140px;
-    white-space: nowrap;
-    // Firefox needs the extra DIV for some reason, otherwise the text disappears if you rotate
-    > div {
-      transform:
-        // Magic Numbers
-        translate(25px, 51px)
-        // 45 is really 360-45
-        rotate(315deg);
-      width: 30px;
-    }
-    > div > span {
-      border-bottom: 1px solid #ccc;
-      padding: 5px 10px;
-    }
-  }
-  th.row-header {
-    padding: 0 10px;
-    border-bottom: 1px solid #ccc;
-  }
+th.rotate
+{
+ height: 220px;
+ line-height: 14px;
+ padding-bottom: 20px;
+ text-align: left;
 }
 </style>
 <cfquery name="g" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
