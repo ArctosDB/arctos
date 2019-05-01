@@ -438,8 +438,8 @@ sho err;
     <tbody>
 		<cfloop query="g">
       		<tr>
-				<td>#NumberFormat(number_specimens,"999,999")number_collections#</td>
-				<td>#NumberFormat(number_specimens,"999,999")number_institutions#</td>
+				<td>#NumberFormat(number_collections,"999,999")#</td>
+				<td>#NumberFormat(number_institutions,"999,999")#</td>
 				<td>#NumberFormat(number_specimens,"999,999")#</td>
 				<td>#NumberFormat(number_taxa,"999,999")#</td>
 				<td>#NumberFormat(number_taxon_relations,"999,999")#</td>
