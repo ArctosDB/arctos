@@ -333,6 +333,94 @@ sho err;
 	exec proc_cache_stats;
 
 ---->
+
+<style>
+.table-header-rotated {
+  border-collapse: collapse;
+  .csstransforms & td {
+    width: 30px;
+  }
+  .no-csstransforms & th {
+    padding: 5px 10px;
+  }
+  td {
+    text-align: center;
+    padding: 10px 5px;
+    border: 1px solid #ccc;
+  }
+  .csstransforms & th.rotate {
+    height: 140px;
+    white-space: nowrap;
+    // Firefox needs the extra DIV for some reason, otherwise the text disappears if you rotate
+    > div {
+      transform:
+        // Magic Numbers
+        translate(25px, 51px)
+        // 45 is really 360-45
+        rotate(315deg);
+      width: 30px;
+    }
+    > div > span {
+      border-bottom: 1px solid #ccc;
+      padding: 5px 10px;
+    }
+  }
+  th.row-header {
+    padding: 0 10px;
+    border-bottom: 1px solid #ccc;
+  }
+}
+</style>
+
+<table class="table table-header-rotated">
+  <thead>
+    <tr>
+      <!-- First column header is not rotated -->
+      <th></th>
+      <!-- Following headers are rotated -->
+      <th class="rotate"><div><span>Column header 1</span></div></th>
+        <th class="rotate"><div><span>Column header 2</span></div></th>
+        <th class="rotate"><div><span>Column header 3</span></div></th>
+        <th class="rotate"><div><span>Column header 4</span></div></th>
+        <th class="rotate"><div><span>Column header 5</span></div></th>
+        <th class="rotate"><div><span>Column header 6</span></div></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="row-header">Row header 1</th>
+      <td><input checked="checked" name="column1[]" type="radio" value="row1-column1"></td>
+      <td><input checked="checked" name="column2[]" type="radio" value="row1-column2"></td>
+      <td><input name="column3[]" type="radio" value="row1-column3"></td>
+      <td><input name="column4[]" type="radio" value="row1-column4"></td>
+      <td><input name="column5[]" type="radio" value="row1-column5"></td>
+      <td><input name="column6[]" type="radio" value="row1-column6"></td>
+    </tr>
+    <tr>
+      <th class="row-header">Row header 2</th>
+      <td><input name="column1[]" type="radio" value="row2-column1"></td>
+      <td><input name="column2[]" type="radio" value="row2-column2"></td>
+      <td><input checked="checked" name="column3[]" type="radio" value="row2-column3"></td>
+      <td><input checked="checked" name="column4[]" type="radio" value="row2-column4"></td>
+      <td><input name="column5[]" type="radio" value="row2-column5"></td>
+      <td><input name="column6[]" type="radio" value="row2-column6"></td>
+    </tr>
+    <tr>
+      <th class="row-header">Row header 3</th>
+      <td><input name="column1[]" type="radio" value="row3-column1"></td>
+      <td><input name="column2[]" type="radio" value="row3-column2"></td>
+      <td><input name="column3[]" type="radio" value="row3-column3"></td>
+      <td><input name="column4[]" type="radio" value="row3-column4"></td>
+      <td><input checked="checked" name="column5[]" type="radio" value="row3-column5"></td>
+      <td><input checked="checked" name="column6[]" type="radio" value="row3-column6"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!----
+
+
 	<cfinclude template="/includes/_header.cfm">
 
 <cfset title="system statistics">
@@ -749,3 +837,4 @@ th.rotate
 </cfif>
 ---->
 <cfinclude template="/includes/_footer.cfm">
+---->
