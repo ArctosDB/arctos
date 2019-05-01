@@ -354,7 +354,7 @@ sho err;
 
 	<div class="tblscroll">
 
-		<table border="0" id="t" class="">
+		<table border="0" id="t" class="sortable">
 	<thead>
 		<!----
 		<tr class="bigtable">
