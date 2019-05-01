@@ -433,7 +433,7 @@ sho err;
         <th class="rotate-45"><div><span>##ReviewedAnnotations</span></div></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody><cfloop query="g">
       <tr>
 
 				<td>#number_collections#</td>
@@ -457,6 +457,7 @@ sho err;
 
 
       </tr>
+	</cfloop>
     </tbody>
   </table>
 </div>
