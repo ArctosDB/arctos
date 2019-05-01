@@ -2,8 +2,10 @@
 	this form is crazy-slow
 	cache stuff
 
+drop table cache_sysstats_global;
+drop table cache_sysstats_coln;
 
-	create table cache_sysstats (
+	create table cache_sysstats_global (
 		lastdate date,
 		number_collections number,
 		number_institutions number,
@@ -11,20 +13,407 @@
 		number_taxa number,
 		number_taxon_relations number,
 		number_localities number,
-		number_georeferenced_localities number,
+		number_georef_localities number,
 		number_collecting_events number,
 		number_media number,
 		number_agents number,
 		number_publications number,
 		number_publication_doi number,
 		number_projects number,
-		number_tables number,
-		number_codetables number,
+		--number_tables number,
+		--number_codetables number,
 		number_genbank number,
 		number_spec_relns number,
+		number_annotations number,
+		number_rvwd_annotations number
+	);
+	create table cache_sysstats_coln (
+		lastdate date,
+		guid_prefix varchar2(255),
+		number_specimens number,
+		number_individuals number,
+		number_taxa number,
+		number_localities number,
+		number_georef_localities number,
+		number_collecting_events number,
+		number_specimen_media number,
+		number_cit_pubs number,
+		number_citations number,
+		number_loaned_items number,
+		number_genbank number,
+		number_spec_relns number,
+		number_annotations number,
+		number_rvwd_annotations number
+	);
+
+	CREATE OR REPLACE PROCEDURE proc_cache_stats
+	AS
+		-- global
+		v_number_collections number;
+		v_number_institutions number;
+		v_number_specimens number;
+		v_number_taxa number;
+		v_number_taxon_relations number;
+		v_number_localities number;
+		v_number_georef_localities number;
+		v_number_collecting_events number;
+		v_number_media number;
+		v_number_agents number;
+		v_number_publications number;
+		v_number_publication_doi number;
+		v_number_projects number;
+		v_number_tables number;
+		v_number_codetables number;
+		v_number_genbank number;
+		v_number_spec_relns number;
+		v_number_annotations number;
+		v_number_rvwd_annotations number;
+		-- coln
+		vc_number_specimens number;
+		vc_number_individuals number;
+		vc_number_taxa number;
+		vc_number_localities number;
+		vc_number_georef_localities number;
+		vc_number_collecting_events number;
+		vc_number_specimen_media number;
+		vc_number_cit_pubs number;
+		vc_number_citations number;
+		vc_number_loaned_items number;
+		vc_number_genbank number;
+		vc_number_spec_relns number;
+		vc_number_annotations number;
+		vc_number_rvwd_annotations number;
+	BEGIN
+		select count(*) into v_number_collections from collection;
+		select count(distinct(institution_acronym)) into v_number_institutions from collection;
+		select count(*) into v_number_specimens from cataloged_item;
+		select count(*) into v_number_taxa from taxon_name;
+		select count(*) into v_number_taxon_relations from taxon_relations;
+		select count(*) into v_number_localities from locality;
+		select count(*) into v_number_georef_localities from locality where dec_lat is not null;
+		select count(*) into v_number_collecting_events from collecting_event;
+		select count(*) into v_number_media from media;
+		select count(*) into v_number_agents from agent;
+		select count(*) into v_number_publications from publication;
+		select count(*) into v_number_publication_doi from publication where doi is not null;
+		select count(*) into v_number_projects from project;
+		select count(*) into v_number_genbank from coll_obj_other_id_num where OTHER_ID_TYPE = 'GenBank';
+		select count(*) into v_number_spec_relns from coll_obj_other_id_num where ID_REFERENCES != 'self';
+
+		select count(*) into v_number_annotations from annotations;
+		select count(*) into v_number_rvwd_annotations from annotations where REVIEWER_AGENT_ID is not null;
+
+		-- flush all
+		delete from cache_sysstats_global;
+
+		-- insert
+		insert into cache_sysstats_global (
+			lastdate,
+			number_collections,
+			number_institutions,
+			number_specimens,
+			number_taxa,
+			number_taxon_relations,
+			number_localities,
+			number_georef_localities,
+			number_collecting_events,
+			number_media,
+			number_agents,
+			number_publications,
+			number_publication_doi,
+			number_projects,
+			number_genbank,
+			number_spec_relns,
+			number_annotations,
+			number_rvwd_annotations
+		) values (
+			sysdate,
+			v_number_collections,
+			v_number_institutions,
+			v_number_specimens,
+			v_number_taxa,
+			v_number_taxon_relations,
+			v_number_localities,
+			v_number_georef_localities,
+			v_number_collecting_events,
+			v_number_media,
+			v_number_agents,
+			v_number_publications,
+			v_number_publication_doi,
+			v_number_projects,
+			v_number_genbank,
+			v_number_spec_relns,
+			v_number_annotations,
+			v_number_rvwd_annotations
+		);
+
+	-- pre-delete everything
+	delete from cache_sysstats_coln;
+
+	for r in (select guid_prefix,collection_id from collection) loop
+		select count(*) into vc_number_specimens from cataloged_item where collection_id=r.collection_id;
+		select sum(INDIVIDUALCOUNT) into vc_number_individuals from flat where collection_id=r.collection_id;
+		select
+			count(distinct(identification_taxonomy.taxon_name_id)) into vc_number_taxa
+		from
+			cataloged_item,
+			identification,
+			identification_taxonomy
+		where
+			cataloged_item.collection_object_id=identification.collection_object_id and
+			identification.identification_id=identification_taxonomy.identification_id and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(distinct(collecting_event.locality_id)) into vc_number_localities
+		from
+			cataloged_item,
+			specimen_event,
+			collecting_event
+		where
+			cataloged_item.collection_object_id=specimen_event.collection_object_id and
+			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(distinct(locality.locality_id)) into vc_number_georef_localities
+		from
+			cataloged_item,
+			specimen_event,
+			collecting_event,
+			locality
+		where
+			cataloged_item.collection_object_id=specimen_event.collection_object_id and
+			specimen_event.collecting_event_id=collecting_event.collecting_event_id and
+			collecting_event.locality_id=locality.locality_id and
+			locality.dec_lat is not null and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(distinct(specimen_event.collecting_event_id)) into vc_number_collecting_events
+		from
+			cataloged_item,
+			specimen_event
+		where
+			cataloged_item.collection_object_id=specimen_event.collection_object_id and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(distinct(media_relations.media_id)) into vc_number_specimen_media
+		from
+			cataloged_item,
+			media_relations
+		where
+			cataloged_item.collection_object_id=media_relations.RELATED_PRIMARY_KEY and
+			media_relations.MEDIA_RELATIONSHIP ='shows cataloged_item' and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(distinct(citation.publication_id)) into vc_number_cit_pubs
+		from
+			cataloged_item,
+			citation
+		where
+			cataloged_item.collection_object_id=citation.collection_object_id and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(*) into vc_number_citations
+		from
+			cataloged_item,
+			citation
+		where
+			cataloged_item.collection_object_id=citation.collection_object_id and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			sum(c) into vc_number_loaned_items
+		from (
+			-- data loan
+			select count(*) c from
+				cataloged_item,
+				loan_item
+			where
+				cataloged_item.collection_object_id=loan_item.collection_object_id and
+				cataloged_item.collection_id=r.collection_id
+			union
+			-- part-loans
+			select count(*) c from
+				cataloged_item,
+				specimen_part,
+				loan_item
+			where
+				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+				specimen_part.collection_object_id =loan_item.collection_object_id and
+				cataloged_item.collection_id=r.collection_id
+			)
+		;
+		select
+			count(*) into vc_number_genbank
+		from
+			cataloged_item,
+			coll_obj_other_id_num
+		where
+			cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+			coll_obj_other_id_num.OTHER_ID_TYPE = 'GenBank' and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(*) into vc_number_spec_relns
+		from
+			cataloged_item,
+			coll_obj_other_id_num
+		where
+			cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+			coll_obj_other_id_num.ID_REFERENCES != 'self' and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(*) into vc_number_annotations
+		from
+			cataloged_item,
+			annotations
+		where
+			cataloged_item.collection_object_id=annotations.collection_object_id and
+			cataloged_item.collection_id=r.collection_id
+		;
+		select
+			count(*) into vc_number_rvwd_annotations
+		from
+			cataloged_item,
+			annotations
+		where
+			cataloged_item.collection_object_id=annotations.collection_object_id and
+			annotations.REVIEWER_AGENT_ID is not null and
+			cataloged_item.collection_id=r.collection_id
+		;
+		insert into cache_sysstats_coln (
+			lastdate,
+			guid_prefix,
+			number_specimens,
+			number_individuals,
+			number_taxa,
+			number_localities,
+			number_georef_localities,
+			number_collecting_events,
+			number_specimen_media,
+			number_cit_pubs,
+			number_citations,
+			number_loaned_items,
+			number_genbank,
+			number_spec_relns,
+			number_annotations,
+			number_rvwd_annotations
+		) values (
+			sysdate,
+			r.guid_prefix,
+			vc_number_specimens,
+			vc_number_individuals,
+			vc_number_taxa,
+			vc_number_localities,
+			vc_number_georef_localities,
+			vc_number_collecting_events,
+			vc_number_specimen_media,
+			vc_number_cit_pubs,
+			vc_number_citations,
+			vc_number_loaned_items,
+			vc_number_genbank,
+			vc_number_spec_relns,
+			vc_number_annotations,
+			vc_number_rvwd_annotations
+		);
+	end loop;
+end;
+/
+sho err;
+
+
+
+
+	exec proc_cache_stats;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
+
+<cfquery name="g" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
+	select * from cache_sysstats_global
+</cfquery>
+
+<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
+	select * from cache_sysstats_coln order by guid_prefix
+</cfquery>
+
+<h2>Global</h2>
+<table border>
+	<tr>
+		<th>##Collections</th>
+		<th>##Institutions</th>
+		<th>##Specimens</th>
+		<th>##Taxa</th>
+		<th>##TaxonRelations</th>
+		<th>##Localities</th>
+		<th>##GeoreferencedLocalities</th>
+		<th>##CollectingEvents</th>
+		<th>##Media</th>
+		<th>##Agents</th>
+		<th>##Publications</th>
+		<th>##PublicationsWithDOI</th>
+		<th>##Projects</th>
+		<th>##GenBankLinks</th>
+		<th>##SpecimenRelationships</th>
+		<th>##Annotations</th>
+		<th>##ReviewedAnnotations</th>
+	</tr>
+	<cfloop query="">
+		<tr>
+			<td>#number_collections#</td>
+			<td>#number_institutions#</td>
+			<td>#number_specimens#</td>
+			<td>#number_taxa#</td>
+			<td>#number_taxon_relations#</td>
+			<td>#number_localities#</td>
+			<td>#number_georef_localities#</td>
+			<td>#number_collecting_events#</td>
+			<td>#number_media#</td>
+			<td>#number_agents#</td>
+			<td>#number_publications#</td>
+			<td>#number_publication_doi#</td>
+			<td>#number_projects#</td>
+			<td>#number_genbank#</td>
+			<td>#number_spec_relns#</td>
+			<td>#number_annotations#</td>
+			<td>#number_rvwd_annotations#</td>
+		</tr>
+	</cfloop>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<cfif action is "oldstuff">
 <script>
 	$(document).ready(function() {
 		$("#thisIsSlowYo").hide();
@@ -303,4 +692,5 @@
 		</cfloop>
 	</ul>
 </cfoutput>
+</cfif>
 <cfinclude template="/includes/_footer.cfm">
