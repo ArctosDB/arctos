@@ -334,7 +334,26 @@ sho err;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
+<style>
+	th.rotate {
+  /* Something you can count on */
+  height: 140px;
+  white-space: nowrap;
+}
 
+th.rotate > div {
+  transform:
+    /* Magic Numbers */
+    translate(25px, 51px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
+}
+th.rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+</style>
 <cfquery name="g" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 	select * from cache_sysstats_global
 </cfquery>
@@ -344,25 +363,29 @@ sho err;
 </cfquery>
 <cfoutput>
 <h2>Global</h2>
+
+<th class="rotate"><div><span>Column header 1</span></div></th>
+
+
 <table border>
 	<tr>
-		<th>##Collections</th>
-		<th>##Institutions</th>
-		<th>##Specimens</th>
-		<th>##Taxa</th>
-		<th>##TaxonRelations</th>
-		<th>##Localities</th>
-		<th>##GeoreferencedLocalities</th>
-		<th>##CollectingEvents</th>
-		<th>##Media</th>
-		<th>##Agents</th>
-		<th>##Publications</th>
-		<th>##PublicationsWithDOI</th>
-		<th>##Projects</th>
-		<th>##GenBankLinks</th>
-		<th>##SpecimenRelationships</th>
-		<th>##Annotations</th>
-		<th>##ReviewedAnnotations</th>
+		<th class="rotate"><div><span>##Collections</span></div></th>
+		<th class="rotate"><div><span>##Institutions</span></div></th>
+		<th class="rotate"><div><span>##Specimens</span></div></th>
+		<th class="rotate"><div><span>##Taxa</span></div></th>
+		<th class="rotate"><div><span>##TaxonRelations</span></div></th>
+		<th class="rotate"><div><span>##Localities</span></div></th>
+		<th class="rotate"><div><span>##GeoreferencedLocalities</span></div></th>
+		<th class="rotate"><div><span>##CollectingEvents</span></div></th>
+		<th class="rotate"><div><span>##Media</span></div></th>
+		<th class="rotate"><div><span>##Agents</span></div></th>
+		<th class="rotate"><div><span>##Publications</span></div></th>
+		<th class="rotate"><div><span>##PublicationsWithDOI</span></div></th>
+		<th class="rotate"><div><span>##Projects</span></div></th>
+		<th class="rotate"><div><span>##GenBankLinks</span></div></th>
+		<th class="rotate"><div><span>##SpecimenRelationships</span></div></th>
+		<th class="rotate"><div><span>##Annotations</span></div></th>
+		<th class="rotate"><div><span>##ReviewedAnnotations</span></div></th>
 	</tr>
 	<cfloop query="g">
 		<tr>
