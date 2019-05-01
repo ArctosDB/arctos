@@ -335,41 +335,9 @@ sho err;
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
 <style>
-.table-header-rotated {
-  border-collapse: collapse;
-  .csstransforms & td {
-    width: 30px;
-  }
-  .no-csstransforms & th {
-    padding: 5px 10px;
-  }
-  td {
-    text-align: center;
-    padding: 10px 5px;
-    border: 1px solid #ccc;
-  }
-  .csstransforms & th.rotate {
-    height: 140px;
-    white-space: nowrap;
-    // Firefox needs the extra DIV for some reason, otherwise the text disappears if you rotate
-    > div {
-      transform:
-        // Magic Numbers
-        translate(25px, 51px)
-        // 45 is really 360-45
-        rotate(315deg);
-      width: 30px;
-    }
-    > div > span {
-      border-bottom: 1px solid #ccc;
-      padding: 5px 10px;
-    }
-  }
-  th.row-header {
-    padding: 0 10px;
-    border-bottom: 1px solid #ccc;
-  }
-}
+
+	tr.bigtable > th { /* Something you can count on */ height: 140px; white-space: nowrap; } tr.bigtable > th > a { transform: /* Magic Numbers */ translate(25px, 51px) /* 45 is really 360 - 45 */ rotate(315deg); width: 30px; border-bottom: 1px solid #ccc; padding: 5px 10px; } table.sortable tbody tr:nth-child(2n) td { background: #ffcccc; } table.sortable tbody tr:nth-child(2n+1) td { background: #ccfffff; }
+
 </style>
 <cfquery name="g" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 	select * from cache_sysstats_global
@@ -381,10 +349,33 @@ sho err;
 <cfoutput>
 <h2>Global</h2>
 
+			<tr class="bigtable">
+				<cfloop query="meta">
+					<th title="#expn#">
+						#hdr#
+					</th>
+					<cfset dl_cname=listappend(dl_cname,col)>
+					<cfset dl_clongname=listappend(dl_clongname,col)>
+				</cfloop>
+			</tr>
+			<tbody class="bigtabbdy">
+				<cfloop query="cs">
+					<tr title="#guid_prefix#">
+						<cfloop query="meta">
+							<cfset tv=evaluate("cs." & col)>
+							<td>#tv#</td>
+							<cfset dl_data=listappend(dl_data,tv)>
+						</cfloop>
+					</tr>
+				</cfloop>
+			</tbody>
+		</table>
 
-<table class="table table-header-rotated">
+	<div class="tblscroll">
+
+		<table border="0" id="t" class="sortable">
 	<thead>
-		<tr>
+		<tr class="bigtable">
 			<th class="rotate"><div><span>##Collections</span></div></th>
 			<th class="rotate"><div><span>##Institutions</span></div></th>
 			<th class="rotate"><div><span>##Specimens</span></div></th>
@@ -405,7 +396,7 @@ sho err;
 		</tr>
 	</thead>
 	<cfloop query="g">
-		<tbody>
+		<tbody class="bigtabbdy">
 			<tr>
 				<td>#number_collections#</td>
 				<td>#number_institutions#</td>
@@ -429,6 +420,7 @@ sho err;
 	</cfloop>
 </table>
 
+	</div>
 
 
 </cfoutput>
