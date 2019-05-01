@@ -334,8 +334,6 @@ sho err;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
-<script src="/includes/sorttable.js"></script>
-
 <style>
 
 .table-header-rotated {
@@ -528,7 +526,7 @@ sho err;
 
 
 
-
+<!----
 
 
 
@@ -819,4 +817,5 @@ sho err;
 	</ul>
 </cfoutput>
 </cfif>
+---->
 <cfinclude template="/includes/_footer.cfm">
