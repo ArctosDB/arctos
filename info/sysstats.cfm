@@ -333,6 +333,11 @@ sho err;
 	exec proc_cache_stats;
 
 ---->
+	<cfinclude template="/includes/_header.cfm">
+<cfset title="system statistics">
+
+
+
 
 <style>
 .table-header-rotated th.row-header{
@@ -469,11 +474,11 @@ sho err;
 </div>
 
 
+<cfinclude template="/includes/_footer.cfm">
 
 <!----
 
 
-	<cfinclude template="/includes/_header.cfm">
 
 <cfset title="system statistics">
 <style>
