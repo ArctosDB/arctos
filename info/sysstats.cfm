@@ -433,9 +433,9 @@ sho err;
         <th class="rotate-45"><div><span>##ReviewedAnnotations</span></div></th>
       </tr>
     </thead>
-    <tbody><cfloop query="g">
-      <tr>
-
+    <tbody>
+		<cfloop query="g">
+      		<tr>
 				<td>#number_collections#</td>
 				<td>#number_institutions#</td>
 				<td>#number_specimens#</td>
@@ -453,15 +453,70 @@ sho err;
 				<td>#number_spec_relns#</td>
 				<td>#number_annotations#</td>
 				<td>#number_rvwd_annotations#</td>
+	    	</tr>
+		</cfloop>
+    </tbody>
+  </table>
+</div>
+
+<h2>Collections</h2>
 
 
 
+
+
+
+<div class="scrollable-table">
+  <table class="table table-striped table-header-rotated">
+    <thead>
+      <tr>
+        <!-- First column header is not rotated -->
+        <th></th>
+        <!-- Following headers are rotated -->
+        <th class="rotate-45"><div><span>Collection</span></div></th>
+        <th class="rotate-45"><div><span>##Specimens</span></div></th>
+        <th class="rotate-45"><div><span>##Individuals</span></div></th>
+        <th class="rotate-45"><div><span>##UsedTaxa</span></div></th>
+        <th class="rotate-45"><div><span>##Localities</span></div></th>
+        <th class="rotate-45"><div><span>##GeoreferencedLocalities</span></div></th>
+        <th class="rotate-45"><div><span>##CollectingEvents</span></div></th>
+        <th class="rotate-45"><div><span>##SpecimenMedia</span></div></th>
+        <th class="rotate-45"><div><span>##UsedPublications</span></div></th>
+        <th class="rotate-45"><div><span>##Citations</span></div></th>
+        <th class="rotate-45"><div><span>##LoanedItems</span></div></th>
+        <th class="rotate-45"><div><span>##GenBankLinks</span></div></th>
+        <th class="rotate-45"><div><span>##SpecimenRelationships</span></div></th>
+        <th class="rotate-45"><div><span>##Annotations</span></div></th>
+        <th class="rotate-45"><div><span>##unreviewedAnnotations</span></div></th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+
+	<cfloop query="c">
+
+      <tr>
+        <th class="row-header">guid_prefix</th>
+        <td>#number_specimens#</td>
+        <td>#number_individuals#</td>
+        <td>#number_taxa#</td>
+        <td>#number_localities#</td>
+        <td>#number_georef_localities#</td>
+        <td>#number_collecting_events#</td>
+        <td>#number_specimen_media#</td>
+        <td>#number_cit_pubs#</td>
+        <td>#number_citations#</td>
+        <td>#number_loaned_items#</td>
+        <td>#number_genbank#</td>
+        <td>#number_spec_relns#</td>
+        <td>#number_annotations#</td>
+        <td>#number_rvwd_annotations#</td>
       </tr>
 	</cfloop>
     </tbody>
   </table>
 </div>
-
 </cfoutput>
 
 
