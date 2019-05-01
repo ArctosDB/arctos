@@ -335,89 +335,109 @@ sho err;
 ---->
 
 <style>
-.table-header-rotated {
-  border-collapse: collapse;
-  .csstransforms & td {
-    width: 30px;
-  }
-  .no-csstransforms & th {
-    padding: 5px 10px;
-  }
-  td {
-    text-align: center;
-    padding: 10px 5px;
-    border: 1px solid #ccc;
-  }
-  .csstransforms & th.rotate {
-    height: 140px;
-    white-space: nowrap;
-    // Firefox needs the extra DIV for some reason, otherwise the text disappears if you rotate
-    > div {
-      transform:
-        // Magic Numbers
-        translate(25px, 51px)
-        // 45 is really 360-45
-        rotate(315deg);
-      width: 30px;
-    }
-    > div > span {
-      border-bottom: 1px solid #ccc;
-      padding: 5px 10px;
-    }
-  }
-  th.row-header {
-    padding: 0 10px;
-    border-bottom: 1px solid #ccc;
-  }
+.table-header-rotated th.row-header{
+  width: auto;
+}
+
+.table-header-rotated td{
+  width: 40px;
+  border-top: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table-header-rotated th.rotate-45{
+  height: 80px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  position: relative;
+  vertical-align: bottom;
+  padding: 0;
+  font-size: 12px;
+  line-height: 0.8;
+}
+
+.table-header-rotated th.rotate-45 > div{
+  position: relative;
+  top: 0px;
+  left: 40px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
+  height: 100%;
+  -ms-transform:skew(-45deg,0deg);
+  -moz-transform:skew(-45deg,0deg);
+  -webkit-transform:skew(-45deg,0deg);
+  -o-transform:skew(-45deg,0deg);
+  transform:skew(-45deg,0deg);
+  overflow: hidden;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-top: 1px solid #dddddd;
+}
+
+.table-header-rotated th.rotate-45 span {
+  -ms-transform:skew(45deg,0deg) rotate(315deg);
+  -moz-transform:skew(45deg,0deg) rotate(315deg);
+  -webkit-transform:skew(45deg,0deg) rotate(315deg);
+  -o-transform:skew(45deg,0deg) rotate(315deg);
+  transform:skew(45deg,0deg) rotate(315deg);
+  position: absolute;
+  bottom: 30px; /* 40 cos(45) = 28 with an additional 2px margin*/
+  left: -25px; /*Because it looked good, but there is probably a mathematical link here as well*/
+  display: inline-block;
+  // width: 100%;
+  width: 85px; /* 80 / cos(45) - 40 cos (45) = 85 where 80 is the height of the cell, 40 the width of the cell and 45 the transform angle*/
+  text-align: left;
+  // white-space: nowrap; /*whether to display in one line or not*/
 }
 </style>
-
-<table class="table table-header-rotated">
-  <thead>
-    <tr>
-      <!-- First column header is not rotated -->
-      <th></th>
-      <!-- Following headers are rotated -->
-      <th class="rotate"><div><span>Column header 1</span></div></th>
-        <th class="rotate"><div><span>Column header 2</span></div></th>
-        <th class="rotate"><div><span>Column header 3</span></div></th>
-        <th class="rotate"><div><span>Column header 4</span></div></th>
-        <th class="rotate"><div><span>Column header 5</span></div></th>
-        <th class="rotate"><div><span>Column header 6</span></div></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th class="row-header">Row header 1</th>
-      <td><input checked="checked" name="column1[]" type="radio" value="row1-column1"></td>
-      <td><input checked="checked" name="column2[]" type="radio" value="row1-column2"></td>
-      <td><input name="column3[]" type="radio" value="row1-column3"></td>
-      <td><input name="column4[]" type="radio" value="row1-column4"></td>
-      <td><input name="column5[]" type="radio" value="row1-column5"></td>
-      <td><input name="column6[]" type="radio" value="row1-column6"></td>
-    </tr>
-    <tr>
-      <th class="row-header">Row header 2</th>
-      <td><input name="column1[]" type="radio" value="row2-column1"></td>
-      <td><input name="column2[]" type="radio" value="row2-column2"></td>
-      <td><input checked="checked" name="column3[]" type="radio" value="row2-column3"></td>
-      <td><input checked="checked" name="column4[]" type="radio" value="row2-column4"></td>
-      <td><input name="column5[]" type="radio" value="row2-column5"></td>
-      <td><input name="column6[]" type="radio" value="row2-column6"></td>
-    </tr>
-    <tr>
-      <th class="row-header">Row header 3</th>
-      <td><input name="column1[]" type="radio" value="row3-column1"></td>
-      <td><input name="column2[]" type="radio" value="row3-column2"></td>
-      <td><input name="column3[]" type="radio" value="row3-column3"></td>
-      <td><input name="column4[]" type="radio" value="row3-column4"></td>
-      <td><input checked="checked" name="column5[]" type="radio" value="row3-column5"></td>
-      <td><input checked="checked" name="column6[]" type="radio" value="row3-column6"></td>
-    </tr>
-  </tbody>
-</table>
-
-
+<div class="scrollable-table">
+  <table class="table table-striped table-header-rotated">
+    <thead>
+      <tr>
+        <!-- First column header is not rotated -->
+        <th></th>
+        <!-- Following headers are rotated -->
+        <th class="rotate-45"><div><span>Column header 1</span></div></th>
+        <th class="rotate-45"><div><span>Column header 2</span></div></th>
+        <th class="rotate-45"><div><span>Column header 3</span></div></th>
+        <th class="rotate-45"><div><span>Column header 4</span></div></th>
+        <th class="rotate-45"><div><span>Column header 5</span></div></th>
+        <th class="rotate-45"><div><span>Column header 6</span></div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="row-header">Row header 1</th>
+        <td><input checked="checked" name="column1[]" type="radio" value="row1-column1"></td>
+        <td><input checked="checked" name="column2[]" type="radio" value="row1-column2"></td>
+        <td><input name="column3[]" type="radio" value="row1-column3"></td>
+        <td><input name="column4[]" type="radio" value="row1-column4"></td>
+        <td><input name="column5[]" type="radio" value="row1-column5"></td>
+        <td><input name="column6[]" type="radio" value="row1-column6"></td>
+      </tr>
+      <tr>
+        <th class="row-header">Row header 2</th>
+        <td><input name="column1[]" type="radio" value="row2-column1"></td>
+        <td><input name="column2[]" type="radio" value="row2-column2"></td>
+        <td><input checked="checked" name="column3[]" type="radio" value="row2-column3"></td>
+        <td><input checked="checked" name="column4[]" type="radio" value="row2-column4"></td>
+        <td><input name="column5[]" type="radio" value="row2-column5"></td>
+        <td><input name="column6[]" type="radio" value="row2-column6"></td>
+      </tr>
+      <tr>
+        <th class="row-header">Row header 3</th>
+        <td><input name="column1[]" type="radio" value="row3-column1"></td>
+        <td><input name="column2[]" type="radio" value="row3-column2"></td>
+        <td><input name="column3[]" type="radio" value="row3-column3"></td>
+        <td><input name="column4[]" type="radio" value="row3-column4"></td>
+        <td><input checked="checked" name="column5[]" type="radio" value="row3-column5"></td>
+        <td><input checked="checked" name="column6[]" type="radio" value="row3-column6"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <!----
 
 
