@@ -349,27 +349,6 @@ sho err;
 <cfoutput>
 <h2>Global</h2>
 
-			<tr class="bigtable">
-				<cfloop query="meta">
-					<th title="#expn#">
-						#hdr#
-					</th>
-					<cfset dl_cname=listappend(dl_cname,col)>
-					<cfset dl_clongname=listappend(dl_clongname,col)>
-				</cfloop>
-			</tr>
-			<tbody class="bigtabbdy">
-				<cfloop query="cs">
-					<tr title="#guid_prefix#">
-						<cfloop query="meta">
-							<cfset tv=evaluate("cs." & col)>
-							<td>#tv#</td>
-							<cfset dl_data=listappend(dl_data,tv)>
-						</cfloop>
-					</tr>
-				</cfloop>
-			</tbody>
-		</table>
 
 	<div class="tblscroll">
 
