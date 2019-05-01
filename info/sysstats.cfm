@@ -438,6 +438,38 @@ sho err;
     </tbody>
   </table>
 </div>
+
+
+
+<div class="scrollable-table">
+  <table class="table table-striped table-header-rotated">
+    <thead>
+      <tr>
+        <!-- First column header is not rotated -->
+        <!-- Following headers are rotated -->
+        <th class="rotate-45"><div><span>Column header 1</span></div></th>
+        <th class="rotate-45"><div><span>Column header 2</span></div></th>
+        <th class="rotate-45"><div><span>Column header 3</span></div></th>
+        <th class="rotate-45"><div><span>Column header 4</span></div></th>
+        <th class="rotate-45"><div><span>Column header 5</span></div></th>
+        <th class="rotate-45"><div><span>Column header 6</span></div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input checked="checked" name="column1[]" type="radio" value="row1-column1"></td>
+        <td><input checked="checked" name="column2[]" type="radio" value="row1-column2"></td>
+        <td><input name="column3[]" type="radio" value="row1-column3"></td>
+        <td><input name="column4[]" type="radio" value="row1-column4"></td>
+        <td><input name="column5[]" type="radio" value="row1-column5"></td>
+        <td><input name="column6[]" type="radio" value="row1-column6"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
 <!----
 
 
