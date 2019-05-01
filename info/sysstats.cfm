@@ -331,8 +331,9 @@ sho err;
 
 
 	exec proc_cache_stats;
+	<cfinclude template="/includes/_header.cfm">
+
 ---->
-<cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
 <style>
 
