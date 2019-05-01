@@ -473,7 +473,6 @@ sho err;
         <!-- First column header is not rotated -->
         <th></th>
         <!-- Following headers are rotated -->
-        <th class="rotate-45"><div><span>Collection</span></div></th>
         <th class="rotate-45"><div><span>##Specimens</span></div></th>
         <th class="rotate-45"><div><span>##Individuals</span></div></th>
         <th class="rotate-45"><div><span>##UsedTaxa</span></div></th>
@@ -497,7 +496,7 @@ sho err;
 	<cfloop query="c">
 
       <tr>
-        <th class="row-header">guid_prefix</th>
+        <th class="row-header">#guid_prefix#</th>
         <td>#number_specimens#</td>
         <td>#number_individuals#</td>
         <td>#number_taxa#</td>
