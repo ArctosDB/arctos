@@ -405,25 +405,27 @@ sho err;
 		</tr>
 	</thead>
 	<cfloop query="g">
-		<tr>
-			<td>#number_collections#</td>
-			<td>#number_institutions#</td>
-			<td>#number_specimens#</td>
-			<td>#number_taxa#</td>
-			<td>#number_taxon_relations#</td>
-			<td>#number_localities#</td>
-			<td>#number_georef_localities#</td>
-			<td>#number_collecting_events#</td>
-			<td>#number_media#</td>
-			<td>#number_agents#</td>
-			<td>#number_publications#</td>
-			<td>#number_publication_doi#</td>
-			<td>#number_projects#</td>
-			<td>#number_genbank#</td>
-			<td>#number_spec_relns#</td>
-			<td>#number_annotations#</td>
-			<td>#number_rvwd_annotations#</td>
-		</tr>
+		<tbody>
+			<tr>
+				<td>#number_collections#</td>
+				<td>#number_institutions#</td>
+				<td>#number_specimens#</td>
+				<td>#number_taxa#</td>
+				<td>#number_taxon_relations#</td>
+				<td>#number_localities#</td>
+				<td>#number_georef_localities#</td>
+				<td>#number_collecting_events#</td>
+				<td>#number_media#</td>
+				<td>#number_agents#</td>
+				<td>#number_publications#</td>
+				<td>#number_publication_doi#</td>
+				<td>#number_projects#</td>
+				<td>#number_genbank#</td>
+				<td>#number_spec_relns#</td>
+				<td>#number_annotations#</td>
+				<td>#number_rvwd_annotations#</td>
+			</tr>
+		</tbody>
 	</cfloop>
 </table>
 
