@@ -335,23 +335,40 @@ sho err;
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
 <style>
-	th.rotate {
-  /* Something you can count on */
-  height: 140px;
-  white-space: nowrap;
-}
-
-th.rotate > div {
-  transform:
-    /* Magic Numbers */
-    translate(25px, 51px)
-    /* 45 is really 360 - 45 */
-    rotate(315deg);
-  width: 30px;
-}
-th.rotate > div > span {
-  border-bottom: 1px solid #ccc;
-  padding: 5px 10px;
+.table-header-rotated {
+  border-collapse: collapse;
+  .csstransforms & td {
+    width: 30px;
+  }
+  .no-csstransforms & th {
+    padding: 5px 10px;
+  }
+  td {
+    text-align: center;
+    padding: 10px 5px;
+    border: 1px solid #ccc;
+  }
+  .csstransforms & th.rotate {
+    height: 140px;
+    white-space: nowrap;
+    // Firefox needs the extra DIV for some reason, otherwise the text disappears if you rotate
+    > div {
+      transform:
+        // Magic Numbers
+        translate(25px, 51px)
+        // 45 is really 360-45
+        rotate(315deg);
+      width: 30px;
+    }
+    > div > span {
+      border-bottom: 1px solid #ccc;
+      padding: 5px 10px;
+    }
+  }
+  th.row-header {
+    padding: 0 10px;
+    border-bottom: 1px solid #ccc;
+  }
 }
 </style>
 <cfquery name="g" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
@@ -364,29 +381,29 @@ th.rotate > div > span {
 <cfoutput>
 <h2>Global</h2>
 
-<th class="rotate"><div><span>Column header 1</span></div></th>
 
-
-<table border>
-	<tr>
-		<th class="rotate"><div><span>##Collections</span></div></th>
-		<th class="rotate"><div><span>##Institutions</span></div></th>
-		<th class="rotate"><div><span>##Specimens</span></div></th>
-		<th class="rotate"><div><span>##Taxa</span></div></th>
-		<th class="rotate"><div><span>##TaxonRelations</span></div></th>
-		<th class="rotate"><div><span>##Localities</span></div></th>
-		<th class="rotate"><div><span>##GeoreferencedLocalities</span></div></th>
-		<th class="rotate"><div><span>##CollectingEvents</span></div></th>
-		<th class="rotate"><div><span>##Media</span></div></th>
-		<th class="rotate"><div><span>##Agents</span></div></th>
-		<th class="rotate"><div><span>##Publications</span></div></th>
-		<th class="rotate"><div><span>##PublicationsWithDOI</span></div></th>
-		<th class="rotate"><div><span>##Projects</span></div></th>
-		<th class="rotate"><div><span>##GenBankLinks</span></div></th>
-		<th class="rotate"><div><span>##SpecimenRelationships</span></div></th>
-		<th class="rotate"><div><span>##Annotations</span></div></th>
-		<th class="rotate"><div><span>##ReviewedAnnotations</span></div></th>
-	</tr>
+<table class="table table-header-rotated">
+	<thead>
+		<tr>
+			<th class="rotate"><div><span>##Collections</span></div></th>
+			<th class="rotate"><div><span>##Institutions</span></div></th>
+			<th class="rotate"><div><span>##Specimens</span></div></th>
+			<th class="rotate"><div><span>##Taxa</span></div></th>
+			<th class="rotate"><div><span>##TaxonRelations</span></div></th>
+			<th class="rotate"><div><span>##Localities</span></div></th>
+			<th class="rotate"><div><span>##GeoreferencedLocalities</span></div></th>
+			<th class="rotate"><div><span>##CollectingEvents</span></div></th>
+			<th class="rotate"><div><span>##Media</span></div></th>
+			<th class="rotate"><div><span>##Agents</span></div></th>
+			<th class="rotate"><div><span>##Publications</span></div></th>
+			<th class="rotate"><div><span>##PublicationsWithDOI</span></div></th>
+			<th class="rotate"><div><span>##Projects</span></div></th>
+			<th class="rotate"><div><span>##GenBankLinks</span></div></th>
+			<th class="rotate"><div><span>##SpecimenRelationships</span></div></th>
+			<th class="rotate"><div><span>##Annotations</span></div></th>
+			<th class="rotate"><div><span>##ReviewedAnnotations</span></div></th>
+		</tr>
+	</thead>
 	<cfloop query="g">
 		<tr>
 			<td>#number_collections#</td>
