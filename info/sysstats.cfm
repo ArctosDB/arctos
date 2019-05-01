@@ -334,6 +334,8 @@ sho err;
 ---->
 <cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
+<script src="/includes/sorttable.js"></script>
+
 <style>
 
 	tr.bigtable > th { /* Something you can count on */ height: 140px; white-space: nowrap; } tr.bigtable > th > a { transform: /* Magic Numbers */ translate(25px, 51px) /* 45 is really 360 - 45 */ rotate(315deg); width: 30px; border-bottom: 1px solid #ccc; padding: 5px 10px; } table.sortable tbody tr:nth-child(2n) td { background: #ffcccc; } table.sortable tbody tr:nth-child(2n+1) td { background: #ccfffff; }
@@ -354,6 +356,7 @@ sho err;
 
 		<table border="0" id="t" class="sortable">
 	<thead>
+		<!----
 		<tr class="bigtable">
 			<th class="rotate"><div><span>##Collections</span></div></th>
 			<th class="rotate"><div><span>##Institutions</span></div></th>
@@ -372,6 +375,26 @@ sho err;
 			<th class="rotate"><div><span>##SpecimenRelationships</span></div></th>
 			<th class="rotate"><div><span>##Annotations</span></div></th>
 			<th class="rotate"><div><span>##ReviewedAnnotations</span></div></th>
+		</tr>
+		---->
+		<tr class="bigtable">
+			<th class="rotate">##Collections</th>
+			<th class="rotate">##Institutions</th>
+			<th class="rotate">##Specimens</th>
+			<th class="rotate">##Taxa</th>
+			<th class="rotate">##TaxonRelations</th>
+			<th class="rotate">##Localities</th>
+			<th class="rotate">##GeoreferencedLocalities</th>
+			<th class="rotate">##CollectingEvents</th>
+			<th class="rotate">##Media</th>
+			<th class="rotate">##Agents</th>
+			<th class="rotate">##Publications</th>
+			<th class="rotate">##PublicationsWithDOI</th>
+			<th class="rotate">##Projects</th>
+			<th class="rotate">##GenBankLinks</th>
+			<th class="rotate">##SpecimenRelationships</th>
+			<th class="rotate">##Annotations</th>
+			<th class="rotate">##ReviewedAnnotations</th>
 		</tr>
 	</thead>
 	<cfloop query="g">
