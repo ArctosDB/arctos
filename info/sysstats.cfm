@@ -438,23 +438,23 @@ sho err;
     <tbody>
 		<cfloop query="g">
       		<tr>
-				<td>#number_collections#</td>
-				<td>#number_institutions#</td>
+				<td>#NumberFormat(number_specimens,"999,999")number_collections#</td>
+				<td>#NumberFormat(number_specimens,"999,999")number_institutions#</td>
 				<td>#NumberFormat(number_specimens,"999,999")#</td>
-				<td>#number_taxa#</td>
-				<td>#number_taxon_relations#</td>
-				<td>#number_localities#</td>
-				<td>#number_georef_localities#</td>
-				<td>#number_collecting_events#</td>
-				<td>#number_media#</td>
-				<td>#number_agents#</td>
-				<td>#number_publications#</td>
-				<td>#number_publication_doi#</td>
-				<td>#number_projects#</td>
-				<td>#number_genbank#</td>
-				<td>#number_spec_relns#</td>
-				<td>#number_annotations#</td>
-				<td>#number_rvwd_annotations#</td>
+				<td>#NumberFormat(number_taxa,"999,999")#</td>
+				<td>#NumberFormat(number_taxon_relations,"999,999")#</td>
+				<td>#NumberFormat(number_localities,"999,999")#</td>
+				<td>#NumberFormat(number_georef_localities,"999,999")#</td>
+				<td>#NumberFormat(number_collecting_events,"999,999")#</td>
+				<td>#NumberFormat(number_media,"999,999")#</td>
+				<td>#NumberFormat(number_agents,"999,999")#</td>
+				<td>#NumberFormat(number_publications,"999,999")#</td>
+				<td>#NumberFormat(number_publication_doi,"999,999")#</td>
+				<td>#NumberFormat(number_projects,"999,999")#</td>
+				<td>#NumberFormat(number_genbank,"999,999")#</td>
+				<td>#NumberFormat(number_spec_relns,"999,999")#</td>
+				<td>#NumberFormat(number_annotations,"999,999")#</td>
+				<td>#NumberFormat(number_rvwd_annotations,"999,999")#</td>
 	    	</tr>
 		</cfloop>
     </tbody>
@@ -499,20 +499,20 @@ sho err;
 
       <tr>
         <th class="row-header">#guid_prefix#</th>
-        <td>#number_specimens#</td>
-        <td>#number_individuals#</td>
-        <td>#number_taxa#</td>
-        <td>#number_localities#</td>
-        <td>#number_georef_localities#</td>
-        <td>#number_collecting_events#</td>
-        <td>#number_specimen_media#</td>
-        <td>#number_cit_pubs#</td>
-        <td>#number_citations#</td>
-        <td>#number_loaned_items#</td>
-        <td>#number_genbank#</td>
-        <td>#number_spec_relns#</td>
-        <td>#number_annotations#</td>
-        <td>#number_rvwd_annotations#</td>
+        <td>#NumberFormat(number_specimens,"999,999")#</td>
+        <td>#NumberFormat(number_individuals,"999,999")#</td>
+        <td>#NumberFormat(number_taxa,"999,999")#</td>
+        <td>#NumberFormat(number_localities,"999,999")#</td>
+        <td>#NumberFormat(number_georef_localities,"999,999")#</td>
+        <td>#NumberFormat(number_collecting_events,"999,999")#</td>
+        <td>#NumberFormat(number_specimen_media,"999,999")#</td>
+        <td>#NumberFormat(number_cit_pubs,"999,999")#</td>
+        <td>#NumberFormat(number_citations,"999,999")#</td>
+        <td>#NumberFormat(number_loaned_items,"999,999")#</td>
+        <td>#NumberFormat(number_genbank,"999,999")#</td>
+        <td>#NumberFormat(number_spec_relns,"999,999")#</td>
+        <td>#NumberFormat(number_annotations,"999,999")#</td>
+        <td>#NumberFormat(number_rvwd_annotations,"999,999")#</td>
       </tr>
 	</cfloop>
     </tbody>
