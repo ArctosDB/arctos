@@ -488,7 +488,7 @@ sho err;
         <th class="rotate-45"><div><span>##GenBankLinks</span></div></th>
         <th class="rotate-45"><div><span>##SpecimenRelationships</span></div></th>
         <th class="rotate-45"><div><span>##Annotations</span></div></th>
-        <th class="rotate-45"><div><span>##unreviewedAnnotations</span></div></th>
+        <th class="rotate-45"><div><span>##UnreviewedAnnotations</span></div></th>
       </tr>
     </thead>
     <tbody>
@@ -499,20 +499,20 @@ sho err;
 
       <tr>
         <th class="row-header">#guid_prefix#</th>
-        <td title="number_specimens">#NumberFormat(number_specimens,"999,999")#</td>
-        <td>#NumberFormat(number_individuals,"999,999")#</td>
-        <td>#NumberFormat(number_taxa,"999,999")#</td>
-        <td>#NumberFormat(number_localities,"999,999")#</td>
-        <td>#NumberFormat(number_georef_localities,"999,999")#</td>
-        <td>#NumberFormat(number_collecting_events,"999,999")#</td>
-        <td>#NumberFormat(number_specimen_media,"999,999")#</td>
-        <td>#NumberFormat(number_cit_pubs,"999,999")#</td>
-        <td>#NumberFormat(number_citations,"999,999")#</td>
-        <td>#NumberFormat(number_loaned_items,"999,999")#</td>
-        <td>#NumberFormat(number_genbank,"999,999")#</td>
-        <td>#NumberFormat(number_spec_relns,"999,999")#</td>
-        <td>#NumberFormat(number_annotations,"999,999")#</td>
-        <td>#NumberFormat(number_rvwd_annotations,"999,999")#</td>
+        <td title="#guid_prefix#: Specimens">#NumberFormat(number_specimens,"999,999")#</td>
+        <td title="#guid_prefix#: Individuals">#NumberFormat(number_individuals,"999,999")#</td>
+        <td title="#guid_prefix#: UsedTaxa">#NumberFormat(number_taxa,"999,999")#</td>
+        <td title="#guid_prefix#: Localities">#NumberFormat(number_localities,"999,999")#</td>
+        <td title="#guid_prefix#: GeoreferencedLocalities">#NumberFormat(number_georef_localities,"999,999")#</td>
+        <td title="#guid_prefix#: CollectingEvents">#NumberFormat(number_collecting_events,"999,999")#</td>
+        <td title="#guid_prefix#: SpecimenMedia">#NumberFormat(number_specimen_media,"999,999")#</td>
+        <td title="#guid_prefix#: UsedPublications">#NumberFormat(number_cit_pubs,"999,999")#</td>
+        <td title="#guid_prefix#: Citations">#NumberFormat(number_citations,"999,999")#</td>
+        <td title="#guid_prefix#: LoanedItems">#NumberFormat(number_loaned_items,"999,999")#</td>
+        <td title="#guid_prefix#: GenBankLinks">#NumberFormat(number_genbank,"999,999")#</td>
+        <td title="#guid_prefix#: SpecimenRelationships">#NumberFormat(number_spec_relns,"999,999")#</td>
+        <td title="#guid_prefix#: Annotations">#NumberFormat(number_annotations,"999,999")#</td>
+        <td title="#guid_prefix#: UnreviewedAnnotations">#NumberFormat(number_rvwd_annotations,"999,999")#</td>
       </tr>
 	</cfloop>
     </tbody>
