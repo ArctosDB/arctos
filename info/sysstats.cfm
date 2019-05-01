@@ -342,7 +342,7 @@ sho err;
 <cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 	select * from cache_sysstats_coln order by guid_prefix
 </cfquery>
-
+<cfoutput>
 <h2>Global</h2>
 <table border>
 	<tr>
@@ -389,7 +389,7 @@ sho err;
 
 
 
-
+</cfoutput>
 
 
 
