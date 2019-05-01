@@ -46,6 +46,14 @@ drop table cache_sysstats_coln;
 		number_rvwd_annotations number
 	);
 
+
+create public synonym cache_sysstats_global for cache_sysstats_global;
+grant select on cache_sysstats_global to public;
+
+
+create public synonym cache_sysstats_coln for cache_sysstats_coln;
+grant select on cache_sysstats_coln to public;
+
 	CREATE OR REPLACE PROCEDURE proc_cache_stats
 	AS
 		-- global
@@ -413,7 +421,9 @@ tr:nth-child(even) {
 </cfquery>
 <cfoutput>
 <h2>Global</h2>
-
+<p>
+	 <a href="/Admin/CSVAnyTable.cfm?tableName=cache_sysstats_global&forceColumnOrder=true">get CSV</a>
+</p>
 
 <div class="scrollable-table">
   <table class="table table-striped table-header-rotated">
@@ -465,7 +475,9 @@ tr:nth-child(even) {
 </div>
 
 <h2>Collections</h2>
-
+<p>
+	 <a href="/Admin/CSVAnyTable.cfm?tableName=cache_sysstats_coln&forceColumnOrder=true">get CSV</a>
+</p>
 
 
 
