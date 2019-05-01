@@ -461,7 +461,7 @@ sho err;
   </table>
 </div>
 
-
+</cfoutput>
 
 
 <div class="scrollable-table">
