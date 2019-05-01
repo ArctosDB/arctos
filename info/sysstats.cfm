@@ -340,12 +340,13 @@ sho err;
 
 
 <style>
+
 .table-header-rotated th.row-header{
   width: auto;
 }
 
 .table-header-rotated td{
-  width: 40px;
+  width: 60px;
   border-top: 1px solid #dddddd;
   border-left: 1px solid #dddddd;
   border-right: 1px solid #dddddd;
@@ -354,10 +355,10 @@ sho err;
 }
 
 .table-header-rotated th.rotate-45{
-  height: 80px;
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
+  height: 120px;
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
   position: relative;
   vertical-align: bottom;
   padding: 0;
@@ -368,7 +369,7 @@ sho err;
 .table-header-rotated th.rotate-45 > div{
   position: relative;
   top: 0px;
-  left: 40px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
+  left: 60px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
   height: 100%;
   -ms-transform:skew(-45deg,0deg);
   -moz-transform:skew(-45deg,0deg);
@@ -396,6 +397,7 @@ sho err;
   text-align: left;
   // white-space: nowrap; /*whether to display in one line or not*/
 }
+
 </style>
 
 
@@ -438,7 +440,7 @@ sho err;
       		<tr>
 				<td>#number_collections#</td>
 				<td>#number_institutions#</td>
-				<td>#number_specimens#</td>
+				<td>#NumberFormat(number_specimens,"999,999")#</td>
 				<td>#number_taxa#</td>
 				<td>#number_taxon_relations#</td>
 				<td>#number_localities#</td>
