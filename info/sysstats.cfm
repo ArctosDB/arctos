@@ -499,7 +499,7 @@ sho err;
 
       <tr>
         <th class="row-header">#guid_prefix#</th>
-        <td>#NumberFormat(number_specimens,"999,999")#</td>
+        <td title="number_specimens">#NumberFormat(number_specimens,"999,999")#</td>
         <td>#NumberFormat(number_individuals,"999,999")#</td>
         <td>#NumberFormat(number_taxa,"999,999")#</td>
         <td>#NumberFormat(number_localities,"999,999")#</td>
