@@ -2,12 +2,13 @@
 
 <!---
 pause
---->
 running only as DLM
 
 <cfif not isdefined('session.username') or session.username is not 'dlm'>
 	not DML<cfabort>
 </cfif>
+--->
+
 <cfset numLabels=10>
 <cfset numRelns=5>
 <cfif not isdefined("debug")><cfset debug=false></cfif>
@@ -170,7 +171,12 @@ running only as DLM
 				cf_temp_zipfiles.status: previewed
 	---->
 	<cfoutput>
-		<!---- this needs to run iteratively ---->
+		<!----
+			this needs to run iteratively
+			on big files, it can take ~30 secons to create a single preview
+			this should run for ONE file, every minute
+
+		---->
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_zipload where status='renamed' and rownum=1
 		</cfquery>
