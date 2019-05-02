@@ -1,4 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
+
+<!---
+pause
+--->
+running only as DLM
+
+<cfif not isdefined('session.username') or session.username is not 'dlm'>
+	not DML<cfabort>
+</cfif>
 <cfset numLabels=10>
 <cfset numRelns=5>
 <cfif not isdefined("debug")><cfset debug=false></cfif>
@@ -66,11 +75,11 @@
 	<!----
 		second step
 		trigger: cf_temp_zipload status: unzipped
-		success: 
+		success:
 			cf_temp_zipload status: unzipped (nochange)
 			cf_temp_zipfiles status ALL: renamed
 	---->
-			
+
 	<cfoutput>
 		<cfset goodExtensions="jpg,png">
 		<cfquery name="d" datasource="uam_god">
@@ -217,7 +226,7 @@
 	<!----
 		fifth step
 			trigger:
-				cf_temp_zipload.status: unzipped 
+				cf_temp_zipload.status: unzipped
 				cf_temp_zipfiles.status: previewed
 			success:
 				cf_temp_zipload.status=preview_confirmed
@@ -253,7 +262,7 @@
 
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "zip_s3ify">
-	<!---- 
+	<!----
 		sixth step
 		trigger: cf_temp_zipload.status = preview_confirmed
 		success: cf_temp_zipfiles.status='loaded_to_s3'
@@ -452,8 +461,8 @@
 	<!----
 		seventh step
 		trigger:cf_temp_zipfiles.status='loaded_to_s3'
-		success: 
-		
+		success:
+
 	---->
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
