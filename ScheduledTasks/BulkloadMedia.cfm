@@ -180,7 +180,7 @@ running only as DLM
 				<cfdirectory action = "create" directory = "#Application.webDirectory#/temp/#d.zid#/tn" >
 			</cfif>
 			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <20
+				select * from cf_temp_zipfiles where zid=#d.zid# and preview_filename is null and rownum <2
 			</cfquery>
 			<cfloop query="f">
 			<cftry>
