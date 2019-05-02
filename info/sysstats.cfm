@@ -340,6 +340,23 @@ sho err;
 
 	exec proc_cache_stats;
 
+
+
+BEGIN
+DBMS_SCHEDULER.CREATE_JOB (
+    job_name           =>  'j_proc_cache_stats',
+    job_type           =>  'STORED_PROCEDURE',
+	job_action         =>  'proc_cache_stats',
+	start_date         =>  SYSTIMESTAMP,
+	repeat_interval    =>  'freq=weekly; byday=sun',
+	enabled            =>  TRUE,
+	end_date           =>  NULL,
+	comments           =>  'Rebuild cache used by /info/sysstats.cfm');
+END;
+/
+
+ select START_DATE,REPEAT_INTERVAL,END_DATE,ENABLED,STATE,RUN_COUNT,FAILURE_COUNT,LAST_START_DATE,LAST_RUN_DURATION,NEXT_RUN_DATE from all_scheduler_jobs where lower(job_name)='j_proc_cache_stats';
+
 ---->
 	<cfinclude template="/includes/_header.cfm">
 <cfset title="system statistics">
@@ -503,7 +520,7 @@ tr:nth-child(even) {
         <th class="rotate-45"><div><span>##GenBankLinks</span></div></th>
         <th class="rotate-45"><div><span>##SpecimenRelationships</span></div></th>
         <th class="rotate-45"><div><span>##Annotations</span></div></th>
-        <th class="rotate-45"><div><span>##UnreviewedAnnotations</span></div></th>
+        <th class="rotate-45"><div><span>##ReviewedAnnotations</span></div></th>
       </tr>
     </thead>
     <tbody>
@@ -523,7 +540,7 @@ tr:nth-child(even) {
 	        <td title="#guid_prefix#: GenBankLinks">#NumberFormat(number_genbank,"999,999")#</td>
 	        <td title="#guid_prefix#: SpecimenRelationships">#NumberFormat(number_spec_relns,"999,999")#</td>
 	        <td title="#guid_prefix#: Annotations">#NumberFormat(number_annotations,"999,999")#</td>
-	        <td title="#guid_prefix#: UnreviewedAnnotations">#NumberFormat(number_rvwd_annotations,"999,999")#</td>
+	        <td title="#guid_prefix#: ReviewedAnnotations">#NumberFormat(number_rvwd_annotations,"999,999")#</td>
 	      </tr>
 		</cfloop>
     </tbody>
