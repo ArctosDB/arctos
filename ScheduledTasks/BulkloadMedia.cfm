@@ -226,14 +226,14 @@ running only as DLM
 	<!----
 		fifth step
 			trigger:
-				cf_temp_zipload.status: unzipped
+				cf_temp_zipload.status: renamed
 				cf_temp_zipfiles.status: previewed
 			success:
 				cf_temp_zipload.status=preview_confirmed
 	---->
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='previewed' and rownum=1
+			select * from cf_temp_zipload where status='renamed' and rownum=1
 		</cfquery>
 		<cfdump var=#d#>
 		<cftry>
@@ -460,8 +460,10 @@ running only as DLM
 <cfif action is "zip_s3ify_confirm">
 	<!----
 		seventh step
-		trigger:cf_temp_zipfiles.status='loaded_to_s3'
-		success:
+		trigger:
+			cf_temp_zipfiles.status='loaded_to_s3'
+			cf_temp_zipload.status='preview'
+		success:cf_temp_zipload.status='loaded_to_s3'
 
 	---->
 	<cfoutput>
@@ -481,30 +483,6 @@ running only as DLM
 		</cfif>
 	</cfoutput>
 </cfif>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!------------------------------------------------------------------------------------------------>
@@ -581,6 +559,30 @@ running only as DLM
 		</cftry>
 	</cfoutput>
 </cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!--------------------------------------------------------------------------------------------->
