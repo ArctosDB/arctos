@@ -429,15 +429,33 @@ tr:nth-child(even) {
 .row-header{text-align: right;}
 </style>
 
+<cfoutput>
 
 <cfquery name="g" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 	select * from cache_sysstats_global
 </cfquery>
 
-<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
+<cfquery name="c_raw" datasource="uam_god" cachedwithin="#createtimespan(0,0,600,0)#">
 	select * from cache_sysstats_coln order by guid_prefix
 </cfquery>
-<cfoutput>
+
+<cfquery name="ftcn" dbtype="query">
+	select guid_prefix from c_raw order by guid_prefix
+</cfquery>
+<cfparam name="colns" default="#valuelist(ftcn.guid_prefix)#">
+<form name="f" method="post" action="sysstats.cfm">
+	<select name="colns" multiple size="20">
+		<cfloop query="ftcn">
+			<option <cfif listfind(colns,ftcn.guid_prefix)>selected="selected" </cfif>"value="#guid_prefix#">#guid_prefix#</option>
+		</cfloop>
+	</select>
+	<br><input type="submit" value="filter">
+</form>
+
+<cfquery name="c" dbtype="query">
+	select * from c_raw where guid_prefix in (#listqualify(colns,"'")#)
+</cfquery>
+
 <h2>Global</h2>
 <p>
 	 <a href="/Admin/CSVAnyTable.cfm?tableName=cache_sysstats_global&forceColumnOrder=true">get CSV</a>
