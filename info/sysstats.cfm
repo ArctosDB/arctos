@@ -444,6 +444,7 @@ tr:nth-child(even) {
 </cfquery>
 <cfparam name="colns" default="#valuelist(ftcn.guid_prefix)#">
 <form name="f" method="post" action="sysstats.cfm">
+	<label for="colns">Filter by Collection(s)</label>
 	<select name="colns" multiple size="20">
 		<cfloop query="ftcn">
 			<option <cfif listfind(colns,ftcn.guid_prefix)>selected="selected" </cfif>"value="#guid_prefix#">#guid_prefix#</option>
