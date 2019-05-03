@@ -426,6 +426,7 @@ tr:nth-child(even) {
   // white-space: nowrap; /*whether to display in one line or not*/
 }
 
+.row-header{text-align: right;}
 </style>
 
 
@@ -448,7 +449,7 @@ tr:nth-child(even) {
       <tr>
         <th class="rotate-45"><div><span>##Collections</span></div></th>
         <th class="rotate-45"><div><span>##Institutions</span></div></th>
-        <th class="rotate-45"><div><span>##Specimens</span></div></th>
+        <th class="rotate-45"><div><span>##CatalogedItems</span></div></th>
         <th class="rotate-45"><div><span>##Taxa</span></div></th>
         <th class="rotate-45"><div><span>##TaxonRelations</span></div></th>
         <th class="rotate-45"><div><span>##Localities</span></div></th>
@@ -507,7 +508,7 @@ tr:nth-child(even) {
         <!-- First column header is not rotated -->
         <th></th>
         <!-- Following headers are rotated -->
-        <th class="rotate-45"><div><span>##Specimens</span></div></th>
+        <th class="rotate-45"><div><span>##CatalogedItems</span></div></th>
         <th class="rotate-45"><div><span>##Individuals</span></div></th>
         <th class="rotate-45"><div><span>##UsedTaxa</span></div></th>
         <th class="rotate-45"><div><span>##Localities</span></div></th>
@@ -527,7 +528,7 @@ tr:nth-child(even) {
 		<cfloop query="c">
 	      <tr>
 	        <th class="row-header">#guid_prefix#</th>
-	        <td title="#guid_prefix#: Specimens">#NumberFormat(number_specimens,"999,999")#</td>
+	        <td title="#guid_prefix#: CatalogedItems">#NumberFormat(number_specimens,"999,999")#</td>
 	        <td title="#guid_prefix#: Individuals">#NumberFormat(number_individuals,"999,999")#</td>
 	        <td title="#guid_prefix#: UsedTaxa">#NumberFormat(number_taxa,"999,999")#</td>
 	        <td title="#guid_prefix#: Localities">#NumberFormat(number_localities,"999,999")#</td>
