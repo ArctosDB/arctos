@@ -132,6 +132,11 @@
 				getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
 				REVIEWED_FG,
 				REVIEWER_COMMENT,
+				COLLECTION_OBJECT_ID,
+				TAXON_NAME_ID,
+				PROJECT_ID,
+				PUBLICATION_ID,
+				MEDIA_ID,
 				getAnnotationObject(annotation_id) dlink
 			from
 				annotations
@@ -276,11 +281,25 @@
 			<cfquery name="sp_lnk" dbtype="query">
 				select count(*) c from ths_grp where dlink like '%/guid/%'
 			</cfquery>
+			<cfif sp_lnk.c gt 0>
+				<cfquery name="srlink" dbtype="query">
+					select collection_object_Id from ths_grp
+				</cfquery>
+				<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
+			</cfif>
+			<cfquery name="m_lnk" dbtype="query">
+				select count(*) c from ths_grp where dlink like '%/media/%'
+			</cfquery>
+			<cfif m_lnk.c gt 0>
+				<cfquery name="srlink" dbtype="query">
+					select media_id from ths_grp
+				</cfquery>
+				<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(srlink.media_id)#">view all media</a>
+			</cfif>
 
 
-			<cfdump var=#sp_lnk#>
+			<!----			<cfdump var=#sp_lnk#>
 
-			<!----
 				<cfif grp.recordcount gt 1 and grp.dlink contains '/guid/'>
 					<cfquery name="srlink" datasource="uam_god">
 						select collection_object_Id
