@@ -25,6 +25,7 @@
 		padding:1em;
 	}
 	.revCmnt{margin-left:1em;}
+	.valink{margin:1em;padding:1em;}
 </style>
 <script>
 	function reviewAnnotationGroup(annotation_group_id) {
@@ -294,7 +295,7 @@
 				<cfquery name="srlink" dbtype="query">
 					select collection_object_Id from ths_grp
 				</cfquery>
-				<div>
+				<div class="valink">
 					<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
 				</div>
 			</cfif>
@@ -305,7 +306,7 @@
 				<cfquery name="srlink" dbtype="query">
 					select media_id from ths_grp
 				</cfquery>
-				<div>
+				<div class="valink">
 					<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(srlink.media_id)#">view all media</a>
 				</div>
 			</cfif>
