@@ -317,11 +317,10 @@
 					</div>
 					<div class="revCmnt">
 						<cfif session.roles contains "manage_collection">
-							<label for="reviewer_comment">Review Comment</label>
-							<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment_#annotation_id#">#reviewer_comment#</textarea>
-							<cfif len(reviewer) gt 0>
-								Reviewed by #reviewer#
-							</cfif>
+							<label for="reviewer_comment">
+								Review Comment <cfif len(reviewer) gt 0> [ Reviewed by #reviewer# ]</cfif>
+							</label>
+							<textarea class="hugetextarea" name="reviewer_comment" id="reviewer_comment_#annotation_id#">#reviewer_comment#</textarea>
 							<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_id#');">
 						<cfelse>
 							<cfif len(reviewer_comment) gt 0>
