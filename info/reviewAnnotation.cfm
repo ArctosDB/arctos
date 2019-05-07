@@ -16,6 +16,7 @@
 <style>
 	.allReviewed{border:1px solid green;}
 	.needReviewed{border:1px solid red;}
+	.revCmnt{margin-left:1em;}
 </style>
 <script>
 	function reviewAnnotationGroup(annotation_group_id) {
@@ -296,35 +297,27 @@
 				</cfquery>
 				<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(srlink.media_id)#">view all media</a>
 			</cfif>
-
-
-			<!----			<cfdump var=#sp_lnk#>
-
-				<cfif grp.recordcount gt 1 and grp.dlink contains '/guid/'>
-					<cfquery name="srlink" datasource="uam_god">
-						select collection_object_Id
-						 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
-					</cfquery>
-					<cfif srlink.recordcount gt 1>
-						<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
-					</cfif>
-				<cfelseif  grp.recordcount gt 1 and grp.dlink contains '/media/'>
-					<cfquery name="srlink" datasource="uam_god">
-						select media_id
-						 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
-					</cfquery>
-					<cfif srlink.recordcount gt 1>
-						<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(srlink.media_id)#">view all media</a>
-					</cfif>
-
-				</cfif>
-				---->
-
 			<cfloop query="ths_grp">
 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-
+					<div>
+						#dlink#
+					</div>
+					<div class="revCmnt">
+						<cfif session.roles contains "manage_collection">
+							<label for="reviewer_comment">Review Comment</label>
+							<textarea class="hugetextarea"  name="reviewer_comment" id="reviewer_comment_#annotation_id#">#reviewer_comment#</textarea>
+							<br><input type="button" class="savBtn" value="save review" onclick="reviewAnnotation('#annotation_id#');">
+						<cfelse>
+							<cfif len(reviewer_comment) gt 0>
+								<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;display:inline-block;">
+									#reviewer_comment#</strong>
+								</div>
+							<cfelse>
+								<div>Not yet reviewed.</div>
+							</cfif>
+						</cfif>
+					</div>
 				</div>
-
 			</cfloop>
 
 		</div>
