@@ -322,6 +322,7 @@
 						</cfif>
 					</div>
 				</div>
+				<cfset i=i+1>
 			</cfloop>
 
 		</div>
