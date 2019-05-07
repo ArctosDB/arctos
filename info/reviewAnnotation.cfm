@@ -129,10 +129,10 @@
 			<input type="button" class="clrBtn" onclick="clearForm()" value="Clear Form">
 		</form>
 	</div>
+	<!--- due to the review all option, we MUST pull the entire group, not just the individual annotations which match a search ---->
 	<cfquery name="data" datasource="uam_god">
-		select * from (
-			select distinct
-				ANNOTATION_GROUP_ID,
+		select
+		ANNOTATION_GROUP_ID,
 				ANNOTATION_ID,
 				ANNOTATION,
 				to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
@@ -148,6 +148,9 @@
 				PUBLICATION_ID,
 				MEDIA_ID,
 				getAnnotationObject(annotation_id) dlink
+		 from annotations where ANNOTATION_GROUP_ID in (
+			select
+				ANNOTATION_GROUP_ID
 			from
 				annotations
 			where
