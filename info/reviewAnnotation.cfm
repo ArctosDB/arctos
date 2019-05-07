@@ -13,6 +13,10 @@
 		<cflocation url="reviewAnnotation.cfm?collection_object_id=#id#" addtoken="false">
 	</cfif>
 </cfif>
+<style>
+	.allReviewed{border:1px solid green;}
+	.needReviewed{border:1px solid red;}
+</style>
 <script>
 	function reviewAnnotationGroup(annotation_group_id) {
 		$.getJSON("/component/functions.cfc",
@@ -127,7 +131,8 @@
 				REVIEWER_AGENT_ID,
 				getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
 				REVIEWED_FG,
-				REVIEWER_COMMENT
+				REVIEWER_COMMENT,
+				getAnnotationObject(annotation_id) dlink
 			from
 				annotations
 			where
@@ -226,6 +231,87 @@
 		</div>
 	</cfif>
 	<cfset i=1>
+	<cfquery name="grp" dbtype="query">
+		select
+			ANNOTATION_GROUP_ID,
+			CF_USERNAME,
+			email,
+			ANNOTATE_DATE,
+			ANNOTATION
+		from
+			data
+		group by
+			ANNOTATION_GROUP_ID,
+			CF_USERNAME,
+			email,
+			ANNOTATE_DATE,
+			ANNOTATION
+		order by ANNOTATE_DATE
+	</cfquery>
+	<cfloop query="grp">
+		<cfquery name="ths_grp" dbtype="query">
+			select * from data where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
+		</cfquery>
+		<cfquery name="ths_grp_stts" dbtype="query">
+			select count(*) c from ths_grp where reviewer_comment is null
+		</cfquery>
+		<cfif ths_grp_stts.c is 0>
+			<cfset dvx="allReviewed">
+		<cfelse>
+			<cfset dvx="needReviewed">
+		</cfif>
+		<div class="#dvx#">
+			<div>
+				<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+					Annotation by <cfif len(CF_USERNAME) gt 0><strong>#CF_USERNAME#</strong><cfelse><strong>anonymous</strong></cfif>
+					<cfif len(email) gt 0>#email#</cfif>
+						on #ANNOTATE_DATE#
+					<cfelse>
+						-restricted user information-
+					</cfif>
+			</div>
+			<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;display:inline-block;">
+				#ANNOTATION#
+			</div>
+			<cfquery name="sp_lnk">
+				select count(*) c from ths_grp where dlink like '%/guid/%'
+			</cfquery>
+
+
+			<cfdump var=#sp_lnk#>
+
+			<!----
+				<cfif grp.recordcount gt 1 and grp.dlink contains '/guid/'>
+					<cfquery name="srlink" datasource="uam_god">
+						select collection_object_Id
+						 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
+					</cfquery>
+					<cfif srlink.recordcount gt 1>
+						<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
+					</cfif>
+				<cfelseif  grp.recordcount gt 1 and grp.dlink contains '/media/'>
+					<cfquery name="srlink" datasource="uam_god">
+						select media_id
+						 from annotations where ANNOTATION_GROUP_ID=#ANNOTATION_GROUP_ID#
+					</cfquery>
+					<cfif srlink.recordcount gt 1>
+						<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(srlink.media_id)#">view all media</a>
+					</cfif>
+
+				</cfif>
+				---->
+
+			<cfloop query="ths_grp">
+				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+
+				</div>
+
+			</cfloop>
+
+		</div>
+
+	</cfloop>
+
 	<cfloop query="data">
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<div>
