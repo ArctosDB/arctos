@@ -48,9 +48,10 @@
 						console.log('one_f:');
 						console.log(this);
 						console.log(this.id);
+						val($("#reviewer_comment_" + this.id).val($("#reviewer_comment_" + annotation_group_id).val()));
 					});
 
-						//val($("#reviewer_comment_" + annotation_group_id).val());
+						//
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
 				} else {
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
