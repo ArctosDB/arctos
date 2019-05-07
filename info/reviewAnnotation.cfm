@@ -14,8 +14,16 @@
 	</cfif>
 </cfif>
 <style>
-	.allReviewed{border:1px solid green;}
-	.needReviewed{border:1px solid red;}
+	.allReviewed{
+		border:3px solid green;
+		margin:1em;
+		padding:1em;
+	}
+	.needReviewed{
+		border:3px solid red;
+		margin:1em;
+		padding:1em;
+	}
 	.revCmnt{margin-left:1em;}
 </style>
 <script>
