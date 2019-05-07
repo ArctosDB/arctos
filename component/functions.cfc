@@ -4636,6 +4636,43 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="reviewAnnotation" access="remote">
+	<!---
+		old: this reviewed a group
+		new: this reviews a single annotation
+	--->
+	<cfargument name="ANNOTATION_ID" type="numeric" required="yes">
+	<cfargument name="REVIEWER_COMMENT" type="string" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
+	<cftry>
+		<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update annotations set
+				REVIEWER_AGENT_ID=#session.myAgentId#,
+				REVIEWED_FG=1,
+				REVIEWER_COMMENT='#escapeQuotes(REVIEWER_COMMENT)#'
+			where
+				ANNOTATION_ID=#ANNOTATION_ID#
+		</cfquery>
+		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_ID")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'success', 1)>
+		<cfset temp = QuerySetCell(d, "ANNOTATION_ID", '#ANNOTATION_ID#', 1)>
+
+	<cfcatch>
+		<cfset d = querynew("STATUS,MESSAGE,ANNOTATION_ID")>
+		<cfset temp = queryaddrow(d,1)>
+		<cfset temp = QuerySetCell(d, "STATUS", 'fail', 1)>
+		<cfset temp = QuerySetCell(d, "MESSAGE", 'An error occured: #cfcatch.message# #cfcatch.detail#', 1)>
+		<cfset temp = QuerySetCell(d, "ANNOTATION_ID", '#ANNOTATION_ID#', 1)>
+	</cfcatch>
+	</cftry>
+	<cfreturn d>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="reviewAnnotationGroup" access="remote">
+	<!---
+		old: this reviewed a group
+		new: this reviews a single annotation
+	--->
 	<cfargument name="ANNOTATION_GROUP_ID" type="numeric" required="yes">
 	<cfargument name="REVIEWER_COMMENT" type="string" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">

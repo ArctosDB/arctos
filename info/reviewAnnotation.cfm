@@ -14,10 +14,10 @@
 	</cfif>
 </cfif>
 <script>
-	function reviewAnnotation(annotation_group_id) {
+	function reviewAnnotationGroup(annotation_group_id) {
 		$.getJSON("/component/functions.cfc",
 			{
-				method : "reviewAnnotation",
+				method : "reviewAnnotationGroup",
 				annotation_group_id : annotation_group_id,
 				reviewer_comment : $("#reviewer_comment_" + annotation_group_id).val(),
 				returnformat : "json",
@@ -28,6 +28,25 @@
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
 				} else {
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
+					alert(r.DATA.MESSAGE);
+				}
+			}
+		);
+	}
+	function reviewAnnotation(annotation_id) {
+		$.getJSON("/component/functions.cfc",
+			{
+				method : "reviewAnnotation",
+				annotation_id : annotation_id,
+				reviewer_comment : $("#reviewer_comment_" + annotation_id).val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				if (r.DATA.STATUS=='success'){
+					$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass('badPick').addClass('goodPick');
+				} else {
+					$("#reviewer_comment_" + r.DATA.ANNOTATION_ID).removeClass('goodPick').addClass('badPick');
 					alert(r.DATA.MESSAGE);
 				}
 			}
@@ -100,6 +119,7 @@
 		select * from (
 			select distinct
 				ANNOTATION_GROUP_ID,
+				ANNOTATION_ID,
 				ANNOTATION,
 				to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
 				CF_USERNAME,
