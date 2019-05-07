@@ -31,9 +31,8 @@
 	function reviewAnnotationGroup(annotation_group_id) {
 		if (confirm('Are you sure you want to review ALL object in this group?')) {
 			var annoCmntVal=$("#reviewer_comment_" + annotation_group_id).val();
-			console.log('updating with ' + annoCmntVal);
-
 			if (annoCmntVal.length==0){
+				// require a second confirmation to NULLify
 				if (!confirm('Are you REALLY sure you want to NULL the review of all objects in this group?')) {
 					return;
 				}
