@@ -30,9 +30,7 @@
 <script>
 	function reviewAnnotationGroup(annotation_group_id) {
 		if (confirm('Are you sure you want to review ALL object in this group?')) {
-			console.log('reviewing group ' + annotation_group_id);
 			var annoCmntVal=$("#reviewer_comment_" + annotation_group_id).val();
-
 			$.getJSON("/component/functions.cfc",
 				{
 					method : "reviewAnnotationGroup",
@@ -43,19 +41,12 @@
 				},
 				function (r) {
 					if (r.DATA.STATUS=='success'){
-						console.log(annoCmntVal);
-						console.log('r.DATA.ANNOTATION_GROUP_ID::' + r.DATA.ANNOTATION_GROUP_ID);
-
 						$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').each(function(){
-							console.log('one_f:');
-							console.log(this);
-							console.log(this.id);
 							$("#" + this.id).val(annoCmntVal);
 						});
-
-							//
 						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
 						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).val('');
+						$("#status_" + r.DATA.ANNOTATION_GROUP_ID).val('All objects in this group have been updated.');
 					} else {
 						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
 						alert(r.DATA.MESSAGE);
@@ -316,6 +307,7 @@
 						<label for="reviewer_comment_#annotation_group_id#">Review ALL in this group</label>
 						<textarea class="hugetextarea" name="reviewer_comment_#annotation_group_id#" id="reviewer_comment_#annotation_group_id#"></textarea>
 						<br><input type="button" class="savBtn" value="Review All" onclick="reviewAnnotationGroup('#annotation_group_id#');">
+						<div id="status_#annotation_group_id#"></div>
 					</div>
 
 				<cfelse>
