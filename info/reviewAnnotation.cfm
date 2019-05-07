@@ -29,37 +29,40 @@
 </style>
 <script>
 	function reviewAnnotationGroup(annotation_group_id) {
-		console.log('reviewing group ' + annotation_group_id);
-		var annoCmntVal=$("#reviewer_comment_" + annotation_group_id).val();
+		if (confirm('Are you sure you want to review ALL object in this group?')) {
+			console.log('reviewing group ' + annotation_group_id);
+			var annoCmntVal=$("#reviewer_comment_" + annotation_group_id).val();
 
-		$.getJSON("/component/functions.cfc",
-			{
-				method : "reviewAnnotationGroup",
-				annotation_group_id : annotation_group_id,
-				reviewer_comment : annoCmntVal,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				if (r.DATA.STATUS=='success'){
-					console.log(annoCmntVal);
-					console.log('r.DATA.ANNOTATION_GROUP_ID::' + r.DATA.ANNOTATION_GROUP_ID);
+			$.getJSON("/component/functions.cfc",
+				{
+					method : "reviewAnnotationGroup",
+					annotation_group_id : annotation_group_id,
+					reviewer_comment : annoCmntVal,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					if (r.DATA.STATUS=='success'){
+						console.log(annoCmntVal);
+						console.log('r.DATA.ANNOTATION_GROUP_ID::' + r.DATA.ANNOTATION_GROUP_ID);
 
-					$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').each(function(){
-						console.log('one_f:');
-						console.log(this);
-						console.log(this.id);
-						$("#" + this.id).val(annoCmntVal);
-					});
+						$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').each(function(){
+							console.log('one_f:');
+							console.log(this);
+							console.log(this.id);
+							$("#" + this.id).val(annoCmntVal);
+						});
 
-						//
-					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
-				} else {
-					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
-					alert(r.DATA.MESSAGE);
+							//
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).val('');
+					} else {
+						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
+						alert(r.DATA.MESSAGE);
+					}
 				}
-			}
-		);
+			);
+		}
 	}
 	function reviewAnnotation(annotation_id) {
 		$.getJSON("/component/functions.cfc",
