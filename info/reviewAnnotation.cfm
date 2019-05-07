@@ -29,6 +29,8 @@
 </style>
 <script>
 	function reviewAnnotationGroup(annotation_group_id) {
+		console.log('reviewing group ' + annotation_group_id);
+
 		$.getJSON("/component/functions.cfc",
 			{
 				method : "reviewAnnotationGroup",
