@@ -281,9 +281,18 @@
 					Annotation by <cfif len(CF_USERNAME) gt 0><strong>#CF_USERNAME#</strong><cfelse><strong>anonymous</strong></cfif>
 					<cfif len(email) gt 0>#email#</cfif>
 						on #ANNOTATE_DATE#
-					<cfelse>
-						-restricted user information-
-					</cfif>
+					<div style="margin:1em;padding:1em;border:5px solid red;">
+						<div class="importantNotification">
+							Use this ONLY if you have fixed the data for ALL objects in the annotation group.
+						</div>
+						<label for="reviewer_comment_#annotation_group_id#">Review ALL in this group</label>
+						<textarea class="hugetextarea" name="reviewer_comment_#annotation_group_id#" id="reviewer_comment_#annotation_group_id#"></textarea>
+						<br><input type="button" class="savBtn" value="Review All" onclick="reviewAnnotationGroup('#annotation_group_id#');">
+					</div>
+
+				<cfelse>
+					-restricted user information-
+				</cfif>
 			</div>
 			<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;display:inline-block;">
 				#ANNOTATION#
