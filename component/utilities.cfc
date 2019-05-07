@@ -741,13 +741,13 @@
 		urlPath="/maps/api/geocode/json",
 		urlParams="address=#URLEncodedFormat('#ttu#')#")>
 	<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
-	<cfdump var=#x#>
-	<cfif left(x.Statuscode,3) is "200">
+
 		<cfset llresult=DeserializeJSON(x.filecontent)>
 		<cfif llresult.status is "OK">
 			<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
 		</cfif>
 		<!----
+		<cfif left(x.Statuscode,3) is "200">
 	<cfelse>
 		<!--- just return NULL if fail ---->
 		<cfset coords="">
