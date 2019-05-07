@@ -49,8 +49,7 @@
 						console.log('one_f:');
 						console.log(this);
 						console.log(this.id);
-						//$("#" + this.id).val(annoCmntVal);
-						this.val(annoCmntVal);
+						$("#" + this.id).val(annoCmntVal);
 					});
 
 						//
