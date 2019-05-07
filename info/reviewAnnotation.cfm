@@ -273,7 +273,7 @@
 			<div style="font-weight:bold;border:1px dashed black;padding:.5em;margin: 1em 1em 1em 2em;display:inline-block;">
 				#ANNOTATION#
 			</div>
-			<cfquery name="sp_lnk">
+			<cfquery name="sp_lnk" dbtype="query">
 				select count(*) c from ths_grp where dlink like '%/guid/%'
 			</cfquery>
 
