@@ -132,23 +132,26 @@
 	<!--- due to the review all option, we MUST pull the entire group, not just the individual annotations which match a search ---->
 	<cfquery name="data" datasource="uam_god">
 		select
-		ANNOTATION_GROUP_ID,
-				ANNOTATION_ID,
-				ANNOTATION,
-				to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
-				CF_USERNAME,
-				email,
-				REVIEWER_AGENT_ID,
-				getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
-				REVIEWED_FG,
-				REVIEWER_COMMENT,
-				COLLECTION_OBJECT_ID,
-				TAXON_NAME_ID,
-				PROJECT_ID,
-				PUBLICATION_ID,
-				MEDIA_ID,
-				getAnnotationObject(annotation_id) dlink
-		 from annotations where ANNOTATION_GROUP_ID in (
+			ANNOTATION_GROUP_ID,
+			ANNOTATION_ID,
+			ANNOTATION,
+			to_char(ANNOTATE_DATE,'yyyy-mm-dd') ANNOTATE_DATE,
+			CF_USERNAME,
+			email,
+			REVIEWER_AGENT_ID,
+			getPreferredAgentName(REVIEWER_AGENT_ID) reviewer,
+			REVIEWED_FG,
+			REVIEWER_COMMENT,
+			COLLECTION_OBJECT_ID,
+			TAXON_NAME_ID,
+			PROJECT_ID,
+			PUBLICATION_ID,
+			MEDIA_ID,
+			getAnnotationObject(annotation_id) dlink
+		 from
+		 	annotations
+		 where
+		 	ANNOTATION_GROUP_ID in (
 			select
 				ANNOTATION_GROUP_ID
 			from
@@ -238,9 +241,10 @@
 							<cfqueryparam value = "%#ucase(reviewer)#%" CFSQLType = "CF_SQL_VARCHAR" list = "no">
 					)
 				</cfif>
-			order by
-				ANNOTATE_DATE DESC
-		) where rownum<101
+		)
+		<!----
+		order by
+				ANNOTATE_DATE DESCwhere rownum<101---->
 	</cfquery>
 	<hr>
 	<cfif data.recordcount is 100>
