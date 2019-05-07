@@ -30,25 +30,26 @@
 <script>
 	function reviewAnnotationGroup(annotation_group_id) {
 		console.log('reviewing group ' + annotation_group_id);
+		var annoCmntVal=$("#reviewer_comment_" + annotation_group_id).val();
 
 		$.getJSON("/component/functions.cfc",
 			{
 				method : "reviewAnnotationGroup",
 				annotation_group_id : annotation_group_id,
-				reviewer_comment : $("#reviewer_comment_" + annotation_group_id).val(),
+				reviewer_comment : annoCmntVal,
 				returnformat : "json",
 				queryformat : 'column'
 			},
 			function (r) {
 				if (r.DATA.STATUS=='success'){
-					console.log($("#reviewer_comment_" + annotation_group_id).val());
+					console.log(annoCmntVal);
 					console.log('r.DATA.ANNOTATION_GROUP_ID::' + r.DATA.ANNOTATION_GROUP_ID);
 
 					$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').each(function(){
 						console.log('one_f:');
 						console.log(this);
 						console.log(this.id);
-						val($("#reviewer_comment_" + this.id).val($("#reviewer_comment_" + annotation_group_id).val()));
+						$("#reviewer_comment_" + this.id).val(annoCmntVal));
 					});
 
 						//
