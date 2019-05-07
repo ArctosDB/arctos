@@ -39,6 +39,9 @@
 			},
 			function (r) {
 				if (r.DATA.STATUS=='success'){
+					console.log($("#reviewer_comment_" + annotation_group_id).val());
+					console.log(r.DATA.ANNOTATION_GROUP_ID);
+
 					$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').val($("#reviewer_comment_" + annotation_group_id).val());
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
 				} else {
