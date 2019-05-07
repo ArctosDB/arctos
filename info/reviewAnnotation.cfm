@@ -42,7 +42,7 @@
 			function (r) {
 				if (r.DATA.STATUS=='success'){
 					console.log($("#reviewer_comment_" + annotation_group_id).val());
-					console.log(r.DATA.ANNOTATION_GROUP_ID);
+					console.log('r.DATA.ANNOTATION_GROUP_ID::' + r.DATA.ANNOTATION_GROUP_ID);
 
 					$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').each(function(){
 						console.log('one:'+$(this).id);
