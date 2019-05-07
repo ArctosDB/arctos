@@ -272,10 +272,10 @@
 		</cfquery>
 		<cfdump var=#ths_grp_stts#>
 
-		<cfif ths_grp_stts.c is 0>
-			<cfset dvx="allReviewed">
-		<cfelse>
+		<cfif ths_grp_stts.c gt 0>
 			<cfset dvx="needReviewed">
+		<cfelse>
+			<cfset dvx="allReviewed">
 		</cfif>
 		<div class="#dvx#">
 			<div>
