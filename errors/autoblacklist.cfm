@@ -35,6 +35,7 @@
 <cfif not isdefined("bl_reason")>
 	<cfset bl_reason="unknown">
 </cfif>
+<cfdump var=#bl_reason#>
 <!---- if the IP is currently blocked, just log and send them to the blocked page ---->
 <cfif listcontains(application.blacklist,request.ipaddress)>
 	<cfquery name="d" datasource="uam_god">
@@ -79,11 +80,11 @@
 				sysdate
 				)
 		</cfquery>
-		<!--- 
+		<!---
 		don't send email, this plugs up the tubes!
 		<cf_logError subject="new autoblacklist: subnet has more than 10 active blocks" message="#bl_reason#">
 		--->
-		
+
 		<!---- adjust the application variables ---->
 		<cfset utilities.setAppBL()>
 	<cfelseif blipc.c gte 100>
