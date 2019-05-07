@@ -730,6 +730,7 @@
 		extract ZIP
 		start at the end, take the "first" thing that's numbers
 	 ---->
+
 	<cfset ttu="">
 	<cfloop index="i" list="#mAddress#">
 		<cfif REFind("[0-9]+", i) gt 0>
