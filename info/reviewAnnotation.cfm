@@ -284,6 +284,7 @@
 					<div style="margin:1em;padding:1em;border:5px solid red;">
 						<div class="importantNotification">
 							Use this ONLY if you have fixed the data for ALL objects in the annotation group.
+							<br>Scroll down to review individial items.
 						</div>
 						<label for="reviewer_comment_#annotation_group_id#">Review ALL in this group</label>
 						<textarea class="hugetextarea" name="reviewer_comment_#annotation_group_id#" id="reviewer_comment_#annotation_group_id#"></textarea>
