@@ -31,28 +31,32 @@
 	function reviewAnnotationGroup(annotation_group_id) {
 		if (confirm('Are you sure you want to review ALL object in this group?')) {
 			var annoCmntVal=$("#reviewer_comment_" + annotation_group_id).val();
-			$.getJSON("/component/functions.cfc",
-				{
-					method : "reviewAnnotationGroup",
-					annotation_group_id : annotation_group_id,
-					reviewer_comment : annoCmntVal,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-					if (r.DATA.STATUS=='success'){
-						$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').each(function(){
-							$("#" + this.id).val(annoCmntVal);
-						});
-						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
-						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).val('');
-						$("#status_" + r.DATA.ANNOTATION_GROUP_ID).html('All objects in this group have been updated.');
-					} else {
-						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
-						alert(r.DATA.MESSAGE);
-					}
+			if (annoCmntVal.length==0){
+				if (confirm('Are you REALLY sure you want to NULL the review of all objects in this group?')) {
+					$.getJSON("/component/functions.cfc",
+						{
+							method : "reviewAnnotationGroup",
+							annotation_group_id : annotation_group_id,
+							reviewer_comment : annoCmntVal,
+							returnformat : "json",
+							queryformat : 'column'
+						},
+						function (r) {
+							if (r.DATA.STATUS=='success'){
+								$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').each(function(){
+									$("#" + this.id).val(annoCmntVal);
+								});
+								$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
+								$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).val('');
+								$("#status_" + r.DATA.ANNOTATION_GROUP_ID).html('All objects in this group have been updated.');
+							} else {
+								$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
+								alert(r.DATA.MESSAGE);
+							}
+						}
+					);
 				}
-			);
+			}
 		}
 	}
 	function reviewAnnotation(annotation_id) {
