@@ -47,6 +47,7 @@
 					$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').each(function(){
 						console.log('one_f:');
 						console.log($(this));
+						console.log($(this).id);
 					});
 
 						//val($("#reviewer_comment_" + annotation_group_id).val());
