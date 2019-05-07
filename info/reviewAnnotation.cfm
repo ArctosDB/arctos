@@ -286,7 +286,9 @@
 				<cfquery name="srlink" dbtype="query">
 					select collection_object_Id from ths_grp
 				</cfquery>
-				<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
+				<div>
+					<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(srlink.collection_object_Id)#">view all specimens</a>
+				</div>
 			</cfif>
 			<cfquery name="m_lnk" dbtype="query">
 				select count(*) c from ths_grp where dlink like '%/media/%'
@@ -295,7 +297,9 @@
 				<cfquery name="srlink" dbtype="query">
 					select media_id from ths_grp
 				</cfquery>
-				<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(srlink.media_id)#">view all media</a>
+				<div>
+					<a href="/MediaSearch.cfm?action=search&media_id=#valuelist(srlink.media_id)#">view all media</a>
+				</div>
 			</cfif>
 			<cfloop query="ths_grp">
 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
@@ -323,7 +327,7 @@
 		</div>
 
 	</cfloop>
-
+	<!-----
 	<cfloop query="data">
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<div>
@@ -388,5 +392,6 @@
 		</div>
 		<cfset i=i+1>
 	</cfloop>
+	----->
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
