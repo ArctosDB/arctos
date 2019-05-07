@@ -751,8 +751,8 @@
 	<cfelse>
 		<!--- just return NULL if fail ---->
 		<cfset coords="">
-		---->
 	</cfif>
+		---->
 	<cfreturn coords>
 </cffunction>
 <cffunction name="getGeogWKT" returnType="string" access="remote">
