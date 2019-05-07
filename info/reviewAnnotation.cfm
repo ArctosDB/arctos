@@ -270,6 +270,8 @@
 		<cfquery name="ths_grp_stts" dbtype="query">
 			select count(*) c from ths_grp where reviewer_comment is null
 		</cfquery>
+		<cfdump var=#ths_grp_stts#>
+
 		<cfif ths_grp_stts.c is 0>
 			<cfset dvx="allReviewed">
 		<cfelse>
