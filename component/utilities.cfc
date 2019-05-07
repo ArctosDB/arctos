@@ -740,13 +740,13 @@
 		urlPath="/maps/api/geocode/json",
 		urlParams="address=#URLEncodedFormat('#ttu#')#")>
 	<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
-	<cfdump var=#x#>
-	<cfif left(x.Statuscode,3) neq "200">
-		fail....
-	</cfif>
-	<cfset llresult=DeserializeJSON(x.filecontent)>
-	<cfif llresult.status is "OK">
-		<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
+	<cfif left(x.Statuscode,3) is "200">
+		<cfset llresult=DeserializeJSON(x.filecontent)>
+		<cfif llresult.status is "OK">
+			<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
+		</cfif>
+	<cfelse>
+		<cfthrow message="utilities.georeferenceAddress fail">
 	</cfif>
 	<cfreturn coords>
 </cffunction>
