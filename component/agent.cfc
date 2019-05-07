@@ -939,14 +939,11 @@
 						<cfelse>
 							<cfset coords=''>
 							<cfif thisAddressType is 'shipping' or thisAddressType is 'correspondence'>
-								<cftry>
 								<!---- test is dumb.... ---->
 								<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 								<!--- call remote so no transaction datasource conflicts---->
 								<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(thisAddress)#" >
 								<cfset coords=cfhttp.fileContent>
-								<cfcatch><cfset coords=''></cfcatch>
-								</cftry>
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
