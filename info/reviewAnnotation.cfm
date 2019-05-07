@@ -49,7 +49,8 @@
 						console.log('one_f:');
 						console.log(this);
 						console.log(this.id);
-						$("#reviewer_comment_" + this.id).val(annoCmntVal);
+						//$("#" + this.id).val(annoCmntVal);
+						this.val(annoCmntVal);
 					});
 
 						//
