@@ -46,7 +46,7 @@
 						});
 						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
 						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).val('');
-						$("#status_" + r.DATA.ANNOTATION_GROUP_ID).val('All objects in this group have been updated.');
+						$("#status_" + r.DATA.ANNOTATION_GROUP_ID).html('All objects in this group have been updated.');
 					} else {
 						$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
 						alert(r.DATA.MESSAGE);
