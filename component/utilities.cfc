@@ -741,6 +741,7 @@
 		urlPath="/maps/api/geocode/json",
 		urlParams="address=#URLEncodedFormat('#ttu#')#")>
 	<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
+	<cfdump var=#x#>
 	<cfif left(x.Statuscode,3) is "200">
 		<cfset llresult=DeserializeJSON(x.filecontent)>
 		<cfif llresult.status is "OK">
