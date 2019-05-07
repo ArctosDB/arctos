@@ -39,6 +39,7 @@
 			},
 			function (r) {
 				if (r.DATA.STATUS=='success'){
+					$('[data-group_id="' + r.DATA.ANNOTATION_GROUP_ID + '"]').val($("#reviewer_comment_" + annotation_group_id).val());
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('badPick').addClass('goodPick');
 				} else {
 					$("#reviewer_comment_" + r.DATA.ANNOTATION_GROUP_ID).removeClass('goodPick').addClass('badPick');
@@ -247,11 +248,13 @@
 				ANNOTATE_DATE DESCwhere rownum<101---->
 	</cfquery>
 	<hr>
+	<!----
 	<cfif data.recordcount is 100>
 		<div class="importantNotification">
 			Caution: This form returns a maximum of 100 records.
 		</div>
 	</cfif>
+	---->
 	<cfset i=1>
 	<cfquery name="grp" dbtype="query">
 		select
@@ -291,6 +294,7 @@
 					<div style="margin:1em;padding:1em;border:5px solid red;">
 						<div class="importantNotification">
 							Use this ONLY if you have fixed the data for ALL objects in the annotation group.
+							<br>This for will OVERWRITE individual existing reviews.
 							<br>Scroll down to review individial items.
 						</div>
 						<label for="reviewer_comment_#annotation_group_id#">Review ALL in this group</label>
