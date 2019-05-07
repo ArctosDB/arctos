@@ -746,7 +746,8 @@
 			<cfset coords=llresult.results[1].geometry.location.lat & "," & llresult.results[1].geometry.location.lng>
 		</cfif>
 	<cfelse>
-		<cfthrow message="utilities.georeferenceAddress fail">
+		<!--- just return NULL if fail ---->
+		<cfset coords="">
 	</cfif>
 	<cfreturn coords>
 </cffunction>
