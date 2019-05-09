@@ -21,7 +21,7 @@
 	</cfquery>
 <cfif md.recordcount is 0>
 	<div class="error">
-		Oops! We didn't find anything mappable. Only wild caught specimens with coordintes will map.
+		Oops! We didn't find anything mappable. Only specimens with coordintes will map.
 		File a <a href='/info/bugs.cfm'>bug report</a> if you think this message is in error.
 	</div>
 	<cfabort>

@@ -1819,7 +1819,7 @@
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
 			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts,COMMIT_EDITMSG,console,CHANGELOG,com_sun_web_ui,cfdocs">
 			<cfset x=x & ",classLoader,cacheObjectMaxSize,configs,cisco">
-			<cfset x=x & ",drithsx,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config,dbm">
+			<cfset x=x & ",drithsx,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config,dbm,device">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment,env">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gatewa,FxCodeShell">
 			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git,grandstream,glp">
@@ -1834,7 +1834,7 @@
 			<cfset x=x & ",pma4,php5,pre-receive,provisioning,prov">
 			<cfset x=x & ",pma,phppgadmin,prescription,phpmychat,pre-push,polycom">
 			<cfset x=x & ",rand,reviews,rutorrent,rss,roundcubemail,roundcube,README,railo-context,railo,Rapid7,register,remote_support,remote_tunnel">
-			<cfset x=x & ",remote-sync,regex,register,rar,refs,receive,remotes,rsa">
+			<cfset x=x & ",remote-sync,regex,register,rar,refs,receive,remotes,rsa,rsp">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sftp-config,store,shop,server_info">
 			<cfset x=x & ",sysobjects,svn,sap,ssh,stash">
@@ -1859,8 +1859,6 @@
 					<cfabort>
 				</cfif>
 			</cfloop>
-
-
 			<!---- For the Admin folder, which is linked from email, be a little paranoid/cautious
 				and only get obviously-malicious activity
 				Common requests:
