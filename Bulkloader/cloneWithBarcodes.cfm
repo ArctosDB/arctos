@@ -155,8 +155,7 @@ grant all on bulkloader_clone to coldfusion_user;
                         bulkloader_clone
                     set
                         collection_object_id=bulkloader_pkey.nextval,
-                        PART_BARCODE_1='#trim(i)#',
-                        PART_CONTAINER_LABEL_1='#trim(i)#'
+                        PART_BARCODE_1='#trim(i)#'
                     where
                         collection_object_id=#collection_object_id#
                 </cfquery>
