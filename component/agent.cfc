@@ -939,11 +939,23 @@
 						<cfelse>
 							<cfset coords=''>
 							<cfif thisAddressType is 'shipping' or thisAddressType is 'correspondence'>
+								<!-----
+									requires client_id
+
 								<!---- test is dumb.... ---->
 								<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
 								<!--- call remote so no transaction datasource conflicts---->
 								<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(thisAddress)#" >
 								<cfset coords=cfhttp.fileContent>
+								------------>
+								<!--- try with API ---->
+								<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+									select GMAP_API_KEY	from cf_global_settings
+								</cfquery>
+								<cfhttp method="get" url="https://maps.googleapis.com/maps/api/geocode/json?address=#URLEncodedFormat(thisAddress)#&key=#cf_global_settings.GMAP_API_KEY#" >
+								<cfdump var=#cfhttp#>
+
+								<cfabort>
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
