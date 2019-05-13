@@ -738,6 +738,15 @@
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
 	<cfoutput>
+		<!---
+			this has to be outside the transaction due to who can execute
+			so it gets called way more often than necessary
+			after the dust around API access settles, the
+			cachetime should be bumped up as far as possibe
+		 ---->
+		<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select GMAP_API_KEY	from cf_global_settings
+		</cfquery>
 		<cftry>
 
 			<cftransaction>
@@ -949,9 +958,7 @@
 								<cfset coords=cfhttp.fileContent>
 								------------>
 								<!--- try with API ---->
-								<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-									select GMAP_API_KEY	from cf_global_settings
-								</cfquery>
+
 								<cfhttp method="get" url="https://maps.googleapis.com/maps/api/geocode/json?address=#URLEncodedFormat(thisAddress)#&key=#cf_global_settings.GMAP_API_KEY#" >
 								<cfdump var=#cfhttp#>
 
