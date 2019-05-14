@@ -328,7 +328,30 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			</cfloop>
 			<cfset eml=eml & chr(10) & chr(9) & '</associatedParty>'>
 		</cfloop>
-		<cfset eml=eml & chr(10) & chr(9) & '</pubDate>#dateformat(now(),"YYYY-MM-DD")#</pubDate>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<pubDate>#dateformat(now(),"YYYY-MM-DD")#</pubDate>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<language>eng</language>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<abstract>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<para>#d.descr#</para>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</abstract>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<keywordSet>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<keyword>Occurrence</keyword>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type.xml</keywordThesaurus>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</keywordSet>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<keywordSet>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<keyword>Specimen</keyword>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type.xml</keywordThesaurus>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</keywordSet>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<intellectualRights>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<para>To the extent possible under law, the publisher has waived all rights to these data and has dedicated them to the <ulink url="http://creativecommons.org/publicdomain/zero/1.0/legalcode"><citetitle>Public Domain (CC0 1.0)</citetitle></ulink>. Users may copy, modify, distribute and use the work, including for commercial purposes, without restriction.</para>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</intellectualRights>'>
+
+		<cfset eml=eml & chr(10) & chr(9) & '<distribution scope="document">'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<online>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<url function="information">#d.web_link#</url>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</online>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</distribution>'>
+
+
 
 
 		<p>
@@ -340,27 +363,11 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 <!----
 
-  <pubDate>
-      2018-02-08
-  </pubDate>
-  <language>eng</language>
-  <abstract>
-    <para>The University of Texas at El Paso Biodiversity Collections Zooplankton material includes a collection of rotifers curated by Dr. Elizabeth Walsh. Dr. Walsh’s laboratory uses molecular techniques to address evolutionary and ecological questions.</para>
-  </abstract>
-      <keywordSet>
-            <keyword>Occurrence</keyword>
-        <keywordThesaurus>GBIF Dataset Type Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_type.xml</keywordThesaurus>
-      </keywordSet>
-      <keywordSet>
-            <keyword>Specimen</keyword>
-        <keywordThesaurus>GBIF Dataset Subtype Vocabulary: http://rs.gbif.org/vocabulary/gbif/dataset_subtype.xml</keywordThesaurus>
-      </keywordSet>
-  <intellectualRights>
-    <para>To the extent possible under law, the publisher has waived all rights to these data and has dedicated them to the <ulink url="http://creativecommons.org/publicdomain/zero/1.0/legalcode"><citetitle>Public Domain (CC0 1.0)</citetitle></ulink>. Users may copy, modify, distribute and use the work, including for commercial purposes, without restriction.</para>
-  </intellectualRights>
-  <distribution scope="document">
-    <online>
-      <url function="information">https://www.utep.edu/biodiversity/collections/invertebrate-biology.html</url>
+  <>
+
+
+
+
     </online>
   </distribution>
   <coverage>
