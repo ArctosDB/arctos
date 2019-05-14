@@ -58,7 +58,41 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 	    <cfloop from ="1" to="#ntabs#" index="ti">
 			<cfset btbs=btbs & chr(9)>
 		</cfloop>
-	    <cfquery name="getAgnts" datasource="uam_god">
+		<!--- can't use the get_address function here; it concatenates ---->
+		<cfquery name="cc" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select
+				collection_contacts.CONTACT_AGENT_ID agent_id,
+				address.address,
+				address.address_type,
+				agent_name.agent_name_type,
+				agent_name.agent_name
+			from
+				collection_contacts,
+				address
+			where
+				collection_contacts.CONTACT_AGENT_ID=agent_name.agent_id and
+				agent_name.agent_id = address.agent_id (+) and
+				COLLECTION_ID=#COLLECTION_ID# and
+				CONTACT_ROLE='#role#'
+		</cfquery>
+		<cfdump var=#cc#>
+
+
+		<!----
+		<cfquery name="da" dbtype="query">
+			select agent_id from cc group by agent_id order by agent_id
+		</cfquery>
+		<cfloop query="da">
+
+		</cfloop>
+
+		<cfloop query="cc">
+			<cfquery name="aa" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select address,address_type from address where
+			</cfquery>
+		</cfloop>
+
+	    <cfquery name="getAgnts" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				collection_contacts.CONTACT_AGENT_ID agent_id,
 				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'first name') given_name,
@@ -77,7 +111,6 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 		<cfdump var=#getAgnts#>
 
-<!---------------
 		<cfloop query="getCreator">
 			<cfset eml=eml & chr(10) & chr(9) & '<creator>'>
 			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
