@@ -122,10 +122,10 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				</cfif>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
-				select address from cc where agent_id=#da.agent_id# and agent_name_type='job title'
+				select agent_name from cc where agent_id=#da.agent_id# and agent_name_type='job title'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & btbs & chr(9) & chr(9) & '<positionName>#thisQ.address#</positionName>'>
+				<cfset x=x & btbs & chr(9) & chr(9) & '<positionName>#thisQ.agent_name#</positionName>'>
 			</cfloop>
 			<cfloop query="thisJSONA">
 				<cfif isjson(address)>
