@@ -423,24 +423,26 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				select addr from getContact where agent_id=#agent_id#
 			</cfquery>
 			<cfloop query="a">
-				<cfset jadr=DeserializeJSON(addr)>
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
-				<cfif structkeyexists(jadr,"STREET")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+				<cfif isjson(addr)>
+					<cfset jadr=DeserializeJSON(addr)>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
+					<cfif structkeyexists(jadr,"STREET")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"CITY")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"STATE_PROV")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"POSTAL_CODE")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"COUNTRY")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
+					</cfif>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
 				</cfif>
-				<cfif structkeyexists(jadr,"CITY")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"STATE_PROV")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"POSTAL_CODE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"COUNTRY")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
-				</cfif>
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
 			</cfloop>
 			<cfloop query="a">
 				<cfset jadr=DeserializeJSON(addr)>
