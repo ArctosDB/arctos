@@ -127,6 +127,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfquery name="a" dbtype="query">
 				select addr from getCreator where agent_id=#agent_id#
 			</cfquery>
+			<cfdump var=#a#>
 			<cfloop query="a">
 				<p>#addr#</p>
 				<cfset jadr=DeserializeJSON=SerializeJSON(addr)>
