@@ -239,274 +239,16 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		<cfset eml=eml & chr(10) & chr(9) & '<title xml:lang="eng">#d.collection# (Arctos)</title>'>
 
 
-<!------------------
-<cfquery name="getCreator" datasource="uam_god">
-			select
-				collection_contacts.CONTACT_AGENT_ID agent_id,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'first name') given_name,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'last name') sur_name,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'job title') positionName,
-				 get_address(collection_contacts.CONTACT_AGENT_ID,'formatted JSON') addr,
-				 get_address(collection_contacts.CONTACT_AGENT_ID,'url') url_addr
-			from
-				collection_contacts
-			where
-				COLLECTION_ID=#d.COLLECTION_ID# and
-				CONTACT_ROLE='creator'
-		</cfquery>
-		<cfloop query="getCreator">
-			<cfset eml=eml & chr(10) & chr(9) & '<creator>'>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
-			<cfquery name="g" dbtype="query">
-				select given_name from getCreator where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="g">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<givenName>#given_name#</givenName>'>
-			</cfloop>
-			<cfquery name="s" dbtype="query">
-				select sur_name from getCreator where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="s">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<surName>#sur_name#</surName>'>
-			</cfloop>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<organizationName>#d.collection#</organizationName>'>
-			<cfquery name="p" dbtype="query">
-				select positionName from getCreator where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="p">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<positionName>#positionName#</positionName>'>
-			</cfloop>
-			<cfquery name="a" dbtype="query">
-				select addr from getCreator where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="a">
-				<cfif isjson(addr)>
-					<cfset jadr=DeserializeJSON(addr)>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
-					<cfif structkeyexists(jadr,"STREET")>
-						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
-					</cfif>
-					<cfif structkeyexists(jadr,"CITY")>
-						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
-					</cfif>
-					<cfif structkeyexists(jadr,"STATE_PROV")>
-						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
-					</cfif>
-					<cfif structkeyexists(jadr,"POSTAL_CODE")>
-						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
-					</cfif>
-					<cfif structkeyexists(jadr,"COUNTRY")>
-						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
-					</cfif>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
-				</cfif>
-			</cfloop>
-			<cfloop query="a">
-				<cfif isjson(addr)>
-					<cfset jadr=DeserializeJSON(addr)>
-					<cfif structkeyexists(jadr,"PHONE")>
-						<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
-					</cfif>
-					<cfif structkeyexists(jadr,"EMAIL")>
-						<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
-					</cfif>
-				</cfif>
-				<cfquery name="u" dbtype="query">
-					select url_addr from getCreator where agent_id=#getCreator.agent_id#
-				</cfquery>
-				<cfloop query="u">
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<onlineUrl>#url_addr#</onlineUrl>'>
-				</cfloop>
-			</cfloop>
-			<cfset eml=eml & chr(10) & chr(9) & '</creator>'>
-		</cfloop>
------------------------->
-
-	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="1")>
+		<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="1")>
+		<cfset eml=eml & x>
 
 
-	<cfset eml=eml & x>
+		<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='metadataProvider',role='metadata provider',ntabs="1")>
+		<cfset eml=eml & x>
 
 
-<!----
-		<cfquery name="getMetaP" datasource="uam_god">
-			select
-				collection_contacts.CONTACT_AGENT_ID agent_id,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'first name') given_name,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'last name') sur_name,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'job title') positionName,
-				 get_address(collection_contacts.CONTACT_AGENT_ID,'formatted JSON') addr,
-				 get_address(collection_contacts.CONTACT_AGENT_ID,'url') url_addr
-			from
-				collection_contacts
-			where
-				COLLECTION_ID=#d.COLLECTION_ID# and
-				CONTACT_ROLE='metadata provider'
-		</cfquery>
-		<cfloop query="getMetaP">
-			<cfset eml=eml & chr(10) & chr(9) & '<metadataProvider>'>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
-			<cfquery name="g" dbtype="query">
-				select given_name from getMetaP where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="g">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<givenName>#given_name#</givenName>'>
-			</cfloop>
-			<cfquery name="s" dbtype="query">
-				select sur_name from getMetaP where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="s">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<surName>#sur_name#</surName>'>
-			</cfloop>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<organizationName>#d.collection#</organizationName>'>
-			<cfquery name="p" dbtype="query">
-				select positionName from getMetaP where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="p">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<positionName>#positionName#</positionName>'>
-			</cfloop>
-			<cfquery name="a" dbtype="query">
-				select addr from getMetaP where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="a">
-				<cfset jadr=DeserializeJSON(addr)>
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
-				<cfif structkeyexists(jadr,"STREET")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"CITY")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"STATE_PROV")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"POSTAL_CODE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"COUNTRY")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
-				</cfif>
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
-			</cfloop>
-			<cfloop query="a">
-				<cfset jadr=DeserializeJSON(addr)>
-				<cfif structkeyexists(jadr,"PHONE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"EMAIL")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
-				</cfif>
-				<cfquery name="u" dbtype="query">
-					select url_addr from getMetaP where agent_id=#getCreator.agent_id#
-				</cfquery>
-				<cfloop query="u">
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<onlineUrl>#url_addr#</onlineUrl>'>
-				</cfloop>
-			</cfloop>
-			<cfset eml=eml & chr(10) & chr(9) & '</metadataProvider>'>
-		</cfloop>
-
------->
-
-
-	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='metadataProvider',role='metadata provider',ntabs="1")>
-
-
-	<cfset eml=eml & x>
-
-
-
-<!------------
-
-		<cfquery name="getAsPty" datasource="uam_god">
-			select
-				collection_contacts.CONTACT_AGENT_ID agent_id,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'first name') given_name,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'last name') sur_name,
-				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'job title') positionName,
-				 get_address(collection_contacts.CONTACT_AGENT_ID,'formatted JSON') addr,
-				 get_address(collection_contacts.CONTACT_AGENT_ID,'url') url_addr
-			from
-				collection_contacts
-			where
-				COLLECTION_ID=#d.COLLECTION_ID# and
-				CONTACT_ROLE='associated party'
-		</cfquery>
-
-		<cfloop query="getAsPty">
-			<cfset eml=eml & chr(10) & chr(9) & '<associatedParty>'>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
-			<cfquery name="g" dbtype="query">
-				select given_name from getAsPty where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="g">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<givenName>#given_name#</givenName>'>
-			</cfloop>
-			<cfquery name="s" dbtype="query">
-				select sur_name from getAsPty where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="s">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<surName>#sur_name#</surName>'>
-			</cfloop>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<organizationName>#d.collection#</organizationName>'>
-			<cfquery name="p" dbtype="query">
-				select positionName from getAsPty where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="p">
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<positionName>#positionName#</positionName>'>
-			</cfloop>
-			<cfquery name="a" dbtype="query">
-				select addr from getAsPty where agent_id=#agent_id#
-			</cfquery>
-			<cfloop query="a">
-				<cfset jadr=DeserializeJSON(addr)>
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
-				<cfif structkeyexists(jadr,"STREET")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"CITY")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"STATE_PROV")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"POSTAL_CODE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"COUNTRY")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
-				</cfif>
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
-			</cfloop>
-			<cfloop query="a">
-				<cfset jadr=DeserializeJSON(addr)>
-				<cfif structkeyexists(jadr,"PHONE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"EMAIL")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
-				</cfif>
-				<cfquery name="u" dbtype="query">
-					select url_addr from getAsPty where agent_id=#getCreator.agent_id#
-				</cfquery>
-				<cfloop query="u">
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<onlineUrl>#url_addr#</onlineUrl>'>
-				</cfloop>
-			</cfloop>
-			<cfset eml=eml & chr(10) & chr(9) & '</associatedParty>'>
-		</cfloop>
-
------------>
-
-
-	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='associatedParty',role='associated party',ntabs="1")>
-
-
-	<cfset eml=eml & x>
-
+		<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='associatedParty',role='associated party',ntabs="1")>
+		<cfset eml=eml & x>
 
 
 		<cfset eml=eml & chr(10) & chr(9) & '<pubDate>#dateformat(now(),"YYYY-MM-DD")#</pubDate>'>
@@ -560,6 +302,11 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		<cfset eml=eml & chr(10) & chr(9) &  chr(9) &'<maintenanceUpdateFrequency>monthly</maintenanceUpdateFrequency>'>
 		<cfset eml=eml & chr(10) & chr(9) & '</maintenance>'>
 
+
+
+		<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='contact',role='data quality',ntabs="1")>
+		<cfset eml=eml & x>
+
 <!-------------
 		<cfquery name="getContact" datasource="uam_god">
 			select
@@ -573,7 +320,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				collection_contacts
 			where
 				COLLECTION_ID=#d.COLLECTION_ID# and
-				CONTACT_ROLE='data quality'
+				CONTACT_ROLE=''
 		</cfquery>
 
 		<cfloop query="getContact">
