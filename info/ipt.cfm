@@ -445,12 +445,14 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				</cfif>
 			</cfloop>
 			<cfloop query="a">
-				<cfset jadr=DeserializeJSON(addr)>
-				<cfif structkeyexists(jadr,"PHONE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"EMAIL")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
+				<cfif isjson(addr)>
+					<cfset jadr=DeserializeJSON(addr)>
+					<cfif structkeyexists(jadr,"PHONE")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"EMAIL")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
+					</cfif>
 				</cfif>
 				<cfquery name="u" dbtype="query">
 					select url_addr from getAsPty where agent_id=#getCreator.agent_id#
