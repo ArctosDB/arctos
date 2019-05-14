@@ -135,7 +135,9 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfset eml=eml & chr(10) & chr(9) & '</creator>'>
 		</cfloop>
 
-		<cfdump var=#eml#>
+		<p>
+			#eml#
+		</p>
 
 		<cfabort>
 
