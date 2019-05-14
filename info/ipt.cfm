@@ -12,6 +12,12 @@ alter table collection add taxon_name_rank varchar2(4000);
 alter table collection add taxon_name_value varchar2(4000);
 alter table collection add purpose_of_collection varchar2(4000);
 alter table collection add citation varchar2(4000);
+alter table collection add specimen_preservation_method varchar2(4000);
+alter table collection add time_coverage varchar2(4000);
+
+<livingTimePeriod>
+
+
 
 alter table collection add alternate_identifier_1 varchar2(4000);
 alter table collection add alternate_identifier_2 varchar2(4000);
@@ -475,12 +481,22 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		<cfset eml=eml & chr(10) & chr(9) & '<metadata>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<gbif>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<dateStamp>#dateformat(now(),"YYYY-MM-DDTHH:MM:SS")#</dateStamp>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<hierarchyLevel>dataset</hierarchyLevel>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<citation>#d.citation#</citation>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<collection>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '<parentCollectionIdentifier>#listGetAt(d.guid_prefix,1,":")#<parentCollectionIdentifier>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '<collectionIdentifier>#d.guid_prefix#<collectionIdentifier>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '<collectionName>#d.collection#<collectionName>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '</collection>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<specimenPreservationMethod>#d.specimen_preservation_method#</specimenPreservationMethod>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<livingTimePeriod>#d.time_coverage#</livingTimePeriod>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<dc:replaces>f85f5c5c-ce02-4337-9317-23fe54769ff2/v1.3.xml</dc:replaces>'>
 
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</gbif>'>
 		<cfset eml=eml & chr(10) & chr(9) & '</metadata>'>
 
 		<cfset eml=eml & chr(10) & '</additionalMetadata>'>
-
+		<cfset eml=eml & chr(10) & '</eml:eml>'>
 		<p>
 			<textarea rows="999" cols="999">#eml#</textarea>
 		</p>
@@ -505,7 +521,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
               </collection>
                 <specimenPreservationMethod>ethanol, formalin, trophi</specimenPreservationMethod>
               <livingTimePeriod>1900-present</livingTimePeriod>
-          <dc:replaces>f85f5c5c-ce02-4337-9317-23fe54769ff2/v1.3.xml</dc:replaces>
+
       </gbif>
     </metadata>
   </additionalMetadata>
