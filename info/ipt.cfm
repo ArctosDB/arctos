@@ -406,7 +406,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<collection>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '<parentCollectionIdentifier>#listGetAt(d.guid_prefix,1,":")#<parentCollectionIdentifier>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '<collectionIdentifier>#d.guid_prefix#<collectionIdentifier>'>
-		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '<collectionName>#d.collection#<collectionName>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) & '<collectionName>#d.collection#</collectionName>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '</collection>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<specimenPreservationMethod>#d.specimen_preservation_method#</specimenPreservationMethod>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<livingTimePeriod>#d.time_coverage#</livingTimePeriod>'>
