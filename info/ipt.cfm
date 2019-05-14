@@ -133,21 +133,21 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 					<cfset x=x & chr(10) & btbs & chr(9) & '<address>'>
 
 					<cfif structkeyexists(jadr,"STREET")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"CITY")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<city>#jadr.CITY#<city>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"STATE_PROV")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"POSTAL_CODE")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"COUNTRY")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<country>#jadr.COUNTRY#<country>'>
 					</cfif>
-					<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '</address>'>
+					<cfset x=x & chr(10) & btbs & chr(9) &  '</address>'>
 				</cfif>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
