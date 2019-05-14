@@ -45,8 +45,25 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 
 ---->
+
+
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+
+	<cffunction name="formatAgent">
+	    <cfargument name="collection_id" type="string" required="true" />
+	    <cfargument name="role" type="string" required="true"  />
+
+	    <cfreturn 'boogity!'>
+	</cffunction>
+
+
+
+
+
+	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',role='creator')>
+	<cfdump var=#x#>
+
 	<!--------------------------------------------------------->
 	<cfif action is "geneml">
 		<cfquery name="d" datasource="uam_god">
@@ -138,34 +155,37 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfquery name="a" dbtype="query">
 				select addr from getCreator where agent_id=#agent_id#
 			</cfquery>
-			<cfdump var=#a#>
 			<cfloop query="a">
-				<cfset jadr=DeserializeJSON(addr)>
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
-				<cfif structkeyexists(jadr,"STREET")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+				<cfif isjson(addr)>
+					<cfset jadr=DeserializeJSON(addr)>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
+					<cfif structkeyexists(jadr,"STREET")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"CITY")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"STATE_PROV")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"POSTAL_CODE")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"COUNTRY")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
+					</cfif>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
 				</cfif>
-				<cfif structkeyexists(jadr,"CITY")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"STATE_PROV")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"POSTAL_CODE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"COUNTRY")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
-				</cfif>
-				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
 			</cfloop>
 			<cfloop query="a">
-				<cfset jadr=DeserializeJSON(addr)>
-				<cfif structkeyexists(jadr,"PHONE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
-				</cfif>
-				<cfif structkeyexists(jadr,"EMAIL")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
+				<cfif isjson(addr)>
+					<cfset jadr=DeserializeJSON(addr)>
+					<cfif structkeyexists(jadr,"PHONE")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
+					</cfif>
+					<cfif structkeyexists(jadr,"EMAIL")>
+						<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
+					</cfif>
 				</cfif>
 				<cfquery name="u" dbtype="query">
 					select url_addr from getCreator where agent_id=#getCreator.agent_id#
