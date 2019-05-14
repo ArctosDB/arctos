@@ -225,7 +225,6 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 
 
-	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="3")>
 	<cfdump var=#x#>
 
 
@@ -246,7 +245,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		<cfset eml=eml & chr(10) & chr(9) & '<title xml:lang="eng">#d.collection# (Arctos)</title>'>
 
 
-
+<!------------------
 <cfquery name="getCreator" datasource="uam_god">
 			select
 				collection_contacts.CONTACT_AGENT_ID agent_id,
@@ -328,6 +327,12 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			</cfloop>
 			<cfset eml=eml & chr(10) & chr(9) & '</creator>'>
 		</cfloop>
+------------------------>
+
+	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="3")>
+	<cfset eml=eml & chr(10) & chr(9) & x>
+
+
 
 		<cfquery name="getMetaP" datasource="uam_god">
 			select
