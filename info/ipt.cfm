@@ -88,6 +88,8 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfset eml=eml & chr(10) & chr(9) & '<alternateIdentifier>#d.alternate_identifier_2#</alternateIdentifier>'>
 		</cfif>
 		<cfset eml=eml & chr(10) & chr(9) & '<title xml:lang="eng">#d.collection# (Arctos)</title>'>
+
+
 		<cfquery name="getCreator" datasource="uam_god">
 			select
 				collection_contacts.CONTACT_AGENT_ID agent_id,
@@ -152,10 +154,10 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfloop query="a">
 				<cfset jadr=DeserializeJSON(addr)>
 				<cfif structkeyexists(jadr,"PHONE")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
 				</cfif>
 				<cfif structkeyexists(jadr,"EMAIL")>
-					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
 				</cfif>
 				<cfquery name="u" dbtype="query">
 					select url_addr from getCreator where agent_id=#getCreator.agent_id#
@@ -167,6 +169,87 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfset eml=eml & chr(10) & chr(9) & '</creator>'>
 		</cfloop>
 
+
+		<cfquery name="getMetaP" datasource="uam_god">
+			select
+				collection_contacts.CONTACT_AGENT_ID agent_id,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'first name') given_name,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'last name') sur_name,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'job title') positionName,
+				 get_address(collection_contacts.CONTACT_AGENT_ID,'formatted JSON') addr,
+				 get_address(collection_contacts.CONTACT_AGENT_ID,'url') url_addr
+			from
+				collection_contacts
+			where
+				COLLECTION_ID=#d.COLLECTION_ID# and
+				CONTACT_ROLE='metadata provider'
+		</cfquery>
+		<cfloop query="getMetaP">
+			<cfset eml=eml & chr(10) & chr(9) & '<metadataProvider>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
+			<cfquery name="g" dbtype="query">
+				select given_name from getMetaP where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="g">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<givenName>#given_name#</givenName>'>
+			</cfloop>
+			<cfquery name="s" dbtype="query">
+				select sur_name from getMetaP where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="s">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<surName>#sur_name#</surName>'>
+			</cfloop>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<organizationName>#d.collection#</organizationName>'>
+			<cfquery name="p" dbtype="query">
+				select positionName from getMetaP where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="p">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<positionName>#positionName#</positionName>'>
+			</cfloop>
+			<cfquery name="a" dbtype="query">
+				select addr from getMetaP where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="a">
+				<cfset jadr=DeserializeJSON(addr)>
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
+				<cfif structkeyexists(jadr,"STREET")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"CITY")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"STATE_PROV")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"POSTAL_CODE")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"COUNTRY")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
+				</cfif>
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
+			</cfloop>
+			<cfloop query="a">
+				<cfset jadr=DeserializeJSON(addr)>
+				<cfif structkeyexists(jadr,"PHONE")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"EMAIL")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
+				</cfif>
+				<cfquery name="u" dbtype="query">
+					select url_addr from getMetaP where agent_id=#getCreator.agent_id#
+				</cfquery>
+				<cfloop query="u">
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<onlineUrl>#url_addr#</onlineUrl>'>
+				</cfloop>
+			</cfloop>
+			<cfset eml=eml & chr(10) & chr(9) & '</metadataProvider>'>
+		</cfloop>
+
+
+
 		<p>
 			<textarea rows="999" cols="999">#eml#</textarea>
 		</p>
@@ -175,24 +258,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 </cfif>
 
 <!----
-      <creator>
-    <individualName>
-        <givenName>Teresa</givenName>
-      <>Mayfield</surName>
-    </individualName>
-    <organizationName>University of Texas at El Paso</organizationName>
-    <positionName>Manager, UTEP Biodiversity Collections</positionName>
-    <address>
-        <deliveryPoint>500 West University Avenue, Biology Bldg. #222</deliveryPoint>
-        <city>El Paso</city>
-        <administrativeArea>TX</administrativeArea>
-        <postalCode>79968</postalCode>
-        <country>US</country>
-    </address>
-    <phone>+01 915-747-5479</phone>
-    <electronicMailAddress>tmayfield.utepbc@jegelewicz.net</electronicMailAddress>
-    <onlineUrl>https://www.utep.edu/biodiversity/collections/invertebrate-biology.html</onlineUrl>
-      </creator>
+
       <metadataProvider>
     <individualName>
         <givenName>Teresa</givenName>
