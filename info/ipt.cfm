@@ -68,6 +68,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				agent_name.agent_name
 			from
 				collection_contacts,
+				agent_name,
 				address
 			where
 				collection_contacts.CONTACT_AGENT_ID=agent_name.agent_id and
