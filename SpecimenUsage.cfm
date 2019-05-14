@@ -485,6 +485,18 @@
 			<cfset basWhere = "#basWhere# AND citation.collection_object_id=srtbl.collection_object_id">
 		</cfif>
 
+		<cfif isdefined("guid") AND len(guid) gt 0>
+			<cfset go="yes">
+			<cfif #basFrom# does not contain "citation">
+				<cfset basFrom = "#basFrom#,citation">
+				<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
+			</cfif>
+			<cfif #basFrom# does not contain "filtered_flat">
+				<cfset basFrom = "#basFrom#,filtered_flat">
+				<cfset basWhere = "#basWhere# AND citation.collection_object_id = filtered_flat.collection_object_id">
+			</cfif>
+			<cfset basWhere = "#basWhere# AND filtered_flat.guid='#guid#'">
+		</cfif>
 
 
 		<cfif isdefined("is_peer_reviewed_fg") AND is_peer_reviewed_fg is 1>
