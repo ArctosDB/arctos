@@ -158,7 +158,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
 				</cfif>
 				<cfquery name="u" dbtype="query">
-					select url_addr from getCreator where agent_id=#agent_id#
+					select url_addr from getCreator where agent_id=#creator.agent_id#
 				</cfquery>
 				<cfloop query="u">
 					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<onlineUrl>#url_addr#</onlineUrl>'>
