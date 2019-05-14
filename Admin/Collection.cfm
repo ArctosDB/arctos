@@ -39,7 +39,18 @@
 			catalog_number_format,
 			use_license_id,
 			citation,
-			preferred_taxonomy_source
+			preferred_taxonomy_source,
+			GEOGRAPHIC_DESCRIPTION,
+			WEST_BOUNDING_COORDINATE,
+			EAST_BOUNDING_COORDINATE,
+			NORTH_BOUNDING_COORDINATE,
+			SOUTH_BOUNDING_COORDINATE,
+			GENERAL_TAXONOMIC_COVERAGE,
+			TAXON_NAME_RANK,
+			TAXON_NAME_VALUE,
+			PURPOSE_OF_COLLECTION,
+			alternate_identifier_1,
+			alternate_identifier_2
  		from collection
   		where
    		collection_id = #collection_id#
@@ -88,6 +99,55 @@
 					<textarea name="descr" id="descr" rows="3" cols="40">#colls.descr#</textarea>
 					<label for="citation">Citation</label>
 					<textarea name="citation" id="citation" rows="3" cols="40">#colls.citation#</textarea>
+
+					<label for="geographic_description">GeographicDescription</label>
+					<textarea name="geographic_description" id="geographic_description" rows="3" cols="40">#colls.geographic_description#</textarea>
+
+
+					<label for="coverage">Coverage Coordinates</label>
+					<table border>
+						<tr>
+							<th>W</th>
+							<th>E</th>
+							<th>N</th>
+							<th>S</th>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" id="west_bounding_coordinate" name="west_bounding_coordinate" value="#colls.west_bounding_coordinate#">
+							</td>
+							<td>
+								<input type="number" id="east_bounding_coordinate" name="east_bounding_coordinate" value="#colls.east_bounding_coordinate#">
+							</td>
+							<td>
+								<input type="number" id="north_bounding_coordinate" name="north_bounding_coordinate" value="#colls.north_bounding_coordinate#">
+							</td>
+							<td>
+								<input type="number" id="south_bounding_coordinate" name="south_bounding_coordinate" value="#colls.south_bounding_coordinate#">
+							</td>
+						</tr>
+					</table>
+
+					<label for="general_taxonomic_coverage">GeneralTaxonomicCoverage</label>
+					<textarea name="general_taxonomic_coverage" id="general_taxonomic_coverage" rows="3" cols="40">#colls.general_taxonomic_coverage#</textarea>
+
+					<label for="taxon_name_rank">TaxonNameRank</label>
+					<textarea name="taxon_name_rank" id="taxon_name_rank" rows="3" cols="40">#colls.taxon_name_rank#</textarea>
+					<label for="taxon_name_value">TaxonNameValue</label>
+					<textarea name="taxon_name_value" id="taxon_name_value" rows="3" cols="40">#colls.taxon_name_value#</textarea>
+					<label for="purpose_of_collection">PurposeOfCollection</label>
+					<textarea name="purpose_of_collection" id="purpose_of_collection" rows="3" cols="40">#colls.purpose_of_collection#</textarea>
+
+					<label for="alternate_identifier_1">alternate_identifier_1</label>
+					<textarea name="alternate_identifier_1" id="alternate_identifier_1" rows="3" cols="40">#colls.alternate_identifier_1#</textarea>
+
+					<label for="alternate_identifier_2">alternate_identifier_2</label>
+					<textarea name="alternate_identifier_2" id="alternate_identifier_2" rows="3" cols="40">#colls.alternate_identifier_2#</textarea>
+
+
+
+
+
 
 
 					<label for="web_link">Web Link</label>
@@ -425,7 +485,18 @@
 			catalog_number_format='#catalog_number_format#',
 			use_license_id=#use_license_id#,
 			citation='#escapeQuotes(citation)#',
-			preferred_taxonomy_source='#preferred_taxonomy_source#'
+			preferred_taxonomy_source='#preferred_taxonomy_source#',
+			GEOGRAPHIC_DESCRIPTION='#escapeQuotes(GEOGRAPHIC_DESCRIPTION)#',
+			WEST_BOUNDING_COORDINATE=<cfif len(WEST_BOUNDING_COORDINATE) gt 0>#WEST_BOUNDING_COORDINATE#<cfelse>NULL</cfif>,
+			EAST_BOUNDING_COORDINATE=<cfif len(EAST_BOUNDING_COORDINATE) gt 0>#EAST_BOUNDING_COORDINATE#<cfelse>NULL</cfif>,
+			NORTH_BOUNDING_COORDINATE=<cfif len(NORTH_BOUNDING_COORDINATE) gt 0>#NORTH_BOUNDING_COORDINATE#<cfelse>NULL</cfif>,
+			SOUTH_BOUNDING_COORDINATE=<cfif len(SOUTH_BOUNDING_COORDINATE) gt 0>#SOUTH_BOUNDING_COORDINATE#<cfelse>NULL</cfif>,
+			GENERAL_TAXONOMIC_COVERAGE='#escapeQuotes(GENERAL_TAXONOMIC_COVERAGE)#',
+			TAXON_NAME_RANK='#escapeQuotes(TAXON_NAME_RANK)#',
+			TAXON_NAME_VALUE='#escapeQuotes(TAXON_NAME_VALUE)#',
+			PURPOSE_OF_COLLECTION='#escapeQuotes(PURPOSE_OF_COLLECTION)#',
+			alternate_identifier_1='#escapeQuotes(alternate_identifier_1)#',
+			alternate_identifier_2='#escapeQuotes(alternate_identifier_2)#'
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
