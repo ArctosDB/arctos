@@ -328,6 +328,8 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			</cfloop>
 			<cfset eml=eml & chr(10) & chr(9) & '</associatedParty>'>
 		</cfloop>
+
+
 		<cfset eml=eml & chr(10) & chr(9) & '<pubDate>#dateformat(now(),"YYYY-MM-DD")#</pubDate>'>
 		<cfset eml=eml & chr(10) & chr(9) & '<language>eng</language>'>
 		<cfset eml=eml & chr(10) & chr(9) & '<abstract>'>
@@ -350,9 +352,130 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<url function="information">#d.web_link#</url>'>
 			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</online>'>
 		<cfset eml=eml & chr(10) & chr(9) & '</distribution>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<coverage>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<geographicCoverage>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<geographicDescription>#d.GEOGRAPHIC_DESCRIPTION#</geographicDescription>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<boundingCoordinates>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) &'<westBoundingCoordinate>#d.WEST_BOUNDING_COORDINATE#</westBoundingCoordinate>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) &'<eastBoundingCoordinate>#d.EAST_BOUNDING_COORDINATE#</eastBoundingCoordinate>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) &'<northBoundingCoordinate>#d.NORTH_BOUNDING_COORDINATE#</northBoundingCoordinate>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) &'<southBoundingCoordinate>#d.SOUTH_BOUNDING_COORDINATE#</southBoundingCoordinate>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '</boundingCoordinates>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</geographicCoverage>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<taxonomicCoverage>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<generalTaxonomicCoverage>#d.GENERAL_TAXONOMIC_COVERAGE#</generalTaxonomicCoverage>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<taxonomicClassification>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) &  chr(9) & '<taxonRankName>#d.TAXON_NAME_RANK#</taxonRankName>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) &  chr(9) & '<taxonRankValue>#d.TAXON_NAME_VALUE#</taxonRankValue>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '</taxonomicClassification>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</taxonomicCoverage>'>
 
+		<cfset eml=eml & chr(10) & chr(9) & '</coverage>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<purpose>'>
+		<cfset eml=eml & chr(10) & chr(9) &  chr(9) &'<para>#d.PURPOSE_OF_COLLECTION#</para>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</purpose>'>
 
+		<cfset eml=eml & chr(10) & chr(9) & '<maintenance>'>
+		<cfset eml=eml & chr(10) & chr(9) &  chr(9) &'<description>'>
+		<cfset eml=eml & chr(10) & chr(9) &  chr(9) &'</description>'>
+		<cfset eml=eml & chr(10) & chr(9) &  chr(9) &'<maintenanceUpdateFrequency>monthly</maintenanceUpdateFrequency>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</maintenance>'>
 
+		<cfquery name="getContact" datasource="uam_god">
+			select
+				collection_contacts.CONTACT_AGENT_ID agent_id,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'first name') given_name,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'last name') sur_name,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'job title') positionName,
+				 get_address(collection_contacts.CONTACT_AGENT_ID,'formatted JSON') addr,
+				 get_address(collection_contacts.CONTACT_AGENT_ID,'url') url_addr
+			from
+				collection_contacts
+			where
+				COLLECTION_ID=#d.COLLECTION_ID# and
+				CONTACT_ROLE='data quality'
+		</cfquery>
+
+		<cfloop query="getContact">
+			<cfset eml=eml & chr(10) & chr(9) & '<contact>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
+			<cfquery name="g" dbtype="query">
+				select given_name from getContact where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="g">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<givenName>#given_name#</givenName>'>
+			</cfloop>
+			<cfquery name="s" dbtype="query">
+				select sur_name from getContact where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="s">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<surName>#sur_name#</surName>'>
+			</cfloop>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<organizationName>#d.collection#</organizationName>'>
+			<cfquery name="p" dbtype="query">
+				select positionName from getContact where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="p">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<positionName>#positionName#</positionName>'>
+			</cfloop>
+			<cfquery name="a" dbtype="query">
+				select addr from getContact where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="a">
+				<cfset jadr=DeserializeJSON(addr)>
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
+				<cfif structkeyexists(jadr,"STREET")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"CITY")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"STATE_PROV")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"POSTAL_CODE")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"COUNTRY")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
+				</cfif>
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
+			</cfloop>
+			<cfloop query="a">
+				<cfset jadr=DeserializeJSON(addr)>
+				<cfif structkeyexists(jadr,"PHONE")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"EMAIL")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
+				</cfif>
+				<cfquery name="u" dbtype="query">
+					select url_addr from getAsPty where agent_id=#getCreator.agent_id#
+				</cfquery>
+				<cfloop query="u">
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<onlineUrl>#url_addr#</onlineUrl>'>
+				</cfloop>
+			</cfloop>
+			<cfset eml=eml & chr(10) & chr(9) & '</contact>'>
+		</cfloop>
+		<cfset eml=eml & chr(10) & chr(9) & '<methods>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<methodStep>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) &'<description>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & chr(9) &'<para></para>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) &'</description>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</methodStep>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</methods>'>
+		<cfset eml=eml & chr(10) & '</dataset>'>
+		<cfset eml=eml & chr(10) & '<additionalMetadata>'>
+		<cfset eml=eml & chr(10) & chr(9) & '<metadata>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<gbif>'>
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<dateStamp>#dateformat(now(),"YYYY-MM-DDTHH:MM:SS")#</dateStamp>'>
+
+		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</gbif>'>
+		<cfset eml=eml & chr(10) & chr(9) & '</metadata>'>
+
+		<cfset eml=eml & chr(10) & '</additionalMetadata>'>
 
 		<p>
 			<textarea rows="999" cols="999">#eml#</textarea>
@@ -363,88 +486,12 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 <!----
 
-  <>
 
-
-
-
-    </online>
-  </distribution>
-  <coverage>
-      <geographicCoverage>
-          <geographicDescription>Specimens were collected primarily in the United States.</geographicDescription>
-        <boundingCoordinates>
-          <westBoundingCoordinate>-180</westBoundingCoordinate>
-          <eastBoundingCoordinate>180</eastBoundingCoordinate>
-          <northBoundingCoordinate>90</northBoundingCoordinate>
-          <southBoundingCoordinate>-90</southBoundingCoordinate>
-        </boundingCoordinates>
-      </geographicCoverage>
-          <taxonomicCoverage>
-              <generalTaxonomicCoverage>Rotifera</generalTaxonomicCoverage>
-              <taxonomicClassification>
-                  <taxonRankName>phylum</taxonRankName>
-                <taxonRankValue>Rotifera</taxonRankValue>
-              </taxonomicClassification>
-          </taxonomicCoverage>
-  </coverage>
-  <purpose>
-    <para>Data set was developed through the work of University of Texas at El Paso faculty and students and is created to support future research.</para>
-  </purpose>
-  <maintenance>
-    <description>
-      <para></para>
-    </description>
-    <maintenanceUpdateFrequency>monthly</maintenanceUpdateFrequency>
-  </maintenance>
-
-      <contact>
-    <individualName>
-        <givenName>Teresa</givenName>
-      <surName>Mayfield</surName>
-    </individualName>
-    <organizationName>University of Texas at El Paso</organizationName>
-    <positionName>Manager, UTEP Biodiversity Collections</positionName>
-    <address>
-        <deliveryPoint>500 West University Avenue, Biology Bldg. #222</deliveryPoint>
-        <city>El Paso</city>
-        <administrativeArea>TX</administrativeArea>
-        <postalCode>79968</postalCode>
-        <country>US</country>
-    </address>
-    <phone>+01 915-747-5479</phone>
-    <electronicMailAddress>tmayfield.utepbc@jegelewicz.net</electronicMailAddress>
-    <onlineUrl>https://www.utep.edu/biodiversity/</onlineUrl>
-      </contact>
-      <contact>
-    <individualName>
-        <givenName>Elizabeth</givenName>
-      <surName>Walsh</surName>
-    </individualName>
-    <organizationName>University of Texas at El Paso</organizationName>
-    <positionName>Curator, UTEP Biodiversity Collections</positionName>
-    <address>
-        <deliveryPoint>500 West University Avenue, Biology Bldg. #222</deliveryPoint>
-        <city>El Paso</city>
-        <administrativeArea>Texas</administrativeArea>
-        <postalCode>79968</postalCode>
-        <country>US</country>
-    </address>
-    <phone>01 915-747-5479</phone>
-    <electronicMailAddress>ewalsh@utep.edu</electronicMailAddress>
-      </contact>
-  <methods>
-        <methodStep>
-          <description>
-            <para></para>
-          </description>
-        </methodStep>
-  </methods>
 </dataset>
   <additionalMetadata>
     <metadata>
       <gbif>
-          <dateStamp>2016-10-04T01:12:33.886-05:00</dateStamp>
+
           <hierarchyLevel>dataset</hierarchyLevel>
             <citation>Mayfield T (2018): UTEP Zoo (Arctos). v1.3. University of Texas at El Paso Biodiversity Collections. Dataset/Occurrence. http://ipt.vertnet.org:8080/ipt/resource?r=utep_bird&amp;v=1.3</citation>
               <collection>
