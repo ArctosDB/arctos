@@ -125,12 +125,12 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				select agent_name from cc where agent_id=#da.agent_id# and agent_name_type='job title'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<positionName>#thisQ.agent_name#</positionName>'>
+				<cfset x=x & chr(10) & btbs & chr(9) &  '<positionName>#thisQ.agent_name#</positionName>'>
 			</cfloop>
 			<cfloop query="thisJSONA">
 				<cfif isjson(address)>
 					<cfset jadr=DeserializeJSON(address)>
-					<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<address>'>
+					<cfset x=x & chr(10) & btbs & chr(9) & '<address>'>
 					<cfif structkeyexists(jadr,"ORGANIZATION")>
 						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<organizationName>#jadr.ORGANIZATION#</organizationName>'>
 					</cfif>
