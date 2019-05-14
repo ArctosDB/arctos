@@ -500,6 +500,15 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		</cfloop>
 
 ----------->
+
+
+	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='associatedParty',role='associated party',ntabs="1")>
+
+
+	<cfset eml=eml & x>
+
+
+
 		<cfset eml=eml & chr(10) & chr(9) & '<pubDate>#dateformat(now(),"YYYY-MM-DD")#</pubDate>'>
 		<cfset eml=eml & chr(10) & chr(9) & '<language>eng</language>'>
 		<cfset eml=eml & chr(10) & chr(9) & '<abstract>'>
