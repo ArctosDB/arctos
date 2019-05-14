@@ -131,9 +131,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				<cfif isjson(address)>
 					<cfset jadr=DeserializeJSON(address)>
 					<cfset x=x & chr(10) & btbs & chr(9) & '<address>'>
-					<cfif structkeyexists(jadr,"ORGANIZATION")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<organizationName>#jadr.ORGANIZATION#</organizationName>'>
-					</cfif>
+
 					<cfif structkeyexists(jadr,"STREET")>
 						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
 					</cfif>
@@ -149,7 +147,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 					<cfif structkeyexists(jadr,"COUNTRY")>
 						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
 					</cfif>
-					<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '/<address>'>
+					<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '</address>'>
 				</cfif>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
