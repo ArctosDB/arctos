@@ -71,7 +71,9 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				TAXON_NAME_VALUE,
 				PURPOSE_OF_COLLECTION,
 				alternate_identifier_1,
-				alternate_identifier_2
+				alternate_identifier_2,
+				specimen_preservation_method,
+				time_coverage
 			from
 				collection,
 				ctmedia_license
