@@ -50,7 +50,9 @@
 			TAXON_NAME_VALUE,
 			PURPOSE_OF_COLLECTION,
 			alternate_identifier_1,
-			alternate_identifier_2
+			alternate_identifier_2,
+			specimen_preservation_method,
+			time_coverage
  		from collection
   		where
    		collection_id = #collection_id#
@@ -143,6 +145,12 @@
 
 					<label for="alternate_identifier_2">alternate_identifier_2</label>
 					<textarea name="alternate_identifier_2" id="alternate_identifier_2" rows="3" cols="40">#colls.alternate_identifier_2#</textarea>
+
+					<label for="specimen_preservation_method">specimen_preservation_method</label>
+					<textarea name="specimen_preservation_method" id="specimen_preservation_method" rows="3" cols="40">#colls.specimen_preservation_method#</textarea>
+
+					<label for="time_coverage">time_coverage</label>
+					<textarea name="time_coverage" id="time_coverage" rows="3" cols="40">#colls.time_coverage#</textarea>
 
 
 
@@ -496,7 +504,9 @@
 			TAXON_NAME_VALUE='#escapeQuotes(TAXON_NAME_VALUE)#',
 			PURPOSE_OF_COLLECTION='#escapeQuotes(PURPOSE_OF_COLLECTION)#',
 			alternate_identifier_1='#escapeQuotes(alternate_identifier_1)#',
-			alternate_identifier_2='#escapeQuotes(alternate_identifier_2)#'
+			alternate_identifier_2='#escapeQuotes(alternate_identifier_2)#',
+			specimen_preservation_method='#escapeQuotes(specimen_preservation_method)#',
+			time_coverage='#escapeQuotes(time_coverage)#'
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
 	</cftransaction>
