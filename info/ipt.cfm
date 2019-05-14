@@ -163,6 +163,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				<cfloop query="u">
 					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<onlineUrl>#url_addr#</onlineUrl>'>
 				</cfloop>
+			</cfloop>
 			<cfset eml=eml & chr(10) & chr(9) & '</creator>'>
 		</cfloop>
 
@@ -170,7 +171,8 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<textarea rows="999" cols="999">#eml#</textarea>
 		</p>
 
-		<cfabort>
+<cfabort>
+
 
 <!----
       <creator>
@@ -701,7 +703,6 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 
 	------------>
-	</cfif>
 
 
 
