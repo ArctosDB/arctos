@@ -134,7 +134,14 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				#isjson(addr)#
 
 
-				<cfset jadr=DeserializeJSON=SerializeJSON(addr)>
+				<cfset jadr=DeserializeJSON(addr)>
+
+				<cfdump var=#jadr#>
+
+
+
+
+				<cfset jadr=SerializeJSON(addr)>
 
 				<cfdump var=#jadr#>
 				<p>
