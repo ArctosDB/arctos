@@ -129,19 +129,15 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			</cfquery>
 			<cfloop query="a">
 				<p>#addr#</p>
-				<cfset jadr=SerializeJSON(addr)>
+				<cfset DeserializeJSON=SerializeJSON(addr)>
+
+				<cfdump var=#jadr#>
 				<p>
 					COUNTRY: #jadr.COUNTRY#
 				</p>
 
 			</cfloop>
 
-			<cfif len(addr) gt 0>
-				<cfdump var=#jadr#>
-
-
-
-			</cfif>
 			<cfset eml=eml & chr(10) & chr(9) & '</creator>'>
 		</cfloop>
 
