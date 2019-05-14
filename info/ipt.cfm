@@ -95,20 +95,19 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfquery name="thisJSONA" dbtype="query">
 				select address from aa where agent_id=#da.agent_id# and address_type='formatted JSON'
 			</cfquery>
-
 			<cfset x=x & chr(10) & btbs & '<#lbl#>'>
 			<cfset x=x & chr(10) & btbs & chr(9) & '<individualName>'>
 			<cfquery name="thisQ" dbtype="query">
 				select agent_name from cc where agent_id=#da.agent_id# and agent_name_type='first name'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<givenName>#thisQ.agent_name#<givenName>'>
+				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<givenName>#thisQ.agent_name#</givenName>'>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
 				select agent_name from cc where  agent_id=#da.agent_id# and agent_name_type='last name'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<surName>#thisQ.agent_name#<surName>'>
+				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<surName>#thisQ.agent_name#</surName>'>
 			</cfloop>
 			<cfset x=x & chr(10) & btbs & chr(9) & '</individualName>'>
 			<cfloop query="thisJSONA">
@@ -131,19 +130,19 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 					<cfset x=x & chr(10) & btbs & chr(9) & '<address>'>
 
 					<cfif structkeyexists(jadr,"STREET")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<deliveryPoint>#jadr.STREET#</deliveryPoint>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"CITY")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<city>#jadr.CITY#<city>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<city>#jadr.CITY#</city>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"STATE_PROV")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<administrativeArea>#jadr.STATE_PROV#</administrativeArea>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"POSTAL_CODE")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<postalCode>#jadr.POSTAL_CODE#</postalCode>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"COUNTRY")>
-						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<country>#jadr.COUNTRY#<country>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) &  '<country>#jadr.COUNTRY#</country>'>
 					</cfif>
 					<cfset x=x & chr(10) & btbs & chr(9) &  '</address>'>
 				</cfif>
