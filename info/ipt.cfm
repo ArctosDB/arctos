@@ -117,7 +117,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				<cfif isjson(address)>
 					<cfset jadr=DeserializeJSON(address)>
 					<cfif structkeyexists(jadr,"ORGANIZATION")>
-						<cfset x=x & btbs & chr(9) & '<organizationName>#jadr.ORGANIZATION#</organizationName>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & '<organizationName>#jadr.ORGANIZATION#</organizationName>'>
 					</cfif>
 				</cfif>
 			</cfloop>
@@ -325,7 +325,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		</cfloop>
 ------------------------>
 
-	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="2")>
+	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="1")>
 
 	<cfdump var=#x#>
 
