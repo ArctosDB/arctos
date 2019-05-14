@@ -136,7 +136,8 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		</cfloop>
 
 		<p>
-			#eml#
+			<textarea>
+			#eml#</textarea>
 		</p>
 
 		<cfabort>
