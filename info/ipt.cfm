@@ -153,19 +153,19 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				</cfif>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
-				select address from cc where  agent_id=#da.agent_id# and agent_name_type='phone'
+				select address from aa where agent_id=#da.agent_id# and address_type='phone'
 			</cfquery>
 			<cfloop query="thisQ">
 				<cfset x=x & btbs & chr(9) & chr(9) & '<phone>#thisQ.address#</phone>'>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
-				select address from cc where  agent_id=#da.agent_id# and agent_name_type='email'
+				select address from aa where  agent_id=#da.agent_id# and address_type='email'
 			</cfquery>
 			<cfloop query="thisQ">
 				<cfset x=x & btbs & chr(9) & chr(9) & '<electronicMailAddress>#thisQ.address#</electronicMailAddress>'>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
-				select address from cc where  agent_id=#da.agent_id# and agent_name_type='url'
+				select address from aa where  agent_id=#da.agent_id# and address_type='url'
 			</cfquery>
 			<cfloop query="thisQ">
 				<cfset x=x & btbs & chr(9) & chr(9) & '<onlineUrl>#thisQ.address#</onlineUrl>'>
