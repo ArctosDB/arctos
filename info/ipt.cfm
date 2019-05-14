@@ -134,12 +134,9 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			</cfif>
 			<cfset eml=eml & chr(10) & chr(9) & '</creator>'>
 		</cfloop>
-<p>
-<pre>#eml#</pre>
-		</p>
+
 		<p>
-			<textarea>
-			#eml#</textarea>
+			<textarea rows="999" cols="999">#eml#</textarea>
 		</p>
 
 		<cfabort>
