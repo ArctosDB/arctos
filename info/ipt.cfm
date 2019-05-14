@@ -124,6 +124,17 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfloop query="p">
 				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<positionName>#positionName#</positionName>'>
 			</cfloop>
+			<cfquery name="a" dbtype="query">
+				select addr from getCreator where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="a">
+				<p>#addr#</p>
+
+				<p>
+					COUNTRY: #addr.COUNTRY#
+				</p>
+
+			</cfloop>
 
 			<cfif len(addr) gt 0>
 				<cfset jadr=SerializeJSON(addr)>
