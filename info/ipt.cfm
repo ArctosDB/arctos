@@ -101,7 +101,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfset x=x & chr(10) & btbs & '<#lbl#>'>
 			<cfset x=x & chr(10) & btbs & chr(9) & '<individualName>'>
 			<cfquery name="thisQ" dbtype="query">
-				select agent_name from cc where agent_name_type='first name'
+				select agent_name from cc where agent_id=#da.agent_id# and agent_name_type='first name'
 			</cfquery>
 			<cfloop query="thisQ">
 				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<givenName>#thisQ.agent_name#<givenName>'>
