@@ -130,6 +130,10 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfdump var=#a#>
 			<cfloop query="a">
 				<p>#addr#</p>
+
+				#isjson(addr)#
+
+
 				<cfset jadr=DeserializeJSON=SerializeJSON(addr)>
 
 				<cfdump var=#jadr#>
