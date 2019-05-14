@@ -250,6 +250,87 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 
 
+		<cfquery name="getAsPty" datasource="uam_god">
+			select
+				collection_contacts.CONTACT_AGENT_ID agent_id,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'first name') given_name,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'last name') sur_name,
+				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'job title') positionName,
+				 get_address(collection_contacts.CONTACT_AGENT_ID,'formatted JSON') addr,
+				 get_address(collection_contacts.CONTACT_AGENT_ID,'url') url_addr
+			from
+				collection_contacts
+			where
+				COLLECTION_ID=#d.COLLECTION_ID# and
+				CONTACT_ROLE='associated party'
+		</cfquery>
+
+		<cfloop query="getAsPty">
+			<cfset eml=eml & chr(10) & chr(9) & '<associatedParty>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
+			<cfquery name="g" dbtype="query">
+				select given_name from getAsPty where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="g">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<givenName>#given_name#</givenName>'>
+			</cfloop>
+			<cfquery name="s" dbtype="query">
+				select sur_name from getAsPty where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="s">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<surName>#sur_name#</surName>'>
+			</cfloop>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<organizationName>#d.collection#</organizationName>'>
+			<cfquery name="p" dbtype="query">
+				select positionName from getAsPty where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="p">
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<positionName>#positionName#</positionName>'>
+			</cfloop>
+			<cfquery name="a" dbtype="query">
+				select addr from getAsPty where agent_id=#agent_id#
+			</cfquery>
+			<cfloop query="a">
+				<cfset jadr=DeserializeJSON(addr)>
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<address>'>
+				<cfif structkeyexists(jadr,"STREET")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"CITY")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"STATE_PROV")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"POSTAL_CODE")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"COUNTRY")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
+				</cfif>
+				<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</address>'>
+			</cfloop>
+			<cfloop query="a">
+				<cfset jadr=DeserializeJSON(addr)>
+				<cfif structkeyexists(jadr,"PHONE")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<phone>#jadr.PHONE#<phone>'>
+				</cfif>
+				<cfif structkeyexists(jadr,"EMAIL")>
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<electronicMailAddress>#jadr.EMAIL#<electronicMailAddress>'>
+				</cfif>
+				<cfquery name="u" dbtype="query">
+					select url_addr from getAsPty where agent_id=#getCreator.agent_id#
+				</cfquery>
+				<cfloop query="u">
+					<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<onlineUrl>#url_addr#</onlineUrl>'>
+				</cfloop>
+			</cfloop>
+			<cfset eml=eml & chr(10) & chr(9) & '</associatedParty>'>
+		</cfloop>
+		<cfset eml=eml & chr(10) & chr(9) & '</pubDate>#dateformat(now(),"YYYY-MM-DD")#</pubDate>'>
+
+
 		<p>
 			<textarea rows="999" cols="999">#eml#</textarea>
 		</p>
@@ -259,67 +340,6 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 <!----
 
-      <metadataProvider>
-    <individualName>
-        <givenName>Teresa</givenName>
-      <surName>Mayfield</surName>
-    </individualName>
-    <organizationName>University of Texas at El Paso</organizationName>
-    <positionName>Manager, UTEP Biodiversity Collections</positionName>
-    <address>
-        <deliveryPoint>500 West University Avenue, Biology Bldg. #222</deliveryPoint>
-        <city>El Paso</city>
-        <administrativeArea>TX</administrativeArea>
-        <postalCode>79968</postalCode>
-        <country>US</country>
-    </address>
-    <phone>+01 915-747-5479</phone>
-    <electronicMailAddress>tmayfield.utepbc@jegelewicz.net</electronicMailAddress>
-    <onlineUrl>https://www.utep.edu/biodiversity/</onlineUrl>
-      </metadataProvider>
-      <associatedParty>
-    <individualName>
-        <givenName>Laura</givenName>
-      <surName>Russell</surName>
-    </individualName>
-    <organizationName>VertNet</organizationName>
-    <positionName>Programmer</positionName>
-    <electronicMailAddress>larussell@vertnet.org</electronicMailAddress>
-    <onlineUrl>http://www.vertnet.org</onlineUrl>
-    <role>programmer</role>
-      </associatedParty>
-      <associatedParty>
-    <individualName>
-        <givenName>David</givenName>
-      <surName>Bloom</surName>
-    </individualName>
-    <organizationName>VertNet</organizationName>
-    <positionName>Coordinator</positionName>
-    <electronicMailAddress>dbloom@vertnet.org</electronicMailAddress>
-    <onlineUrl>http://www.vertnet.org</onlineUrl>
-    <role>programmer</role>
-      </associatedParty>
-      <associatedParty>
-    <individualName>
-        <givenName>John</givenName>
-      <surName>Wieczorek</surName>
-    </individualName>
-    <organizationName>Museum of Vertebrate Zoology at UC Berkeley</organizationName>
-    <positionName>Information Architect</positionName>
-    <electronicMailAddress>tuco@berkeley.edu</electronicMailAddress>
-    <role>programmer</role>
-      </associatedParty>
-      <associatedParty>
-    <individualName>
-        <givenName>Dusty</givenName>
-      <surName>McDonald</surName>
-    </individualName>
-    <organizationName>University of Alaska Museum</organizationName>
-    <positionName>Arctos Database Programmer</positionName>
-    <electronicMailAddress>dlmcdonald@alaska.edu</electronicMailAddress>
-    <onlineUrl>http://arctos.database.museum</onlineUrl>
-    <role>pointOfContact</role>
-      </associatedParty>
   <pubDate>
       2018-02-08
   </pubDate>
