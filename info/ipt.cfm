@@ -95,7 +95,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'last name') sur_name,
 				 getAgentNameType(collection_contacts.CONTACT_AGENT_ID,'job title') positionName,
 				 get_address(collection_contacts.CONTACT_AGENT_ID,'formatted JSON') addr,
-				 get_address(collection_contacts.CONTACT_AGENT_ID,'url') url_addr,
+				 get_address(collection_contacts.CONTACT_AGENT_ID,'url') url_addr
 			from
 				collection_contacts
 			where
