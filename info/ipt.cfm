@@ -61,8 +61,6 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 
 
-	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',role='creator')>
-	<cfdump var=#x#>
 
 	<!--------------------------------------------------------->
 	<cfif action is "geneml">
@@ -99,6 +97,15 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				collection.USE_LICENSE_ID=ctmedia_license.media_license_id (+)
 				order by guid_prefix
 		</cfquery>
+
+
+
+
+	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',role='creator')>
+	<cfdump var=#x#>
+
+
+
 		<cfset eml='<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"'>
 		<cfset eml=eml & chr(10) & chr(9) & 'xmlns:dc="http://purl.org/dc/terms/"'>
 		<cfset eml=eml & chr(10) & chr(9) & 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'>
