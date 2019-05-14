@@ -325,12 +325,12 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		</cfloop>
 ------------------------>
 
-	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="3")>
+	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="2")>
 
 	<cfdump var=#x#>
 
-	<textarea>#x#</textarea>
-	<cfset eml=eml & chr(10) & chr(9) & x>
+	<textarea rows="999" cols="999">#x#</textarea>
+	<cfset eml=eml & x>
 
 
 <!----
