@@ -130,47 +130,47 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfloop query="thisJSONA">
 				<cfif isjson(address)>
 					<cfset jadr=DeserializeJSON(address)>
-					<cfset x=x & btbs & chr(9) & chr(9) & '<address>'>
+					<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<address>'>
 					<cfif structkeyexists(jadr,"ORGANIZATION")>
-						<cfset x=x & btbs & chr(9) & chr(9) & '<organizationName>#jadr.ORGANIZATION#</organizationName>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<organizationName>#jadr.ORGANIZATION#</organizationName>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"STREET")>
-						<cfset x=x & btbs & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<deliveryPoint>#jadr.STREET#<deliveryPoint>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"CITY")>
-						<cfset x=x & btbs & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<city>#jadr.CITY#<city>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"STATE_PROV")>
-						<cfset x=x & btbs & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<administrativeArea>#jadr.STATE_PROV#<administrativeArea>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"POSTAL_CODE")>
-						<cfset x=x & btbs & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<postalCode>#jadr.POSTAL_CODE#<postalCode>'>
 					</cfif>
 					<cfif structkeyexists(jadr,"COUNTRY")>
-						<cfset x=x & btbs & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
+						<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & chr(9) & '<country>#jadr.COUNTRY#<country>'>
 					</cfif>
-					<cfset x=x & btbs & chr(9) & chr(9) & '/<address>'>
+					<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '/<address>'>
 				</cfif>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
 				select address from aa where agent_id=#da.agent_id# and address_type='phone'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & btbs & chr(9) & chr(9) & '<phone>#thisQ.address#</phone>'>
+				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<phone>#thisQ.address#</phone>'>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
 				select address from aa where  agent_id=#da.agent_id# and address_type='email'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & btbs & chr(9) & chr(9) & '<electronicMailAddress>#thisQ.address#</electronicMailAddress>'>
+				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<electronicMailAddress>#thisQ.address#</electronicMailAddress>'>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
 				select address from aa where  agent_id=#da.agent_id# and address_type='url'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & btbs & chr(9) & chr(9) & '<onlineUrl>#thisQ.address#</onlineUrl>'>
+				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<onlineUrl>#thisQ.address#</onlineUrl>'>
 			</cfloop>
-			<cfset x=x & btbs & '</#lbl#>'>
+			<cfset x=x & chr(10) & btbs & '</#lbl#>'>
 		</cfloop>
 
 
