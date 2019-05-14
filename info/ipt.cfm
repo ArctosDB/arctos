@@ -75,7 +75,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				CONTACT_ROLE='#role#'
 		</cfquery>
 
-		<cfdump var=#formatAgent#>
+		<cfdump var=#getAgnts#>
 
 <!---------------
 		<cfloop query="getCreator">
