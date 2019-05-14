@@ -55,7 +55,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 	    <cfargument name="role" type="string" required="true"  />
 	    <cfargument name="ntabs" type="numeric" required="true"  />
 	    <cfset btbs="">
-	    <cfloop from ="1" to="ntabs" index="ti">
+	    <cfloop from ="1" to="#ntabs#" index="ti">
 			<cfset btbs=btbs & chr(9)>
 		</cfloop>
 	    <cfquery name="getAgnts" datasource="uam_god">
@@ -77,7 +77,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 		<cfdump var=#formatAgent#>
 
-
+<!---------------
 		<cfloop query="getCreator">
 			<cfset eml=eml & chr(10) & chr(9) & '<creator>'>
 			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
@@ -148,7 +148,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 
 
-
+-------------->
 
 
 	    <cfreturn 'boogity!'>
