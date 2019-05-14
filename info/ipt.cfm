@@ -59,24 +59,35 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfset btbs=btbs & chr(9)>
 		</cfloop>
 		<!--- can't use the get_address function here; it concatenates ---->
+		<!--- two queries to somewhat normalize ---->
 		<cfquery name="cc" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				collection_contacts.CONTACT_AGENT_ID agent_id,
-				address.address,
-				address.address_type,
 				agent_name.agent_name_type,
 				agent_name.agent_name
 			from
 				collection_contacts,
-				agent_name,
-				address
+				agent_name
 			where
 				collection_contacts.CONTACT_AGENT_ID=agent_name.agent_id and
-				agent_name.agent_id = address.agent_id (+) and
+				COLLECTION_ID=#COLLECTION_ID# and
+				CONTACT_ROLE='#role#'
+		</cfquery>
+		<cfquery name="aa" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select
+				collection_contacts.CONTACT_AGENT_ID agent_id,
+				address.address,
+				address.address_type
+			from
+				collection_contacts,
+				address
+			where
+				collection_contacts.CONTACT_AGENT_ID=address.agent_id and
 				COLLECTION_ID=#COLLECTION_ID# and
 				CONTACT_ROLE='#role#'
 		</cfquery>
 		<cfdump var=#cc#>
+		<cfdump var=#aa#>
 
 
 		<!----
