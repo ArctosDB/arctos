@@ -325,9 +325,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='creator',role='creator',ntabs="1")>
 
-	<cfdump var=#x#>
 
-	<textarea rows="999" cols="999">#x#</textarea>
 	<cfset eml=eml & x>
 
 
@@ -411,6 +409,14 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		</cfloop>
 
 ------>
+
+
+	<cfset x=formatAgent(collection_id='#d.COLLECTION_ID#',lbl='metadataProvider',role='metadata provider',ntabs="1")>
+
+
+	<cfset eml=eml & x>
+
+
 
 <!------------
 
