@@ -331,7 +331,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 	<cfset eml=eml & chr(10) & chr(9) & x>
 
 
-
+<!----
 		<cfquery name="getMetaP" datasource="uam_god">
 			select
 				collection_contacts.CONTACT_AGENT_ID agent_id,
@@ -410,7 +410,9 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfset eml=eml & chr(10) & chr(9) & '</metadataProvider>'>
 		</cfloop>
 
+------>
 
+<!------------
 
 		<cfquery name="getAsPty" datasource="uam_god">
 			select
@@ -491,7 +493,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<cfset eml=eml & chr(10) & chr(9) & '</associatedParty>'>
 		</cfloop>
 
-
+----------->
 		<cfset eml=eml & chr(10) & chr(9) & '<pubDate>#dateformat(now(),"YYYY-MM-DD")#</pubDate>'>
 		<cfset eml=eml & chr(10) & chr(9) & '<language>eng</language>'>
 		<cfset eml=eml & chr(10) & chr(9) & '<abstract>'>
@@ -543,6 +545,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		<cfset eml=eml & chr(10) & chr(9) &  chr(9) &'<maintenanceUpdateFrequency>monthly</maintenanceUpdateFrequency>'>
 		<cfset eml=eml & chr(10) & chr(9) & '</maintenance>'>
 
+<!-------------
 		<cfquery name="getContact" datasource="uam_god">
 			select
 				collection_contacts.CONTACT_AGENT_ID agent_id,
@@ -625,6 +628,8 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			</cfloop>
 			<cfset eml=eml & chr(10) & chr(9) & '</contact>'>
 		</cfloop>
+
+		------------->
 		<cfset eml=eml & chr(10) & chr(9) & '<methods>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<methodStep>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) &'<description>'>
