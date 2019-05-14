@@ -117,7 +117,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<surName>#sur_name#</surName>'>
 			</cfloop>
 			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<individualName>'>
-			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<organizationName>#d.collection#</organizationName>>'>
+			<cfset eml=eml & chr(10) & chr(9) & chr(9) & '<organizationName>#d.collection#</organizationName>'>
 			<cfquery name="p" dbtype="query">
 				select positionName from getCreator where agent_id=#agent_id#
 			</cfquery>
@@ -134,7 +134,9 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			</cfif>
 			<cfset eml=eml & chr(10) & chr(9) & '</creator>'>
 		</cfloop>
-
+<p>
+<pre>#eml#</pre>
+		</p>
 		<p>
 			<textarea>
 			#eml#</textarea>
