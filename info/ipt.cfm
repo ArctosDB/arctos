@@ -87,8 +87,6 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				COLLECTION_ID=#COLLECTION_ID# and
 				CONTACT_ROLE='#role#'
 		</cfquery>
-		<cfdump var=#cc#>
-		<cfdump var=#aa#>
 		<cfquery name="da" dbtype="query">
 			select agent_id from cc group by agent_id order by agent_id
 		</cfquery>
