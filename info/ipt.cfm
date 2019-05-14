@@ -98,21 +98,21 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				select address from aa where agent_id=#da.agent_id# and address_type='formatted JSON'
 			</cfquery>
 
-			<cfset x=x & btbs & '<#lbl#>'>
-			<cfset x=x & btbs & chr(9) & '<individualName>'>
+			<cfset x=x & chr(10) & btbs & '<#lbl#>'>
+			<cfset x=x & chr(10) & btbs & chr(9) & '<individualName>'>
 			<cfquery name="thisQ" dbtype="query">
 				select agent_name from cc where agent_name_type='first name'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & btbs & chr(9) & chr(9) & '<givenName>#thisQ.agent_name#<givenName>'>
+				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<givenName>#thisQ.agent_name#<givenName>'>
 			</cfloop>
 			<cfquery name="thisQ" dbtype="query">
 				select agent_name from cc where  agent_id=#da.agent_id# and agent_name_type='last name'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & btbs & chr(9) & chr(9) & '<surName>#thisQ.agent_name#<surName>'>
+				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<surName>#thisQ.agent_name#<surName>'>
 			</cfloop>
-			<cfset x=x & btbs & chr(9) & '</individualName>'>
+			<cfset x=x & chr(10) & btbs & chr(9) & '</individualName>'>
 			<cfloop query="thisJSONA">
 				<cfif isjson(address)>
 					<cfset jadr=DeserializeJSON(address)>
@@ -125,7 +125,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				select agent_name from cc where agent_id=#da.agent_id# and agent_name_type='job title'
 			</cfquery>
 			<cfloop query="thisQ">
-				<cfset x=x & btbs & chr(9) & chr(9) & '<positionName>#thisQ.agent_name#</positionName>'>
+				<cfset x=x & chr(10) & btbs & chr(9) & chr(9) & '<positionName>#thisQ.agent_name#</positionName>'>
 			</cfloop>
 			<cfloop query="thisJSONA">
 				<cfif isjson(address)>
