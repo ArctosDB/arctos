@@ -28,7 +28,8 @@
 		          // else do nothing; this isn't that important
 		        },
 		          error: function (xhr, textStatus, errorThrown){
-		            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
+		            console.log('error pushing taxon_status');
+		            //alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 		        }
 		      });
 		      $.ajax({

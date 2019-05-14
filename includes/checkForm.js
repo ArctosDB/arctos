@@ -28,9 +28,9 @@ function checkRequired(){
 		elementsForms = document.getElementsByTagName("form");
 		for (var f = 0; f < elementsForms.length; f++)  {  
 			try {
-			console.log('f: ' + f);
+			//console.log('f: ' + f);
 			var fid = document.forms[f].id;
-			console.log('fid: ' + fid);
+			//console.log('fid: ' + fid);
 			var theForm=document.getElementById(fid);
 			var badElems=new Array();
 			//console.log('number of elements: ' + theForm.elements.length);
