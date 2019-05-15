@@ -1341,8 +1341,8 @@
 <cffunction name="googleSignURL" access="remote">
 	<!--- new thang: use API key, this is overly complex but it's modular so.... --->
 	<cfargument name="urlPath" type="string" required="yes">
-	<cfargument name="urlParams" type="string" required="yes" cachedwithin="#createtimespan(0,0,60,0)#">
-	<cfquery name="cf_global_settings" datasource="uam_god">
+	<cfargument name="urlParams" type="string" required="yes" >
+	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			GMAP_API_KEY
 		from cf_global_settings
