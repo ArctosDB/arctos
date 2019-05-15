@@ -7,8 +7,8 @@ drop table temp_gmapsrch;
 create table temp_gmapsrch as select
 	scientific_name,
 	round(dec_lat,1) || ',' || round(dec_long,1) c
-from 
-	filtered_flat 
+from
+	filtered_flat
 where
 	dec_lat is not null and dec_long is not null
 group by
@@ -99,13 +99,10 @@ drop index ix_temp_gmapsrch_c;
 </style>
 
 <cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-	select
-		google_client_id,
-		google_private_key
-	from cf_global_settings
+	select GMAP_API_KEY	from cf_global_settings
 </cfquery>
 <cfoutput>
-	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?client=#cf_global_settings.google_client_id#&sensor=false&libraries=places" type="text/javascript"></script>'>
+	<cfhtmlhead text='<script src="http://maps.googleapis.com/maps/api/js?key=#cf_global_settings.GMAP_API_KEY#&sensor=false&libraries=places" type="text/javascript"></script>'>
 </cfoutput>
 <script language="javascript" type="text/javascript">
 	var tableID='1DF_kVyrwkqJ2YU07FKAHFQCIDbM7xeTNLPdju8ih';
@@ -132,11 +129,11 @@ drop index ix_temp_gmapsrch_c;
 		var markers = [];
 		google.maps.event.addListener(searchBox, 'places_changed', function() {
 	    	var places = searchBox.getPlaces();
-		
+
 		    for (var i = 0, marker; marker = markers[i]; i++) {
 		      marker.setMap(null);
 		    }
-	
+
 		    markers = [];
 	    	var bounds = new google.maps.LatLngBounds();
 			for (var i = 0, place; place = places[i]; i++) {
@@ -184,7 +181,7 @@ drop index ix_temp_gmapsrch_c;
 <table>
 	<tr>
 		<td>
-			<label for="tname">Filter by taxon name</label>		
+			<label for="tname">Filter by taxon name</label>
 			<input type="text" id="tname" size="30"  onkeyup="resetLayer(this.value)">
 		</td>
 		<td>
@@ -200,13 +197,13 @@ drop index ix_temp_gmapsrch_c;
 <a name="about"></a>
 <h2>What's all this then?</h2>
 <p>
-	This is an extremely limited spatial browse tool. Points (error and datum transformation are ignored) 
+	This is an extremely limited spatial browse tool. Points (error and datum transformation are ignored)
 	on the map are represented by coordinates rounded to tenth of a degree and a sometimes-incomplete
 	concatenation of associated taxa. Data are updated manually - which means infrequently and unpredictably.
 </p>
 <p>
 	These limitations have two causes:
-	
+
 <ul>
 	<li>FusionTables is the only obvious way to push large datasets to Google Maps, but only the "first" 100,000 rows are used.</li>
 	<li>We have no idea if anyone will use this thing. <a href="/contact.cfm">Drop us a line</a> and tell us what could be better if you find it useful.</li>
