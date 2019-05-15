@@ -1352,7 +1352,7 @@
 		baseURL = "https://maps.googleapis.com";
 		urlParams &= '&key=' & cf_global_settings.GMAP_API_KEY;
 		fullURL = baseURL & urlPath & "?" & urlParams;
-		return return;
+		return fullURL;
 	</cfscript>
 </cffunction>
 <!------------------------------------------------------------------->
