@@ -972,17 +972,17 @@
 
 <!--- call remote to avoid transaction --->
 <cfset gcaurl="#replace(application.serverRootURL,'https','http')#/component/utilities.cfc?method=georeferenceAddress&address=#URLEncodedFormat(thisAddress)#&returnformat=json">
-								<cfdump var=#gcaurl#>
-
 								<cfhttp result="gcaddr" method="get" url="#gcaurl#" >
 
-								<cfdump var=#gcaddr#>
-
-
+								<cftry>
+									<cfset coords=gcaddr.filecontent>
+								<cfcatch>
+									<cfset coords=''>
+								</cfcatch>
+								</cftry>
+								<cfdump var=#coords#>
 								<cfabort>
 
-								<cfhttp method="get" url="#signedURL#" >
-								<cfdump var=#cfhttp#>
 
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -992,7 +992,7 @@
 									address='#thisAddress#',
 									VALID_ADDR_FG=#thisAddressValidFg#,
 									ADDRESS_REMARK='#escapeQuotes(thisAddressRemark)#',
-									s$coordinates='#coords#',
+									s$coordinates='#gcaddr.filecontent#',
 									S$LASTDATE=sysdate
 								where
 									address_id=<cfqueryparam value = "#thisAddressID#" CFSQLType = "CF_SQL_INTEGER">
