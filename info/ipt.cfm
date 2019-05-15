@@ -320,6 +320,17 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		<cfset eml=eml & chr(10) & '</eml:eml>'>
 
 
+
+		<cfset fn=replace(guid_prefix,':','_','all')>
+		<cffile action = "write"
+		    file = "#Application.webDirectory#/download/#fn#.eml"
+		    output = "#eml#"
+		    addNewLine = "no">
+			<a href="/download/#fn#.eml">download</a>
+
+
+
+
 		<p>
 			EML Preview:
 		</p>
