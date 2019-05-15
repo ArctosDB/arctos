@@ -450,16 +450,13 @@
 											<li><a target="_top" href="/DataServices/wktomaticifier.cfm">Convert KML to WKT</a></li>
 											<li><a target="_top" href="/DataServices/coordinate_splitter.cfm">Coordinate Formatter</a></li>
 											<li><a target="_top" href="/DataServices/dateSplit.cfm">Date Formatter</a></li>
+											<li><a target="_top" href="/info/ipt.cfm">EML Generator (IPT Metadata)</a></li>
 											<li><a target="_top" href="/tools/barcode2guid.cfm">Find GUID from Barcode</a></li>
 											<li><a target="_top" href="/DataServices/getGeogFromSpecloc.cfm">Find Higher Geography from Specific Locality</a></li>
 											<li><a target="_top" href="/DataServices/findNonprintingCharacters.cfm">Find/Replace Nonprinting Characters</a></li>
 											<li><a target="_top" href="/DataServices/geog_lookup.cfm">Higher Geog Lookup</a></li>
 											<li><a target="_top" href="/DataServices/listerizer.cfm">Make Comma-list from anything</a></li>
-
-
-
 											<li><a target="_top" href="/tools/genbank_submit.cfm">Package GenBank Data</a></li>
-
 											<li><a target="_top" href="/DataServices/SciNameCheck.cfm">Scientific Name Checker</a></li>
 											<li><a target="_top" href="/DataServices/taxonNameValidator.cfm">Taxon Name Validator</a></li>
 										</ul>
@@ -484,7 +481,6 @@
 											<li><a target="_top" href="/Admin/download.cfm">Download Statistics</a></li>
 											<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
 											<li><a target="_top" href="/Reports/georef.cfm">Georeference Statistics</a></li>
-											<li><a target="_top" href="/info/ipt.cfm">EML Generator (IPT Metadata)</a></li>
 											<li><a target="_top" href="/info/collectionContacts.cfm">All Collection Contact Report</a></li>
 											<li><a target="_top" href="/info/collection_report.cfm">Collection Contact/Operator Report</a></li>
 											<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Statistics</a></li>
