@@ -172,7 +172,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 	<cfquery name="ctg" datasource="uam_god">
 		select guid_prefix from collection order by guid_prefix
 	</cfquery>
-	<cfparam name="guid_prefix" defailt="">
+	<cfparam name="guid_prefix" default="">
 	<form method="get" action="ipt.cfm">
 		<label for="guid_prefix">guid_prefix</label>
 		<select name="guid_prefix">
