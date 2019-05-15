@@ -970,9 +970,9 @@
 								<cfdump var=#signedURL#>
 ------------>
 
-<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
-	    <cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
-	    <cfinvokeargument name="urlParams" value="address=#URLEncodedFormat(thisAddress)#">
+
+<cfinvoke component="component.utilities" method="georeferenceAddress" returnvariable="signedURL">
+	    <cfinvokeargument name="address" value="#URLEncodedFormat(thisAddress)#">
 </cfinvoke>
 								<cfdump var=#signedURL#>
 
