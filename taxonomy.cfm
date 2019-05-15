@@ -418,13 +418,13 @@ function showmetadata(){
 		<cfheader statuscode="404" statustext="Not found">
 		<cfabort>
 	</cfif>
-	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select GMAP_API_KEY	from cf_global_settings
-	</cfquery>
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select source from cttaxonomy_source order by source
 	</cfquery>
-	<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?key=#cf_global_settings.GMAP_API_KEY#&sensor=false" type="text/javascript"></script>'>
+	<cfset obj = CreateObject("component","component.functions")>
+	<cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="")>
+
+	<cfhtmlhead text='<script src="#murl#" type="text/javascript"></script>'>
 
 	<cfquery name="scientific_name" dbtype="query">
 		select scientific_name from d group by scientific_name
