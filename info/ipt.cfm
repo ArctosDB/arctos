@@ -354,7 +354,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			EML Preview:
 		</p>
 		<p>
-			<textarea rows="999" cols="999">#eml#</textarea>
+			<textarea rows="999" cols="100">#eml#</textarea>
 		</p>
 
 
