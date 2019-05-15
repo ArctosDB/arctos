@@ -971,7 +971,10 @@
 ------------>
 
 <!--- call remote to avoid transaction --->
-								<cfhttp result="gcaddr" method="get" url="#application.serverRootURL#/component/utilities?method=georeferenceAddress&address=#URLEncodedFormat(thisAddress)#" >
+<cfset gcaurl="#application.serverRootURL#/component/utilities?method=georeferenceAddress&address=#URLEncodedFormat(thisAddress)#">
+								<cfdump var=#gcaurl#>
+
+								<cfhttp result="gcaddr" method="get" url="#gcaurl#" >
 
 								<cfdump var=#gcaddr#>
 
