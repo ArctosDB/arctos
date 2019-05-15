@@ -948,43 +948,15 @@
 						<cfelse>
 							<cfset coords=''>
 							<cfif thisAddressType is 'shipping' or thisAddressType is 'correspondence'>
-								<!-----
-									requires client_id
-
-								<!---- test is dumb.... ---->
-								<cfset rmturl=replace(Application.serverRootUrl,"https","http")>
-								<!--- call remote so no transaction datasource conflicts---->
-								<cfhttp method="get" url="#rmturl#/component/utilities.cfc?method=georeferenceAddress&returnformat=plain&address=#URLEncodedFormat(thisAddress)#" >
-								<cfset coords=cfhttp.fileContent>
-								------------>
-								<!--- try with API ---->
-
-
-								<!----
-									<cfset obj = CreateObject("component","component.functions")>
-
-								<cfset signedURL = obj.googleSignURL(
-									urlPath="/maps/api/geocode/json",
-									urlParams="address=#URLEncodedFormat(thisAddress)#")>
-
-								<cfdump var=#signedURL#>
------------->
-
-<!--- call remote to avoid transaction --->
-<cfset gcaurl="#replace(application.serverRootURL,'https','http')#/component/utilities.cfc?method=georeferenceAddress&address=#URLEncodedFormat(thisAddress)#&returnformat=plain">
+								<!--- call remote to avoid transaction --->
+								<cfset gcaurl="#replace(application.serverRootURL,'https','http')#/component/utilities.cfc?method=georeferenceAddress&address=#URLEncodedFormat(thisAddress)#&returnformat=plain">
 								<cfhttp result="gcaddr" method="get" url="#gcaurl#" >
-								<cfdump var=#gcaddr#>
-
 								<cftry>
 									<cfset coords=gcaddr.filecontent>
-								<cfcatch>
-									<cfset coords=''>
-								</cfcatch>
+									<cfcatch>
+										<cfset coords=''>
+									</cfcatch>
 								</cftry>
-								<cfdump var=#coords#>
-								<cfabort>
-
-
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
@@ -993,7 +965,7 @@
 									address='#thisAddress#',
 									VALID_ADDR_FG=#thisAddressValidFg#,
 									ADDRESS_REMARK='#escapeQuotes(thisAddressRemark)#',
-									s$coordinates='#gcaddr.filecontent#',
+									s$coordinates='#coords#',
 									S$LASTDATE=sysdate
 								where
 									address_id=<cfqueryparam value = "#thisAddressID#" CFSQLType = "CF_SQL_INTEGER">
