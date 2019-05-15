@@ -484,7 +484,7 @@
 											<li><a target="_top" href="/Admin/download.cfm">Download Statistics</a></li>
 											<li><a target="_top" href="/Admin/exit_links.cfm">Exit Links</a></li>
 											<li><a target="_top" href="/Reports/georef.cfm">Georeference Statistics</a></li>
-											<li><a target="_top" href="/info/ipt.cfm">IPT/Collection Metadata Report</a></li>
+											<li><a target="_top" href="/info/ipt.cfm">EML Generator (IPT Metadata)</a></li>
 											<li><a target="_top" href="/info/collectionContacts.cfm">All Collection Contact Report</a></li>
 											<li><a target="_top" href="/info/collection_report.cfm">Collection Contact/Operator Report</a></li>
 											<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Statistics</a></li>
