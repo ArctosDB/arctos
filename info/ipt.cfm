@@ -48,6 +48,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 
 
 <cfinclude template="/includes/_header.cfm">
+<cfset title='EML Generator'>
 <cfoutput>
 
 	<cffunction name="formatAgent">
@@ -345,8 +346,9 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		    file = "#Application.webDirectory#/download/#fn#.eml"
 		    output = "#eml#"
 		    addNewLine = "no">
-			<a href="/download/#fn#.eml">download</a>
-
+		    <p>
+				<a href="/download/#fn#.eml">download EML</a>
+			</p>
 
 
 
