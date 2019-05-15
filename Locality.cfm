@@ -367,11 +367,10 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editGeog">
-	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-			select GMAP_API_KEY	from cf_global_settings
-	</cfquery>
+	<cfset obj = CreateObject("component","component.functions")>
+	<cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
 	<cfoutput>
-		<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?key=#cf_global_settings.GMAP_API_KEY#&libraries=geometry" type="text/javascript"></script>'>
+		<cfhtmlhead text='#murl#" type="text/javascript"></script>'>
 	</cfoutput>
 	<style>
 		#map-canvas { height: 300px;width:500px; }
