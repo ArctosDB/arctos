@@ -84,6 +84,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				collection_contacts,
 				address
 			where
+				address.VALID_ADDR_FG=1 and
 				collection_contacts.CONTACT_AGENT_ID=address.agent_id and
 				COLLECTION_ID=#COLLECTION_ID# and
 				CONTACT_ROLE='#role#'
