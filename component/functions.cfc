@@ -1343,9 +1343,7 @@
 	<cfargument name="urlPath" type="string" required="yes">
 	<cfargument name="urlParams" type="string" required="yes" >
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			GMAP_API_KEY
-		from cf_global_settings
+		select GMAP_API_KEY from cf_global_settings
 	</cfquery>
 
 	<cfscript>
