@@ -171,7 +171,6 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 	</cffunction>
 
 	<!--------------------------------------------------------->
-	<cfif action is "geneml">
 		<cfquery name="d" datasource="uam_god">
 			select
 				collection.collection_id,
@@ -328,8 +327,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 			<textarea rows="999" cols="999">#eml#</textarea>
 		</p>
 
-<cfabort>
-</cfif>
+
 
 <!----
 
