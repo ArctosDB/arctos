@@ -970,18 +970,17 @@
 								<cfdump var=#signedURL#>
 ------------>
 
+<!--- call remote to avoid transaction --->
+								<cfhttp result="gcaddr" method="get" url="#session.serverRootURL#/component/utilities?method=georeferenceAddress&address=#URLEncodedFormat(thisAddress)#" >
 
-<cfinvoke component="component.utilities" method="georeferenceAddress" returnvariable="signedURL">
-	    <cfinvokeargument name="address" value="#URLEncodedFormat(thisAddress)#">
-</cfinvoke>
-								<cfdump var=#signedURL#>
+								<cfdump var=#gcaddr#>
 
 
+								<cfabort>
 
 								<cfhttp method="get" url="#signedURL#" >
 								<cfdump var=#cfhttp#>
 
-								<cfabort>
 							</cfif>
 							<cfquery name="newStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								update address
