@@ -169,7 +169,24 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		</cfloop>
 	    <cfreturn x>
 	</cffunction>
+	<cfquery name="ctg" datasource="uam_god">
+		select guid_prefix from collection order by guid_prefix
+	</cfquery>
+	<cfparam name="guid_prefix" defailt="">
+	<form method="get" action="ipt.cfm">
+		<label for="guid_prefix">guid_prefix</label>
+		<select name="guid_prefix">
+			<option value=""></option>
+			<cfloop query="ctg">
+				<option <cfif url.guid_prefix is ctg.guid_prefix>selected="selected"</cfif> value="#guid_prefix#">#guid_prefix#</option>
+			</cfloop>
+		</select>
+		<input type="submit" value="go">
+	</form>
 
+	<cfif len(guid_prefix) is 0>
+		<cfabort>
+	</cfif>
 	<!--------------------------------------------------------->
 		<cfquery name="d" datasource="uam_god">
 			select
@@ -200,12 +217,14 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				collection,
 				ctmedia_license
 			where
-				collection.guid_prefix='#guid_prefix#' and
+				collection.guid_prefix=<CFQUERYPARAM VALUE="#guid_prefix#"  CFSQLType="CF_SQL_VARCHAR"   MAXLENGTH="20"> and
 				collection.USE_LICENSE_ID=ctmedia_license.media_license_id (+)
 				order by guid_prefix
 		</cfquery>
 
-
+		<cfif d.recordcount is not 1>
+			fail<cfabort>
+		</cfif>
 
 
 		<cfset eml='<eml:eml xmlns:eml="eml://ecoinformatics.org/eml-2.1.1"'>
