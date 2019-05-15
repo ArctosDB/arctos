@@ -61,7 +61,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		</cfloop>
 		<!--- can't use the get_address function here; it concatenates ---->
 		<!--- two queries to somewhat normalize ---->
-		<cfquery name="cc" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="cc" datasource="uam_god">
 			select
 				collection_contacts.CONTACT_AGENT_ID agent_id,
 				agent_name.agent_name_type,
@@ -74,7 +74,7 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 				COLLECTION_ID=#COLLECTION_ID# and
 				CONTACT_ROLE='#role#'
 		</cfquery>
-		<cfquery name="aa" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="aa" datasource="uam_god">
 			select
 				collection_contacts.CONTACT_AGENT_ID agent_id,
 				address.address,
