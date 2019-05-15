@@ -958,8 +958,15 @@
 								<cfset coords=cfhttp.fileContent>
 								------------>
 								<!--- try with API ---->
+									<cfset obj = CreateObject("component","component.functions")>
 
-								<cfhttp method="get" url="https://maps.googleapis.com/maps/api/geocode/json?address=#URLEncodedFormat(thisAddress)#&key=#cf_global_settings.GMAP_API_KEY#" >
+								<cfset signedURL = obj.googleSignURL(
+									urlPath="/maps/api/geocode/json",
+									urlParams="address=#URLEncodedFormat(thisAddress)#")>
+
+								<cfdump var=#signedURL#>
+
+								<cfhttp method="get" url="#signedURL#" >
 								<cfdump var=#cfhttp#>
 
 								<cfabort>
