@@ -1337,9 +1337,26 @@
 	</cftry>
 </cffunction>
 
-
 <!------------------------------------------------------------------->
 <cffunction name="googleSignURL" access="remote">
+	<!--- new thang: use API key, this is overly complex but it's modular so.... --->
+	<cfargument name="urlPath" type="string" required="yes">
+	<cfargument name="urlParams" type="string" required="yes" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="cf_global_settings" datasource="uam_god">
+		select
+			GMAP_API_KEY
+		from cf_global_settings
+	</cfquery>
+
+	<cfscript>
+		baseURL = "https://maps.googleapis.com";
+		urlParams &= '&key=' & cf_global_settings.GMAP_API_KEY;
+		fullURL = baseURL & urlPath & "?" & urlParams;
+		return return;
+	</cfscript>
+</cffunction>
+<!------------------------------------------------------------------->
+<cffunction name="googleSignURL__orig" access="remote">
 	<cfargument name="urlPath" type="string" required="yes">
 	<cfargument name="urlParams" type="string" required="yes" cachedwithin="#createtimespan(0,0,60,0)#">
 	<cfquery name="cf_global_settings" datasource="uam_god">

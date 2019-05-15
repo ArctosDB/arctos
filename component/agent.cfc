@@ -744,7 +744,7 @@
 			after the dust around API access settles, the
 			cachetime should be bumped up as far as possibe
 		 ---->
-		<cfquery name="cf_global_settings" datasource="uam_god" >
+		<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select GMAP_API_KEY	from cf_global_settings
 		</cfquery>
 		<cftry>
