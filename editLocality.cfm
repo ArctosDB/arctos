@@ -26,6 +26,10 @@ legend {
 	</script>
 </cfoutput>
 <cfif action is "nothing">
+	<cfset obj = CreateObject("component","component.functions")>
+	<cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
+	<cfdump var=#murl#>
+
 	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select GMAP_API_KEY	from cf_global_settings
 	</cfquery>
@@ -494,7 +498,6 @@ function checkCoordinateError(){
 		and this will keep things less confusing when
 		folks are actively editing
 	---->
-	<cfset obj = CreateObject("component","component.functions")>
 	<cfset staticImageMap = obj.getMap(locality_id="#locality_id#",forceOverrideCache=true)>
 	<cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     	select
