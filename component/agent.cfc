@@ -958,6 +958,9 @@
 								<cfset coords=cfhttp.fileContent>
 								------------>
 								<!--- try with API ---->
+
+
+								<!----
 									<cfset obj = CreateObject("component","component.functions")>
 
 								<cfset signedURL = obj.googleSignURL(
@@ -965,6 +968,15 @@
 									urlParams="address=#URLEncodedFormat(thisAddress)#")>
 
 								<cfdump var=#signedURL#>
+------------>
+
+<cfinvoke component="component.functions" method="googleSignURL" returnvariable="signedURL">
+	    <cfinvokeargument name="urlPath" value="/maps/api/geocode/json">
+	    <cfinvokeargument name="address" value="#URLEncodedFormat(thisAddress)#">
+</cfinvoke>
+								<cfdump var=#signedURL#>
+
+
 
 								<cfhttp method="get" url="#signedURL#" >
 								<cfdump var=#cfhttp#>
