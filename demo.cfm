@@ -2,6 +2,7 @@
 <cfinclude template="/includes/_header.cfm">
 <h3>Google Breaker</h3>
 <cfoutput>
+	<!----
 	<cfset addr=URLEncodedFormat("1600 Amphitheatre Parkway#chr(10)#Mountain View, CA 94043#chr(10)#USA")>
 	<p>
 		GET https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#internal_key#
@@ -9,7 +10,7 @@
 	<cfhttp method="get" url="https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#internal_key#" >
 	<cfdump var=#cfhttp#>
 
-
+---->
 	<hr>
 
 	 <div id="map"></div>
