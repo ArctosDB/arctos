@@ -1236,7 +1236,8 @@
 				<cfif len(spec_locality) gt 0 and len(higher_geog) gt 0>
 					<cfset signedURL = obj.googleSignURL(
 						urlPath="/maps/api/geocode/json",
-						urlParams="address=#URLEncodedFormat('#spec_locality#, #higher_geog#')#")>
+						urlParams="address=#URLEncodedFormat('#spec_locality#, #higher_geog#')#",
+						int_ext="int")>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 					<cfif cfhttp.responseHeader.Status_Code is 200>
 						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
@@ -1257,7 +1258,8 @@
 							<!--- try without specloc, which is user-supplied and often wonky ---->
 							<cfset signedURL = obj.googleSignURL(
 								urlPath="/maps/api/geocode/json",
-								urlParams="address=#URLEncodedFormat('#higher_geog#')#")>
+								urlParams="address=#URLEncodedFormat('#higher_geog#')#",
+								int_ext="int")>
 							<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 							<cfif cfhttp.responseHeader.Status_Code is 200>
 								<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
@@ -1282,7 +1284,8 @@
 				<cfif len(S_ELEVATION) is 0 and len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
 					<cfset signedURL = obj.googleSignURL(
 						urlPath="/maps/api/elevation/json",
-						urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
+						urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#",
+						int_ext="int")>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 					<cfif cfhttp.responseHeader.Status_Code is 200>
 						<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
@@ -1341,18 +1344,20 @@
 <!------------------------------------------------------------------->
 <cffunction name="googleSignURL" access="remote">
 	<!--- new thang: use API key, this is overly complex but it's modular so.... --->
-	<cfargument name="urlPath" type="string" required="yes">
-	<cfargument name="urlParams" type="string" required="yes" >
-	<cfargument name="int_ext" type="string" required="no" default="int">
+	<cfargument name="urlPath" type="string" required="yes" hint="Base path; /maps/api/geocode/json for example">
+	<cfargument name="urlParams" type="string" required="yes" hint="? parameters; latlng=12,34 for example">
+	<cfargument name="int_ext" type="string" required="no" default="int" hint="public-facing (ext, default) or internal (int, for caching elevation etc.) key to use">
 	<cfif int_ext is "ext">
 		<!--- use the unrestricted key for mapping in UIs and such ---->
-		<cfquery name="cf_global_settings_ext" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
+		<cfquery name="cf_global_settings_ext" datasource="uam_god" >
 			select GMAP_API_KEY_EXTERNAL from cf_global_settings
 		</cfquery>
 		<cfset gmapkey=cf_global_settings_ext.GMAP_API_KEY_EXTERNAL>
 	<cfelse>
 		<!--- use the restricted key for geocode/elevation webservice calls and such ---->
-		<cfquery name="cf_global_settings_int" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
+		<cfquery name="cf_global_settings_int" datasource="uam_god">
 			select GMAP_API_KEY_INTERNAL from cf_global_settings
 		</cfquery>
 		<cfset gmapkey=cf_global_settings_int.GMAP_API_KEY_INTERNAL>

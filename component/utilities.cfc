@@ -739,7 +739,8 @@
 	</cfloop>
 	<cfset signedURL = obj.googleSignURL(
 		urlPath="/maps/api/geocode/json",
-		urlParams="address=#URLEncodedFormat('#ttu#')#")>
+		urlParams="address=#URLEncodedFormat('#ttu#')#",
+		int_ext="int")>
 	<cfhttp result="x" method="GET" url="#signedURL#"  timeout="20"/>
 
 		<cfset llresult=DeserializeJSON(x.filecontent)>
