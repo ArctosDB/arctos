@@ -1004,6 +1004,8 @@
 	<cfargument name="S_ELEVATION" type="string" required="no" default="">
 	<cfargument name="forceOverrideCache" type="string" required="no" default="false">
 
+	<cfparam name="debug" default="false">
+	<cfoutput>
 	<cfset intStartTime = GetTickCount() />
 
 			<!--- for some strange reason, this must be mapped like zo.... ----->
@@ -1014,6 +1016,9 @@
 				<cfset daysSinceLast=DateDiff("d", "#s_lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
 			</cfif>
 			<!--- if we got some sort of response AND it's been a while....--->
+			<cfif debug is true>
+				<br>daysSinceLast::#daysSinceLast#
+			</cfif>
 			<cfif len(locality_id) gt 0 and daysSinceLast gt 180>
 				<cfset geoList="">
 				<cfset slat="">
@@ -1116,7 +1121,7 @@
 
 
 
-
+</cfoutput>
 
 </cffunction>
 
