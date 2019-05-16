@@ -18,7 +18,17 @@ update temp_geo_wkt set status='is_media' where geog_auth_rec_id in (select geog
 	status is null and rownum=1
 </cfquery>
 <cfloop query="d">
-	#WKT_POLYGON#
+	<cfif len(WKT_POLYGON) gt 0>
+		<cfset tempName=createUUID()>
+		<br>filename: #tempName#
+		<cffile	action = "write" destination = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
+		<br>written
+
+	<cfelse>
+		<cfquery name="uds" datasource='uam_god'>
+			update temp_geo_wkt set status='zero_len_wkt' where geog_auth_rec_id=#geog_auth_rec_id#
+		</cfquery>
+	</cfif>
 </cfloop>
 
 </cfoutput>
