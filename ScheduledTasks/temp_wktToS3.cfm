@@ -5,6 +5,9 @@ create table temp_geo_wkt (
 	status varchar2(255)
 );
 
+alter table temp_geo_wkt add file_up_uri varchar2(4000);
+
+
 insert into temp_geo_wkt (geog_auth_rec_id) (select geog_auth_rec_id from geog_auth_rec where WKT_POLYGON is not null);
 
 select count(*) from geog_auth_rec where WKT_POLYGON like 'MEDIA%';
@@ -13,6 +16,7 @@ update temp_geo_wkt set status='is_media' where geog_auth_rec_id in (select geog
 
 ---->
 <cfoutput>
+<cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource='uam_god'>
 	select WKT_POLYGON from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
 	status is null and rownum=1
@@ -23,7 +27,17 @@ update temp_geo_wkt set status='is_media' where geog_auth_rec_id in (select geog
 		<br>filename: #tempName#
 		<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
 		<br>written
-
+		<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
+		<cfif not isjson(x)>
+			upload fail<cfdump var=#x#><cfabort>
+		</cfif>
+		<cfset x=deserializeJson(x)>
+		<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
+			upload fail<cfdump var=#x#><cfabort>
+		</cfif>
+		<cfdump var=#x#>
+				
+				
 	<cfelse>
 		<cfquery name="uds" datasource='uam_god'>
 			update temp_geo_wkt set status='zero_len_wkt' where geog_auth_rec_id=#geog_auth_rec_id#

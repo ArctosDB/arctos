@@ -1342,13 +1342,23 @@
 	<!--- new thang: use API key, this is overly complex but it's modular so.... --->
 	<cfargument name="urlPath" type="string" required="yes">
 	<cfargument name="urlParams" type="string" required="yes" >
-	<cfquery name="cf_global_settings" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select GMAP_API_KEY from cf_global_settings
-	</cfquery>
-
+	<cfargument name="int_ext" type="string" required="no" default="int">
+	<cfif int_ext is "ext">
+		<!--- use the unrestricted key for mapping in UIs and such ---->
+		<cfquery name="cf_global_settings_ext" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select GMAP_API_KEY_EXTERNAL from cf_global_settings
+		</cfquery>
+		<cfset gmapkey=cf_global_settings_ext.GMAP_API_KEY_EXTERNAL>
+	<cfelse>
+		<!--- use the restricted key for geocode/elevation webservice calls and such ---->
+		<cfquery name="cf_global_settings_int" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select GMAP_API_KEY_INTERNAL from cf_global_settings
+		</cfquery>
+		<cfset gmapkey=cf_global_settings_int.GMAP_API_KEY_INTERNAL>
+	</cfif>
 	<cfscript>
 		baseURL = "https://maps.googleapis.com";
-		urlParams &= '&key=' & cf_global_settings.GMAP_API_KEY;
+		urlParams &= '&key=' & gmapkey;
 		fullURL = baseURL & urlPath & "?" & urlParams;
 		return fullURL;
 	</cfscript>
