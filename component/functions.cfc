@@ -1002,7 +1002,7 @@
 	<cfargument name="spec_locality" type="string" required="no">
 	<cfargument name="higher_geog" type="string" required="no">
 	<cfargument name="S_ELEVATION" type="string" required="no">
-	<cfargument name="forceOverrideCache" type="string" required="no">
+	<cfargument name="forceOverrideCache" type="string" required="no" default="false">
 
 	<cfset intStartTime = GetTickCount() />
 
