@@ -1,16 +1,6 @@
 <cfset title="demo">
 <cfinclude template="/includes/_header.cfm">
 <h3>Google Breaker</h3>
-<cfoutput>
-	<!----
-	<cfset addr=URLEncodedFormat("1600 Amphitheatre Parkway#chr(10)#Mountain View, CA 94043#chr(10)#USA")>
-	<p>
-		GET https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#internal_key#
-	</p>
-	<cfhttp method="get" url="https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#internal_key#" >
-	<cfdump var=#cfhttp#>
-
----->
  <style>
        /* Set the size of the div element that contains the map */
       #map {
@@ -18,11 +8,7 @@
         width: 100%;  /* The width is the width of the web page */
        }
     </style>
-
-	<hr>
-
-	 <div id="map"></div>
-    <script>
+	 <script>
 // Initialize and add the map
 function initMap() {
   // The location of Uluru
@@ -38,6 +24,23 @@ jQuery(document).ready(function() {
 			 initMap();
 		});
     </script>
+
+
+<cfoutput>
+	<!----
+	<cfset addr=URLEncodedFormat("1600 Amphitheatre Parkway#chr(10)#Mountain View, CA 94043#chr(10)#USA")>
+	<p>
+		GET https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#internal_key#
+	</p>
+	<cfhttp method="get" url="https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#internal_key#" >
+	<cfdump var=#cfhttp#>
+
+---->
+
+
+	<hr>
+
+	 <div id="map"></div>
 
 
 		<cfhtmlhead text='<script src="https://maps.googleapis.com/maps/api/js?key=#external_key#" type="text/javascript"></script>'>
