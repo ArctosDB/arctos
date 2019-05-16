@@ -1216,7 +1216,8 @@
 					<!--- geography data from curatorial coordinates ---->
 					<cfset signedURL = obj.googleSignURL(
 						urlPath="/maps/api/geocode/json",
-						urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#")>
+						urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#",
+						int_ext="int")>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 					<cfif cfhttp.responseHeader.Status_Code is 200>
 						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
