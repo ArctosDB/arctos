@@ -370,7 +370,7 @@
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
 	<cfoutput>
-		<cfhtmlhead text="#murl#" type="text/javascript"></script>'>
+		<cfhtmlhead text='<script src="#murl#" type="text/javascript"></script>'>
 	</cfoutput>
 	<style>
 		#map-canvas { height: 300px;width:500px; }
