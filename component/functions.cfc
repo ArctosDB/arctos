@@ -1020,6 +1020,9 @@
 				<br>daysSinceLast::#daysSinceLast#
 			</cfif>
 			<cfif len(locality_id) gt 0 and daysSinceLast gt 180>
+			<cfif debug is true>
+				<br>going locality
+			</cfif>
 				<cfset geoList="">
 				<cfset slat="">
 				<cfset slon="">
@@ -1030,6 +1033,7 @@
 						urlPath="/maps/api/geocode/json",
 						urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#",
 						int_ext="int")>
+						<cfdump var=#signedURL#>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 					<cfdump var=#cfhttp#>
 					<cfif cfhttp.responseHeader.Status_Code is 200>
