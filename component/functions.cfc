@@ -995,9 +995,9 @@
 </cffunction>
 
 <cffunction name="getLocalityCacheStuff" access="remote">
-	<cfargument name="locality_id" type="numeric" required="no" default="">
-	<cfargument name="dec_lat" type="numeric" required="no" default="">
-	<cfargument name="dec_long" type="numeric" required="no" default="">
+	<cfargument name="locality_id" type="string" required="no" default="">
+	<cfargument name="dec_lat" type="string" required="no" default="">
+	<cfargument name="dec_long" type="string" required="no" default="">
 	<cfargument name="s_lastdate" type="string" required="no" default="">
 	<cfargument name="spec_locality" type="string" required="no" default="">
 	<cfargument name="higher_geog" type="string" required="no" default="">
