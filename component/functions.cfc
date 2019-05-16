@@ -998,7 +998,7 @@
 	<cfargument name="locality_id" type="numeric" required="no">
 	<cfargument name="dec_lat" type="numeric" required="no">
 	<cfargument name="dec_long" type="numeric" required="no">
-	<cfargument name="s_lastdate" type="string" required="no" default="#now()#">
+	<cfargument name="s_lastdate" type="string" required="no" default="">
 	<cfargument name="spec_locality" type="string" required="no">
 	<cfargument name="higher_geog" type="string" required="no">
 	<cfargument name="S_ELEVATION" type="string" required="no">
