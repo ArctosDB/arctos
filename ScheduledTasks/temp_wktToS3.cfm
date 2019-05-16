@@ -21,7 +21,7 @@ update temp_geo_wkt set status='is_media' where geog_auth_rec_id in (select geog
 	<cfif len(WKT_POLYGON) gt 0>
 		<cfset tempName=createUUID()>
 		<br>filename: #tempName#
-		<cffile	action = "write" destination = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
+		<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
 		<br>written
 
 	<cfelse>
