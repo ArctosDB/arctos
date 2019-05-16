@@ -1113,7 +1113,6 @@
 					where locality_id=#locality_id#
 				</cfquery>
 			</cfif><!--- end service call --->
-		</cfthread>
 
 
 
