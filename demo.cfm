@@ -2,15 +2,40 @@
 <cfinclude template="/includes/_header.cfm">
 <h3>Google Breaker</h3>
 <cfoutput>
-	<cfquery name="cf_global_settings" datasource="uam_god">
-		select GMAP_API_KEY	from cf_global_settings
-	</cfquery>
 	<cfset addr=URLEncodedFormat("1600 Amphitheatre Parkway#chr(10)#Mountain View, CA 94043#chr(10)#USA")>
 	<p>
 		GET https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#cf_global_settings.GMAP_API_KEY#
 	</p>
-	<cfhttp method="get" url="https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#cf_global_settings.GMAP_API_KEY#" >
+	<cfhttp method="get" url="https://maps.googleapis.com/maps/api/geocode/json?address=#addr#&key=#internal_key#" >
 	<cfdump var=#cfhttp#>
+
+
+	<hr>
+
+	 <div id="map"></div>
+    <script>
+// Initialize and add the map
+function initMap() {
+  // The location of Uluru
+  var uluru = {lat: -25.344, lng: 131.036};
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+}
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=#external_key#&callback=initMap">
+    </script>
+
+
+
 
 </cfoutput>
 <hr>
