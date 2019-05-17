@@ -1310,11 +1310,10 @@
 						urlPath="/maps/api/elevation/json",
 						urlParams="locations=#URLEncodedFormat('#s_lat#,#s_lng#')#",
 						int_ext="int")>
-						<cfif debug is true>
-							<cfif debug is true>
-							<br>Getting elevation at service-derived coordinates
-							<p>GET:#signedURL#</p>
-						</cfif>
+					<cfif debug is true>
+						<br>Getting elevation at service-derived coordinates
+						<p>GET:#signedURL#</p>
+					</cfif>
 					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 					<cfif debug is true>
 						<cfdump var=#cfhttp#>
