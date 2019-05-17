@@ -1270,7 +1270,7 @@
 					</cfif>
 				</cfif>
 			</cfif>
-			<!----
+
 			<cfif len(s_lat) gt 0 and len(s_lng) gt 0>
 				<!--- geography data from curatorial coordinates ---->
 				<cfset signedURL = obj.googleSignURL(
@@ -1333,6 +1333,7 @@
 					</cfif>
 				</cfif>
 			</cfif>
+				<!----
 			<!---- update cache ---->
 			<cfif debug is true>
 				<p>
