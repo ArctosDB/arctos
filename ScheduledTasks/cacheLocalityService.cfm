@@ -1,4 +1,10 @@
 <cfoutput>
+
+
+	<cfabort>
+
+
+
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfquery name="d" datasource="uam_god">
 		select LOCALITY_ID ,S$LASTDATE from locality where
