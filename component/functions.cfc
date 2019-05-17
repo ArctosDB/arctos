@@ -1139,7 +1139,6 @@
 	<cfargument name="forceOverrideCache" type="string" required="no" default="false">
 	<cfparam name="debug" default="false">
 	<cfoutput>
-	<cfset intStartTime = GetTickCount() />
 	<!--- for some strange reason, this must be mapped like zo.... ----->
 	<cfset obj = CreateObject("component","functions")>
 	<cfif forceOverrideCache is "true" or len(s_lastdate) is 0>
@@ -1306,6 +1305,7 @@
 		</cfquery>
 	</cfif><!--- end service call --->
 </cfoutput>
+<cfreturn>
 </cffunction>
 
 
