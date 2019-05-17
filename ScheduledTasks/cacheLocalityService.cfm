@@ -1,6 +1,7 @@
 <!----
 select count(*) from locality where (S$LASTDATE is null or round(sysdate-s$lastdate)>180);
 505455
+503899
 ---->
 <cfoutput>
 	<cfset obj = CreateObject("component","component.functions")>
@@ -10,6 +11,7 @@ select count(*) from locality where (S$LASTDATE is null or round(sysdate-s$lastd
 		and rownum<50
 	</cfquery>
 	<cfloop query="d">
+		<br>#d.LOCALITY_ID#
 		<cfset obj.getLocalityCacheStuff(locality_id=d.LOCALITY_ID)>
 	</cfloop>
 </cfoutput>
