@@ -1248,9 +1248,26 @@
 							<cfdump var=#llresult#>
 						</p>
 					</cfif>
+					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+							</cfif>
+							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+							</cfif>
+						</cfloop>
+					</cfloop>
+					<cfset s_lat=llresult.results[1].geometry.location.lat>
+					<cfset s_lng=llresult.results[1].geometry.location.lng>
 				</cfif>
-
 			</cfif>
+
+			<cfif debug is true>
+				<br>google s_lat::#s_lat#
+				<br>google s_lng::#s_lng#
+			</cfif>
+
 
 			<!--- if we have coordinates from data, get placenames from them --->
 			<cfif len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
