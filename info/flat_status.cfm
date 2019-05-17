@@ -7,13 +7,19 @@
 	</p>
 
 <cfquery name="fs" datasource="uam_god">
-	select stale_flag,count(*) c from flat group by stale_flag
-</cfquery>
-<cfquery name="nc" dbtype="query">
-	select c from fs where stale_flag=1
-</cfquery>
-<cfquery name="c" dbtype="query">
-	select c from fs where stale_flag=0
+	select
+		decode(STALE_FLAG,
+			1,'flat_processing',
+			0,'filtered_flat_processing',
+			2,'current',
+			'error_in_processing'
+		)
+		stale_flag,count(*) c from flat group by decode(STALE_FLAG,
+			1,'flat_processing',
+			0,'filtered_flat_processing',
+			2,'current',
+			'error_in_processing'
+		)
 </cfquery>
 <cfoutput>
 	<table border>
@@ -21,14 +27,13 @@
 			<th>Status</th>
 			<th>NumberRecords</th>
 		</tr>
-		<tr>
-			<td>Current</td>
-			<td>#c.c#</td>
-		</tr>
-		<tr>
-			<td>Processing</td>
-			<td>#nc.c#</td>
-		</tr>
+		<cfloop query="fs">
+
+			<tr>
+				<td>#stale_flag#</td>
+				<td>#c#</td>
+			</tr>
+		</cfloop>
 	</table>
 </cfoutput>
 
