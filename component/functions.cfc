@@ -1192,6 +1192,10 @@
 				<cfcatch></cfcatch>
 			</cftry>
 		</cfif>
+		<cfif debug is true>
+			<br>s_lat::#s_lat#
+			<br>s_lng::#s_lng#
+		</cfif>
 		<!--- if we have coordinates from data, get placenames from them --->
 		<cfif len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
 			<cfset signedURL = obj.googleSignURL(
