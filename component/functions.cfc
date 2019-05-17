@@ -1261,12 +1261,12 @@
 					<cfset s_lat=llresult.results[1].geometry.location.lat>
 					<cfset s_lng=llresult.results[1].geometry.location.lng>
 				</cfif>
+				<cfif debug is true>
+					<br>google s_lat::#s_lat#
+					<br>google s_lng::#s_lng#
+				</cfif>
 			</cfif>
 
-			<cfif debug is true>
-				<br>google s_lat::#s_lat#
-				<br>google s_lng::#s_lng#
-			</cfif>
 
 
 			<!--- if we have coordinates from data, get placenames from them --->
