@@ -3,7 +3,7 @@
 	<cfquery name="d" datasource="uam_god">
 		select LOCALITY_ID ,S$LASTDATE from locality where
 		(S$LASTDATE is null or round(sysdate-s$lastdate)>180)
-		and rownum<20
+		and rownum<100
 	</cfquery>
 	<cfloop query="d">
 		<br>#d.locality_id#
