@@ -1202,7 +1202,7 @@
 					<cfcatch>
 						<cfif debug is true>
 							<br>unable to extract coordinates
-							<cfdump var=#cfcatch#>
+							#cfcatch.Message#::#cfcatch.detail#
 						</cfif>
 					</cfcatch>
 				</cftry>
