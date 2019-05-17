@@ -1249,25 +1249,25 @@
 						</p>
 					</cfif>
 					<cftry>
-					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-							</cfif>
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-							</cfif>
+						<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
+							<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
+								<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
+									<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
+								</cfif>
+								<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
+									<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
+								</cfif>
+							</cfloop>
 						</cfloop>
-					</cfloop>
-					<cfcatch>
-						<cfif debug is true>
-							<br>unable to extract coordinates
-							#cfcatch.Message#::#cfcatch.detail#
-						</cfif>
-					</cfcatch>
+						<cfset s_lat=llresult.results[1].geometry.location.lat>
+						<cfset s_lng=llresult.results[1].geometry.location.lng>
+						<cfcatch>
+							<cfif debug is true>
+								<br>unable to extract coordinates
+								#cfcatch.Message#::#cfcatch.detail#
+							</cfif>
+						</cfcatch>
 					</cftry>
-					<cfset s_lat=llresult.results[1].geometry.location.lat>
-					<cfset s_lng=llresult.results[1].geometry.location.lng>
 				</cfif>
 				<cfif debug is true>
 					<br>google s_lat::#s_lat#
