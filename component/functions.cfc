@@ -1214,17 +1214,17 @@
 				</cfif>
 
 				<cfset gs=''>
-				<cfif len(COUNTRY) gt 0>
-					<cfset gs=listappend(gs,COUNTRY,chr(7))>
+				<cfif len(d.COUNTRY) gt 0>
+					<cfset gs=listappend(gs,d.COUNTRY,chr(7))>
 				</cfif>
-				<cfif len(STATE_PROV) gt 0>
-					<cfset gs=listappend(gs,STATE_PROV,chr(7))>
+				<cfif len(d.STATE_PROV) gt 0>
+					<cfset gs=listappend(gs,d.STATE_PROV,chr(7))>
 				</cfif>
-				<cfif len(COUNTY) gt 0>
-					<cfset gs=listappend(gs,COUNTY,chr(7))>
+				<cfif len(d.COUNTY) gt 0>
+					<cfset gs=listappend(gs,d.COUNTY,chr(7))>
 				</cfif>
-				<cfif len(SPEC_LOCALITY) gt 0>
-					<cfset gs=listappend(gs,SPEC_LOCALITY,chr(7))>
+				<cfif len(d.SPEC_LOCALITY) gt 0>
+					<cfset gs=listappend(gs,d.SPEC_LOCALITY,chr(7))>
 				</cfif>
 				<cfset gs=replace(gs,chr(7),', ','all')>
 
