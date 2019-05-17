@@ -1187,8 +1187,8 @@
 					very Q&D attempt to get coordinates from string
 					just take the first return, or don't worry about it.
 				--->
-				<cfset s_lat=gld.resultSet.features[1].geometry.coordinates[1]>
-				<cfset s_lng=gld.resultSet.features[1].geometry.coordinates[2]>
+				<cfset s_lat=gld.resultSet.features[1].geometry.coordinates[2]>
+				<cfset s_lng=gld.resultSet.features[1].geometry.coordinates[1]>
 				<cfcatch></cfcatch>
 			</cftry>
 		</cfif>
