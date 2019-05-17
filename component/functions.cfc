@@ -1244,6 +1244,7 @@
 			</cfif>
 			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 			<cfif debug is true>
+					<cfdump var=#signedURL#>
 				<cfdump var=#cfhttp#>
 			</cfif>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
@@ -1264,8 +1265,10 @@
 					urlPath="/maps/api/elevation/json",
 					urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#",
 					int_ext="int")>
+
 				<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 				<cfif debug is true>
+					<cfdump var=#signedURL#>
 					<cfdump var=#cfhttp#>
 				</cfif>
 				<cfif cfhttp.responseHeader.Status_Code is 200>
@@ -1276,16 +1279,13 @@
 				</cfif>
 			</cfif>
 		</cfif>
-		<cfif len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
-
-		</cfif>
 		<!---- update cache ---->
 		<cfquery name="upEsDollar" datasource="uam_god">
 			update locality set
 				S$ELEVATION=<cfif len(s_elev) is 0>NULL<cfelse>#s_elev#</cfif>,
 				S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
 				S$DEC_LAT=<cfif len(s_lat) is 0>NULL<cfelse>#s_lat#</cfif>,
-				S$DEC_LONG=<cfif len(s_lon) is 0>NULL<cfelse>#s_lon#</cfif>,
+				S$DEC_LONG=<cfif len(s_lng) is 0>NULL<cfelse>#s_lng#</cfif>,
 				S$LASTDATE=sysdate
 			where locality_id=#locality_id#
 		</cfquery>
