@@ -1284,6 +1284,17 @@
 			</cfif>
 		</cfif>
 		<!---- update cache ---->
+		<cfif debug is true>
+		<p>
+		update locality set
+				S$ELEVATION=<cfif len(s_elev) is 0>NULL<cfelse>#s_elev#</cfif>,
+				S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
+				S$DEC_LAT=<cfif len(s_lat) is 0>NULL<cfelse>#s_lat#</cfif>,
+				S$DEC_LONG=<cfif len(s_lng) is 0>NULL<cfelse>#s_lng#</cfif>,
+				S$LASTDATE=sysdate
+			where locality_id=#locality_id#
+		</p>
+		</cfif>
 		<cfquery name="upEsDollar" datasource="uam_god">
 			update locality set
 				S$ELEVATION=<cfif len(s_elev) is 0>NULL<cfelse>#s_elev#</cfif>,
