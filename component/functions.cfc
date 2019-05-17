@@ -1332,10 +1332,12 @@
 					</cfif>
 				</cfif>
 			</cfif>
-				<!----
 			<!---- update cache ---->
 			<cfif debug is true>
 				<p>
+					<p>
+						updating cache
+					</p>
 				update locality set
 						<br>S$ELEVATION=<cfif len(s_elev) is 0>NULL<cfelse>#s_elev#</cfif>,
 						<br>S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
@@ -1354,8 +1356,6 @@
 					S$LASTDATE=sysdate
 				where locality_id=#locality_id#
 			</cfquery>
-
-			---->
 		</cfif><!--- end service call --->
 	</cfoutput>
 	<cfreturn>
