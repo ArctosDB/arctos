@@ -6,8 +6,6 @@
 		and rownum<70
 	</cfquery>
 	<cfloop query="d">
-		<br>#d.locality_id#
 		<cfset obj.getLocalityCacheStuff(locality_id=d.LOCALITY_ID)>
-
 	</cfloop>
 </cfoutput>
