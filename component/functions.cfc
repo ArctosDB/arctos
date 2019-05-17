@@ -1179,10 +1179,6 @@
 			<cfif debug is true>
 				<cfdump var=#gl#>
 			</cfif>
-
-
-
-
 			<cfif left(gl.statuscode,3) is 200 and isjson(gl.filecontent)>
 				<cfset gld=deserializejson(gl.filecontent)>
 				<cfif debug is true>
@@ -1207,9 +1203,53 @@
 					</cfcatch>
 				</cftry>
 			</cfif>
+
 			<cfif debug is true>
-				<br>s_lat::#s_lat#
-				<br>s_lng::#s_lng#
+				<br>geolocate s_lat::#s_lat#
+				<br>geolocate s_lng::#s_lng#
+			</cfif>
+			<cfif len(s_lng) is 0 or len(s_lat) is 0>
+				<cfif debug is true>
+					<br>geolocate failed; trying Google
+				</cfif>
+
+				<cfset gs=''>
+				<cfif len(COUNTRY) gt 0>
+					<cfset gs=listappend(gs,COUNTRY,chr(7))>
+				</cfif>
+				<cfif len(STATE_PROV) gt 0>
+					<cfset gs=listappend(gs,STATE_PROV,chr(7))>
+				</cfif>
+				<cfif len(COUNTY) gt 0>
+					<cfset gs=listappend(gs,COUNTY,chr(7))>
+				</cfif>
+				<cfif len(SPEC_LOCALITY) gt 0>
+					<cfset gs=listappend(gs,SPEC_LOCALITY,chr(7))>
+				</cfif>
+				<cfset gs=replace(gs,chr(7),', ','all')>
+
+				<cfset signedURL = obj.googleSignURL(
+					urlPath="/maps/api/geocode/json",
+					urlParams="address=#URLEncodedFormat(gs)#",
+					int_ext="int")>
+				<cfif debug is true>
+					<br>Getting coordinates from Google
+					<p>GET:#signedURL#</p>
+				</cfif>
+				<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
+				<cfif debug is true>
+					<cfdump var=#cfhttp#>
+				</cfif>
+				<cfif cfhttp.responseHeader.Status_Code is 200>
+					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
+					<cfif debug is true>
+						<p>
+							Good return
+							<cfdump var=#llresult#>
+						</p>
+					</cfif>
+				</cfif>
+
 			</cfif>
 
 			<!--- if we have coordinates from data, get placenames from them --->
