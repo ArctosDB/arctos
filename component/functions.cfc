@@ -1185,7 +1185,6 @@
 				</p>
 				<cfdump var=#gld#>
 			</cfif>
-
 			<cftry>
 				<!---
 					try/fail faster than checking the JSON...
@@ -1247,7 +1246,6 @@
 				<br>Getting elevation at user-supplied coordinates
 				<p>GET:#signedURL#</p>
 			</cfif>
-
 			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 			<cfif debug is true>
 				<cfdump var=#cfhttp#>
@@ -1281,7 +1279,6 @@
 				<cfdump var=#cfhttp#>
 			</cfif>
 			<cfif cfhttp.responseHeader.Status_Code is 200>
-
 				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 				<cfif debug is true>
 					<p>
