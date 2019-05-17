@@ -1140,6 +1140,7 @@ function checkCoordinateError(){
 		</cfif>
 		<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
 		<strong>Webservice Lookup Data</strong>
+		<a target="_blank" href="/component/functions.cfc?method=getLocalityCacheStuff&locality_id=#locality_id#&debug=true">Pull/Debug</a>
 		<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
 			<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
 			<span style="font-style:bold;">
