@@ -1173,6 +1173,10 @@
 		<cfdump var=#d#>
 		<cfhttp result="gl" method="get" url="http://geo-locate.org/webservices/geolocatesvcv2/glcwrap.aspx?locality=#URLEncodedFormat(d.SPEC_LOCALITY)#&country=#URLEncodedFormat(d.COUNTRY)#&state=#URLEncodedFormat(d.STATE_PROV)#&county=#URLEncodedFormat(d.COUNTY)#" timeout="1"></cfhttp>
 		<cfdump var="#gl#">
+		<cfif left(gl.statuscode,3) is 200 and isjson(gl.filecontent)>
+			<cfset gld=deserializejson(gl.filecontent)>
+		<cfdump var="#gld#">
+		</cfif>
 		<!------------
 
 		<cfset geoList="">
