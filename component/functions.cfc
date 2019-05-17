@@ -1149,7 +1149,7 @@
 		<!--- if we got some sort of response AND it's been a while....--->
 		<cfif len(locality_id) gt 0 and daysSinceLast gt 180>
 
-		<!----
+
 			<cfif debug is true>
 				<br>Got Locality_ID, cache expired or overridden: proceeding.
 			</cfif>
@@ -1179,6 +1179,10 @@
 			<cfif debug is true>
 				<cfdump var=#gl#>
 			</cfif>
+
+			<!----
+
+
 			<cfif left(gl.statuscode,3) is 200 and isjson(gl.filecontent)>
 				<cfset gld=deserializejson(gl.filecontent)>
 				<cfif debug is true>
