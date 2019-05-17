@@ -1170,6 +1170,7 @@
 				locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 				locality.locality_id=#val(locality_id)#
 		</cfquery>
+		<cfdump var=#d#>
 		<cfhttp result="gl" method="get" url="http://geo-locate.org/webservices/geolocatesvcv2/glcwrap.aspx?locality=#URLEncodedFormat(d.SPEC_LOCALITY)#&country=#URLEncodedFormat(d.COUNTRY)#&state=#URLEncodedFormat(d.STATE_PROV)#&county=#URLEncodedFormat(d.COUNTY)#" timeout="1"></cfhttp>
 		<cfdump var="#gl#">
 		<!------------
