@@ -1148,6 +1148,8 @@
 		</cfif>
 		<!--- if we got some sort of response AND it's been a while....--->
 		<cfif len(locality_id) gt 0 and daysSinceLast gt 180>
+
+		<!----
 			<cfif debug is true>
 				<br>Got Locality_ID, cache expired or overridden: proceeding.
 			</cfif>
@@ -1273,7 +1275,7 @@
 					<br>Getting locality data at service-derived coordinates
 					<p>GET:#signedURL#</p>
 				</cfif>
-	
+
 				<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
 				<cfif debug is true>
 					<cfdump var=#cfhttp#>
@@ -1346,6 +1348,8 @@
 					S$LASTDATE=sysdate
 				where locality_id=#locality_id#
 			</cfquery>
+
+			---->
 		</cfif><!--- end service call --->
 	</cfoutput>
 	<cfreturn>
