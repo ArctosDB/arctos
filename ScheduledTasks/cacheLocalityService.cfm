@@ -4,6 +4,7 @@
 		(S$LASTDATE is null or round(sysdate-s$lastdate)>180)
 		and rownum<20
 	</cfquery>
+	<cfloop query="d">
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfset x=obj.getLocalityCacheStuff(locality_id=d.LOCALITY_ID)>
 	<cfdump var=#x#>
