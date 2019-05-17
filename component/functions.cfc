@@ -1263,7 +1263,7 @@
 			<cfif len(s_elev) is 0>
 				<cfset signedURL = obj.googleSignURL(
 					urlPath="/maps/api/elevation/json",
-					urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#",
+					urlParams="locations=#URLEncodedFormat('#s_lat#,#s_lng#')#",
 					int_ext="int")>
 
 				<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
