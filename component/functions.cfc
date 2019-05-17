@@ -1155,7 +1155,6 @@
 		<cfset s_lng=''>
 		<cfset geolist=''>
 		<cfset s_elev=''>
-
 		<cfquery name="d" datasource="uam_god">
 			select
 				COUNTRY,
@@ -1182,7 +1181,7 @@
 			<cfset gld=deserializejson(gl.filecontent)>
 			<cfif debug is true>
 				<p>
-					Got JSON from GeoLocate
+					Good return
 				</p>
 				<cfdump var=#gld#>
 			</cfif>
@@ -1195,7 +1194,12 @@
 				--->
 				<cfset s_lat=gld.resultSet.features[1].geometry.coordinates[2]>
 				<cfset s_lng=gld.resultSet.features[1].geometry.coordinates[1]>
-				<cfcatch></cfcatch>
+				<cfcatch>
+					<cfif debug is true>
+						<br>unable to extract coordinates
+						<cfdump var=#cfcatch#>
+					</cfif>
+				</cfcatch>
 			</cftry>
 		</cfif>
 		<cfif debug is true>
@@ -1268,7 +1272,6 @@
 				urlParams="latlng=#URLEncodedFormat('#s_lat#,#s_lng#')#",
 				int_ext="int")>
 			<cfif debug is true>
-				<cfif debug is true>
 				<br>Getting locality data at service-derived coordinates
 				<p>GET:#signedURL#</p>
 			</cfif>
@@ -1327,15 +1330,15 @@
 		</cfif>
 		<!---- update cache ---->
 		<cfif debug is true>
-		<p>
-		update locality set
-				<br>S$ELEVATION=<cfif len(s_elev) is 0>NULL<cfelse>#s_elev#</cfif>,
-				<br>S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
-				<br>S$DEC_LAT=<cfif len(s_lat) is 0>NULL<cfelse>#s_lat#</cfif>,
-				<br>S$DEC_LONG=<cfif len(s_lng) is 0>NULL<cfelse>#s_lng#</cfif>,
-				<br>S$LASTDATE=sysdate
-			<br>where locality_id=#locality_id#
-		</p>
+			<p>
+			update locality set
+					<br>S$ELEVATION=<cfif len(s_elev) is 0>NULL<cfelse>#s_elev#</cfif>,
+					<br>S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
+					<br>S$DEC_LAT=<cfif len(s_lat) is 0>NULL<cfelse>#s_lat#</cfif>,
+					<br>S$DEC_LONG=<cfif len(s_lng) is 0>NULL<cfelse>#s_lng#</cfif>,
+					<br>S$LASTDATE=sysdate
+				<br>where locality_id=#locality_id#
+			</p>
 		</cfif>
 		<cfquery name="upEsDollar" datasource="uam_god">
 			update locality set
