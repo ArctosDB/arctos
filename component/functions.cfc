@@ -1211,7 +1211,7 @@
 				<br>s_lat::#s_lat#
 				<br>s_lng::#s_lng#
 			</cfif>
-			<!----
+
 			<!--- if we have coordinates from data, get placenames from them --->
 			<cfif len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
 				<cfset signedURL = obj.googleSignURL(
@@ -1270,6 +1270,7 @@
 					</cfif>
 				</cfif>
 			</cfif>
+			<!----
 			<cfif len(s_lat) gt 0 and len(s_lng) gt 0>
 				<!--- geography data from curatorial coordinates ---->
 				<cfset signedURL = obj.googleSignURL(
