@@ -1175,6 +1175,13 @@
 		<cfdump var="#gl#">
 		<cfif left(gl.statuscode,3) is 200 and isjson(gl.filecontent)>
 			<cfset gld=deserializejson(gl.filecontent)>
+			<cftry>
+				<!--- try/fail faster than checking the JSON...--->
+				<cfset s_lat=gld.resultSet.features[1].geometry.coordinates[1]>
+				<cfset s_lng=gld.resultSet.features[1].geometry.coordinates[2]>
+				#s_lat#,#s_lng#
+				<cfcatch><cfdump var=#cfcatch#></cfcatch>
+			</cftry>
 		<cfdump var="#gld#">
 		</cfif>
 		<!------------
