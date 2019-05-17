@@ -1180,7 +1180,7 @@
 				<cfdump var=#gl#>
 			</cfif>
 
-			<!----
+
 
 
 			<cfif left(gl.statuscode,3) is 200 and isjson(gl.filecontent)>
@@ -1211,6 +1211,7 @@
 				<br>s_lat::#s_lat#
 				<br>s_lng::#s_lng#
 			</cfif>
+			<!----
 			<!--- if we have coordinates from data, get placenames from them --->
 			<cfif len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
 				<cfset signedURL = obj.googleSignURL(
