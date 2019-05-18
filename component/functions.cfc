@@ -1179,7 +1179,7 @@
 			<cfif debug is true>
 				<cfdump var=#gl#>
 			</cfif>
-			<cfif left(gl.statuscode,3) is 200 and isjson(gl.filecontent)>
+			<cfif isdefined("gl.statuscode") and left(gl.statuscode,3) is 200 and isjson(gl.filecontent)>
 				<cfset gld=deserializejson(gl.filecontent)>
 				<cfif debug is true>
 					<p>
@@ -1240,7 +1240,7 @@
 				<cfif debug is true>
 					<cfdump var=#cfhttp#>
 				</cfif>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
+				<cfif isdefined("cfhttp.responseHeader.Status_Code") and cfhttp.responseHeader.Status_Code is 200>
 					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 					<cfif debug is true>
 						<p>
@@ -1291,7 +1291,7 @@
 				<cfif debug is true>
 					<cfdump var=#cfhttp#>
 				</cfif>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
+				<cfif isdefined("cfhttp.responseHeader.Status_Code") and cfhttp.responseHeader.Status_Code is 200>
 					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 					<cfif debug is true>
 						<p>
@@ -1322,7 +1322,7 @@
 				<cfif debug is true>
 					<cfdump var=#cfhttp#>
 				</cfif>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
+				<cfif isdefined("cfhttp.responseHeader.Status_Code") and cfhttp.responseHeader.Status_Code is 200>
 					<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 					<cfif debug is true>
 						<p>
@@ -1351,7 +1351,7 @@
 				<cfif debug is true>
 					<cfdump var=#cfhttp#>
 				</cfif>
-				<cfif cfhttp.responseHeader.Status_Code is 200>
+				<cfif isdefined("cfhttp.responseHeader.Status_Code") and cfhttp.responseHeader.Status_Code is 200>
 					<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
 					<cfif debug is true>
 						<p>
@@ -1383,7 +1383,7 @@
 					<cfif debug is true>
 						<cfdump var=#cfhttp#>
 					</cfif>
-					<cfif cfhttp.responseHeader.Status_Code is 200>
+					<cfif isdefined("cfhttp.responseHeader.Status_Code") and cfhttp.responseHeader.Status_Code is 200>
 						<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
 						<cfif debug is true>
 							<p>
