@@ -159,7 +159,8 @@ L.marker([32.04588,-95.72209]).addTo(map)
 		var gj=wkt2geojson(wkt);
 
 
-		console.log('gj:' + gj);
+		console.log('gj:');
+		console.log(gj);
 
 		L.geoJSON(gj).addTo(map);
 
