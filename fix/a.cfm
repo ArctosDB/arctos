@@ -312,7 +312,6 @@ function stringify (gj) {
 
 var marker = L.marker([51.5, -0.09]).addTo(mymap);
 
-var parse = require('wellknown');
 
 var geojsonLayer = L.geoJson(parse('Point(1 2)'));
 
