@@ -1682,7 +1682,7 @@
 	<!--- new thang: use API key, this is overly complex but it's modular so.... --->
 	<cfargument name="urlPath" type="string" required="yes" hint="Base path; /maps/api/geocode/json for example">
 	<cfargument name="urlParams" type="string" required="yes" hint="? parameters; latlng=12,34 for example">
-	<cfargument name="int_ext" type="string" required="no" default="int" hint="public-facing (ext, default) or internal (int, for caching elevation etc.) key to use">
+	<cfargument name="int_ext" type="string" required="no" default="ext" hint="public-facing (ext, default) or internal (int, for caching elevation etc.) key to use">
 	<cfif int_ext is "int">
 		<!--- use the unrestricted key for mapping in UIs and such ---->
 		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
