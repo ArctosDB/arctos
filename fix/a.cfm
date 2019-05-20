@@ -189,8 +189,11 @@ L.marker([32.04588,-95.72209]).addTo(map)
 myLayer.addData(gj);
 
 
+     //console.log(JSON.stringify(testPoint) + '\tin parentCoordinate\t' + test(testPoint, parentCoordinates));
 
-var im=isMarkerInsidePolygon([32.04588,-95.72209],myLayer);
+     var testpoint='[32.04588,-95.72209]';
+
+var im=isMarkerInsidePolygon(testpoint,myLayer);
 
 		console.log('im:' + im);
 
