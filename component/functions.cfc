@@ -1701,7 +1701,7 @@
 	<cfscript>
 		baseURL = "https://maps.googleapis.com";
 		urlParams &= '&key=' & gmapkey;
-		fullURL = baseURL & urlPath & "?" & urlParams;
+		fullURL = baseURL & urlPath & "?" & urlParams & "&tv=1";
 		return fullURL;
 	</cfscript>
 </cffunction>
