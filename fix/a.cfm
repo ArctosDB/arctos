@@ -188,7 +188,7 @@ L.marker([32.04588,-95.72209]).addTo(map)
 		var myLayer = L.geoJSON().addTo(map);
 myLayer.addData(gj);
 
-     var testpoint='[32.04588,-95.72209]';
+     var testPoint='[32.04588,-95.72209]';
 
 
      console.log(JSON.stringify(testPoint) + '\tin parentCoordinate\t' + test(testPoint, gj));
