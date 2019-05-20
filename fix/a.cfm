@@ -17,7 +17,7 @@
 
 
 <style>
-#mapid { height: 180px; }
+#map { height: 180px; }
 </style>
 
 
