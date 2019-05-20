@@ -144,7 +144,19 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-L.marker([32.04588,-95.72209]).addTo(map)
+
+ var pt = {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+                "type": "Point",
+                "coordinates": [32.04588,-95.72209]
+        }
+    }
+
+
+
+L.marker(pt).addTo(map)
     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
     .openPopup();
 
@@ -166,15 +178,9 @@ L.marker([32.04588,-95.72209]).addTo(map)
 
 
 
-//var im=isMarkerInsidePolygon([32.04588,-95.72209],gj);
+var im=isMarkerInsidePolygon(pt,gj);
 
-//		console.log('im:' + im);
-
-for (var i = 0; i < childCoordinates.length; i++) {
-     var testPoint = childCoordinates[i];
-     console.log(JSON.stringify(testPoint) + '\tin parentCoordinate\t' + test(testPoint, parentCoordinates));
-}
-
+		console.log('im:' + im);
 
 
 
