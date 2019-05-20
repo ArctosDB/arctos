@@ -1689,14 +1689,14 @@
 		<cfquery name="cf_global_settings_int" datasource="uam_god" >
 			select GMAP_API_KEY_INTERNAL from cf_global_settings
 		</cfquery>
-		<cfset gmapkey=cf_global_settings_int.GMAP_API_KEY_EXTERNAL>
+		<cfset gmapkey=cf_global_settings_int.GMAP_API_KEY_INTERNAL>
 	<cfelse>
 		<!--- use the restricted key for geocode/elevation webservice calls and such ---->
 		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
 		<cfquery name="cf_global_settings_ext" datasource="uam_god">
 			select GMAP_API_KEY_EXTERNAL from cf_global_settings
 		</cfquery>
-		<cfset gmapkey=cf_global_settings_ext.GMAP_API_KEY_INTERNAL>
+		<cfset gmapkey=cf_global_settings_ext.GMAP_API_KEY_EXTERNAL>
 	</cfif>
 	<cfscript>
 		baseURL = "https://maps.googleapis.com";
