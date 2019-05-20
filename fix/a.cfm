@@ -154,18 +154,22 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
+
+     var testPoint='[30.02588,-95.72209]';
+
+
  var pt = {
         "type": "Feature",
         "properties": {},
         "geometry": {
                 "type": "Point",
-                "coordinates": [31.04588,-95.72209]
+                "coordinates": [30.04588,-95.72209]
         }
     }
 
 
 
-L.marker([31.04588,-95.72209]).addTo(map)
+L.marker(testPoint).addTo(map)
     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
     .openPopup();
 
@@ -188,7 +192,6 @@ L.marker([31.04588,-95.72209]).addTo(map)
 		var myLayer = L.geoJSON().addTo(map);
 myLayer.addData(gj);
 
-     var testPoint='[31.04588,-95.72209]';
 
 
      console.log(JSON.stringify(testPoint) + '\tin parentCoordinate\t' + test(testPoint, gj));
