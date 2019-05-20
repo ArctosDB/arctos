@@ -36,6 +36,6 @@ omnivore.wkt.parse('POINT(-80 0)').addTo(map);
 		});
 </script>
 
- <div id="mapid"></div>
+ <div id="map"></div>
 
 </cfoutput>
