@@ -285,6 +285,12 @@ function stringify (gj) {
 		console.log('hello');
 		console.log('wkt:' + wkt);
 
+
+		var gj=parse('POINT(1 2)');
+
+
+		console.log('gj:' + gj);
+
 	});
 
 
