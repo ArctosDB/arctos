@@ -27,22 +27,6 @@
 	jQuery(document).ready(function() {
 		var map = L.map('map').setView([51.505, -0.09], 13);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  maxZoom: 18
-}).addTo(map);
-
-var wkt = new Wkt.Wkt();
-
-var polygon = wkt.read('POLYGON((-0.10368 51.51654, -0.10557 51.50703, -0.08171 51.50543,  -0.08033 51.514808))').toObject();
-
-window.console.log("Leaflet polygon: " + polygon);
-
-polygon.addTo(map);
-
-wkt = new Wkt.Wkt();
-wkt.fromObject(polygon);
-window.console.log("Wkt from Polygon: " + wkt.write());
 
 		});
 </script>
