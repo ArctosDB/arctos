@@ -9,6 +9,10 @@
    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
    crossorigin=""></script>
 
+ <script src="https://raw.github.com/mapbox/wellknown/master/wellknown.js"></script>
+
+
+
 
 <style>
 #mapid { height: 180px; }
@@ -31,6 +35,10 @@
 
 
 var marker = L.marker([51.5, -0.09]).addTo(mymap);
+
+var parse = require('wellknown');
+
+var geojsonLayer = L.geoJson(parse('Point(1 2)'));
 
 		});
 </script>
