@@ -34,6 +34,24 @@ L.marker([51.5, -0.09]).addTo(map)
     .openPopup();
 
 
+
+var wkt = new Wkt.Wkt();
+
+var polygon = wkt.read('POLYGON((-0.10368 51.51654, -0.10557 51.50703, -0.08171 51.50543,  -0.08033 51.514808))').toObject();
+
+window.console.log("Leaflet polygon: " + polygon);
+
+polygon.addTo(map);
+
+wkt = new Wkt.Wkt();
+wkt.fromObject(polygon);
+window.console.log("Wkt from Polygon: " + wkt.write());
+
+
+
+
+
+
 		});
 </script>
 
