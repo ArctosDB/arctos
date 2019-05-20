@@ -11,7 +11,8 @@
 
 
 
-<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/wicket/1.3.2/wicket.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/wicket/1.3.2/wicket-leaflet.js'></script>
 
 
 
@@ -24,14 +25,24 @@
 <script>
 
 	jQuery(document).ready(function() {
-L.mapbox.accessToken = 'pk.eyJ1IjoiYXJjdG9zIiwiYSI6ImNqdndnM2NrYjAwYXM0OHJnMDUyZnVvY3UifQ._Jg9O0eUm_HwS4o_Zb9Zeg';
-var map = L.mapbox.map('map')
-    .setView([0, -80], 8)
-    .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-// The Well Known Text format is commonly used in database systems,
-// and can represent geometries. Unlike other formats, it cannot
-// represent properties.
-omnivore.wkt.parse('POINT(-80 0)').addTo(map);
+		var map = L.map('map').setView([51.505, -0.09], 13);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  maxZoom: 18
+}).addTo(map);
+
+var wkt = new Wkt.Wkt();
+
+var polygon = wkt.read('POLYGON((-0.10368 51.51654, -0.10557 51.50703, -0.08171 51.50543,  -0.08033 51.514808))').toObject();
+
+window.console.log("Leaflet polygon: " + polygon);
+
+polygon.addTo(map);
+
+wkt = new Wkt.Wkt();
+wkt.fromObject(polygon);
+window.console.log("Wkt from Polygon: " + wkt.write());
 
 		});
 </script>
