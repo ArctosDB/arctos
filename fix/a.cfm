@@ -135,7 +135,16 @@ function test(point, vs) {
     return inside;
 };
 
-
+function checkIsInside(poly) {
+  for(poly of poly.features) {
+    var isInside = turf.inside(pt1, poly);
+    if(isInside) {
+      return true
+    } else {
+      return false
+    }
+  }
+};
 
 	jQuery(document).ready(function() {
 		var map = L.map('map').setView([32.04588,-95.72209], 6);
@@ -178,7 +187,7 @@ L.marker(pt).addTo(map)
 
 
 
-var im=isMarkerInsidePolygon(pt,gj);
+var im=checkIsInside(gj);
 
 		console.log('im:' + im);
 
