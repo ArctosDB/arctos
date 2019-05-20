@@ -183,11 +183,14 @@ L.marker([32.04588,-95.72209]).addTo(map)
 		console.log('gj:');
 		console.log(gj);
 
-		L.geoJSON(gj).addTo(map);
+		//L.geoJSON(gj).addTo(map);
+
+		var myLayer = L.geoJSON().addTo(map);
+myLayer.addData(gj);
 
 
 
-var im=checkIsInside(gj);
+var im=checkIsInside(myLayer);
 
 		console.log('im:' + im);
 
