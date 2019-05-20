@@ -142,7 +142,7 @@ L.marker([32.04588,-95.72209]).addTo(map)
 
 
 
-var im=isMarkerInsidePolygon('[32.04588,-95.72209],gj);
+var im=isMarkerInsidePolygon('[32.04588,-95.72209]',gj);
 
 		console.log('im:' + im);
 
