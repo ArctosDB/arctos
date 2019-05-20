@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-
+<script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
 
 <script>
 			function wkt2geojson(wkt){
@@ -183,6 +183,7 @@ L.marker(testPoint).addTo(map)
 
 		var gj=wkt2geojson(wkt);
 
+console.log(gj.containstestPoint));
 
 		console.log('gj:');
 		console.log(gj);
