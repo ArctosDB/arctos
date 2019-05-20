@@ -155,7 +155,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-     var testPoint=[31.02588,-95.72209];
+     var testPoint=[31.52588,-95.72209];
 
 
  var pt = {
