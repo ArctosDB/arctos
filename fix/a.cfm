@@ -190,7 +190,7 @@ myLayer.addData(gj);
 
 
 
-var im=isMarkerInsidePolygon(marker,myLayer);
+var im=isMarkerInsidePolygon([32.04588,-95.72209],myLayer);
 
 		console.log('im:' + im);
 
