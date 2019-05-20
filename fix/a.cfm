@@ -188,14 +188,15 @@ L.marker([32.04588,-95.72209]).addTo(map)
 		var myLayer = L.geoJSON().addTo(map);
 myLayer.addData(gj);
 
-
-     //console.log(JSON.stringify(testPoint) + '\tin parentCoordinate\t' + test(testPoint, parentCoordinates));
-
      var testpoint='[32.04588,-95.72209]';
 
-var im=isMarkerInsidePolygon(testpoint,myLayer);
 
-		console.log('im:' + im);
+     console.log(JSON.stringify(testPoint) + '\tin parentCoordinate\t' + test(testPoint, gj));
+
+
+//var im=isMarkerInsidePolygon(testpoint,myLayer);
+
+	//	console.log('im:' + im);
 
 
 
