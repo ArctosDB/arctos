@@ -21,7 +21,19 @@
 
 <cfoutput>
 <script>
-var poly='MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)), ((20 35, 10 30, 10 10, 30 5, 45 20, 20 35), (30 20, 20 15, 20 25, 30 20)))';
+var geojsonFeature = {
+    "type": "Feature",
+    "properties": {
+        "name": "Coors Field",
+        "amenity": "Baseball Stadium",
+        "popupContent": "This is where the Rockies play!"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [-104.99404, 39.75621]
+    }
+};
+
 	jQuery(document).ready(function() {
 		var map = L.map('map').setView([51.505, -0.09], 13);
 
@@ -33,22 +45,7 @@ L.marker([51.5, -0.09]).addTo(map)
     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
     .openPopup();
 
-
-
-var wkt = new Wkt.Wkt();
-
-var polygon = wkt.read(poly).toObject();
-
-window.console.log("Leaflet polygon: " + polygon);
-
-polygon.addTo(map);
-
-wkt = new Wkt.Wkt();
-wkt.fromObject(polygon);
-window.console.log("Wkt from Polygon: " + wkt.write());
-
-
-
+L.geoJSON(geojsonFeature).addTo(map);
 
 
 
