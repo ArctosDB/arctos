@@ -19,7 +19,6 @@
 </style>
 
 
-<cfoutput>
 <script>
 var geojsonFeature = {
     "type": "Feature",
@@ -72,4 +71,3 @@ L.geoJSON(myLines, {
 
  <div id="map"></div>
 
-</cfoutput>
