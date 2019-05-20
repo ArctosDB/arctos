@@ -183,7 +183,7 @@ L.marker(testPoint).addTo(map)
 
 		var gj=wkt2geojson(wkt);
 
-console.log(gj.containstestPoint));
+console.log(gj.contains(testPoint));
 
 		console.log('gj:');
 		console.log(gj);
