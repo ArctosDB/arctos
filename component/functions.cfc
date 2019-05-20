@@ -1683,25 +1683,25 @@
 	<cfargument name="urlPath" type="string" required="yes" hint="Base path; /maps/api/geocode/json for example">
 	<cfargument name="urlParams" type="string" required="yes" hint="? parameters; latlng=12,34 for example">
 	<cfargument name="int_ext" type="string" required="no" default="int" hint="public-facing (ext, default) or internal (int, for caching elevation etc.) key to use">
-	<cfif int_ext is "ext">
+	<cfif int_ext is "int">
 		<!--- use the unrestricted key for mapping in UIs and such ---->
 		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
-		<cfquery name="cf_global_settings_ext" datasource="uam_god" >
-			select GMAP_API_KEY_EXTERNAL from cf_global_settings
+		<cfquery name="cf_global_settings_int" datasource="uam_god" >
+			select GMAP_API_KEY_INTERNAL from cf_global_settings
 		</cfquery>
-		<cfset gmapkey=cf_global_settings_ext.GMAP_API_KEY_EXTERNAL>
+		<cfset gmapkey=cf_global_settings_int.GMAP_API_KEY_EXTERNAL>
 	<cfelse>
 		<!--- use the restricted key for geocode/elevation webservice calls and such ---->
 		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
-		<cfquery name="cf_global_settings_int" datasource="uam_god">
-			select GMAP_API_KEY_INTERNAL from cf_global_settings
+		<cfquery name="cf_global_settings_ext" datasource="uam_god">
+			select GMAP_API_KEY_EXTERNAL from cf_global_settings
 		</cfquery>
-		<cfset gmapkey=cf_global_settings_int.GMAP_API_KEY_INTERNAL>
+		<cfset gmapkey=cf_global_settings_ext.GMAP_API_KEY_INTERNAL>
 	</cfif>
 	<cfscript>
 		baseURL = "https://maps.googleapis.com";
 		urlParams &= '&key=' & gmapkey;
-		fullURL = baseURL & urlPath & "?" & urlParams & "&tv=1";
+		fullURL = baseURL & urlPath & "?" & urlParams & "&tv=2";
 		return fullURL;
 	</cfscript>
 </cffunction>
