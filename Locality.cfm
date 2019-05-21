@@ -624,12 +624,13 @@
 	                	---->
 		                <cfset wktpolydata=''>
 		                <cfif len(wkt_media_id) gt 0>
+		                	<br>wkt_media_id::#wkt_media_id#
                				<cfquery name="fmed" datasource="uam_god">
 								select media_uri from media where media_id=#wkt_media_id#
 							</cfquery>
 							<div id="wktfetch">
 								readingWKT data from file
-								<br>#media_uri#
+								<br>#fmed.media_uri#
 								<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 								<cfif left(cfhttp.statuscode,3) is "200">
 									<br>GET success
