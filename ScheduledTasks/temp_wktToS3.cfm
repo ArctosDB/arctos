@@ -60,7 +60,7 @@ part deux: make some Media
 				#mid.mid#,
 				'spatially defines geog_auth_rec',
 				2072,
-				#g.geog_auth_rec_id#,
+				#d.geog_auth_rec_id#,
 				sysdate
 			)
 		</cfquery>
