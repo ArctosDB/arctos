@@ -18,13 +18,15 @@ update temp_geo_wkt set status='is_media' where geog_auth_rec_id in (select geog
 <cfoutput>
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource='uam_god'>
-	select WKT_POLYGON from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
+	select WKT_POLYGON,geog_auth_rec.geog_auth_rec_id from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
 	status is null and rownum=1
 </cfquery>
 <cfloop query="d">
 	<cfif len(WKT_POLYGON) gt 0>
 		<cfset tempName=createUUID()>
-		<br>filename: #tempName#
+		<br>tempName: #tempName#
+		<cfset filename="geo_wkt_#geog_auth_rec_id#.wkt">
+		<br>filename: #filename#
 		<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
 		<br>written
 		<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
