@@ -25,7 +25,7 @@ select status,count(*) from temp_geo_wkt group by status;
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource='uam_god'>
 	select WKT_POLYGON,geog_auth_rec.geog_auth_rec_id from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
-	status is null and rownum<10
+	status is null and rownum<20
 </cfquery>
 <cfloop query="d">
 	<cfif len(WKT_POLYGON) gt 0>
