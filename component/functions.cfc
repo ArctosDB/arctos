@@ -1676,7 +1676,6 @@
 	</cfcatch>
 	</cftry>
 </cffunction>
-
 <!------------------------------------------------------------------->
 <cffunction name="googleSignURL" access="remote">
 	<!--- new thang: use API key, this is overly complex but it's modular so.... --->
