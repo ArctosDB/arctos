@@ -8,7 +8,7 @@ select count(*) from locality where (S$LASTDATE is null or round(sysdate-s$lastd
 	<cfquery name="d" datasource="uam_god">
 		select LOCALITY_ID ,S$LASTDATE from locality where
 		(S$LASTDATE is null or round(sysdate-s$lastdate)>180)
-		and rownum<5
+		and rownum<25
 	</cfquery>
 	<cfloop query="d">
 		<br>#d.LOCALITY_ID#
