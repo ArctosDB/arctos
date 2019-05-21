@@ -25,7 +25,7 @@ select status,count(*) from temp_geo_wkt group by status;
 part deux: make some Media
 
 <cfquery name="d" datasource='uam_god'>
-	select WKT_POLYGON,geog_auth_rec.geog_auth_rec_id,geog_auth_rec.higher_geog from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
+	select file_up_uri, WKT_POLYGON,geog_auth_rec.geog_auth_rec_id,geog_auth_rec.higher_geog from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
 	status ='happy' and rownum<2
 </cfquery>
 <cfloop query="d">
@@ -33,7 +33,7 @@ part deux: make some Media
 		<cfquery name="mid" datasource='uam_god'>
 			select sq_MEDIA_ID.nextval mid from dual
 		</cfquery>
-
+		<br>making #mid.mid#
 		<cfquery name="mm" datasource='uam_god'>
 			insert into media (
 				MEDIA_ID,
