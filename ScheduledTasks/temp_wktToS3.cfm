@@ -14,6 +14,9 @@ select count(*) from geog_auth_rec where WKT_POLYGON like 'MEDIA%';
 
 update temp_geo_wkt set status='is_media' where geog_auth_rec_id in (select geog_auth_rec_id from geog_auth_rec where WKT_POLYGON like 'MEDIA%');
 
+
+update temp_geo_wkt set status='happy',file_up_uri='https://web.corral.tacc.utexas.edu/arctos-s3/dlm/2019-05-21/geo_wkt_1002608.wkt' where geog_auth_rec_id=1002608;
+
 ---->
 <cfoutput>
 <cfset utilities = CreateObject("component","component.utilities")>
@@ -43,7 +46,7 @@ update temp_geo_wkt set status='is_media' where geog_auth_rec_id in (select geog
 		<cfelse>
 			<br>upload to #x.media_uri#
 			<cfquery name="uds" datasource='uam_god'>
-				update temp_geo_wkt set file_up_uri='#x.media_uri#' where geog_auth_rec_id=#geog_auth_rec_id#
+				update temp_geo_wkt set  status='happy',file_up_uri='#x.media_uri#' where geog_auth_rec_id=#geog_auth_rec_id#
 			</cfquery>
 		</cfif>
 	<cfelse>
