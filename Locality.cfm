@@ -617,17 +617,19 @@
 								</span>
 							</cfif>
 						</div>
+
+						<!----
 						<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
-		                <cfset wktpolydata=wkt_polygon>
-		                <cfif len(wkt_polygon) gt 0 and left(wkt_polygon,7) is 'MEDIA::'>
-			                <cfset meid=right(wkt_polygon,len(wkt_polygon)-7)>
+	                	---->
+		                <cfset wktpolydata=''>
+		                <cfif len(wkt_media_id) gt 0>
                				<cfquery name="fmed" datasource="uam_god">
-								select media_uri from media where media_id=#meid#
+								select media_uri from media where media_id=#wkt_media_id#
 							</cfquery>
 							<div id="wktfetch">
 								readingWKT data from file
-								<br>#fmed.media_uri#
+								<br>#media_uri#
 								<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 								<cfif left(cfhttp.statuscode,3) is "200">
 									<br>GET success
@@ -1805,7 +1807,10 @@ You deleted a collecting event.
 					island = '#escapeQuotes(island)#',
 					sea = '#escapeQuotes(sea)#',
 					geog_remark = '#escapeQuotes(geog_remark)#',
+					wkt_media_id=#wkt_media_id#
+					<!----
 					wkt_polygon=<cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">
+					---->
 				where
 					geog_auth_rec_id = #geog_auth_rec_id#
 			</cfquery>

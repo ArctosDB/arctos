@@ -27,6 +27,71 @@ create table bak_geog_auth_rec20190521 as select * from geog_auth_rec;
 ---->
 <cfoutput>
 
+<!--- blargh rules --->
+	exec pause_maintenance('off');
+	lock table geog_auth_rec in exclusive mode nowait;
+	alter trigger TRG_HIGHER_GEOG_MAGICDUPS disable;
+	alter trigger TR_GEOGAUTHREC_AU_FLAT disable;
+	alter trigger TRG_MK_HIGHER_GEOG disable;
+	alter trigger TR_LOG_GEOG_UPDATE disable;
+
+
+
+
+
+
+
+	begin
+		for r in (	select geog_auth_rec_id,media_id from temp_geo_wkt where status ='made_media' and rownum<2000) loop
+			dbms_output.put_line(r.geog_auth_rec_id);
+			update geog_auth_rec set WKT_POLYGON='MEDIA::' || r.media_id where geog_auth_rec_id=r.geog_auth_rec_id;
+			update temp_geo_wkt set status='linked_made_media' where geog_auth_rec_id=r.geog_auth_rec_id;
+		end loop;
+	end;
+	/
+
+	alter trigger TRG_HIGHER_GEOG_MAGICDUPS enable;
+	alter trigger TR_GEOGAUTHREC_AU_FLAT enable;
+	alter trigger TRG_MK_HIGHER_GEOG enable;
+	alter trigger TR_LOG_GEOG_UPDATE enable;
+
+	commit;
+		exec pause_maintenance('on');
+
+
+
+-- make this easy and unambiguous
+
+alter table geog_auth_rec add wkt_media_id number;
+
+select distinct to_number(trim(DBMS_LOB.SUBSTR(wkt_polygon,500,8))) from geog_auth_rec;
+
+ALTER TABLE geog_auth_rec ADD CONSTRAINT fk_geog_wkt_media FOREIGN KEY (wkt_media_id)   REFERENCES media (media_id);
+
+
+	exec pause_maintenance('off');
+	lock table geog_auth_rec in exclusive mode nowait;
+	alter trigger TRG_HIGHER_GEOG_MAGICDUPS disable;
+	alter trigger TR_GEOGAUTHREC_AU_FLAT disable;
+	alter trigger TRG_MK_HIGHER_GEOG disable;
+	alter trigger TR_LOG_GEOG_UPDATE disable;
+
+
+
+update geog_auth_rec set wkt_media_id=to_number(trim(DBMS_LOB.SUBSTR(wkt_polygon,500,8))) ;
+
+
+	alter trigger TRG_HIGHER_GEOG_MAGICDUPS enable;
+	alter trigger TR_GEOGAUTHREC_AU_FLAT enable;
+	alter trigger TRG_MK_HIGHER_GEOG enable;
+	alter trigger TR_LOG_GEOG_UPDATE enable;
+
+	commit;
+		exec pause_maintenance('on');
+
+ DBMS_LOB.SUBSTR(wkt_polygon,10),
+
+
 	three: update geog to use media
 
 
