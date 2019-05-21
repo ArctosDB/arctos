@@ -22,6 +22,8 @@ update temp_geo_wkt set status='happy',file_up_uri='https://web.corral.tacc.utex
 select status,count(*) from temp_geo_wkt group by status;
 ---->
 <cfoutput>
+
+	ctime:#now()#
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource='uam_god'>
 	select WKT_POLYGON,geog_auth_rec.geog_auth_rec_id from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
