@@ -20,8 +20,33 @@ update temp_geo_wkt set status='happy',file_up_uri='https://web.corral.tacc.utex
 
 
 select status,count(*) from temp_geo_wkt group by status;
+
+
+create table bak_geog_auth_rec20190521 as select * from geog_auth_rec;
+
 ---->
 <cfoutput>
+
+	three: update geog to use media
+
+
+<cfquery name="d" datasource='uam_god'>
+	select geog_auth_rec_id,media_id from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
+	status ='made_media' and rownum<2
+</cfquery>
+<cfloop query="d">
+<br>	#geog_auth_rec_id#
+<cfquery name="u" datasource='uam_god'>
+	update geog_auth_rec set WKT_POLYGON='MEDIA::#media_id#' where geog_auth_rec_id=#geog_auth_rec_id#
+</cfquery>
+
+<cfquery name="ml" datasource='uam_god'>
+	update temp_geo_wkt set status='linked_made_media' where geog_auth_rec_id=#geog_auth_rec_id#
+</cfquery>
+</cfloop>
+
+
+	<!--------------
 part deux: make some Media
 
 <cfquery name="d" datasource='uam_god'>
@@ -108,7 +133,7 @@ part deux: make some Media
 
 
 </cfloop>
-
+---------------->
 
 <!-------------------
 init push to s3
