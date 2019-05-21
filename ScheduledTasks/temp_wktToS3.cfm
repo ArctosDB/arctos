@@ -22,6 +22,96 @@ update temp_geo_wkt set status='happy',file_up_uri='https://web.corral.tacc.utex
 select status,count(*) from temp_geo_wkt group by status;
 ---->
 <cfoutput>
+part deux: make some Media
+
+<cfquery name="d" datasource='uam_god'>
+	select WKT_POLYGON,geog_auth_rec.geog_auth_rec_id,geog_auth_rec.higher_geog from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
+	status ='happy' and rownum<2
+</cfquery>
+<cfloop query="d">
+	<cftransaction>
+		<cfquery name="mid" datasource='uam_god'>
+			select sq_MEDIA_ID.nextval mid from dual
+		</cfquery>
+
+		<cfquery name="mm" datasource='uam_god'>
+			insert into media (
+				MEDIA_ID,
+				MEDIA_URI,
+				MIME_TYPE,
+				MEDIA_TYPE
+			) values (
+				#mid.mid#,
+				'#d.file_up_uri#',
+				'text/plain',
+				'text'
+			)
+		</cfquery>
+		<cfquery name="mr" datasource='uam_god'>
+			insert into media_relations (
+				MEDIA_RELATIONS_ID,
+				MEDIA_ID,
+				MEDIA_RELATIONSHIP,
+				CREATED_BY_AGENT_ID,
+				RELATED_PRIMARY_KEY,
+				CREATED_ON_DATE
+			) values (
+				sq_MEDIA_RELATIONS_ID.nextval,
+				#mid.mid#,
+				'spatially defines geog_auth_rec',
+				2072,
+				#g.geog_auth_rec_id#,
+				sysdate
+			)
+		</cfquery>
+		<cfquery name="ml" datasource='uam_god'>
+				insert into media_labels (
+					MEDIA_LABEL_ID,
+					MEDIA_ID,
+					MEDIA_LABEL,
+					LABEL_VALUE,
+					ASSIGNED_BY_AGENT_ID,
+					ASSIGNED_ON_DATE
+				) values (
+					sq_MEDIA_LABEL_ID.nextval,
+					#mid.mid#,
+					'description',
+					'Polygon for #d.higher_geog#',
+					2072,
+					sysdate
+				)
+			</cfquery>
+		<cfif len(d.md5) gt 0>
+			<cfquery name="ml" datasource='uam_god'>
+				insert into media_labels (
+					MEDIA_LABEL_ID,
+					MEDIA_ID,
+					MEDIA_LABEL,
+					LABEL_VALUE,
+					ASSIGNED_BY_AGENT_ID,
+					ASSIGNED_ON_DATE
+				) values (
+					sq_MEDIA_LABEL_ID.nextval,
+					#mid.mid#,
+					'MD5 checksum',
+					'#d.md5#',
+					2072,
+					sysdate
+				)
+			</cfquery>
+		</cfif>
+		<cfquery name="ml" datasource='uam_god'>
+			update temp_geo_wkt set status='made_media',media_id=#mid.mid# where geog_auth_rec_id=#geog_auth_rec_id#
+		</cfquery>
+
+	</cftransaction>
+
+
+</cfloop>
+
+
+<!-------------------
+init push to s3
 
 	ctime:#now()#
 <cfset utilities = CreateObject("component","component.utilities")>
@@ -66,40 +156,5 @@ select status,count(*) from temp_geo_wkt group by status;
 		</cfquery>
 	</cfif>
 </cfloop>
-
+------------------>
 </cfoutput>
-
-<!-----------
-	<cfif len(FILETOUPLOAD) gt 0>
-				<!---- get the filename as uploaded ---->
-			    <cfset tmpPartsArray = Form.getPartsArray() />
-			    <cfif IsDefined("tmpPartsArray")>
-			        <cfloop array="#tmpPartsArray#" index="tmpPart">
-			            <cfif tmpPart.isFile() AND tmpPart.getName() EQ "FILETOUPLOAD"> <!---   --->
-			               <cfset fileName=tmpPart.getFileName() >
-			            </cfif>
-			        </cfloop>
-			    </cfif>
-				<cfif not isdefined("filename") or len(filename) is 0>
-					Didn't get filename<cfabort>
-				</cfif>
-				<!---- read the file ---->
-				<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-				<!---- temporary safe name ---->
-				<cfset tempName=createUUID()>
-				<!---- stash the file in the sandbox ---->
-				<cffile	action = "upload" destination = "#Application.sandbox#/#tempName#.tmp" fileField = "FILETOUPLOAD">
-				<!--- send it to S3 ---->
-				<cfset utilities = CreateObject("component","component.utilities")>
-				<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
-				<cfif not isjson(x)>
-					upload fail<cfdump var=#x#><cfabort>
-				</cfif>
-				<cfset x=deserializeJson(x)>
-				<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
-					upload fail<cfdump var=#x#><cfabort>
-				</cfif>
-				<cfset preview_uri=x.MEDIA_URI>
-			</cfif>
-
-			--------->
