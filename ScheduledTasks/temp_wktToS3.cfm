@@ -42,7 +42,9 @@ select status,count(*) from temp_geo_wkt group by status;
 			upload fail<cfdump var=#x#><cfabort>
 		</cfif>
 		<cfset x=deserializeJson(x)>
+		<!---
 		<cfdump var=#x#>
+		--->
 		<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
 			upload fail<cfdump var=#x#><cfabort>
 			<cfquery name="uds" datasource='uam_god'>
