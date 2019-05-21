@@ -26,7 +26,7 @@ part deux: make some Media
 
 <cfquery name="d" datasource='uam_god'>
 	select md5, file_up_uri, WKT_POLYGON,geog_auth_rec.geog_auth_rec_id,geog_auth_rec.higher_geog from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
-	status ='happy' and rownum<200
+	status ='happy' and rownum<2000
 </cfquery>
 <cfloop query="d">
 	<cftransaction>
