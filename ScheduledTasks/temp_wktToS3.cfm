@@ -31,8 +31,7 @@ create table bak_geog_auth_rec20190521 as select * from geog_auth_rec;
 
 
 <cfquery name="d" datasource='uam_god'>
-	select geog_auth_rec_id,media_id from geog_auth_rec,temp_geo_wkt where geog_auth_rec.geog_auth_rec_id=temp_geo_wkt.geog_auth_rec_id and
-	status ='made_media' and rownum<2
+	select geog_auth_rec_id,media_id from temp_geo_wkt where status ='made_media' and rownum<2
 </cfquery>
 <cfloop query="d">
 <br>	#geog_auth_rec_id#
