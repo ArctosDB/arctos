@@ -626,7 +626,7 @@
 	                	---->
 
 						<label for="wkt_media_id">wkt_media_id</label>
-	                	<input type="number" name="wkt_media_id" id="wkt_media_id" value="#wkt_media_id#" >
+	                	<input type="number" name="wkt_media_id" id="wkt_media_id" value="#wkt_media_id#">
 		                <cfset wktpolydata=''>
 		                <cfif len(wkt_media_id) gt 0>
 		                	<br>wkt_media_id::#wkt_media_id#
@@ -635,7 +635,6 @@
 							</cfquery>
 							<div id="wktfetch">
 								readingWKT data from file
-								<br>#fmed.media_uri#
 								<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 								<cfif left(cfhttp.statuscode,3) is "200">
 									<br>GET success

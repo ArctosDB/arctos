@@ -760,7 +760,7 @@
 	<cfargument name="specimen_event_id" type="numeric" required="yes">
 	<cfquery name="d" datasource="uam_god">
 		select
-			geog_auth_rec.WKT_POLYGON
+			geog_auth_rec.wkt_media_id
 		from
 			geog_auth_rec,
 			locality,
@@ -772,15 +772,14 @@
 			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 			specimen_event.specimen_event_id=#specimen_event_id#
 	</cfquery>
-	<cfif left(d.WKT_POLYGON,5) is 'MEDIA'>
-		<cfset mid=listlast(d.WKT_POLYGON,':')>
+	<cfif len(d.wkt_media_id) gt 0>
 		<cfquery name="m" datasource="uam_god">
-			select media_uri from media where media_id=#mid#
+			select media_uri from media where media_id=#d.wkt_media_id#
 		</cfquery>
 		<cfhttp method="get" url="#m.media_uri#"></cfhttp>
 		<cfreturn cfhttp.filecontent>
 	<cfelse>
-		<cfreturn d.WKT_POLYGON>
+		<cfreturn>
 	</cfif>
 </cffunction>
 
