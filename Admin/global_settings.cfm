@@ -68,18 +68,15 @@ update cf_global_settings set GENBANK_ENDPOINT='ftp-private.ncbi.nlm.nih.gov';
 
 
 			<!---- google ---->
-			<label for="GOOGLE_CLIENT_ID">GOOGLE_CLIENT_ID (https://google.secure.force.com)</label>
-			<input type="text" name="GOOGLE_CLIENT_ID" id="GOOGLE_CLIENT_ID" size="80" value="#d.GOOGLE_CLIENT_ID#">
+			<label for="GMAP_API_KEY_INTERNAL">GMAP_API_KEY_INTERNAL (API Key for internal - eg, services - mapping)</label>
+			<input type="text" name="GMAP_API_KEY_INTERNAL" id="GMAP_API_KEY_INTERNAL" size="80" value="#d.GMAP_API_KEY_INTERNAL#">
 
-			<label for="GOOGLE_PRIVATE_KEY">GOOGLE_PRIVATE_KEY (https://google.secure.force.com)</label>
-			<input type="text" name="GOOGLE_PRIVATE_KEY" id="GOOGLE_PRIVATE_KEY" size="80" value="#d.GOOGLE_PRIVATE_KEY#">
+			<label for="GMAP_API_KEY_EXTERNAL">GMAP_API_KEY_EXTERNAL (API Key for external - eg, in-browser - mapping)</label>
+			<input type="text" name="GMAP_API_KEY_EXTERNAL" id="GMAP_API_KEY_EXTERNAL" size="80" value="#d.GMAP_API_KEY_EXTERNAL#">
 
 
 			<label for="GOOGLE_UACCT">GOOGLE_UACCT (Analytics logging)</label>
 			<input type="text" name="GOOGLE_UACCT" id="GOOGLE_UACCT" size="80" value="#d.GOOGLE_UACCT#">
-
-			<label for="GMAP_API_KEY">GMAP_API_KEY (Public Google APIs)</label>
-			<input type="text" name="GMAP_API_KEY" id="GMAP_API_KEY" size="80" value="#d.GMAP_API_KEY#">
 
 			<!--- DOIs ---->
 			<label for="EZID_USERNAME">EZID_USERNAME (http://ezid.cdlib.org/)</label>
@@ -173,12 +170,11 @@ update cf_global_settings set GENBANK_ENDPOINT='ftp-private.ncbi.nlm.nih.gov';
 	<cfif action is "save">
 		<cfquery name="d" datasource="uam_god">
 			update cf_global_settings set
-				GOOGLE_CLIENT_ID='#GOOGLE_CLIENT_ID#',
-				GOOGLE_PRIVATE_KEY='#GOOGLE_PRIVATE_KEY#',
+				GMAP_API_KEY_INTERNAL='#GMAP_API_KEY_INTERNAL#',
+				GMAP_API_KEY_EXTERNAL='#GMAP_API_KEY_EXTERNAL#',
 				EZID_USERNAME='#EZID_USERNAME#',
 				EZID_PASSWORD='#EZID_PASSWORD#',
 				EZID_SHOULDER='#EZID_SHOULDER#',
-				GMAP_API_KEY='#GMAP_API_KEY#',
 				BUG_REPORT_EMAIL='#BUG_REPORT_EMAIL#',
 				GOOGLE_UACCT='#GOOGLE_UACCT#',
 				GENBANK_PRID='#GENBANK_PRID#',

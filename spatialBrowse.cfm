@@ -4,6 +4,9 @@
 DEPRECATED: Please comment at <a href="https://github.com/ArctosDB/arctos/issues/2081">https://github.com/ArctosDB/arctos/issues/2081</a>
 </div>
 
+<cfabort>
+
+
 <!--- setup
 
 drop table temp_gmapsrch;
