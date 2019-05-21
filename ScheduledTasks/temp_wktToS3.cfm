@@ -6,6 +6,7 @@ create table temp_geo_wkt (
 );
 
 alter table temp_geo_wkt add file_up_uri varchar2(4000);
+alter table temp_geo_wkt add md5 varchar2(4000);
 
 
 insert into temp_geo_wkt (geog_auth_rec_id) (select geog_auth_rec_id from geog_auth_rec where WKT_POLYGON is not null);
@@ -46,7 +47,11 @@ update temp_geo_wkt set status='happy',file_up_uri='https://web.corral.tacc.utex
 		<cfelse>
 			<br>upload to #x.media_uri#
 			<cfquery name="uds" datasource='uam_god'>
-				update temp_geo_wkt set  status='happy',file_up_uri='#x.media_uri#' where geog_auth_rec_id=#geog_auth_rec_id#
+				update temp_geo_wkt set
+					status='happy',
+					file_up_uri='#x.media_uri#',
+					md5='#x.MD5#'
+				 where geog_auth_rec_id=#geog_auth_rec_id#
 			</cfquery>
 		</cfif>
 	<cfelse>
