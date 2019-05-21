@@ -2,12 +2,19 @@
 	alter table cf_global_settings add announcement_text varchar2 (255);
 	alter table cf_global_settings add announcement_expires date;
 
-		alter table cf_global_settings add GENBANK_ENDPOINT varchar2(255);
-update cf_global_settings set GENBANK_ENDPOINT='ftp-private.ncbi.nlm.nih.gov';
+	alter table cf_global_settings add GENBANK_ENDPOINT varchar2(255);
+
+	-- 20190521 updates
+	create table bak_20190512cf_global as select * from cf_global_settings;
+	alter table cf_global_settings drop column GOOGLE_CLIENT_ID;
+	alter table cf_global_settings drop column GOOGLE_PRIVATE_KEY;
+	alter table cf_global_settings drop column GMAP_API_KEY;
+
+
 ---->
 <!---- force-refresh cache---->
 	<cfquery name="g_a_t" datasource="uam_god" cachedwithin="#createtimespan(0,0,0,0)#">
-		select announcement_text from cf_global_settings where  announcement_expires>=trunc(sysdate)
+		select announcement_text from cf_global_settings where announcement_expires>=trunc(sysdate)
 	</cfquery>
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
@@ -96,6 +103,16 @@ update cf_global_settings set GENBANK_ENDPOINT='ftp-private.ncbi.nlm.nih.gov';
 			<input type="text" name="GENBANK_PASSWORD" id="GENBANK_PASSWORD" size="80" value="#d.GENBANK_PASSWORD#">
 			<label for="GENBANK_USERNAME">GENBANK_USERNAME(GenBank data sharing)</label>
 			<input type="text" name="GENBANK_USERNAME" id="GENBANK_USERNAME" size="80" value="#d.GENBANK_USERNAME#">
+			<label for="GENBANK_ENDPOINT">GENBANK_ENDPOINT(GenBank data sharing)</label>
+			<input type="text" name="GENBANK_ENDPOINT" id="GENBANK_ENDPOINT" size="80" value="#d.GENBANK_ENDPOINT#">
+
+
+			<label for="SPECIESPLUS_TOKEN">SPECIESPLUS_TOKEN (CITES etc. webservice)</label>
+			<input type="text" name="SPECIESPLUS_TOKEN" id="SPECIESPLUS_TOKEN" size="80" value="#d.SPECIESPLUS_TOKEN#">
+
+
+
+
 
 			<!--- contacts ---->
 
@@ -119,6 +136,18 @@ update cf_global_settings set GENBANK_ENDPOINT='ftp-private.ncbi.nlm.nih.gov';
 
 			<label for="monitor_email_pwd">monitor_email_pwd</label>
 			<input type="text" name="monitor_email_pwd" id="monitor_email_pwd" size="80" value="#d.monitor_email_pwd#">
+
+			<label for="S3_ENDPOINT">S3_ENDPOINT (TACC Media)</label>
+			<input type="text" name="S3_ENDPOINT" id="S3_ENDPOINT" size="80" value="#d.S3_ENDPOINT#">
+
+
+			<label for="S3_ACCESSKEY">S3_ACCESSKEY (TACC Media)</label>
+			<input type="text" name="S3_ACCESSKEY" id="S3_ACCESSKEY" size="80" value="#d.S3_ACCESSKEY#">
+
+			<label for="S3_SECRETKEY">S3_SECRETKEY (TACC Media)</label>
+			<input type="text" name="S3_SECRETKEY" id="S3_SECRETKEY" size="80" value="#d.S3_SECRETKEY#">
+
+
 
 
 			<div style="display:table-row">
@@ -187,7 +216,15 @@ update cf_global_settings set GENBANK_ENDPOINT='ftp-private.ncbi.nlm.nih.gov';
 				monitor_email_addr='#monitor_email_addr#',
 				monitor_email_pwd='#monitor_email_pwd#',
 				announcement_text='#announcement_text#',
-				announcement_expires='#announcement_expires#'
+				announcement_expires='#announcement_expires#',
+				S3_ENDPOINT='#S3_ENDPOINT#',
+				S3_ACCESSKEY='#S3_ACCESSKEY#',
+				S3_SECRETKEY='#S3_SECRETKEY#',
+				GENBANK_ENDPOINT='#GENBANK_ENDPOINT#',
+				SPECIESPLUS_TOKEN='#SPECIESPLUS_TOKEN#'
+
+
+
 		</cfquery>
 		<cflocation url="global_settings.cfm" addtoken="false">
 	</cfif>
