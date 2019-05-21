@@ -621,7 +621,12 @@
 						<!----
 						<label for="wkt_polygon">wkt_polygon</label>
 	                	<textarea name="wkt_polygon" id="wkt_polygon" class="hugetextarea" rows="60" cols="10">#wkt_polygon#</textarea>
+
+
 	                	---->
+
+						<label for="wkt_media_id">wkt_media_id</label>
+	                	<input type="number" name="wkt_media_id" id="wkt_media_id" value="#wkt_media_id#" >
 		                <cfset wktpolydata=''>
 		                <cfif len(wkt_media_id) gt 0>
 		                	<br>wkt_media_id::#wkt_media_id#
