@@ -1685,15 +1685,14 @@
 	<cfargument name="int_ext" type="string" required="no" default="ext" hint="public-facing (ext, default) or internal (int, for caching elevation etc.) key to use">
 	<cfif int_ext is "int">
 		<!--- use the unrestricted key for mapping in UIs and such ---->
-		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
-		<cfquery name="cf_global_settings_int" datasource="uam_god" >
+		<!-------->
+		<cfquery name="cf_global_settings_int" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select GMAP_API_KEY_INTERNAL from cf_global_settings
 		</cfquery>
 		<cfset gmapkey=cf_global_settings_int.GMAP_API_KEY_INTERNAL>
 	<cfelse>
 		<!--- use the restricted key for geocode/elevation webservice calls and such ---->
-		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
-		<cfquery name="cf_global_settings_ext" datasource="uam_god">
+		<cfquery name="cf_global_settings_ext" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select GMAP_API_KEY_EXTERNAL from cf_global_settings
 		</cfquery>
 		<cfset gmapkey=cf_global_settings_ext.GMAP_API_KEY_EXTERNAL>
