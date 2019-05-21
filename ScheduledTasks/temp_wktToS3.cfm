@@ -32,12 +32,18 @@ update temp_geo_wkt set status='is_media' where geog_auth_rec_id in (select geog
 			upload fail<cfdump var=#x#><cfabort>
 		</cfif>
 		<cfset x=deserializeJson(x)>
+		<cfdump var=#x#>
 		<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
 			upload fail<cfdump var=#x#><cfabort>
+			<cfquery name="uds" datasource='uam_god'>
+				update temp_geo_wkt set status='upload_fail' where geog_auth_rec_id=#geog_auth_rec_id#
+			</cfquery>
+		<cfelse>
+			<br>upload to #x.media_uri#
+			<cfquery name="uds" datasource='uam_god'>
+				update temp_geo_wkt set file_up_uri='#x.media_uri#' where geog_auth_rec_id=#geog_auth_rec_id#
+			</cfquery>
 		</cfif>
-		<cfdump var=#x#>
-				
-				
 	<cfelse>
 		<cfquery name="uds" datasource='uam_god'>
 			update temp_geo_wkt set status='zero_len_wkt' where geog_auth_rec_id=#geog_auth_rec_id#
