@@ -140,7 +140,7 @@
 					</cfquery>
 				<cfelse>
 					<br>upload to #x.media_uri#
-					<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					<cfquery name="mid" datasource="uam_god">
 						select sq_MEDIA_ID.nextval mid from dual
 					</cfquery>
 					<br>making media #mid.mid#
