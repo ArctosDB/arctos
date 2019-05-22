@@ -629,7 +629,6 @@
 	                	<input type="number" name="wkt_media_id" id="wkt_media_id" value="#wkt_media_id#">
 		                <cfset wktpolydata=''>
 		                <cfif len(wkt_media_id) gt 0>
-		                	<br>wkt_media_id::#wkt_media_id#
                				<cfquery name="fmed" datasource="uam_god">
 								select media_uri from media where media_id=#wkt_media_id#
 							</cfquery>
