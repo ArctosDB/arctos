@@ -141,11 +141,11 @@
 					</cfquery>
 				<cfelse>
 					<br>upload to #x.media_uri#
-					<cfquery name="mid" datasource='uam_god'>
+					<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select sq_MEDIA_ID.nextval mid from dual
 					</cfquery>
 					<br>making media #mid.mid#
-					<cfquery name="mm" datasource='uam_god'>
+					<cfquery name="mm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into media (
 							MEDIA_ID,
 							MEDIA_URI,
@@ -159,7 +159,7 @@
 						)
 					</cfquery>
 					<cfif len(x.md5) gt 0>
-						<cfquery name="ml" datasource='uam_god'>
+						<cfquery name="ml" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 							insert into media_labels (
 								MEDIA_LABEL_ID,
 								MEDIA_ID,
