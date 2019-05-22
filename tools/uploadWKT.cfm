@@ -1,10 +1,18 @@
 <!----
+	drop table cf_temp_wkt;
+	
 	create table cf_temp_wkt (
 		temp_id varchar2(255) not null,
-		wkt_polygon clob not null
+		wkt_polygon clob not null,
+		media_id number
 	);
 
 	create unique index cf_temp_wkt_id on cf_temp_wkt(temp_id) tablespace uam_idx_1;
+	
+	
+	create or replace public synonym cf_temp_wkt for cf_temp_wkt;
+	
+	grant all on cf_temp_wkt to manage_media;
 ---->
 
 <cfinclude template="/includes/_header.cfm">
@@ -96,69 +104,54 @@
 			select * from cf_temp_wkt
 		</cfquery>
 		<cfdump var=#d#>
+		
+		<p>
+			Very sure that's all spiffy? <a href="uploadWKT.cfm?action=loads3">click here</a> to create files on the document server.
+		</p>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
-<cfif action is "preview">
+<cfif action is "loads3">
+	<cfsetting requestTimeOut = "600" >
+	<cfset utilities = CreateObject("component","component.utilities")>
+
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where username='#session.username#' order by submitted_date desc
+			select * from cf_temp_wkt where media_id is null and rownum<2
 		</cfquery>
-		<cfif d.recordcount is 0>
-			You have no jobs.<cfabort>
-		</cfif>
-		<a name="top"></a>
-		<p>
-			Summary
-		</p>
 		<cfloop query="d">
-			<blockquote>
-				<br>Job Name: #JOBNAME#
-				<br>Submitted Date: #submitted_date#
-				<br>Status: #STATUS#
-				<br><a href="###d.zid#">Scroll To</a>
-			</blockquote>
-		</cfloop>
-		<cfloop query="d">
-			<hr>
-			<a name="#d.zid#" href="##top">Scroll Top</a>
-			<br>Job Name: #JOBNAME#
-			<br>Submitted Date: #submitted_date#
-			<br>Status: #STATUS#
-			<br><a href="uploadMedia.cfm?action=regen_download&zid=#d.zid#">Regenerate Download File</a>
-			<cfquery name="f" datasource="uam_god">
-				select * from cf_temp_zipfiles where zid=#d.zid#
-			</cfquery>
-			<table border>
-				<tr>
-					<th>STATUS</th>
-					<th>FILENAME</th>
-					<th>NEW_FILENAME</th>
-					<th>PREVIEW_FILENAME</th>
-					<th>REMOTEPATH</th>
-					<th>REMOTE_PREVIEW</th>
-					<th>MIME_TYPE</th>
-					<th>MEDIA_TYPE</th>
-					<th>MD5</th>
-				</tr>
-				<cfloop query="f">
-					<tr>
-						<td>#STATUS#</td>
-						<td>#FILENAME#</td>
-						<td>#NEW_FILENAME#</td>
-						<td>#PREVIEW_FILENAME#</td>
-						<td>
-							<a href="#REMOTEPATH#" target="_blank">#REMOTEPATH#</a>
-						</td>
-						<td>
-							<a href="#REMOTE_PREVIEW#" target="_blank">#REMOTE_PREVIEW#</a>
-						</td>
-						<td>#MIME_TYPE#</td>
-						<td>#MEDIA_TYPE#</td>
-						<td>#MD5#</td>
-					</tr>
-				</cfloop>
-			</table>
+			<cftransaction>
+				<cfset tempName=createUUID()>
+				<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
+				<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp","#tempName#.wkt")>
+				<cfif not isjson(x)>
+					upload fail<cfdump var=#x#>
+					<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update temp_geo_wkt set status='upload_fail' where geog_auth_rec_id=#geog_auth_rec_id#
+					</cfquery>
+					
+				</cfif>
+				<cfset x=deserializeJson(x)>
+				<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
+					upload fail<cfdump var=#x#><cfabort>
+					<cfquery name="uds" datasource='uam_god'>
+						update temp_geo_wkt set status='upload_fail' where geog_auth_rec_id=#geog_auth_rec_id#
+					</cfquery>
+				<cfelse>
+					<br>upload to #x.media_uri#
+					<cfquery name="uds" datasource='uam_god'>
+						update temp_geo_wkt set
+							status='happy',
+							file_up_uri='#x.media_uri#',
+							md5='#x.MD5#'
+						 where geog_auth_rec_id=#geog_auth_rec_id#
+					</cfquery>
+				</cfif>
+		
+		</cftransaction>
+		
+
+		
 		</cfloop>
 	</cfoutput>
 </cfif>
