@@ -121,9 +121,11 @@
 			<br>Reload this page if it times out, or after 10 minutes if your browser gets confused.
 		</p>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_wkt where media_id is null and rownum<3
+			select * from cf_temp_wkt where media_id is null
 		</cfquery>
 		<cfloop query="d">
+				<hr>
+				<br>processing #temp_id#
 				<cfset tempName=createUUID()>
 				<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
 				<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp","#tempName#.wkt")>
@@ -178,7 +180,7 @@
 							)
 						</cfquery>
 					</cfif>
-					<br>made media #mid.mid#
+					<br>made media <a href="/media/#mid.mid#">#mid.mid#</a>
 					<cfquery name="ss" datasource="uam_god">
 						update cf_temp_wkt set media_id=#mid.mid# where temp_id='#temp_id#'
 					</cfquery>
