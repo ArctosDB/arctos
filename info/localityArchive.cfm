@@ -144,7 +144,7 @@
 			GEOREFERENCE_SOURCE,
 			GEOREFERENCE_PROTOCOL,
 			LOCALITY_NAME,
-		 	md5hash(WKT_POLYGON) polyhash,
+		 	wkt_media_id polyhash,
 		 	getPreferredAgentName(changed_agent_id) whodunit,
 		 	changedate
 		 from
@@ -199,7 +199,7 @@
 			<th>Error</th>
 			<th>Protocol</th>
 			<th>Source</th>
-			<th>WKT-hash</th>
+			<th>WKTMediaID</th>
 			<th>Remark</th>
 		</tr>
 		<cfloop query="dlocid">
@@ -226,7 +226,7 @@
 					GEOREFERENCE_SOURCE,
 					GEOREFERENCE_PROTOCOL,
 					LOCALITY_NAME,
-				 	md5hash(WKT_POLYGON) polyhash
+				 	wkt_media_id polyhash
 				 from
 				 	locality
 				 where

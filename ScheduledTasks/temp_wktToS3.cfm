@@ -1,4 +1,49 @@
 
+alter table bulkloader add wkt_media_id number;
+alter table BULKLOADER_ATTEMPTS add wkt_media_id number;
+alter table BULKLOADER_CLONE add wkt_media_id number;
+alter table BULKLOADER_DELETES add wkt_media_id number;
+alter table BULKLOADER_STAGE add wkt_media_id number;
+alter table BULKLOADER_UNDELETES add wkt_media_id number;
+alter table PRE_BULKLOADER add wkt_media_id number;
+
+alter table bulkloader DROP COLUMN WKT_POLYGON;
+alter table BULKLOADER_CLONE DROP COLUMN WKT_POLYGON;
+alter table BULKLOADER_STAGE DROP COLUMN WKT_POLYGON;
+alter table PRE_BULKLOADER DROP COLUMN WKT_POLYGON;
+
+alter table  add wkt_media_id number;
+alter table BULKLOADER_UNDELETES add wkt_media_id number;
+alter table  add wkt_media_id number;
+
+
+
+
+alter table bulkloader add wkt_media_id number;
+alter table bulkloader add wkt_media_id number;
+alter table bulkloader add wkt_media_id number;
+alter table bulkloader add wkt_media_id number;
+alter table bulkloader add wkt_media_id number;
+alter table bulkloader add wkt_media_id number;
+
+TABLE_NAME
+------------------------------------------------------------------------------------------
+BAK_BULKLOADER20190430
+BULKLOADER
+BULKLOADER_ATTEMPTS
+
+
+BULKLOADER_KEYS
+
+BULKLOADER_TEST
+
+
+PRE_BULKLOADER_DL
+TEMP_PRE_BULKLOADER
+
+
+
+
 <!----
 --- now locality
 create table temp_loc_wkt (
@@ -16,6 +61,169 @@ select status,count(*) from temp_loc_wkt group by status;
 
 ---->
 <cfoutput>
+
+
+
+	alter table locality add wkt_media_id number;
+ALTER TABLE locality ADD CONSTRAINT fk_locality_wkt_media FOREIGN KEY (wkt_media_id)   REFERENCES media (media_id);
+
+
+exec pause_maintenance('off');
+
+lock table locality in exclusive mode nowait;
+
+alter trigger TRG_LOCALITY_BIU disable;
+alter trigger TR_LOCALITY_BUD disable;
+alter trigger TR_LOCALITY_AU_FLAT disable;
+alter trigger TR_LOCALITY_FAKEERR_AID disable;
+
+
+
+
+	begin
+		for r in (	select locality_id,media_id from temp_loc_wkt where status ='made_media' and rownum<2000) loop
+			update locality set wkt_media_id=r.media_id where locality_id=r.locality_id;
+		end loop;
+	end;
+	/
+
+alter trigger TR_LOCALITY_FAKEERR_AID enable;
+alter trigger TR_LOCALITY_AU_FLAT enable;
+alter trigger TRG_LOCALITY_BIU enable;
+alter trigger TR_LOCALITY_BUD enable;
+
+
+exec pause_maintenance('on');
+
+
+
+
+
+
+	exec pause_maintenance('off');
+	lock table geog_auth_rec in exclusive mode nowait;
+	alter trigger TRG_HIGHER_GEOG_MAGICDUPS disable;
+	alter trigger TR_GEOGAUTHREC_AU_FLAT disable;
+	alter trigger TRG_MK_HIGHER_GEOG disable;
+	alter trigger TR_LOG_GEOG_UPDATE disable;
+
+
+
+
+
+
+
+	begin
+		for r in (	select geog_auth_rec_id,media_id from temp_geo_wkt where status ='made_media' and rownum<2000) loop
+			dbms_output.put_line(r.geog_auth_rec_id);
+			update geog_auth_rec set WKT_POLYGON='MEDIA::' || r.media_id where geog_auth_rec_id=r.geog_auth_rec_id;
+			update temp_geo_wkt set status='linked_made_media' where geog_auth_rec_id=r.geog_auth_rec_id;
+		end loop;
+	end;
+	/
+
+	alter trigger TRG_HIGHER_GEOG_MAGICDUPS enable;
+	alter trigger TR_GEOGAUTHREC_AU_FLAT enable;
+	alter trigger TRG_MK_HIGHER_GEOG enable;
+	alter trigger TR_LOG_GEOG_UPDATE enable;
+
+	commit;
+		exec pause_maintenance('on');
+
+
+
+-- make this easy and unambiguous
+
+alter table geog_auth_rec add wkt_media_id number;
+
+select distinct to_number(trim(DBMS_LOB.SUBSTR(wkt_polygon,500,8))) from geog_auth_rec;
+
+ALTER TABLE geog_auth_rec ADD CONSTRAINT fk_geog_wkt_media FOREIGN KEY (wkt_media_id)   REFERENCES media (media_id);
+
+
+	exec pause_maintenance('off');
+	lock table geog_auth_rec in exclusive mode nowait;
+	alter trigger TRG_HIGHER_GEOG_MAGICDUPS disable;
+	alter trigger TR_GEOGAUTHREC_AU_FLAT disable;
+	alter trigger TRG_MK_HIGHER_GEOG disable;
+	alter trigger TR_LOG_GEOG_UPDATE disable;
+
+
+
+update geog_auth_rec set wkt_media_id=to_number(trim(DBMS_LOB.SUBSTR(wkt_polygon,500,8))) ;
+
+
+	alter trigger TRG_HIGHER_GEOG_MAGICDUPS enable;
+	alter trigger TR_GEOGAUTHREC_AU_FLAT enable;
+	alter trigger TRG_MK_HIGHER_GEOG enable;
+	alter trigger TR_LOG_GEOG_UPDATE enable;
+
+	commit;
+		exec pause_maintenance('on');
+
+ DBMS_LOB.SUBSTR(wkt_polygon,10),
+
+
+	three: update geog to use media
+
+
+
+<!----------------
+
+
+	ctime:#now()#
+<cfset utilities = CreateObject("component","component.utilities")>
+<cfquery name="d" datasource='uam_god'>
+	select locality.WKT_POLYGON,locality.locality_id from locality,temp_loc_wkt where locality.locality_id=temp_loc_wkt.locality_id and
+	status is null and rownum<500
+</cfquery>
+<cfloop query="d">
+	<cfif len(WKT_POLYGON) gt 0>
+		<cfset tempName=createUUID()>
+		<br>tempName: #tempName#
+		<cfset filename="locality_wkt_#locality_id#.wkt">
+		<br>filename: #filename#
+		<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
+		<br>written
+		<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
+		<cfif not isjson(x)>
+			upload fail<cfdump var=#x#><cfabort>
+		</cfif>
+		<cfset x=deserializeJson(x)>
+		<!---
+		<cfdump var=#x#>
+		--->
+		<cfdump var=#x#>
+		<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
+			upload fail<cfdump var=#x#><cfabort>
+			<cfquery name="uds" datasource='uam_god'>
+				update temp_loc_wkt set status='upload_fail' where locality_id=#locality_id#
+			</cfquery>
+		<cfelse>
+			<br>upload to #x.media_uri#
+			<cfquery name="uds" datasource='uam_god'>
+				update temp_loc_wkt set
+					status='happy',
+					file_up_uri='#x.media_uri#',
+					md5='#x.MD5#'
+				 where locality_id=#locality_id#
+			</cfquery>
+		</cfif>
+	<cfelse>
+		<cfquery name="uds" datasource='uam_god'>
+			update temp_loc_wkt set status='zero_len_wkt' where locality_id=#locality_id#
+		</cfquery>
+	</cfif>
+</cfloop>
+
+
+
+
+
+
+
+
+
 
 
 part deux: make some Media
@@ -109,57 +317,6 @@ part deux: make some Media
 
 
 </cfloop>
-
-
-
-<!----------------
-
-
-	ctime:#now()#
-<cfset utilities = CreateObject("component","component.utilities")>
-<cfquery name="d" datasource='uam_god'>
-	select locality.WKT_POLYGON,locality.locality_id from locality,temp_loc_wkt where locality.locality_id=temp_loc_wkt.locality_id and
-	status is null and rownum<500
-</cfquery>
-<cfloop query="d">
-	<cfif len(WKT_POLYGON) gt 0>
-		<cfset tempName=createUUID()>
-		<br>tempName: #tempName#
-		<cfset filename="locality_wkt_#locality_id#.wkt">
-		<br>filename: #filename#
-		<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
-		<br>written
-		<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
-		<cfif not isjson(x)>
-			upload fail<cfdump var=#x#><cfabort>
-		</cfif>
-		<cfset x=deserializeJson(x)>
-		<!---
-		<cfdump var=#x#>
-		--->
-		<cfdump var=#x#>
-		<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
-			upload fail<cfdump var=#x#><cfabort>
-			<cfquery name="uds" datasource='uam_god'>
-				update temp_loc_wkt set status='upload_fail' where locality_id=#locality_id#
-			</cfquery>
-		<cfelse>
-			<br>upload to #x.media_uri#
-			<cfquery name="uds" datasource='uam_god'>
-				update temp_loc_wkt set
-					status='happy',
-					file_up_uri='#x.media_uri#',
-					md5='#x.MD5#'
-				 where locality_id=#locality_id#
-			</cfquery>
-		</cfif>
-	<cfelse>
-		<cfquery name="uds" datasource='uam_god'>
-			update temp_loc_wkt set status='zero_len_wkt' where locality_id=#locality_id#
-		</cfquery>
-	</cfif>
-</cfloop>
-
 
 
 

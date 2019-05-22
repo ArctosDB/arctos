@@ -6,6 +6,10 @@ drop table cf_temp_specevent;
 
 
 alter table cf_temp_specevent add wkt_polygon clob;
+
+alter table cf_temp_specevent DROP COLUMN wkt_polygon;
+alter table cf_temp_specevent add wkt_MEDIA_ID NUMBER;
+
 alter table LOCALITY add wkt_polygon clob;
 
 create table cf_temp_specevent (
@@ -197,7 +201,7 @@ Upload CSV:
 
 
 <cfset title="Bulkload Specimen Events">
-<cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,HIGHER_GEOG,wkt_polygo,no_verbatim_coordinates">
+<cfset thecolumns="guid,ASSIGNED_BY_AGENT,ASSIGNED_DATE,SPECIMEN_EVENT_REMARK,SPECIMEN_EVENT_TYPE,COLLECTING_METHOD,COLLECTING_SOURCE,VERIFICATIONSTATUS,HABITAT,COLLECTING_EVENT_NAME,VERBATIM_DATE,VERBATIM_LOCALITY,COLL_EVENT_REMARKS,BEGAN_DATE,ENDED_DATE,LAT_DEG,DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,GEOREFERENCE_PROTOCOL,LOCALITY_NAME,HIGHER_GEOG,wkt_MEDIA_ID,no_verbatim_coordinates">
 <cfif action is "makeTemplate">
 	<cfset header=thecolumns>
 	<cffile action = "write"
@@ -476,10 +480,10 @@ Upload CSV:
 		</tr>
 
         <tr>
-            <td>wkt_polygon</td>
+            <td>wkt_MEDIA_ID</td>
             <td>no
             </td>
-            <td>Well-known text</td>
+            <td>MEDIA_ID of a file containing Well-known text</td>
         </tr>
 		<tr>
             <td>no_verbatim_coordinates</td>
@@ -797,11 +801,7 @@ Upload CSV:
             <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	            insert into cf_temp_specevent (#cols#) values (
 	            <cfloop list="#cols#" index="i">
-	               <cfif i is "wkt_polygon">
-	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
-	                <cfelse>
-	            		'#escapeQuotes(evaluate(i))#'
-	            	</cfif>
+	               '#escapeQuotes(evaluate(i))#'
 	            	<cfif i is not listlast(cols)>
 	            		,
 	            	</cfif>

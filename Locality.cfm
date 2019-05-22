@@ -610,7 +610,7 @@
 
 						<div id="mapInst">
 							Error is not displayed here; examine the locality before doing anything.
-							<cfif len(wkt_polygon) gt 0>
+							<cfif len(wkt_media_id) gt 0>
 								<br>The WKT was probably converted from KML or something and may be garbage; use these data with caution
 								<br><span class="likeLink" onclick="openOutsidePoints();">
 									Find specimens with coordinates "outside" the WKT shape (new window)
@@ -644,19 +644,13 @@
 							<cfset wktpolydata=cfhttp.filecontent>
 						</cfif>
 						<div id="wktinstr">
-							Large WKT (>~30K characters) will not work properly in the textarea. Instead,
+							WKT data may be linked as Media. If you have WKT simply create Media and enter the ID here. If you have KML or similar,
+							you may be able to:
 							<ol>
 								<li><a href="/DataServices/wktomaticifier.cfm">Convert</a> the spatial data to WKT POLYGON or MULTIPOLYGON format</li>
 								<li>Save as a text file (file extension .wkt is preferred but any will work)</li>
 								<li><a target=_"blank" href="/media.cfm?action=newMedia">Create Media</a>; copy the media_id of the media record</li>
-								<li>In the WKT_Polygon box, enter
-									<ul><li>
-										<code>
-											MEDIA::{media_id of the WKT data file}
-										</code>
-									</li></ul>
-									Case and punctuation matter.
-								</li>
+								<li>Enter the Media ID here</li>
 							</ol>
 						</div>
 						<input type="hidden" id="wkt_poly_data" value="#wktpolydata#">

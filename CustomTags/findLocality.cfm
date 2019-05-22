@@ -16,7 +16,7 @@
 		SEA,
 		SOURCE_AUTHORITY,
 		geog_remark,
-		case when geog_auth_rec.wkt_polygon is NULL then 'NO' else 'YES' end has_geo_poly
+		case when geog_auth_rec.wkt_media_id is NULL then 'NO' else 'YES' end has_geo_poly
 ">
 <cfset frm=" from geog_auth_rec">
 <cfset whr=" 1=1">
@@ -307,9 +307,9 @@
 
 <cfif isdefined("hasGeoWKT") and len(hasGeoWKT) gt 0>
 	<cfif hasGeoWKT is 1>
-		<cfset qual = "#qual# AND geog_auth_rec.wkt_polygon is not null">
+		<cfset qual = "#qual# AND geog_auth_rec.wkt_media_id is not null">
 	<cfelseif hasGeoWKT is 0>
-		<cfset qual = "#qual# AND geog_auth_rec.wkt_polygon is null">
+		<cfset qual = "#qual# AND geog_auth_rec.wkt_media_id is null">
 	</cfif>
 </cfif>
 

@@ -178,11 +178,7 @@
             <cfquery name="ins" datasource="uam_god">
 	            insert into bulkloader_stage (#cols#) values (
 	            <cfloop list="#cols#" index="i">
-	               <cfif i is "wkt_polygon">
-	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
-	                <cfelse>
-	            		'#escapeQuotes(evaluate(i))#'
-	            	</cfif>
+	            	'#escapeQuotes(evaluate(i))#'
 	            	<cfif i is not listlast(cols)>
 	            		,
 	            	</cfif>

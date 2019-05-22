@@ -183,7 +183,7 @@
 							DATUM,
 							georeference_source,
 							georeference_protocol,
-							wkt_polygon
+							wkt_media_id
 						)  values (
 							#locid#,
 							(select geog_auth_rec_id from geog_auth_rec where higher_geog='#q.higher_geog#'),
@@ -230,7 +230,11 @@
 							'#q.DATUM#',
 							'#q.georeference_source#',
 							'#q.georeference_protocol#',
-							 <cfqueryparam value="#q.wkt_polygon#" cfsqltype="cf_sql_clob">
+							<cfif len(q.wkt_media_id) gt 0>
+								#q.wkt_media_id#
+							<cfelse>
+								NULL
+							</cfif>
 						)
 					</cfquery>
 				</cfif>

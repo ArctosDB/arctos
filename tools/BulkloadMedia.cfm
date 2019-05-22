@@ -226,7 +226,7 @@ insert into temp_getMakeCE_flds (fld) values ('v_LOCALITY_REMARKS');
 insert into temp_getMakeCE_flds (fld) values ('v_GEOREFERENCE_SOURCE');
 insert into temp_getMakeCE_flds (fld) values ('v_GEOREFERENCE_PROTOCOL');
 insert into temp_getMakeCE_flds (fld) values ('');
-insert into temp_getMakeCE_flds (fld) values ('v_WKT_POLYGON');
+insert into temp_getMakeCE_flds (fld) values ('v_WKT_MEDIA_ID');
 insert into temp_getMakeCE_flds (fld) values ('v_HIGHER_GEOG');
 insert into temp_getMakeCE_flds (fld) values ('v_geology_attribute_1');
 insert into temp_getMakeCE_flds (fld) values ('v_geo_att_value_1');
@@ -795,7 +795,7 @@ insert into temp_getMakeCE_flds (fld) values ('fffff');
 			<cfset el=el & 'DEC_LAT_MIN,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,DEC_LONG_MIN,LONG_MIN,LONG_SEC,LONG_DIR,DEC_LAT,DEC_LONG,DATUM,'>
 			<cfset el=el & 'UTM_ZONE,UTM_EW,UTM_NS,ORIG_LAT_LONG_UNITS,SPEC_LOCALITY,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS,'>
 			<cfset el=el & 'MIN_DEPTH,MAX_DEPTH,DEPTH_UNITS,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LOCALITY_REMARKS,GEOREFERENCE_SOURCE,'>
-			<cfset el=el & 'GEOREFERENCE_PROTOCOL,LOCALITY_NAME,WKT_POLYGON,HIGHER_GEOG,'>
+			<cfset el=el & 'GEOREFERENCE_PROTOCOL,LOCALITY_NAME,WKT_MEDIA_ID,HIGHER_GEOG,'>
 			<cfset header=listappend(header,el)>
 	</cfif>
 	<cfif hEvtGeo is 1>

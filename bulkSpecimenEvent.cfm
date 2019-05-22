@@ -133,7 +133,7 @@
 			 locality.GEOREFERENCE_PROTOCOL,
 			 geog_auth_rec.GEOG_AUTH_REC_ID,
 			 geog_auth_rec.higher_geog,
-			 locality.wkt_polygon
+			 locality.wkt_media_id
 		from
 			#table_name#,
 			specimen_event,

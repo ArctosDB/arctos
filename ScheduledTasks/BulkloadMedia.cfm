@@ -839,7 +839,7 @@ running only as DLM
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#UTM_ZONE#" dbvarname="v_UTM_ZONE">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#UTM_EW#" dbvarname="v_UTM_EW">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#UTM_NS#" dbvarname="v_UTM_NS">
-									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#WKT_POLYGON#" dbvarname="v_WKT_POLYGON">
+									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#WKT_MEDIA_ID#" dbvarname="v_WKT_MEDIA_ID">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#LOCALITY_REMARKS#" dbvarname="v_LOCALITY_REMARKS">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#HIGHER_GEOG#" dbvarname="v_HIGHER_GEOG">
 									<cfprocparam type="in" cfsqltype="CF_SQL_VARCHAR" value="#geology_attribute_1#" dbvarname="v_geology_attribute_1">

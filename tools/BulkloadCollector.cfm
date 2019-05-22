@@ -440,11 +440,7 @@ end;
             <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	            insert into cf_temp_collector (#cols#) values (
 	            <cfloop list="#cols#" index="i">
-	               <cfif i is "wkt_polygon">
-	            		<cfqueryparam value="#evaluate(i)#" cfsqltype="cf_sql_clob">
-	                <cfelse>
-	            		'#stripQuotes(evaluate(i))#'
-	            	</cfif>
+	            	'#stripQuotes(evaluate(i))#'
 	            	<cfif i is not listlast(cols)>
 	            		,
 	            	</cfif>

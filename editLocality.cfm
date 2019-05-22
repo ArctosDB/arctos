@@ -195,10 +195,10 @@ function checkCoordinateError(){
 
 
 		// add wkt if available
-        var wkt=$("#wkt_polygon").val();
+        var wkt=$("#locpoly").val();
         if (wkt.length>0){
 
-        	console.log('going wkt...');
+        	//console.log('going wkt...');
 			//using regex, we will get the indivudal Rings
 			var regex = /\(([^()]+)\)/g;
 			var Rings = [];
@@ -526,8 +526,8 @@ function checkCoordinateError(){
 			s$dec_long,
 			to_meters(locality.minimum_elevation,locality.orig_elev_units) min_elev_in_m,
 			to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m,
-			locality.wkt_polygon,
-			geog_auth_rec.wkt_polygon geopoly,
+			locality.wkt_media_id,
+			geog_auth_rec.wkt_media_id geopoly,
 			getLastCoordsEdit(locality.locality_id) lastCoordsEdit
 		from
 			locality,
@@ -1086,6 +1086,35 @@ function checkCoordinateError(){
 		</table>
 		</div>
 		</fieldset>
+		<label for="wkt_media_id" class="helpLink" id="_wkt_media_id">WKTMediaID</label>
+		<input  type="number" step="any" name="wkt_media_id"  id="wkt_media_id" value="#locDet.wkt_media_id#" size="3">
+		<!--- geography WKT --->
+		<cfset gp="">
+		<cfif len(locDet.geopoly) gt 0>
+			<cfquery name="fmed" datasource="uam_god">
+				select media_uri from media where media_id=#locDet.geopoly#
+			</cfquery>
+			<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+			<cfif left(cfhttp.statuscode,3) is "200">
+				<cfset gp=cfhttp.filecontent>
+			</cfif>
+		</cfif>
+		<input type="hidden" id="geopoly" value="#gp#">
+		<!---- locality WKT ---->
+		<cfset gp="">
+		<cfif len(locDet.wkt_media_id) gt 0>
+			<cfquery name="fmed" datasource="uam_god">
+				select media_uri from media where media_id=#locDet#
+			</cfquery>
+			<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+			<cfif left(cfhttp.statuscode,3) is "200">
+				<cfset gp=cfhttp.filecontent>
+			</cfif>
+		</cfif>
+		<input type="hidden" id="locpoly" value="#gp#">
+
+
+
 
 		<cfquery name="canEdit" dbtype="query">
 			select count(*) c from vstat where verificationstatus like 'verified by%'
@@ -1207,28 +1236,7 @@ function checkCoordinateError(){
 	</form>
 	</span>
 	<br>
-	<form name="editwktp" method="post" action="editLocality.cfm">
-        <input type="hidden" name="action" value="editwktp">
-		<input type="hidden" name="locality_id" value="#locDet.locality_id#">
-        <label for="wkt_polygon" class="helpLink" id="_wkt_polygon">wkt_polygon</label>
-   	    <textarea name="wkt_polygon" id="wkt_polygon" class="largetextarea">#locDet.wkt_polygon#</textarea>
-  		<cfset gp=locDet.geopoly>
-		<cfif len(gp) gt 0 and left(gp,7) is 'MEDIA::'>
-			<cfset meid=right(gp,len(gp)-7)>
-			<cfquery name="fmed" datasource="uam_god">
-				select media_uri from media where media_id=#meid#
-			</cfquery>
-			<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
-			<cfif left(cfhttp.statuscode,3) is "200">
-				<cfset gp=cfhttp.filecontent>
-			<cfelse>
-				<div calss="error">WKT loopup failure</div>
-				<cfset gp="">
-			</cfif>
-		</cfif>
-		<input type="hidden" id="geopoly" value="#gp#">
-		<br><input class="savBtn" type="submit" value="save WKT">
-	</form>
+
 
 
 	<hr>
@@ -1536,18 +1544,7 @@ function checkCoordinateError(){
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<cfif action is "editwktp">
-	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-	   update locality set
-	    <cfif len(wkt_polygon) gt 0>
-       wkt_polygon = <cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">
-    <cfelse>
-       wkt_polygon = null
-    </cfif>
-	 where locality_id = #locality_id#
-	</cfquery>
-	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
-</cfif>
+
 
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "deleteLocality">

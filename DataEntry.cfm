@@ -682,10 +682,10 @@
 											<textarea rows="1" cols="40" class="mediumtextarea"  name="locality_remarks" id="locality_remarks"></textarea>
 										</td>
 									</tr>
-									<tr id="d_wkt_polygon">
-										<td align="right"><span class="f11a">WKTPoly</span></td>
+									<tr id="d_wkt_media_id">
+										<td align="right"><span class="f11a">WKTMediaID</span></td>
 										<td>
-											<textarea rows="1" cols="40" class="mediumtextarea"  name="wkt_polygon" id="wkt_polygon"></textarea>
+											<input type="text" name="wkt_media_id" id="wkt_media_id" size="20">
 										</td>
 									</tr>
 								</table><!----- /locality ---------->

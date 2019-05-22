@@ -47,11 +47,7 @@
 					ctl="create table " & tablename & " (" & chr(10);
 					for (i = 1; i lte listlen(headers); i = i + 1) {
 						ctl = ctl & chr(9) & listgetat(headers,i);
-						if (ucase(listgetat(headers,i)) is "WKT_POLYGON"){
-							ctl = ctl &" CLOB";
-						} else {
-							ctl = ctl &" VARCHAR2(4000)";
-						}
+						ctl = ctl &" VARCHAR2(4000)";
 						if (i lt listlen(headers)){
 							 ctl = ctl & ",";
 						}
@@ -78,11 +74,7 @@
 					ctl = ctl & "(" & chr(10);
 
 					for (i = 1; i lte listlen(headers); i = i + 1) {
-						if (ucase(listgetat(headers,i)) is "WKT_POLYGON"){
-							ctl = ctl & chr(9) & listgetat(headers,i) & " CHAR(100000000000)";
-						} else {
-							ctl = ctl & chr(9) & listgetat(headers,i) & " CHAR(4000)";
-						}
+						ctl = ctl & chr(9) & listgetat(headers,i) & " CHAR(4000)";
 						if (i lt listlen(headers)){
 							 ctl = ctl & ",";
 						}
