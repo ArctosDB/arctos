@@ -1518,6 +1518,11 @@ function checkCoordinateError(){
 		<cfelse>
 			<cfset sql = "#sql#,LOCALITY_REMARKS = null">
 		</cfif>
+		<cfif len(wkt_media_id) gt 0>
+			<cfset sql = "#sql#,wkt_media_id = #wkt_media_id#">
+		<cfelse>
+			<cfset sql = "#sql#,wkt_media_id = null">
+		</cfif>
 		<cfset sql = "#sql# where locality_id = #locality_id#">
 		<cftransaction>
 			<cfif isdefined("pushMeToEvent") and pushMeToEvent is "push">
