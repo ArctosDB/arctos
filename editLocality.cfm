@@ -1086,8 +1086,10 @@ function checkCoordinateError(){
 		</table>
 		</div>
 		</fieldset>
-		<label for="wkt_media_id" class="helpLink" id="_wkt_media_id">WKTMediaID</label>
-		<input  type="number" step="any" name="wkt_media_id"  id="wkt_media_id" value="#locDet.wkt_media_id#" size="3">
+		<fieldset id="fs_spatial">
+			<label for="wkt_media_id" class="helpLink" id="_wkt_media_id">WKTMediaID</label>
+			<input  type="number" step="any" name="wkt_media_id"  id="wkt_media_id" value="#locDet.wkt_media_id#" size="3">
+		</fieldset>
 		<!--- geography WKT --->
 		<cfset gp="">
 		<cfif len(locDet.geopoly) gt 0>
