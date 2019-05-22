@@ -124,7 +124,6 @@
 			select * from cf_temp_wkt where media_id is null and rownum<2
 		</cfquery>
 		<cfloop query="d">
-			<cftransaction>
 				<cfset tempName=createUUID()>
 				<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
 				<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp","#tempName#.wkt")>
@@ -183,7 +182,6 @@
 					</cfquery>
 					<cfflush>
 				</cfif>
-			</cftransaction>
 		</cfloop>
 	</cfoutput>
 </cfif>
