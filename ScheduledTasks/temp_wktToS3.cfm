@@ -22,7 +22,7 @@ select status,count(*) from temp_loc_wkt group by status;
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource='uam_god'>
 	select locality.WKT_POLYGON,locality.locality_id from locality,temp_loc_wkt where locality.locality_id=temp_loc_wkt.locality_id and
-	status is null and rownum<2
+	status is null and rownum<500
 </cfquery>
 <cfloop query="d">
 	<cfif len(WKT_POLYGON) gt 0>
