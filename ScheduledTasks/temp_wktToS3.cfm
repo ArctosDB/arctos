@@ -12,12 +12,11 @@ create table temp_loc_wkt (
 
 insert into temp_loc_wkt (locality_id) (select locality_id from locality where WKT_POLYGON is not null);
 
-
+select status,count(*) from temp_loc_wkt group by status;
 
 ---->
 <cfoutput>
 
-<cfif action is "s3loc">
 
 	ctime:#now()#
 <cfset utilities = CreateObject("component","component.utilities")>
@@ -41,6 +40,7 @@ insert into temp_loc_wkt (locality_id) (select locality_id from locality where W
 		<!---
 		<cfdump var=#x#>
 		--->
+		<cfdump var=#x#>
 		<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
 			upload fail<cfdump var=#x#><cfabort>
 			<cfquery name="uds" datasource='uam_god'>
@@ -64,6 +64,7 @@ insert into temp_loc_wkt (locality_id) (select locality_id from locality where W
 </cfloop>
 
 
+<cfif action is "s3loc">
 
 </cfif>
 
