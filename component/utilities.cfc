@@ -783,6 +783,30 @@
 	</cfif>
 </cffunction>
 
+<cffunction name="getLocalityWKT" returnType="string" access="remote">
+	<cfargument name="specimen_event_id" type="numeric" required="yes">
+	<cfquery name="d" datasource="uam_god">
+		select
+			locality.wkt_media_id
+		from
+			locality,
+			collecting_event,
+			specimen_event
+		where
+			locality.locality_id=collecting_event.locality_id and
+			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
+			specimen_event.specimen_event_id=#specimen_event_id#
+	</cfquery>
+	<cfif len(d.wkt_media_id) gt 0>
+		<cfquery name="m" datasource="uam_god">
+			select media_uri from media where media_id=#d.wkt_media_id#
+		</cfquery>
+		<cfhttp method="get" url="#m.media_uri#"></cfhttp>
+		<cfreturn cfhttp.filecontent>
+	<cfelse>
+		<cfreturn>
+	</cfif>
+</cffunction>
 <cffunction name="generateDisplayName" returnType="string" access="remote">
 	<cfargument name="cid" type="string" required="yes">
 	<cfoutput>

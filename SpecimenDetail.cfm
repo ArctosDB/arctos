@@ -76,6 +76,57 @@
 					bounds.union(crcl.getBounds());
 				}
 				// WKT can be big and slow, so async fetch
+
+
+
+					$.get( "/component/utilities.cfc?returnformat=plain&method=getLocalityWKT&specimen_event_id=" + seid, function( wkt ) {
+  					  if (wkt.length>0){
+						var regex = /\(([^()]+)\)/g;
+						var Rings = [];
+						var results;
+						while( results = regex.exec(wkt) ) {
+						    Rings.push( results[1] );
+						}
+						for(var i=0;i<Rings.length;i++){
+							// for every polygon in the WKT, create an array
+							var lary=[];
+							var da=Rings[i].split(",");
+							for(var j=0;j<da.length;j++){
+								// push the coordinate pairs to the array as LatLngs
+								var xy = da[j].trim().split(" ");
+								var pt=new google.maps.LatLng(xy[1],xy[0]);
+								lary.push(pt);
+								//console.log(lary);
+								bounds.extend(pt);
+							}
+							// now push the single-polygon array to the array of arrays (of polygons)
+							ptsArray.push(lary);
+						}
+						var poly = new google.maps.Polygon({
+						    paths: ptsArray,
+						    strokeColor: '#f4426e',
+						    strokeOpacity: 0.8,
+						    strokeWeight: 2,
+						    fillColor: '#f4426e',
+						    fillOpacity: 0.35
+						});
+						poly.setMap(map);
+						polygonArray.push(poly);
+						// END this block build WKT
+  					  }
+ 					  if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+				       var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.05, bounds.getNorthEast().lng() + 0.05);
+				       var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.05, bounds.getNorthEast().lng() - 0.05);
+				       bounds.extend(extendPoint1);
+				       bounds.extend(extendPoint2);
+				    }
+					map.fitBounds(bounds);
+
+				});
+
+
+
+
 				$.get( "/component/utilities.cfc?returnformat=plain&method=getGeogWKT&specimen_event_id=" + seid, function( wkt ) {
   					  if (wkt.length>0){
 						var regex = /\(([^()]+)\)/g;
