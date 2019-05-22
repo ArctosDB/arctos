@@ -2042,6 +2042,7 @@
 		<li>Red Markers are specimen georeference point</li>
 		<li>Red circle, centered on markers, is uncertainty radius. Zero-radius errors indicate unknown uncertainty, not absolute precision.</li>
 		<li>Blue transparent polygon is the asserted geography's shape. Geography without supporting spatial data is ambiguous.</li>
+		<li>Red transparent polygon is the asserted locality's shape.</li>
 	</ul>
 	<label for="sdetmapsize">Map Size</label>
 	<select id="sdetmapsize">
