@@ -99,7 +99,6 @@ select status,count(*) from temp_geo_wkt group by status;
 
 create table bak_geog_auth_rec20190521 as select * from geog_auth_rec;
 
----------------->
 
 <cfif action is "manually_finish_stupid_rules_anyway">
 <!--- blargh rules --->
@@ -184,6 +183,7 @@ update geog_auth_rec set wkt_media_id=to_number(trim(DBMS_LOB.SUBSTR(wkt_polygon
 </cfquery>
 </cfloop>
 </cfif>
+---------------->
 
 	<!--------------
 part deux: make some Media
