@@ -1130,7 +1130,7 @@
 																<div style="font-size:.8em;">Georeference&nbsp;Protocol: #georeference_protocol#</div>
 															</cfif>
 															<cfif len(wkt_media_id) gt 0>
-																<div style="font-size:.8em;">WKTMediaID: <a href="media/#wkt_media_id#" target="_blank">#wkt_media_id#</a></div>
+																<div style="font-size:.8em;">WKTMediaID: <a href="/media/#wkt_media_id#" target="_blank">#wkt_media_id#</a></div>
 															</cfif>
 
 														</td>
