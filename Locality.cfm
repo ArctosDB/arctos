@@ -1805,7 +1805,7 @@ You deleted a collecting event.
 					island = '#escapeQuotes(island)#',
 					sea = '#escapeQuotes(sea)#',
 					geog_remark = '#escapeQuotes(geog_remark)#',
-					wkt_media_id=#wkt_media_id#
+					wkt_media_id=<cfif len(wkt_media_id) gt 0>#wkt_media_id#<cfelse>NULL</cfif>
 					<!----
 					wkt_polygon=<cfqueryparam value="#wkt_polygon#" cfsqltype="cf_sql_clob">
 					---->
