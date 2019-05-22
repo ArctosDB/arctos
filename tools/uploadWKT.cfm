@@ -116,6 +116,10 @@
 	<cfset utilities = CreateObject("component","component.utilities")>
 
 	<cfoutput>
+		<p>
+			You can check progress <a href="uploadWKT.cfm?action=tbl">here</a>. Everything should have a positive media_id; negative indicates something failed.
+			<br>Reload this page if it times out, or after 10 minutes if your browser gets confused.
+		</p>
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_wkt where media_id is null and rownum<2
 		</cfquery>
