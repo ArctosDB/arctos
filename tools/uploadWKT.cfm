@@ -121,7 +121,7 @@
 			<br>Reload this page if it times out, or after 10 minutes if your browser gets confused.
 		</p>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_wkt where media_id is null and rownum<2
+			select * from cf_temp_wkt where media_id is null and rownum<3
 		</cfquery>
 		<cfloop query="d">
 				<cfset tempName=createUUID()>
@@ -145,7 +145,7 @@
 					<cfquery name="mid" datasource="uam_god">
 						select sq_MEDIA_ID.nextval mid from dual
 					</cfquery>
-					<br>making media #mid.mid#
+					<br>making media
 					<cfquery name="mm" datasource="uam_god">
 						insert into media (
 							MEDIA_ID,
