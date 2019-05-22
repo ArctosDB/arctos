@@ -1,6 +1,6 @@
 <!----
 	drop table cf_temp_wkt;
-	
+
 	create table cf_temp_wkt (
 		temp_id varchar2(255) not null,
 		wkt_polygon clob not null,
@@ -8,10 +8,10 @@
 	);
 
 	create unique index cf_temp_wkt_id on cf_temp_wkt(temp_id) tablespace uam_idx_1;
-	
-	
+
+
 	create or replace public synonym cf_temp_wkt for cf_temp_wkt;
-	
+
 	grant all on cf_temp_wkt to manage_media;
 ---->
 
@@ -104,7 +104,7 @@
 			select * from cf_temp_wkt
 		</cfquery>
 		<cfdump var=#d#>
-		
+
 		<p>
 			Very sure that's all spiffy? <a href="uploadWKT.cfm?action=loads3">click here</a> to create files on the document server.
 		</p>
@@ -127,31 +127,59 @@
 				<cfif not isjson(x)>
 					upload fail<cfdump var=#x#>
 					<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update temp_geo_wkt set status='upload_fail' where geog_auth_rec_id=#geog_auth_rec_id#
+						update cf_temp_wkt set media_id=-1 where geog_auth_rec_id=#geog_auth_rec_id#
 					</cfquery>
-					
 				</cfif>
 				<cfset x=deserializeJson(x)>
 				<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
-					upload fail<cfdump var=#x#><cfabort>
-					<cfquery name="uds" datasource='uam_god'>
-						update temp_geo_wkt set status='upload_fail' where geog_auth_rec_id=#geog_auth_rec_id#
+					<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update cf_temp_wkt set media_id=-1 where geog_auth_rec_id=#geog_auth_rec_id#
 					</cfquery>
 				<cfelse>
 					<br>upload to #x.media_uri#
-					<cfquery name="uds" datasource='uam_god'>
-						update temp_geo_wkt set
-							status='happy',
-							file_up_uri='#x.media_uri#',
-							md5='#x.MD5#'
-						 where geog_auth_rec_id=#geog_auth_rec_id#
+					<cfquery name="mid" datasource='uam_god'>
+						select sq_MEDIA_ID.nextval mid from dual
 					</cfquery>
+					<br>making media #mid.mid#
+					<cfquery name="mm" datasource='uam_god'>
+						insert into media (
+							MEDIA_ID,
+							MEDIA_URI,
+							MIME_TYPE,
+							MEDIA_TYPE
+						) values (
+							#mid.mid#,
+							'#x.media_uri#',
+							'text/plain',
+							'text'
+						)
+					</cfquery>
+					<cfif len(d.md5) gt 0>
+						<cfquery name="ml" datasource='uam_god'>
+							insert into media_labels (
+								MEDIA_LABEL_ID,
+								MEDIA_ID,
+								MEDIA_LABEL,
+								LABEL_VALUE,
+								ASSIGNED_BY_AGENT_ID,
+								ASSIGNED_ON_DATE
+							) values (
+								sq_MEDIA_LABEL_ID.nextval,
+								#mid.mid#,
+								'MD5 checksum',
+								'#x.md5#',
+								#session.MyAgentID#,
+								sysdate
+							)
+						</cfquery>
+					</cfif>
+					<br>made media #mid.mid#
+					<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						update cf_temp_wkt set media_id=#mid.mid# where temp_id=#temp_id#
+					</cfquery>
+					<cfflush>
 				</cfif>
-		
-		</cftransaction>
-		
-
-		
+			</cftransaction>
 		</cfloop>
 	</cfoutput>
 </cfif>
