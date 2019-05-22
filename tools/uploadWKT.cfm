@@ -8,11 +8,8 @@
 ---->
 
 <cfinclude template="/includes/_header.cfm">
-<cfset title="ZIP WKT uploader">
+<cfset title="WKT uploader">
 <!--- leave this link at the top of the page --->
-
-<br><a href="uploadMedia.cfm?action=preview">View Existing Jobs</a>
-<br><a href="uploadMedia.cfm?action=nothing">splashpage</a>
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "nothing">
 	<script>
@@ -58,6 +55,10 @@
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "getFile">
 	<cfoutput>
+         <cfquery name="c" datasource="uam_god">
+			delete from cf_temp_wkt
+		</cfquery>
+
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
         <cfset  util = CreateObject("component","component.utilities")>
 		<cfset x=util.CSVToQuery(fileContent)>
@@ -80,18 +81,21 @@
 	            </cfquery>
 	        </cfloop>
 		</cftransaction>
-		loaded to cf_temp_wkt go go gadget sql
+		<p>
+			Data loaded.
+		</p>
+		<p>
+			CAREFULLY check that nothing was mangled <a href="uploadWKT.cfm?action=tbl">here</a>
+		</p>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
-<cfif action is "regen_download">
+<cfif action is "tbl">
 	<cfoutput>
-		<cfset utilities = CreateObject("component","component.utilities")>
-		<cfset utilities.makeMBLDownloadFile(#zid#)>
-
-		<p>
-			Generation attempted: #Application.serverRootURL#/download/media_bulk_zip#zid#.csv
-		</p>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_temp_wkt
+		</cfquery>
+		<cfdump var=#d#>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
