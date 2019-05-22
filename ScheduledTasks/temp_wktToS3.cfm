@@ -27,7 +27,7 @@ part deux: make some Media
 	locality,temp_loc_wkt
 	 where
 	 locality.locality_id=temp_loc_wkt.locality_id and
-	status ='happy' and rownum<2
+	status ='happy' and rownum<200
 </cfquery>
 <cfloop query="d">
 	<cftransaction>
