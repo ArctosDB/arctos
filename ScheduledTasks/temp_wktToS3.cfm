@@ -64,10 +64,6 @@ select status,count(*) from temp_loc_wkt group by status;
 </cfloop>
 
 
-<cfif action is "s3loc">
-
-</cfif>
-
 
 <!----------------
 -- locabove
