@@ -493,6 +493,7 @@
 		to_meters(MAX_ERROR_DISTANCE,MAX_ERROR_UNITS) err_in_m,
 		getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID)  verifiedBy,
  		VERIFIED_DATE,
+		locality.wkt_media_id,
  		case
 		       when specimen_event.verificationstatus = 'verified and locked' then 1
 		       when specimen_event.verificationstatus = 'checked by collector' then 2
@@ -560,6 +561,7 @@
 		SOURCE_AUTHORITY,
 		 verifiedBy,
  		VERIFIED_DATE,
+		wkt_media_id,
 		order_by_vs
 	from
 		rawevent
@@ -607,6 +609,7 @@
 		SOURCE_AUTHORITY,
 		 verifiedBy,
  		VERIFIED_DATE,
+		wkt_media_id,
 		order_by_vs
 	order by
 		order_by_vs
@@ -1126,6 +1129,10 @@
 															<cfif len(georeference_protocol) gt 0>
 																<div style="font-size:.8em;">Georeference&nbsp;Protocol: #georeference_protocol#</div>
 															</cfif>
+															<cfif len(wkt_media_id) gt 0>
+																<div style="font-size:.8em;">WKTMediaID: <a href="media/#wkt_media_id#" target="_blank">#wkt_media_id#</a></div>
+															</cfif>
+
 														</td>
 													</tr>
 													<cfif len(orig_elev_units) gt 0>
