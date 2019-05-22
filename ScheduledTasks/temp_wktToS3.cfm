@@ -18,6 +18,103 @@ select status,count(*) from temp_loc_wkt group by status;
 <cfoutput>
 
 
+part deux: make some Media
+
+<cfquery name="d" datasource='uam_god'>
+	select
+	 md5, file_up_uri, WKT_POLYGON,locality.locality_id,locality.spec_locality
+	from
+	locality,temp_loc_wkt
+	 where
+	 locality.spec_locality=temp_loc_wkt.spec_locality and
+	status ='happy' and rownum<2
+</cfquery>
+<cfloop query="d">
+	<cftransaction>
+		<cfquery name="mid" datasource='uam_god'>
+			select sq_MEDIA_ID.nextval mid from dual
+		</cfquery>
+		<br>making #mid.mid#
+		<cfquery name="mm" datasource='uam_god'>
+			insert into media (
+				MEDIA_ID,
+				MEDIA_URI,
+				MIME_TYPE,
+				MEDIA_TYPE
+			) values (
+				#mid.mid#,
+				'#d.file_up_uri#',
+				'text/plain',
+				'text'
+			)
+		</cfquery>
+		<cfquery name="mr" datasource='uam_god'>
+			insert into media_relations (
+				MEDIA_RELATIONS_ID,
+				MEDIA_ID,
+				MEDIA_RELATIONSHIP,
+				CREATED_BY_AGENT_ID,
+				RELATED_PRIMARY_KEY,
+				CREATED_ON_DATE
+			) values (
+				sq_MEDIA_RELATIONS_ID.nextval,
+				#mid.mid#,
+				'spatially defines locality',
+				2072,
+				#d.locality_id#,
+				sysdate
+			)
+		</cfquery>
+		<cfquery name="ml" datasource='uam_god'>
+				insert into media_labels (
+					MEDIA_LABEL_ID,
+					MEDIA_ID,
+					MEDIA_LABEL,
+					LABEL_VALUE,
+					ASSIGNED_BY_AGENT_ID,
+					ASSIGNED_ON_DATE
+				) values (
+					sq_MEDIA_LABEL_ID.nextval,
+					#mid.mid#,
+					'description',
+					'Polygon for #d.spec_locality#',
+					2072,
+					sysdate
+				)
+			</cfquery>
+		<cfif len(d.md5) gt 0>
+			<cfquery name="ml" datasource='uam_god'>
+				insert into media_labels (
+					MEDIA_LABEL_ID,
+					MEDIA_ID,
+					MEDIA_LABEL,
+					LABEL_VALUE,
+					ASSIGNED_BY_AGENT_ID,
+					ASSIGNED_ON_DATE
+				) values (
+					sq_MEDIA_LABEL_ID.nextval,
+					#mid.mid#,
+					'MD5 checksum',
+					'#d.md5#',
+					2072,
+					sysdate
+				)
+			</cfquery>
+		</cfif>
+		<cfquery name="ml" datasource='uam_god'>
+			update temp_loc_wkt set status='made_media',media_id=#mid.mid# where locality_id=#locality_id#
+		</cfquery>
+
+	</cftransaction>
+
+
+</cfloop>
+
+
+
+<!----------------
+
+
 	ctime:#now()#
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfquery name="d" datasource='uam_god'>
@@ -65,7 +162,7 @@ select status,count(*) from temp_loc_wkt group by status;
 
 
 
-<!----------------
+
 -- locabove
 
 ---- geobelow
