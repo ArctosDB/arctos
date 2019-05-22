@@ -26,7 +26,7 @@ part deux: make some Media
 	from
 	locality,temp_loc_wkt
 	 where
-	 locality.spec_locality=temp_loc_wkt.spec_locality and
+	 locality.locality_id=temp_loc_wkt.locality_id and
 	status ='happy' and rownum<2
 </cfquery>
 <cfloop query="d">
