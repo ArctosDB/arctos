@@ -1104,7 +1104,7 @@ function checkCoordinateError(){
 		<cfset gp="">
 		<cfif len(locDet.wkt_media_id) gt 0>
 			<cfquery name="fmed" datasource="uam_god">
-				select media_uri from media where media_id=#locDet#
+				select media_uri from media where media_id=#locDet.wkt_media_id#
 			</cfquery>
 			<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 			<cfif left(cfhttp.statuscode,3) is "200">
