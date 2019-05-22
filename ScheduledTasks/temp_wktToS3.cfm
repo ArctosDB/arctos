@@ -1,4 +1,78 @@
+
 <!----
+--- now locality
+create table temp_loc_wkt (
+	locality_id number,
+	media_id number,
+	status varchar2(255),
+	file_up_uri varchar2(4000),
+	md5 varchar2(4000)
+);
+
+
+insert into temp_loc_wkt (locality_id) (select locality_id from locality where WKT_POLYGON is not null);
+
+
+
+---->
+<cfoutput>
+
+<cfif action is "s3loc">
+
+	ctime:#now()#
+<cfset utilities = CreateObject("component","component.utilities")>
+<cfquery name="d" datasource='uam_god'>
+	select locality.WKT_POLYGON,locality.locality_id from locality,temp_loc_wkt where locality.locality_id=temp_loc_wkt.locality_id and
+	status is null and rownum<2
+</cfquery>
+<cfloop query="d">
+	<cfif len(WKT_POLYGON) gt 0>
+		<cfset tempName=createUUID()>
+		<br>tempName: #tempName#
+		<cfset filename="locality_wkt_#locality_id#.wkt">
+		<br>filename: #filename#
+		<cffile	action = "write" file = "#Application.sandbox#/#tempName#.tmp" output='#WKT_POLYGON#' addNewLine="false">
+		<br>written
+		<cfset x=utilities.sandboxToS3("#Application.sandbox#/#tempName#.tmp",fileName)>
+		<cfif not isjson(x)>
+			upload fail<cfdump var=#x#><cfabort>
+		</cfif>
+		<cfset x=deserializeJson(x)>
+		<!---
+		<cfdump var=#x#>
+		--->
+		<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
+			upload fail<cfdump var=#x#><cfabort>
+			<cfquery name="uds" datasource='uam_god'>
+				update temp_loc_wkt set status='upload_fail' where locality_id=#locality_id#
+			</cfquery>
+		<cfelse>
+			<br>upload to #x.media_uri#
+			<cfquery name="uds" datasource='uam_god'>
+				update temp_loc_wkt set
+					status='happy',
+					file_up_uri='#x.media_uri#',
+					md5='#x.MD5#'
+				 where locality_id=#locality_id#
+			</cfquery>
+		</cfif>
+	<cfelse>
+		<cfquery name="uds" datasource='uam_god'>
+			update temp_loc_wkt set status='zero_len_wkt' where locality_id=#locality_id#
+		</cfquery>
+	</cfif>
+</cfloop>
+
+
+
+</cfif>
+
+
+<!----------------
+-- locabove
+
+---- geobelow
+
 create table temp_geo_wkt (
 	geog_auth_rec_id number,
 	media_id number,
@@ -24,9 +98,9 @@ select status,count(*) from temp_geo_wkt group by status;
 
 create table bak_geog_auth_rec20190521 as select * from geog_auth_rec;
 
----->
-<cfoutput>
+---------------->
 
+<cfif action is "manually_finish_stupid_rules_anyway">
 <!--- blargh rules --->
 	exec pause_maintenance('off');
 	lock table geog_auth_rec in exclusive mode nowait;
@@ -108,7 +182,7 @@ update geog_auth_rec set wkt_media_id=to_number(trim(DBMS_LOB.SUBSTR(wkt_polygon
 	update temp_geo_wkt set status='linked_made_media' where geog_auth_rec_id=#geog_auth_rec_id#
 </cfquery>
 </cfloop>
-
+</cfif>
 
 	<!--------------
 part deux: make some Media
