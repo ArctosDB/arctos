@@ -158,7 +158,7 @@
 							'text'
 						)
 					</cfquery>
-					<cfif len(d.md5) gt 0>
+					<cfif len(x.md5) gt 0>
 						<cfquery name="ml" datasource='uam_god'>
 							insert into media_labels (
 								MEDIA_LABEL_ID,
