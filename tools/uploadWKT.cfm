@@ -130,13 +130,13 @@
 				<cfif not isjson(x)>
 					upload fail<cfdump var=#x#>
 					<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update cf_temp_wkt set media_id=-1 where geog_auth_rec_id=#geog_auth_rec_id#
+						update cf_temp_wkt set media_id=-1 where temp_id='#temp_id#'
 					</cfquery>
 				</cfif>
 				<cfset x=deserializeJson(x)>
 				<cfif (not isdefined("x.STATUSCODE")) or (x.STATUSCODE is not 200) or (not isdefined("x.MEDIA_URI")) or (len(x.MEDIA_URI) is 0)>
 					<cfquery name="ss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						update cf_temp_wkt set media_id=-1 where geog_auth_rec_id=#geog_auth_rec_id#
+						update cf_temp_wkt set media_id=-1 where temp_id='#temp_id#'
 					</cfquery>
 				<cfelse>
 					<br>upload to #x.media_uri#
@@ -178,7 +178,7 @@
 					</cfif>
 					<br>made media #mid.mid#
 					<cfquery name="ss" datasource="uam_god">
-						update cf_temp_wkt set media_id=#mid.mid# where temp_id=#temp_id#
+						update cf_temp_wkt set media_id=#mid.mid# where temp_id='#temp_id#'
 					</cfquery>
 					<cfflush>
 				</cfif>
