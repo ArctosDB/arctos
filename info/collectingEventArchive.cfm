@@ -154,6 +154,7 @@
 			<th>LocalityID</th>
 			<th>VerbatimLocality</th>
 			<th>EventName</th>
+			<th>VerbatimDate</th>
 			<th>BeganDate</th>
 			<th>EndedDate</th>
 			<th>Remark</th>
@@ -165,9 +166,9 @@
 				 	locality_id,
 				 	BEGAN_DATE,
 					ENDED_DATE,
+					VERBATIM_DATE,
 					COLLECTING_EVENT_NAME,
 					VERBATIM_COORDINATES,
-				 	VERBATIM_DATE,
 				 	VERBATIM_LOCALITY,
 				 	COLL_EVENT_REMARKS
 				 from
@@ -191,10 +192,14 @@
 						#orig.locality_id#
 					</a>
 				</td>
+
 				<cfset lastVLoc=orig.VERBATIM_LOCALITY>
+
 				<td class="original">#orig.VERBATIM_LOCALITY#</td>
 				<cfset lastEName=orig.COLLECTING_EVENT_NAME>
 				<td class="original">#orig.COLLECTING_EVENT_NAME#</td>
+				<td class="original">#orig.VERBATIM_DATE#</td>
+				<cfset lastVDate=orig.VERBATIM_DATE>
 				<cfset lastBDate=orig.BEGAN_DATE>
 				<td class="original">#orig.BEGAN_DATE#</td>
 				<cfset lastEDate=orig.ENDED_DATE>
@@ -230,6 +235,7 @@
 					<td class="#thisStyle#">
 						#VERBATIM_LOCALITY#
 					</td>
+
 					<cfif COLLECTING_EVENT_NAME is lastEName>
 						<cfset thisStyle="nochange">
 					<cfelse>
@@ -239,6 +245,19 @@
 					<td class="#thisStyle#">
 						#COLLECTING_EVENT_NAME#
 					</td>
+
+					<cfif VERBATIM_DATE is lastVDate>
+						<cfset thisStyle="nochange">
+					<cfelse>
+						<cfset thisStyle="haschange">
+					</cfif>
+					<cfset lastVDate=VERBATIM_DATE>
+					<td class="#thisStyle#">
+						#VERBATIM_DATE#
+					</td>
+
+
+
 
 					<cfif BEGAN_DATE is lastBDate>
 						<cfset thisStyle="nochange">
