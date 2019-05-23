@@ -103,12 +103,26 @@
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_temp_wkt
 		</cfquery>
+		<a href="uploadWKT.cfm?action=getCSV">get CSV</a>
+
 		<cfdump var=#d#>
 
 		<p>
 			Very sure that's all spiffy? <a href="uploadWKT.cfm?action=loads3">click here</a> to create files on the document server.
 		</p>
 	</cfoutput>
+</cfif>
+<cfif action is "getCSV">
+	<cfquery name="mine" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_wkt
+	</cfquery>
+	<cfset  util = CreateObject("component","component.utilities")>
+	<cfset csv = util.QueryToCSV2(Query=mine,Fields=mine.columnlist)>
+	<cffile action = "write"
+	    file = "#Application.webDirectory#/download/cf_temp_wkt.csv"
+    	output = "#csv#"
+    	addNewLine = "no">
+	<cflocation url="/download.cfm?file=cf_temp_wkt.csv" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------------->
 <cfif action is "loads3">
