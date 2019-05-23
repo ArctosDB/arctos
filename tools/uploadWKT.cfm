@@ -45,11 +45,14 @@
 			Useful SQL
 
 			<pre>
+				-- add an ID
 				alter table TABLE_NAME add temp_id varchar2(255);
+				-- make finding unique easy
 				update TABLE_NAME set temp_id=md5hash(WKT_POLYGON);
-
+				-- pull unique
 				create table TEMP_TABLE_NAME as select distinct temp_id,WKT_POLYGON from TABLE_NAME where temp_id is not null;
-
+				-- use this app, upload CSV, repatriate
+				update TABLE_NAME set wkt_media_id=(select MEDIA_ID from cf_temp_wkt where TABLE_NAME.temp_id=cf_temp_wkt.temp_id);
 			</pre>
 		</p>
 		<form name="mupl" method="post" enctype="multipart/form-data" action="uploadWKT.cfm" onsubmit="return checkCSV();">
