@@ -288,6 +288,7 @@
 
 											<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media Metadata</a></li>
 											<li><a target="_top" href="/tools/uploadMedia.cfm">Upload Images</a></li>
+											<li><a target="_top" href="/tools/uploadWKT.cfm">Upload WKT</a></li>
 
 											<li><a target="_top" href="/tools/BulkloadRedirect.cfm">Bulkload Redirects</a></li>
 
