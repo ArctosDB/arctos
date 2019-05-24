@@ -226,14 +226,16 @@
 			<td><strong>#cited.tot#</strong></td>
 			<cfset cr="">
 			<cfif numLoaned is 0 and cited.tot is 0>
-				<cfset cr=0>
+				<cfset cr=0>zero
 				<!----
 			<cfelseif numLoaned gte cited.tot and numLoaned gt 0>
 			---->
 			<cfelse>
 				<cfset cr=cited.tot/numLoaned>
 			</cfif>
-			<td><strong>#decimalFormat(cr)#</strong></td>
+			<td>
+				#cr#
+				<strong>#decimalFormat(cr)#</strong></td>
 		</tr>
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
