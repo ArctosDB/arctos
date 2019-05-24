@@ -323,7 +323,7 @@
 			<cfset cr="">
 			<cfif numLoaned is 0 and cited.tot is 0>
 				<cfset cr=0>
-			<cfelse>
+			<cfelseif numLoaned gt 0>
 				<cfset cr=cited.tot/numLoaned>
 			</cfif>
 			<td>#decimalFormat(cr)#</td>
