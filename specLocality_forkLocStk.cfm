@@ -473,8 +473,8 @@ function useGL(glat,glon,gerr){
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
 	<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
-		<input type="hidden" name="action" value="saveChange">
 		<input type="hidden" name="nothing" id="nothing">
+		<input type="hidden" name="action" id="saveEdits">
 		<input type="hidden" name="collection_object_id" value="#l.collection_object_id#">
 		<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
 		<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
@@ -627,7 +627,6 @@ function useGL(glat,glon,gerr){
 
 					<label for="spec_locality" class="helpLink" data-helplink="spec_locality">Specific Locality</label>
 					<input type="text" name="spec_locality" id="spec_locality" value="#l.spec_locality#" size="75">
-					<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
 
 
 
@@ -647,10 +646,6 @@ function useGL(glat,glon,gerr){
 							</td>
 
 
-
-							<cfif len(l.DEC_LONG) gt 0>
-								<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
-							</cfif>
 						</tr>
 						<tr>
 							<td>
@@ -684,6 +679,16 @@ function useGL(glat,glon,gerr){
 
 					<label for="georeference_source" class="helpLink" data-helplink="georeference_source">Georeference Source</label>
 					<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#" size="75">
+
+					<label for="wkt_media_id" class="helpLink" data-helplink="wkt_media_id">WKT Media ID</label>
+					<input type="text" name="wkt_media_id" id="wkt_media_id" value="#l.wkt_media_id#" size="75">
+
+
+
+
+
+
+
 
 					<table>
 						<tr>
@@ -745,71 +750,76 @@ function useGL(glat,glon,gerr){
 
 
 					<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
-		<strong>Webservice Lookup Data</strong>
-		<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
-			<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
-			<span style="font-style:bold;">
-				Data in this box come from various webservices. They are NOT "specimen data," are derived from entirely automated processes,
-				 and come with no guarantees.
-			</span>
-			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading -
-				webservice data are asynchronously refreshed when this page loads, but can take a few minutes to find their way here.
-				(Webservice data are otherwise created when users load maps and refreshed
-				every 6 months.)
-			</p>
-			<p>
-				Automated georeferencing comes from either higher geography and locality or higher geography alone, and
-				contains no indication of error.
-				Curatorially-supplied error is displayed with the
-				curatorially-asserted point on the map below. The accuracy and usefulness of the automated georeferencing is hugely variable -
-				use it as a tool and make no assumptions.
-			</p>
-			<p>
-				There's a link to add the generated coordinates to the edit form. It copies only; you'll
-				need to manually calculate error (or use GeoLocate) and save to keep the copied data.
-			</p>
-			<p>
-				Distance between points is an estimate calculated using the
-				<a href="http://goo.gl/Pwhm0" class="external" target="_blank">Haversine formula</a>.
-				If it's a large value, careful scrutiny of coordinates and locality information is warranted.
-			</p>
-			<p>
-				Elevation is retrieved for the <strong>point</strong> given by the asserted coordinates.
-			</p>
-			<p>
-				Reverse-georeference Geography string is for both the coordinates and the spec locality (including higher geog).
-				It's used for searching, and can mostly be ignored.
-				Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
-			</p>
-		</div>
-		<br>
-			Coordinates:
-			<input type="text" id="s_dollar_dec_lat" value="#l.s$dec_lat#" size="6">
-			<input type="text" id="s_dollar_dec_long" value="#l.s$dec_long#" size="6">
-			<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>
-		<br>Distance between asserted and lookup coordinates (km):
-			<input type="text" id="distanceBetween" size="6">
-		<br>Elevation (m):
-			<input type="text" id="s_dollar_elev" value="#l.s$elevation#" size="6">
-			<span style="font-style:italic;">
-				<cfif len(l.min_elev_in_m) is 0>
-					There is no curatorially-supplied elevation.
-				<cfelseif locDet.min_elev_in_m gt l.s$elevation or l.s$elevation gt l.max_elev_in_m>
-					Automated georeference is outside the curatorially-supplied elevation range.
-				<cfelseif  locDet.min_elev_in_m lte l.s$elevation and l.s$elevation lte l.max_elev_in_m>
-					Automated georeference is within the curatorially-supplied elevation range.
-				</cfif>
-			</span>
-		<br>Tags:
-			<span style="font-weight:bold;">#l.s$geography#</span>
-		<div id="map-canvas"></div>
-		<img src="https://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
-		<img src="https://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
-		<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span>=locality WKT,
-		<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span>=geography WKT.
+					<strong>Webservice Lookup Data</strong>
+					<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
+						<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
+						<span style="font-style:bold;">
+							Data in this box come from various webservices. They are NOT "specimen data," are derived from entirely automated processes,
+							 and come with no guarantees.
+						</span>
+						<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading -
+							webservice data are asynchronously refreshed when this page loads, but can take a few minutes to find their way here.
+							(Webservice data are otherwise created when users load maps and refreshed
+							every 6 months.)
+						</p>
+						<p>
+							Automated georeferencing comes from either higher geography and locality or higher geography alone, and
+							contains no indication of error.
+							Curatorially-supplied error is displayed with the
+							curatorially-asserted point on the map below. The accuracy and usefulness of the automated georeferencing is hugely variable -
+							use it as a tool and make no assumptions.
+						</p>
+						<p>
+							There's a link to add the generated coordinates to the edit form. It copies only; you'll
+							need to manually calculate error (or use GeoLocate) and save to keep the copied data.
+						</p>
+						<p>
+							Distance between points is an estimate calculated using the
+							<a href="http://goo.gl/Pwhm0" class="external" target="_blank">Haversine formula</a>.
+							If it's a large value, careful scrutiny of coordinates and locality information is warranted.
+						</p>
+						<p>
+							Elevation is retrieved for the <strong>point</strong> given by the asserted coordinates.
+						</p>
+						<p>
+							Reverse-georeference Geography string is for both the coordinates and the spec locality (including higher geog).
+							It's used for searching, and can mostly be ignored.
+							Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
+						</p>
+					</div>
+					<br>
+						Coordinates:
+						<input type="text" id="s_dollar_dec_lat" value="#l.s$dec_lat#" size="6">
+						<input type="text" id="s_dollar_dec_long" value="#l.s$dec_long#" size="6">
+						<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>
+					<br>Distance between asserted and lookup coordinates (km):
+						<input type="text" id="distanceBetween" size="6">
+					<br>Elevation (m):
+						<input type="text" id="s_dollar_elev" value="#l.s$elevation#" size="6">
+						<span style="font-style:italic;">
+							<cfif len(l.min_elev_in_m) is 0>
+								There is no curatorially-supplied elevation.
+							<cfelseif locDet.min_elev_in_m gt l.s$elevation or l.s$elevation gt l.max_elev_in_m>
+								Automated georeference is outside the curatorially-supplied elevation range.
+							<cfelseif  locDet.min_elev_in_m lte l.s$elevation and l.s$elevation lte l.max_elev_in_m>
+								Automated georeference is within the curatorially-supplied elevation range.
+							</cfif>
+						</span>
+					<br>Tags:
+						<span style="font-weight:bold;">#l.s$geography#</span>
+					<div id="map-canvas"></div>
+					<img src="https://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
+					<img src="https://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
+					<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span>=locality WKT,
+					<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span>=geography WKT.
 
 
+					<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
 
+
+							<cfif len(l.DEC_LONG) gt 0>
+								<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
+							</cfif>
 
 
 
@@ -910,7 +920,13 @@ function useGL(glat,glon,gerr){
 				</td><!--- END geology cell --->
 			</tr>
 		</table>
-
+		<label for="action">On Save....</label>
+		<select name="sav_action" id="sav_action" class="reqdClr">
+			<option value="">pick one</option>
+			<option value="edit">Edit the current specimen_event</option>
+			<option value="add">"unaccepted" the current specimen_event; add an Event with these data</option>
+		</select>
+		<input type="submit"
 
 
 
@@ -1061,6 +1077,166 @@ function useGL(glat,glon,gerr){
 	----------->
 	</cfoutput>
 </cfif>
+<cfif action is "saveEdits">
+
+
+<cfdump var=#form#>
+<cfabort>
+	<!--- this has to run as GOD; users will not have access to do this stuff --->
+	<cftransaction>
+		<!--- this will always result in a new locality --->
+		<cfquery name="lid" datasource="uam_god">
+			select sq_locality_id.nextval lid from dual
+		</cfquery>
+		<cfquery name="mkloc" datasource="uam_god">
+			insert into locality (
+	   	 		LOCALITY_ID,
+	   	 		GEOG_AUTH_REC_ID,
+	   	 		SPEC_LOCALITY,
+	   	 		DEC_LAT,
+	   	 		DEC_LONG,
+	   	 		MINIMUM_ELEVATION,
+	   	 		MAXIMUM_ELEVATION,
+	   	 		ORIG_ELEV_UNITS,
+	   	 		MIN_DEPTH,
+	   	 		MAX_DEPTH,
+	   	 		DEPTH_UNITS,
+	   	 		MAX_ERROR_DISTANCE,
+	   	 		MAX_ERROR_UNITS,
+	   	 		DATUM,
+	   	 		LOCALITY_REMARKS,
+	   	 		GEOREFERENCE_SOURCE,
+	   	 		GEOREFERENCE_PROTOCOL,
+	   	 		wkt_media_id
+	   	 	) values (
+	   	 		#lid.lid#,
+	   	 		#GEOG_AUTH_REC_ID#,
+	   	 		'#escapeQuotes(SPEC_LOCALITY)#',
+	   	 		<cfif len(DEC_LAT) gt 0>#DEC_LAT#<cfelse>NULL</cfif>,
+	   	 		<cfif len(DEC_LONG) gt 0>#DEC_LONG#<cfelse>NULL</cfif>,
+	   	 		<cfif len(MINIMUM_ELEVATION) gt 0>#MINIMUM_ELEVATION#<cfelse>NULL</cfif>,
+	   	 		<cfif len(MAXIMUM_ELEVATION) gt 0>#MAXIMUM_ELEVATION#<cfelse>NULL</cfif>,
+	   	 		'#ORIG_ELEV_UNITS#',
+	   	 		<cfif len(MIN_DEPTH) gt 0>#MIN_DEPTH#<cfelse>NULL</cfif>,
+	   	 		<cfif len(MAX_DEPTH) gt 0>#MAX_DEPTH#<cfelse>NULL</cfif>,
+	   	 		'#DEPTH_UNITS#',
+	   	 		<cfif len(MAX_ERROR_DISTANCE) gt 0>#MAX_ERROR_DISTANCE#<cfelse>NULL</cfif>,
+	   	 		'#MAX_ERROR_UNITS#',
+	   	 		'#DATUM#',
+	   	 		'#escapeQuotes(LOCALITY_REMARKS)#',
+	   	 		'#escapeQuotes(GEOREFERENCE_SOURCE)#',
+	   	 		'#escapeQuotes(GEOREFERENCE_PROTOCOL)#'
+	   	 	)
+		</cfquery>
+		<!--- this will always result in a new collecting event --->
+		<cfquery name="cid" datasource="uam_god">
+			select sq_collecting_event_id.nextval cid from dual
+		</cfquery>
+		<cfquery name="mkevt" datasource="uam_god">
+			insert into collecting_event (
+				COLLECTING_EVENT_ID,
+				LOCALITY_ID,
+				VERBATIM_DATE,
+				VERBATIM_LOCALITY,
+				COLL_EVENT_REMARKS,
+				BEGAN_DATE,
+				ENDED_DATE
+	   	 	) values (
+	   	 		#cid.cid#,
+	   	 		#lid.lid#,
+	   	 		'#escapeQuotes(VERBATIM_DATE)#',
+	   	 		'#escapeQuotes(VERBATIM_LOCALITY)#',
+	   	 		'#escapeQuotes(COLL_EVENT_REMARKS)#',
+	   	 		'#BEGAN_DATE#',
+	   	 		'#ENDED_DATE#'
+	   	 	)
+		</cfquery>
+		<cfif sav_action is "edit">
+			<!--- change the existing event --->
+			<cfquery name="edsevt" datasource="uam_god">
+				update
+	   	 			specimen_event
+	   	 		set
+	   	 			collecting_event_id=#cid.cid#,
+	   	 			ASSIGNED_BY_AGENT_ID=#ASSIGNED_BY_AGENT_ID#,
+	   	 			ASSIGNED_DATE='#ASSIGNED_DATE#',
+	   	 			SPECIMEN_EVENT_REMARK='#escapeQuotes(SPECIMEN_EVENT_REMARK)#',
+	   	 			SPECIMEN_EVENT_TYPE='#SPECIMEN_EVENT_TYPE#',
+	   	 			COLLECTING_METHOD='#escapeQuotes(COLLECTING_METHOD)#',
+	   	 			COLLECTING_SOURCE='#COLLECTING_SOURCE#',
+	   	 			VERIFICATIONSTATUS='#VERIFICATIONSTATUS#',
+	   	 			HABITAT='#escapeQuotes(HABITAT)#',
+	   	 			VERIFIED_BY_AGENT_ID=<cfif len(VERIFIED_BY_AGENT_ID) gt 0>#VERIFIED_BY_AGENT_ID#<cfelse>NULL</cfif>,
+	   	 			VERIFIED_DATE='#VERIFIED_DATE#'
+	   	 		where
+	   	 			specimen_event_id=#specimen_event_id#
+			</cfquery>
+			<cfset redirSEID=specimen_event_id>
+		<cfelseif  sav_action is "add">
+			<!--- archive/unaccepted the existing event, make a new one --->
+			<cfquery name="sid" datasource="uam_god">
+				select sq_specimen_event_id.nextval sid from dual
+			</cfquery>
+			<cfquery name="mksevt" datasource="uam_god">
+				insert into specimen_event (
+	   	 			SPECIMEN_EVENT_ID,
+	   	 			COLLECTION_OBJECT_ID,
+	   	 			COLLECTING_EVENT_ID,
+	   	 			ASSIGNED_BY_AGENT_ID,
+	   	 			ASSIGNED_DATE,
+	   	 			SPECIMEN_EVENT_REMARK,
+	   	 			SPECIMEN_EVENT_TYPE,
+	   	 			COLLECTING_METHOD,
+	   	 			COLLECTING_SOURCE,
+	   	 			VERIFICATIONSTATUS,
+	   	 			HABITAT,
+	   	 			VERIFIED_BY_AGENT_ID,
+	   	 			VERIFIED_DATE
+	   	 		) values (
+	   	 			#sid.sid#,
+	   	 			#COLLECTION_OBJECT_ID#,
+	   	 			#cid.cid#,
+	   	 			#ASSIGNED_BY_AGENT_ID#,
+	   	 			'#ASSIGNED_DATE#',
+	   	 			'#escapeQuotes(SPECIMEN_EVENT_REMARK)#',
+	   	 			'#SPECIMEN_EVENT_TYPE#',
+	   	 			'#escapeQuotes(COLLECTING_METHOD)#',
+	   	 			'#COLLECTING_SOURCE#',
+	   	 			'#VERIFICATIONSTATUS#',
+	   	 			'#escapeQuotes(HABITAT)#',
+	   	 			<cfif len(VERIFIED_BY_AGENT_ID) gt 0>#VERIFIED_BY_AGENT_ID#<cfelse>NULL</cfif>,
+	   	 			'#VERIFIED_DATE#'
+	   	 		)
+			</cfquery>
+
+			<cfquery name="arksevt" datasource="uam_god">
+				update
+	   	 			specimen_event
+	   	 		set
+	   	 			VERIFICATIONSTATUS='unaccepted'
+	   	 		where
+	   	 			specimen_event_id=#specimen_event_id#
+			</cfquery>
+			<cfset redirSEID=sid.sid>
+			<!--- we should never get here --->
+			<cfthrow message="invalid sav_action">
+		</cfif>
+			<select name="sav_action" id="sav_action" class="reqdClr">
+			<option value="">pick one</option>
+			<option value="">Edit the current specimen_event</option>
+			<option value="">"unaccepted" the c
+
+	</cftransaction>
+
+
+	<cflocation url="specLocality_forkLocStk.cfm?specimen_event_id=#redirSEID#" addtoken="false">
+
+</cfif>
+
+
+<!----
+
+
 
 <cfif action is "delete">
 	<cfquery name="upSE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -1122,3 +1298,4 @@ function useGL(glat,glon,gerr){
 	</cfquery>
 	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfif>
+---->
