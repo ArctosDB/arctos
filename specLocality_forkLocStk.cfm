@@ -214,6 +214,7 @@ function useGL(glat,glon,gerr){
 			 SPEC_LOCALITY,
 			 locality.DEC_LAT ,
 			 locality.DEC_LONG ,
+			 locality.datum,
 			 MINIMUM_ELEVATION,
 			 MAXIMUM_ELEVATION,
 			 ORIG_ELEV_UNITS,
