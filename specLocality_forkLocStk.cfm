@@ -1082,7 +1082,7 @@ function useGL(glat,glon,gerr){
 <cfif action is "saveEdits">
 <cfoutput>
 
-
+<cfdump var=#form#>
 
 	<!--- this has to run as GOD; users will not have access to do this stuff --->
 	<cftransaction>
@@ -1235,8 +1235,8 @@ function useGL(glat,glon,gerr){
 					<cfset thisGV=evaluate("GEO_ATT_VALUE__" & thisIndex)>
 					<cfset thisGDid=evaluate("GEO_ATT_DETERMINER_ID__" & thisIndex)>
 					<cfset thisGDD=evaluate("GEO_ATT_DETERMINED_DATE__" & thisIndex)>
-					<cfset thisGDM=evaluate("GEO_ATT_DETERMINED_METHOD__1" & thisIndex)>
-					<cfset thisGR=evaluate("GEO_ATT_REMARK__1" & thisIndex)>
+					<cfset thisGDM=evaluate("GEO_ATT_DETERMINED_METHOD__" & thisIndex)>
+					<cfset thisGR=evaluate("GEO_ATT_REMARK__" & thisIndex)>
 					<cfquery name="insGeo" datasource="uam_god">
 						insert into geology_attributes (
 							GEOLOGY_ATTRIBUTE_ID,
