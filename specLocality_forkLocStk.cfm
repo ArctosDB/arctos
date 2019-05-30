@@ -475,7 +475,7 @@ function useGL(glat,glon,gerr){
 					<td>
 						<label for="orig_elev_units" class="helpLink" data-helplink="orig_elev_units">Elevation Units</label>
 						<select name="orig_elev_units" id="orig_elev_units" size="1">
-							<cfloop query="cterror">
+							<cfloop query="ctElevUnit">
 								<option <cfif l.orig_elev_units is ctElevUnit.orig_elev_units> selected="selected" </cfif>
 									value="#orig_elev_units#">#orig_elev_units#</option>
 							</cfloop>
