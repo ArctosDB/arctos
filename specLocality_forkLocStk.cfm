@@ -23,10 +23,10 @@
 	});
 	function populateGeology(id) {
 		if (id.indexOf('__') > -1) {
-			var idNum=id.replace('geology_attribute__','');
-			var thisValue=$("#geology_attribute__" + idNum).val();;
-			var dataValue=$("#geo_att_value__" + idNum).val();
-			var theSelect="geo_att_value__";
+			var idNum=id.replace('geology_attribute_','');
+			var thisValue=$("#geology_attribute_" + idNum).val();;
+			var dataValue=$("#geo_att_value_" + idNum).val();
+			var theSelect="geo_att_value_";
 			if (thisValue == ''){
 				return false;
 			}
@@ -516,6 +516,7 @@ function useGL(glat,glon,gerr){
 					<th>Determiner</th>
 					<th>Date</th>
 					<th>Method</th>
+					<th>Remark</th>
 				</tr>
 				<cfset i=1>
 				<cfloop query="geology">
