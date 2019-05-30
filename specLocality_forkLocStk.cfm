@@ -33,14 +33,14 @@
 
 
 	function useGL(glat,glon,gerr){
-			$("##max_error_distance").val(gerr);
-			$("##max_error_units").val('m');
-			$("##datum").val('World Geodetic System 1984');
-			$("##georeference_protocol").val('GeoLocate');
-			$("##georeference_source").val('GeoLocate');
-			$("##dec_lat").val(glat);
-			$("##dec_long").val(glon);
-			$("##lat_long_remarks").val('');
+			$("#max_error_distance").val(gerr);
+			$("#max_error_units").val('m');
+			$("#datum").val('World Geodetic System 1984');
+			$("#georeference_protocol").val('GeoLocate');
+			$("#georeference_source").val('GeoLocate');
+			$("#dec_lat").val(glat);
+			$("#dec_long").val(glon);
+			$("#lat_long_remarks").val('');
 			closeGeoLocate();
 		}
 
@@ -210,42 +210,6 @@ function checkCoordinateError(){
 </script>
 <span class="helpLink" data-helplink="specimen_event">Page Help</span>
 <script>
-	function showLLFormat(orig_units) {
-		//alert(orig_units);
-		var llMeta = document.getElementById('llMeta');
-		var decdeg = document.getElementById('decdeg');
-		var utm = document.getElementById('utm');
-		var ddm = document.getElementById('ddm');
-		var dms = document.getElementById('dms');
-		llMeta.style.display='none';
-		decdeg.style.display='none';
-		utm.style.display='none';
-		ddm.style.display='none';
-		dms.style.display='none';
-		//alert('everything off');
-		if (orig_units.length > 0) {
-			//alert('got soemthing');
-			$("#orig_lat_long_units").val(orig_units);
-			llMeta.style.display='';
-			if (orig_units == 'decimal degrees') {
-				decdeg.style.display='';
-			}
-			else if (orig_units == 'UTM') {
-				//alert(utm.style.display);
-				utm.style.display='';
-				//alert(utm.style.display);
-			}
-			else if (orig_units == 'degrees dec. minutes') {
-				ddm.style.display='';
-			}
-			else if (orig_units == 'deg. min. sec.') {
-				dms.style.display='';
-			}
-			else {
-				alert('I have no idea what to do with ' + orig_units);
-			}
-		}
-	}
 	function geolocate(method) {
 		//alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='https://www.geo-locate.org/web/WebGeoreflight.aspx?georef=run';
