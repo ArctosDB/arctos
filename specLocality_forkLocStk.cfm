@@ -5,6 +5,18 @@
 	</div>
 	<cfabort>
 </cfif>
+<style type="text/css">
+	#map-canvas { height: 300px;width:500px; }
+</style>
+
+<cfset obj = CreateObject("component","component.functions")>
+	<cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
+	<cfoutput>
+		<cfhtmlhead text='<script src="#murl#" type="text/javascript"></script>'>
+	</cfoutput>
+
+
+
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#began_date").datepicker();
@@ -174,6 +186,146 @@
 	$(document).ready(function() {
 		$("input[type='date'], input[type='datetime']" ).datepicker();
 	});
+
+
+
+	var map;
+ 		var mapOptions = {
+        	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
+         	mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var bounds = new google.maps.LatLngBounds();
+		function initialize() {
+        	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      	}
+		initialize();
+		var latLng1 = new google.maps.LatLng($("#dec_lat").val(), $("#dec_long").val());
+		if ($("#dec_lat").val().length>0){
+			var marker1 = new google.maps.Marker({
+			    position: latLng1,
+			    map: map,
+			    icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
+			});
+			var circleOptions = {
+	  			center: latLng1,
+	  			radius: Math.round($("#error_in_meters").val()),
+	  			map: map,
+	  			editable: false
+			};
+			var circle = new google.maps.Circle(circleOptions);
+		}
+		var latLng2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val());
+		if ($("#s_dollar_dec_lat").val().length>0){
+			var marker2 = new google.maps.Marker({
+			    position: latLng2,
+			    map: map,
+			    icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
+			});
+		}
+		bounds.extend(latLng1);
+        bounds.extend(latLng2);
+		// center the map on the points
+		map.fitBounds(bounds);
+		// and zoom back out a bit, if the points will still fit
+		// because the centering zooms WAY in if the points are close together
+		var p1 = new google.maps.LatLng($("#dec_lat").val(),$("#dec_long").val());
+		var p2 = new google.maps.LatLng($("#s_dollar_dec_lat").val(),$("#s_dollar_dec_long").val());
+		var tdis=distHaversine(p1,p2);
+		$("#distanceBetween").val(tdis);
+
+		if (tdis < 50) {
+			// if hte points are close together autozoom goes too far
+			var listener = google.maps.event.addListener(map, "idle", function() {
+				if (map.getZoom() > 4) map.setZoom(4);
+				google.maps.event.removeListener(listener);
+			});
+		}
+
+
+
+		// add wkt if available
+        var wkt=$("#locpoly").val();
+        if (wkt.length>0){
+
+        	//console.log('going wkt...');
+			//using regex, we will get the indivudal Rings
+			var regex = /\(([^()]+)\)/g;
+			var Rings = [];
+			var results;
+			while( results = regex.exec(wkt) ) {
+			    Rings.push( results[1] );
+			    console.log('added ring');
+			}
+			var ptsArray=[];
+			var polyLen=Rings.length;
+			//now we need to draw the polygon for each of inner rings, but reversed
+			for(var i=0;i<polyLen;i++){
+			    AddPoints(Rings[i]);
+			    console.log('added polyring');
+			}
+			var poly = new google.maps.Polygon({
+			    paths: ptsArray,
+			    strokeColor: '#DC143C',
+			    strokeOpacity: 0.8,
+			    strokeWeight: 2,
+			    fillColor: '#FF7F50',
+			    fillOpacity: 0.35
+			  });
+			  poly.setMap(map);
+        }
+
+        // add geowkt if available
+        var wkt=$("#geopoly").val(); //this is your WKT string
+        if (wkt.length>0){
+
+        		//console.log('going geopoly...');
+			//using regex, we will get the indivudal Rings
+			var regex = /\(([^()]+)\)/g;
+			var Rings = [];
+			var results;
+			while( results = regex.exec(wkt) ) {
+			    Rings.push( results[1] );
+			    //console.log('added ring');
+			}
+			var ptsArray=[];
+			var polyLen=Rings.length;
+			//now we need to draw the polygon for each of inner rings, but reversed
+			for(var i=0;i<polyLen;i++){
+			    AddPoints(Rings[i]);
+			    //console.log('added polyring');
+			}
+			var poly = new google.maps.Polygon({
+			    paths: ptsArray,
+			    strokeColor: '#1E90FF',
+			    strokeOpacity: 0.8,
+			    strokeWeight: 2,
+			    fillColor: '#1E90FF',
+			    fillOpacity: 0.35
+			});
+			 poly.setMap(map);
+        }
+
+
+
+		//function to add points from individual rings, used in adding WKT to the map
+		function AddPoints(data){
+		    //first spilt the string into individual points
+		    var pointsData=data.split(",");
+		    //iterate over each points data and create a latlong
+		    //& add it to the cords array
+		    var len=pointsData.length;
+		    for (var i=0;i<len;i++)
+		    {
+		        var xy=pointsData[i].trim().split(" ");
+		        var pt=new google.maps.LatLng(xy[1],xy[0]);
+		        ptsArray.push(pt);
+		    }
+		}
+		// END add wkt if available
+		// end map setup
+
+
+
 </script>
 <cfif action is "nothing">
 <cfoutput>
@@ -549,7 +701,90 @@ function useGL(glat,glon,gerr){
 						onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
 				</td><!--- END main cell --->
 				<td><!--- maptools cell --->
-					ima map!
+
+
+
+
+
+
+
+					<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
+		<strong>Webservice Lookup Data</strong>
+		<a target="_blank" href="/component/functions.cfc?method=getLocalityCacheStuff&locality_id=#locality_id#&debug=true">Pull/Debug</a>
+		<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
+			<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
+			<span style="font-style:bold;">
+				Data in this box come from various webservices. They are NOT "specimen data," are derived from entirely automated processes,
+				 and come with no guarantees.
+			</span>
+			<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading -
+				webservice data are asynchronously refreshed when this page loads, but can take a few minutes to find their way here.
+				(Webservice data are otherwise created when users load maps and refreshed
+				every 6 months.)
+			</p>
+			<p>
+				Automated georeferencing comes from either higher geography and locality or higher geography alone, and
+				contains no indication of error.
+				Curatorially-supplied error is displayed with the
+				curatorially-asserted point on the map below. The accuracy and usefulness of the automated georeferencing is hugely variable -
+				use it as a tool and make no assumptions.
+			</p>
+			<p>
+				There's a link to add the generated coordinates to the edit form. It copies only; you'll
+				need to manually calculate error (or use GeoLocate) and save to keep the copied data.
+			</p>
+			<p>
+				Distance between points is an estimate calculated using the
+				<a href="http://goo.gl/Pwhm0" class="external" target="_blank">Haversine formula</a>.
+				If it's a large value, careful scrutiny of coordinates and locality information is warranted.
+			</p>
+			<p>
+				Elevation is retrieved for the <strong>point</strong> given by the asserted coordinates.
+			</p>
+			<p>
+				Reverse-georeference Geography string is for both the coordinates and the spec locality (including higher geog).
+				It's used for searching, and can mostly be ignored.
+				Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
+			</p>
+		</div>
+		<br>
+			Coordinates:
+			<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#" size="6">
+			<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#" size="6">
+			<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>
+		<br>Distance between asserted and lookup coordinates (km):
+			<input type="text" id="distanceBetween" size="6">
+		<br>Elevation (m):
+			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#" size="6">
+			<span style="font-style:italic;">
+				<cfif len(locDet.min_elev_in_m) is 0>
+					There is no curatorially-supplied elevation.
+				<cfelseif locDet.min_elev_in_m gt locDet.s$elevation or locDet.s$elevation gt locDet.max_elev_in_m>
+					Automated georeference is outside the curatorially-supplied elevation range.
+				<cfelseif  locDet.min_elev_in_m lte locDet.s$elevation and locDet.s$elevation lte locDet.max_elev_in_m>
+					Automated georeference is within the curatorially-supplied elevation range.
+				</cfif>
+			</span>
+		<br>Tags:
+			<span style="font-weight:bold;">#locDet.s$geography#</span>
+		<div id="map-canvas"></div>
+		<img src="https://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
+		<img src="https://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
+		<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span>=locality WKT,
+		<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span>=geography WKT.
+
+
+
+
+
+
+
+
+
+
+
+
+
 				</td><!--- END maptools cell --->
 			</tr>
 			<tr>
