@@ -2,6 +2,28 @@
 <cfif not listfindnocase(session.roles,'manage_specimens')>
 	<div class="error">not authorized</div><cfabort>
 </cfif>
+
+<p>
+	Docs
+	<br>after testing this needs expanded and moved to http://handbook.arctosdb.org/documentation/specimen-event.html
+	<textarea rows="40" cols="100">
+		There are two ways to edit specimen-events and associated place/time data.
+
+		1.  old/normal way
+			* normalized, makes managing data for shared localities easy
+			* normalized, makes editing specimens by mashing random buttons easy
+			* requires scary shared access
+			* requires an in-depth understanding of the Arctos Locality Model
+
+		2. Fork-Edit method
+			* denormalized - every save creates a new locality and event
+			    * but who cares, the cleanup scripts will consolidate duplicates and purge orphans
+			* requires only manage_specimens access; always creates new localities which can't possibly be shared, so back-end can safely run with elevated rights
+			* provides a one-click path to keeping full history as unaccepted specimen-events
+			   * adding rather than editing is an option on every save
+
+	</textarea>
+
 <cfif action is "nothing">
 	<style type="text/css">
 		#map-canvas { height: 300px;width:500px; }
