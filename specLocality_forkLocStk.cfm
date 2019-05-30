@@ -274,6 +274,8 @@
 
 		$("#began_date").datepicker();
 		$("#ended_date").datepicker();
+		$("input[type='date'], input[type='datetime']" ).datepicker();
+
 		$(":input[id^='geo_att_determined_date']").each(function(e){
 			$("#" + this.id).datepicker();
 		});
@@ -285,9 +287,6 @@
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
 		}
-
-			$("input[type='date'], input[type='datetime']" ).datepicker();
-
 
 		var map;
  		var mapOptions = {
@@ -432,73 +431,54 @@
 
 </script>
 <span class="helpLink" data-helplink="specimen_event">Page Help</span>
-<script>
 
-
-
-
-
-
-
-	$(document).ready(function() {
-
-	});
-
-
-
-
-
-
-
-</script>
 <cfif action is "nothing">
 <cfoutput>
-
 	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-    		select
-	specimen_event.collection_object_id,
-			 COLLECTING_EVENT.COLLECTING_EVENT_ID,
-			 specimen_event_id,
-			 locality.LOCALITY_ID,
-			 VERBATIM_DATE,
-			 VERBATIM_LOCALITY,
-			 COLL_EVENT_REMARKS,
-			 BEGAN_DATE,
-			 ENDED_DATE,
-			 geog_auth_rec.GEOG_AUTH_REC_ID,
-			 SPEC_LOCALITY,
-			 locality.DEC_LAT ,
-			 locality.DEC_LONG ,
-			 to_meters(locality.max_error_distance,locality.max_error_units) error_in_meters,
-			 locality.datum,
-			 MINIMUM_ELEVATION,
-			 MAXIMUM_ELEVATION,
-			 ORIG_ELEV_UNITS,
-			 MIN_DEPTH,
-			 MAX_DEPTH,
-			 DEPTH_UNITS,
-			 MAX_ERROR_DISTANCE,
-			 MAX_ERROR_UNITS,
-			 LOCALITY_REMARKS,
-			 georeference_source,
-			 georeference_protocol,
-			 locality_name,
-			 locality.s$dec_lat,
-			 locality.s$dec_long,
-			 locality.s$elevation,
-			 locality.s$geography,
+   		select
+			specimen_event.collection_object_id,
+			COLLECTING_EVENT.COLLECTING_EVENT_ID,
+			specimen_event_id,
+			locality.LOCALITY_ID,
+			VERBATIM_DATE,
+			VERBATIM_LOCALITY,
+			COLL_EVENT_REMARKS,
+			BEGAN_DATE,
+			ENDED_DATE,
+			geog_auth_rec.GEOG_AUTH_REC_ID,
+			SPEC_LOCALITY,
+			locality.DEC_LAT ,
+			locality.DEC_LONG ,
+			to_meters(locality.max_error_distance,locality.max_error_units) error_in_meters,
+			locality.datum,
+			MINIMUM_ELEVATION,
+			MAXIMUM_ELEVATION,
+			ORIG_ELEV_UNITS,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			DEPTH_UNITS,
+			MAX_ERROR_DISTANCE,
+			MAX_ERROR_UNITS,
+			LOCALITY_REMARKS,
+			georeference_source,
+			georeference_protocol,
+			locality_name,
+			locality.s$dec_lat,
+			locality.s$dec_long,
+			locality.s$elevation,
+			locality.s$geography,
 			to_meters(locality.minimum_elevation,locality.orig_elev_units) min_elev_in_m,
 			to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m,
 			locality.wkt_media_id,
 			geog_auth_rec.wkt_media_id geopoly,
-			  assigned_by_agent_id,
-			 getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
-			 assigned_date,
-			 specimen_event_type,
-			 COLLECTING_METHOD,
-			 COLLECTING_SOURCE,
-			 VERIFICATIONSTATUS,
-			 habitat,
+			assigned_by_agent_id,
+			getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
+			assigned_date,
+			specimen_event_type,
+			COLLECTING_METHOD,
+			COLLECTING_SOURCE,
+			VERIFICATIONSTATUS,
+			habitat,
 			geog_auth_rec.geog_auth_rec_id,
 			higher_geog,
 			state_prov,
@@ -517,7 +497,7 @@
 			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
 			locality.locality_id=collecting_event.locality_id and
 			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
-			specimen_event.specimen_event_id = #specimen_event_id#
+			specimen_event.specimen_event_id = #val(specimen_event_id)#
 	</cfquery>
 
 
@@ -838,77 +818,78 @@
 				</td><!--- END main cell --->
 				<td width="40%"><!--- maptools cell --->
 					<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
-					<strong>Webservice Lookup Data</strong>
+						<strong>Webservice Lookup Data</strong>
 						<!--- pull it --->
 						<cfset staticImageMap = obj.getMap(locality_id="#l.locality_id#",forceOverrideCache=true)>
 						<a target="_blank" href="/component/functions.cfc?method=getLocalityCacheStuff&locality_id=#l.locality_id#&debug=true">Pull/Debug</a>
-					<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
-						<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
-						<span style="font-style:bold;">
-							Data in this box come from various webservices. They are NOT "specimen data," are derived from entirely automated processes,
-							 and come with no guarantees.
-						</span>
-						<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading -
-							webservice data are asynchronously refreshed when this page loads, but can take a few minutes to find their way here.
-							(Webservice data are otherwise created when users load maps and refreshed
-							every 6 months.)
-						</p>
-						<p>
-							Automated georeferencing comes from either higher geography and locality or higher geography alone, and
-							contains no indication of error.
-							Curatorially-supplied error is displayed with the
-							curatorially-asserted point on the map below. The accuracy and usefulness of the automated georeferencing is hugely variable -
-							use it as a tool and make no assumptions.
-						</p>
-						<p>
-							There's a link to add the generated coordinates to the edit form. It copies only; you'll
-							need to manually calculate error (or use GeoLocate) and save to keep the copied data.
-						</p>
-						<p>
-							Distance between points is an estimate calculated using the
-							<a href="http://goo.gl/Pwhm0" class="external" target="_blank">Haversine formula</a>.
-							If it's a large value, careful scrutiny of coordinates and locality information is warranted.
-						</p>
-						<p>
-							Elevation is retrieved for the <strong>point</strong> given by the asserted coordinates.
-						</p>
-						<p>
-							Reverse-georeference Geography string is for both the coordinates and the spec locality (including higher geog).
-							It's used for searching, and can mostly be ignored.
-							Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
-						</p>
-					</div>
-					<br>
-						Coordinates:
-						<input type="text" id="s_dollar_dec_lat" value="#l.s$dec_lat#" size="6">
-						<input type="text" id="s_dollar_dec_long" value="#l.s$dec_long#" size="6">
-						<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>
-					<br>Distance between asserted and lookup coordinates (km):
-						<input type="text" id="distanceBetween" size="6">
-					<br>Elevation (m):
-						<input type="text" id="s_dollar_elev" value="#l.s$elevation#" size="6">
-						<span style="font-style:italic;">
-							<cfif len(l.min_elev_in_m) is 0>
-								There is no curatorially-supplied elevation.
-							<cfelseif locDet.min_elev_in_m gt l.s$elevation or l.s$elevation gt l.max_elev_in_m>
-								Automated georeference is outside the curatorially-supplied elevation range.
-							<cfelseif  locDet.min_elev_in_m lte l.s$elevation and l.s$elevation lte l.max_elev_in_m>
-								Automated georeference is within the curatorially-supplied elevation range.
-							</cfif>
-							<span class="likeLink" onclick="useAutoElev()">Copy elevation to the form</span>
-						</span>
-					<br>Tags:
+						<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
+							<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
+							<span style="font-style:bold;">
+								Data in this box come from various webservices. They are NOT "specimen data," are derived from entirely automated processes,
+								 and come with no guarantees.
+							</span>
+							<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading -
+								webservice data are asynchronously refreshed when this page loads, but can take a few minutes to find their way here.
+								(Webservice data are otherwise created when users load maps and refreshed
+								every 6 months.)
+							</p>
+							<p>
+								Automated georeferencing comes from either higher geography and locality or higher geography alone, and
+								contains no indication of error.
+								Curatorially-supplied error is displayed with the
+								curatorially-asserted point on the map below. The accuracy and usefulness of the automated georeferencing is hugely variable -
+								use it as a tool and make no assumptions.
+							</p>
+							<p>
+								There's a link to add the generated coordinates to the edit form. It copies only; you'll
+								need to manually calculate error (or use GeoLocate) and save to keep the copied data.
+							</p>
+							<p>
+								Distance between points is an estimate calculated using the
+								<a href="http://goo.gl/Pwhm0" class="external" target="_blank">Haversine formula</a>.
+								If it's a large value, careful scrutiny of coordinates and locality information is warranted.
+							</p>
+							<p>
+								Elevation is retrieved for the <strong>point</strong> given by the asserted coordinates.
+							</p>
+							<p>
+								Reverse-georeference Geography string is for both the coordinates and the spec locality (including higher geog).
+								It's used for searching, and can mostly be ignored.
+								Use the Contact link in the footer if it's horrendously wrong somewhere - let us know the locality_id.
+							</p>
+						</div>
+						<br>
+							Coordinates:
+							<input type="text" id="s_dollar_dec_lat" value="#l.s$dec_lat#" size="6">
+							<input type="text" id="s_dollar_dec_long" value="#l.s$dec_long#" size="6">
+							<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>
+						<br>Distance between asserted and lookup coordinates (km):
+							<input type="text" id="distanceBetween" size="6">
+						<br>Elevation (m):
+							<input type="text" id="s_dollar_elev" value="#l.s$elevation#" size="6">
+							<span style="font-style:italic;">
+								<cfif len(l.min_elev_in_m) is 0>
+									There is no curatorially-supplied elevation.
+								<cfelseif locDet.min_elev_in_m gt l.s$elevation or l.s$elevation gt l.max_elev_in_m>
+									Automated georeference is outside the curatorially-supplied elevation range.
+								<cfelseif  locDet.min_elev_in_m lte l.s$elevation and l.s$elevation lte l.max_elev_in_m>
+									Automated georeference is within the curatorially-supplied elevation range.
+								</cfif>
+								<span class="likeLink" onclick="useAutoElev()">Copy elevation to the form</span>
+							</span>
+						<br>Tags:
 						<span style="font-weight:bold;">#l.s$geography#</span>
-					<div id="map-canvas"></div>
-					<img src="https://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
-					<img src="https://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
-					<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span>=locality WKT,
-					<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span>=geography WKT.
-					<br>
-					<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
-					<cfif len(l.DEC_LONG) gt 0>
-						<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
-					</cfif>
+						<div id="map-canvas"></div>
+						<img src="https://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
+						<img src="https://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
+						<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span>=locality WKT,
+						<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span>=geography WKT.
+						<br>
+						<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
+						<cfif len(l.DEC_LONG) gt 0>
+							<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
+						</cfif>
+					</div>
 				</td><!--- END maptools cell --->
 			</tr>
 		</table>
