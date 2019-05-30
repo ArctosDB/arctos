@@ -1125,7 +1125,8 @@ function useGL(glat,glon,gerr){
 	   	 		'#DATUM#',
 	   	 		'#escapeQuotes(LOCALITY_REMARKS)#',
 	   	 		'#escapeQuotes(GEOREFERENCE_SOURCE)#',
-	   	 		'#escapeQuotes(GEOREFERENCE_PROTOCOL)#'
+	   	 		'#escapeQuotes(GEOREFERENCE_PROTOCOL)#',
+	   	 		<cfif len(wkt_media_id) gt 0>#wkt_media_id#<cfelse>NULL</cfif>
 	   	 	)
 		</cfquery>
 		<!--- this will always result in a new collecting event --->
