@@ -152,8 +152,11 @@ function checkCoordinateError(){
 			var theSelect="geo_att_value__";
 			if (thisValue == ''){
 				console.log('NOT hasval');
+				$("#geology_attribute__" + idNum).removeClass().prop('required',false);
+				$("#geo_att_value__" + idNum).removeClass().prop('required',false);
 				return false;
 			}
+
 		} else {
 			// new geol attribute
 			var idNum='';
@@ -180,11 +183,8 @@ function checkCoordinateError(){
 				$("select#" + theSelect + idNum).html(s);
 			}
 		);
-		if ($("#geology_attribute__" + idNum).val().length > 0){
-			console.log('hasval');
-		} else {
-			console.log('NOT hasval');
-		}
+		$("#geology_attribute__" + idNum).addClass('reqdClr').prop('required',true);
+		$("#geo_att_value__" + idNum).addClass('reqdClr').prop('required',true);
 	}
 
 	function verifByMe(i,u){
