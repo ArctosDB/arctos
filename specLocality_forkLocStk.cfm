@@ -1080,46 +1080,8 @@ function useGL(glat,glon,gerr){
 <cfif action is "saveEdits">
 <cfoutput>
 
-<cfdump var=#form#>
-
-<!--- pull geology out --->
-
-GEOLOGY_ATTRIBUTE__1 	[empty string]
-GEOLOGY_ATTRIBUTE__2 	[empty string]
-GEOLOGY_ATTRIBUTE__3 	[empty string]
-GEOLOGY_ATTRIBUTE__4 	[empty string]
-
-<cfloop list="#form.FIELDNAMES#" index="fld">
-	<br>#fld#
-	<cfif left(fld,19) is "GEOLOGY_ATTRIBUTE__">
-		<cfset thisIndex=replace(fld,"GEOLOGY_ATTRIBUTE__","")>
-		<cfset thisGA=evaluate("GEOLOGY_ATTRIBUTE__" & thisIndex)>
-		<br>thisGA: #thisGA#
-		<cfif len(thisGA) gt 0>
-			make geology
-		<cfelse>
-		no make geo
-		</cfif>
 
 
-GEOLOGY_ATTRIBUTE__1
-GEO_ATT_VALUE__1
-GEO_ATT_DETERMINER_ID__1
-GEO_ATT_DETERMINER_1
-GEO_ATT_DETERMINED_DATE__1
-GEO_ATT_DETERMINED_METHOD__1
-GEO_ATT_REMARK__1
-
-	</cfif>
-</cfloop>
-
-
-</cfoutput>
-
-
-
-
-<cfabort>
 	<!--- this has to run as GOD; users will not have access to do this stuff --->
 	<cftransaction>
 		<!--- this will always result in a new locality --->
@@ -1259,15 +1221,44 @@ GEO_ATT_REMARK__1
 			<!--- we should never get here --->
 			<cfthrow message="invalid sav_action">
 		</cfif>
-			<select name="sav_action" id="sav_action" class="reqdClr">
-			<option value="">pick one</option>
-			<option value="">Edit the current specimen_event</option>
-			<option value="">"unaccepted" the c
 
+		<!--- pull geology out --->
+		<cfloop list="#form.FIELDNAMES#" index="fld">
+			<cfif left(fld,19) is "GEOLOGY_ATTRIBUTE__">
+				<cfset thisIndex=replace(fld,"GEOLOGY_ATTRIBUTE__","")>
+				<cfset thisGA=evaluate("GEOLOGY_ATTRIBUTE__" & thisIndex)>
+				<cfif len(thisGA) gt 0>
+					<cfset thisGV=evaluate("GEO_ATT_VALUE__" & thisIndex)>
+					<cfset thisGDid=evaluate("GEO_ATT_DETERMINER_ID__" & thisIndex)>
+					<cfset thisGDD=evaluate("GEO_ATT_DETERMINED_DATE__" & thisIndex)>
+					<cfset thisGDM=evaluate("GEO_ATT_DETERMINED_METHOD__1" & thisIndex)>
+					<cfset thisGR=evaluate("GEO_ATT_REMARK__1" & thisIndex)>
+					<cfquery name="insGeo" datasource="uam_god">
+						insert into geology_attributes (
+							GEOLOGY_ATTRIBUTE_ID,
+							LOCALITY_ID,
+							GEOLOGY_ATTRIBUTE,
+							GEO_ATT_VALUE,
+							GEO_ATT_DETERMINER_ID,
+							GEO_ATT_DETERMINED_DATE,
+							GEO_ATT_DETERMINED_METHOD,
+							GEO_ATT_REMARK
+						values (
+							sq_GEOLOGY_ATTRIBUTE_ID.nextval,
+							#lid.lid#,
+							'#thisGA#',
+				   	 		<cfif len(thisGDid) gt 0>#thisGDid#<cfelse>NULL</cfif>,
+							'#thisGDD#',
+							'#escapeQuotes(thisGDM)#',
+							'#escapeQuotes(thisGR)#'
+						)
+					</cfquery>
+				</cfif>
+			</cfif>
+		</cfloop>
 	</cftransaction>
-
-
 	<cflocation url="specLocality_forkLocStk.cfm?specimen_event_id=#redirSEID#" addtoken="false">
+</cfoutput>
 
 </cfif>
 
