@@ -569,20 +569,19 @@ function useGL(glat,glon,gerr){
 							</select>
 						</td>
 						<td>
-							<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
+							<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" >
 							<input type="text" name="geo_att_determiner_#i#"  size="40"
 								onchange="pickAgentModal('geo_att_determiner_id_#i#','geo_att_determiner_#i#',this.value); return false;"
-			 					onKeyPress="return noenter(event);"
-			 					value="#agent_name#">
+			 					onKeyPress="return noenter(event);">
 						</td>
 						<td>
-							<input type="text" name="geo_att_determined_date_#i#" id="geo_att_determined_date_#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
+							<input type="text" name="geo_att_determined_date_#i#" id="geo_att_determined_date_#i#">
 						</td>
 						<td>
-							<input type="text" name="geo_att_determined_method_#i#" size="60"  value="#geo_att_determined_method#">
+							<input type="text" name="geo_att_determined_method_#i#" size="60" >
 						</td>
 						<td>
-							<input type="text" name="geo_att_remark_#i#" size="60" value="#geo_att_remark#">
+							<input type="text" name="geo_att_remark_#i#" size="60">
 						</td>
 					</tr>
 				</cfloop>
