@@ -427,6 +427,8 @@ function useGL(glat,glon,gerr){
 
 					<label for="spec_locality" class="helpLink" data-helplink="spec_locality">Specific Locality</label>
 					<input type="text" name="spec_locality" id="spec_locality" value="#l.spec_locality#" size="75">
+					<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
+
 
 
 					<label for="locality_remarks" class="helpLink" data-helplink="locality_remarks">Locality Remarks</label>
