@@ -8,17 +8,14 @@
 <style type="text/css">
 	#map-canvas { height: 300px;width:500px; }
 </style>
-
 <cfset obj = CreateObject("component","component.functions")>
-	<cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
-	<cfoutput>
-		<cfhtmlhead text='<script src="#murl#" type="text/javascript"></script>'>
-	</cfoutput>
-
+<cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
+<cfoutput>
+	<cfhtmlhead text='<script src="#murl#" type="text/javascript"></script>'>
+</cfoutput>
 
 
 <script language="javascript" type="text/javascript">
-
 	rad = function(x) {return x*Math.PI/180;}
 	distHaversine = function(p1, p2) {
 	  var R = 6371; // earth's mean radius in km
@@ -30,133 +27,89 @@
 	  return d.toFixed(3);
 	}
 
-
-
 	function useGL(glat,glon,gerr){
-			$("#max_error_distance").val(gerr);
-			$("#max_error_units").val('m');
-			$("#datum").val('World Geodetic System 1984');
-			$("#georeference_protocol").val('GeoLocate');
-			$("#georeference_source").val('GeoLocate');
-			$("#dec_lat").val(glat);
-			$("#dec_long").val(glon);
-			$("#lat_long_remarks").val('');
-			closeGeoLocate();
+		$("#max_error_distance").val(gerr);
+		$("#max_error_units").val('m');
+		$("#datum").val('World Geodetic System 1984');
+		$("#georeference_protocol").val('GeoLocate');
+		$("#georeference_source").val('GeoLocate');
+		$("#dec_lat").val(glat);
+		$("#dec_long").val(glon);
+		$("#lat_long_remarks").val('');
+		closeGeoLocate();
+	}
+
+	function checkElevation(){
+		if ($("#minimum_elevation").val().length>0 || $("#maximum_elevation").val().length>0 || $("#orig_elev_units").val().length>0) {
+			$("#minimum_elevation").addClass('reqdClr').prop('required',true);
+			$("#maximum_elevation").addClass('reqdClr').prop('required',true);
+			$("#orig_elev_units").addClass('reqdClr').prop('required',true);
+			$("#fs_elevation legend").text('All or none of minimum elevation, maximum elevation, and elevation units are required');
+		} else {
+			$("#minimum_elevation").removeClass().prop('required',false);
+			$("#maximum_elevation").removeClass().prop('required',false);
+			$("#orig_elev_units").removeClass().prop('required',false);
+			$("#fs_elevation legend").text('Vertical');
 		}
-
-
-function checkElevation(){
-	if ($("#minimum_elevation").val().length>0 || $("#maximum_elevation").val().length>0 || $("#orig_elev_units").val().length>0) {
-		$("#minimum_elevation").addClass('reqdClr').prop('required',true);
-		$("#maximum_elevation").addClass('reqdClr').prop('required',true);
-		$("#orig_elev_units").addClass('reqdClr').prop('required',true);
-		$("#fs_elevation legend").text('All or none of minimum elevation, maximum elevation, and elevation units are required');
-	} else {
-		$("#minimum_elevation").removeClass().prop('required',false);
-		$("#maximum_elevation").removeClass().prop('required',false);
-		$("#orig_elev_units").removeClass().prop('required',false);
-		$("#fs_elevation legend").text('Vertical');
 	}
-}
 
-function checkDepth(){
-	if ($("#min_depth").val().length>0 || $("#max_depth").val().length>0 || $("#depth_units").val().length>0) {
-		$("#min_depth").addClass('reqdClr').prop('required',true);
-		$("#max_depth").addClass('reqdClr').prop('required',true);
-		$("#depth_units").addClass('reqdClr').prop('required',true);
-		//$("#fs_depth legend").text('All or none of minimum depth, maximum depth, and depth units are required');
-		$("#fs_elevation legend").text('All or none of minimum depth, maximum depth, and depth units are required');
-	} else {
-		$("#min_depth").removeClass().prop('required',false);
-		$("#max_depth").removeClass().prop('required',false);
-		$("#depth_units").removeClass().prop('required',false);
-		//$("#fs_depth legend").text('Depth');
-		$("#fs_elevation legend").text('Vertical');
+	function checkDepth(){
+		if ($("#min_depth").val().length>0 || $("#max_depth").val().length>0 || $("#depth_units").val().length>0) {
+			$("#min_depth").addClass('reqdClr').prop('required',true);
+			$("#max_depth").addClass('reqdClr').prop('required',true);
+			$("#depth_units").addClass('reqdClr').prop('required',true);
+			//$("#fs_depth legend").text('All or none of minimum depth, maximum depth, and depth units are required');
+			$("#fs_elevation legend").text('All or none of minimum depth, maximum depth, and depth units are required');
+		} else {
+			$("#min_depth").removeClass().prop('required',false);
+			$("#max_depth").removeClass().prop('required',false);
+			$("#depth_units").removeClass().prop('required',false);
+			//$("#fs_depth legend").text('Depth');
+			$("#fs_elevation legend").text('Vertical');
+		}
 	}
-}
-function checkCoordinates(){
-	if (
-		$("#dec_lat").val().length>0 ||
-		$("#dec_long").val().length>0 ||
-		$("#datum").val().length>0 ||
-		$("#georeference_source").val().length>0 ||
-		$("#georeference_protocol").val().length>0
-	) {
-		$("#dec_lat").addClass('reqdClr').prop('required',true);
-		$("#dec_long").addClass('reqdClr').prop('required',true);
-		$("#datum").addClass('reqdClr').prop('required',true);
-		$("#georeference_source").addClass('reqdClr').prop('required',true);
-		$("#georeference_protocol").addClass('reqdClr').prop('required',true);
-		$("#fs_coordinates legend").text('Coordinates must be accompanied by datum, source, and protocol');
-	} else {
-		$("#dec_lat").removeClass().prop('required',false);
-		$("#dec_long").removeClass().prop('required',false);
-		$("#datum").removeClass().prop('required',false);
-		$("#georeference_source").removeClass().prop('required',false);
-		$("#georeference_protocol").removeClass().prop('required',false);
-		$("#fs_coordinates legend").text('Coordinates');
-	}
-}
-function checkCoordinateError(){
-	if ($("#max_error_distance").val().length>0 || $("#max_error_units").val().length>0 ) {
-		$("#max_error_distance").addClass('reqdClr').prop('required',true);
-		$("#max_error_units").addClass('reqdClr').prop('required',true);
-		$("#fs_coordinateError legend").text('Error distance and units must be paired.');
-		if ($("#dec_lat").val().length === 0 || $("#dec_long").val().length === 0) {
-			$("#fs_coordinateError legend").append('; Error may not exist without coordinates.');
+
+	function checkCoordinates(){
+		if (
+			$("#dec_lat").val().length>0 ||
+			$("#dec_long").val().length>0 ||
+			$("#datum").val().length>0 ||
+			$("#georeference_source").val().length>0 ||
+			$("#georeference_protocol").val().length>0
+		) {
 			$("#dec_lat").addClass('reqdClr').prop('required',true);
 			$("#dec_long").addClass('reqdClr').prop('required',true);
-		}
-	} else {
-		$("#max_error_distance").removeClass().prop('required',false);
-		$("#max_error_units").removeClass().prop('required',false);
-		$("#fs_coordinateError legend").text('Coordinate Error');
-	}
-}
-
-
-
-	jQuery(document).ready(function() {
-
-		$(".reqdClr:visible").each(function(e){
-		    $(this).prop('required',true);
-		});
-
-		$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
-			checkElevation();
-		});
-
-		$( "#min_depth,#max_depth,#depth_units" ).change(function() {
-			checkDepth();
-		});
-
-		$( "#dec_lat,#dec_long,#max_error_distance,#max_error_units,#datum,#georeference_source,#georeference_protocol" ).change(function() {
-			checkCoordinates();
-		});
-		$( "#max_error_distance,#max_error_units" ).change(function() {
-			checkCoordinateError();
-		});
-		checkElevation();
-		checkDepth();
-		checkCoordinates();
-		checkCoordinateError();
-
-
-
-		$("#began_date").datepicker();
-		$("#ended_date").datepicker();
-		$(":input[id^='geo_att_determined_date']").each(function(e){
-			$("#" + this.id).datepicker();
-		});
-		$("select[id^='geology_attribute_']").each(function(e){
-			populateGeology(this.id);
-		});
-		if (window.addEventListener) {
-			window.addEventListener("message", getGeolocate, false);
+			$("#datum").addClass('reqdClr').prop('required',true);
+			$("#georeference_source").addClass('reqdClr').prop('required',true);
+			$("#georeference_protocol").addClass('reqdClr').prop('required',true);
+			$("#fs_coordinates legend").text('Coordinates must be accompanied by datum, source, and protocol');
 		} else {
-			window.attachEvent("onmessage", getGeolocate);
+			$("#dec_lat").removeClass().prop('required',false);
+			$("#dec_long").removeClass().prop('required',false);
+			$("#datum").removeClass().prop('required',false);
+			$("#georeference_source").removeClass().prop('required',false);
+			$("#georeference_protocol").removeClass().prop('required',false);
+			$("#fs_coordinates legend").text('Coordinates');
 		}
-	});
+	}
+
+	function checkCoordinateError(){
+		if ($("#max_error_distance").val().length>0 || $("#max_error_units").val().length>0 ) {
+			$("#max_error_distance").addClass('reqdClr').prop('required',true);
+			$("#max_error_units").addClass('reqdClr').prop('required',true);
+			$("#fs_coordinateError legend").text('Error distance and units must be paired.');
+			if ($("#dec_lat").val().length === 0 || $("#dec_long").val().length === 0) {
+				$("#fs_coordinateError legend").append('; Error may not exist without coordinates.');
+				$("#dec_lat").addClass('reqdClr').prop('required',true);
+				$("#dec_long").addClass('reqdClr').prop('required',true);
+			}
+		} else {
+			$("#max_error_distance").removeClass().prop('required',false);
+			$("#max_error_units").removeClass().prop('required',false);
+			$("#fs_coordinateError legend").text('Coordinate Error');
+		}
+	}
+
 	function populateGeology(id) {
 		console.log('populateGeology');
 		if (id.indexOf('__') > -1) {
@@ -207,9 +160,6 @@ function checkCoordinateError(){
 		$("#verified_date").val(getFormattedDate());
 	}
 
-</script>
-<span class="helpLink" data-helplink="specimen_event">Page Help</span>
-<script>
 	function geolocate(method) {
 		//alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
 		var guri='https://www.geo-locate.org/web/WebGeoreflight.aspx?georef=run';
@@ -249,6 +199,7 @@ function checkCoordinateError(){
 		theFrame.src=guri;
 		$("#popDiv").append(theFrame);
 	}
+
 	function getGeolocate(evt) {
 		var message;
 		if (evt.origin !== "https://www.geo-locate.org") {
@@ -294,12 +245,48 @@ function checkCoordinateError(){
 
 	}
 
+	jQuery(document).ready(function() {
+
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
+
+		$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
+			checkElevation();
+		});
+
+		$( "#min_depth,#max_depth,#depth_units" ).change(function() {
+			checkDepth();
+		});
+
+		$( "#dec_lat,#dec_long,#max_error_distance,#max_error_units,#datum,#georeference_source,#georeference_protocol" ).change(function() {
+			checkCoordinates();
+		});
+		$( "#max_error_distance,#max_error_units" ).change(function() {
+			checkCoordinateError();
+		});
+		checkElevation();
+		checkDepth();
+		checkCoordinates();
+		checkCoordinateError();
 
 
 
+		$("#began_date").datepicker();
+		$("#ended_date").datepicker();
+		$(":input[id^='geo_att_determined_date']").each(function(e){
+			$("#" + this.id).datepicker();
+		});
+		$("select[id^='geology_attribute_']").each(function(e){
+			populateGeology(this.id);
+		});
+		if (window.addEventListener) {
+			window.addEventListener("message", getGeolocate, false);
+		} else {
+			window.attachEvent("onmessage", getGeolocate);
+		}
 
-	$(document).ready(function() {
-		$("input[type='date'], input[type='datetime']" ).datepicker();
+			$("input[type='date'], input[type='datetime']" ).datepicker();
 
 
 		var map;
@@ -437,6 +424,23 @@ function checkCoordinateError(){
 		// END add wkt if available
 		// end map setup
 
+
+	});
+
+
+
+
+</script>
+<span class="helpLink" data-helplink="specimen_event">Page Help</span>
+<script>
+
+
+
+
+
+
+
+	$(document).ready(function() {
 
 	});
 
