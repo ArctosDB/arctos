@@ -1,5 +1,5 @@
 <!----
-select count(*) from locality where (S$LASTDATE is null or round(sysdate-s$lastdate)>180);
+select count(*) from locality where (S$LASTDATE is null or round(sysdate-s$lastdate)>365);
 505455
 503899
 
