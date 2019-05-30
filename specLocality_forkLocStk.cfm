@@ -103,59 +103,48 @@
 			}
 		}
 	}
-	function geoLocate(){
-		alert('This form is kind of funky. Use Edit Locality if you have access.');
-		$.getJSON("/component/Bulkloader.cfc",
-			{
-				method : "splitGeog",
-				geog: $("#higher_geog").val(),
-				specloc: $("#spec_locality").val(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function(r) {
-				var gbgDiv = document.createElement('div');
-				gbgDiv.id = 'gbgDiv';
-				gbgDiv.className = 'bgDiv';
-				gbgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-				document.body.appendChild(gbgDiv);
-				var gpopDiv=document.createElement('div');
-				gpopDiv.id = 'gpopDiv';
-				gpopDiv.className = 'editAppBox';
-				document.body.appendChild(gpopDiv);
-				var gcDiv=document.createElement('div');
-				gcDiv.className = 'fancybox-close';
-				gcDiv.id='gcDiv';
-				gcDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-				$("#gpopDiv").append(gcDiv);
-				var ghDiv=document.createElement('div');
-				ghDiv.className = 'fancybox-help';
-				ghDiv.id='ghDiv';
-				ghDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
-				$("#gpopDiv").append(ghDiv);
-				$("#gpopDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
-				var gtheFrame = document.createElement('iFrame');
-				gtheFrame.id='gtheFrame';
-				gtheFrame.className = 'editFrame';
-				gtheFrame.src=r;
-				$("#gpopDiv").append(gtheFrame);
-			}
-		);
-	}
-	function closeGeoLocate(msg) {
-		$('#gbgDiv').remove();
-		$('#gbgDiv', window.parent.document).remove();
-		$('#gpopDiv').remove();
-		$('#gpopDiv', window.parent.document).remove();
-		$('#gcDiv').remove();
-		$('#gcDiv', window.parent.document).remove();
-		$('#gtheFrame').remove();
-		$('#gtheFrame', window.parent.document).remove();
-		$("#geoLocateResults").html(msg);
+	function geolocate(method) {
+		//alert('This opens a map. There is a help link at the top. Use it. The save button will create a new determination.');
+		var guri='https://www.geo-locate.org/web/WebGeoreflight.aspx?georef=run';
+		if (method=='adjust'){
+			guri+="&tab=result&points=" + $("#dec_lat").val() + "|" + $("#dec_long").val() + "|||" + $("#error_in_meters").val();
+		} else {
+			guri+="&state=" + $("#state_prov").val();
+			guri+="&country="+$("#country").val();
+			guri+="&county="+$("#county").val().replace(" County", "");
+			guri+="&locality="+$("#spec_locality").val();
+		}
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+		document.body.appendChild(bgDiv);
+		var popDiv=document.createElement('div');
+		popDiv.id = 'popDiv';
+		popDiv.className = 'editAppBox';
+		document.body.appendChild(popDiv);
+		var cDiv=document.createElement('div');
+		cDiv.className = 'fancybox-close';
+		cDiv.id='cDiv';
+		cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
+		$("#popDiv").append(cDiv);
+		var hDiv=document.createElement('div');
+		hDiv.className = 'fancybox-help';
+		hDiv.id='hDiv';
+		//hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
+		//hDiv.innerHTML='<span class="helpLink" id="geolocate">[ help ]</span>';
+
+		$("#popDiv").append(hDiv);
+		$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+		var theFrame = document.createElement('iFrame');
+		theFrame.id='theFrame';
+		theFrame.className = 'editFrame';
+		theFrame.src=guri;
+		$("#popDiv").append(theFrame);
 	}
 	function getGeolocate(evt) {
 		var message;
-		if (evt.origin !== "http://www.geo-locate.org") {
+		if (evt.origin !== "https://www.geo-locate.org") {
 	    	alert( "iframe url does not have permision to interact with me" );
 	        closeGeoLocate('intruder alert');
 	    }
@@ -171,6 +160,16 @@
 				closeGeoLocate('ERROR - breakdown length');
 	 		}
 	    }
+	}
+	function closeGeoLocate(msg) {
+		$('#bgDiv').remove();
+		$('#bgDiv', window.parent.document).remove();
+		$('#popDiv').remove();
+		$('#popDiv', window.parent.document).remove();
+		$('#cDiv').remove();
+		$('#cDiv', window.parent.document).remove();
+		$('#theFrame').remove();
+		$('#theFrame', window.parent.document).remove();
 	}
 	$(document).ready(function() {
 		$("input[type='date'], input[type='datetime']" ).datepicker();
@@ -443,6 +442,9 @@ function useGL(glat,glon,gerr){
 								<label for="dec_long" class="helpLink" data-helplink="dec_long">Decimal Longitude</label>
 								<input type="number" name="dec_long" id="dec_long" value="#l.dec_long#">
 							</td>
+							<cfif len(l.DEC_LONG) gt 0>
+								<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
+							</cfif>
 						</tr>
 						<tr>
 							<td>
