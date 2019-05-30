@@ -714,14 +714,7 @@ function useGL(glat,glon,gerr){
 					<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#" size="75">
 
 					<label for="wkt_media_id" class="helpLink" data-helplink="wkt_media_id">WKT Media ID</label>
-					<input type="text" name="wkt_media_id" id="wkt_media_id" value="#l.wkt_media_id#" size="75">
-
-
-
-
-
-
-
+					<input type="number" name="wkt_media_id" id="wkt_media_id" value="#l.wkt_media_id#" size="75">
 
 					<table>
 						<tr>
@@ -870,7 +863,7 @@ function useGL(glat,glon,gerr){
 						<cfloop query="geology">
 							<tr>
 								<td>
-									<select name="geology_attribute__#i#" id="geology_attribute__#i#" class="reqdClr" onchange="populateGeology(this.id)">
+									<select name="geology_attribute__#i#" id="geology_attribute__#i#" onchange="populateGeology(this.id)">
 										<option value="" class="red">Delete This</option>
 										<cfloop query="ctgeology_attribute">
 											<option <cfif ctgeology_attribute.geology_attribute is geology.geology_attribute> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
@@ -878,7 +871,7 @@ function useGL(glat,glon,gerr){
 									</select>
 								</td>
 								<td>
-									<select name="geo_att_value__#i#" id="geo_att_value__#i#" class="reqdClr">
+									<select name="geo_att_value__#i#" id="geo_att_value__#i#"£>
 										<option value="#geo_att_value#">#geo_att_value#</option>
 									</select>
 								</td>
