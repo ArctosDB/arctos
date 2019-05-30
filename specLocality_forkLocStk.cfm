@@ -305,25 +305,6 @@ function useGL(glat,glon,gerr){
 
 
 
-
-	<cfquery name="se" dbtype="query">
-		select
-			specimen_event_type,specimen_event_id
-		from
-			raw
-		group by
-			specimen_event_type,specimen_event_id
-		order by
-			specimen_event_type,specimen_event_id
-	</cfquery>
-		<a name="top"></a>
-		Specimen/Event Shortcuts
-		<ul>
-			<li><a href="##specimen_event_new">Create New Specimen/Event</a></li>
-			<cfloop query="se">
-				<li><a href="##specimen_event_#specimen_event_id#">#specimen_event_type#</a></li>
-			</cfloop>
-		</ul>
 		<div style="border:2px solid black; margin:1em;">
 		<table border="1" width="100%"><tr><td>
 		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
