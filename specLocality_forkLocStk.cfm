@@ -1175,7 +1175,7 @@ function useGL(glat,glon,gerr){
 	   	 			specimen_event_id=#specimen_event_id#
 			</cfquery>
 			<cfset redirSEID=specimen_event_id>
-		<cfelseif  sav_action is "add">
+		<cfelseif sav_action is "add">
 			<!--- archive/unaccepted the existing event, make a new one --->
 			<cfquery name="sid" datasource="uam_god">
 				select sq_specimen_event_id.nextval sid from dual
@@ -1221,8 +1221,9 @@ function useGL(glat,glon,gerr){
 	   	 			specimen_event_id=#specimen_event_id#
 			</cfquery>
 			<cfset redirSEID=sid.sid>
+		<cfelse>
 			<!--- we should never get here --->
-			<cfthrow message="invalid sav_action">
+			<cfthrow message="invalid sav_action #sav_action#">
 		</cfif>
 
 		<!--- pull geology out --->
