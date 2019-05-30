@@ -381,7 +381,7 @@ function useGL(glat,glon,gerr){
 			 locality_name,
 			 locality.s$dec_lat,
 			 locality.s$dec_long,
-			 locality.s$elevation.
+			 locality.s$elevation,
 			 locality.s$geography,
 			  assigned_by_agent_id,
 			 getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
