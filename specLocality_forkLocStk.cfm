@@ -1091,6 +1091,26 @@ GEOLOGY_ATTRIBUTE__4 	[empty string]
 
 <cfloop list="#form.FIELDNAMES#" index="fld">
 	<br>#fld#
+	<cfif left(fld,19) is "GEOLOGY_ATTRIBUTE__">
+		<cfset thisIndex=replace(fld,"GEOLOGY_ATTRIBUTE__")>
+		<cfset thisGA=evaluate("GEOLOGY_ATTRIBUTE__" & thisIndex)>
+		<br>thisGA: #thisGA#
+		<cfif len(thisGA) gt 0>
+			make geology
+		<cfelse>
+		no make geo
+		</cfif>
+
+
+GEOLOGY_ATTRIBUTE__1
+GEO_ATT_VALUE__1
+GEO_ATT_DETERMINER_ID__1
+GEO_ATT_DETERMINER_1
+GEO_ATT_DETERMINED_DATE__1
+GEO_ATT_DETERMINED_METHOD__1
+GEO_ATT_REMARK__1
+
+	</cfif>
 </cfloop>
 
 
