@@ -213,6 +213,7 @@ function useGL(glat,glon,gerr){
 			 SPEC_LOCALITY,
 			 locality.DEC_LAT ,
 			 locality.DEC_LONG ,
+			 to_meters(locality.max_error_distance,locality.max_error_units) error_in_meters,
 			 locality.datum,
 			 MINIMUM_ELEVATION,
 			 MAXIMUM_ELEVATION,
@@ -442,6 +443,12 @@ function useGL(glat,glon,gerr){
 								<label for="dec_long" class="helpLink" data-helplink="dec_long">Decimal Longitude</label>
 								<input type="number" name="dec_long" id="dec_long" value="#l.dec_long#">
 							</td>
+							<!--- for geolocate --->
+							<input type="hidden" name="error_in_meters" id="error_in_meters" value="#l.error_in_meters#">
+
+
+
+
 							<cfif len(l.DEC_LONG) gt 0>
 								<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
 							</cfif>
