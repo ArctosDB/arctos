@@ -147,7 +147,7 @@ function checkCoordinateError(){
 		console.log('populateGeology');
 		if (id.indexOf('__') > -1) {
 			var idNum=id.replace('geology_attribute__','');
-			var thisValue=$("#geology_attribute__" + idNum).val();;
+			var thisValue=$("#geology_attribute__" + idNum).val();
 			var dataValue=$("#geo_att_value__" + idNum).val();
 			var theSelect="geo_att_value__";
 			if (thisValue == ''){
@@ -179,6 +179,11 @@ function checkCoordinateError(){
 				$("select#" + theSelect + idNum).html(s);
 			}
 		);
+		if ($("#geology_attribute__" + idNum).val().length > 0){
+			console.log('hasval');
+		} else {
+			console.log('NOT hasval');
+		}
 	}
 
 	function verifByMe(i,u){
