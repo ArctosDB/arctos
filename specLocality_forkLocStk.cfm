@@ -832,7 +832,7 @@ function checkCoordinateError(){
 					<input type="button" value="Pick" class="picBtn" id="changeGeogButton"
 						onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
 				</td><!--- END main cell --->
-				<td><!--- maptools cell --->
+				<td width="40%"><!--- maptools cell --->
 					<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
 					<strong>Webservice Lookup Data</strong>
 						<!--- pull it --->
