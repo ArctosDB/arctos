@@ -31,7 +31,104 @@
 	}
 
 
+function checkElevation(){
+	if ($("#minimum_elevation").val().length>0 || $("#maximum_elevation").val().length>0 || $("#orig_elev_units").val().length>0) {
+		$("#minimum_elevation").addClass('reqdClr').prop('required',true);
+		$("#maximum_elevation").addClass('reqdClr').prop('required',true);
+		$("#orig_elev_units").addClass('reqdClr').prop('required',true);
+		$("#fs_elevation legend").text('All or none of minimum elevation, maximum elevation, and elevation units are required');
+	} else {
+		$("#minimum_elevation").removeClass().prop('required',false);
+		$("#maximum_elevation").removeClass().prop('required',false);
+		$("#orig_elev_units").removeClass().prop('required',false);
+		$("#fs_elevation legend").text('Vertical');
+	}
+}
+
+function checkDepth(){
+	if ($("#min_depth").val().length>0 || $("#max_depth").val().length>0 || $("#depth_units").val().length>0) {
+		$("#min_depth").addClass('reqdClr').prop('required',true);
+		$("#max_depth").addClass('reqdClr').prop('required',true);
+		$("#depth_units").addClass('reqdClr').prop('required',true);
+		//$("#fs_depth legend").text('All or none of minimum depth, maximum depth, and depth units are required');
+		$("#fs_elevation legend").text('All or none of minimum depth, maximum depth, and depth units are required');
+	} else {
+		$("#min_depth").removeClass().prop('required',false);
+		$("#max_depth").removeClass().prop('required',false);
+		$("#depth_units").removeClass().prop('required',false);
+		//$("#fs_depth legend").text('Depth');
+		$("#fs_elevation legend").text('Vertical');
+	}
+}
+function checkCoordinates(){
+	if (
+		$("#dec_lat").val().length>0 ||
+		$("#dec_long").val().length>0 ||
+		$("#datum").val().length>0 ||
+		$("#georeference_source").val().length>0 ||
+		$("#georeference_protocol").val().length>0
+	) {
+		$("#dec_lat").addClass('reqdClr').prop('required',true);
+		$("#dec_long").addClass('reqdClr').prop('required',true);
+		$("#datum").addClass('reqdClr').prop('required',true);
+		$("#georeference_source").addClass('reqdClr').prop('required',true);
+		$("#georeference_protocol").addClass('reqdClr').prop('required',true);
+		$("#fs_coordinates legend").text('Coordinates must be accompanied by datum, source, and protocol');
+	} else {
+		$("#dec_lat").removeClass().prop('required',false);
+		$("#dec_long").removeClass().prop('required',false);
+		$("#datum").removeClass().prop('required',false);
+		$("#georeference_source").removeClass().prop('required',false);
+		$("#georeference_protocol").removeClass().prop('required',false);
+		$("#fs_coordinates legend").text('Coordinates');
+	}
+}
+function checkCoordinateError(){
+	if ($("#max_error_distance").val().length>0 || $("#max_error_units").val().length>0 ) {
+		$("#max_error_distance").addClass('reqdClr').prop('required',true);
+		$("#max_error_units").addClass('reqdClr').prop('required',true);
+		$("#fs_coordinateError legend").text('Error distance and units must be paired.');
+		if ($("#dec_lat").val().length === 0 || $("#dec_long").val().length === 0) {
+			$("#fs_coordinateError legend").append('; Error may not exist without coordinates.');
+			$("#dec_lat").addClass('reqdClr').prop('required',true);
+			$("#dec_long").addClass('reqdClr').prop('required',true);
+		}
+	} else {
+		$("#max_error_distance").removeClass().prop('required',false);
+		$("#max_error_units").removeClass().prop('required',false);
+		$("#fs_coordinateError legend").text('Coordinate Error');
+	}
+}
+
+
+
 	jQuery(document).ready(function() {
+
+		$(".reqdClr:visible").each(function(e){
+		    $(this).prop('required',true);
+		});
+
+		$( "#minimum_elevation,#maximum_elevation,#orig_elev_units" ).change(function() {
+			checkElevation();
+		});
+
+		$( "#min_depth,#max_depth,#depth_units" ).change(function() {
+			checkDepth();
+		});
+
+		$( "#dec_lat,#dec_long,#max_error_distance,#max_error_units,#datum,#georeference_source,#georeference_protocol" ).change(function() {
+			checkCoordinates();
+		});
+		$( "#max_error_distance,#max_error_units" ).change(function() {
+			checkCoordinateError();
+		});
+		checkElevation();
+		checkDepth();
+		checkCoordinates();
+		checkCoordinateError();
+
+
+
 		$("#began_date").datepicker();
 		$("#ended_date").datepicker();
 		$(":input[id^='geo_att_determined_date']").each(function(e){
@@ -699,7 +796,7 @@ function useGL(glat,glon,gerr){
 
 
 					<label for="datum" class="helpLink" data-helplink="datum">Datum</label>
-					<select name="datum" id="datum" size="1" class="reqdClr">
+					<select name="datum" id="datum" size="1">
 						<cfloop query="ctdatum">
 							<option <cfif l.datum is ctdatum.datum> selected="selected" </cfif>
 								value="#datum#">#datum#</option>
