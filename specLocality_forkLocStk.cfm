@@ -1078,7 +1078,7 @@ function useGL(glat,glon,gerr){
 	</cfoutput>
 </cfif>
 <cfif action is "saveEdits">
-
+<cfoutput>
 
 <cfdump var=#form#>
 
@@ -1092,6 +1092,13 @@ GEOLOGY_ATTRIBUTE__4 	[empty string]
 <cfloop list="#form.FIELDNAMES#" index="fld">
 	<br>#fld#
 </cfloop>
+
+
+</cfoutput>
+
+
+
+
 <cfabort>
 	<!--- this has to run as GOD; users will not have access to do this stuff --->
 	<cftransaction>
