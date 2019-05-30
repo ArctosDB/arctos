@@ -1251,6 +1251,7 @@ function useGL(glat,glon,gerr){
 							sq_GEOLOGY_ATTRIBUTE_ID.nextval,
 							#lid.lid#,
 							'#thisGA#',
+							'#escapeQuotes(thisGV)#',
 				   	 		<cfif len(thisGDid) gt 0>#thisGDid#<cfelse>NULL</cfif>,
 							'#thisGDD#',
 							'#escapeQuotes(thisGDM)#',
