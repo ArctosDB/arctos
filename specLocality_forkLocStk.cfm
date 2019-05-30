@@ -2,6 +2,10 @@
 <cfif not listfindnocase(session.roles,'manage_specimens')>
 	<div class="error">not authorized</div><cfabort>
 </cfif>
+<cfset obj = CreateObject("component","component.functions")>
+
+
+
 <div class='importantNotification'>
 	This form is early beta; use with caution.
 </div>
@@ -23,6 +27,10 @@ There are two ways to edit specimen-events and associated place/time data.
 	* requires only manage_specimens access; always creates new localities which can't possibly be shared, so back-end can safely run with elevated rights
 	* provides a one-click path to keeping full history as unaccepted specimen-events
 		* adding rather than editing is an option on every save
+	* One-click georeferencing with geolocate
+	* GUI georeference editing with geolocate
+	* Provides service-derived coordinates and elevation; use them with one click
+
 
 </textarea>
 <p></p>
@@ -38,7 +46,6 @@ There are two ways to edit specimen-events and associated place/time data.
 			top:0px;
 		}
 	</style>
-	<cfset obj = CreateObject("component","component.functions")>
 	<cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
 	<cfoutput><cfhtmlhead text='<script src="#murl#" type="text/javascript"></script>'></cfoutput>
 	<script language="javascript" type="text/javascript">
@@ -811,7 +818,6 @@ There are two ways to edit specimen-events and associated place/time data.
 						<div id="maptools">
 							<strong>Webservice Lookup Data</strong>
 							<!--- pull it --->
-							<cfset staticImageMap = obj.getMap(locality_id="#l.locality_id#",forceOverrideCache=true)>
 							<a target="_blank" href="/component/functions.cfc?method=getLocalityCacheStuff&locality_id=#l.locality_id#&debug=true">Pull/Debug</a>
 							<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
 								<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
@@ -1157,6 +1163,9 @@ There are two ways to edit specimen-events and associated place/time data.
 				</cfif>
 			</cfloop>
 		</cftransaction>
+		<!--- grab service data for the locality we just made before redirecting back to the edit page ---->
+		<cfset staticImageMap = obj.getMap(locality_id="#lid.lid#",forceOverrideCache=true)>
+
 		<cflocation url="specLocality_forkLocStk.cfm?specimen_event_id=#redirSEID#" addtoken="false">
 	</cfoutput>
 </cfif>
