@@ -23,10 +23,10 @@
 	});
 	function populateGeology(id) {
 		if (id.indexOf('__') > -1) {
-			var idNum=id.replace('geology_attribute_','');
-			var thisValue=$("#geology_attribute_" + idNum).val();;
-			var dataValue=$("#geo_att_value_" + idNum).val();
-			var theSelect="geo_att_value_";
+			var idNum=id.replace('geology_attribute__','');
+			var thisValue=$("#geology_attribute__" + idNum).val();;
+			var dataValue=$("#geo_att_value__" + idNum).val();
+			var theSelect="geo_att_value__";
 			if (thisValue == ''){
 				return false;
 			}
@@ -522,7 +522,7 @@ function useGL(glat,glon,gerr){
 				<cfloop query="geology">
 					<tr>
 						<td>
-							<select name="geology_attribute_#i#" id="geology_attribute_#i#" class="reqdClr" onchange="populateGeology(this.id)">
+							<select name="geology_attribute__#i#" id="geology_attribute__#i#" class="reqdClr" onchange="populateGeology(this.id)">
 								<option value="" class="red">Delete This</option>
 								<cfloop query="ctgeology_attribute">
 									<option <cfif ctgeology_attribute.geology_attribute is geology.geology_attribute> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
@@ -530,25 +530,25 @@ function useGL(glat,glon,gerr){
 							</select>
 						</td>
 						<td>
-							<select name="geo_att_value_#i#" id="geo_att_value_#i#" class="reqdClr">
+							<select name="geo_att_value__#i#" id="geo_att_value__#i#" class="reqdClr">
 								<option value="#geo_att_value#">#geo_att_value#</option>
 							</select>
 						</td>
 						<td>
-							<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
+							<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" value="#geo_att_determiner_id#">
 							<input type="text" name="geo_att_determiner_#i#"  size="40"
-								onchange="pickAgentModal('geo_att_determiner_id_#i#','geo_att_determiner_#i#',this.value); return false;"
+								onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
 			 					onKeyPress="return noenter(event);"
 			 					value="#agent_name#">
 						</td>
 						<td>
-							<input type="text" name="geo_att_determined_date_#i#" id="geo_att_determined_date_#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
+							<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
 						</td>
 						<td>
-							<input type="text" name="geo_att_determined_method_#i#" size="60"  value="#geo_att_determined_method#">
+							<input type="text" name="geo_att_determined_method__#i#" id="geo_att_determined_method__#i#" size="60"  value="#geo_att_determined_method#">
 						</td>
 						<td>
-							<input type="text" name="geo_att_remark_#i#" size="60" value="#geo_att_remark#">
+							<input type="text" name="geo_att_remark__#i#" size="60" value="#geo_att_remark#">
 						</td>
 					</tr>
 					<cfset i=i+1>
@@ -557,7 +557,7 @@ function useGL(glat,glon,gerr){
 				<cfloop from ="#i#" to="#lpt#" index="i">
 					<tr>
 						<td>
-							<select name="geology_attribute_#i#" id="geology_attribute_#i#" class="reqdClr" onchange="populateGeology(this.id)">
+							<select name="geology_attribute__#i#" id="geology_attribute__#i#" class="reqdClr" onchange="populateGeology(this.id)">
 								<option value=""></option>
 								<cfloop query="ctgeology_attribute">
 									<option value="#geology_attribute#">#geology_attribute#</option>
@@ -565,24 +565,24 @@ function useGL(glat,glon,gerr){
 							</select>
 						</td>
 						<td>
-							<select name="geo_att_value_#i#" id="geo_att_value_#i#" class="reqdClr">
+							<select name="geo_att_value__#i#" id="geo_att_value__#i#" class="reqdClr">
 								<option value=""></option>
 							</select>
 						</td>
 						<td>
-							<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" >
+							<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" >
 							<input type="text" name="geo_att_determiner_#i#"  size="40"
-								onchange="pickAgentModal('geo_att_determiner_id_#i#','geo_att_determiner_#i#',this.value); return false;"
+								onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
 			 					onKeyPress="return noenter(event);">
 						</td>
 						<td>
-							<input type="text" name="geo_att_determined_date_#i#" id="geo_att_determined_date_#i#">
+							<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#">
 						</td>
 						<td>
-							<input type="text" name="geo_att_determined_method_#i#" size="60" >
+							<input type="text" name="geo_att_determined_method__#i#" size="60" >
 						</td>
 						<td>
-							<input type="text" name="geo_att_remark_#i#" size="60">
+							<input type="text" name="geo_att_remark__#i#" size="60">
 						</td>
 					</tr>
 				</cfloop>
