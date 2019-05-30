@@ -317,26 +317,35 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
 
 			<!-------------------------- specimen_event -------------------------->
-			<h4>
-				Specimen/Event
-				<a name="specimen_event_#specimen_event_id#" href="##top">[ scroll to top ]</a>
-			</h4>
-			<label for="specimen_event_type">Specimen/Event Type</label>
-			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
-				<cfloop query="ctspecimen_event_type">
-					<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
-						value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
-			    </cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
-			<label for="specimen_event_type">Event Determiner</label>
-			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','editForkSpecEvent',this.value); return false;"
-				 onKeyPress="return noenter(event);">
-			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 
-			<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
-			<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+			<table>
+				<tr>
+					<td>
+						<label for="specimen_event_type">Specimen/Event Type</label>
+						<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+							<cfloop query="ctspecimen_event_type">
+								<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
+									value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+						    </cfloop>
+						</select>
+						<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
+					</td>
+					<td>
+						<label for="specimen_event_type">Event Determiner</label>
+						<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
+							 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','editForkSpecEvent',this.value); return false;"
+							 onKeyPress="return noenter(event);">
+						<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+					</td>
+					<td>
+						<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
+						<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+					</td>
+				</tr>
+			</table>
+
+
+
 
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#stripQuotes(l.specimen_event_remark)#" size="75">
