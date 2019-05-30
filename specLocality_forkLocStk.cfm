@@ -733,11 +733,12 @@ function checkCoordinateError(){
 						<tr>
 							<td>
 								<label for="dec_lat" class="helpLink" data-helplink="dec_lat">Decimal Latitude</label>
-								<input type="number" name="dec_lat" id="dec_lat" value="#l.dec_lat#">
+								<input  type="number" step="any" min="-90" max="90" name="dec_lat" id="dec_lat" value="#l.DEC_LAT#" class="">
+
 							</td>
 							<td>
 								<label for="dec_long" class="helpLink" data-helplink="dec_long">Decimal Longitude</label>
-								<input type="number" name="dec_long" id="dec_long" value="#l.dec_long#">
+								<input  type="number" step="any" min="-180" max="180" name="dec_long" id="dec_long" value="#l.dec_long#" class="">
 							</td>
 
 
