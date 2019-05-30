@@ -1165,7 +1165,8 @@ There are two ways to edit specimen-events and associated place/time data.
 		</cftransaction>
 		<!--- grab service data for the locality we just made before redirecting back to the edit page ---->
 		<cfset staticImageMap = obj.getMap(locality_id="#lid.lid#",forceOverrideCache=true)>
-
+		<!--- hang out for a few seconds so hopefully the service data will be ready when the edit page loads --->
+		<cfset sleep(5000)>
 		<cflocation url="specLocality_forkLocStk.cfm?specimen_event_id=#redirSEID#" addtoken="false">
 	</cfoutput>
 </cfif>
