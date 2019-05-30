@@ -379,7 +379,11 @@ function useGL(glat,glon,gerr){
 			 georeference_source,
 			 georeference_protocol,
 			 locality_name,
-			 assigned_by_agent_id,
+			 locality.s$dec_lat,
+			 locality.s$dec_long,
+			 locality.s$elevation.
+			 locality.s$geography,
+			  assigned_by_agent_id,
 			 getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
 			 assigned_date,
 			 specimen_event_type,
@@ -710,7 +714,6 @@ function useGL(glat,glon,gerr){
 
 					<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
 		<strong>Webservice Lookup Data</strong>
-		<a target="_blank" href="/component/functions.cfc?method=getLocalityCacheStuff&locality_id=#locality_id#&debug=true">Pull/Debug</a>
 		<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
 			<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
 			<span style="font-style:bold;">
@@ -749,24 +752,24 @@ function useGL(glat,glon,gerr){
 		</div>
 		<br>
 			Coordinates:
-			<input type="text" id="s_dollar_dec_lat" value="#locDet.s$dec_lat#" size="6">
-			<input type="text" id="s_dollar_dec_long" value="#locDet.s$dec_long#" size="6">
+			<input type="text" id="s_dollar_dec_lat" value="#l.s$dec_lat#" size="6">
+			<input type="text" id="s_dollar_dec_long" value="#l.s$dec_long#" size="6">
 			<span class="likeLink" onclick="useAutoCoords()">Copy these coordinates to the form</span>
 		<br>Distance between asserted and lookup coordinates (km):
 			<input type="text" id="distanceBetween" size="6">
 		<br>Elevation (m):
-			<input type="text" id="s_dollar_elev" value="#locDet.s$elevation#" size="6">
+			<input type="text" id="s_dollar_elev" value="#l.s$elevation#" size="6">
 			<span style="font-style:italic;">
-				<cfif len(locDet.min_elev_in_m) is 0>
+				<cfif len(l.min_elev_in_m) is 0>
 					There is no curatorially-supplied elevation.
-				<cfelseif locDet.min_elev_in_m gt locDet.s$elevation or locDet.s$elevation gt locDet.max_elev_in_m>
+				<cfelseif locDet.min_elev_in_m gt l.s$elevation or l.s$elevation gt l.max_elev_in_m>
 					Automated georeference is outside the curatorially-supplied elevation range.
-				<cfelseif  locDet.min_elev_in_m lte locDet.s$elevation and locDet.s$elevation lte locDet.max_elev_in_m>
+				<cfelseif  locDet.min_elev_in_m lte l.s$elevation and l.s$elevation lte l.max_elev_in_m>
 					Automated georeference is within the curatorially-supplied elevation range.
 				</cfif>
 			</span>
 		<br>Tags:
-			<span style="font-weight:bold;">#locDet.s$geography#</span>
+			<span style="font-weight:bold;">#l.s$geography#</span>
 		<div id="map-canvas"></div>
 		<img src="https://maps.google.com/mapfiles/ms/micons/red-dot.png">=service-suggested,
 		<img src="https://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
