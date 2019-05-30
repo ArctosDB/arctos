@@ -363,8 +363,7 @@ function useGL(glat,glon,gerr){
 					<td>
 						<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
 						<input type="datetime" size="10" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
-						<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
-
+						<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#');">Me, Today</span>
 					</td>
 				</tr>
 			</table>
