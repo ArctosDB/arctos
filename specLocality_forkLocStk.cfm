@@ -565,7 +565,7 @@ function useGL(glat,glon,gerr){
 						</td>
 						<td>
 							<select name="geo_att_value_#i#" id="geo_att_value_#i#" class="reqdClr">
-								<option value="#geo_att_value#">#geo_att_value#</option>
+								<option value=""></option>
 							</select>
 						</td>
 						<td>
