@@ -870,7 +870,7 @@ function useGL(glat,glon,gerr){
 									<input type="text" name="geo_att_determiner_#i#"  size="20"
 										onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
 					 					onKeyPress="return noenter(event);"
-					 					value="#agent_name#">
+					 					value="#geo_att_determiner#">
 								</td>
 								<td>
 									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
