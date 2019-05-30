@@ -599,11 +599,11 @@
 									<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 								</td>
 								<td>
+									<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 									<label for="specimen_event_type">Event Determiner</label>
 									<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
 										 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
-										 onKeyPress="return noenter(event);">assigned_by_agent_id
-									<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+										 onKeyPress="return noenter(event);">
 								</td>
 								<td>
 									<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
