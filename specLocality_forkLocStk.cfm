@@ -990,10 +990,10 @@ function useGL(glat,glon,gerr){
 									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#" size="10">
 								</td>
 								<td>
-									<input type="text" name="geo_att_determined_method__#i#" id="geo_att_determined_method__#i#" size="60"  value="#geo_att_determined_method#">
+									<input type="text" name="geo_att_determined_method__#i#" id="geo_att_determined_method__#i#" size="30"  value="#geo_att_determined_method#">
 								</td>
 								<td>
-									<input type="text" name="geo_att_remark__#i#" size="60" value="#geo_att_remark#">
+									<input type="text" name="geo_att_remark__#i#" size="30" value="#geo_att_remark#">
 								</td>
 							</tr>
 							<cfset i=i+1>
@@ -1024,10 +1024,10 @@ function useGL(glat,glon,gerr){
 									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#"  size="10">
 								</td>
 								<td>
-									<input type="text" name="geo_att_determined_method__#i#" size="60" >
+									<input type="text" name="geo_att_determined_method__#i#" size="30" >
 								</td>
 								<td>
-									<input type="text" name="geo_att_remark__#i#" size="60">
+									<input type="text" name="geo_att_remark__#i#" size="30">
 								</td>
 							</tr>
 						</cfloop>
