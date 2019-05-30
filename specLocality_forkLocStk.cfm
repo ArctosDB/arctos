@@ -1247,7 +1247,7 @@ function useGL(glat,glon,gerr){
 							GEO_ATT_DETERMINED_DATE,
 							GEO_ATT_DETERMINED_METHOD,
 							GEO_ATT_REMARK
-						values (
+						) values (
 							sq_GEOLOGY_ATTRIBUTE_ID.nextval,
 							#lid.lid#,
 							'#thisGA#',
