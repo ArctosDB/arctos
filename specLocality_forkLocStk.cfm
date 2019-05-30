@@ -764,15 +764,12 @@ function useGL(glat,glon,gerr){
 						onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
 				</td><!--- END main cell --->
 				<td><!--- maptools cell --->
-
-
-
-
-
-
-
 					<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
 					<strong>Webservice Lookup Data</strong>
+						<!--- pull it --->
+							<cfset staticImageMap = obj.getMap(locality_id="#locality_id#",forceOverrideCache=true)>
+							<a target="_blank" href="/component/functions.cfc?method=getLocalityCacheStuff&locality_id=#locality_id#&debug=true">Pull/Debug</a>
+
 					<div style="font-size:small;font-style:italic; max-height:6em;overflow:auto;border:2px solid red;">
 						<p style="font-style:bold;font-size:large;text-align:center;">READ THIS!</p>
 						<span style="font-style:bold;">
@@ -835,24 +832,11 @@ function useGL(glat,glon,gerr){
 					<img src="https://maps.google.com/mapfiles/ms/micons/green-dot.png">=curatorially-asserted,
 					<span style="border:3px solid ##DC143C;background-color:##FF7F50;">&nbsp;&nbsp;&nbsp;</span>=locality WKT,
 					<span style="border:3px solid ##1E90FF;background-color:##1E90FF;">&nbsp;&nbsp;&nbsp;</span>=geography WKT.
-
-
+					<br>
 					<input type="button" value="Georeference with GeoLocate" class="insBtn" onClick="geolocate();">
-
-
-							<cfif len(l.DEC_LONG) gt 0>
-								<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
-							</cfif>
-
-
-
-
-
-
-
-
-
-
+					<cfif len(l.DEC_LONG) gt 0>
+						<input type="button" value="Modify Coordinates/Error with GeoLocate" class="insBtn" onClick="geolocate('adjust');">
+					</cfif>
 				</td><!--- END maptools cell --->
 			</tr>
 			<tr>
