@@ -24,7 +24,7 @@ There are two ways to edit specimen-events and associated place/time data.
 		* adding rather than editing is an option on every save
 
 </textarea>
-
+<p></p>
 <cfif action is "nothing">
 	<style type="text/css">
 		#map-canvas { height: 300px;width:500px; }
