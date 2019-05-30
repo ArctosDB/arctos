@@ -907,8 +907,7 @@ function checkCoordinateError(){
 					</cfif>
 				</td><!--- END maptools cell --->
 			</tr>
-			<tr>
-				<td colspan="2"><!--- geology cell --->
+		</table>
 					<h4>
 						Geology
 					</h4>
@@ -992,9 +991,6 @@ function checkCoordinateError(){
 						</cfloop>
 					</table>
 
-				</td><!--- END geology cell --->
-			</tr>
-		</table>
 		<label for="action">On Save....</label>
 		<select name="sav_action" id="sav_action" class="reqdClr">
 			<option value="">pick one</option>
