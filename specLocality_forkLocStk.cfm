@@ -324,8 +324,6 @@ function useGL(glat,glon,gerr){
 				<li><a href="##specimen_event_#specimen_event_id#">#specimen_event_type#</a></li>
 			</cfloop>
 		</ul>
-	<cfset f=1>
-	<cfloop query="l">
 		<div style="border:2px solid black; margin:1em;">
 		<table border="1" width="100%"><tr><td>
 		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
