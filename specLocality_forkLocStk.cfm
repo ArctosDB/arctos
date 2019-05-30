@@ -344,6 +344,33 @@ function useGL(glat,glon,gerr){
 				</tr>
 			</table>
 
+			<table>
+				<tr>
+					<td>
+						<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
+						<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+							<cfloop query="ctVerificationStatus">
+								<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
+									value="#VerificationStatus#">#VerificationStatus#</option>
+							</cfloop>
+						</select>
+						<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
+					</td>
+					<td>
+						<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
+						<label for="verified_by_agent_name">Verified By</label>
+						<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
+							 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
+							 onKeyPress="return noenter(event);">
+					</td>
+					<td>
+						<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
+						<input type="datetime" size="10" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
+						<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+
+					</td>
+				</tr>
+			</table>
 
 
 
@@ -365,25 +392,11 @@ function useGL(glat,glon,gerr){
 			<label for="collecting_method" class="helpLink" data-helplink="collecting_method">Collecting Method</label>
 			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
 
-			<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
-			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-				<cfloop query="ctVerificationStatus">
-					<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
-						value="#VerificationStatus#">#VerificationStatus#</option>
-				</cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
-			<label for="verified_by_agent_name">Verified By</label>
 
-			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
-				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
-				 onKeyPress="return noenter(event);">
-			<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
-			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
 
-			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
-			<input type="datetime" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
+
+
 
 			<h4>
 				Collecting Event
