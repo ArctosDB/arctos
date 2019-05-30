@@ -151,6 +151,7 @@ function checkCoordinateError(){
 			var dataValue=$("#geo_att_value__" + idNum).val();
 			var theSelect="geo_att_value__";
 			if (thisValue == ''){
+				console.log('NOT hasval');
 				return false;
 			}
 		} else {
