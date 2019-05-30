@@ -598,7 +598,7 @@
 
 		<!-------------------------- specimen_event -------------------------->
 
-		<table>
+		<table border>
 			<tr>
 				<td><!--- main cell --->
 
