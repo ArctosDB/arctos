@@ -1089,7 +1089,7 @@ GEOLOGY_ATTRIBUTE__2 	[empty string]
 GEOLOGY_ATTRIBUTE__3 	[empty string]
 GEOLOGY_ATTRIBUTE__4 	[empty string]
 
-<cfloop list="#form.FIELDNAMES#" inxed="fld">
+<cfloop list="#form.FIELDNAMES#" index="fld">
 	<br>#fld#
 </cfloop>
 <cfabort>
