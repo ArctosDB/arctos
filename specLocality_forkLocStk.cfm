@@ -481,9 +481,9 @@ function useGL(glat,glon,gerr){
 		<!--- END for geolocate --->
 		<!--- for map --->
 			<cfset gp="">
-			<cfif len(locDet.geopoly) gt 0>
+			<cfif len(l.geopoly) gt 0>
 				<cfquery name="fmed" datasource="uam_god">
-					select media_uri from media where media_id=#locDet.geopoly#
+					select media_uri from media where media_id=#l.geopoly#
 				</cfquery>
 				<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 				<cfif left(cfhttp.statuscode,3) is "200">
@@ -492,9 +492,9 @@ function useGL(glat,glon,gerr){
 			</cfif>
 			<input type="hidden" id="geopoly" value="#gp#">
 			<cfset gp="">
-			<cfif len(locDet.wkt_media_id) gt 0>
+			<cfif len(l.wkt_media_id) gt 0>
 				<cfquery name="fmed" datasource="uam_god">
-					select media_uri from media where media_id=#locDet.wkt_media_id#
+					select media_uri from media where media_id=#l.wkt_media_id#
 				</cfquery>
 				<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
 				<cfif left(cfhttp.statuscode,3) is "200">
