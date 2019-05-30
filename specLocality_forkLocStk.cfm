@@ -185,11 +185,9 @@
 	}
 	$(document).ready(function() {
 		$("input[type='date'], input[type='datetime']" ).datepicker();
-	});
 
 
-
-	var map;
+		var map;
  		var mapOptions = {
         	center: new google.maps.LatLng($("#s_dollar_dec_lat").val(), $("#s_dollar_dec_long").val()),
          	mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -247,7 +245,7 @@
         var wkt=$("#locpoly").val();
         if (wkt.length>0){
 
-        	//console.log('going wkt...');
+        	console.log('going wkt...');
 			//using regex, we will get the indivudal Rings
 			var regex = /\(([^()]+)\)/g;
 			var Rings = [];
@@ -278,7 +276,7 @@
         var wkt=$("#geopoly").val(); //this is your WKT string
         if (wkt.length>0){
 
-        		//console.log('going geopoly...');
+        	console.log('going geopoly...');
 			//using regex, we will get the indivudal Rings
 			var regex = /\(([^()]+)\)/g;
 			var Rings = [];
@@ -323,6 +321,13 @@
 		}
 		// END add wkt if available
 		// end map setup
+
+
+	});
+
+
+
+
 
 
 
