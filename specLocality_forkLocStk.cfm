@@ -237,6 +237,9 @@ function useGL(glat,glon,gerr){
 			 habitat,
 			geog_auth_rec.geog_auth_rec_id,
 			higher_geog,
+			state_prov,
+			country,
+			county,
 			specimen_event_remark,
 			specimen_event.VERIFIED_BY_AGENT_ID,
 			getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID) verified_by_agent_name,
@@ -310,6 +313,15 @@ function useGL(glat,glon,gerr){
 		<input type="hidden" name="collection_object_id" value="#l.collection_object_id#">
 		<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
 		<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
+		<!--- for geolocate --->
+			<input type="hidden" name="error_in_meters" id="error_in_meters" value="#l.error_in_meters#">
+			<input type="hidden" name="state_prov" id="state_prov" value="#l.state_prov#">
+			<input type="hidden" name="country" id="country" value="#l.country#">
+			<input type="hidden" name="county" id="county" value="#l.county#">
+
+
+
+
 
 		<!-------------------------- specimen_event -------------------------->
 
@@ -445,9 +457,6 @@ function useGL(glat,glon,gerr){
 								<label for="dec_long" class="helpLink" data-helplink="dec_long">Decimal Longitude</label>
 								<input type="number" name="dec_long" id="dec_long" value="#l.dec_long#">
 							</td>
-							<!--- for geolocate --->
-							<input type="hidden" name="error_in_meters" id="error_in_meters" value="#l.error_in_meters#">
-
 
 
 
