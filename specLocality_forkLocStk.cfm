@@ -144,6 +144,7 @@ function checkCoordinateError(){
 		}
 	});
 	function populateGeology(id) {
+		console.log('populateGeology');
 		if (id.indexOf('__') > -1) {
 			var idNum=id.replace('geology_attribute__','');
 			var thisValue=$("#geology_attribute__" + idNum).val();;
