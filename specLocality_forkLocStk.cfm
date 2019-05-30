@@ -898,7 +898,7 @@ function useGL(glat,glon,gerr){
 						<cfloop from ="#i#" to="#lpt#" index="i">
 							<tr>
 								<td>
-									<select name="geology_attribute__#i#" id="geology_attribute__#i#" class="reqdClr" onchange="populateGeology(this.id)">
+									<select name="geology_attribute__#i#" id="geology_attribute__#i#" onchange="populateGeology(this.id)">
 										<option value=""></option>
 										<cfloop query="ctgeology_attribute">
 											<option value="#geology_attribute#">#geology_attribute#</option>
@@ -906,7 +906,7 @@ function useGL(glat,glon,gerr){
 									</select>
 								</td>
 								<td>
-									<select name="geo_att_value__#i#" id="geo_att_value__#i#" class="reqdClr">
+									<select name="geo_att_value__#i#" id="geo_att_value__#i#" >
 										<option value=""></option>
 									</select>
 								</td>
