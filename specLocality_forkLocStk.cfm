@@ -2,7 +2,9 @@
 <cfif not listfindnocase(session.roles,'manage_specimens')>
 	<div class="error">not authorized</div><cfabort>
 </cfif>
-
+<div class='importantNotification'>
+	This form is early beta; use with caution.
+</div>
 Docs
 <br>after testing this needs expanded and moved to http://handbook.arctosdb.org/documentation/specimen-event.html
 <textarea rows="40" cols="150">
