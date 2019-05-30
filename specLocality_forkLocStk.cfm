@@ -445,8 +445,6 @@ function useGL(glat,glon,gerr){
 						<input type="number" name="dec_long" id="dec_long" value="#l.dec_long#">
 					</td>
 				</tr>
-			</table>
-			<table>
 				<tr>
 					<td>
 						<label for="max_error_distance" class="helpLink" data-helplink="max_error_distance">Max Error Distance</label>
