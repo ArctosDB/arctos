@@ -400,30 +400,7 @@ function useGL(glat,glon,gerr){
 		specimen_event_type
 	</cfquery>
 
-	<cfquery name="g" dbtype="query">
-		 select
-		 	GEOLOGY_ATTRIBUTE_ID,
-			GEOLOGY_ATTRIBUTE,
-			GEO_ATT_VALUE,
-			GEO_ATT_DETERMINER_ID,
-			geo_att_determiner,
-			GEO_ATT_DETERMINED_DATE,
-			GEO_ATT_DETERMINED_METHOD,
-			GEO_ATT_REMARK
-		from
-			raw
-		where
-			GEOLOGY_ATTRIBUTE_ID is not null
-		group by
-			 GEOLOGY_ATTRIBUTE_ID,
-			GEOLOGY_ATTRIBUTE,
-			GEO_ATT_VALUE,
-			GEO_ATT_DETERMINER_ID,
-			geo_att_determiner,
-			GEO_ATT_DETERMINED_DATE,
-			GEO_ATT_DETERMINED_METHOD,
-			GEO_ATT_REMARK
-	</cfquery>
+
 	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select orig_elev_units from ctorig_elev_units order by orig_elev_units
 	</cfquery>
@@ -477,6 +454,31 @@ function useGL(glat,glon,gerr){
 		</ul>
 	<cfset f=1>
 	<cfloop query="l">
+		<cfquery name="g" dbtype="query">
+			 select
+			 	GEOLOGY_ATTRIBUTE_ID,
+				GEOLOGY_ATTRIBUTE,
+				GEO_ATT_VALUE,
+				GEO_ATT_DETERMINER_ID,
+				geo_att_determiner,
+				GEO_ATT_DETERMINED_DATE,
+				GEO_ATT_DETERMINED_METHOD,
+				GEO_ATT_REMARK
+			from
+				raw
+			where
+				GEOLOGY_ATTRIBUTE_ID is not null and
+				locality_id=#l.locality_id#
+			group by
+				 GEOLOGY_ATTRIBUTE_ID,
+				GEOLOGY_ATTRIBUTE,
+				GEO_ATT_VALUE,
+				GEO_ATT_DETERMINER_ID,
+				geo_att_determiner,
+				GEO_ATT_DETERMINED_DATE,
+				GEO_ATT_DETERMINED_METHOD,
+				GEO_ATT_REMARK
+		</cfquery>
 		<div style="border:2px solid black; margin:1em;">
 		<table border="1" width="100%"><tr><td>
 		<form name="loc#f#" method="post" action="specLocality.cfm">
