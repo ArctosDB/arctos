@@ -192,6 +192,16 @@
 		$("#georeference_protocol").val('Google automated georeference');
 
 	}
+	function useAutoElev(){
+		$("#minimum_elevation").val($("#s_dollar_elev").val());
+		$("#maximum_elevation").val($("#s_dollar_elev").val());
+		$("#orig_elev_units").val('m');
+
+	}
+
+
+
+
 
 	$(document).ready(function() {
 		$("input[type='date'], input[type='datetime']" ).datepicker();
@@ -816,6 +826,7 @@ function useGL(glat,glon,gerr){
 							<cfelseif  locDet.min_elev_in_m lte l.s$elevation and l.s$elevation lte l.max_elev_in_m>
 								Automated georeference is within the curatorially-supplied elevation range.
 							</cfif>
+							<span class="likeLink" onclick="useAutoElev()">Copy elevation to the form</span>
 						</span>
 					<br>Tags:
 						<span style="font-weight:bold;">#l.s$geography#</span>
