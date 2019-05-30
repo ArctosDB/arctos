@@ -370,7 +370,7 @@ function useGL(glat,glon,gerr){
 
 
 
-			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
+			<label for="specimen_event_remark">Specimen/Event Remark</label>
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#stripQuotes(l.specimen_event_remark)#" size="75">
 
 			<label for="habitat">Habitat</label>
@@ -427,11 +427,11 @@ function useGL(glat,glon,gerr){
 
 
 			<label for="spec_locality" class="helpLink" data-helplink="spec_locality">Specific Locality</label>
-			<input type="text" name="spec_locality" id="spec_locality" value="#l.spec_locality#">
+			<input type="text" name="spec_locality" id="spec_locality" value="#l.spec_locality#" size="75">
 
 
 			<label for="locality_remarks" class="helpLink" data-helplink="locality_remarks">Locality Remarks</label>
-			<input type="text" name="locality_remarks" id="locality_remarks" value="#l.locality_remarks#">
+			<input type="text" name="locality_remarks" id="locality_remarks" value="#l.locality_remarks#" size="75">
 
 
 			<table>
@@ -475,10 +475,10 @@ function useGL(glat,glon,gerr){
 
 
 			<label for="georeference_protocol" class="helpLink" data-helplink="georeference_protocol">Georeference Protocol</label>
-			<input type="text" name="georeference_protocol" id="georeference_protocol" value="#l.georeference_protocol#">
+			<input type="text" name="georeference_protocol" id="georeference_protocol" value="#l.georeference_protocol#" size="75">
 
 			<label for="georeference_source" class="helpLink" data-helplink="georeference_source">Georeference Source</label>
-			<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#">
+			<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#" size="75">
 
 			<table>
 				<tr>
@@ -500,9 +500,6 @@ function useGL(glat,glon,gerr){
 						</select>
 					</td>
 				</tr>
-			</table>
-
-			<table>
 				<tr>
 					<td>
 						<label for="min_depth" class="helpLink" data-helplink="min_depth">Min Depth</label>
