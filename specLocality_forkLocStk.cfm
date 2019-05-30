@@ -232,7 +232,7 @@ function useGL(glat,glon,gerr){
 			 COLLECTING_METHOD,
 			 COLLECTING_SOURCE,
 			 VERIFICATIONSTATUS,
-			 habitat
+			 habitat,
 			geog_auth_rec.geog_auth_rec_id,
 			higher_geog,
 			specimen_event_remark,
