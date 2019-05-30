@@ -505,6 +505,18 @@ function useGL(glat,glon,gerr){
 					</td>
 				</tr>
 			</table>
+
+
+			<h4>
+				Geography
+			</h4>
+			<input type="hidden" name="geog_auth_rec_id" value="#l.geog_auth_rec_id#">
+			<label for="higher_geog">Higher Geography</label>
+			<input type="text" name="higher_geog" id="higher_geog" value="#l.higher_geog#" size="120" class="readClr" readonly="yes">
+			<input type="button" value="Pick" class="picBtn" id="changeGeogButton"
+				onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
+
+
 			<h4>
 				Geology
 			</h4>
@@ -536,7 +548,7 @@ function useGL(glat,glon,gerr){
 						</td>
 						<td>
 							<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" value="#geo_att_determiner_id#">
-							<input type="text" name="geo_att_determiner_#i#"  size="40"
+							<input type="text" name="geo_att_determiner_#i#"  size="20"
 								onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
 			 					onKeyPress="return noenter(event);"
 			 					value="#agent_name#">
@@ -571,7 +583,7 @@ function useGL(glat,glon,gerr){
 						</td>
 						<td>
 							<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" >
-							<input type="text" name="geo_att_determiner_#i#"  size="40"
+							<input type="text" name="geo_att_determiner_#i#"  size="20"
 								onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
 			 					onKeyPress="return noenter(event);">
 						</td>
@@ -590,14 +602,6 @@ function useGL(glat,glon,gerr){
 
 
 
-			<h4>
-				Geography
-			</h4>
-			<input type="hidden" name="geog_auth_rec_id" value="#l.geog_auth_rec_id#">
-			<label for="higher_geog">Higher Geography</label>
-			<input type="text" name="higher_geog" id="higher_geog" value="#l.higher_geog#" size="120" class="readClr" readonly="yes">
-			<input type="button" value="Pick" class="picBtn" id="changeGeogButton"
-				onclick="GeogPick('geog_auth_rec_id','higher_geog','locality'); return false;">
 <!----
 
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
