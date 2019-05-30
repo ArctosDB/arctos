@@ -474,7 +474,7 @@ function useGL(glat,glon,gerr){
 	</cfquery>
 	<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
 		<input type="hidden" name="nothing" id="nothing">
-		<input type="hidden" name="action" id="saveEdits">
+		<input type="hidden" name="action" id="action" value="saveEdits">
 		<input type="hidden" name="collection_object_id" value="#l.collection_object_id#">
 		<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
 		<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
