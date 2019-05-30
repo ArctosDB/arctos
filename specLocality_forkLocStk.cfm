@@ -499,7 +499,7 @@ function useGL(glat,glon,gerr){
 						<select name="depth_units" id="depth_units" size="1">
 							<cfloop query="ctdepthUnit">
 								<option <cfif l.depth_units is ctdepthUnit.depth_units> selected="selected" </cfif>
-									value="#orig_elev_units#">#orig_elev_units#</option>
+									value="#depth_units#">#depth_units#</option>
 							</cfloop>
 						</select>
 					</td>
