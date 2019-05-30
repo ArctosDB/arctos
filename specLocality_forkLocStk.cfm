@@ -339,7 +339,7 @@ function useGL(glat,glon,gerr){
 					</td>
 					<td>
 						<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
-						<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+						<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr" size="10">
 					</td>
 				</tr>
 			</table>
