@@ -601,8 +601,8 @@
 								<td>
 									<label for="specimen_event_type">Event Determiner</label>
 									<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-										 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','editForkSpecEvent',this.value); return false;"
-										 onKeyPress="return noenter(event);">
+										 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
+										 onKeyPress="return noenter(event);">assigned_by_agent_id
 									<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 								</td>
 								<td>
@@ -891,7 +891,7 @@
 						</td>
 						<td>
 							<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" value="#geo_att_determiner_id#">
-							<input type="text" name="geo_att_determiner_#i#"  size="15"
+							<input type="text" name="geo_att_determiner_#i#" id="geo_att_determiner_#i#" size="15"
 								onchange="pickAgentModal('geo_att_determiner_id__#i#',this.id,this.value); return false;"
 			 					onKeyPress="return noenter(event);"
 			 					value="#geo_att_determiner#">
@@ -926,7 +926,7 @@
 						</td>
 						<td>
 							<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" >
-							<input type="text" name="geo_att_determiner_#i#"  size="15"
+							<input type="text" name="geo_att_determiner_#i#" id="geo_att_determiner_#i#" size="15"
 								onchange="pickAgentModal('geo_att_determiner_id__#i#',this.id,this.value); return false;"
 			 					onKeyPress="return noenter(event);">
 						</td>
