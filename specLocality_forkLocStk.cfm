@@ -304,314 +304,325 @@ function useGL(glat,glon,gerr){
 	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
+	<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
+		<input type="hidden" name="action" value="saveChange">
+		<input type="hidden" name="nothing" id="nothing">
+		<input type="hidden" name="collection_object_id" value="#l.collection_object_id#">
+		<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
+		<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
+
+		<!-------------------------- specimen_event -------------------------->
+
+		<table>
+			<tr>
+				<td><!--- main cell --->
+
+					<table>
+						<tr>
+							<td>
+								<label for="specimen_event_type">Specimen/Event Type</label>
+								<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+									<cfloop query="ctspecimen_event_type">
+										<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
+											value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+								    </cfloop>
+								</select>
+								<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
+							</td>
+							<td>
+								<label for="specimen_event_type">Event Determiner</label>
+								<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
+									 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','editForkSpecEvent',this.value); return false;"
+									 onKeyPress="return noenter(event);">
+								<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+							</td>
+							<td>
+								<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
+								<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr" size="10">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
+								<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+									<cfloop query="ctVerificationStatus">
+										<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
+											value="#VerificationStatus#">#VerificationStatus#</option>
+									</cfloop>
+								</select>
+								<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
+							</td>
+							<td>
+								<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
+								<label for="verified_by_agent_name">Verified By</label>
+								<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
+									 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
+									 onKeyPress="return noenter(event);">
+							</td>
+							<td>
+								<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
+								<input type="datetime" size="10" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
+								<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#');">Me, Today</span>
+							</td>
+						</tr>
+					</table>
 
 
 
-		<div style="border:2px solid black; margin:1em;">
-		<table border="1" width="100%"><tr><td>
-		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
-			<input type="hidden" name="action" value="saveChange">
-			<input type="hidden" name="nothing" id="nothing">
-			<input type="hidden" name="collection_object_id" value="#l.collection_object_id#">
-			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
-			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
+					<label for="specimen_event_remark">Specimen/Event Remark</label>
+					<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#stripQuotes(l.specimen_event_remark)#" size="75">
 
-			<!-------------------------- specimen_event -------------------------->
+					<label for="habitat">Habitat</label>
+					<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
+					<label for="collecting_source" class="helpLink" data-helplink="collecting_source">Collecting Source</label>
+					<select name="collecting_source" id="collecting_source" size="1">
+						<option value=""></option>
+						<cfloop query="ctcollecting_source">
+							<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
+								value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
+						</cfloop>
+					</select>
+					<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
 
-			<table>
-				<tr>
-					<td>
-						<label for="specimen_event_type">Specimen/Event Type</label>
-						<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
-							<cfloop query="ctspecimen_event_type">
-								<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
-									value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
-						    </cfloop>
-						</select>
-						<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
-					</td>
-					<td>
-						<label for="specimen_event_type">Event Determiner</label>
-						<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-							 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','editForkSpecEvent',this.value); return false;"
-							 onKeyPress="return noenter(event);">
-						<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
-					</td>
-					<td>
-						<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
-						<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr" size="10">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
-						<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-							<cfloop query="ctVerificationStatus">
-								<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
-									value="#VerificationStatus#">#VerificationStatus#</option>
-							</cfloop>
-						</select>
-						<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
-					</td>
-					<td>
-						<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
-						<label for="verified_by_agent_name">Verified By</label>
-						<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
-							 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
-							 onKeyPress="return noenter(event);">
-					</td>
-					<td>
-						<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
-						<input type="datetime" size="10" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
-						<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#');">Me, Today</span>
-					</td>
-				</tr>
-			</table>
-
-
-
-			<label for="specimen_event_remark">Specimen/Event Remark</label>
-			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#stripQuotes(l.specimen_event_remark)#" size="75">
-
-			<label for="habitat">Habitat</label>
-			<input type="text" name="habitat" id="habitat" value="#l.habitat#" size="75">
-			<label for="collecting_source" class="helpLink" data-helplink="collecting_source">Collecting Source</label>
-			<select name="collecting_source" id="collecting_source" size="1">
-				<option value=""></option>
-				<cfloop query="ctcollecting_source">
-					<option <cfif ctcollecting_source.COLLECTING_SOURCE is l.COLLECTING_SOURCE> selected="selected" </cfif>
-						value="#ctcollecting_source.COLLECTING_SOURCE#">#ctcollecting_source.COLLECTING_SOURCE#</option>
-				</cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctcollecting_source');">Define</span>
-
-			<label for="collecting_method" class="helpLink" data-helplink="collecting_method">Collecting Method</label>
-			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
-
-
-
+					<label for="collecting_method" class="helpLink" data-helplink="collecting_method">Collecting Method</label>
+					<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
 
 
 
 
-			<h4>
-				Collecting Event
-			</h4>
 
 
 
-			<label for="verbatim_date" class="helpLink" data-helplink="verbatim_date">Verbatim Date</label>
-			<input type="text" name="verbatim_date" id="verbatim_date" value="#stripQuotes(l.verbatim_date)#" size="75">
-			<table>
-				<tr>
-					<td>
-						<label for="began_date" class="helpLink" data-helplink="began_date">Began Date</label>
-						<input type="text" name="began_date" id="began_date" value="#l.began_date#">
-					</td>
-					<td>
-						<label for="ended_date" class="helpLink" data-helplink="ended_date">Ended Date</label>
-						<input type="text" name="ended_date" id="ended_date" value="#l.ended_date#">
-					</td>
-				</tr>
-			</table>
-
-			<label for="verbatim_locality" class="helpLink" data-helplink="verbatim_locality">Verbatim Locality</label>
-			<input type="text" name="verbatim_locality" id="verbatim_locality" value="#stripQuotes(l.verbatim_locality)#" size="75">
-
-			<label for="coll_event_remarks" class="helpLink" data-helplink="coll_event_remarks">Collecting Event Remarks</label>
-			<input type="text" name="coll_event_remarks" id="coll_event_remarks" value="#stripQuotes(l.coll_event_remarks)#" size="75">
-
-			<h4>
-				Locality
-			</h4>
+					<h4>
+						Collecting Event
+					</h4>
 
 
-			<label for="spec_locality" class="helpLink" data-helplink="spec_locality">Specific Locality</label>
-			<input type="text" name="spec_locality" id="spec_locality" value="#l.spec_locality#" size="75">
+
+					<label for="verbatim_date" class="helpLink" data-helplink="verbatim_date">Verbatim Date</label>
+					<input type="text" name="verbatim_date" id="verbatim_date" value="#stripQuotes(l.verbatim_date)#" size="75">
+					<table>
+						<tr>
+							<td>
+								<label for="began_date" class="helpLink" data-helplink="began_date">Began Date</label>
+								<input type="text" name="began_date" id="began_date" value="#l.began_date#">
+							</td>
+							<td>
+								<label for="ended_date" class="helpLink" data-helplink="ended_date">Ended Date</label>
+								<input type="text" name="ended_date" id="ended_date" value="#l.ended_date#">
+							</td>
+						</tr>
+					</table>
+
+					<label for="verbatim_locality" class="helpLink" data-helplink="verbatim_locality">Verbatim Locality</label>
+					<input type="text" name="verbatim_locality" id="verbatim_locality" value="#stripQuotes(l.verbatim_locality)#" size="75">
+
+					<label for="coll_event_remarks" class="helpLink" data-helplink="coll_event_remarks">Collecting Event Remarks</label>
+					<input type="text" name="coll_event_remarks" id="coll_event_remarks" value="#stripQuotes(l.coll_event_remarks)#" size="75">
+
+					<h4>
+						Locality
+					</h4>
 
 
-			<label for="locality_remarks" class="helpLink" data-helplink="locality_remarks">Locality Remarks</label>
-			<input type="text" name="locality_remarks" id="locality_remarks" value="#l.locality_remarks#" size="75">
+					<label for="spec_locality" class="helpLink" data-helplink="spec_locality">Specific Locality</label>
+					<input type="text" name="spec_locality" id="spec_locality" value="#l.spec_locality#" size="75">
 
 
-			<table>
-				<tr>
-					<td>
-						<label for="dec_lat" class="helpLink" data-helplink="dec_lat">Decimal Latitude</label>
-						<input type="number" name="dec_lat" id="dec_lat" value="#l.dec_lat#">
-					</td>
-					<td>
-						<label for="dec_long" class="helpLink" data-helplink="dec_long">Decimal Longitude</label>
-						<input type="number" name="dec_long" id="dec_long" value="#l.dec_long#">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="max_error_distance" class="helpLink" data-helplink="max_error_distance">Max Error Distance</label>
-						<input type="number" name="max_error_distance" id="max_error_distance" value="#l.max_error_distance#">
-					</td>
-					<td>
-						<label for="max_error_units" class="helpLink" data-helplink="max_error_units">Error Units</label>
-						<select name="max_error_units" id="max_error_units" size="1">
-							<cfloop query="cterror">
-								<option <cfif l.max_error_units is cterror.LAT_LONG_ERROR_UNITS> selected="selected" </cfif>
-									value="#LAT_LONG_ERROR_UNITS#">#LAT_LONG_ERROR_UNITS#</option>
-							</cfloop>
-						</select>
-					</td>
-				</tr>
-			</table>
+					<label for="locality_remarks" class="helpLink" data-helplink="locality_remarks">Locality Remarks</label>
+					<input type="text" name="locality_remarks" id="locality_remarks" value="#l.locality_remarks#" size="75">
 
 
-			<label for="datum" class="helpLink" data-helplink="datum">Datum</label>
-			<select name="datum" id="datum" size="1" class="reqdClr">
-				<cfloop query="ctdatum">
-					<option <cfif l.datum is ctdatum.datum> selected="selected" </cfif>
-						value="#datum#">#datum#</option>
-				</cfloop>
-			</select>
+					<table>
+						<tr>
+							<td>
+								<label for="dec_lat" class="helpLink" data-helplink="dec_lat">Decimal Latitude</label>
+								<input type="number" name="dec_lat" id="dec_lat" value="#l.dec_lat#">
+							</td>
+							<td>
+								<label for="dec_long" class="helpLink" data-helplink="dec_long">Decimal Longitude</label>
+								<input type="number" name="dec_long" id="dec_long" value="#l.dec_long#">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="max_error_distance" class="helpLink" data-helplink="max_error_distance">Max Error Distance</label>
+								<input type="number" name="max_error_distance" id="max_error_distance" value="#l.max_error_distance#">
+							</td>
+							<td>
+								<label for="max_error_units" class="helpLink" data-helplink="max_error_units">Error Units</label>
+								<select name="max_error_units" id="max_error_units" size="1">
+									<cfloop query="cterror">
+										<option <cfif l.max_error_units is cterror.LAT_LONG_ERROR_UNITS> selected="selected" </cfif>
+											value="#LAT_LONG_ERROR_UNITS#">#LAT_LONG_ERROR_UNITS#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</table>
 
 
-			<label for="georeference_protocol" class="helpLink" data-helplink="georeference_protocol">Georeference Protocol</label>
-			<input type="text" name="georeference_protocol" id="georeference_protocol" value="#l.georeference_protocol#" size="75">
-
-			<label for="georeference_source" class="helpLink" data-helplink="georeference_source">Georeference Source</label>
-			<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#" size="75">
-
-			<table>
-				<tr>
-					<td>
-						<label for="minimum_elevation" class="helpLink" data-helplink="minimum_elevation">Min Elevation</label>
-						<input type="number" name="minimum_elevation" id="minimum_elevation" value="#l.minimum_elevation#">
-					</td>
-					<td>
-						<label for="maximum_elevation" class="helpLink" data-helplink="maximum_elevation">Max Elevation</label>
-						<input type="number" name="maximum_elevation" id="maximum_elevation" value="#l.maximum_elevation#">
-					</td>
-					<td>
-						<label for="orig_elev_units" class="helpLink" data-helplink="orig_elev_units">Elevation Units</label>
-						<select name="orig_elev_units" id="orig_elev_units" size="1">
-							<cfloop query="ctElevUnit">
-								<option <cfif l.orig_elev_units is ctElevUnit.orig_elev_units> selected="selected" </cfif>
-									value="#orig_elev_units#">#orig_elev_units#</option>
-							</cfloop>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="min_depth" class="helpLink" data-helplink="min_depth">Min Depth</label>
-						<input type="number" name="min_depth" id="min_depth" value="#l.min_depth#">
-					</td>
-					<td>
-						<label for="max_depth" class="helpLink" data-helplink="max_depth">Max Depth</label>
-						<input type="number" name="max_depth" id="max_depth" value="#l.max_depth#">
-					</td>
-					<td>
-						<label for="depth_units" class="helpLink" data-helplink="depth_units">Depth Units</label>
-						<select name="depth_units" id="depth_units" size="1">
-							<cfloop query="ctdepthUnit">
-								<option <cfif l.depth_units is ctdepthUnit.depth_units> selected="selected" </cfif>
-									value="#depth_units#">#depth_units#</option>
-							</cfloop>
-						</select>
-					</td>
-				</tr>
-			</table>
+					<label for="datum" class="helpLink" data-helplink="datum">Datum</label>
+					<select name="datum" id="datum" size="1" class="reqdClr">
+						<cfloop query="ctdatum">
+							<option <cfif l.datum is ctdatum.datum> selected="selected" </cfif>
+								value="#datum#">#datum#</option>
+						</cfloop>
+					</select>
 
 
-			<h4>
-				Geography
-			</h4>
-			<input type="hidden" name="geog_auth_rec_id" value="#l.geog_auth_rec_id#">
-			<label for="higher_geog">Higher Geography</label>
-			<input type="text" name="higher_geog" id="higher_geog" value="#l.higher_geog#" size="120" class="readClr" readonly="yes">
-			<input type="button" value="Pick" class="picBtn" id="changeGeogButton"
-				onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
+					<label for="georeference_protocol" class="helpLink" data-helplink="georeference_protocol">Georeference Protocol</label>
+					<input type="text" name="georeference_protocol" id="georeference_protocol" value="#l.georeference_protocol#" size="75">
+
+					<label for="georeference_source" class="helpLink" data-helplink="georeference_source">Georeference Source</label>
+					<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#" size="75">
+
+					<table>
+						<tr>
+							<td>
+								<label for="minimum_elevation" class="helpLink" data-helplink="minimum_elevation">Min Elevation</label>
+								<input type="number" name="minimum_elevation" id="minimum_elevation" value="#l.minimum_elevation#">
+							</td>
+							<td>
+								<label for="maximum_elevation" class="helpLink" data-helplink="maximum_elevation">Max Elevation</label>
+								<input type="number" name="maximum_elevation" id="maximum_elevation" value="#l.maximum_elevation#">
+							</td>
+							<td>
+								<label for="orig_elev_units" class="helpLink" data-helplink="orig_elev_units">Elevation Units</label>
+								<select name="orig_elev_units" id="orig_elev_units" size="1">
+									<cfloop query="ctElevUnit">
+										<option <cfif l.orig_elev_units is ctElevUnit.orig_elev_units> selected="selected" </cfif>
+											value="#orig_elev_units#">#orig_elev_units#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="min_depth" class="helpLink" data-helplink="min_depth">Min Depth</label>
+								<input type="number" name="min_depth" id="min_depth" value="#l.min_depth#">
+							</td>
+							<td>
+								<label for="max_depth" class="helpLink" data-helplink="max_depth">Max Depth</label>
+								<input type="number" name="max_depth" id="max_depth" value="#l.max_depth#">
+							</td>
+							<td>
+								<label for="depth_units" class="helpLink" data-helplink="depth_units">Depth Units</label>
+								<select name="depth_units" id="depth_units" size="1">
+									<cfloop query="ctdepthUnit">
+										<option <cfif l.depth_units is ctdepthUnit.depth_units> selected="selected" </cfif>
+											value="#depth_units#">#depth_units#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</table>
 
 
-			<h4>
-				Geology
-			</h4>
+					<h4>
+						Geography
+					</h4>
+					<input type="hidden" name="geog_auth_rec_id" value="#l.geog_auth_rec_id#">
+					<label for="higher_geog">Higher Geography</label>
+					<input type="text" name="higher_geog" id="higher_geog" value="#l.higher_geog#" size="120" class="readClr" readonly="yes">
+					<input type="button" value="Pick" class="picBtn" id="changeGeogButton"
+						onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
+				</td><!--- END main cell --->
+				<td><!--- maptools cell --->
+					ima map!
+				</td><!--- END maptools cell --->
+			</tr>
+			<tr>
+				<td colspan="2"><!--- geology cell --->
+					<h4>
+						Geology
+					</h4>
 
-			<table border>
-				<tr>
-					<th>Attribute</th>
-					<th>Value</th>
-					<th>Determiner</th>
-					<th>Date</th>
-					<th>Method</th>
-					<th>Remark</th>
-				</tr>
-				<cfset i=1>
-				<cfloop query="geology">
-					<tr>
-						<td>
-							<select name="geology_attribute__#i#" id="geology_attribute__#i#" class="reqdClr" onchange="populateGeology(this.id)">
-								<option value="" class="red">Delete This</option>
-								<cfloop query="ctgeology_attribute">
-									<option <cfif ctgeology_attribute.geology_attribute is geology.geology_attribute> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<select name="geo_att_value__#i#" id="geo_att_value__#i#" class="reqdClr">
-								<option value="#geo_att_value#">#geo_att_value#</option>
-							</select>
-						</td>
-						<td>
-							<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" value="#geo_att_determiner_id#">
-							<input type="text" name="geo_att_determiner_#i#"  size="20"
-								onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
-			 					onKeyPress="return noenter(event);"
-			 					value="#agent_name#">
-						</td>
-						<td>
-							<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
-						</td>
-						<td>
-							<input type="text" name="geo_att_determined_method__#i#" id="geo_att_determined_method__#i#" size="60"  value="#geo_att_determined_method#">
-						</td>
-						<td>
-							<input type="text" name="geo_att_remark__#i#" size="60" value="#geo_att_remark#">
-						</td>
-					</tr>
-					<cfset i=i+1>
-				</cfloop>
-				<cfset lpt=i+3>
-				<cfloop from ="#i#" to="#lpt#" index="i">
-					<tr>
-						<td>
-							<select name="geology_attribute__#i#" id="geology_attribute__#i#" class="reqdClr" onchange="populateGeology(this.id)">
-								<option value=""></option>
-								<cfloop query="ctgeology_attribute">
-									<option value="#geology_attribute#">#geology_attribute#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<select name="geo_att_value__#i#" id="geo_att_value__#i#" class="reqdClr">
-								<option value=""></option>
-							</select>
-						</td>
-						<td>
-							<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" >
-							<input type="text" name="geo_att_determiner_#i#"  size="20"
-								onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
-			 					onKeyPress="return noenter(event);">
-						</td>
-						<td>
-							<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#">
-						</td>
-						<td>
-							<input type="text" name="geo_att_determined_method__#i#" size="60" >
-						</td>
-						<td>
-							<input type="text" name="geo_att_remark__#i#" size="60">
-						</td>
-					</tr>
-				</cfloop>
-			</table>
+					<table border>
+						<tr>
+							<th>Attribute</th>
+							<th>Value</th>
+							<th>Determiner</th>
+							<th>Date</th>
+							<th>Method</th>
+							<th>Remark</th>
+						</tr>
+						<cfset i=1>
+						<cfloop query="geology">
+							<tr>
+								<td>
+									<select name="geology_attribute__#i#" id="geology_attribute__#i#" class="reqdClr" onchange="populateGeology(this.id)">
+										<option value="" class="red">Delete This</option>
+										<cfloop query="ctgeology_attribute">
+											<option <cfif ctgeology_attribute.geology_attribute is geology.geology_attribute> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
+										</cfloop>
+									</select>
+								</td>
+								<td>
+									<select name="geo_att_value__#i#" id="geo_att_value__#i#" class="reqdClr">
+										<option value="#geo_att_value#">#geo_att_value#</option>
+									</select>
+								</td>
+								<td>
+									<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" value="#geo_att_determiner_id#">
+									<input type="text" name="geo_att_determiner_#i#"  size="20"
+										onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
+					 					onKeyPress="return noenter(event);"
+					 					value="#agent_name#">
+								</td>
+								<td>
+									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
+								</td>
+								<td>
+									<input type="text" name="geo_att_determined_method__#i#" id="geo_att_determined_method__#i#" size="60"  value="#geo_att_determined_method#">
+								</td>
+								<td>
+									<input type="text" name="geo_att_remark__#i#" size="60" value="#geo_att_remark#">
+								</td>
+							</tr>
+							<cfset i=i+1>
+						</cfloop>
+						<cfset lpt=i+3>
+						<cfloop from ="#i#" to="#lpt#" index="i">
+							<tr>
+								<td>
+									<select name="geology_attribute__#i#" id="geology_attribute__#i#" class="reqdClr" onchange="populateGeology(this.id)">
+										<option value=""></option>
+										<cfloop query="ctgeology_attribute">
+											<option value="#geology_attribute#">#geology_attribute#</option>
+										</cfloop>
+									</select>
+								</td>
+								<td>
+									<select name="geo_att_value__#i#" id="geo_att_value__#i#" class="reqdClr">
+										<option value=""></option>
+									</select>
+								</td>
+								<td>
+									<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" >
+									<input type="text" name="geo_att_determiner_#i#"  size="20"
+										onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
+					 					onKeyPress="return noenter(event);">
+								</td>
+								<td>
+									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#">
+								</td>
+								<td>
+									<input type="text" name="geo_att_determined_method__#i#" size="60" >
+								</td>
+								<td>
+									<input type="text" name="geo_att_remark__#i#" size="60">
+								</td>
+							</tr>
+						</cfloop>
+					</table>
+
+				</td><!--- END geology cell --->
+			</tr>
+		</table>
+
+
+
 
 
 
