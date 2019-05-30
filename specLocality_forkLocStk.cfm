@@ -201,6 +201,7 @@ function useGL(glat,glon,gerr){
 </script>
 	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     		select
+	specimen_event.collection_object_id,
 			 COLLECTING_EVENT.COLLECTING_EVENT_ID,
 			 specimen_event_id,
 			 locality.LOCALITY_ID,
@@ -310,7 +311,7 @@ function useGL(glat,glon,gerr){
 		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
 			<input type="hidden" name="action" value="saveChange">
 			<input type="hidden" name="nothing" id="nothing">
-			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+			<input type="hidden" name="collection_object_id" value="#l.collection_object_id#">
 			<input type="hidden" name="collecting_event_id" value="#l.collecting_event_id#">
 			<input type="hidden" name="specimen_event_id" value="#l.specimen_event_id#">
 
