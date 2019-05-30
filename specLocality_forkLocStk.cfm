@@ -387,11 +387,11 @@ function useGL(glat,glon,gerr){
 				<tr>
 					<td>
 						<label for="began_date" class="helpLink" data-helplink="began_date">Began Date</label>
-						<input type="text" name="began_date" id="began_date" value="#began_date#">
+						<input type="text" name="began_date" id="began_date" value="#l.began_date#">
 					</td>
 					<td>
 						<label for="ended_date" class="helpLink" data-helplink="ended_date">Ended Date</label>
-						<input type="text" name="ended_date" id="ended_date" value="#ended_date#">
+						<input type="text" name="ended_date" id="ended_date" value="#l.ended_date#">
 					</td>
 				</tr>
 			</table>
@@ -408,22 +408,22 @@ function useGL(glat,glon,gerr){
 
 
 			<label for="spec_locality" class="helpLink" data-helplink="spec_locality">Specific Locality</label>
-			<input type="text" name="spec_locality" id="spec_locality" value="#spec_locality#">
+			<input type="text" name="spec_locality" id="spec_locality" value="#l.spec_locality#">
 
 
 			<label for="locality_remarks" class="helpLink" data-helplink="locality_remarks">Locality Remarks</label>
-			<input type="text" name="locality_remarks" id="locality_remarks" value="#locality_remarks#">
+			<input type="text" name="locality_remarks" id="locality_remarks" value="#l.locality_remarks#">
 
 
 			<table>
 				<tr>
 					<td>
 						<label for="dec_lat" class="helpLink" data-helplink="dec_lat">Decimal Latitude</label>
-						<input type="number" name="dec_lat" id="dec_lat" value="#dec_lat#">
+						<input type="number" name="dec_lat" id="dec_lat" value="#l.dec_lat#">
 					</td>
 					<td>
 						<label for="dec_long" class="helpLink" data-helplink="dec_long">Decimal Longitude</label>
-						<input type="number" name="dec_long" id="dec_long" value="#dec_long#">
+						<input type="number" name="dec_long" id="dec_long" value="#l.dec_long#">
 					</td>
 				</tr>
 			</table>
@@ -431,7 +431,7 @@ function useGL(glat,glon,gerr){
 				<tr>
 					<td>
 						<label for="max_error_distance" class="helpLink" data-helplink="max_error_distance">Max Error Distance</label>
-						<input type="number" name="max_error_distance" id="max_error_distance" value="#max_error_distance#">
+						<input type="number" name="max_error_distance" id="max_error_distance" value="#l.max_error_distance#">
 					</td>
 					<td>
 						<label for="max_error_units" class="helpLink" data-helplink="max_error_units">Error Units</label>
@@ -456,20 +456,20 @@ function useGL(glat,glon,gerr){
 
 
 			<label for="georeference_protocol" class="helpLink" data-helplink="georeference_protocol">Georeference Protocol</label>
-			<input type="text" name="georeference_protocol" id="georeference_protocol" value="#georeference_protocol#">
+			<input type="text" name="georeference_protocol" id="georeference_protocol" value="#l.georeference_protocol#">
 
 			<label for="georeference_source" class="helpLink" data-helplink="georeference_source">Georeference Source</label>
-			<input type="text" name="georeference_source" id="georeference_source" value="#georeference_source#">
+			<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#">
 
 			<table>
 				<tr>
 					<td>
 						<label for="minimum_elevation" class="helpLink" data-helplink="minimum_elevation">Min Elevation</label>
-						<input type="number" name="minimum_elevation" id="minimum_elevation" value="#minimum_elevation#">
+						<input type="number" name="minimum_elevation" id="minimum_elevation" value="#l.minimum_elevation#">
 					</td>
 					<td>
 						<label for="maximum_elevation" class="helpLink" data-helplink="maximum_elevation">Max Elevation</label>
-						<input type="number" name="maximum_elevation" id="maximum_elevation" value="#maximum_elevation#">
+						<input type="number" name="maximum_elevation" id="maximum_elevation" value="#l.maximum_elevation#">
 					</td>
 					<td>
 						<label for="orig_elev_units" class="helpLink" data-helplink="orig_elev_units">Elevation Units</label>
@@ -487,11 +487,11 @@ function useGL(glat,glon,gerr){
 				<tr>
 					<td>
 						<label for="min_depth" class="helpLink" data-helplink="min_depth">Min Depth</label>
-						<input type="number" name="min_depth" id="min_depth" value="#min_depth#">
+						<input type="number" name="min_depth" id="min_depth" value="#l.min_depth#">
 					</td>
 					<td>
 						<label for="max_depth" class="helpLink" data-helplink="max_depth">Max Depth</label>
-						<input type="number" name="max_depth" id="max_depth" value="#max_depth#">
+						<input type="number" name="max_depth" id="max_depth" value="#l.max_depth#">
 					</td>
 					<td>
 						<label for="depth_units" class="helpLink" data-helplink="depth_units">Depth Units</label>
