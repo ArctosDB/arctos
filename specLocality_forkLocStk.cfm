@@ -524,7 +524,7 @@ function useGL(glat,glon,gerr){
 							<select name="geology_attribute_#i#" id="geology_attribute_#i#" class="reqdClr" onchange="populateGeology(this.id)">
 								<option value="" class="red">Delete This</option>
 								<cfloop query="ctgeology_attribute">
-									<option <cfif #geology_attribute# is geolDet.geology_attribute> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
+									<option <cfif ctgeology_attribute.geology_attribute is geology.geology_attribute> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
 								</cfloop>
 							</select>
 						</td>
