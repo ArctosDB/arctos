@@ -7,6 +7,12 @@
 </cfif>
 <style type="text/css">
 	#map-canvas { height: 300px;width:500px; }
+	#maptools{
+		border:1px dashed red;
+		padding:1em;
+		background-color:lightgray;
+		font-size:small;
+	}
 </style>
 <cfset obj = CreateObject("component","component.functions")>
 <cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
@@ -817,7 +823,7 @@
 						onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
 				</td><!--- END main cell --->
 				<td width="40%"><!--- maptools cell --->
-					<div style="border:1px dashed red; padding:1em;background-color:lightgray;font-size:small;">
+					<div id="maptools">
 						<strong>Webservice Lookup Data</strong>
 						<!--- pull it --->
 						<cfset staticImageMap = obj.getMap(locality_id="#l.locality_id#",forceOverrideCache=true)>
