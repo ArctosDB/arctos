@@ -31,6 +31,20 @@
 	}
 
 
+
+	function useGL(glat,glon,gerr){
+			$("##max_error_distance").val(gerr);
+			$("##max_error_units").val('m');
+			$("##datum").val('World Geodetic System 1984');
+			$("##georeference_protocol").val('GeoLocate');
+			$("##georeference_source").val('GeoLocate');
+			$("##dec_lat").val(glat);
+			$("##dec_long").val(glon);
+			$("##lat_long_remarks").val('');
+			closeGeoLocate();
+		}
+
+
 function checkElevation(){
 	if ($("#minimum_elevation").val().length>0 || $("#maximum_elevation").val().length>0 || $("#orig_elev_units").val().length>0) {
 		$("#minimum_elevation").addClass('reqdClr').prop('required',true);
@@ -471,27 +485,7 @@ function checkCoordinateError(){
 </script>
 <cfif action is "nothing">
 <cfoutput>
-<script>
-function useGL(glat,glon,gerr){
-			showLLFormat('decimal degrees','');
-			$("##accepted_lat_long_fg").val('1');
-			$("##coordinate_determiner").val('#session.username#');
-			$("##determined_by_agent_id").val('#session.myAgentId#');
-			$("##determined_date").val('#dateformat(now(),"yyyy-mm-dd")#');
-			$("##max_error_distance").val(gerr);
-			$("##max_error_units").val('m');
-			$("##datum").val('World Geodetic System 1984');
-			$("##georefmethod").val('GeoLocate');
-			$("##extent").val('');
-			$("##gpsaccuracy").val('');
-			$("##verificationstatus").val('unverified');
-			$("##lat_long_ref_source").val('GeoLocate');
-			$("##dec_lat").val(glat);
-			$("##dec_long").val(glon);
-			$("##lat_long_remarks").val('');
-			closeGeoLocate();
-		}
-</script>
+
 	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
     		select
 	specimen_event.collection_object_id,
