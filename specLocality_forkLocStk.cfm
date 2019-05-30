@@ -1081,6 +1081,17 @@ function useGL(glat,glon,gerr){
 
 
 <cfdump var=#form#>
+
+<!--- pull geology out --->
+
+GEOLOGY_ATTRIBUTE__1 	[empty string]
+GEOLOGY_ATTRIBUTE__2 	[empty string]
+GEOLOGY_ATTRIBUTE__3 	[empty string]
+GEOLOGY_ATTRIBUTE__4 	[empty string]
+
+<cfloop list="#form.FIELDNAMES#" inxed="fld">
+	<br>#fld#
+</cfloop>
 <cfabort>
 	<!--- this has to run as GOD; users will not have access to do this stuff --->
 	<cftransaction>
