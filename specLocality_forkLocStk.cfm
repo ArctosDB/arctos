@@ -981,7 +981,7 @@ function useGL(glat,glon,gerr){
 								</td>
 								<td>
 									<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" value="#geo_att_determiner_id#">
-									<input type="text" name="geo_att_determiner_#i#"  size="20"
+									<input type="text" name="geo_att_determiner_#i#"  size="15"
 										onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
 					 					onKeyPress="return noenter(event);"
 					 					value="#geo_att_determiner#">
@@ -1016,7 +1016,7 @@ function useGL(glat,glon,gerr){
 								</td>
 								<td>
 									<input type="hidden" name="geo_att_determiner_id__#i#" id="geo_att_determiner_id__#i#" >
-									<input type="text" name="geo_att_determiner_#i#"  size="20"
+									<input type="text" name="geo_att_determiner_#i#"  size="15"
 										onchange="pickAgentModal('geo_att_determiner_id__#i#','geo_att_determiner__#i#',this.value); return false;"
 					 					onKeyPress="return noenter(event);">
 								</td>
