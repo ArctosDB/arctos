@@ -1092,7 +1092,7 @@ GEOLOGY_ATTRIBUTE__4 	[empty string]
 <cfloop list="#form.FIELDNAMES#" index="fld">
 	<br>#fld#
 	<cfif left(fld,19) is "GEOLOGY_ATTRIBUTE__">
-		<cfset thisIndex=replace(fld,"GEOLOGY_ATTRIBUTE__")>
+		<cfset thisIndex=replace(fld,"GEOLOGY_ATTRIBUTE__","")>
 		<cfset thisGA=evaluate("GEOLOGY_ATTRIBUTE__" & thisIndex)>
 		<br>thisGA: #thisGA#
 		<cfif len(thisGA) gt 0>
