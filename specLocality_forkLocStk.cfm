@@ -828,7 +828,7 @@ function checkCoordinateError(){
 					</h4>
 					<input type="hidden" name="geog_auth_rec_id" value="#l.geog_auth_rec_id#">
 					<label for="higher_geog">Higher Geography</label>
-					<input type="text" name="higher_geog" id="higher_geog" value="#l.higher_geog#" size="120" class="readClr" readonly="yes">
+					<input type="text" name="higher_geog" id="higher_geog" value="#l.higher_geog#" size="60" class="readClr" readonly="yes">
 					<input type="button" value="Pick" class="picBtn" id="changeGeogButton"
 						onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
 				</td><!--- END main cell --->
