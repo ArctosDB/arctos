@@ -987,7 +987,7 @@ function useGL(glat,glon,gerr){
 					 					value="#geo_att_determiner#">
 								</td>
 								<td>
-									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#">
+									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#" value="#dateformat(geo_att_determined_date,'yyyy-mm-dd')#" size="10">
 								</td>
 								<td>
 									<input type="text" name="geo_att_determined_method__#i#" id="geo_att_determined_method__#i#" size="60"  value="#geo_att_determined_method#">
@@ -1021,7 +1021,7 @@ function useGL(glat,glon,gerr){
 					 					onKeyPress="return noenter(event);">
 								</td>
 								<td>
-									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#">
+									<input type="text" name="geo_att_determined_date__#i#" id="geo_att_determined_date__#i#"  size="10">
 								</td>
 								<td>
 									<input type="text" name="geo_att_determined_method__#i#" size="60" >
