@@ -478,8 +478,31 @@ function useGL(glat,glon,gerr){
 			<input type="hidden" name="state_prov" id="state_prov" value="#l.state_prov#">
 			<input type="hidden" name="country" id="country" value="#l.country#">
 			<input type="hidden" name="county" id="county" value="#l.county#">
-
-
+		<!--- END for geolocate --->
+		<!--- for map --->
+			<cfset gp="">
+			<cfif len(locDet.geopoly) gt 0>
+				<cfquery name="fmed" datasource="uam_god">
+					select media_uri from media where media_id=#locDet.geopoly#
+				</cfquery>
+				<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+				<cfif left(cfhttp.statuscode,3) is "200">
+					<cfset gp=cfhttp.filecontent>
+				</cfif>
+			</cfif>
+			<input type="hidden" id="geopoly" value="#gp#">
+			<cfset gp="">
+			<cfif len(locDet.wkt_media_id) gt 0>
+				<cfquery name="fmed" datasource="uam_god">
+					select media_uri from media where media_id=#locDet.wkt_media_id#
+				</cfquery>
+				<cfhttp method="GET" url=#fmed.media_uri#></cfhttp>
+				<cfif left(cfhttp.statuscode,3) is "200">
+					<cfset gp=cfhttp.filecontent>
+				</cfif>
+			</cfif>
+			<input type="hidden" id="locpoly" value="#gp#">
+		<!--- END for map --->
 
 
 
