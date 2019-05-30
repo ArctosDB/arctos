@@ -1042,7 +1042,7 @@ function useGL(glat,glon,gerr){
 			<option value="edit">Edit the current specimen_event</option>
 			<option value="add">"unaccepted" the current specimen_event; add an Event with these data</option>
 		</select>
-		<input type="submit" class="savBtn" value="Save Changes>
+		<input type="submit" class="savBtn" value="Save Changes">
 
 
 
