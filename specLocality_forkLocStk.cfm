@@ -58,10 +58,10 @@
 		);
 	}
 
-	function verifByMe(f,i,u){
-		$("#verified_by_agent_name" + f).val(u);
-		$("#verified_by_agent_id" + f).val(i);
-		$("#verified_date" + f).val(getFormattedDate());
+	function verifByMe(i,u){
+		$("#verified_by_agent_name").val(u);
+		$("#verified_by_agent_id").val(i);
+		$("#verified_date").val(getFormattedDate());
 	}
 
 </script>
@@ -330,7 +330,7 @@ function useGL(glat,glon,gerr){
 			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 			<label for="specimen_event_type">Event Determiner</label>
 			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
+				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','editForkSpecEvent',this.value); return false;"
 				 onKeyPress="return noenter(event);">
 			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
 
@@ -365,15 +365,15 @@ function useGL(glat,glon,gerr){
 			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
 			<label for="verified_by_agent_name">Verified By</label>
 
-			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name#f#" value="#l.verified_by_agent_name#" size="40"
-				 onchange="pickAgentModal('verified_by_agent_id#f#',this.id,this.value); return false;"
+			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
+				 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
 				 onKeyPress="return noenter(event);">
-			<span class="infoLink" onclick="verifByMe('#f#','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+			<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
 
-			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id#f#" value="#l.verified_by_agent_id#">
+			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
 
 			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
-			<input type="datetime" name="verified_date" id="verified_date#f#" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
+			<input type="datetime" name="verified_date" id="verified_date" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
 
 			<h4>
 				Collecting Event
