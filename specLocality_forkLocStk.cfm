@@ -10,9 +10,11 @@
 	#maptools{
 		border:1px dashed red;
 		padding:1em;
-		background-color:lightgray;
+		background-color:#eaeaea;
 		font-size:small;
-	}
+		position:sticky;
+		top:0px;
+}
 </style>
 <cfset obj = CreateObject("component","component.functions")>
 <cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=geometry")>
@@ -822,7 +824,7 @@
 					<input type="button" value="Pick" class="picBtn" id="changeGeogButton"
 						onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
 				</td><!--- END main cell --->
-				<td width="40%"><!--- maptools cell --->
+				<td width="40%" valign="top"><!--- maptools cell --->
 					<div id="maptools">
 						<strong>Webservice Lookup Data</strong>
 						<!--- pull it --->
