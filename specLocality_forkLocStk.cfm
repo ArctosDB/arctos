@@ -766,7 +766,7 @@
 						<label for="georeference_source" class="helpLink" data-helplink="georeference_source">Georeference Source</label>
 						<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#" size="75">
 
-						<label for="wkt_media_id" class="helpLink" data-helplink="wkt_media_id">WKT Media ID</label>
+						<label for="wkt_media_id" class="helpLink" data-helplink="wkt_polygon">WKT Media ID</label>
 						<input type="number" name="wkt_media_id" id="wkt_media_id" value="#l.wkt_media_id#" size="75">
 
 						<table>
