@@ -35,6 +35,7 @@
 
 		function closeThisThing(c,e) {
 			var q='specLocality|' + c + '|' + e;
+			console.log(q);
 			parent.loadEditApp(q);
 		}
 
