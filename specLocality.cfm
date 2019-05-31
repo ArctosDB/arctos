@@ -64,8 +64,14 @@
 		$("#verified_date" + f).val(getFormattedDate());
 	}
 
-
 function forkEditEvent(seid){
+	parent.loadEditApp('specLocality_forkLocStk.cfm?specimen_event_id=' + seid);
+}
+
+
+
+
+function forkEditEvent2(seid){
 	var guts = "specLocality_forkLocStk.cfm?specimen_event_id=" + seid;
 	var w = $(window).width()-10;
 	var h = $(window).height()-10;
