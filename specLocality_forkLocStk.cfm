@@ -266,7 +266,8 @@
 
 
 $("#editForkSpecEvent").on("submit", function(){
-  		  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif" />');
+  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif" />');
+  return true;
 
  })
 
