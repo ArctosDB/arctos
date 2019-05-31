@@ -632,7 +632,7 @@ which they are attached; it is a purely additive action. This option should be u
 			<!--- END for map --->
 
 			<!-------------------------- specimen_event -------------------------->
-			<table border>
+			<table>
 				<tr>
 					<td><!--- main cell --->
 						<table>
