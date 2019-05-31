@@ -549,7 +549,7 @@
 						console.log('we are here');
 						var cmpts=q.split('|');
 						console.log(cmpts);
-						var ptl="/specLocality.cfm?collection_object_id=" + cmpts[1] + "#" + cmpts[2];
+						var ptl="/specLocality.cfm?collection_object_id=" + cmpts[1] + "##" + cmpts[2];
 						console.log(ptl);
 					} else {
 						var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
