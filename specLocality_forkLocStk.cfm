@@ -634,8 +634,8 @@
 								</td>
 								<td>
 									<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
-									<label for="assigned_by_agent_name" class="helpLink" data-helplink="assigned_by_agent_name" >
-										Event Determiner
+									<label for="assigned_by_agent_name">
+										<span  class="helpLink" data-helplink="event_assigned_by_agent">Event Determiner</span>
 										<span class="infoLink" onclick="dertByMe('#session.MyAgentID#','#session.dbuser#');"> [ Me, Today ] </span>
 									</label>
 									<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
