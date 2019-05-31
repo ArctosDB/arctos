@@ -660,8 +660,8 @@
 								</td>
 								<td>
 									<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
-									<label for="verified_by_agent_name" class="helpLink" data-helplink="verified_by_agent">
-										Verified By
+									<label for="verified_by_agent_name" >
+										<span  class="helpLink" data-helplink="verified_by_agent">Verified By</span>
 										<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#');"> [ Me, Today ] </span>
 									</label>
 									<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
