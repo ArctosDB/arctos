@@ -831,8 +831,10 @@ There are two ways to edit specimen-events and associated place/time data.
 								</span>
 								<p>Not seeing anything here, or seeing old data? Try waiting a couple minutes and reloading -
 									webservice data are asynchronously refreshed when this page loads, but can take a few minutes to find their way here.
-									(Webservice data are otherwise created when users load maps and refreshed
-									every 6 months.)
+									(Webservice data are otherwise created when users load maps and refreshed periodically.)
+								</p>
+								<p>
+									Funky data here? Check higher geography and specific loclaity documentation.
 								</p>
 								<p>
 									Automated georeferencing comes from either higher geography and locality or higher geography alone, and
