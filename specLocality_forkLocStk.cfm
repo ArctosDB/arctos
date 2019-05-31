@@ -33,8 +33,10 @@
 		  return d.toFixed(3);
 		}
 
-
-
+		function closeThisThing(c,e){
+			var q='specLocality|' + c + '|' + e);
+			parent.loadEditApp(q);
+		}
 
 
 
@@ -575,8 +577,8 @@
 		</cfquery>
 		<h3>
 			#l.guid#: Fork-edit place-time
-			<div style="font-size:x-small;font-style:italic">
-				Click the Locality tab above to return to the main locality form for this specimen.
+			<div style="font-size:x-small;">
+				<span class="likeLink" onclick="closeThisThing('#l.collection_object_id#','#l.specimen_event_id#');">Exit</span>
 			</div>
 		</h3>
 		<form name="editForkSpecEvent" id="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">

@@ -537,7 +537,13 @@
 					theFrame.className = 'editFrame';
 					if (q.substring(1, 27)=='specLocality_forkLocStk.cfm'){
 						var ptl="/" + q;
-					} else {
+					} else if (q.substring(1, 13)=='specLocality|') {
+						// this is from the specLocality_forkLocStk
+						// it scrolls to the event that was just edited
+						// format is specLocality|{collection_object_id}|{specimen_event_id}
+						var cmpts=q.split('|');
+						var ptl="/specLocality.cfm?collection_object_id=" + cmpts[1] + "&specimen_event_id=" + cmpts[2];
+					else {
 						var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 					}
 					theFrame.src=ptl;
