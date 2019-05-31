@@ -264,13 +264,13 @@
 
 		jQuery(document).ready(function() {
 
+			$("#editForkSpecEvent").on("submit", function(){
+				// adding the animation doesn't work in FF but
+				//$("#sbmtBtnSpn").append('<img src="/images/indicator.gif" />');
 
-$("#editForkSpecEvent").on("submit", function(){
-  $("#sbmtBtnSpn").append('<img src="/images/indicator.gif" />');
-  $("#btnSubmit").hide();
- })
-
-
+				$("#sbmtGif").show();
+				$("#btnSubmit").hide();
+			 })
 
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
@@ -984,6 +984,7 @@ $("#editForkSpecEvent").on("submit", function(){
 			</select>
 			<span id="sbmtBtnSpn">
 				<input id="btnSubmit" type="submit" class="savBtn" value="Save Changes" >
+				<img id="sbmtGif" src="/images/indicator.gif" style="display:none">
 			</span>
 			<span style="font-size:xx-small">
 				NOTE: Save has a slight delay to allow webservice data to catch up. Refresh this page if the service-box is empty.
