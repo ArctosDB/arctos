@@ -64,6 +64,32 @@
 		$("#verified_date" + f).val(getFormattedDate());
 	}
 
+
+function forkEditEvent(seid){
+	var guts = "specLocality_forkLocStk.cfm?specimen_event_id=" + seid;
+	var w = $(window).width();
+	var h = $(window).height();
+	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:100%;height:100%;'></iframe>").dialog({
+		autoOpen: true,
+		closeOnEscape: true,
+		height: 'auto',
+		modal: true,
+		position: ['center', 'top'],
+		title: 'Pick Agent',
+			width:w,
+ 			height:h,
+		close: function() {
+			$( this ).remove();
+		}
+	}).width(w).height(h);
+	$(window).resize(function() {
+		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
+	});
+	$(".ui-widget-overlay").click(function(){
+	    $(".ui-dialog-titlebar-close").trigger('click');
+	});
+}
+
 </script>
 <span class="helpLink" data-helplink="specimen_event">Page Help</span>
 <script>
@@ -493,6 +519,11 @@ function useGL(glat,glon,gerr){
 				Specimen/Event
 				<a name="specimen_event_#specimen_event_id#" href="##top">[ scroll to top ]</a>
 				<a href="/specLocality_forkLocStk.cfm?specimen_event_id=#specimen_event_id#" target="_blank">[ secret scary link ]</a>
+				<span onclick="forkEditEvent('#specimen_event_id#')">[ o ]</span>
+
+
+
+
 			</h4>
 			<label for="specimen_event_type">Specimen/Event Type</label>
 			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
