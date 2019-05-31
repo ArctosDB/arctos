@@ -45,7 +45,7 @@ may have had, and if other specimens are not using the event/locality they will 
 * add ("unaccept current specimen_event; add Event with these data") creates a new specimen event, and preserves the old. This maintains
 the history of the specimen being attached to now-unaccepted events, and the edit history of those events and the localities to
 which they are attached; it is a purely additive action. This option should be used for major or fundamental changes to the locality.
-
+</textarea>
 <p></p>
 <cfif action is "nothing">
 	<style type="text/css">
