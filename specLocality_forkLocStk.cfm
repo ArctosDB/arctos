@@ -469,7 +469,7 @@ There are two ways to edit specimen-events and associated place/time data.
 				specimen_event.specimen_event_id,
 				locality.LOCALITY_ID,
 				collecting_event.VERBATIM_DATE,
-				collecting_eventVERBATIM_LOCALITY,
+				collecting_event.VERBATIM_LOCALITY,
 				collecting_event.COLL_EVENT_REMARKS,
 				collecting_event.BEGAN_DATE,
 				collecting_event.ENDED_DATE,
