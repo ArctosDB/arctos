@@ -75,7 +75,7 @@ function forkEditEvent(seid){
 		height: 'auto',
 		modal: true,
 		position: ['center', 'top'],
-		title: 'Pick Agent',
+		title: 'Fork-Edit Specimen Event',
 			width:w,
  			height:h,
 		close: function() {
