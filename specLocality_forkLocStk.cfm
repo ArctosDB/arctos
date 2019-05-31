@@ -634,9 +634,9 @@
 								</td>
 								<td>
 									<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
-									<label for="specimen_event_type">
+									<label for="assigned_by_agent_name" class="helpLink" data-helplink="assigned_by_agent_name" >
 										Event Determiner
-										<span class="infoLink" onclick="dertByMe('#session.MyAgentID#','#session.dbuser#');">Me, Today</span>
+										<span class="infoLink" onclick="dertByMe('#session.MyAgentID#','#session.dbuser#');"> [ Me, Today ] </span>
 									</label>
 									<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
 										 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
@@ -649,8 +649,8 @@
 							</tr>
 							<tr>
 								<td>
-									<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
-									<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+									<label for="verificationstatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
+									<select name="verificationstatus" id="verificationstatus" size="1" class="reqdClr">
 										<cfloop query="ctVerificationStatus">
 											<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
 												value="#VerificationStatus#">#VerificationStatus#</option>
@@ -660,9 +660,9 @@
 								</td>
 								<td>
 									<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id" value="#l.verified_by_agent_id#">
-									<label for="verified_by_agent_name">
+									<label for="verified_by_agent_name" class="helpLink" data-helplink="verified_by_agent">
 										Verified By
-										<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#');">Me, Today</span>
+										<span class="infoLink" onclick="verifByMe('#session.MyAgentID#','#session.dbuser#');"> [ Me, Today ] </span>
 									</label>
 									<input type="text" name="verified_by_agent_name" id="verified_by_agent_name" value="#l.verified_by_agent_name#" size="40"
 										 onchange="pickAgentModal('verified_by_agent_id',this.id,this.value); return false;"
