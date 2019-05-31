@@ -592,8 +592,12 @@ which they are attached; it is a purely additive action. This option should be u
 		<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 		</cfquery>
-		<h3>#l.guid#: Fork-edit place-time</h3>
-		<br>Click the Locality tab above to return to the main locality form for this specimen.
+		<h3>
+			#l.guid#: Fork-edit place-time
+			<div style="font-size:x-small;font-style:italics">
+				Click the Locality tab above to return to the main locality form for this specimen.
+			</div>
+		</h3>
 		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="action" id="action" value="saveEdits">
