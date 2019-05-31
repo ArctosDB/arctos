@@ -535,7 +535,11 @@
 					var theFrame = document.createElement('iFrame');
 					theFrame.id='theFrame';
 					theFrame.className = 'editFrame';
-					var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
+					if (q.substring(1, 27)=='specLocality_forkLocStk.cfm'){
+						var ptl="/" + q;
+					} else {
+						var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
+					}
 					theFrame.src=ptl;
 					//document.body.appendChild(theFrame);
 					$("##popDiv").append(theFrame);
