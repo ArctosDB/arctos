@@ -463,33 +463,34 @@ There are two ways to edit specimen-events and associated place/time data.
 	<cfoutput>
 		<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	   		select
+				flat.guid,
 				specimen_event.collection_object_id,
 				COLLECTING_EVENT.COLLECTING_EVENT_ID,
-				specimen_event_id,
+				specimen_event.specimen_event_id,
 				locality.LOCALITY_ID,
-				VERBATIM_DATE,
-				VERBATIM_LOCALITY,
-				COLL_EVENT_REMARKS,
-				BEGAN_DATE,
-				ENDED_DATE,
+				collecting_event.VERBATIM_DATE,
+				collecting_eventVERBATIM_LOCALITY,
+				collecting_eventCOLL_EVENT_REMARKS,
+				collecting_eventBEGAN_DATE,
+				collecting_eventENDED_DATE,
 				geog_auth_rec.GEOG_AUTH_REC_ID,
-				SPEC_LOCALITY,
+				locality.SPEC_LOCALITY,
 				locality.DEC_LAT ,
 				locality.DEC_LONG ,
 				to_meters(locality.max_error_distance,locality.max_error_units) error_in_meters,
 				locality.datum,
-				MINIMUM_ELEVATION,
-				MAXIMUM_ELEVATION,
-				ORIG_ELEV_UNITS,
-				MIN_DEPTH,
-				MAX_DEPTH,
-				DEPTH_UNITS,
-				MAX_ERROR_DISTANCE,
-				MAX_ERROR_UNITS,
-				LOCALITY_REMARKS,
-				georeference_source,
-				georeference_protocol,
-				locality_name,
+				locality.MINIMUM_ELEVATION,
+				locality.MAXIMUM_ELEVATION,
+				locality.ORIG_ELEV_UNITS,
+				locality.MIN_DEPTH,
+				locality.MAX_DEPTH,
+				locality.DEPTH_UNITS,
+				locality.MAX_ERROR_DISTANCE,
+				locality.MAX_ERROR_UNITS,
+				locality.LOCALITY_REMARKS,
+				locality.georeference_source,
+				locality.georeference_protocol,
+				locality.locality_name,
 				locality.s$dec_lat,
 				locality.s$dec_long,
 				locality.s$elevation,
@@ -498,20 +499,20 @@ There are two ways to edit specimen-events and associated place/time data.
 				to_meters(locality.maximum_elevation,locality.orig_elev_units) max_elev_in_m,
 				locality.wkt_media_id,
 				geog_auth_rec.wkt_media_id geopoly,
-				assigned_by_agent_id,
+				specimen_event.assigned_by_agent_id,
 				getPreferredAgentName(assigned_by_agent_id) assigned_by_agent_name,
-				assigned_date,
-				specimen_event_type,
-				COLLECTING_METHOD,
-				COLLECTING_SOURCE,
-				VERIFICATIONSTATUS,
-				habitat,
+				specimen_event.assigned_date,
+				specimen_event.specimen_event_type,
+				specimen_event.COLLECTING_METHOD,
+				specimen_event.COLLECTING_SOURCE,
+				specimen_event.VERIFICATIONSTATUS,
+				specimen_event.habitat,
 				geog_auth_rec.geog_auth_rec_id,
-				higher_geog,
-				state_prov,
-				country,
-				county,
-				specimen_event_remark,
+				geog_auth_rec.higher_geog,
+				geog_auth_rec.state_prov,
+				geog_auth_rec.country,
+				geog_auth_rec.county,
+				specimen_event.specimen_event_remark,
 				specimen_event.VERIFIED_BY_AGENT_ID,
 				getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID) verified_by_agent_name,
 				specimen_event.VERIFIED_DATE
@@ -519,12 +520,14 @@ There are two ways to edit specimen-events and associated place/time data.
 				geog_auth_rec,
 				locality,
 				collecting_event,
-				specimen_event
+				specimen_event,
+				flat
 			where
 				geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
 				locality.locality_id=collecting_event.locality_id and
 				collecting_event.collecting_event_id=specimen_event.collecting_event_id and
-				specimen_event.specimen_event_id = #val(specimen_event_id)#
+				specimen_event.specimen_event_id = #val(specimen_event_id)# and
+				specimen_event.collection_object_id=flat.collection_object_id
 		</cfquery>
 		<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			 select
@@ -576,6 +579,7 @@ There are two ways to edit specimen-events and associated place/time data.
 		<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 		</cfquery>
+		<h2>#l.guid#: Fork-edit place-time</h2>
 		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="action" id="action" value="saveEdits">
