@@ -33,6 +33,12 @@
 		  return d.toFixed(3);
 		}
 
+		function goGoGadgetSave(){
+			$("#sbmtBtnSpn").html('<img src="/images/indicator.gif">');
+			$("#editForkSpecEvent").submit();
+		}
+
+
 		function useGL(glat,glon,gerr){
 			$("#max_error_distance").val(gerr);
 			$("#max_error_units").val('m');
@@ -558,7 +564,7 @@
 				Click the Locality tab above to return to the main locality form for this specimen.
 			</div>
 		</h3>
-		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
+		<form name="editForkSpecEvent" id="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="action" id="action" value="saveEdits">
 			<input type="hidden" name="collection_object_id" value="#l.collection_object_id#">
@@ -963,7 +969,9 @@
 				<option value="add">unaccept current specimen_event; add Event with these data</option>
 				<option value="edit">Edit the current specimen_event</option>
 			</select>
-			<input type="submit" class="savBtn" value="Save Changes">
+			<span id="sbmtBtnSpn">
+				<input type="button" class="savBtn" value="Save Changes" onclick="goGoGadgetSave()">
+			</span>
 			<span style="font-size:xx-small">
 				NOTE: Save has a slight delay to allow webservice data to catch up. Refresh this page if the service-box is empty.
 			</span>
