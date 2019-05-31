@@ -594,7 +594,7 @@ which they are attached; it is a purely additive action. This option should be u
 		</cfquery>
 		<h3>
 			#l.guid#: Fork-edit place-time
-			<div style="font-size:x-small;font-style:italics">
+			<div style="font-size:x-small;font-style:italic">
 				Click the Locality tab above to return to the main locality form for this specimen.
 			</div>
 		</h3>
