@@ -34,12 +34,6 @@
 		}
 
 
-$("#editForkSpecEvent").on("submit", function(){
-  alert('submit');
-  		  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif" />');
-  		  return false;
-
- })
 
 
 
@@ -269,6 +263,16 @@ $("#editForkSpecEvent").on("submit", function(){
 		}
 
 		jQuery(document).ready(function() {
+
+
+$("#editForkSpecEvent").on("submit", function(){
+  alert('submit');
+  		  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif" />');
+  		  return false;
+
+ })
+
+
 
 			$(".reqdClr:visible").each(function(e){
 			    $(this).prop('required',true);
