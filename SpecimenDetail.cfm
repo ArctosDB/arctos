@@ -538,11 +538,11 @@
 
 
 					console.log(q);
-					console.log(q.substring(0, 14));
+					console.log(q.substring(0, 12));
 
 					if (q.substring(1, 27)=='specLocality_forkLocStk.cfm'){
 						var ptl="/" + q;
-					} else if (q.substring(0, 14)=='specLocality|') {
+					} else if (q.substring(0, 13)=='specLocality|') {
 						// this is from the specLocality_forkLocStk
 						// it scrolls to the event that was just edited
 						// format is specLocality|{collection_object_id}|{specimen_event_id}
