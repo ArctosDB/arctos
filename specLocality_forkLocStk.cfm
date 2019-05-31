@@ -33,8 +33,8 @@
 		  return d.toFixed(3);
 		}
 
-		function closeThisThing(c,e){
-			var q='specLocality|' + c + '|' + e);
+		function closeThisThing(c,e) {
+			var q='specLocality|' + c + '|' + e;
 			parent.loadEditApp(q);
 		}
 
