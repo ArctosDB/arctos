@@ -37,6 +37,7 @@
 $("#editForkSpecEvent").on("submit", function(){
   alert('submit');
   		  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif" />');
+  		  return false;
 
  })
 
