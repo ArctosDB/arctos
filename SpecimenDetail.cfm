@@ -537,7 +537,7 @@
 					theFrame.className = 'editFrame';
 					if (q.substring(1, 27)=='specLocality_forkLocStk.cfm'){
 						var ptl="/" + q;
-					} else if (q.substring(1, 13)=='specLocality|') {
+					} else if (q.substring(1, 14)=='specLocality|') {
 						// this is from the specLocality_forkLocStk
 						// it scrolls to the event that was just edited
 						// format is specLocality|{collection_object_id}|{specimen_event_id}
