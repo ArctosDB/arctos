@@ -984,6 +984,9 @@ There are two ways to edit specimen-events and associated place/time data.
 				<option value="add">unaccept current specimen_event; add Event with these data</option>
 			</select>
 			<input type="submit" class="savBtn" value="Save Changes">
+			<span style="font-size:xx-small">
+				NOTE: Save has a slight delay to allow webservice data to catch up. Refresh this page if the service-box is empty.
+			</span>
 		</form>
 	</cfoutput>
 </cfif>
