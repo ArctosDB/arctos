@@ -46,10 +46,6 @@ may have had, and if other specimens are not using the event/locality they will 
 the history of the specimen being attached to now-unaccepted events, and the edit history of those events and the localities to
 which they are attached; it is a purely additive action. This option should be used for major or fundamental changes to the locality.
 
-	<option value="edit">Edit the current specimen_event</option>
-				<option value="add">unaccept current specimen_event; add Event with these data</option>
-
-</textarea>
 <p></p>
 <cfif action is "nothing">
 	<style type="text/css">
@@ -597,6 +593,7 @@ which they are attached; it is a purely additive action. This option should be u
 			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 		</cfquery>
 		<h3>#l.guid#: Fork-edit place-time</h3>
+		<br>Click the Locality tab above to return to the main locality form for this specimen.
 		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="action" id="action" value="saveEdits">
