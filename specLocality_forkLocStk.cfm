@@ -34,11 +34,14 @@
 		}
 
 
+$("#editForkSpecEvent").on("submit", function(){
+  alert('submit');
+  		  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif" />');
 
-		$( "#editForkSpecEvent" ).submit(function( event ) {
-			alert('submit');
-		  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif" />');
-		});
+ })
+
+
+
 
 
 
