@@ -535,6 +535,11 @@
 					var theFrame = document.createElement('iFrame');
 					theFrame.id='theFrame';
 					theFrame.className = 'editFrame';
+
+
+					console.log(q);
+					console.log(q.substring(1, 14));
+
 					if (q.substring(1, 27)=='specLocality_forkLocStk.cfm'){
 						var ptl="/" + q;
 					} else if (q.substring(1, 14)=='specLocality|') {
