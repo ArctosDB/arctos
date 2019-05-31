@@ -35,17 +35,8 @@
 
 		function closeThisThing(c,e) {
 			var q='specLocality|' + c + '|' + e;
-			console.log(q);
 			parent.loadEditApp(q);
 		}
-
-
-
-
-
-
-
-
 
 		function useGL(glat,glon,gerr){
 			$("#max_error_distance").val(gerr);
@@ -578,8 +569,8 @@
 		</cfquery>
 		<h3>
 			#l.guid#: Fork-edit place-time
-			<div style="font-size:x-small;">
-				<span class="likeLink" onclick="closeThisThing('#l.collection_object_id#','#l.specimen_event_id#');">Exit</span>
+			<div style="font-size:small;">
+				<span class="likeLink" onclick="closeThisThing('#l.collection_object_id#','#l.specimen_event_id#');">Exit back to Events</span>
 			</div>
 		</h3>
 		<form name="editForkSpecEvent" id="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
