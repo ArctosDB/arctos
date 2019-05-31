@@ -518,8 +518,10 @@ function useGL(glat,glon,gerr){
 			<h4>
 				Specimen/Event
 				<a name="specimen_event_#specimen_event_id#" href="##top">[ scroll to top ]</a>
+				<!----
 				<a href="/specLocality_forkLocStk.cfm?specimen_event_id=#specimen_event_id#" target="_blank">[ secret scary link ]</a>
-				<span onclick="forkEditEvent('#specimen_event_id#')">[ o ]</span>
+				---->
+				<span class="likeLink" onclick="forkEditEvent('#specimen_event_id#')">[ o ]</span>
 
 
 
