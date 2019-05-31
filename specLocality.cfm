@@ -67,8 +67,8 @@
 
 function forkEditEvent(seid){
 	var guts = "specLocality_forkLocStk.cfm?specimen_event_id=" + seid;
-	var w = $(window).width();
-	var h = $(window).height();
+	var w = $(window).width()-10;
+	var h = $(window).height()-10;
 	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:100%;height:100%;'></iframe>").dialog({
 		autoOpen: true,
 		closeOnEscape: true,
