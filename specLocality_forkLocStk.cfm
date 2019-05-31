@@ -579,7 +579,7 @@ There are two ways to edit specimen-events and associated place/time data.
 		<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 		</cfquery>
-		<h2>#l.guid#: Fork-edit place-time</h2>
+		<h3>#l.guid#: Fork-edit place-time</h3>
 		<form name="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
 			<input type="hidden" name="nothing" id="nothing">
 			<input type="hidden" name="action" id="action" value="saveEdits">
