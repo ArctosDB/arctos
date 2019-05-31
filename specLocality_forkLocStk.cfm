@@ -570,7 +570,7 @@
 		<h3>
 			#l.guid#: Fork-edit place-time
 			<div style="font-size:small;">
-				<span class="likeLink" onclick="closeThisThing('#l.collection_object_id#','#l.specimen_event_id#');">Exit back to Events</span>
+				<span class="likeLink" onclick="closeThisThing('#l.collection_object_id#','#l.specimen_event_id#');">Exit: Back to Events</span>
 			</div>
 		</h3>
 		<form name="editForkSpecEvent" id="editForkSpecEvent" method="post" action="specLocality_forkLocStk.cfm">
