@@ -543,7 +543,7 @@
 						// format is specLocality|{collection_object_id}|{specimen_event_id}
 						var cmpts=q.split('|');
 						var ptl="/specLocality.cfm?collection_object_id=" + cmpts[1] + "&specimen_event_id=" + cmpts[2];
-					else {
+					} else {
 						var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 					}
 					theFrame.src=ptl;
