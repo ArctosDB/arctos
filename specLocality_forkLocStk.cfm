@@ -266,9 +266,8 @@
 
 
 $("#editForkSpecEvent").on("submit", function(){
-  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif" />');
-  return true;
-
+  $("#sbmtBtnSpn").append('<img src="/images/indicator.gif" />');
+  $("#btnSubmit").hide();
  })
 
 
@@ -984,7 +983,7 @@ $("#editForkSpecEvent").on("submit", function(){
 				<option value="edit">Edit the current specimen_event</option>
 			</select>
 			<span id="sbmtBtnSpn">
-				<input type="submit" class="savBtn" value="Save Changes" >
+				<input id="btnSubmit" type="submit" class="savBtn" value="Save Changes" >
 			</span>
 			<span style="font-size:xx-small">
 				NOTE: Save has a slight delay to allow webservice data to catch up. Refresh this page if the service-box is empty.
