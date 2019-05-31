@@ -33,10 +33,13 @@
 		  return d.toFixed(3);
 		}
 
-		function goGoGadgetSave(){
-			$("#sbmtBtnSpn").html('<img src="/images/indicator.gif">');
-			$("#editForkSpecEvent").submit();
-		}
+
+
+		$( "#editForkSpecEvent" ).submit(function( event ) {
+		  $("#sbmtBtnSpn").html('<img src="/images/indicator.gif">');
+		});
+
+
 
 
 		function useGL(glat,glon,gerr){
@@ -970,7 +973,7 @@
 				<option value="edit">Edit the current specimen_event</option>
 			</select>
 			<span id="sbmtBtnSpn">
-				<input type="button" class="savBtn" value="Save Changes" onclick="goGoGadgetSave()">
+				<input type="submit" class="savBtn" value="Save Changes" >
 			</span>
 			<span style="font-size:xx-small">
 				NOTE: Save has a slight delay to allow webservice data to catch up. Refresh this page if the service-box is empty.
