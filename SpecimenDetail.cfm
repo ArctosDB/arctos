@@ -541,8 +541,11 @@
 						// this is from the specLocality_forkLocStk
 						// it scrolls to the event that was just edited
 						// format is specLocality|{collection_object_id}|{specimen_event_id}
+						console.log('we are here');
 						var cmpts=q.split('|');
+						console.log(cmpts);
 						var ptl="/specLocality.cfm?collection_object_id=" + cmpts[1] + "&specimen_event_id=" + cmpts[2];
+						console.log(ptl);
 					} else {
 						var ptl="/" + q + ".cfm?collection_object_id=" + #collection_object_id#;
 					}
