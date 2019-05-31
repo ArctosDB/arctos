@@ -832,7 +832,7 @@ which they are attached; it is a purely additive action. This option should be u
 						<input type="button" value="Pick" class="picBtn" id="changeGeogButton"
 							onclick="GeogPick('geog_auth_rec_id','higher_geog','editForkSpecEvent'); return false;">
 					</td><!--- END main cell --->
-					<td width="40%" valign="top"><!--- maptools cell --->
+					<td width="40%" valign="bottom"><!--- maptools cell --->
 						<div id="maptools">
 							<strong>Webservice Lookup Data</strong>
 							<!--- pull it --->
