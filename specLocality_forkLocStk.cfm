@@ -17,9 +17,9 @@ There are two ways to edit specimen-events and associated place/time data.
 
 1.  old/normal way
 	* normalized, makes managing data for shared localities easy
-	* normalized, makes editing specimens by mashing random buttons easy
-	* requires scary shared access
-	* requires an in-depth understanding of the Arctos Locality Model
+	* normalized, makes accidentally editing unrelated specimens by mashing random buttons easy
+	* requires scary access to shared data
+	* requires an in-depth understanding of the Arctos Locality Model to safely use
 
 2. Fork-Edit method
 	* denormalized - every save creates a new locality and event
@@ -871,9 +871,9 @@ There are two ways to edit specimen-events and associated place/time data.
 								<span style="font-style:italic;">
 									<cfif len(l.min_elev_in_m) is 0>
 										There is no curatorially-supplied elevation.
-									<cfelseif locDet.min_elev_in_m gt l.s$elevation or l.s$elevation gt l.max_elev_in_m>
+									<cfelseif l.min_elev_in_m gt l.s$elevation or l.s$elevation gt l.max_elev_in_m>
 										Automated georeference is outside the curatorially-supplied elevation range.
-									<cfelseif  locDet.min_elev_in_m lte l.s$elevation and l.s$elevation lte l.max_elev_in_m>
+									<cfelseif  l.min_elev_in_m lte l.s$elevation and l.s$elevation lte l.max_elev_in_m>
 										Automated georeference is within the curatorially-supplied elevation range.
 									</cfif>
 									<span class="likeLink" onclick="useAutoElev()">Copy elevation to the form</span>
