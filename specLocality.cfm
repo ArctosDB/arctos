@@ -297,7 +297,12 @@ function useGL(glat,glon,gerr){
 			specimen_event_remark,
 			specimen_event.VERIFIED_BY_AGENT_ID,
 			getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID) verified_by_agent_name,
-			specimen_event.VERIFIED_DATE
+			specimen_event.VERIFIED_DATE,
+			decode(verificationstatus,
+                'verified and locked',1,
+                'unaccepted',10,
+           	 3) vsorderby
+specimen_event_type
 		from
 			geog_auth_rec,
 			locality,
@@ -429,7 +434,7 @@ function useGL(glat,glon,gerr){
 			verified_by_agent_name,
 			VERIFIED_DATE
 		order by
-		specimen_event_type
+		vsorderby,specimen_event_type
 	</cfquery>
 
 
