@@ -632,6 +632,7 @@ function useGL(glat,glon,gerr){
 							<cfinvokeargument name="locality_id" value="#locality_id#">
 						</cfinvoke>
 						--->
+						#getMap#
 						<span style="font-size:small;">
 							<br>#DEC_LAT# / #DEC_LONG#
 							<br>Datum: #DATUM#
