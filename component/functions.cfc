@@ -3246,7 +3246,6 @@
 						<cfset sql=sql & "PART_NAME_#i# = '#escapeQuotes(part_name)#',
 							PART_CONDITION_#i#='#escapeQuotes(condition)#',
 							PART_BARCODE_#i#='#barcode#',
-							PART_CONTAINER_LABEL_#i#='#escapeQuotes(label)#',
 							PART_LOT_COUNT_#i#='#lot_count#',
 							PART_DISPOSITION_#i#='#escapeQuotes(COLL_OBJ_DISPOSITION)#',
 							PART_REMARK_#i#='#escapeQuotes(coll_object_remarks)#',">
