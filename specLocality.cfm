@@ -534,27 +534,38 @@ function useGL(glat,glon,gerr){
 				<a href="/specLocality_forkLocStk.cfm?specimen_event_id=#specimen_event_id#" target="_blank">[ secret scary link ]</a>
 				---->
 				<span class="likeLink" onclick="forkEditEvent('#specimen_event_id#')">[ o ]</span>
-
-
-
-
 			</h4>
-			<label for="specimen_event_type">Specimen/Event Type</label>
-			<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
-				<cfloop query="ctspecimen_event_type">
-					<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
-						value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
-			    </cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
-			<label for="specimen_event_type">Event Determiner</label>
-			<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
-				 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
-				 onKeyPress="return noenter(event);">
-			<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+			<table>
+				<tr>
+					<td>
+						<label for="specimen_event_type">
+							Specimen/Event Type
+							<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
+						</label>
+						<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
+							<cfloop query="ctspecimen_event_type">
+								<option <cfif ctspecimen_event_type.specimen_event_type is "#l.specimen_event_type#"> selected="selected" </cfif>
+									value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
+						    </cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="specimen_event_type">Event Determiner</label>
+						<input type="text" name="assigned_by_agent_name" id="assigned_by_agent_name" class="reqdClr" value="#l.assigned_by_agent_name#" size="40"
+							 onchange="getAgent('assigned_by_agent_id','assigned_by_agent_name','loc#f#',this.value); return false;"
+							 onKeyPress="return noenter(event);">
+						<input type="hidden" name="assigned_by_agent_id" id="assigned_by_agent_id" value="#l.assigned_by_agent_id#">
+					</td>
+					<td>
+						<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
+						<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+					</td>
+				</tr>
+			</table>
 
-			<label for="assigned_date" class="helpLink" data-helplink="specimen_event_date">Determined Date</label>
-			<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
+
+
+
 
 			<label for="specimen_event_remark" class="infoLink">Specimen/Event Remark</label>
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" value="#stripQuotes(l.specimen_event_remark)#" size="75">
