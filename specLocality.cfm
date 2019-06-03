@@ -374,7 +374,7 @@ function useGL(glat,glon,gerr){
 			specimen_event_remark,
 			VERIFIED_BY_AGENT_ID,
 			verified_by_agent_name,
-			VERIFIED_DATE,
+			VERIFIED_DATE
 			from raw group by
 			vsorderby,
 			COLLECTING_EVENT_ID,
