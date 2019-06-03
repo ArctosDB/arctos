@@ -444,7 +444,7 @@ function useGL(glat,glon,gerr){
 		<ul>
 			<li><a href="##specimen_event_new">Create New Specimen/Event</a></li>
 			<cfloop query="se">
-				<li><a href="##specimen_event_#specimen_event_id#">#specimen_event_type#</a></li>
+				<li><a href="##specimen_event_#specimen_event_id#">#specimen_event_type# (#verificationstatus#)</a></li>
 			</cfloop>
 		</ul>
 	<cfset f=1>
