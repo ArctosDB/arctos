@@ -431,13 +431,13 @@ function useGL(glat,glon,gerr){
 	</cfquery>
 	<cfquery name="se" dbtype="query">
 		select
-			specimen_event_type,specimen_event_id
+			specimen_event_type,verificationstatus,specimen_event_id
 		from
 			raw
 		group by
-			specimen_event_type,specimen_event_id
+			specimen_event_type,verificationstatus,specimen_event_id
 		order by
-			specimen_event_type,specimen_event_id
+			vsorderby,specimen_event_type
 	</cfquery>
 		<a name="top"></a>
 		Specimen/Event Shortcuts
