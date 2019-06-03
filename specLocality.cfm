@@ -302,7 +302,6 @@ function useGL(glat,glon,gerr){
                 'verified and locked',1,
                 'unaccepted',10,
            	 3) vsorderby
-specimen_event_type
 		from
 			geog_auth_rec,
 			locality,
@@ -374,7 +373,7 @@ specimen_event_type
 			specimen_event_remark,
 			VERIFIED_BY_AGENT_ID,
 			verified_by_agent_name,
-			VERIFIED_DATE
+			VERIFIED_DATE,
 			from raw group by
 			COLLECTING_EVENT_ID,
 			 LOCALITY_ID,
