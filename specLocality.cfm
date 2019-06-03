@@ -561,8 +561,6 @@ function useGL(glat,glon,gerr){
 						<input type="datetime" name="assigned_date" id="assigned_date" value="#dateformat(l.assigned_date,'yyyy-mm-dd')#" class="reqdClr">
 					</td>
 				</tr>
-			</table>
-			<table>
 				<tr>
 					<td>
 						<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
