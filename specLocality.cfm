@@ -317,6 +317,7 @@ function useGL(glat,glon,gerr){
 	</cfquery>
 	<cfquery name="l" dbtype="query">
 		select
+		vsorderby,
 		 COLLECTING_EVENT_ID,
 			 LOCALITY_ID,
 			 VERBATIM_DATE,
@@ -375,6 +376,7 @@ function useGL(glat,glon,gerr){
 			verified_by_agent_name,
 			VERIFIED_DATE,
 			from raw group by
+			vsorderby,
 			COLLECTING_EVENT_ID,
 			 LOCALITY_ID,
 			 VERBATIM_DATE,
