@@ -5,6 +5,11 @@
 	</div>
 	<cfabort>
 </cfif>
+<style>
+	.dvunaccepted {
+		background-color:#eaeaea;
+	}
+</style>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		$("#began_date").datepicker();
@@ -517,7 +522,7 @@ function useGL(glat,glon,gerr){
 				GEO_ATT_DETERMINED_METHOD,
 				GEO_ATT_REMARK
 		</cfquery>
-		<div style="border:2px solid black; margin:1em;">
+		<div style="border:2px solid black; margin:1em; dv#l.verificationstatus#">
 		<table border="1" width="100%"><tr><td>
 		<form name="loc#f#" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
