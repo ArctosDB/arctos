@@ -540,7 +540,6 @@ function useGL(glat,glon,gerr){
 					<td>
 						<label for="specimen_event_type">
 							Specimen/Event Type
-							<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 						</label>
 						<select name="specimen_event_type" id="specimen_event_type" size="1" class="reqdClr">
 							<cfloop query="ctspecimen_event_type">
@@ -548,6 +547,7 @@ function useGL(glat,glon,gerr){
 									value="#ctspecimen_event_type.specimen_event_type#">#ctspecimen_event_type.specimen_event_type#</option>
 						    </cfloop>
 						</select>
+						<span class="infoLink" onclick="getCtDoc('ctspecimen_event_type');">Define</span>
 					</td>
 					<td>
 						<label for="specimen_event_type">Event Determiner</label>
@@ -562,7 +562,33 @@ function useGL(glat,glon,gerr){
 					</td>
 				</tr>
 			</table>
-
+			<table>
+				<tr>
+					<td>
+						<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
+						<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
+							<cfloop query="ctVerificationStatus">
+								<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
+									value="#VerificationStatus#">#VerificationStatus#</option>
+							</cfloop>
+						</select>
+						<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
+					</td>
+					<td>
+						<label for="verified_by_agent_name">
+							Verified By
+							<span class="infoLink" onclick="verifByMe('#f#','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+						</label>
+						<input type="text" name="verified_by_agent_name" id="verified_by_agent_name#f#" value="#l.verified_by_agent_name#" size="40"
+							 onchange="pickAgentModal('verified_by_agent_id#f#',this.id,this.value); return false;"
+							 onKeyPress="return noenter(event);">
+					</td>
+					<td>
+						<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
+						<input type="datetime" name="verified_date" id="verified_date#f#" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
+					</td>
+				</tr>
+			</table>
 
 
 
@@ -585,25 +611,12 @@ function useGL(glat,glon,gerr){
 			<label for="collecting_method" class="helpLink" data-helplink="collecting_method">Collecting Method</label>
 			<input type="text" name="collecting_method" id="collecting_method" value="#stripQuotes(l.COLLECTING_METHOD)#" size="75">
 
-			<label for="VerificationStatus" class="helpLink" data-helplink="verification_status">Verification Status</label>
-			<select name="VerificationStatus" id="verificationstatus" size="1" class="reqdClr">
-				<cfloop query="ctVerificationStatus">
-					<option <cfif l.VerificationStatus is ctVerificationStatus.VerificationStatus> selected="selected" </cfif>
-						value="#VerificationStatus#">#VerificationStatus#</option>
-				</cfloop>
-			</select>
-			<span class="infoLink" onclick="getCtDoc('ctverificationstatus');">Define</span>
-			<label for="verified_by_agent_name">Verified By</label>
 
-			<input type="text" name="verified_by_agent_name" id="verified_by_agent_name#f#" value="#l.verified_by_agent_name#" size="40"
-				 onchange="pickAgentModal('verified_by_agent_id#f#',this.id,this.value); return false;"
-				 onKeyPress="return noenter(event);">
-			<span class="infoLink" onclick="verifByMe('#f#','#session.MyAgentID#','#session.dbuser#')">Me, Today</span>
+
 
 			<input type="hidden" name="verified_by_agent_id" id="verified_by_agent_id#f#" value="#l.verified_by_agent_id#">
 
-			<label for="verified_date" class="helpLink" data-helplink="verified_date">Verified Date</label>
-			<input type="datetime" name="verified_date" id="verified_date#f#" value="#dateformat(l.verified_date,'yyyy-mm-dd')#">
+
 
 			<h4>
 				Collecting Event
