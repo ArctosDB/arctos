@@ -522,7 +522,7 @@ function useGL(glat,glon,gerr){
 				GEO_ATT_DETERMINED_METHOD,
 				GEO_ATT_REMARK
 		</cfquery>
-		<div style="border:2px solid black; margin:1em; dv#l.verificationstatus#">
+		<div style="border:2px solid black; margin:1em;" class="dv#l.verificationstatus#">
 		<table border="1" width="100%"><tr><td>
 		<form name="loc#f#" method="post" action="specLocality.cfm">
 			<input type="hidden" name="action" value="saveChange">
