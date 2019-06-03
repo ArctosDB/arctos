@@ -258,9 +258,9 @@ function useGL(glat,glon,gerr){
 			 LONG_MIN,
 			 LONG_SEC,
 			 LONG_DIR,
-			 COLLECTING_EVENT.DEC_LAT,
-			 COLLECTING_EVENT.DEC_LONG,
-			 COLLECTING_EVENT.DATUM,
+			 locality.DEC_LAT,
+			 locality.DEC_LONG,
+			 locality.DATUM,
 			 UTM_ZONE,
 			 UTM_EW,
 			 UTM_NS,
@@ -680,7 +680,6 @@ function useGL(glat,glon,gerr){
 							<cfinvokeargument name="locality_id" value="#locality_id#">
 						</cfinvoke>
 						--->
-						===#getMap#===
 						<span style="font-size:small;">
 							<br>#DEC_LAT# / #DEC_LONG#
 							<br>Datum: #DATUM#
