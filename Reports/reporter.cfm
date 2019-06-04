@@ -1,6 +1,6 @@
 <script>
 	function justUseFlat(){
-		$("#ql_text").val('select * from flat where collection_object_id IN (#collection_object_id#)');
+		$("#sql_text").val('select * from flat where collection_object_id IN (#collection_object_id#)');
 	}
 </script>
 
