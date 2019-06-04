@@ -1,3 +1,8 @@
+<script>
+		function justUseFlat(){
+			$("#ql_text").val('select * from flat where collection_object_id IN (#collection_object_id#)');
+	</script>
+
 <cfoutput>
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
@@ -32,6 +37,7 @@
 </cfif>
 <!--------------------------------------------------------------------------------------->
 <cfif action is "edit">
+
     <cfif not isdefined("report_id")>
 	    <cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        select report_id from cf_report_sql where report_name='#report_name#'
@@ -68,6 +74,7 @@
                 <option <cfif f is e.report_format> selected="selected" </cfif>value="#f#">#f#</option>
             </cfloop>
         </select>
+		<span class="likeLink" onclick="justUseFlat()">Use specimen data from FLAT</span>
         <label for="sql_text">SQL</label>
         <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft"></textarea>
         <br>
