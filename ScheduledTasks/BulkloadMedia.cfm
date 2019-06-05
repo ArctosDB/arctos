@@ -214,6 +214,8 @@ running only as DLM
 					</cfif>
 				</cftransaction>
 				<cfcatch>
+					<cfdump var=#cfcatch#>
+
 				<br>						update cf_temp_zipload set status='FATAL_ERROR: zip_makepreview failure' where zid=#d.zid#
 
 					<cfquery name="r" datasource="uam_god">
