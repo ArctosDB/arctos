@@ -164,7 +164,7 @@ running only as DLM
 	<!----
 		fourth step
 			trigger:
-				cf_temp_zipload status: unzipped
+				cf_temp_zipload status: rename_confirmed
 				ALL cf_temp_zipfiles status: rename_confirmed
 			success:
 				cf_temp_zipload.status: unzipped (no change)
@@ -178,7 +178,7 @@ running only as DLM
 
 		---->
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='unzipped' and rownum=1
+			select * from cf_temp_zipload where status='rename_confirmed' and rownum=1
 		</cfquery>
 		<cfloop query="d">
 			<!--- create a thumb directory if it doesn't already exist ---->
