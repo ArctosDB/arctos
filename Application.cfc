@@ -56,11 +56,14 @@
     				<font color="##FF0000" size="+1"><strong>An error occurred while processing this page!</strong></font>
 					<cfif isdefined("exception.message")>
 						<br><i><cfoutput>#exception.message#
-						<cfif FindNoCase("ORA-28000", exception.message)>
-							<p>The account is locked. Contact your supervisor to restore access.</p>
-						<cfelse>nolock</cfif>
+
 						<cfif isdefined("exception.detail")>
 							<br>#exception.detail#
+							<cfif FindNoCase("ORA-28000", exception.detail)>
+								<p>The account is locked. Contact your supervisor to restore access.</p>
+							<cfelse>nolock</cfif>
+
+
 							<cfif exception.detail is 'access denied'>
 								<p>
 									You must log in to see this page. Please log in and try again. If you are still unable to access the report, contact the person who manages your Arctos collection to request appropriate privileges.
