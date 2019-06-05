@@ -178,7 +178,7 @@ running only as DLM
 
 		---->
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='renamed' and rownum=1
+			select * from cf_temp_zipload where status='rename_confirmed' and rownum=1
 		</cfquery>
 		<cfloop query="d">
 			<!--- create a thumb directory if it doesn't already exist ---->
