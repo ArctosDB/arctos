@@ -192,6 +192,8 @@ sho err
 
 
 
+alter table ds_temp_agent_split add status varchar2(4000);
+
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent_split where preferred_name is not null
 	</cfquery>

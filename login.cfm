@@ -94,6 +94,17 @@
 			<cfset gotopage = "/SpecimenSearch.cfm">
 		</cfif>
 		<cfif session.roles contains "coldfusion_user">
+			<!--- test if locked ---->
+			<cftry>
+			<cfquery name="test" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+				select 1 from dual
+			</cfquery>
+
+			<cfcatch>
+				<cfdump var=#cfcatch#>
+			</cfcatch>
+			</cftry>
+
 			<cfquery name="getUserData" datasource="cf_dbuser">
 				SELECT
 					cf_users.user_id,
