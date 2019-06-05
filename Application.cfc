@@ -55,7 +55,7 @@
 				<td>
     				<font color="##FF0000" size="+1"><strong>An error occurred while processing this page!</strong></font>
 					<cfif isdefined("exception.message")>
-						<br><i><cfoutput>#exception.message#
+						<br><i><cfoutput>MSG:#exception.message#
 						<cfif exception.message contains "ORA-28000: the account is locked">
 							<p>Your account is locked. Contact your supervisor to restore access.</p>
 						</cfif>
