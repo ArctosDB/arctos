@@ -205,7 +205,8 @@ running only as DLM
 			   				source="#thisImg#"
 			   				destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true">
 			   			<cfimage action="resize" source="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#"
-			   				width="#newwidth#" height="#newheight#" destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true">
+			   				width="#newwidth#" height="#newheight#" destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true"
+			   				interpolation="highestPerformance">
 			   			<cfquery name="r" datasource="uam_god">
 							update cf_temp_zipfiles set preview_filename='#tfilename#',status='previewed' where zid=#d.zid# and new_filename='#f.new_filename#'
 						</cfquery>
