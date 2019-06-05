@@ -58,7 +58,7 @@
 						<br><i><cfoutput>#exception.message#
 						<cfif FindNoCase("ORA-28000", exception.message)>
 							<p>The account is locked. Contact your supervisor to restore access.</p>
-						</cfif>
+						<cfelse>nolock</cfif>
 						<cfif isdefined("exception.detail")>
 							<br>#exception.detail#
 							<cfif exception.detail is 'access denied'>
