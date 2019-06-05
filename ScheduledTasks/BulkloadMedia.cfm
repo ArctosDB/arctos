@@ -178,7 +178,7 @@ running only as DLM
 
 		---->
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='rename_confirmed' and rownum=1
+			select * from cf_temp_zipload where status='unzipped' and rownum=1
 		</cfquery>
 		<cfloop query="d">
 			<!--- create a thumb directory if it doesn't already exist ---->
@@ -232,14 +232,14 @@ running only as DLM
 	<!----
 		fifth step
 			trigger:
-				cf_temp_zipload.status: renamed
+				cf_temp_zipload.status: unzipped
 				cf_temp_zipfiles.status: previewed
 			success:
 				cf_temp_zipload.status=preview_confirmed
 	---->
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='renamed' and rownum=1
+			select * from cf_temp_zipload where status='unzipped' and rownum=1
 		</cfquery>
 		<cfdump var=#d#>
 		<cftry>
@@ -271,6 +271,7 @@ running only as DLM
 	<!----
 		sixth step
 		trigger: cf_temp_zipload.status = preview_confirmed
+
 		success: cf_temp_zipfiles.status='loaded_to_s3'
 
 	----->
@@ -468,13 +469,13 @@ running only as DLM
 		seventh step
 		trigger:
 			cf_temp_zipfiles.status='loaded_to_s3'
-			cf_temp_zipload.status='preview'
+			cf_temp_zipload.status='preview_confirmed'
 		success:cf_temp_zipload.status='loaded_to_s3'
 
 	---->
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='preview' and rownum=1
+			select * from cf_temp_zipload where status='preview_confirmed' and rownum=1
 		</cfquery>
 		<cfif d.recordcount lt 1>
 			<cfabort>
