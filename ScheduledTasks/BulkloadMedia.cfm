@@ -232,14 +232,14 @@ running only as DLM
 	<!----
 		fifth step
 			trigger:
-				cf_temp_zipload.status: unzipped
+				cf_temp_zipload.status: rename_confirmed
 				cf_temp_zipfiles.status: previewed
 			success:
 				cf_temp_zipload.status=preview_confirmed
 	---->
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from cf_temp_zipload where status='unzipped' and rownum=1
+			select * from cf_temp_zipload where status='rename_confirmed' and rownum=1
 		</cfquery>
 		<cfdump var=#d#>
 		<cftry>
