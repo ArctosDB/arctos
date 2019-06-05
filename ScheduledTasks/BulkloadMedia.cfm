@@ -203,7 +203,8 @@ running only as DLM
 			    		<cfset tfilename="tn_#barefilename#.jpg">
 			   			<cfimage action="convert"
 			   				source="#thisImg#"
-			   				destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true">
+			   				destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true"
+			   				interpolation="highestPerformance">
 			   			<cfimage action="resize" source="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#"
 			   				width="#newwidth#" height="#newheight#" destination="#Application.webDirectory#/temp/#d.zid#/tn/#tfilename#" overwrite = "true"
 			   				interpolation="highestPerformance">
