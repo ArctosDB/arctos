@@ -3,10 +3,6 @@
 	<div class="error">not authorized</div><cfabort>
 </cfif>
 <cfset obj = CreateObject("component","component.functions")>
-
-<div class='importantNotification'>
-	This form is early beta; use with caution.
-</div>
 <cfif action is "nothing">
 	<style type="text/css">
 		#map-canvas { height: 300px;width:500px; }

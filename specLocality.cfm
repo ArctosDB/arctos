@@ -490,7 +490,7 @@ function useGL(glat,glon,gerr){
 				<!----
 				<a href="/specLocality_forkLocStk.cfm?specimen_event_id=#specimen_event_id#" target="_blank">[ secret scary link ]</a>
 				---->
-				<span class="likeLink" onclick="forkEditEvent('#specimen_event_id#')">[ o ]</span>
+				<span class="likeLink" onclick="forkEditEvent('#specimen_event_id#')">[ Fork-Edit ]</span>
 			</h4>
 			<table>
 				<tr>
