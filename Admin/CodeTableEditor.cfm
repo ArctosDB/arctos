@@ -482,6 +482,12 @@ CTSPEC_PART_ATT_ATT
 </cfif>
 
 
+<cfif action is "editEventAttAtt_deleteValue">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		delete from ctcoll_event_att_att where event_attribute_type='#event_attribute_type#'
+	</cfquery>
+	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=edit&tbl=ctcoll_event_att_att">
+</cfif>
 <cfif action is "editEventAttAtt_saveEdit">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update ctcoll_event_att_att
