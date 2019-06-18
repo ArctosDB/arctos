@@ -435,7 +435,7 @@ CTSPEC_PART_ATT_ATT
 				<cfloop query="thisRec">
 					<form name="att#i#" method="post" action="CodeTableEditor.cfm">
 						<input type="hidden" name="action" value="editEventAttAtt_update">
-						<input type="hidden" name="oldAttribute_type" value="#Attribute_type#">
+						<input type="hidden" name="oldAttribute_type" value="#event_attribute_type#">
 						<input type="hidden" name="oldvalue_code_table" value="#value_code_table#">
 						<input type="hidden" name="oldunit_code_table" value="#unit_code_table#">
 						<tr>
