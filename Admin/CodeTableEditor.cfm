@@ -494,7 +494,7 @@ CTSPEC_PART_ATT_ATT
 			'#unit_code_table#'
 		)
 	</cfquery>
-	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=edit&tbl=editEventAttAtt">
+	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=edit&tbl=ctcoll_event_att_att">
 </cfif>
 
 
