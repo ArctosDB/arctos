@@ -441,7 +441,7 @@ CTSPEC_PART_ATT_ATT
 						<tr>
 							<td>
 								<input type="hidden" name="attribute_type" value="#thisRec.event_attribute_type#">
-								#attribute_type#
+								#event_attribute_type#
 							</td>
 							<td>
 								<cfset thisValueTable = #thisRec.value_code_table#>
