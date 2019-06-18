@@ -1328,7 +1328,6 @@
 								<td>#event_attribute_remark#</td>
 							</td>
 						</tr>
-
 					</cfloop>
 				</table>
 
