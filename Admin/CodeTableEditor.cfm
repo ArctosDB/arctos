@@ -440,7 +440,7 @@ CTSPEC_PART_ATT_ATT
 						<input type="hidden" name="oldunit_code_table" value="#unit_code_table#">
 						<tr>
 							<td>
-								<input type="hidden" name="attribute_type" value="#thisRec.event_attribute_type#">
+								<input type="hidden" name="event_attribute_type" value="#thisRec.event_attribute_type#">
 								#event_attribute_type#
 							</td>
 							<td>
@@ -487,7 +487,7 @@ CTSPEC_PART_ATT_ATT
 		update ctcoll_event_att_att
 		set VALUE_code_table='#value_code_table#',
 		unit_code_table='#unit_code_table#'
-		 where attribute_type='#attribute_type#'
+		 where event_attribute_type='#event_attribute_type#'
 	</cfquery>
 	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=edit&tbl=ctcoll_event_att_att">
 </cfif>
