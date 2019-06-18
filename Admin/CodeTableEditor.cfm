@@ -482,6 +482,20 @@ CTSPEC_PART_ATT_ATT
 </cfif>
 
 
+<cfif action is "editEventAttAtt_newValue">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		insert into ctcoll_event_att_att (
+    		event_attribute_type,
+			VALUE_code_table,
+			unit_code_table
+		) values (
+			'#event_attribute_type#',
+			'#value_code_table#',
+			'#unit_code_table#'
+		)
+	</cfquery>
+	<cflocation addtoken="false" url="CodeTableEditor.cfm?action=edit&tbl=editEventAttAtt">
+</cfif>
 
 
 
