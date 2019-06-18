@@ -1294,7 +1294,6 @@
 						collecting_event_attribute_id,
 						determined_by_agent_id,
 						getPreferredAgentName(determined_by_agent_id) detr,
-
 						event_attribute_type,
 						event_attribute_value,
 						event_attribute_units,
@@ -1306,7 +1305,33 @@
 					where
 						collecting_event_id=#collecting_event_id#
 				</cfquery>
-				<cfdump var=#ceattrs#>
+				<br>Event Attributes
+				<table border>
+					<tr>
+						<th>Type</th>
+						<th>Value</th>
+						<th>Units</th>
+						<th>Determiner</th>
+						<th>Date</th>
+						<th>Method</th>
+						<th>Remark</th>
+					</tr>
+					<cfloop query="ceattrs">
+						<tr>
+							<td>
+								<td>#event_attribute_type#</td>
+								<td>#event_attribute_value#</td>
+								<td>#event_attribute_units#</td>
+								<td>#detr#-#determined_by_agent_id#</td>
+								<td>#event_determined_date#</td>
+								<td>#event_determination_method#</td>
+								<td>#event_attribute_remark#</td>
+							</td>
+						</tr>
+
+					</cfloop>
+				</table>
+
 		        <br>
 				<input type="button" value="Save" class="savBtn" onClick="locality.action.value='saveCollEventEdit';locality.submit();">
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
