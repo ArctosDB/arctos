@@ -368,7 +368,7 @@ CTSPEC_PART_ATT_ATT
 	<cfset title="event attribute controls">
 	<cfoutput>
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select distinct(event_attribute_type) from ctcoll_event_att_att
+			select distinct(event_attribute_type) from collecting_event_attributes
 		</cfquery>
 		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			Select * from ctcoll_event_att_att
