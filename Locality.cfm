@@ -1288,6 +1288,25 @@
 				<script>
 					showLLFormat('#locDet.orig_lat_long_units#');
 				</script>
+
+				<cfquery name="ceattrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						collecting_event_attribute_id,
+						determined_by_agent_id,
+						getPreferredAgentName(determined_by_agent_id) detr,
+
+						event_attribute_type,
+						event_attribute_value,
+						event_attribute_units,
+						event_attribute_remark,
+						event_determination_method,
+						event_determined_date
+					from
+						collecting_event_attributes
+					where
+						collecting_event_id=#collecting_event_id#
+				</cfquery>
+				<cfdump var=#ceattrs#>
 		        <br>
 				<input type="button" value="Save" class="savBtn" onClick="locality.action.value='saveCollEventEdit';locality.submit();">
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
