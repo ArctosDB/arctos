@@ -57,7 +57,7 @@
 					</li>
 					<li>
 						<!----<a HREF="/contact.cfm?ref=<cfif isdefined("request.rdurl")><cfoutput>#request.rdurl#</cfoutput></cfif>"><font size="-1">Report a bug or request support</font></a>---->
-						<a href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D"><font size="-1">Report a bug or request support</font></a>
+						<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D"><font size="-1">Report a bug or request support</font></a>
 					</li>
 					<!--- for now, just always offer mobile when there is one ---->
 					<cfif isdefined("request.rdurl")>
