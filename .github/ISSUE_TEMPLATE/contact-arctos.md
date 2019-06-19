@@ -2,7 +2,7 @@
 name: Contact Arctos
 about: Contact the Arctos Team
 title: "[CONTACT]"
-labels: ''
+labels: contact
 assignees: ''
 
 ---
