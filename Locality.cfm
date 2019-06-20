@@ -1483,7 +1483,7 @@
 						</tr>
 					</cfloop>
 					<cfloop from="1" to="3" index="na">
-						<tr>
+						<tr class="newRec">
 							<td>
 								<select name="event_attribute_type_new_#na#" id="event_attribute_type_new_#na#" onchange="populateEvtAttrs(this.id)">
 									<option value="">select new event attribute</option>
