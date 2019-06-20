@@ -1481,7 +1481,7 @@
 									id="evt_att_determiner_#collecting_event_attribute_id#"
 									value="#detr#"
 									size="20"
-									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
+									onchange="pickAgentModal('evt_att_determiner_id_new_#collecting_event_attribute_id#',this.id,this.value); return false;"
 				 					onKeyPress="return noenter(event);">
 				 			</td>
 							<td>
