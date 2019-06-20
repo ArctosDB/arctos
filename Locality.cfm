@@ -1954,8 +1954,18 @@ You deleted a collecting event.
 					<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
 					<cfif thisAttrVal is "DELETE">
 						<br>deleting
+						delete from collecting_event_attributes where collecting_event_attribute_id=#thisID#
 					<cfelse>
 						<br>updating....
+						update collecting_event_attributes set
+							determined_by_agent_id=<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
+							event_attribute_type='#escapeQuotes(thisAttrType)#',
+							event_attribute_value='#escapeQuotes(thisAttrVal)#',
+							event_attribute_units='#escapeQuotes(thisAttrUnit)#',
+							event_attribute_remark='#escapeQuotes(thisAttrRemk)#',
+							event_determination_method='#escapeQuotes(thisAttrMeth)#',
+							event_determined_date='#escapeQuotes(thisAttrDate)#'
+						where collecting_event_attribute_id=#thisID#
 					</cfif>
 
 				</cfif>
