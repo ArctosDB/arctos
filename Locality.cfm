@@ -919,7 +919,7 @@
 			console.log('firing datepicker for ' + this.id);
 			$("#" + this.id).datepicker();
 		});
-		$("input[id^='event_attribute_type_']").each(function(){
+		$("select[id^='event_attribute_type_']").each(function(){
 			console.log('firing populateEvtAttrs for ' + this.id);
 			populateEvtAttrs($("#" + this.id).val());
 		});
@@ -1440,7 +1440,7 @@
 					<cfloop query="ceattrs">
 						<tr>
 							<td>
-								<select name="event_attribute_type_new_#collecting_event_attribute_id#" id="event_attribute_type_new_#collecting_event_attribute_id#" onchange="populateEvtAttrs(this.id)">
+								<select name="event_attribute_type_#collecting_event_attribute_id#" id="event_attribute_type_#collecting_event_attribute_id#" onchange="populateEvtAttrs(this.id)">
 									<option value="DELETE">DELETE</option>
 									<cfloop query="ctcoll_event_attr_type">
 										<option value="#event_attribute_type#" <cfif ctcoll_event_attr_type.event_attribute_type is ceattrs.event_attribute_type> selected="selected" </cfif> >#event_attribute_type#</option>
