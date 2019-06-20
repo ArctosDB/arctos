@@ -224,20 +224,29 @@
 		<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#' and column_name not in ( 'DESCRIPTION','COLLECTION_CDE')
 		</cfquery>
-		<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<cfquery name="gdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select #getCols.column_name# d from #isCtControlled.value_code_table#
 		</cfquery>
-
-		<cfset qAs = DeSerializeJSON(SerializeJSON(valCT))>
-	<!---Now serialize the data key of the struct--->
-	<cfset temp = SerializeJSON(qAs.data)>
-
-
-	<cfset r.data=temp>
-
-
-		<cfdump var=#temp#>
-		<cfdump var=#r#>
+		<cfset qAs = DeSerializeJSON(SerializeJSON(gdata))>
+		<cfset temp = SerializeJSON(qAs.data)>
+		<cfset r.data=temp>
+		<cfset r.status='success'>
+	<cfelseif isCtControlled.UNIT_CODE_TABLE gt 0>
+		<cfset r.ctlfld='units'>
+		<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNIT_CODE_TABLE)#' and column_name not in ( 'DESCRIPTION','COLLECTION_CDE')
+		</cfquery>
+		<cfquery name="gdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select #getCols.column_name# d from #isCtControlled.UNIT_CODE_TABLE#
+		</cfquery>
+		<cfset qAs = DeSerializeJSON(SerializeJSON(gdata))>
+		<cfset temp = SerializeJSON(qAs.data)>
+		<cfset r.data=temp>
+		<cfset r.status='success'>
+	<cfelse>
+		<cfset r.ctlfld='none'>
+		<cfset r.data="">
+		<cfset r.status='success'>
 	</cfif>
 	<cfreturn r>
 </cffunction>
