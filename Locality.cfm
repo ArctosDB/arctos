@@ -1437,6 +1437,7 @@
 										<option value="#event_attribute_type#" <cfif ctcoll_event_attr_type.event_attribute_type is ceattrs.event_attribute_type> selected="selected" </cfif> >#event_attribute_type#</option>
 									</cfloop>
 								</select>
+								#escapeQuotes(event_attribute_value)#
 							</td>
 							<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
 								<input value="#escapeQuotes(event_attribute_value)#" type="text" name="event_attribute_value_#collecting_event_attribute_id#" id="event_attribute_value_#collecting_event_attribute_id#">
