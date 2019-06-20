@@ -916,6 +916,7 @@
 <script>
 	jQuery(document).ready(function() {
 		jQuery("input[id^='event_att_determined_date_']").each(function(){
+			console.log('firing datepicker for ' + this.id);
 			$("#" + this.id).datepicker();
 		});
 		$("input[id^='event_attribute_type_']").each(function(){
