@@ -949,7 +949,7 @@
 										var dv=$.parseJSON(r.DATA);
 										console.log(dv);
 										$.each(dv, function( index, value ) {
-											console.log(value);
+											console.log(value[0]);
 										});
 									}
 								}
