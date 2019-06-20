@@ -921,7 +921,7 @@
 		});
 		$("select[id^='event_attribute_type_']").each(function(){
 			console.log('firing populateEvtAttrs for ' + this.id);
-			populateEvtAttrs($("#" + this.id));
+			populateEvtAttrs( this.id );
 		});
 	});
 
