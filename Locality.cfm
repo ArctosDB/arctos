@@ -1468,6 +1468,8 @@
 								#event_attribute_type#</td>
 								<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
 
+									<input value="#event_attribute_value#" type="text" name="event_attribute_value_#collecting_event_attribute_id#" id="event_attribute_value_#collecting_event_attribute_id#">
+
 
 									#event_attribute_value#
 								</td>
