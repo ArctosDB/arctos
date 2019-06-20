@@ -1412,6 +1412,10 @@
 						collecting_event_attributes
 					where
 						collecting_event_id=#collecting_event_id#
+					order by
+						event_attribute_type,
+						event_determined_date,
+						event_attribute_value
 				</cfquery>
 				<br>Event Attributes
 				<table border>
