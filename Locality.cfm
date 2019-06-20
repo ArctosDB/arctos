@@ -932,116 +932,101 @@
 	}
 
 		function populateEvtAttrs(id) {
+			console.log('populateEvtAttrs==got id:'+id);
+			var idNum=id.replace('event_attribute_type_','');
+			var currentTypeValue=$("#event_attribute_type_" + idNum).val();
+			var valueObjName="event_attribute_value_" + idNum;
+			var unitObjName="event_attribute_units_" + idNum;
+			var unitsCellName="event_attribute_units_cell_" + idNum;
+			var valueCellName="event_attribute_value_cell_" + idNum;
+			if (currentTypeValue.length==0){
+				console.log('zero-length type; resetting');
+				var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+				$("#"+unitsCellName).html(s);
+				var s='<input  type="hidden" name="'+valueObjName+'" id="'+valueObjName+'" value="">';
+				$("#"+valueCellName).html(s);
+				return false;
+			}
+			console.log('did not return false');
+			var currentValue=$("#" + valueObjName).val();
+			var currentUnits=$("#" + unitObjName).val();
+			console.log('currentTypeValue:'+currentTypeValue);
+			console.log('currentValue:'+currentValue);
+			console.log('currentUnits:'+currentUnits);
 
-				console.log('populateEvtAttrs==got id:'+id);
 
+			jQuery.getJSON("/component/DataEntry.cfc",
+				{
+					method : "getEvtAttCodeTbl",
+					attribute : currentTypeValue,
+					element : currentTypeValue,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					console.log(r);
+					if (r.STATUS != 'success'){
+						alert('error occurred in getEvtAttCodeTbl');
+						return false;
+					} else {
+						if (r.CTLFLD=='units'){
+							var dv=$.parseJSON(r.DATA);
+							//console.log(dv);
+							var s='<select name="'+unitObjName+'" id="'+unitObjName+'">';
+							s+='<option></option>';
+							$.each(dv, function( index, value ) {
+								console.log(value[0]);
+								s+='<option value="' + value[0] + '"';
+								if (value[0]==currentUnits) {
+									s+=' selected="selected"';
+								}
+								s+='>' + value[0] + '</option>';
+							});
+							s+='</select>';
+							//console.log(s);
+							$("#"+unitsCellName).html(s);
+							$("#"+unitObjName).val(currentUnits);
 
+							var s='<input  type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
+							$("#"+valueCellName).html(s);
 
-						var idNum=id.replace('event_attribute_type_','');
+							$("#"+valueObjName).val(currentValue);
 
-						var currentTypeValue=$("#event_attribute_type_" + idNum).val();
+						}
+						if (r.CTLFLD=='values'){
+							var dv=$.parseJSON(r.DATA);
+							var s='<select name="'+valueObjName+'" id="'+valueObjName+'">';
+							s+='<option></option>';
+							$.each(dv, function( index, value ) {
+								console.log(value[0]);
+								s+='<option value="' + value[0] + '"';
+								if (value[0]==currentValue) {
+									s+=' selected="selected"';
+								}
+								s+='>' + value[0] + '</option>';
+							});
+							s+='</select>';
 
-						var valueObjName="event_attribute_value_" + idNum;
-						var unitObjName="event_attribute_units_" + idNum;
+							$("#"+valueCellName).html(s);
+							var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
 
-						var unitsCellName="event_attribute_units_cell_" + idNum;
-						var valueCellName="event_attribute_value_cell_" + idNum;
+							$("#"+valueObjName).val(currentValue);
 
-						if (currentTypeValue.length==0){
-							console.log('zero-length type; resetting');
+							$("#"+unitsCellName).html(s);
+						}
+						if (r.CTLFLD=='none'){
+							var s='<textarea name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
+							$("#"+valueCellName).html(s);
+
+							$("#"+valueObjName).val(currentValue);
+
 							var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
 							$("#"+unitsCellName).html(s);
-							var s='<input  type="hidden" name="'+valueObjName+'" id="'+valueObjName+'" value="">';
-							$("#"+valueCellName).html(s);
-							return false;
 						}
-						console.log('did not return false');
-
-
-
-
-
-
-
-
-						var currentValue=$("#" + valueObjName).val();
-						var currentUnits=$("#" + unitObjName).val();
-
-
-
-						console.log('currentTypeValue:'+currentTypeValue);
-						console.log('currentValue:'+currentValue);
-						console.log('currentUnits:'+currentUnits);
-
-
-
-						//var dataValue=$("#geo_att_value_" + idNum).val();
-						//var theSelect="geo_att_value_";
-
-						jQuery.getJSON("/component/DataEntry.cfc",
-							{
-								method : "getEvtAttCodeTbl",
-								attribute : currentTypeValue,
-								element : currentTypeValue,
-								returnformat : "json",
-								queryformat : 'column'
-							},
-							function (r) {
-								console.log(r);
-								if (r.STATUS != 'success'){
-									alert('error occurred in getEvtAttCodeTbl');
-									return false;
-								} else {
-									if (r.CTLFLD=='units'){
-										var dv=$.parseJSON(r.DATA);
-										//console.log(dv);
-										var s='<select name="'+unitObjName+'" id="'+unitObjName+'">';
-										s+='<option></option>';
-										$.each(dv, function( index, value ) {
-											console.log(value[0]);
-											s+='<option value="' + value[0] + '"';
-											if (value[0]==currentUnits) {
-												s+=' selected="selected"';
-											}
-											s+='>' + value[0] + '</option>';
-										});
-										s+='</select>';
-										//console.log(s);
-										$("#"+unitsCellName).html(s);
-										var s='<input  type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
-										$("#"+valueCellName).html(s);
-									}
-									if (r.CTLFLD=='values'){
-										var dv=$.parseJSON(r.DATA);
-										var s='<select name="'+valueObjName+'" id="'+valueObjName+'">';
-										s+='<option></option>';
-										$.each(dv, function( index, value ) {
-											console.log(value[0]);
-											s+='<option value="' + value[0] + '"';
-											if (value[0]==currentValue) {
-												s+=' selected="selected"';
-											}
-											s+='>' + value[0] + '</option>';
-										});
-										s+='</select>';
-
-										$("#"+valueCellName).html(s);
-										var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
-
-										$("#"+valueObjName).val(currentValue);
-
-										$("#"+unitsCellName).html(s);
-									}
-									if (r.CTLFLD=='none'){
-										var s='<textarea name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
-										$("#"+valueCellName).html(s);
-										var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
-										$("#"+unitsCellName).html(s);
-									}
-								}
-							}
-						);
 					}
+				}
+			);
+		}
 
 
 
