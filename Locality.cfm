@@ -990,8 +990,19 @@
 										s+='</select>';
 
 										$("#"+valueCellName).html(s);
+										var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
 
-										$("#"+unitsCellName).html('');
+										$("#"+unitsCellName).html(s);
+									}
+									if (r.CTLFLD=='none'){
+
+										var s='<textarea name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
+
+
+										$("#"+valueCellName).html(s);
+										var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+
+										$("#"+unitsCellName).html(s);
 									}
 								}
 							}
