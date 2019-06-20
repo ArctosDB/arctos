@@ -1847,6 +1847,11 @@ You deleted a collecting event.
 				<br>thisID::#thisID#
 				<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
 				<br>thisAttrType:#thisAttrType#
+				<cfif left(thisID,3) is "NEW" and len(thisAttrType) gt 0>
+					<br>inserting
+
+
+				</cfif>
 			</cfif>
 
 
