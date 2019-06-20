@@ -1424,15 +1424,13 @@
 					</tr>
 					<cfloop query="ceattrs">
 						<tr>
-							<td>
-								<td>#event_attribute_type#</td>
-								<td>#event_attribute_value#</td>
-								<td>#event_attribute_units#</td>
-								<td>#detr#-#determined_by_agent_id#</td>
-								<td>#event_determined_date#</td>
-								<td>#event_determination_method#</td>
-								<td>#event_attribute_remark#</td>
-							</td>
+							<td>#event_attribute_type#</td>
+							<td>#event_attribute_value#</td>
+							<td>#event_attribute_units#</td>
+							<td>#detr#-#determined_by_agent_id#</td>
+							<td>#event_determined_date#</td>
+							<td>#event_determination_method#</td>
+							<td>#event_attribute_remark#</td>
 						</tr>
 					</cfloop>
 					<cfloop from="1" to="3" index="na">
