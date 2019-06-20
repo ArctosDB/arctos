@@ -233,10 +233,11 @@
 	<cfset temp = SerializeJSON(qAs.data)>
 
 
-
+	<cfset r.data=temp>
 
 
 		<cfdump var=#temp#>
+		<cfdump var=#r#>
 	</cfif>
 	<cfreturn r>
 </cffunction>
