@@ -941,6 +941,20 @@
 							},
 							function (r) {
 								console.log(r);
+								if (r.STATUS != 'success'){
+									alert('error occurred in getEvtAttCodeTbl');
+									return false;
+								} else {
+									if (r.CTLFLD=='units'){
+										var dv=r.DATA;
+										console.log(dv);
+									}
+								}
+								/*
+
+
+
+
 								var s='';
 								for (i=0; i<r.ROWCOUNT; ++i) {
 									s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
@@ -950,6 +964,7 @@
 									s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 								}
 								$("select#" + theSelect + idNum).html(s);
+							*/
 							}
 						);
 					}
