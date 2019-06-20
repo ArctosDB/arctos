@@ -1027,19 +1027,15 @@
 				}
 			);
 		}
-
-
- function submitForm() {
-      // Check if valid using HTML5 checkValidity() builtin function
-      if (locality.checkValidity()) {
-        console.log('valid');
-       locality.submit();
-      } else {
-        console.log('not valid');
-      }
-      return false;
-    }
-
+	function submitForm() {
+		// Check if valid using HTML5 checkValidity() builtin function
+	    if (locality.checkValidity()) {
+	    	locality.submit();
+		} else {
+	        alert('Required values are required.');
+		}
+	    return false;
+	}
 </script>
 <cfoutput>
       <cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
