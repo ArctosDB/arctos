@@ -923,8 +923,8 @@
 						var unitObjName="event_attribute_units_" + idNum;
 
 
-						var unitsCell=$("#event_attribute_units_cell_" + idNum);
-						var valueCell=$("#event_attribute_value_cell_" + idNum);
+						var unitsCellName="event_attribute_units_cell_" + idNum;
+						var valueCellName="event_attribute_value_cell_" + idNum;
 
 
 						var currentValue=$("#" + valueObjName).val();
@@ -973,7 +973,7 @@
 
 										console.log(s);
 
-										//$("#"+unitsCell).html(s);
+										$("#"+unitsCellName).html(s);
 									}
 								}
 								/*
