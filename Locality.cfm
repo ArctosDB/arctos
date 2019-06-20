@@ -1949,12 +1949,14 @@ You deleted a collecting event.
 							'#escapeQuotes(thisAttrMeth)#',
 							'#escapeQuotes(thisAttrDate)#'
 						)
-
-
 					</p>
-
-
-
+				<cfelse>
+					<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+					<cfif thisAttrVal is 'DELETE">
+						<br>deleting
+					<cfelse>
+						<br>updating....
+					</cfif>
 
 				</cfif>
 			</cfif>
