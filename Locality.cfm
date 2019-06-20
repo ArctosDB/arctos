@@ -1938,12 +1938,13 @@ You deleted a collecting event.
 						</p>
 					</cfif>
 				<cfelse>
-					<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-					<cfif thisAttrVal is "DELETE">
+					<cfif thisAttrType is "DELETE">
 						<br>deleting
 						delete from collecting_event_attributes where collecting_event_attribute_id=#thisID#
 					<cfelse>
 						<br>updating....
+
+						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
 						<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
 						<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
 						<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
