@@ -1849,6 +1849,40 @@ You deleted a collecting event.
 				<br>thisAttrType:#thisAttrType#
 				<cfif left(thisID,3) is "NEW" and len(thisAttrType) gt 0>
 					<br>inserting
+					<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+					<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+					<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+					<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+					<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+					<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
+
+					<p>
+						insert into collecting_event_attributes
+							collecting_event_attribute_id,
+							collecting_event_id,
+							determined_by_agent_id,
+							event_attribute_type,
+							event_attribute_value,
+							event_attribute_units,
+							event_attribute_remark,
+							event_determination_method,
+							event_determined_date
+						) values (
+							sq_coll_event_attribute_id.nextval,
+							#collecting_event_id#,
+							<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
+							'#escapeQuotes(thisAttrType)#',
+							'#escapeQuotes(thisAttrVal)#',
+							'#escapeQuotes(thisAttrUnit)#',
+							'#escapeQuotes(thisAttrRemk)#',
+							'#escapeQuotes(thisAttrMeth)#',
+							'#escapeQuotes(thisAttrDate)#'
+						)
+
+
+					</p>
+
+
 
 
 				</cfif>
@@ -1862,7 +1896,7 @@ You deleted a collecting event.
 
 		<!----
 		<!-----
-					 ACTION,COLLECTING_EVENT_ID,COLLECTION_OBJECT_ID,LOCALITY_ID,VERBATIM_LOCALITY,PICKED_SPEC_LOCALITY,COLL_EVENT_REMARKS,COLLECTING_EVENT_NAME,ORIG_LAT_LONG_UNITS,DATUM,DEC_LAT,DEC_LONG,LAT_DEG,LAT_MIN,LAT_SEC,LAT_DIR,LONG_DEG,LONG_MIN,LONG_SEC,LONG_DIR,DMLAT_DEG,DEC_LAT_MIN,DMLAT_DIR,DMLONG_DEG,DEC_LONG_MIN,DMLONG_DIR,UTM_ZONE,UTM_EW,UTM_NS,EVENT_ATTRIBUTE_TYPE_NEW_1,EVENT_ATTRIBUTE_VALUE_NEW_1,EVENT_ATTRIBUTE_UNITS_NEW_1,EVT_ATT_DETERMINER_ID_NEW_1,EVT_ATT_DETERMINER_NEW_1,EVENT_ATT_DETERMINED_DATE_NEW_1,EVENT_DETERMINATION_METHOD_NEW_1,EVENT_ATTRIBUTE_REMARK_NEW_1,EVENT_ATTRIBUTE_TYPE_NEW_2,EVT_ATT_DETERMINER_ID_NEW_2,EVT_ATT_DETERMINER_NEW_2,EVENT_ATT_DETERMINED_DATE_NEW_2,EVENT_DETERMINATION_METHOD_NEW_2,EVENT_ATTRIBUTE_REMARK_NEW_2,EVENT_ATTRIBUTE_TYPE_NEW_3,EVT_ATT_DETERMINER_ID_NEW_3,EVT_ATT_DETERMINER_NEW_3,EVENT_ATT_DETERMINED_DATE_NEW_3,EVENT_DETERMINATION_METHOD_NEW_3,EVENT_ATTRIBUTE_REMARK_NEW_3
+					 ,NEW_1,,,,,,EVENT_ATTRIBUTE_REMARK_NEW_1,EVENT_ATTRIBUTE_TYPE_NEW_2,EVT_ATT_DETERMINER_ID_NEW_2,EVT_ATT_DETERMINER_NEW_2,EVENT_ATT_DETERMINED_DATE_NEW_2,EVENT_DETERMINATION_METHOD_NEW_2,EVENT_ATTRIBUTE_REMARK_NEW_2,EVENT_ATTRIBUTE_TYPE_NEW_3,EVT_ATT_DETERMINER_ID_NEW_3,EVT_ATT_DETERMINER_NEW_3,EVENT_ATT_DETERMINED_DATE_NEW_3,EVENT_DETERMINATION_METHOD_NEW_3,EVENT_ATTRIBUTE_REMARK_NEW_3
 
 
 				<tr>
