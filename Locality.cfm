@@ -945,7 +945,7 @@
 		var currentValue=$("#" + valueObjName).val();
 		var currentUnits=$("#" + unitObjName).val();
 		//console.log('currentTypeValue:'+currentTypeValue);
-		console.log('currentValue:'+currentValue);
+		//console.log('currentValue:'+currentValue);
 		//console.log('currentUnits:'+currentUnits);
 
 		jQuery.getJSON("/component/DataEntry.cfc",
@@ -1437,8 +1437,6 @@
 										<option value="#event_attribute_type#" <cfif ctcoll_event_attr_type.event_attribute_type is ceattrs.event_attribute_type> selected="selected" </cfif> >#event_attribute_type#</option>
 									</cfloop>
 								</select>
-
-								<input type="text" value="#stripQuotes(event_attribute_value)#">
 							</td>
 							<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
 								<input value="#stripQuotes(event_attribute_value)#" type="text" name="event_attribute_value_#collecting_event_attribute_id#" id="event_attribute_value_#collecting_event_attribute_id#">
@@ -1455,7 +1453,7 @@
 									type="text"
 									name="evt_att_determiner_#collecting_event_attribute_id#"
 									id="evt_att_determiner_#collecting_event_attribute_id#"
-									value="#detr#"
+									value="#stripQuotes(detr)#"
 									size="20"
 									onchange="pickAgentModal('evt_att_determiner_id_#collecting_event_attribute_id#',this.id,this.value); return false;"
 				 					onKeyPress="return noenter(event);">
@@ -1471,14 +1469,14 @@
 									name="event_determination_method_#collecting_event_attribute_id#"
 									id="event_determination_method_#collecting_event_attribute_id#"
 									size="20"
-									value="#event_determination_method#">
+									value="#stripQuotes(event_determination_method)#">
 							</td>
 							<td>
 								<input type="text"
 									name="event_attribute_remark_#collecting_event_attribute_id#"
 									id="event_attribute_remark_#collecting_event_attribute_id#"
 									size="20"
-									value="#event_attribute_remark#">
+									value="#stripQuotes(event_attribute_remark)#">
 							</td>
 						</tr>
 					</cfloop>
