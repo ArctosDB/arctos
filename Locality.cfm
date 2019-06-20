@@ -1845,6 +1845,8 @@ You deleted a collecting event.
 				<br>#i#
 				<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
 				<br>thisID::#thisID#
+				<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
+				<br>thisAttrType:#thisAttrType#
 			</cfif>
 
 
