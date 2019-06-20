@@ -975,22 +975,25 @@
 										var s='<input  type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
 										$("#"+valueCellName).html(s);
 									}
-								}
-								/*
+									if (r.CTLFLD=='values'){
+										var dv=$.parseJSON(r.DATA);
+										var s='<select name="'+valueObjName+'" id="'+valueObjName+'">';
+										s+='<option></option>';
+										$.each(dv, function( index, value ) {
+											console.log(value[0]);
+											s+='<option value="' + value[0] + '"';
+											if (value[0]==currentValue) {
+												s+=' selected="selected"';
+											}
+											s+='>' + value[0] + '</option>';
+										});
+										s+='</select>';
 
+										$("#"+valueCellName).html(s);
 
-
-
-								var s='';
-								for (i=0; i<r.ROWCOUNT; ++i) {
-									s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
-									if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
-										s+=' selected="selected"';
+										$("#"+unitsCellName).html('');
 									}
-									s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 								}
-								$("select#" + theSelect + idNum).html(s);
-							*/
 							}
 						);
 					}
