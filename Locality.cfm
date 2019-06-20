@@ -1168,7 +1168,7 @@
 			<input type="submit" class="lnkBtn" value="Mass-update specimen-events">
 		</form>
 	</div>
-	<cfform name="locality" method="post" action="Locality.cfm">
+	<form name="locality" method="post" action="Locality.cfm">
 		<table width="100%"><tr><td valign="top">
 			<h4>Edit this Collecting Event:</h4>
 		    	<input type="hidden" name="action" value="saveCollEventEdit">
@@ -1587,7 +1587,7 @@
 				</div>
 			</cfif>
 		</td></tr></table>
-	</cfform>
+	</form>
 	<hr>
 	<cfif isdefined("session.roles") and session.roles contains "manage_media">
 		<span class="likeLink" onclick="addMedia('collecting_event_id','#collecting_event_id#');">Attach/Upload Media</span>
