@@ -1288,7 +1288,9 @@
 				<script>
 					showLLFormat('#locDet.orig_lat_long_units#');
 				</script>
-
+				<cfquery name="ctcoll_event_attr_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select event_attribute_type from ctcoll_event_attr_type order by event_attribute_type
+				</cfquery>
 				<cfquery name="ceattrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						collecting_event_attribute_id,
@@ -1329,7 +1331,39 @@
 							</td>
 						</tr>
 					</cfloop>
+					<cfloop from="1" to="3" index="na">
+						<tr>
+							<td>
+								<select name="event_attribute_type_new_#na#" id="event_attribute_type_new_#na#" onchange="populateEvtAttrs(this.id)">
+									<option value="">select new event attribute</option>
+									<cfloop query="ctcoll_event_attr_type">
+										<option value="#event_attribute_type#">#event_attribute_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
+							</td>
+							<td>
+								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
+							</td>
+							<td>
+								<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
+								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="40"
+									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
+				 					onKeyPress="return noenter(event);">
+							</td>
+							<td>
+								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="40">
+							</td>
+							<td>
+								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="40">
+							</td>
+						</tr>
+					</cfloop>
 				</table>
+
+
 
 		        <br>
 				<input type="button" value="Save" class="savBtn" onClick="locality.action.value='saveCollEventEdit';locality.submit();">

@@ -207,8 +207,6 @@
 	</cfif>
 </cffunction>
 <!---------------------------------------------------------------->
-
-
 <cffunction name="getEvtAttCodeTbl"  access="remote">
 	<!--- get code table stuff for collecting event attributes --->
 	<cfargument name="attribute" type="string" required="yes">
@@ -246,7 +244,6 @@
 				<cfset temp = QuerySetCell(result, "v", rval,i)>
 				<cfset i=i+1>
 			</cfloop>
-
 		<cfelseif isCtControlled.UNIT_CODE_TABLE gt 0>
 			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNIT_CODE_TABLE)#'
@@ -263,7 +260,6 @@
 					<cfset columnName = "#getCols.column_name#">
 				</cfif>
 			</cfloop>
-
 			<cfquery name="valCodes" dbtype="query">
 				SELECT #columnName# as valCodes from valCT order by #columnName#
 			</cfquery>
@@ -293,11 +289,9 @@
 		<cfset newRow = QueryAddRow(result, 1)>
 		<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 	</cfif>
-
 	<cfreturn result>
-
 </cffunction>
-
+<!----------------------------------------------------------------------_____>
 <cffunction name="getAttCodeTbl"  access="remote">
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="guid_prefix" type="string" required="yes">
