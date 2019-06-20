@@ -286,7 +286,7 @@
 	</cfif>
 	<cfreturn result>
 </cffunction>
-<!----------------------------------------------------------------------_____>
+<!---------------------------------------------------------------------->
 <cffunction name="getAttCodeTbl"  access="remote">
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="guid_prefix" type="string" required="yes">
