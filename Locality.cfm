@@ -995,13 +995,6 @@
 
 
 
-<td id="_new_#na#">
-								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
-							</td>
-							<td id="_new_#na#">
-								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
-							</td>
-
 </script>
 <cfoutput>
       <cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
