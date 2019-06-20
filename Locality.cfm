@@ -1952,7 +1952,7 @@ You deleted a collecting event.
 					</p>
 				<cfelse>
 					<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-					<cfif thisAttrVal is 'DELETE">
+					<cfif thisAttrVal is "DELETE">
 						<br>deleting
 					<cfelse>
 						<br>updating....
@@ -1968,8 +1968,6 @@ You deleted a collecting event.
 		</cfloop>
 
 		<!----
-		<!-----
-					 ,NEW_1,,,,,,EVENT_ATTRIBUTE_REMARK_NEW_1,EVENT_ATTRIBUTE_TYPE_NEW_2,EVT_ATT_DETERMINER_ID_NEW_2,EVT_ATT_DETERMINER_NEW_2,EVENT_ATT_DETERMINED_DATE_NEW_2,EVENT_DETERMINATION_METHOD_NEW_2,EVENT_ATTRIBUTE_REMARK_NEW_2,EVENT_ATTRIBUTE_TYPE_NEW_3,EVT_ATT_DETERMINER_ID_NEW_3,EVT_ATT_DETERMINER_NEW_3,EVENT_ATT_DETERMINED_DATE_NEW_3,EVENT_DETERMINATION_METHOD_NEW_3,EVENT_ATTRIBUTE_REMARK_NEW_3
 
 
 				<tr>
