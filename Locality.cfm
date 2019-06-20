@@ -946,7 +946,7 @@
 									return false;
 								} else {
 									if (r.CTLFLD=='units'){
-										var dv=r.DATA;
+										var dv=$.parseJSON(r.DATA);
 										console.log(dv);
 									}
 								}
