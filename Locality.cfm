@@ -2002,7 +2002,7 @@ You deleted a collecting event.
 								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
 							</td>
 
-							----------->
+
 
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE
