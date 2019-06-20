@@ -1354,6 +1354,10 @@
 				 					onKeyPress="return noenter(event);">
 							</td>
 							<td>
+								<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
+
+							</td>
+							<td>
 								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
 							</td>
 							<td>
