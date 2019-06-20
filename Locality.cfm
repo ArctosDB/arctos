@@ -1463,22 +1463,47 @@
 										<option value="#event_attribute_type#" <cfif ctcoll_event_attr_type.event_attribute_type is ceattrs.event_attribute_type> selected="selected" </cfif> >#event_attribute_type#</option>
 									</cfloop>
 								</select>
-
-
-								#event_attribute_type#</td>
-								<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
-
-									<input value="#event_attribute_value#" type="text" name="event_attribute_value_#collecting_event_attribute_id#" id="event_attribute_value_#collecting_event_attribute_id#">
-
-
-									#event_attribute_value#
-								</td>
+							</td>
+							<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
+								<input value="#event_attribute_value#" type="text" name="event_attribute_value_#collecting_event_attribute_id#" id="event_attribute_value_#collecting_event_attribute_id#">
+							</td>
 							<td id="event_attribute_units_cell_#collecting_event_attribute_id#">
-								#event_attribute_units#</td>
-							<td>#detr#-#determined_by_agent_id#</td>
-							<td>#event_determined_date#</td>
-							<td>#event_determination_method#</td>
-							<td>#event_attribute_remark#</td>
+								<input value="#event_attribute_units#" type="text" name="event_attribute_units_#collecting_event_attribute_id#" id="event_attribute_units_#collecting_event_attribute_id#">
+							</td>
+							<td>
+								<input type="hidden"
+									name="evt_att_determiner_id_#collecting_event_attribute_id#"
+									id="evt_att_determiner_id_#collecting_event_attribute_id#"
+									value="#determined_by_agent_id#">
+								<input placeholder="determiner"
+									type="text"
+									name="evt_att_determiner_#collecting_event_attribute_id#"
+									id="evt_att_determiner_#collecting_event_attribute_id#"
+									value="#detr#"
+									size="20"
+									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
+				 					onKeyPress="return noenter(event);">
+				 			</td>
+							<td>
+								<input type="text"
+									name="event_att_determined_date_#collecting_event_attribute_id#"
+									id="event_att_determined_date_#collecting_event_attribute_id#"
+									value='#event_determined_date#'>
+							</td>
+							<td>
+								<input type="text"
+									name="event_determination_method_#collecting_event_attribute_id#"
+									id="event_determination_method_#collecting_event_attribute_id#"
+									size="20"
+									value="#event_determination_method#">
+							</td>
+							<td>
+								<input type="text"
+									name="event_attribute_remark_#collecting_event_attribute_id#"
+									id="event_attribute_remark_#collecting_event_attribute_id#"
+									size="20"
+									value="#event_attribute_remark#">
+							</td>
 						</tr>
 					</cfloop>
 					<cfloop from="1" to="3" index="na">
