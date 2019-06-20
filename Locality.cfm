@@ -1029,7 +1029,7 @@
 		}
 
 
- function submitform() {
+ function submitForm() {
       // Check if valid using HTML5 checkValidity() builtin function
       if (locality.checkValidity()) {
         console.log('valid');
