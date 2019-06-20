@@ -206,16 +206,41 @@
 		<cfreturn false>
 	</cfif>
 </cffunction>
+
+
 <!---------------------------------------------------------------->
 <cffunction name="getEvtAttCodeTbl"  access="remote">
-	<!--- get code table stuff for collecting event attributes	 --->
-
+	<!---
+		get code table stuff for collecting event attributes
+		ASSUMPTION
+			- these will never be collection-specific; we'll just ignore that here
+	 --->
 	<cfargument name="attribute" type="string" required="yes">
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from ctcoll_event_att_att where event_attribute_type='#attribute#'
 	</cfquery>
-
+	<cfif len(isCtControlled.VALUE_CODE_TABLE) gt 0>
+		<cfset r.ctlfld='values'>
+		<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#' and column_name not in ( 'DESCRIPTION','COLLECTION_CDE')
+		</cfquery>
+		<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select #getCols.column_name# d from #isCtControlled.value_code_table#
+		</cfquery>
+		<cfset r.data=serializeJSON(valCT.d)>
+	</cfif>
+	<cfreturn r>
+</cffunction>
+<!---------------------------------------------------------------->
+<cffunction name="getEvtAttCodeTbl__oldNBusted"  access="remote">
+	<!--- get code table stuff for collecting event attributes	 --->
+	<cfargument name="attribute" type="string" required="yes">
+	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from ctcoll_event_att_att where event_attribute_type='#attribute#'
+	</cfquery>
 	<cfif isCtControlled.recordcount is 1>
+		<cfset r.ctlfld='values'>
+
 		<cfif len(isCtControlled.VALUE_CODE_TABLE) gt 0>
 			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#' and column_name <> 'DESCRIPTION'
@@ -244,6 +269,8 @@
 				<cfset i=i+1>
 			</cfloop>
 		<cfelseif isCtControlled.UNIT_CODE_TABLE gt 0>
+			<cfset r.ctlfld='units'>
+
 			<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNIT_CODE_TABLE)#'
 				and column_name <> 'DESCRIPTION'
@@ -274,12 +301,19 @@
 				<cfset i=#i#+1>
 			</cfloop>
 		<cfelse>
+			<cfset r.ctlfld='none'>
+			<cfset r.status='error'>
+			<cfset r.data="">
+
 			<cfset result = QueryNew("V")>
 			<cfset newRow = QueryAddRow(result, 1)>
 			<cfset temp = QuerySetCell(result, "v", "ERROR")>
 			<cfset newRow = QueryAddRow(result, 1)>
 		</cfif>
 	<cfelse>
+		<cfset r.ctlfld='none'>
+		<cfset r.status='success'>
+		<cfset r.data="">
 		<cfset result = QueryNew("V")>
 		<cfset newRow = QueryAddRow(result, 1)>
 		<cfset temp = QuerySetCell(result, "v", "NONE")>
