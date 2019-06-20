@@ -1349,15 +1349,15 @@
 							</td>
 							<td>
 								<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
-								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="40"
+								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
 									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
 				 					onKeyPress="return noenter(event);">
 							</td>
 							<td>
-								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="40">
+								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
 							</td>
 							<td>
-								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="40">
+								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
 							</td>
 						</tr>
 					</cfloop>
