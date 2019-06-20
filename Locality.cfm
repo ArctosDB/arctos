@@ -918,8 +918,19 @@
 						var idNum=id.replace('event_attribute_type_','');
 
 						var currentTypeValue=$("#event_attribute_type_" + idNum).val();
-						var currentValue=$("#event_attribute_value_" + idNum).val();
-						var currentUnits=$("#event_attribute_units_" + idNum).val();
+
+						var valueObjName="event_attribute_value_" + idNum;
+						var unitObjName="event_attribute_units_" + idNum;
+
+
+						var unitsCell=$("#event_attribute_units_cell_" + idNum);
+						var valueCell=$("#event_attribute_value_cell_" + idNum);
+
+
+						var currentValue=$("#" + valueObjName).val();
+						var currentUnits=$("#" + unitObjName).val();
+
+
 
 						console.log('id:'+id);
 						console.log('currentTypeValue:'+currentTypeValue);
@@ -947,8 +958,9 @@
 								} else {
 									if (r.CTLFLD=='units'){
 										var dv=$.parseJSON(r.DATA);
-										console.log(dv);
-										var s='';
+										//console.log(dv);
+										var s='<select name="'+unitObjName+'" id="'+unitObjName+'">';
+										s+='<option></option>';
 										$.each(dv, function( index, value ) {
 											console.log(value[0]);
 											s+='<option value="' + value[0] + '"';
@@ -957,7 +969,8 @@
 											}
 											s+='>' + value[0] + '</option>';
 										});
-										$("select#event_attribute_units_" + idNum).html(s);
+										s+='</select>';
+										$("#"+unitsCell).html(s);
 									}
 								}
 								/*
@@ -980,6 +993,14 @@
 					}
 
 
+
+
+<td id="_new_#na#">
+								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
+							</td>
+							<td id="_new_#na#">
+								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
+							</td>
 
 </script>
 <cfoutput>
@@ -1412,10 +1433,10 @@
 									</cfloop>
 								</select>
 							</td>
-							<td>
+							<td id="event_attribute_value_cell_new_#na#">
 								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
 							</td>
-							<td>
+							<td id="event_attribute_units_cell_new_#na#">
 								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
 							</td>
 							<td>
