@@ -940,7 +940,7 @@
 								queryformat : 'column'
 							},
 							function (r) {
-								sonsole.log(r);
+								console.log(r);
 								var s='';
 								for (i=0; i<r.ROWCOUNT; ++i) {
 									s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
