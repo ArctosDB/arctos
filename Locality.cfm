@@ -907,6 +907,12 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editCollEvnt">
 <cfset title="Edit Collecting Event">
+
+	<div class="importantNotification">
+			This form is currently under development. Changes will not save. Check back later.
+		</div>
+
+
 <script>
 	function verifByMe(f,i,u){
 		$("#verified_by_agent_name" + f).val(u);
@@ -995,13 +1001,9 @@
 										$("#"+unitsCellName).html(s);
 									}
 									if (r.CTLFLD=='none'){
-
 										var s='<textarea name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
-
-
 										$("#"+valueCellName).html(s);
 										var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
-
 										$("#"+unitsCellName).html(s);
 									}
 								}
@@ -1833,7 +1835,48 @@ You deleted a collecting event.
 <cfif action is "saveCollEventEdit">
 	<cfoutput>
 
+		<div class="importantNotification">
+			This form is currently under development. Changes will not save. Check back later.
+		</div>
+		<cfdump var=#form#>
 
+
+		<!----
+		<!-----
+
+				<tr>
+							<td>
+								<select name="event_attribute_type_new_#na#" id="event_attribute_type_new_#na#" onchange="populateEvtAttrs(this.id)">
+									<option value="">select new event attribute</option>
+									<cfloop query="ctcoll_event_attr_type">
+										<option value="#event_attribute_type#">#event_attribute_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td id="event_attribute_value_cell_new_#na#">
+								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
+							</td>
+							<td id="event_attribute_units_cell_new_#na#">
+								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
+							</td>
+							<td>
+								<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
+								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
+									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
+				 					onKeyPress="return noenter(event);">
+							</td>
+							<td>
+								<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
+
+							</td>
+							<td>
+								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
+							</td>
+							<td>
+								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
+							</td>
+
+							----------->
 
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		UPDATE
@@ -1932,6 +1975,8 @@ You deleted a collecting event.
 		<cfset refURL = "#cgi.HTTP_REFERER#?collection_object_id=#collection_object_id#&action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 	</cfif>
 	<cflocation addtoken="no" url="#refURL#">
+
+	---->
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
