@@ -1449,8 +1449,12 @@
 
 
 								#event_attribute_type#</td>
-							<td>#event_attribute_value#</td>
-							<td>#event_attribute_units#</td>
+								<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
+
+
+								#event_attribute_value#</td>
+							<td id="event_attribute_units_cell_#collecting_event_attribute_id#">
+								#event_attribute_units#</td>
 							<td>#detr#-#determined_by_agent_id#</td>
 							<td>#event_determined_date#</td>
 							<td>#event_determination_method#</td>
