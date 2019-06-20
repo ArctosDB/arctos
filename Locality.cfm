@@ -1957,6 +1957,12 @@ You deleted a collecting event.
 						delete from collecting_event_attributes where collecting_event_attribute_id=#thisID#
 					<cfelse>
 						<br>updating....
+						<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+						<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+						<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+						<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+						<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
+
 						update collecting_event_attributes set
 							determined_by_agent_id=<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
 							event_attribute_type='#escapeQuotes(thisAttrType)#',
