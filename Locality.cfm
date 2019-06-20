@@ -948,6 +948,9 @@
 									if (r.CTLFLD=='units'){
 										var dv=$.parseJSON(r.DATA);
 										console.log(dv);
+										$.each(dv, function( index, value ) {
+											console.log(value);
+										});
 									}
 								}
 								/*
