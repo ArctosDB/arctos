@@ -1918,38 +1918,40 @@ You deleted a collecting event.
 				<br>thisID::#thisID#
 				<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
 				<br>thisAttrType:#thisAttrType#
-				<cfif left(thisID,3) is "NEW" and len(thisAttrType) gt 0>
-					<br>inserting
-					<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-					<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
-					<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
-					<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
-					<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
-					<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
+				<cfif left(thisID,3) is "NEW">
+					 <cfif len(thisAttrType) gt 0>
+						<br>inserting
+						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+						<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+						<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+						<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+						<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+						<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
 
-					<p>
-						insert into collecting_event_attributes (
-							collecting_event_attribute_id,
-							collecting_event_id,
-							determined_by_agent_id,
-							event_attribute_type,
-							event_attribute_value,
-							event_attribute_units,
-							event_attribute_remark,
-							event_determination_method,
-							event_determined_date
-						) values (
-							sq_coll_event_attribute_id.nextval,
-							#collecting_event_id#,
-							<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
-							'#escapeQuotes(thisAttrType)#',
-							'#escapeQuotes(thisAttrVal)#',
-							'#escapeQuotes(thisAttrUnit)#',
-							'#escapeQuotes(thisAttrRemk)#',
-							'#escapeQuotes(thisAttrMeth)#',
-							'#escapeQuotes(thisAttrDate)#'
-						)
-					</p>
+						<p>
+							insert into collecting_event_attributes (
+								collecting_event_attribute_id,
+								collecting_event_id,
+								determined_by_agent_id,
+								event_attribute_type,
+								event_attribute_value,
+								event_attribute_units,
+								event_attribute_remark,
+								event_determination_method,
+								event_determined_date
+							) values (
+								sq_coll_event_attribute_id.nextval,
+								#collecting_event_id#,
+								<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
+								'#escapeQuotes(thisAttrType)#',
+								'#escapeQuotes(thisAttrVal)#',
+								'#escapeQuotes(thisAttrUnit)#',
+								'#escapeQuotes(thisAttrRemk)#',
+								'#escapeQuotes(thisAttrMeth)#',
+								'#escapeQuotes(thisAttrDate)#'
+							)
+						</p>
+					</cfif>
 				<cfelse>
 					<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
 					<cfif thisAttrVal is "DELETE">
