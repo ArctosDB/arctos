@@ -1030,18 +1030,15 @@
 
 
  function submitform() {
-      // Get first form element
-      var $form = $('form')[0];
-
       // Check if valid using HTML5 checkValidity() builtin function
-      if ($form.checkValidity()) {
+      if (locality.checkValidity()) {
         console.log('valid');
-        $form.submit();
+       locality.submit();
       } else {
         console.log('not valid');
       }
       return false;
-    };
+    }
 
 </script>
 <cfoutput>
@@ -1542,14 +1539,14 @@
 
 
 		        <br>
-				<input type="button" value="Save" class="savBtn" onClick="locality.action.value='saveCollEventEdit';locality.submit();">
+				<input type="button" value="Save" class="savBtn" onClick="locality.action.value='saveCollEventEdit';submitForm();">
 					<input type="button" value="Quit" class="qutBtn" onClick="document.location='Locality.cfm';">
 				<input type="button" value="Delete" class="delBtn"
 					onClick="document.location='Locality.cfm?Action=deleteCollEvent&collecting_event_id=#locDet.collecting_event_id#';">
 				<input type="button" value="Clone Event and Locality" class="insBtn"
-					onClick="locality.action.value='cloneEventAndLocality';locality.submit();">
+					onClick="locality.action.value='cloneEventAndLocality';submitForm();">
 				<input type="button" value="Clone Event (new event under this locality)" class="insBtn"
-					onClick="locality.action.value='cloneEventWithoutLocality';locality.submit();">
+					onClick="locality.action.value='cloneEventWithoutLocality';submitForm();">
 
 
 					<!---
