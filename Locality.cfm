@@ -1013,6 +1013,8 @@
 										$("#"+valueCellName).html(s);
 										var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
 
+										$("#"+valueObjName).val(currentValue);
+
 										$("#"+unitsCellName).html(s);
 									}
 									if (r.CTLFLD=='none'){
@@ -1452,7 +1454,8 @@
 								<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
 
 
-								#event_attribute_value#</td>
+									#event_attribute_value#
+								</td>
 							<td id="event_attribute_units_cell_#collecting_event_attribute_id#">
 								#event_attribute_units#</td>
 							<td>#detr#-#determined_by_agent_id#</td>
