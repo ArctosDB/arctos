@@ -227,8 +227,8 @@
 		<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select #getCols.column_name# d from #isCtControlled.value_code_table#
 		</cfquery>
-		<cfset r.data=serializeJSON(valCT)>
-		<cfdump var=#r#>
+		<cfset temp=serializeJSON(valCT)
+		<cfdump var=#temp#>
 	</cfif>
 	<cfreturn r>
 </cffunction>
