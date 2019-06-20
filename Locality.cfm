@@ -916,11 +916,11 @@
 <script>
 	jQuery(document).ready(function() {
 		jQuery("input[id^='event_att_determined_date_']").each(function(){
-			console.log('firing datepicker for ' + this.id);
+			//console.log('firing datepicker for ' + this.id);
 			$("#" + this.id).datepicker();
 		});
 		$("select[id^='event_attribute_type_']").each(function(){
-			console.log('firing populateEvtAttrs for ' + this.id);
+			//console.log('firing populateEvtAttrs for ' + this.id);
 			populateEvtAttrs( this.id );
 		});
 	});
