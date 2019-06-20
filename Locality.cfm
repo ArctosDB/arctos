@@ -970,7 +970,10 @@
 											s+='>' + value[0] + '</option>';
 										});
 										s+='</select>';
-										$("#"+unitsCell).html(s);
+
+										console.log(s);
+
+										//$("#"+unitsCell).html(s);
 									}
 								}
 								/*
