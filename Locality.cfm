@@ -1843,6 +1843,8 @@ You deleted a collecting event.
 			<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
 				<br>got event attrs
 				<br>#i#
+				<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_')>
+				<br>thisID::#thisID#
 			</cfif>
 
 
