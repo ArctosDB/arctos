@@ -948,9 +948,16 @@
 									if (r.CTLFLD=='units'){
 										var dv=$.parseJSON(r.DATA);
 										console.log(dv);
+										var s='';
 										$.each(dv, function( index, value ) {
 											console.log(value[0]);
+											s+='<option value="' + value[0] + '"';
+											if (value[0]==currentUnits) {
+												s+=' selected="selected"';
+											}
+											s+='>' + value[0] + '</option>';
 										});
+										$("select#event_attribute_units_" + idNum).html(s);
 									}
 								}
 								/*
