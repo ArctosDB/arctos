@@ -974,8 +974,6 @@
 										$("#"+unitsCellName).html(s);
 										var s='<input  type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
 										$("#"+valueCellName).html(s);
-
-										";
 									}
 								}
 								/*
