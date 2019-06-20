@@ -1029,7 +1029,19 @@
 		}
 
 
+ function submitform() {
+      // Get first form element
+      var $form = $('form')[0];
 
+      // Check if valid using HTML5 checkValidity() builtin function
+      if ($form.checkValidity()) {
+        console.log('valid');
+        $form.submit();
+      } else {
+        console.log('not valid');
+      }
+      return false;
+    };
 
 </script>
 <cfoutput>
@@ -1131,7 +1143,7 @@
 				</tr>
 			</cfloop>
 		</table>
-		<form name="x" method="post" action="Locality.cfm">
+		<form name="x" method="post" action="Locality.cfm" onsubmit="submitform()">
 		    <input type="hidden" name="collecting_event_id" value="#locDet.collecting_event_id#">
 	    	<input type="hidden" name="action" value="updateAllVerificationStatus">
 	    	<span class="helpLink" data-helplink="verification_status">[ verificationstatus documentation ]</span>
