@@ -945,7 +945,7 @@
 		var currentValue=$("#" + valueObjName).val();
 		var currentUnits=$("#" + unitObjName).val();
 		//console.log('currentTypeValue:'+currentTypeValue);
-		//console.log('currentValue:'+currentValue);
+		console.log('currentValue:'+currentValue);
 		//console.log('currentUnits:'+currentUnits);
 
 		jQuery.getJSON("/component/DataEntry.cfc",
