@@ -931,102 +931,88 @@
 		$("#verified_date" + f).val(getFormattedDate());
 	}
 
-		function populateEvtAttrs(id) {
-			console.log('populateEvtAttrs==got id:'+id);
-			var idNum=id.replace('event_attribute_type_','');
-			var currentTypeValue=$("#event_attribute_type_" + idNum).val();
-			var valueObjName="event_attribute_value_" + idNum;
-			var unitObjName="event_attribute_units_" + idNum;
-			var unitsCellName="event_attribute_units_cell_" + idNum;
-			var valueCellName="event_attribute_value_cell_" + idNum;
-			if (currentTypeValue.length==0){
-				console.log('zero-length type; resetting');
-				var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
-				$("#"+unitsCellName).html(s);
-				var s='<input  type="hidden" name="'+valueObjName+'" id="'+valueObjName+'" value="">';
-				$("#"+valueCellName).html(s);
-				return false;
-			}
-			console.log('did not return false');
-			var currentValue=$("#" + valueObjName).val();
-			var currentUnits=$("#" + unitObjName).val();
-			console.log('currentTypeValue:'+currentTypeValue);
-			console.log('currentValue:'+currentValue);
-			console.log('currentUnits:'+currentUnits);
+	function populateEvtAttrs(id) {
+		//console.log('populateEvtAttrs==got id:'+id);
+		var idNum=id.replace('event_attribute_type_','');
+		var currentTypeValue=$("#event_attribute_type_" + idNum).val();
+		var valueObjName="event_attribute_value_" + idNum;
+		var unitObjName="event_attribute_units_" + idNum;
+		var unitsCellName="event_attribute_units_cell_" + idNum;
+		var valueCellName="event_attribute_value_cell_" + idNum;
+		if (currentTypeValue.length==0){
+			console.log('zero-length type; resetting');
+			var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+			$("#"+unitsCellName).html(s);
+			var s='<input  type="hidden" name="'+valueObjName+'" id="'+valueObjName+'" value="">';
+			$("#"+valueCellName).html(s);
+			return false;
+		}
+		//console.log('did not return false');
+		var currentValue=$("#" + valueObjName).val();
+		var currentUnits=$("#" + unitObjName).val();
+		//console.log('currentTypeValue:'+currentTypeValue);
+		//console.log('currentValue:'+currentValue);
+		//console.log('currentUnits:'+currentUnits);
 
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "getEvtAttCodeTbl",
+				attribute : currentTypeValue,
+				element : currentTypeValue,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				//console.log(r);
+				if (r.STATUS != 'success'){
+					alert('error occurred in getEvtAttCodeTbl');
+					return false;
+				} else {
+					if (r.CTLFLD=='units'){
+						var dv=$.parseJSON(r.DATA);
+						//console.log(dv);
+						var s='<select required class="reqdClr" name="'+unitObjName+'" id="'+unitObjName+'">';
+						s+='<option></option>';
+						$.each(dv, function( index, value ) {
+							//console.log(value[0]);
+							s+='<option value="' + value[0] + '">' + value[0] + '</option>';
+						});
+						s+='</select>';
+						//console.log(s);
+						$("#"+unitsCellName).html(s);
+						$("#"+unitObjName).val(currentUnits);
 
-			jQuery.getJSON("/component/DataEntry.cfc",
-				{
-					method : "getEvtAttCodeTbl",
-					attribute : currentTypeValue,
-					element : currentTypeValue,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-					console.log(r);
-					if (r.STATUS != 'success'){
-						alert('error occurred in getEvtAttCodeTbl');
-						return false;
-					} else {
-						if (r.CTLFLD=='units'){
-							var dv=$.parseJSON(r.DATA);
-							//console.log(dv);
-							var s='<select required class="reqdClr" name="'+unitObjName+'" id="'+unitObjName+'">';
-							s+='<option></option>';
-							$.each(dv, function( index, value ) {
-								console.log(value[0]);
-								s+='<option value="' + value[0] + '"';
-								if (value[0]==currentUnits) {
-									s+=' selected="selected"';
-								}
-								s+='>' + value[0] + '</option>';
-							});
-							s+='</select>';
-							//console.log(s);
-							$("#"+unitsCellName).html(s);
-							$("#"+unitObjName).val(currentUnits);
+						var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
+					}
+					if (r.CTLFLD=='values'){
+						var dv=$.parseJSON(r.DATA);
+						var s='<select required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'">';
+						s+='<option></option>';
+						$.each(dv, function( index, value ) {
+							s+='<option value="' + value[0] + '">' + value[0] + '</option>';
+						});
+						s+='</select>';
 
-							var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
-							$("#"+valueCellName).html(s);
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
 
-							$("#"+valueObjName).val(currentValue);
+						var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+						$("#"+unitsCellName).html(s);
+					}
+					if (r.CTLFLD=='none'){
+						var s='<textarea required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
 
-						}
-						if (r.CTLFLD=='values'){
-							var dv=$.parseJSON(r.DATA);
-							var s='<select required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'">';
-							s+='<option></option>';
-							$.each(dv, function( index, value ) {
-								console.log(value[0]);
-								s+='<option value="' + value[0] + '"';
-								if (value[0]==currentValue) {
-									s+=' selected="selected"';
-								}
-								s+='>' + value[0] + '</option>';
-							});
-							s+='</select>';
-
-							$("#"+valueCellName).html(s);
-							var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
-
-							$("#"+valueObjName).val(currentValue);
-
-							$("#"+unitsCellName).html(s);
-						}
-						if (r.CTLFLD=='none'){
-							var s='<textarea required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
-							$("#"+valueCellName).html(s);
-
-							$("#"+valueObjName).val(currentValue);
-
-							var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
-							$("#"+unitsCellName).html(s);
-						}
+						var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+						$("#"+unitsCellName).html(s);
 					}
 				}
-			);
-		}
+			}
+		);
+	}
 	function submitForm() {
 		// Check if valid using HTML5 checkValidity() builtin function
 	    if (locality.checkValidity()) {
@@ -1895,223 +1881,168 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "saveCollEventEdit">
 	<cfoutput>
+		<cftransaction>
+			<cfloop list="#form.FIELDNAMES#" index="i">
+				<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
+					<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
+					<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
+					<cfif left(thisID,3) is "NEW">
+						 <cfif len(thisAttrType) gt 0>
+							<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+							<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+							<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+							<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+							<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
 
-		<div class="importantNotification">
-			This form is currently under development. Changes will not save. Check back later.
-		</div>
-		<cfdump var=#form#>
-		<cfloop list="#form.FIELDNAMES#" index="i">
-			<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
-				<br>got event attrs
-				<br>#i#
-				<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
-				<br>thisID::#thisID#
-				<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
-				<br>thisAttrType:#thisAttrType#
-				<cfif left(thisID,3) is "NEW">
-					 <cfif len(thisAttrType) gt 0>
-						<br>inserting
-						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-						<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
-						<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
-						<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
-						<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
-						<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
-
-						<p>
-							insert into collecting_event_attributes (
-								collecting_event_attribute_id,
-								collecting_event_id,
-								determined_by_agent_id,
-								event_attribute_type,
-								event_attribute_value,
-								event_attribute_units,
-								event_attribute_remark,
-								event_determination_method,
-								event_determined_date
-							) values (
-								sq_coll_event_attribute_id.nextval,
-								#collecting_event_id#,
-								<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
-								'#escapeQuotes(thisAttrType)#',
-								'#escapeQuotes(thisAttrVal)#',
-								'#escapeQuotes(thisAttrUnit)#',
-								'#escapeQuotes(thisAttrRemk)#',
-								'#escapeQuotes(thisAttrMeth)#',
-								'#escapeQuotes(thisAttrDate)#'
-							)
-						</p>
-					</cfif>
-				<cfelse>
-					<cfif thisAttrType is "DELETE">
-						<br>deleting
-						delete from collecting_event_attributes where collecting_event_attribute_id=#thisID#
+							<cfquery name="insCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								insert into collecting_event_attributes (
+									collecting_event_attribute_id,
+									collecting_event_id,
+									determined_by_agent_id,
+									event_attribute_type,
+									event_attribute_value,
+									event_attribute_units,
+									event_attribute_remark,
+									event_determination_method,
+									event_determined_date
+								) values (
+									sq_coll_event_attribute_id.nextval,
+									#collecting_event_id#,
+									<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
+									'#escapeQuotes(thisAttrType)#',
+									'#escapeQuotes(thisAttrVal)#',
+									'#escapeQuotes(thisAttrUnit)#',
+									'#escapeQuotes(thisAttrRemk)#',
+									'#escapeQuotes(thisAttrMeth)#',
+									'#escapeQuotes(thisAttrDate)#'
+								)
+							</cfquery>
+						</cfif>
 					<cfelse>
-						<br>updating....
-
-						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-						<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
-						<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
-						<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
-						<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
-						<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
-
-						update collecting_event_attributes set
-							determined_by_agent_id=<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
-							event_attribute_type='#escapeQuotes(thisAttrType)#',
-							event_attribute_value='#escapeQuotes(thisAttrVal)#',
-							event_attribute_units='#escapeQuotes(thisAttrUnit)#',
-							event_attribute_remark='#escapeQuotes(thisAttrRemk)#',
-							event_determination_method='#escapeQuotes(thisAttrMeth)#',
-							event_determined_date='#escapeQuotes(thisAttrDate)#'
-						where collecting_event_attribute_id=#thisID#
+						<cfif thisAttrType is "DELETE">
+							<cfquery name="delCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								delete from collecting_event_attributes where collecting_event_attribute_id=#thisID#
+							</cfquery>
+						<cfelse>
+							<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+							<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+							<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+							<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+							<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
+							<cfquery name="upCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								update collecting_event_attributes set
+									determined_by_agent_id=<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
+									event_attribute_type='#escapeQuotes(thisAttrType)#',
+									event_attribute_value='#escapeQuotes(thisAttrVal)#',
+									event_attribute_units='#escapeQuotes(thisAttrUnit)#',
+									event_attribute_remark='#escapeQuotes(thisAttrRemk)#',
+									event_determination_method='#escapeQuotes(thisAttrMeth)#',
+									event_determined_date='#escapeQuotes(thisAttrDate)#'
+								where collecting_event_attribute_id=#thisID#
+							</cfquery>
+						</cfif>
 					</cfif>
-
 				</cfif>
-			</cfif>
-
-
-
-
-
-		</cfloop>
-
-		<!----
-
-
-				<tr>
-							<td>
-								<select name="event_attribute_type_new_#na#" id="event_attribute_type_new_#na#" onchange="populateEvtAttrs(this.id)">
-									<option value="">select new event attribute</option>
-									<cfloop query="ctcoll_event_attr_type">
-										<option value="#event_attribute_type#">#event_attribute_type#</option>
-									</cfloop>
-								</select>
-							</td>
-							<td id="event_attribute_value_cell_new_#na#">
-								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
-							</td>
-							<td id="event_attribute_units_cell_new_#na#">
-								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
-							</td>
-							<td>
-								<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
-								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
-									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
-				 					onKeyPress="return noenter(event);">
-							</td>
-							<td>
-								<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
-
-							</td>
-							<td>
-								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
-							</td>
-							<td>
-								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
-							</td>
-
-
-
-	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		UPDATE
-			collecting_event
-		SET
-			locality_id=#locality_id#,
-			BEGAN_DATE = '#BEGAN_DATE#',
-			ENDED_DATE = '#ENDED_DATE#',
-			VERBATIM_DATE = '#escapeQuotes(VERBATIM_DATE)#',
-			verbatim_locality = '#escapeQuotes(verbatim_locality)#',
-			COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#',
-			collecting_event_name = '#escapeQuotes(collecting_event_name)#',
-			orig_lat_long_units = '#escapeQuotes(orig_lat_long_units)#',
-			<cfif orig_lat_long_units is "degrees dec. minutes">
-				LAT_DEG=#dmLAT_DEG#,
-				LONG_DEG=#dmLONG_DEG#,
-				LAT_DIR = '#dmLAT_DIR#',
-				LONG_DIR = '#dmLONG_DIR#',
-				DEC_LAT_MIN=#DEC_LAT_MIN#,
-				dec_long_min=#dec_long_min#,
-				LAT_MIN=NULL,
-				LAT_SEC=NULL,
-				LONG_MIN=NULL,
-				LONG_SEC=NULL,
-				UTM_EW=NULL,
-				UTM_NS=NULL,
-				UTM_ZONE = NULL,
-			<cfelseif orig_lat_long_units is "UTM">
-				dec_lat=NULL,
-				DEC_LONG=NULL,
-				LAT_DEG=NULL,
-				LONG_DEG=NULL,
-				LAT_MIN=NULL,
-				LAT_SEC=NULL,
-				LONG_MIN=NULL,
-				LONG_SEC=NULL,
-				DEC_LAT_MIN=NULL,
-				dec_long_min=NULL,
-				UTM_EW=#UTM_EW#,
-				UTM_NS=#UTM_NS#,
-				UTM_ZONE = '#UTM_ZONE#',
-			<cfelseif orig_lat_long_units is "decimal degrees">
-				dec_lat=#dec_lat#,
-				DEC_LONG=#DEC_LONG#,
-				LAT_DEG=NULL,
-				LAT_MIN=NULL,
-				LAT_SEC=NULL,
-				LONG_DEG=NULL,
-				LONG_MIN=NULL,
-				LONG_SEC=NULL,
-				DEC_LAT_MIN=NULL,
-				dec_long_min=NULL,
-				UTM_EW=NULL,
-				UTM_NS=NULL,
-				UTM_ZONE = NULL,
-				LAT_DIR=NULL,
-				LONG_DIR=NULL,
-			<cfelseif orig_lat_long_units is "deg. min. sec.">
-				LAT_DEG=#LAT_DEG#,
-				LAT_MIN=#LAT_MIN#,
-				LAT_SEC=#LAT_SEC#,
-				LONG_DEG=#LONG_DEG#,
-				LONG_MIN=#LONG_MIN#,
-				LONG_SEC=#LONG_SEC#,
-				dec_lat=NULL,
-				DEC_LONG=NULL,
-				DEC_LAT_MIN=NULL,
-				dec_long_min=NULL,
-				UTM_EW=NULL,
-				UTM_NS=NULL,
-				UTM_ZONE = NULL,
-			<cfelse>
-				dec_lat=NULL,
-				DEC_LONG=NULL,
-				LAT_DEG=NULL,
-				LAT_MIN=NULL,
-				LAT_SEC=NULL,
-				LONG_DEG=NULL,
-				LONG_MIN=NULL,
-				LONG_SEC=NULL,
-				DEC_LAT_MIN=NULL,
-				dec_long_min=NULL,
-				UTM_EW=NULL,
-				UTM_NS=NULL,
-				UTM_ZONE = NULL,
-				LAT_DIR=NULL,
-				LONG_DIR=NULL,
-			</cfif>
-			datum = '#escapeQuotes(datum)#'
-		where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
-	</cfquery>
-
-	<cfif #cgi.HTTP_REFERER# contains "editCollEvnt">
-		<cfset refURL = "#cgi.HTTP_REFERER#">
-	<cfelse>
-		<cfset refURL = "#cgi.HTTP_REFERER#?collection_object_id=#collection_object_id#&action=editCollEvnt&collecting_event_id=#collecting_event_id#">
-	</cfif>
-	<cflocation addtoken="no" url="#refURL#">
-
-	---->
+			</cfloop>
+			<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				UPDATE
+					collecting_event
+				SET
+					locality_id=#locality_id#,
+					BEGAN_DATE = '#BEGAN_DATE#',
+					ENDED_DATE = '#ENDED_DATE#',
+					VERBATIM_DATE = '#escapeQuotes(VERBATIM_DATE)#',
+					verbatim_locality = '#escapeQuotes(verbatim_locality)#',
+					COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#',
+					collecting_event_name = '#escapeQuotes(collecting_event_name)#',
+					orig_lat_long_units = '#escapeQuotes(orig_lat_long_units)#',
+					<cfif orig_lat_long_units is "degrees dec. minutes">
+						LAT_DEG=#dmLAT_DEG#,
+						LONG_DEG=#dmLONG_DEG#,
+						LAT_DIR = '#dmLAT_DIR#',
+						LONG_DIR = '#dmLONG_DIR#',
+						DEC_LAT_MIN=#DEC_LAT_MIN#,
+						dec_long_min=#dec_long_min#,
+						LAT_MIN=NULL,
+						LAT_SEC=NULL,
+						LONG_MIN=NULL,
+						LONG_SEC=NULL,
+						UTM_EW=NULL,
+						UTM_NS=NULL,
+						UTM_ZONE = NULL,
+					<cfelseif orig_lat_long_units is "UTM">
+						dec_lat=NULL,
+						DEC_LONG=NULL,
+						LAT_DEG=NULL,
+						LONG_DEG=NULL,
+						LAT_MIN=NULL,
+						LAT_SEC=NULL,
+						LONG_MIN=NULL,
+						LONG_SEC=NULL,
+						DEC_LAT_MIN=NULL,
+						dec_long_min=NULL,
+						UTM_EW=#UTM_EW#,
+						UTM_NS=#UTM_NS#,
+						UTM_ZONE = '#UTM_ZONE#',
+					<cfelseif orig_lat_long_units is "decimal degrees">
+						dec_lat=#dec_lat#,
+						DEC_LONG=#DEC_LONG#,
+						LAT_DEG=NULL,
+						LAT_MIN=NULL,
+						LAT_SEC=NULL,
+						LONG_DEG=NULL,
+						LONG_MIN=NULL,
+						LONG_SEC=NULL,
+						DEC_LAT_MIN=NULL,
+						dec_long_min=NULL,
+						UTM_EW=NULL,
+						UTM_NS=NULL,
+						UTM_ZONE = NULL,
+						LAT_DIR=NULL,
+						LONG_DIR=NULL,
+					<cfelseif orig_lat_long_units is "deg. min. sec.">
+						LAT_DEG=#LAT_DEG#,
+						LAT_MIN=#LAT_MIN#,
+						LAT_SEC=#LAT_SEC#,
+						LONG_DEG=#LONG_DEG#,
+						LONG_MIN=#LONG_MIN#,
+						LONG_SEC=#LONG_SEC#,
+						dec_lat=NULL,
+						DEC_LONG=NULL,
+						DEC_LAT_MIN=NULL,
+						dec_long_min=NULL,
+						UTM_EW=NULL,
+						UTM_NS=NULL,
+						UTM_ZONE = NULL,
+					<cfelse>
+						dec_lat=NULL,
+						DEC_LONG=NULL,
+						LAT_DEG=NULL,
+						LAT_MIN=NULL,
+						LAT_SEC=NULL,
+						LONG_DEG=NULL,
+						LONG_MIN=NULL,
+						LONG_SEC=NULL,
+						DEC_LAT_MIN=NULL,
+						dec_long_min=NULL,
+						UTM_EW=NULL,
+						UTM_NS=NULL,
+						UTM_ZONE = NULL,
+						LAT_DIR=NULL,
+						LONG_DIR=NULL,
+					</cfif>
+					datum = '#escapeQuotes(datum)#'
+				where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER">
+			</cfquery>
+		</cftransaction>
+		<cfif #cgi.HTTP_REFERER# contains "editCollEvnt">
+			<cfset refURL = "#cgi.HTTP_REFERER#">
+		<cfelse>
+			<cfset refURL = "#cgi.HTTP_REFERER#?collection_object_id=#collection_object_id#&action=editCollEvnt&collecting_event_id=#collecting_event_id#">
+		</cfif>
+		<cflocation addtoken="no" url="#refURL#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
