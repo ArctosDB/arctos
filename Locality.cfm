@@ -972,7 +972,7 @@
 						if (r.CTLFLD=='units'){
 							var dv=$.parseJSON(r.DATA);
 							//console.log(dv);
-							var s='<select name="'+unitObjName+'" id="'+unitObjName+'">';
+							var s='<select required class="reqdClr" name="'+unitObjName+'" id="'+unitObjName+'">';
 							s+='<option></option>';
 							$.each(dv, function( index, value ) {
 								console.log(value[0]);
@@ -987,7 +987,7 @@
 							$("#"+unitsCellName).html(s);
 							$("#"+unitObjName).val(currentUnits);
 
-							var s='<input  type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
+							var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
 							$("#"+valueCellName).html(s);
 
 							$("#"+valueObjName).val(currentValue);
@@ -995,7 +995,7 @@
 						}
 						if (r.CTLFLD=='values'){
 							var dv=$.parseJSON(r.DATA);
-							var s='<select name="'+valueObjName+'" id="'+valueObjName+'">';
+							var s='<select required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'">';
 							s+='<option></option>';
 							$.each(dv, function( index, value ) {
 								console.log(value[0]);
@@ -1015,7 +1015,7 @@
 							$("#"+unitsCellName).html(s);
 						}
 						if (r.CTLFLD=='none'){
-							var s='<textarea name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
+							var s='<textarea required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
 							$("#"+valueCellName).html(s);
 
 							$("#"+valueObjName).val(currentValue);
