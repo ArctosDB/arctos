@@ -907,12 +907,6 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "editCollEvnt">
 <cfset title="Edit Collecting Event">
-
-	<div class="importantNotification">
-			This form is currently under development. Changes will not save. Check back later.
-		</div>
-
-
 <script>
 	jQuery(document).ready(function() {
 		jQuery("input[id^='event_att_determined_date_']").each(function(){
