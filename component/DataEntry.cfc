@@ -208,7 +208,7 @@
 </cffunction>
 <!---------------------------------------------------------------->
 <cffunction name="getEvtAttCodeTbl"  access="remote">
-	<!--- get code table stuff for collecting event attributes --->
+	<!--- get code table stuff for collecting event attributes
 	<cfargument name="attribute" type="string" required="yes">
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from ctcoll_event_att_att where event_attribute_type='#attribute#'
@@ -285,6 +285,7 @@
 		<cfset newRow = QueryAddRow(result, 1)>
 	</cfif>
 	<cfreturn result>
+	 --->
 </cffunction>
 <!---------------------------------------------------------------------->
 <cffunction name="getAttCodeTbl"  access="remote">
