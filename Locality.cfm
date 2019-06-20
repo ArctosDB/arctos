@@ -944,9 +944,24 @@
 						var valueObjName="event_attribute_value_" + idNum;
 						var unitObjName="event_attribute_units_" + idNum;
 
-
 						var unitsCellName="event_attribute_units_cell_" + idNum;
 						var valueCellName="event_attribute_value_cell_" + idNum;
+
+						if (currentTypeValue.length==0){
+							console.log('zero-length type; resetting');
+							var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+							$("#"+unitsCellName).html(s);
+							var s='<input  type="hidden" name="'+valueObjName+'" id="'+valueObjName+'" value="">';
+							$("#"+valueCellName).html(s);
+							return false;
+						}
+						console.log('did not return false');
+
+
+
+
+
+
 
 
 						var currentValue=$("#" + valueObjName).val();
