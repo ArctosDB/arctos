@@ -210,7 +210,6 @@
 <cffunction name="getEvtAttCodeTbl"  access="remote">
 	<!--- get code table stuff for collecting event attributes --->
 	<cfargument name="attribute" type="string" required="yes">
-	<cfargument name="element" type="string" required="yes">
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from ctcoll_event_att_att where event_attribute_type='#attribute#'
 	</cfquery>
@@ -230,7 +229,6 @@
 			<cfset newRow = QueryAddRow(result, 1)>
 			<cfset temp = QuerySetCell(result, "v", "value",1)>
 			<cfset newRow = QueryAddRow(result, 1)>
-			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 			<cfset i=3>
 			<cfloop query="valCodes">
 				<cfset newRow = QueryAddRow(result, 1)>
@@ -268,7 +266,6 @@
 			<cfset newRow = QueryAddRow(result, 1)>
 			<cfset temp = QuerySetCell(result, "v", "units")>
 			<cfset newRow = QueryAddRow(result, 1)>
-			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 			<cfset i=3>
 			<cfloop query="valCodes">
 				<cfset newRow = QueryAddRow(result, 1)>
@@ -280,14 +277,12 @@
 			<cfset newRow = QueryAddRow(result, 1)>
 			<cfset temp = QuerySetCell(result, "v", "ERROR")>
 			<cfset newRow = QueryAddRow(result, 1)>
-			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 		</cfif>
 	<cfelse>
 		<cfset result = QueryNew("V")>
 		<cfset newRow = QueryAddRow(result, 1)>
 		<cfset temp = QuerySetCell(result, "v", "NONE")>
 		<cfset newRow = QueryAddRow(result, 1)>
-		<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 	</cfif>
 	<cfreturn result>
 </cffunction>

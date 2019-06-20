@@ -1144,6 +1144,84 @@
 						}
 						$("##orig_lat_long_units").val(orig_units);
 					}
+					
+					function populateEvtAttrs(id) {
+						var idNum=id.replace('event_attribute_type_','');
+						
+						var currentTypeValue=$("#event_attribute_type_" + idNum).val();
+						var currentValue=$("#event_attribute_value_" + idNum).val();
+						var currentUnits=$("#event_attribute_units_" + idNum).val();
+						
+						console.log('id:'+id);
+						console.log('currentTypeValue:'+currentTypeValue);
+						console.log('currentValue:'+currentValue);
+						console.log('currentUnits:'+currentUnits);
+
+						
+						
+						//var dataValue=$("#geo_att_value_" + idNum).val();
+						//var theSelect="geo_att_value_";
+
+						jQuery.getJSON("/component/DataEntry.cfc",
+							{
+								method : "getEvtAttCodeTbl",
+								attribute : currentTypeValue,
+								element : currentTypeValue,
+								returnformat : "json",
+								queryformat : 'column'
+							},
+							function (r) {
+								sonsole.log(r);
+								var s='';
+								for (i=0; i<r.ROWCOUNT; ++i) {
+									s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
+									if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
+										s+=' selected="selected"';
+									}
+									s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
+								}
+								$("select#" + theSelect + idNum).html(s);
+							}
+						);
+					}
+	
+	
+	
+				<td>
+								<select name="event_attribute_type_new_#na#" id="event_attribute_type_new_#na#" onchange="populateEvtAttrs(this.id)">
+									<option value="">select new event attribute</option>
+									<cfloop query="ctcoll_event_attr_type">
+										<option value="#event_attribute_type#">#event_attribute_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
+							</td>
+							<td>
+								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
+							</td>
+							<td>
+								<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
+								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
+									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
+				 					onKeyPress="return noenter(event);">
+							</td>
+							<td>
+								<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
+
+							</td>
+							<td>
+								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
+							</td>
+							<td>
+								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
+							</td>
+						</tr>
+						
+						
+						
+	
 				</script>
 
 				<div style="border:2px solid black">
