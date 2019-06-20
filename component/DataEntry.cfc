@@ -228,6 +228,7 @@
 			select #getCols.column_name# d from #isCtControlled.value_code_table#
 		</cfquery>
 		<cfset r.data=serializeJSON(valCT)>
+		<cfdump var=#r#>
 	</cfif>
 	<cfreturn r>
 </cffunction>
