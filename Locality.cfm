@@ -914,6 +914,15 @@
 
 
 <script>
+	jQuery(document).ready(function() {
+		jQuery("input[id^='event_att_determined_date_']").each(function(){
+			$("#" + this.id).datepicker();
+		});
+		$("input[id^='event_attribute_type_']").each(function(){
+			populateEvtAttrs($("#" + this.id).val());
+		});
+	});
+
 	function verifByMe(f,i,u){
 		$("#verified_by_agent_name" + f).val(u);
 		$("#verified_by_agent_id" + f).val(i);
@@ -1424,7 +1433,16 @@
 					</tr>
 					<cfloop query="ceattrs">
 						<tr>
-							<td>#event_attribute_type#</td>
+							<td>
+								<select name="event_attribute_type_new_#collecting_event_attribute_id#" id="event_attribute_type_new_#collecting_event_attribute_id#" onchange="populateEvtAttrs(this.id)">
+									<option value="DELETE">DELETE</option>
+									<cfloop query="ctcoll_event_attr_type">
+										<option value="#event_attribute_type#" <cfif ctcoll_event_attr_type.event_attribute_type is ceattrs.event_attribute_type> selected="selected" </cfif> >#event_attribute_type#</option>
+									</cfloop>
+								</select>
+
+
+								#event_attribute_type#</td>
 							<td>#event_attribute_value#</td>
 							<td>#event_attribute_units#</td>
 							<td>#detr#-#determined_by_agent_id#</td>
