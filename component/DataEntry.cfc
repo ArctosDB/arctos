@@ -227,7 +227,15 @@
 		<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select #getCols.column_name# d from #isCtControlled.value_code_table#
 		</cfquery>
-		<cfset temp=serializeJSON(valCT)>
+
+		<cfset qAs = DeSerializeJSON(SerializeJSON(valCT))>
+	<!---Now serialize the data key of the struct--->
+	<cfset temp = SerializeJSON(qAs.data)>
+
+
+
+
+
 		<cfdump var=#temp#>
 	</cfif>
 	<cfreturn r>
