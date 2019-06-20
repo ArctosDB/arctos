@@ -1840,7 +1840,7 @@ You deleted a collecting event.
 		</div>
 		<cfdump var=#form#>
 		<cfloop list="#form.FIELDNAMES#" index="i">
-			<cfif left(i,21='EVENT_ATTRIBUTE_TYPE_')>
+			<cfif left(i,21 is 'EVENT_ATTRIBUTE_TYPE_')>
 				<br>got event attrs
 				<br>#i#
 			</cfif>
