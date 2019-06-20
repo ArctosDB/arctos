@@ -1857,7 +1857,7 @@ You deleted a collecting event.
 					<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
 
 					<p>
-						insert into collecting_event_attributes
+						insert into collecting_event_attributes (
 							collecting_event_attribute_id,
 							collecting_event_id,
 							determined_by_agent_id,
