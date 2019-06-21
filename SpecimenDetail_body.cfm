@@ -494,6 +494,13 @@
 		getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID)  verifiedBy,
  		VERIFIED_DATE,
 		locality.wkt_media_id,
+		collecting_event_attributes.event_attribute_type,
+		getPreferredAgentName(collecting_event_attributes.determined_by_agent_id)  cevtArrDetr,
+		collecting_event_attributes.event_attribute_value,
+		collecting_event_attributes.event_attribute_units,
+		collecting_event_attributes.event_attribute_remark,
+		collecting_event_attributes.event_determination_method,
+		collecting_event_attributes.event_determined_date,
  		case
 		       when specimen_event.verificationstatus = 'verified and locked' then 1
 		       when specimen_event.verificationstatus = 'checked by collector' then 2
@@ -505,12 +512,14 @@
 	from
 		specimen_event,
 		collecting_event,
+		collecting_event_attributes,
 		locality,
 		geog_auth_rec,
 		geog_search_term
 	where
 		specimen_event.collecting_event_id=collecting_event.collecting_event_id and
 		collecting_event.locality_id=locality.locality_id and
+		collecting_event.collecting_event_id=collecting_event_attributes.collecting_event_id (+) and
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 		geog_auth_rec.geog_auth_rec_id=geog_search_term.geog_auth_rec_id (+) and
 		--specimen_event.verificationstatus != 'unaccepted' and
