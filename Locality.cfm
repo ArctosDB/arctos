@@ -1433,10 +1433,17 @@
 							<td>
 								<select name="event_attribute_type_#collecting_event_attribute_id#" id="event_attribute_type_#collecting_event_attribute_id#" onchange="populateEvtAttrs(this.id)">
 									<option value="DELETE">DELETE</option>
+									<option value="#event_attribute_type#"  selected="selected" >#event_attribute_type#</option>
+								</select>
+								<!--- for existing attributes, do not allow change except to delete ---->
+								<!---- old code allows change
+								<select name="event_attribute_type_#collecting_event_attribute_id#" id="event_attribute_type_#collecting_event_attribute_id#" onchange="populateEvtAttrs(this.id)">
+									<option value="DELETE">DELETE</option>
 									<cfloop query="ctcoll_event_attr_type">
 										<option value="#event_attribute_type#" <cfif ctcoll_event_attr_type.event_attribute_type is ceattrs.event_attribute_type> selected="selected" </cfif> >#event_attribute_type#</option>
 									</cfloop>
 								</select>
+								---->
 							</td>
 							<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
 								<input value="#stripQuotes(event_attribute_value)#" type="text" name="event_attribute_value_#collecting_event_attribute_id#" id="event_attribute_value_#collecting_event_attribute_id#">
