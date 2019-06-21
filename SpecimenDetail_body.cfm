@@ -1177,6 +1177,26 @@
 									</table>
 								</td>
 							</tr>
+							<cfquery name="specEventAttrs" dbtype="query">
+								select
+									event_attribute_type,
+									cevtArrDetr,
+									event_attribute_value,
+									event_attribute_units,
+									event_attribute_remark,
+									event_determination_method,
+									event_determined_date
+								from
+									rawevent where collecting_event_id=#collecting_event_id#
+								order by
+									event_attribute_type,
+									event_determined_date,
+									event_attribute_value
+							</cfquery>
+							<cfdump var=#specEventAttrs#>
+
+
+
 							<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								select * from
 								geology_attributes,
