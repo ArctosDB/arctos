@@ -1193,6 +1193,34 @@
 									event_determined_date,
 									event_attribute_value
 							</cfquery>
+							<cfloop query="specEventAttrs">
+								<tr>
+									 <td id="SDCellLeft" class="innerDetailLabel">#event_attribute_type#:</td>
+									 <td id="SDCellRight">
+										 #event_attribute_value# #event_attribute_units#
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td id="SDCellRight" class="detailCellSmall">
+										Determined by
+										<cfif len(cevtArrDetr) gt 0>
+											#cevtArrDetr#
+										<cfelse>
+											unknown
+										</cfif>
+										<cfif len(event_determined_date) gt 0>
+											on #dateformat(event_determined_date,"yyyy-mm-dd")#
+										</cfif>
+										<cfif len(event_determination_method) gt 0>
+											Method: #event_determination_method#
+										</cfif>
+										<cfif len(event_attribute_remark) gt 0>
+											Remark: #event_attribute_remark#
+										</cfif>
+									</td>
+								</tr>
+							</cfloop>
 
 
 
