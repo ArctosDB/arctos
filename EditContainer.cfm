@@ -116,6 +116,12 @@
 		$("#envcheck").submit();
 	}
 	 function positionlayoutmagic(v){
+	 	if (v=='freezerbox25'){
+	 		$("#number_rows").val('5');
+	 		$("#number_columns").val('5');
+	 		$("#orientation").val('vertical');
+	 		$("#positions_hold_container_type").val('cryovial');
+	 	}
 	 	if (v=='freezerbox100'){
 	 		$("#number_rows").val('10');
 	 		$("#number_columns").val('10');
@@ -358,6 +364,7 @@
 									<option value="reset" >-reset-</option>
 									<option value="freezerbox100" >10x10 freezer box</option>
 									<option value="freezerbox81" >9x9 freezer box</option>
+									<option value="freezerbox25" >5x5 freezer box</option>
 								</select>
 							</td>
 							<td>
