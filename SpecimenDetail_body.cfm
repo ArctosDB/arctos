@@ -1193,7 +1193,6 @@
 									event_determined_date,
 									event_attribute_value
 							</cfquery>
-							<cfdump var=#specEventAttrs#>
 
 
 
