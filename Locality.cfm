@@ -924,7 +924,27 @@
 		$("#verified_by_agent_id" + f).val(i);
 		$("#verified_date" + f).val(getFormattedDate());
 	}
-
+	function addEvtAttrRow(){
+		var i=parseInt($("#na").val());
+		// + parseInt(1);
+		var h='<tr class="newRec">';
+		h+='<td><select name="event_attribute_type_new_' + i + '" id="event_attribute_type_new_' + i + '" onchange="populateEvtAttrs(this.id)"></select>';
+		h+='<td id="event_attribute_value_cell_new_' + i + '"><select name="event_attribute_value_new_' + i + '" id="event_attribute_value_new' + i + '"></select></td>';
+		h+='<td id="event_attribute_units_cell_new_' + i + '"><select name="event_attribute_units_new_' + i + '" id="event_attribute_units_new_' + i + '"></select></td>';
+		h+='<td><input type="hidden" name="evt_att_determiner_id_new_' + i + '" id="evt_att_determiner_id_new_' + i + '">';
+		h+='<input placeholder="determiner" type="text" name="evt_att_determiner_new_' + i + '" id="evt_att_determiner_new_' + i + '" value="" size="20"';
+		h+='onchange="pickAgentModal(\'evt_att_determiner_id_new_' + i + '\',this.id,this.value); return false;" onKeyPress="return noenter(event);">';
+		h+='</td>';
+		h+='<td><input type="text" name="event_att_determined_date_new_' + i + '" id="event_att_determined_date_new_' + i + '" ></td>';
+		h+='<td><input type="text" name="event_determination_method_new_' + i + '" id="event_determination_method_new_' + i + '" size="20"></td>';
+		h+='<td><input type="text" name="event_attribute_remark_new_' + i + '" id="event_attribute_remark_new_' + i + '" size="20"></td>';
+		h+='</tr>';
+		$("#collEvtAttrTbl").append(h);
+		$('#event_attribute_type_new_1').find('option').clone().appendTo('#event_attribute_type_new_' + i);
+		populateEvtAttrs('event_attribute_type_new_' + i);
+		$("#na").val(i + parseInt(1));
+		$("#event_att_determined_date_new_" + i).datepicker();
+	}
 	function populateEvtAttrs(id) {
 		//console.log('populateEvtAttrs==got id:'+id);
 		var idNum=id.replace('event_attribute_type_','');
@@ -1418,7 +1438,7 @@
 						event_attribute_value
 				</cfquery>
 				<br>Event Attributes
-				<table border>
+				<table id="collEvtAttrTbl" border>
 					<tr>
 						<th>Type</th>
 						<th>Value</th>
@@ -1522,6 +1542,10 @@
 						</tr>
 					</cfloop>
 				</table>
+				<div id="aar">
+					<input type="hidden" name="na" id="na" value="#na#">
+					<span class="likeLink" onclick="addEvtAttrRow()">Add a row</span>
+				</div>
 
 
 
