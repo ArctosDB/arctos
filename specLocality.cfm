@@ -17,9 +17,6 @@
 		$(":input[id^='geo_att_determined_date']").each(function(e){
 			$("#" + this.id).datepicker();
 		});
-		$("select[id^='geology_attribute_']").each(function(e){
-			populateGeology(this.id);
-		});
 		if (window.addEventListener) {
 			window.addEventListener("message", getGeolocate, false);
 		} else {
@@ -41,42 +38,6 @@
 
 
 	});
-	function populateGeology(id) {
-		if (id.indexOf('__') > -1) {
-			var idNum=id.replace('geology_attribute__','');
-			var thisValue=$("#geology_attribute__" + idNum).val();;
-			var dataValue=$("#geo_att_value__" + idNum).val();
-			var theSelect="geo_att_value__";
-			if (thisValue == ''){
-				return false;
-			}
-		} else {
-			// new geol attribute
-			var idNum='';
-			var thisValue=$("#geology_attribute").val();
-			var dataValue=$("#geo_att_value").val();
-			var theSelect="geo_att_value";
-		}
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "getGeologyValues",
-				attribute : thisValue,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				var s='';
-				for (i=0; i<r.ROWCOUNT; ++i) {
-					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
-					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
-						s+=' selected="selected"';
-					}
-					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
-				}
-				$("select#" + theSelect + idNum).html(s);
-			}
-		);
-	}
 
 	function verifByMe(f,i,u){
 		$("#verified_by_agent_name" + f).val(u);
@@ -84,37 +45,9 @@
 		$("#verified_date" + f).val(getFormattedDate());
 	}
 
-function forkEditEvent(seid){
-	parent.loadEditApp('specLocality_forkLocStk.cfm?specimen_event_id=' + seid);
-}
-
-
-
-
-function forkEditEvent2(seid){
-	var guts = "specLocality_forkLocStk.cfm?specimen_event_id=" + seid;
-	var w = $(window).width()-10;
-	var h = $(window).height()-10;
-	$("<iframe src='" + guts + "' id='dialog' class='popupDialog' style='width:100%;height:100%;'></iframe>").dialog({
-		autoOpen: true,
-		closeOnEscape: true,
-		height: 'auto',
-		modal: true,
-		position: ['center', 'top'],
-		title: 'Fork-Edit Specimen Event',
-			width:w,
- 			height:h,
-		close: function() {
-			$( this ).remove();
-		}
-	}).width(w).height(h);
-	$(window).resize(function() {
-		$(".ui-dialog-content").dialog("option", "position", ['center', 'center']);
-	});
-	$(".ui-widget-overlay").click(function(){
-	    $(".ui-dialog-titlebar-close").trigger('click');
-	});
-}
+	function forkEditEvent(seid){
+		parent.loadEditApp('specLocality_forkLocStk.cfm?specimen_event_id=' + seid);
+	}
 
 </script>
 <span class="helpLink" data-helplink="specimen_event">Page Help</span>
@@ -298,14 +231,6 @@ function useGL(glat,glon,gerr){
 			 COLLECTING_SOURCE,
 			 VERIFICATIONSTATUS,
 			 habitat,
-			 GEOLOGY_ATTRIBUTE_ID,
-			GEOLOGY_ATTRIBUTE,
-			GEO_ATT_VALUE,
-			GEO_ATT_DETERMINER_ID,
-			getPreferredAgentName(GEO_ATT_DETERMINER_ID) geo_att_determiner,
-			GEO_ATT_DETERMINED_DATE,
-			GEO_ATT_DETERMINED_METHOD,
-			GEO_ATT_REMARK,
 			geog_auth_rec.geog_auth_rec_id,
 			higher_geog,
 			specimen_event_remark,
@@ -321,13 +246,11 @@ function useGL(glat,glon,gerr){
 		from
 			geog_auth_rec,
 			locality,
-			geology_attributes,
 			collecting_event,
 			specimen_event
 		where
 			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id and
 			locality.locality_id=collecting_event.locality_id and
-			locality.locality_id=geology_attributes.locality_id (+) and
 			collecting_event.collecting_event_id=specimen_event.collecting_event_id and
 			specimen_event.collection_object_id = #collection_object_id#
 	</cfquery>
@@ -454,9 +377,6 @@ function useGL(glat,glon,gerr){
 	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
         select COLLECTING_SOURCE from ctcollecting_source order by COLLECTING_SOURCE
      </cfquery>
-	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select geology_attribute from ctgeology_attribute order by geology_attribute
-	</cfquery>
 	<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 	</cfquery>
@@ -480,31 +400,6 @@ function useGL(glat,glon,gerr){
 		</ul>
 	<cfset f=1>
 	<cfloop query="l">
-		<cfquery name="g" dbtype="query">
-			 select
-			 	GEOLOGY_ATTRIBUTE_ID,
-				GEOLOGY_ATTRIBUTE,
-				GEO_ATT_VALUE,
-				GEO_ATT_DETERMINER_ID,
-				geo_att_determiner,
-				GEO_ATT_DETERMINED_DATE,
-				GEO_ATT_DETERMINED_METHOD,
-				GEO_ATT_REMARK
-			from
-				raw
-			where
-				GEOLOGY_ATTRIBUTE_ID is not null and
-				locality_id=#l.locality_id#
-			group by
-				 GEOLOGY_ATTRIBUTE_ID,
-				GEOLOGY_ATTRIBUTE,
-				GEO_ATT_VALUE,
-				GEO_ATT_DETERMINER_ID,
-				geo_att_determiner,
-				GEO_ATT_DETERMINED_DATE,
-				GEO_ATT_DETERMINED_METHOD,
-				GEO_ATT_REMARK
-		</cfquery>
 		<div style="border:2px solid black; margin:1em;" class="dv#l.verificationstatus#">
 		<table border="1" width="100%"><tr><td>
 		<form name="loc#f#" method="post" action="specLocality.cfm">
@@ -632,6 +527,10 @@ function useGL(glat,glon,gerr){
 					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
 				</cfif>
 			</ul>
+
+			<h4>
+				EventAttributes
+			</h4>
 			<div id="jsonevtattrs_#l.specimen_event_id#">#evtAttrs#</div>
 
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
@@ -688,24 +587,9 @@ function useGL(glat,glon,gerr){
 					<li>Remark: #LOCALITY_REMARKS#</li>
 				</cfif>
 			</ul>
+			<h4>Geology</h6>
 			<div id="jsongeology_#l.specimen_event_id#">#geology#</div>
 
-
-
-			<cfif g.recordcount gt 0>
-				<h4>Geology</h6>
-				<ul>
-					<cfloop query="g">
-						<li>GEOLOGY_ATTRIBUTE_ID: #GEOLOGY_ATTRIBUTE_ID#</li>
-						<li>GEOLOGY_ATTRIBUTE: #GEOLOGY_ATTRIBUTE#</li>
-						<li>GEO_ATT_VALUE: #GEO_ATT_VALUE#</li>
-						<li>geo_att_determiner: #geo_att_determiner#</li>
-						<li>GEO_ATT_DETERMINED_DATE: #GEO_ATT_DETERMINED_DATE#</li>
-						<li>GEO_ATT_DETERMINED_METHOD: #GEO_ATT_DETERMINED_METHOD#</li>
-						<li>GEO_ATT_REMARK: #GEO_ATT_REMARK#</li>
-					</cfloop>
-				</ul>
-			</cfif>
 
 
 	</td>
