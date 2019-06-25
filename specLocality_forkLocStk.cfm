@@ -269,10 +269,13 @@ function addEvtAttrRow(){
 	h+='<input placeholder="determiner" type="text" name="evt_att_determiner_new_' + i + '" id="evt_att_determiner_new_' + i + '" value="" size="20"';
 	h+='onchange="pickAgentModal(\'evt_att_determiner_id_new_' + i + '\',this.id,this.value); return false;" onKeyPress="return noenter(event);">';
 	h+='</td>';
+	h+='<td><input type="text" name="event_att_determined_date_new_' + i + '" id="event_att_determined_date_new_' + i + '" ></td>';
+	h+='<td><input type="text" name="event_determination_method_new_' + i + '" id="event_determination_method_new_' + i + '" size="20"></td>';
+	h+='<td><input type="text" name="event_attribute_remark_new_' + i + '" id="event_attribute_remark_new_' + i + '" size="20"></td>';
+	h+='</tr>';
+	$("#collEvtAttrTbl").append(h);
+
 	console.log(h);
-
-		}
-
 
 
 
@@ -1107,7 +1110,7 @@ function populateEvtAttrs(id) {
 					event_determined_date,
 					event_attribute_value
 			</cfquery>
-			<table border>
+			<table id="collEvtAttrTbl" border>
 					<tr>
 						<th>Type</th>
 						<th>Value</th>
