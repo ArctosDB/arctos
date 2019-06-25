@@ -28,9 +28,12 @@
 
 		$("div[id^='jsonevtattrs_']").each(function(e){
 			console.log(this.id);
-			console.log($(this).val());
+			var v=$(this).val();
 
-			var r = $.parseJSON($("#" + this.id).html());
+			var r = $.parseJSON($(this).val());
+			console.log(r);
+
+
 			console.log(r);
 			if (r.length > 0){
 				var str = JSON.stringify(r, null, 2);
