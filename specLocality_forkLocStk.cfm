@@ -278,6 +278,8 @@ function addEvtAttrRow(){
 
 	$('#event_attribute_type_new_1').find('option').clone().appendTo('#event_attribute_type_new_' + i);
 
+	populateEvtAttrs('event_attribute_type_' + i);
+
 	console.log(h);
 
 	$("#na").val(i + parseInt(1));
