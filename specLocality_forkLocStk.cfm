@@ -275,6 +275,8 @@ function addEvtAttrRow(){
 	h+='</tr>';
 	$("#collEvtAttrTbl").append(h);
 
+	$('#event_attribute_type_new_1').find('option').clone().appendTo('#event_attribute_type_new_' + i);
+
 	console.log(h);
 
 
