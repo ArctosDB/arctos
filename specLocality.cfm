@@ -9,6 +9,10 @@
 	.dvunaccepted {
 		background-color:#eaeaea;
 	}
+	.dvJsonAttrs{
+		max-height:30em;
+		overflow:auto;
+	}
 </style>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
@@ -531,7 +535,7 @@ function useGL(glat,glon,gerr){
 			<h4>
 				EventAttributes
 			</h4>
-			<div id="jsonevtattrs_#l.specimen_event_id#">#evtAttrs#</div>
+			<div class="dvJsonAttrs" id="jsonevtattrs_#l.specimen_event_id#">#evtAttrs#</div>
 
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
 			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">
@@ -588,7 +592,7 @@ function useGL(glat,glon,gerr){
 				</cfif>
 			</ul>
 			<h4>Geology</h6>
-			<div id="jsongeology_#l.specimen_event_id#">#geology#</div>
+			<div class="dvJsonAttrs" id="jsongeology_#l.specimen_event_id#">#geology#</div>
 
 
 
