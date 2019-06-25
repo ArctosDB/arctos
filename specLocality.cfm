@@ -25,6 +25,23 @@
 		} else {
 			window.attachEvent("onmessage", getGeolocate);
 		}
+
+		$("input[id^='jsonevtattrs_']").each(function(e){
+			var r = $.parseJSON($("#" + this.id).html());
+			if (r.length > 0){
+				var str = JSON.stringify(r, null, 2);
+				var idNum=id.replace('jsonevtattrs_','');
+				$("#jsonevtattrsd_" + idNum).html('<pre>' + str + '</pre>');
+			}
+
+
+		});
+
+
+
+
+
+
 	});
 	function populateGeology(id) {
 		if (id.indexOf('__') > -1) {
@@ -211,6 +228,16 @@ function forkEditEvent2(seid){
 	}
 	$(document).ready(function() {
 		$("input[type='date'], input[type='datetime']" ).datepicker();
+
+
+			$("div[id^='jsonlocality_']").each(function() {
+			var r = $.parseJSON($("#" + this.id).html());
+			var str = JSON.stringify(r, null, 2);
+			$("#" + this.id).html('<pre>' + str + '</pre>');
+		});
+
+
+
 	});
 </script>
 <cfif action is "nothing">
@@ -604,11 +631,9 @@ function useGL(glat,glon,gerr){
 					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
 				</cfif>
 			</ul>
+			<input type="text" id="jsonevtattrs_#l.specimen_event_id#" value="#stripQuotes(evtAttrs)#">
+			<div id="jsonevtattrsd_#l.specimen_event_id#"></div>
 
-<pre>
-			#evtAttrs#
-
-</pre>
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
 			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">
 
