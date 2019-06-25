@@ -27,21 +27,10 @@
 		}
 
 		$("div[id^='jsonevtattrs_']").each(function(e){
-			console.log(this.id);
-			var v=$(this).val();
-			console.log(v);
 
-			var r = $.parseJSON(v);
-			console.log(r);
-
-
-			console.log(r);
-			if (r.length > 0){
-				var str = JSON.stringify(r, null, 2);
-				var idNum=id.replace('jsonevtattrs_','');
-				$("#jsonevtattrsd_" + idNum).html('<pre>' + str + '</pre>');
-			}
-
+			var r = $.parseJSON($("#" + this.id).html());
+			var str = JSON.stringify(r, null, 2);
+			$("#" + this.id).html('<pre>' + str + '</pre>');
 
 		});
 
