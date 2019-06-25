@@ -256,39 +256,28 @@
 			$("#orig_elev_units").val('m');
 
 		}
-
-
-
-function addEvtAttrRow(){
-	var i=parseInt($("#na").val());
-	// + parseInt(1);
-	var h='<tr class="newRec">';
-	h+='<td><select name="event_attribute_type_new_' + i + '" id="event_attribute_type_new_' + i + '" onchange="populateEvtAttrs(this.id)"></select>';
-	h+='<td id="event_attribute_value_cell_new_' + i + '"><select name="event_attribute_value_new_' + i + '" id="event_attribute_value_new' + i + '"></select></td>';
-	h+='<td id="event_attribute_units_cell_new_' + i + '"><select name="event_attribute_units_new_' + i + '" id="event_attribute_units_new_' + i + '"></select></td>';
-	h+='<td><input type="hidden" name="evt_att_determiner_id_new_' + i + '" id="evt_att_determiner_id_new_' + i + '">';
-	h+='<input placeholder="determiner" type="text" name="evt_att_determiner_new_' + i + '" id="evt_att_determiner_new_' + i + '" value="" size="20"';
-	h+='onchange="pickAgentModal(\'evt_att_determiner_id_new_' + i + '\',this.id,this.value); return false;" onKeyPress="return noenter(event);">';
-	h+='</td>';
-	h+='<td><input type="text" name="event_att_determined_date_new_' + i + '" id="event_att_determined_date_new_' + i + '" ></td>';
-	h+='<td><input type="text" name="event_determination_method_new_' + i + '" id="event_determination_method_new_' + i + '" size="20"></td>';
-	h+='<td><input type="text" name="event_attribute_remark_new_' + i + '" id="event_attribute_remark_new_' + i + '" size="20"></td>';
-	h+='</tr>';
-	$("#collEvtAttrTbl").append(h);
-
-	$('#event_attribute_type_new_1').find('option').clone().appendTo('#event_attribute_type_new_' + i);
-
-	populateEvtAttrs('event_attribute_type_new_' + i);
-
-	console.log(h);
-
-	$("#na").val(i + parseInt(1));
-
-	$("#event_att_determined_date_new_" + i).datepicker();
-
-
+	function addEvtAttrRow(){
+		var i=parseInt($("#na").val());
+		// + parseInt(1);
+		var h='<tr class="newRec">';
+		h+='<td><select name="event_attribute_type_new_' + i + '" id="event_attribute_type_new_' + i + '" onchange="populateEvtAttrs(this.id)"></select>';
+		h+='<td id="event_attribute_value_cell_new_' + i + '"><select name="event_attribute_value_new_' + i + '" id="event_attribute_value_new' + i + '"></select></td>';
+		h+='<td id="event_attribute_units_cell_new_' + i + '"><select name="event_attribute_units_new_' + i + '" id="event_attribute_units_new_' + i + '"></select></td>';
+		h+='<td><input type="hidden" name="evt_att_determiner_id_new_' + i + '" id="evt_att_determiner_id_new_' + i + '">';
+		h+='<input placeholder="determiner" type="text" name="evt_att_determiner_new_' + i + '" id="evt_att_determiner_new_' + i + '" value="" size="20"';
+		h+='onchange="pickAgentModal(\'evt_att_determiner_id_new_' + i + '\',this.id,this.value); return false;" onKeyPress="return noenter(event);">';
+		h+='</td>';
+		h+='<td><input type="text" name="event_att_determined_date_new_' + i + '" id="event_att_determined_date_new_' + i + '" ></td>';
+		h+='<td><input type="text" name="event_determination_method_new_' + i + '" id="event_determination_method_new_' + i + '" size="20"></td>';
+		h+='<td><input type="text" name="event_attribute_remark_new_' + i + '" id="event_attribute_remark_new_' + i + '" size="20"></td>';
+		h+='</tr>';
+		$("#collEvtAttrTbl").append(h);
+		$('#event_attribute_type_new_1').find('option').clone().appendTo('#event_attribute_type_new_' + i);
+		populateEvtAttrs('event_attribute_type_new_' + i);
+		$("#na").val(i + parseInt(1));
+		$("#event_att_determined_date_new_" + i).datepicker();
 	}
-function populateEvtAttrs(id) {
+	function populateEvtAttrs(id) {
 		//console.log('populateEvtAttrs==got id:'+id);
 		var idNum=id.replace('event_attribute_type_','');
 		var currentTypeValue=$("#event_attribute_type_" + idNum).val();
@@ -1394,71 +1383,44 @@ function populateEvtAttrs(id) {
 				this form always builds a new event
 				so the only thing we ever do is insert
 			---->
-			<cfdump var="#form#">
 
-			<cfabort>
 
 			<cfloop list="#form.FIELDNAMES#" index="i">
 				<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
 					<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
 					<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
-					<cfif left(thisID,3) is "NEW">
-						 <cfif len(thisAttrType) gt 0>
-							<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
-							<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
-							<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
-							<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
-							<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
+					<cfif len(thisAttrType) gt 0 and thisAttrType neq "DELETE">
+						<!--- there's a type selected, and it's not delete - all we do here is insert ---->
+						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+						<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+						<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+						<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+						<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+						<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
 
-							<cfquery name="insCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								insert into collecting_event_attributes (
-									collecting_event_attribute_id,
-									collecting_event_id,
-									determined_by_agent_id,
-									event_attribute_type,
-									event_attribute_value,
-									event_attribute_units,
-									event_attribute_remark,
-									event_determination_method,
-									event_determined_date
-								) values (
-									sq_coll_event_attribute_id.nextval,
-									#cid.cid#,
-									<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
-									'#escapeQuotes(thisAttrType)#',
-									'#escapeQuotes(thisAttrVal)#',
-									'#escapeQuotes(thisAttrUnit)#',
-									'#escapeQuotes(thisAttrRemk)#',
-									'#escapeQuotes(thisAttrMeth)#',
-									'#escapeQuotes(thisAttrDate)#'
-								)
-							</cfquery>
-						</cfif>
-					<cfelse>
-						<cfif thisAttrType is "DELETE">
-							<cfquery name="delCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								delete from collecting_event_attributes where collecting_event_attribute_id=#thisID#
-							</cfquery>
-						<cfelse>
-							<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
-							<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
-							<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
-							<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
-							<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
-							<cfquery name="upCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-								update collecting_event_attributes set
-									determined_by_agent_id=<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
-									event_attribute_type='#escapeQuotes(thisAttrType)#',
-									event_attribute_value='#escapeQuotes(thisAttrVal)#',
-									event_attribute_units='#escapeQuotes(thisAttrUnit)#',
-									event_attribute_remark='#escapeQuotes(thisAttrRemk)#',
-									event_determination_method='#escapeQuotes(thisAttrMeth)#',
-									event_determined_date='#escapeQuotes(thisAttrDate)#'
-								where collecting_event_attribute_id=#thisID#
-							</cfquery>
-						</cfif>
+						<cfquery name="insCollAttr" datasource="uam_god">
+							insert into collecting_event_attributes (
+								collecting_event_attribute_id,
+								collecting_event_id,
+								determined_by_agent_id,
+								event_attribute_type,
+								event_attribute_value,
+								event_attribute_units,
+								event_attribute_remark,
+								event_determination_method,
+								event_determined_date
+							) values (
+								sq_coll_event_attribute_id.nextval,
+								#cid.cid#,
+								<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
+								'#escapeQuotes(thisAttrType)#',
+								'#escapeQuotes(thisAttrVal)#',
+								'#escapeQuotes(thisAttrUnit)#',
+								'#escapeQuotes(thisAttrRemk)#',
+								'#escapeQuotes(thisAttrMeth)#',
+								'#escapeQuotes(thisAttrDate)#'
+							)
+						</cfquery>
 					</cfif>
 				</cfif>
 			</cfloop>
