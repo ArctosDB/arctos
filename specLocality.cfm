@@ -27,14 +27,15 @@
 		}
 
 		$("div[id^='jsonevtattrs_']").each(function(e){
-
 			var r = $.parseJSON($("#" + this.id).html());
 			var str = JSON.stringify(r, null, 2);
 			$("#" + this.id).html('<pre>' + str + '</pre>');
-
 		});
-
-
+		$("div[id^='jsongeology_']").each(function(e){
+			var r = $.parseJSON($("#" + this.id).html());
+			var str = JSON.stringify(r, null, 2);
+			$("#" + this.id).html('<pre>' + str + '</pre>');
+		});
 
 
 
@@ -312,6 +313,7 @@ function useGL(glat,glon,gerr){
 			getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID) verified_by_agent_name,
 			specimen_event.VERIFIED_DATE,
 			getCollEvtAttrAsJson(collecting_event.collecting_event_id) evtAttrs,
+			getGeologyAsJson(locality.locality_id) geology,
 			decode(verificationstatus,
                 'verified and locked',1,
                 'unaccepted',10,
@@ -373,7 +375,8 @@ function useGL(glat,glon,gerr){
 			VERIFIED_BY_AGENT_ID,
 			verified_by_agent_name,
 			VERIFIED_DATE,
-			evtAttrs
+			evtAttrs,
+			geology
 			from raw group by
 			vsorderby,
 			COLLECTING_EVENT_ID,
@@ -417,7 +420,8 @@ function useGL(glat,glon,gerr){
 			VERIFIED_BY_AGENT_ID,
 			verified_by_agent_name,
 			VERIFIED_DATE,
-			evtAttrs
+			evtAttrs,
+			geology
 		order by
 		vsorderby,specimen_event_type
 	</cfquery>
@@ -684,6 +688,10 @@ function useGL(glat,glon,gerr){
 					<li>Remark: #LOCALITY_REMARKS#</li>
 				</cfif>
 			</ul>
+			<div id="jsongeology_#l.specimen_event_id#">#geology#</div>
+
+
+
 			<cfif g.recordcount gt 0>
 				<h4>Geology</h6>
 				<ul>
