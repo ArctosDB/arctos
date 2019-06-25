@@ -287,6 +287,7 @@ function useGL(glat,glon,gerr){
 			specimen_event.VERIFIED_BY_AGENT_ID,
 			getPreferredAgentName(specimen_event.VERIFIED_BY_AGENT_ID) verified_by_agent_name,
 			specimen_event.VERIFIED_DATE,
+			getCollEvtAttrAsJson(collecting_event.collecting_event_id) evtAttrs,
 			decode(verificationstatus,
                 'verified and locked',1,
                 'unaccepted',10,
@@ -347,7 +348,8 @@ function useGL(glat,glon,gerr){
 			specimen_event_remark,
 			VERIFIED_BY_AGENT_ID,
 			verified_by_agent_name,
-			VERIFIED_DATE
+			VERIFIED_DATE,
+			evtAttrs
 			from raw group by
 			vsorderby,
 			COLLECTING_EVENT_ID,
@@ -390,7 +392,8 @@ function useGL(glat,glon,gerr){
 			specimen_event_remark,
 			VERIFIED_BY_AGENT_ID,
 			verified_by_agent_name,
-			VERIFIED_DATE
+			VERIFIED_DATE,
+			evtAttrs
 		order by
 		vsorderby,specimen_event_type
 	</cfquery>
@@ -601,6 +604,7 @@ function useGL(glat,glon,gerr){
 					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
 				</cfif>
 			</ul>
+			#evtAttrs#
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
 			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">
 
