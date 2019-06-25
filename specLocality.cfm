@@ -606,10 +606,8 @@ function useGL(glat,glon,gerr){
 			</ul>
 
 <pre>
-<code>
 			#evtAttrs#
 
-</code>
 </pre>
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
 			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">
