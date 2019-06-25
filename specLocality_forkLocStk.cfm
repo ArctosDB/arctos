@@ -257,7 +257,96 @@
 
 		}
 
+function populateEvtAttrs(id) {
+		//console.log('populateEvtAttrs==got id:'+id);
+		var idNum=id.replace('event_attribute_type_','');
+		var currentTypeValue=$("#event_attribute_type_" + idNum).val();
+		var valueObjName="event_attribute_value_" + idNum;
+		var unitObjName="event_attribute_units_" + idNum;
+		var unitsCellName="event_attribute_units_cell_" + idNum;
+		var valueCellName="event_attribute_value_cell_" + idNum;
+		if (currentTypeValue.length==0){
+			//console.log('zero-length type; resetting');
+			var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+			$("#"+unitsCellName).html(s);
+			var s='<input  type="hidden" name="'+valueObjName+'" id="'+valueObjName+'" value="">';
+			$("#"+valueCellName).html(s);
+			return false;
+		}
+		//console.log('did not return false');
+		var currentValue=$("#" + valueObjName).val();
+		var currentUnits=$("#" + unitObjName).val();
+		//console.log('currentTypeValue:'+currentTypeValue);
+		//console.log('currentValue:'+currentValue);
+		//console.log('currentUnits:'+currentUnits);
+
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "getEvtAttCodeTbl",
+				attribute : currentTypeValue,
+				element : currentTypeValue,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				//console.log(r);
+				if (r.STATUS != 'success'){
+					alert('error occurred in getEvtAttCodeTbl');
+					return false;
+				} else {
+					if (r.CTLFLD=='units'){
+						var dv=$.parseJSON(r.DATA);
+						//console.log(dv);
+						var s='<select required class="reqdClr" name="'+unitObjName+'" id="'+unitObjName+'">';
+						s+='<option></option>';
+						$.each(dv, function( index, value ) {
+							//console.log(value[0]);
+							s+='<option value="' + value[0] + '">' + value[0] + '</option>';
+						});
+						s+='</select>';
+						//console.log(s);
+						$("#"+unitsCellName).html(s);
+						$("#"+unitObjName).val(currentUnits);
+
+						var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
+					}
+					if (r.CTLFLD=='values'){
+						var dv=$.parseJSON(r.DATA);
+						var s='<select required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'">';
+						s+='<option></option>';
+						$.each(dv, function( index, value ) {
+							s+='<option value="' + value[0] + '">' + value[0] + '</option>';
+						});
+						s+='</select>';
+
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
+
+						var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+						$("#"+unitsCellName).html(s);
+					}
+					if (r.CTLFLD=='none'){
+						var s='<textarea required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
+
+						var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+						$("#"+unitsCellName).html(s);
+					}
+				}
+			}
+		);
+	}
+
+
 		jQuery(document).ready(function() {
+
+			$("select[id^='event_attribute_type_']").each(function(){
+				//console.log('firing populateEvtAttrs for ' + this.id);
+				populateEvtAttrs( this.id );
+			});
 
 			$("#editForkSpecEvent").on("submit", function(){
 				$("#sbmtGif").show();
@@ -972,6 +1061,138 @@
 					</tr>
 				</cfloop>
 			</table>
+			<h4>
+				Collecting Event Attributes
+			</h4>
+			<cfquery name="ctcoll_event_attr_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select event_attribute_type from ctcoll_event_attr_type order by event_attribute_type
+			</cfquery>
+			<cfquery name="ceattrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					collecting_event_attribute_id,
+					determined_by_agent_id,
+					getPreferredAgentName(determined_by_agent_id) detr,
+					event_attribute_type,
+					event_attribute_value,
+					event_attribute_units,
+					event_attribute_remark,
+					event_determination_method,
+					event_determined_date
+				from
+					collecting_event_attributes
+				where
+					collecting_event_id=#l.collecting_event_id#
+				order by
+					event_attribute_type,
+					event_determined_date,
+					event_attribute_value
+			</cfquery>
+			<table border>
+					<tr>
+						<th>Type</th>
+						<th>Value</th>
+						<th>Units</th>
+						<th>Determiner</th>
+						<th>Date</th>
+						<th>Method</th>
+						<th>Remark</th>
+					</tr>
+					<cfloop query="ceattrs">
+						<tr>
+							<td>
+								<select name="event_attribute_type_#collecting_event_attribute_id#" id="event_attribute_type_#collecting_event_attribute_id#" onchange="populateEvtAttrs(this.id)">
+									<option value="DELETE">DELETE</option>
+									<option value="#event_attribute_type#"  selected="selected" >#event_attribute_type#</option>
+								</select>
+								<!--- for existing attributes, do not allow change except to delete ---->
+								<!---- old code allows change
+								<select name="event_attribute_type_#collecting_event_attribute_id#" id="event_attribute_type_#collecting_event_attribute_id#" onchange="populateEvtAttrs(this.id)">
+									<option value="DELETE">DELETE</option>
+									<cfloop query="ctcoll_event_attr_type">
+										<option value="#event_attribute_type#" <cfif ctcoll_event_attr_type.event_attribute_type is ceattrs.event_attribute_type> selected="selected" </cfif> >#event_attribute_type#</option>
+									</cfloop>
+								</select>
+								---->
+							</td>
+							<td id="event_attribute_value_cell_#collecting_event_attribute_id#">
+								<input value="#stripQuotes(event_attribute_value)#" type="text" name="event_attribute_value_#collecting_event_attribute_id#" id="event_attribute_value_#collecting_event_attribute_id#">
+							</td>
+							<td id="event_attribute_units_cell_#collecting_event_attribute_id#">
+								<input value="#event_attribute_units#" type="text" name="event_attribute_units_#collecting_event_attribute_id#" id="event_attribute_units_#collecting_event_attribute_id#">
+							</td>
+							<td>
+								<input type="hidden"
+									name="evt_att_determiner_id_#collecting_event_attribute_id#"
+									id="evt_att_determiner_id_#collecting_event_attribute_id#"
+									value="#determined_by_agent_id#">
+								<input placeholder="determiner"
+									type="text"
+									name="evt_att_determiner_#collecting_event_attribute_id#"
+									id="evt_att_determiner_#collecting_event_attribute_id#"
+									value="#stripQuotes(detr)#"
+									size="20"
+									onchange="pickAgentModal('evt_att_determiner_id_#collecting_event_attribute_id#',this.id,this.value); return false;"
+				 					onKeyPress="return noenter(event);">
+				 			</td>
+							<td>
+								<input type="text"
+									name="event_att_determined_date_#collecting_event_attribute_id#"
+									id="event_att_determined_date_#collecting_event_attribute_id#"
+									value='#event_determined_date#'>
+							</td>
+							<td>
+								<input type="text"
+									name="event_determination_method_#collecting_event_attribute_id#"
+									id="event_determination_method_#collecting_event_attribute_id#"
+									size="20"
+									value="#stripQuotes(event_determination_method)#">
+							</td>
+							<td>
+								<input type="text"
+									name="event_attribute_remark_#collecting_event_attribute_id#"
+									id="event_attribute_remark_#collecting_event_attribute_id#"
+									size="20"
+									value="#stripQuotes(event_attribute_remark)#">
+							</td>
+						</tr>
+					</cfloop>
+					<cfloop from="1" to="3" index="na">
+						<tr class="newRec">
+							<td>
+								<select name="event_attribute_type_new_#na#" id="event_attribute_type_new_#na#" onchange="populateEvtAttrs(this.id)">
+									<option value="">select new event attribute</option>
+									<cfloop query="ctcoll_event_attr_type">
+										<option value="#event_attribute_type#">#event_attribute_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td id="event_attribute_value_cell_new_#na#">
+								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
+							</td>
+							<td id="event_attribute_units_cell_new_#na#">
+								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
+							</td>
+							<td>
+								<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
+								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
+									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
+				 					onKeyPress="return noenter(event);">
+							</td>
+							<td>
+								<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
+
+							</td>
+							<td>
+								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
+							</td>
+							<td>
+								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
+							</td>
+						</tr>
+					</cfloop>
+				</table>
+
+
 
 			<label for="action">On Save....</label>
 			<select name="sav_action" id="sav_action" class="reqdClr">
