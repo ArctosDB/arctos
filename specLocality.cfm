@@ -635,8 +635,7 @@ function useGL(glat,glon,gerr){
 					<li>Collecting Event Remarks: #COLL_EVENT_REMARKS#</li>
 				</cfif>
 			</ul>
-			<input type="text" id="jsonevtattrs_#l.specimen_event_id#" value="#stripQuotes(evtAttrs)#">
-			<div id="jsonevtattrsd_#l.specimen_event_id#"></div>
+			<div id="jsonevtattrs_#l.specimen_event_id#">#evtAttrs#</div>
 
 			<input type="button" value="Save Changes to this Specimen/Event" class="savBtn" onclick="loc#f#.action.value='saveChange';loc#f#.submit();">
 			<input type="button" value="Delete this Specimen/Event" class="delBtn" onclick="loc#f#.action.value='delete';confirmDelete('loc#f#');">
