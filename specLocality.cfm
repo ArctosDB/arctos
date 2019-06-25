@@ -29,8 +29,9 @@
 		$("div[id^='jsonevtattrs_']").each(function(e){
 			console.log(this.id);
 			var v=$(this).val();
+			console.log(v);
 
-			var r = $.parseJSON($(this).val());
+			var r = $.parseJSON(v);
 			console.log(r);
 
 
