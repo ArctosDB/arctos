@@ -260,8 +260,6 @@
 
 
 function addEvtAttrRow(){
-
-	function addAgentName(){
 	var i=parseInt($("#na").val()) + parseInt(1);
 	var h='<tr class="newRec">';
 	h+='<td><select name="event_attribute_type_new_' + i + '" id="event_attribute_type_new_' + i + '" onchange="populateEvtAttrs(this.id)"></select>';
