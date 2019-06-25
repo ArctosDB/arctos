@@ -279,7 +279,7 @@ function addEvtAttrRow(){
 
 
 
-
+	}
 function populateEvtAttrs(id) {
 		//console.log('populateEvtAttrs==got id:'+id);
 		var idNum=id.replace('event_attribute_type_','');
