@@ -26,7 +26,7 @@
 			window.attachEvent("onmessage", getGeolocate);
 		}
 
-		$("input[id^='jsonevtattrs_']").each(function(e){
+		$("div[id^='jsonevtattrs_']").each(function(e){
 			console.log(this.id);
 			console.log($(this).val());
 
