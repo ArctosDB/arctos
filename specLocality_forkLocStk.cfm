@@ -260,7 +260,8 @@
 
 
 function addEvtAttrRow(){
-	var i=parseInt($("#na").val()) + parseInt(1);
+	var i=parseInt($("#na").val());
+	// + parseInt(1);
 	var h='<tr class="newRec">';
 	h+='<td><select name="event_attribute_type_new_' + i + '" id="event_attribute_type_new_' + i + '" onchange="populateEvtAttrs(this.id)"></select>';
 	h+='<td id="event_attribute_value_cell_new_' + i + '"><select name="event_attribute_value_new_' + i + '" id="event_attribute_value_new' + i + '"></select></td>';
@@ -279,7 +280,7 @@ function addEvtAttrRow(){
 
 	console.log(h);
 
-
+	$("#na").val(i + parseInt(1));
 
 	}
 function populateEvtAttrs(id) {
