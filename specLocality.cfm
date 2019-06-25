@@ -27,7 +27,10 @@
 		}
 
 		$("input[id^='jsonevtattrs_']").each(function(e){
+			console.log(this.id);
+
 			var r = $.parseJSON($("#" + this.id).html());
+			console.log(r);
 			if (r.length > 0){
 				var str = JSON.stringify(r, null, 2);
 				var idNum=id.replace('jsonevtattrs_','');
