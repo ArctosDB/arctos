@@ -28,6 +28,7 @@
 
 		$("input[id^='jsonevtattrs_']").each(function(e){
 			console.log(this.id);
+			console.log($(this).val());
 
 			var r = $.parseJSON($("#" + this.id).html());
 			console.log(r);
