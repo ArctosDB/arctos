@@ -284,6 +284,9 @@ function addEvtAttrRow(){
 
 	$("#na").val(i + parseInt(1));
 
+	$("#event_att_determined_date_new_" + i).datepicker();
+
+
 	}
 function populateEvtAttrs(id) {
 		//console.log('populateEvtAttrs==got id:'+id);
