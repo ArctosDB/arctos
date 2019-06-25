@@ -257,6 +257,36 @@
 
 		}
 
+
+
+function addEvtAttrRow(){
+
+	function addAgentName(){
+	var i=parseInt($("#na").val()) + parseInt(1);
+	var h='<tr class="newRec">';
+	h+='<td><select name="event_attribute_type_new_' + i + '" id="event_attribute_type_new_' + i + '" onchange="populateEvtAttrs(this.id)"></select>';
+	h+='<td id="event_attribute_value_cell_new_' + i + '"><select name="event_attribute_value_new_' + i + '" id="event_attribute_value_new' + i + '"></select></td>';
+	h+='<td id="event_attribute_units_cell_new_' + i + '"><select name="event_attribute_units_new_' + i + '" id="event_attribute_units_new_' + i + '"></select></td>';
+	h+='<td><input type="hidden" name="evt_att_determiner_id_new_' + i + '" id="evt_att_determiner_id_new_' + i + '">';
+	h+='<input placeholder="determiner" type="text" name="evt_att_determiner_new_' + i + '" id="evt_att_determiner_new_' + i + '" value="" size="20"';
+	h+='onchange="pickAgentModal(\'evt_att_determiner_id_new_' + i + '\',this.id,this.value); return false;" onKeyPress="return noenter(event);">';
+	h+='</td>';
+	console.log(h);
+
+/*
+	var h='<div id="agentnamedv'+i+'"><select name="agent_name_type_new'+i+'" id="agent_name_type_new'+i+'"></select>';
+	h+='<input type="text" name="agent_name_new'+i+'" id="agent_name_new'+i+'" size="40" placeholder="new agent name" class="minput"></div>';
+	$('#agentnamedv' + $("#nnan").val()).after(h);
+	$('#agent_name_type_new1').find('option').clone().appendTo('#agent_name_type_new' + i);
+	$("#nnan").val(i);
+}
+*/
+}
+
+
+
+
+
 function populateEvtAttrs(id) {
 		//console.log('populateEvtAttrs==got id:'+id);
 		var idNum=id.replace('event_attribute_type_','');
@@ -1191,6 +1221,10 @@ function populateEvtAttrs(id) {
 						</tr>
 					</cfloop>
 				</table>
+				<div id="aar">
+					<input type="hidden" name="na" id="na" value="#na#">
+					<span class="likeLink" onclick="addEvtAttrRow()">Add a row</span>
+				</div>
 
 
 
@@ -1354,6 +1388,81 @@ function populateEvtAttrs(id) {
 				<cfthrow message="invalid sav_action #sav_action#">
 			</cfif>
 
+			<!---
+				event attrs
+				this form always builds a new event
+				so the only thing we ever do is insert
+			---->
+			<cfdump var="#form#">
+
+			<cfabort>
+
+			<cfloop list="#form.FIELDNAMES#" index="i">
+				<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
+					<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
+					<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
+					<cfif left(thisID,3) is "NEW">
+						 <cfif len(thisAttrType) gt 0>
+							<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+							<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+							<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+							<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+							<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
+
+							<cfquery name="insCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								insert into collecting_event_attributes (
+									collecting_event_attribute_id,
+									collecting_event_id,
+									determined_by_agent_id,
+									event_attribute_type,
+									event_attribute_value,
+									event_attribute_units,
+									event_attribute_remark,
+									event_determination_method,
+									event_determined_date
+								) values (
+									sq_coll_event_attribute_id.nextval,
+									#cid.cid#,
+									<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
+									'#escapeQuotes(thisAttrType)#',
+									'#escapeQuotes(thisAttrVal)#',
+									'#escapeQuotes(thisAttrUnit)#',
+									'#escapeQuotes(thisAttrRemk)#',
+									'#escapeQuotes(thisAttrMeth)#',
+									'#escapeQuotes(thisAttrDate)#'
+								)
+							</cfquery>
+						</cfif>
+					<cfelse>
+						<cfif thisAttrType is "DELETE">
+							<cfquery name="delCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								delete from collecting_event_attributes where collecting_event_attribute_id=#thisID#
+							</cfquery>
+						<cfelse>
+							<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+							<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+							<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+							<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+							<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
+							<cfquery name="upCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+								update collecting_event_attributes set
+									determined_by_agent_id=<cfif len(thisAttrDiD) gt 0>#thisAttrDiD#<cfelse>NULL</cfif>,
+									event_attribute_type='#escapeQuotes(thisAttrType)#',
+									event_attribute_value='#escapeQuotes(thisAttrVal)#',
+									event_attribute_units='#escapeQuotes(thisAttrUnit)#',
+									event_attribute_remark='#escapeQuotes(thisAttrRemk)#',
+									event_determination_method='#escapeQuotes(thisAttrMeth)#',
+									event_determined_date='#escapeQuotes(thisAttrDate)#'
+								where collecting_event_attribute_id=#thisID#
+							</cfquery>
+						</cfif>
+					</cfif>
+				</cfif>
+			</cfloop>
+
+
 			<!--- pull geology out --->
 			<cfloop list="#form.FIELDNAMES#" index="fld">
 				<cfif left(fld,19) is "GEOLOGY_ATTRIBUTE__">
@@ -1389,6 +1498,7 @@ function populateEvtAttrs(id) {
 					</cfif>
 				</cfif>
 			</cfloop>
+
 		</cftransaction>
 		<!--- grab service data for the locality we just made before redirecting back to the edit page ---->
 		<cfset staticImageMap = obj.getMap(locality_id="#lid.lid#",forceOverrideCache=true)>
