@@ -9,7 +9,7 @@
 <form name="f" method="get" action="bulkloader_archive.cfm">
 	<select name="collection_id" id="collection_id">
 		<option>pick one</option>
-		<cfloop query="ctguid_prefix">
+		<cfloop query="gp">
 			<option value="#gp.collection_id#">#gp.guid_prefix#</option>
 		</cfloop>
 	</select>
