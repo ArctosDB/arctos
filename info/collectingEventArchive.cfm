@@ -144,8 +144,23 @@
 		select distinct(collecting_event_id) from d
 	</cfquery>
 	<cfif d.recordcount is 0>
-		No archived information found.<cfabort>
+		<p>
+			No archived collecting event information found.
+		</p>
 	</cfif>
+	<!---- check attribues ---->
+
+	<cfif da.recordcount is 0>
+		<p>
+			No archived collecting event attribute information found.
+		</p>
+	</cfif>
+
+	<cfif d.recordcount is 0 and da.recordcount is 0>
+		<cfabort>
+	</cfif>
+
+
 	<table border>
 		<tr>
 			<th>ChangeDate</th>
@@ -158,8 +173,24 @@
 			<th>BeganDate</th>
 			<th>EndedDate</th>
 			<th>Remark</th>
+			<th>Attributes</th>
 		</tr>
 		<cfloop query="dlocid">
+			<cfquery name="hasarhive" datasource="uam_god">
+				select count(*) c  from	coll_evt_attr_archive where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER" list = "no">
+				</cfif>
+				<cfif len(sdate) gt 0>
+					and collecting_event_id in (select collecting_event_id from coll_evt_attr_archive where changedate >= '#sdate#')
+				</cfif>
+				<cfif len(edate) gt 0>
+					and collecting_event_id in (select collecting_event_id from coll_evt_attr_archive where changedate <= '#edate#')
+				</cfif>
+				<cfif len(who) gt 0>
+					and collecting_event_id in (
+						select collecting_event_id from coll_evt_attr_archive, agent_name where coll_evt_attr_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
+					)
+				</cfif>
+		</cfquery>
 			<cfquery name="orig" datasource="uam_god">
 				select
 					collecting_event_id,
@@ -206,6 +237,13 @@
 				<td class="original">#orig.ENDED_DATE#</td>
 				<cfset lastRem=orig.COLL_EVENT_REMARKS>
 				<td class="original">#orig.COLL_EVENT_REMARKS#</td>
+				<td class="original">
+					<cfif hasarhive.c gt 0>
+						<a href="collectingEventArchive.cfm?collecting_event_id=#dlocid.collecting_event_id#&action=eventAttrArchive">[open]</a>
+					<cfelse>
+						no
+					</cfif>
+				</td>
 			</tr>
 			<cfquery name="thisChanges" dbtype="query">
 				select * from d where collecting_event_id=#dlocid.collecting_event_id# order by changedate desc
@@ -286,9 +324,67 @@
 					<td class="#thisStyle#">
 						#COLL_EVENT_REMARKS#
 					</td>
+					<td></td>
 				</tr>
 			</cfloop>
 		</cfloop>
 	</table>
 </cfoutput>
+
+<cfif action is "eventAttrArchive">
+	<cfoutput>
+		<cfquery name="da" datasource="uam_god">
+			select
+				coll_evt_attr_archive_id,
+				collecting_event_id,
+				getPreferredAgentName(determined_by_agent_id) determined_by_agent,
+				event_attribute_type,
+				event_attribute_value,
+				event_attribute_units ,
+				event_attribute_remark ,
+				event_determination_method,
+				event_determined_date ,
+			 	getPreferredAgentName(changed_agent_id) changed_agent,
+			 	changedate,
+			 	triggering_action
+			 from
+			 	coll_evt_attr_archive
+		 where
+		 	collecting_event_id =  <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER" list = "no">
+			</cfif>
+	</cfquery>
+	<cfif da.recordcount is 0>
+		<p>No archived collecting event attribute information found.</p>
+	<cfelse>
+		<table border>
+			<tr>
+				<th>ChangeDate</th>
+				<th>ChangeBy</th>
+				<th>Attribute</th>
+				<th>Value</th>
+				<th>Determiner</th>
+				<th>Remark</th>
+				<th>Method</th>
+				<th>Remark</th>
+				<th>Trigger</th>
+			</tr>
+
+
+			<cfloop query="da">
+				<tr>
+					<td>#changedate#</td>
+					<td>#changed_agent#</td>
+					<td>#event_attribute_type#</td>
+					<td>#event_attribute_value# #event_attribute_units#</td>
+					<td>#determined_by_agent#</td>
+					<td>#event_attribute_remark#</td>
+					<td>#event_determination_method#</td>
+					<td>#triggering_action#</td>
+				</tr>
+			</cfloop>
+
+	</cfif>
+</cfif>
+
+
 <cfinclude template="/includes/_footer.cfm">
