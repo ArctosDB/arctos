@@ -339,7 +339,6 @@
 			 	coll_evt_attr_archive
 		 where
 		 	collecting_event_id =  <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER" list = "no">
-			</cfif>
 	</cfquery>
 	<cfif da.recordcount is 0>
 		<p>No archived collecting event attribute information found.</p>
