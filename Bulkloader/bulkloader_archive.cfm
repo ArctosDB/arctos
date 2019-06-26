@@ -2,6 +2,11 @@
 <cfsetting requesttimeout="600">
 
 <cfoutput>
+	<h2>Get data from bulkloader_deletes</h2>
+	<p>
+		Bulkloader_deletes is the trigger-maintained archive of everything that's deleted from the specimen bulkloader.
+		The specimen bulkloader is written to by all specimen data entry channels.
+	</p>
 <cfquery name="gp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select guid_prefix,collection_id from collection order by guid_prefix
 </cfquery>
@@ -21,7 +26,7 @@
 	</cfquery>
 	<cfset fname = "bulkloader_deletes.csv">
 	<cfset  util = CreateObject("component","component.utilities")>
-	<cfset csv = util.QueryToCSV2(Query=data,Fields=valuelist(data.column_name))>
+	<cfset csv = util.QueryToCSV2(Query=data,Fields=data.columnList)>
 	<cffile action = "write"
 	    file = "#Application.webDirectory#/download/#fname#"
     	output = "#csv#"
