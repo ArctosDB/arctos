@@ -1,3 +1,4 @@
+deprecated per https://github.com/ArctosDB/arctos/issues/1860<cfabort>
 <cfinclude template="/includes/_pickHeader.cfm">
 <!------------------------------------------------------------------->
 <cfif #Action# is "nothing">
