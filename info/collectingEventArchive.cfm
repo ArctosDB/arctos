@@ -178,19 +178,7 @@
 		<cfloop query="dlocid">
 			<cfquery name="hasarhive" datasource="uam_god">
 				select count(*) c  from	coll_evt_attr_archive where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER" list = "no">
-				</cfif>
-				<cfif len(sdate) gt 0>
-					and collecting_event_id in (select collecting_event_id from coll_evt_attr_archive where changedate >= '#sdate#')
-				</cfif>
-				<cfif len(edate) gt 0>
-					and collecting_event_id in (select collecting_event_id from coll_evt_attr_archive where changedate <= '#edate#')
-				</cfif>
-				<cfif len(who) gt 0>
-					and collecting_event_id in (
-						select collecting_event_id from coll_evt_attr_archive, agent_name where coll_evt_attr_archive.changed_agent_id=agent_name.agent_id and upper(agent_name) like '%#ucase(who)#%'
-					)
-				</cfif>
-		</cfquery>
+			</cfquery>
 			<cfquery name="orig" datasource="uam_god">
 				select
 					collecting_event_id,
