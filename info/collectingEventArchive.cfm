@@ -337,40 +337,41 @@
 			 	triggering_action
 			 from
 			 	coll_evt_attr_archive
-		 where
-		 	collecting_event_id =  <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER" list = "no">
-	</cfquery>
-	<cfif da.recordcount is 0>
-		<p>No archived collecting event attribute information found.</p>
-	<cfelse>
-		<table border>
-			<tr>
-				<th>ChangeDate</th>
-				<th>ChangeBy</th>
-				<th>Attribute</th>
-				<th>Value</th>
-				<th>Determiner</th>
-				<th>Remark</th>
-				<th>Method</th>
-				<th>Remark</th>
-				<th>Trigger</th>
-			</tr>
-
-
-			<cfloop query="da">
+			 where
+			 	collecting_event_id =  <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER" list = "no">
+		</cfquery>
+		<cfif da.recordcount is 0>
+			<p>No archived collecting event attribute information found.</p>
+		<cfelse>
+			<table border>
 				<tr>
-					<td>#changedate#</td>
-					<td>#changed_agent#</td>
-					<td>#event_attribute_type#</td>
-					<td>#event_attribute_value# #event_attribute_units#</td>
-					<td>#determined_by_agent#</td>
-					<td>#event_attribute_remark#</td>
-					<td>#event_determination_method#</td>
-					<td>#triggering_action#</td>
+					<th>ChangeDate</th>
+					<th>ChangeBy</th>
+					<th>Attribute</th>
+					<th>Value</th>
+					<th>Determiner</th>
+					<th>Remark</th>
+					<th>Method</th>
+					<th>Remark</th>
+					<th>Trigger</th>
 				</tr>
-			</cfloop>
 
-	</cfif>
+
+				<cfloop query="da">
+					<tr>
+						<td>#changedate#</td>
+						<td>#changed_agent#</td>
+						<td>#event_attribute_type#</td>
+						<td>#event_attribute_value# #event_attribute_units#</td>
+						<td>#determined_by_agent#</td>
+						<td>#event_attribute_remark#</td>
+						<td>#event_determination_method#</td>
+						<td>#triggering_action#</td>
+					</tr>
+				</cfloop>
+
+		</cfif>
+	</cfoutput>
 </cfif>
 
 
