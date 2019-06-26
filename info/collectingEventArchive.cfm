@@ -146,19 +146,10 @@
 	<cfif d.recordcount is 0>
 		<p>
 			No archived collecting event information found.
+		<cfabort>
 		</p>
 	</cfif>
 	<!---- check attribues ---->
-
-	<cfif da.recordcount is 0>
-		<p>
-			No archived collecting event attribute information found.
-		</p>
-	</cfif>
-
-	<cfif d.recordcount is 0 and da.recordcount is 0>
-		<cfabort>
-	</cfif>
 
 
 	<table border>
