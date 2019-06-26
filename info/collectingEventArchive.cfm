@@ -177,7 +177,7 @@
 		</tr>
 		<cfloop query="dlocid">
 			<cfquery name="hasarhive" datasource="uam_god">
-				select count(*) c  from	coll_evt_attr_archive where collecting_event_id = <cfqueryparam value = "#collecting_event_id#" CFSQLType = "CF_SQL_INTEGER" list = "no">
+				select count(*) c  from	coll_evt_attr_archive where collecting_event_id = <cfqueryparam value = "#dlocid.collecting_event_id#" CFSQLType = "CF_SQL_INTEGER" list = "no">
 			</cfquery>
 			<cfquery name="orig" datasource="uam_god">
 				select
