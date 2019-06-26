@@ -253,6 +253,9 @@
 										<cfif listfind(formList,"/Bulkloader/browseBulk.cfm")>
 											<li><a target="_top" href="/Bulkloader/browseBulk.cfm">Browse and Edit</a></li>
 										</cfif>
+										<cfif listfind(formList,"/Bulkloader/bulkloader_archive.cfm")>
+											<li><a target="_top" href="/Bulkloader/bulkloader_archive.cfm">Archives</a></li>
+										</cfif>
 									</ul>
 								</li>
 								<cfif listfind(formList,"/tools/BulkloadParts.cfm")>
