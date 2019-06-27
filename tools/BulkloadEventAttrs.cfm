@@ -619,6 +619,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			select distinct event_name from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and event_name is not null
 		</cfquery>
 		<cfloop query="devts">
+			<br>loading for #devts.event_name#
 			<cftransaction>
 				<cfquery name="cid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select collecting_event_id cid from collecting_event where collecting_event_name='#devts.event_name#'
