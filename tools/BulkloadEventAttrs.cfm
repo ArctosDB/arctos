@@ -298,7 +298,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 		update
 			cf_temp_event_attrs
 		set
-			collection_object_id = (select collection_object_id from flat where flat.guid = cf_temp_event_attrs.flat)
+			collection_object_id = (select collection_object_id from flat where flat.guid = cf_temp_event_attrs.guid)
 		where
 			upper(username)='#ucase(session.username)#' and
 			guid is not null
