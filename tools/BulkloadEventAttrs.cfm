@@ -274,6 +274,19 @@ grant all on cf_temp_event_attrs to manage_collection;
 			status != 'loaded' and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
+	update
+			cf_temp_event_attrs
+		set
+			status = NULL
+		where
+			status != 'loaded' and
+			upper(username)='#ucase(session.username)#'
+
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_event_attrs
+	</cfquery>
+	<cfdump var=#q#>
+
 	<cfquery name="ckc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and
 		(guid is not null and event_name is not null) or
@@ -303,6 +316,17 @@ grant all on cf_temp_event_attrs to manage_collection;
 			upper(username)='#ucase(session.username)#' and
 			guid is not null
 	</cfquery>
+		update
+			cf_temp_event_attrs
+		set
+			collection_object_id = (select collection_object_id from flat where flat.guid = cf_temp_event_attrs.guid)
+		where
+			upper(username)='#ucase(session.username)#' and
+			guid is not null
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_event_attrs
+	</cfquery>
+	<cfdump var=#q#>
 	<cfquery name="upCIDF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_event_attrs
@@ -313,7 +337,20 @@ grant all on cf_temp_event_attrs to manage_collection;
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
-	<cfquery name="upCLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="x">
+
+	update
+			cf_temp_event_attrs
+		set
+			status='specimen not found' where
+			collection_object_id is null and
+			guid is not null and
+			upper(username)='#ucase(session.username)#'
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_event_attrs
+	</cfquery>
+	<cfdump var=#q#>
+
+	<cfquery name="upCLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 		update
 			cf_temp_event_attrs
 		set
@@ -324,9 +361,19 @@ grant all on cf_temp_event_attrs to manage_collection;
 			event_name is not null and
 			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT)
 	</cfquery>
-
-	<cfdump var=#x#>
-
+	update
+			cf_temp_event_attrs
+		set
+			status='event not found'
+		where
+			status is null and
+			upper(username)='#ucase(session.username)#' and
+			event_name is not null and
+			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT)
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_event_attrs
+	</cfquery>
+	<cfdump var=#q#>
 
 
 
