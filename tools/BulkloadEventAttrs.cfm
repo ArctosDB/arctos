@@ -491,6 +491,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 	<cfquery name="getTempData_c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and event_name is not null
 	</cfquery>
+	<cfdump var=#getTempData_c#>
 	<cfif getTempData_g.recordcount gt 1 and  getTempData_c.recordcount gt 1 >
 		mix<cfabort>
 	</cfif>
