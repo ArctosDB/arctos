@@ -92,6 +92,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 					A new collecting_event will be created from the specimen's existing collecting event. It will not have a name, even
 					if the source did.
 				</li>
+				<li>The new collecting_event will reuse the old locality</li>
 				<li>
 					Any collecting event attributes will be copied from the source event to the new event.
 				</li>
