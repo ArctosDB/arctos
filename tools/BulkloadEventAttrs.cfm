@@ -201,7 +201,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 <!------------------------------------------------------------------------------------------------>
 <cfif action is "deleteMine">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		delete from cf_temp_parts  where upper(username)='#ucase(session.username)#'
+		delete from cf_temp_event_attrs  where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cflocation url="BulkloadEventAttrs.cfm" addtoken="false">
 </cfif>
