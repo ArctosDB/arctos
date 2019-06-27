@@ -495,6 +495,19 @@ grant all on cf_temp_event_attrs to manage_collection;
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
+	<cfquery name="upCIDF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_event_attrs
+		set
+			status='not one event'
+		where
+			status is null and
+			upper(username)='#ucase(session.username)#' and
+			collection_object_id is not null and
+			(select count(*) from specimen_event where specimen_event.collection_object_id=cf_temp_event_attrs.collection_object_id) != 1
+	</cfquery>
+
+
 
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
@@ -505,10 +518,10 @@ grant all on cf_temp_event_attrs to manage_collection;
 				upper(username)='#ucase(session.username)#' and
 				status is null
 		</cfquery>
+				<cflocation url="BulkloadEventAttrs.cfm?action=manageMyStuff" addtoken="false">
 
 
 		<!----
-				<cflocation url="BulkloadEventAttrs.cfm?action=manageMyStuff" addtoken="false">
 
 		---->
 </cfoutput>
@@ -517,7 +530,6 @@ grant all on cf_temp_event_attrs to manage_collection;
 <cfif action is "loadToDb">
 <cfoutput>
 
-	no<cfabort>
 
 	<p>
 		Timeout errors? Just reload....
@@ -526,19 +538,15 @@ grant all on cf_temp_event_attrs to manage_collection;
 
 
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_parts where upper(username)='#ucase(session.username)#' and status='valid'
+		select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid'
 	</cfquery>
 
 	<!----
 		OPTIONS;
-			1) came in WITHOUT use_part_id and WITH parent_container_id:
-				create a part and put it in a container
-			2) came in WITH use_part_id and WITH parent_container_id:
-				move an existing part
-			3) came in WITHOUT use_part_id and WITHOUT parent_container_id:
-				create a part, no containers
-			4) something else
-				abort
+			1) guid
+				make new event-stack, load attributes to new event
+			2) event
+				load attributes to existing event
 
 
 
