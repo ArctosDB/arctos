@@ -626,6 +626,9 @@ grant all on cf_temp_event_attrs to manage_collection;
 						)
 					</cfquery>
 				</cfloop>
+				<cfquery name="tsarrts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update cf_temp_event_attrs set status='loaded' where upper(username)='#ucase(session.username)#' and status='valid' and collection_object_id = #collection_object_id#
+				</cfquery>
 			</cftransaction>
 			<br>collection_object_id::#collection_object_id#
 		</cfloop>
