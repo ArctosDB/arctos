@@ -152,7 +152,6 @@
 		</p>
 	</cfif>
 	<!---- check attribues ---->
-	<h3>Event Attributes Archive</h3>
 
 	<table border>
 		<tr>
@@ -313,6 +312,8 @@
 </cfoutput>
 
 <cfif action is "eventAttrArchive">
+	<h3>Event Attributes Archive</h3>
+
 	<cfoutput>
 		<cfquery name="da" datasource="uam_god">
 			select
