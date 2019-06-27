@@ -614,7 +614,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 		</cfloop>
 	</cfif>
 
-	<cfif getTempData_g.recordcount gt 1>
+	<cfif getTempData_c.recordcount gt 1>
 		<!--- just adding attributes to existing events ---->
 		<cfquery name="devts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct event_name from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and event_name is not null
