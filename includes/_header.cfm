@@ -270,6 +270,11 @@
 											<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
 											<li><a target="_top" href="/tools/BulkloadCollector.cfm">Bulkload Collector</a></li>
 
+
+											<li><a target="_top" href="/tools/BulkloadEventAttrs.cfm">Bulkload Collecting Event Attributes</a></li>
+
+
+
 											<cfif listfind(formList,"/tools/BulkloadContainerEnvironment.cfm")>
 												<li><a target="_top" href="/tools/BulkloadContainerEnvironment.cfm">Bulkload Container Environment</a></li>
 											</cfif>
