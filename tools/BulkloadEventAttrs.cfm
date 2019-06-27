@@ -593,14 +593,44 @@ grant all on cf_temp_event_attrs to manage_collection;
 			   	 		'#eevt.DATUM#'
 			   	 	)
 				</cfquery>
+				<!--- bring over any existing event attributes ---->
+				<cfquery name="eevtas" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from collecting_event_attributes where COLLECTING_EVENT_ID=#teid.collecting_event_id#
+				</cfquery>
+				<cfloop query="eevtas">
+					<cfquery name="insCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into collecting_event_attributes (
+							collecting_event_attribute_id,
+							collecting_event_id,
+							determined_by_agent_id,
+							event_attribute_type,
+							event_attribute_value,
+							event_attribute_units,
+							event_attribute_remark,
+							event_determination_method,
+							event_determined_date
+						) values (
+							sq_coll_event_attribute_id.nextval,
+							#cid.cid#,
+							<cfif len(eevtas.determined_by_agent_id) gt 0>#eevtas.determined_by_agent_id#<cfelse>NULL</cfif>,
+							'#escapeQuotes(eevtas.event_attribute_type)#',
+							'#escapeQuotes(eevtas.event_attribute_value)#',
+							'#escapeQuotes(eevtas.event_attribute_units)#',
+							'#escapeQuotes(eevtas.event_attribute_remark)#',
+							'#escapeQuotes(eevtas.event_determination_method)#',
+							'#escapeQuotes(eevtas.event_determined_date)#'
+						)
+					</cfquery>
+				</cfloop>
 				<!--- move the specimen_event to use the collecting_event we just made--->
 				<cfquery name="upse" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					update specimen_event set collecting_event_id=#cid.cid# where specimen_event_id=#teid.specimen_event_id#
 				</cfquery>
-				<!--- now get all attributes for this specimen ---->
+				<!--- now get all attributes for this specimen.... ---->
 				<cfquery name="tsarrts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and collection_object_id = #collection_object_id#
 				</cfquery>
+				<!--- .... and add them to the event --->
 				<cfloop query="tsarrts">
 					<cfquery name="insCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collecting_event_attributes (
@@ -616,13 +646,13 @@ grant all on cf_temp_event_attrs to manage_collection;
 						) values (
 							sq_coll_event_attribute_id.nextval,
 							#cid.cid#,
-							<cfif len(determined_by_agent_id) gt 0>#determined_by_agent_id#<cfelse>NULL</cfif>,
-							'#escapeQuotes(event_attribute_type)#',
-							'#escapeQuotes(event_attribute_value)#',
-							'#escapeQuotes(event_attribute_units)#',
-							'#escapeQuotes(event_attribute_remark)#',
-							'#escapeQuotes(event_determination_method)#',
-							'#escapeQuotes(event_determined_date)#'
+							<cfif len(tsarrts.determined_by_agent_id) gt 0>#tsarrts.determined_by_agent_id#<cfelse>NULL</cfif>,
+							'#escapeQuotes(tsarrts.event_attribute_type)#',
+							'#escapeQuotes(tsarrts.event_attribute_value)#',
+							'#escapeQuotes(tsarrts.event_attribute_units)#',
+							'#escapeQuotes(tsarrts.event_attribute_remark)#',
+							'#escapeQuotes(tsarrts.event_determination_method)#',
+							'#escapeQuotes(tsarrts.event_determined_date)#'
 						)
 					</cfquery>
 				</cfloop>
