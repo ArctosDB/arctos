@@ -72,25 +72,6 @@ grant all on cf_temp_event_attrs to manage_collection;
 	</cfoutput>
 
 
-CREATE TABLE cf_temp_event_attrs (
-	KEY  NUMBER NOT NULL,
-	STATUS VARCHAR2(4000),
-	username VARCHAR2(255),
-	collection_object_id NUMBER,
-	collecting_event_id number,
-	determined_by_agent_id number,
-	 VARCHAR2(60),
- 	 VARCHAR2(60),
- 	 VARCHAR2(4000),
-	 VARCHAR2(60),
-	 VARCHAR2(4000),
-	 VARCHAR2(4000),
-	 VARCHAR2(60),
-	 VARCHAR2(60)
-);
-
-
-
 
 	Step 1: Upload a comma-delimited text file including column headings. (<a href="BulkloadEventAttrs.cfm?action=template">download BulkloadEventAttrs.csv template</a>)
 	<table border>
@@ -103,7 +84,11 @@ CREATE TABLE cf_temp_event_attrs (
 		<tr>
 			<td>guid</td>
 			<td>conditionally</td>
-			<td>You must provide specimen GUID _or_ event_name. You may not provide both, and you must be consistent throughout a single load.</td>
+			<td>
+				You must provide specimen GUID _or_ event_name. You may not provide both, and you must be consistent throughout a single load.
+				GUID will work ONLY for specimens with a single specimen-event. Locality and collecting event will be duplicated, and may
+				(after the waiting period - currently 30 days) eventually be reconciled by the merger scripts.
+			</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -277,281 +262,191 @@ CREATE TABLE cf_temp_event_attrs (
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
+
+
+
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_parts
-			set
-				status = NULL
-			where
-				status != 'loaded' and
-				upper(username)='#ucase(session.username)#'
+		update
+			cf_temp_event_attrs
+		set
+			status = NULL
+		where
+			status != 'loaded' and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfquery name="ckc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and
+		(guid is not null and event_name is not null) or
+		(guid is null and event_name is null) or
+	</cfquery>
+	<cfif ckc.c gt 0>
+		Exaactly one of guid or event_name is required<cfabort>
+	</cfif>
+	<cfquery name="ckg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and
+			guid is not null
+	</cfquery>
+	<cfquery name="cke" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select count(*) c from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and
+			event_name is not null
+	</cfquery>
+	<cfif ckg.c gt 0 and cke.c gt 0>
+		 You cannot mix guid and event_name<cfabort>
+	</cfif>
+
+	<cfquery name="upCID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_event_attrs
+		set
+			collection_object_id = (select collection_object_id from flat where flat.guid = cf_temp_event_attrs.flat)
+		where
+			upper(username)='#ucase(session.username)#' and
+			guid is not null
+	</cfquery>
+	<cfquery name="upCIDF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_event_attrs
+		set
+			status='specimen not found' where
+			collection_object_id is null and
+			guid is not null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+
+	<cfquery name="upCLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_event_attrs
+		set
+			status='event not found' where
+		where
+			status is null and
+			upper(username)='#ucase(session.username)#' and
+			event_name is not null and
+			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT)
+	</cfquery>
+
+	<cfquery name="cat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_event_attrs
+		set
+			status='attribute not found'
+		where
+			status is null and
+			upper(username)='#ucase(session.username)#' and
+			event_attribute_type not in (select event_attribute_type from CTCOLL_EVENT_ATTR_TYPE)
+	</cfquery>
+	<cfquery name="dat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct (event_attribute_type) event_attribute_type from cf_temp_event_attrs where status is null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+	<cfloop query="dat">
+		<cfquery name="isctl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select * from CTCOLL_EVENT_ATT_ATT where EVENT_ATTRIBUTE_TYPE='#EVENT_ATTRIBUTE_TYPE#'
 		</cfquery>
-
-	<cfquery name="getParentContainerId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts
-		set
-			parent_container_id = (select container_id from container where container.barcode = cf_temp_parts.CONTAINER_BARCODE)
-		where
-			upper(username)='#ucase(session.username)#' and
-			CONTAINER_BARCODE is not null
-	</cfquery>
-
-
-	<cfquery name="validateGotParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts
-		set
-			status = status || ';Container Barcode not found'
-		where
-			CONTAINER_BARCODE is not null and
-			parent_container_id is null and
-			upper(username)='#ucase(session.username)#'
-	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts
-		set
-			status = status || ';Invalid part_name'
-		where
-			upper(username)='#ucase(session.username)#' and
-		 	part_name NOT IN (
-        	select part_name from ctspecimen_part_name where collection_cde=(select collection_cde from collection where guid_prefix=cf_temp_parts.guid_prefix))
-	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts
-		set
-			status = status || ';Invalid container_barcode'
-		where
-			container_barcode NOT IN (
-				select barcode from container where barcode is not null
-			)
-		AND container_barcode is not null and
-		upper(username)='#ucase(session.username)#'
-	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts
-		set
-			status = status || ';Invalid DISPOSITION'
-		where
-			DISPOSITION NOT IN (select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP) and
-			upper(username)='#ucase(session.username)#'
-	</cfquery>
-	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts
-		set
-			status = status || ';Invalid CONTAINER_TYPE'
-		where
-			change_container_type NOT IN (select container_type from ctcontainer_type) AND
-			change_container_type is not null and
-			upper(username)='#ucase(session.username)#'
-	</cfquery>
-
-	<!----
-	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_parts where status is null and
-			upper(username)='#ucase(session.username)#'
-	</cfquery>
-	---->
-
-	<!--- get things that don't resolve to single specimens ---->
-	<cfquery name="collObjFail1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts
-		set
-			status='ambiguous_specimen_reference'
-		where
-			key in (
-			    select key
-			     from
-			        cf_temp_parts,
-			        cataloged_item,
-			        collection,
-			        coll_obj_other_id_num
-			      WHERE
-			        cataloged_item.collection_id = collection.collection_id and
-			        cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-			        collection.guid_prefix = cf_temp_parts.guid_prefix and
-			        coll_obj_other_id_num.other_id_type = cf_temp_parts.other_id_type and
-			        coll_obj_other_id_num.display_value = cf_temp_parts.other_id_number and
-			        cf_temp_parts.other_id_type != 'catalog number' and
+		<cfif len(isctl.UNIT_CODE_TABLE) gt 0>
+			<cfquery name="uc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from #isctl.UNIT_CODE_TABLE# where 1=2
+			</cfquery>
+			<cfset cl=uc.columnlist>
+			<cfif listcontains(cl,'COLLECTION_CDE'>
+				<CFSET CL=LISTDELETEAT(CL,LISTFIND(CL,'COLLECTION_CDE'))>
+			</cfif>
+			<cfif listcontains(cl,'DESCRIPTION'>
+				<CFSET CL=LISTDELETEAT(CL,LISTFIND(CL,'DESCRIPTION'))>
+			</cfif>
+			<cfquery name="nctl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update
+					cf_temp_event_attrs
+				set
+					status='units not found'
+				where
+					status is null and
 					upper(username)='#ucase(session.username)#' and
-					status is null
-			      having
-			      	count(*) > 1
-			      group by
-			      	key
-			    )
-	</cfquery>
-
-
-	<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set COLLECTION_OBJECT_ID = (
-			select
-				cataloged_item.collection_object_id
-			from
-				cataloged_item,
-				collection
-			WHERE
-				cataloged_item.collection_id = collection.collection_id and
-				collection.guid_prefix = cf_temp_parts.guid_prefix and
-				cat_num=cf_temp_parts.other_id_number
-		) where
-			other_id_type = 'catalog number' and
-			upper(username)='#ucase(session.username)#' and
-			status is null
-	</cfquery>
-	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set COLLECTION_OBJECT_ID = (
-			select
-				cataloged_item.collection_object_id
-			from
-				cataloged_item,
-				collection,
-				coll_obj_other_id_num
-			WHERE
-				cataloged_item.collection_id = collection.collection_id and
-				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-				collection.guid_prefix = cf_temp_parts.guid_prefix and
-				coll_obj_other_id_num.other_id_type = cf_temp_parts.other_id_type and
-				coll_obj_other_id_num.display_value = cf_temp_parts.other_id_number
-		) where
-			other_id_type != 'catalog number' and
-			upper(username)='#ucase(session.username)#' and
-			status is null
-	</cfquery>
-
-	<cfquery name="collObj_nci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set status = status || ';Invalid cataloged item'
-		where collection_object_id is null and
-			upper(username)='#ucase(session.username)#'
-	</cfquery>
-	<!---
-		"not containers" are:
-			0: CONTAINER ZERO
-			476089: UAM PARENTLESS VOID
-			397630: MVZ PARENTLESS VOID
-	---->
-	<cfquery name="hasDupParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update cf_temp_parts set status = status || ';duplicate parts detected'
-		where key in (
-			select key from (
-				select
-				  specimen_part.part_name,
-				  cf_temp_parts.key
-				from
-				  cf_temp_parts,
-				  specimen_part,
-				  coll_obj_cont_hist,
-				  container
+					event_attribute_type='#EVENT_ATTRIBUTE_TYPE#' and
+					event_attribute_units not in (select #CL# from  #isctl.UNIT_CODE_TABLE#)
+			</cfquery>
+			<cfquery name="nctl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update
+					cf_temp_event_attrs
+				set
+					status='non numeric'
 				where
-				  specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-				  coll_obj_cont_hist.container_id=container.container_id and
-				  container.parent_container_id in (0,476089,397630) and
-				  specimen_part.derived_from_cat_item=cf_temp_parts.collection_object_id and
-				  specimen_part.part_name=cf_temp_parts.part_name and
-				  upper(cf_temp_parts.username)='#ucase(session.username)#' and
-				  cf_temp_parts.collection_object_id is not null and
-				  cf_temp_parts.USE_EXISTING=1 and
-				  cf_temp_parts.status is null
-				having count(*) > 1
-				group by specimen_part.part_name,
-				  cf_temp_parts.key
-			)
-		)
-	</cfquery>
-	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts set USE_PART_ID = (
-				select
-					specimen_part.collection_object_id
-				from
-					specimen_part,
-					coll_obj_cont_hist,
-					container
+					status is null and
+					upper(username)='#ucase(session.username)#' and
+					event_attribute_type='#EVENT_ATTRIBUTE_TYPE#' and
+					is_number(event_attribute_value)=0
+			</cfquery>
+		<cfelseif  len(isctl.VALUE_CODE_TABLE) gt 0>
+			<cfquery name="nctl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update
+					cf_temp_event_attrs
+				set
+					status='units not allowed here'
 				where
-					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-					coll_obj_cont_hist.container_id=container.container_id and
-					container.parent_container_id in (0,476089,397630) and
-					specimen_part.derived_from_cat_item=cf_temp_parts.collection_object_id and
-					specimen_part.part_name=cf_temp_parts.part_name
-			)
-		where
-			collection_object_id is not null and
-			USE_EXISTING=1 and
-			upper(username)='#ucase(session.username)#' and
-			cf_temp_parts.status is null
-	</cfquery>
-	<cfquery name="getExistingPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update
-			cf_temp_parts set PARENT_CONTAINER_ID = (
-				select
-					container_id
-				from
-					container
+					status is null and
+					upper(username)='#ucase(session.username)#' and
+					event_attribute_type='#EVENT_ATTRIBUTE_TYPE#' and
+					event_attribute_units is not null
+			</cfquery>
+			<cfquery name="uc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select * from #isctl.VALUE_CODE_TABLE# where 1=2
+			</cfquery>
+			<cfset cl=uc.columnlist>
+			<cfif listcontains(cl,'COLLECTION_CDE'>
+				<CFSET CL=LISTDELETEAT(CL,LISTFIND(CL,'COLLECTION_CDE'))>
+			</cfif>
+			<cfif listcontains(cl,'DESCRIPTION'>
+				<CFSET CL=LISTDELETEAT(CL,LISTFIND(CL,'DESCRIPTION'))>
+			</cfif>
+			<cfquery name="nctl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update
+					cf_temp_event_attrs
+				set
+					status='value not found'
 				where
-					barcode=cf_temp_parts.CONTAINER_BARCODE
-				)
-		where
-			CONTAINER_BARCODE is not null and
-			upper(username)='#ucase(session.username)#'
-	</cfquery>
-
-	<cfloop from="1" to="#numPartAttrs#" index="i">
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_parts
-			set
-				status = status || ';Invalid PART_ATTRIBUTE_TYPE_#i#'
-			where
-				upper(username)='#ucase(session.username)#' and
-				PART_ATTRIBUTE_TYPE_#i# is not null and
-			 	PART_ATTRIBUTE_TYPE_#i# NOT IN (select ATTRIBUTE_TYPE from CTSPECPART_ATTRIBUTE_TYPE)
-		</cfquery>
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_parts
-			set
-				status = status || ';PART_ATTRIBUTE_VALUE_#i# is required when PART_ATTRIBUTE_TYPE_#i# is given'
-			where
-				upper(username)='#ucase(session.username)#' and
-				PART_ATTRIBUTE_TYPE_#i# is not null and
-			 	PART_ATTRIBUTE_VALUE_#i# is null
-		</cfquery>
-		<!--- units is not used at this point - add as necessary ---->
-		<!---- there is no type/value/units relationship - add as necessary ---->
-
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_parts
-			set
-				status = status || ';PART_ATTRIBUTE_DATE_#i# is invalid'
-			where
-				upper(username)='#ucase(session.username)#' and
-				PART_ATTRIBUTE_TYPE_#i# is not null and
-			 	PART_ATTRIBUTE_DATE_#i# is not null and (
-			 		is_iso8601(PART_ATTRIBUTE_DATE_#i#) != 'valid' or
-			 		length(PART_ATTRIBUTE_DATE_#i#)!=10
-			 	)
-		</cfquery>
-		<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			update
-				cf_temp_parts
-			set
-				status = status || ';PART_ATTRIBUTE_DETERMINER_#i# is invalid'
-			where
-				upper(username)='#ucase(session.username)#' and
-				PART_ATTRIBUTE_TYPE_#i# is not null and
-			 	PART_ATTRIBUTE_DETERMINER_#i# is not null and
-			 	getAgentId(PART_ATTRIBUTE_DETERMINER_#i#) is null
-		</cfquery>
+					status is null and
+					upper(username)='#ucase(session.username)#' and
+					event_attribute_type='#EVENT_ATTRIBUTE_TYPE#' and
+					event_attribute_value not in (select #CL# from  #isctl.VALUE_CODE_TABLE#)
+			</cfquery>
+		<cfelse>
+			<cfquery name="nctl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				update
+					cf_temp_event_attrs
+				set
+					status='free-text attributes cannot have units'
+				where
+					status is null and
+					upper(username)='#ucase(session.username)#' and
+					event_attribute_type='#EVENT_ATTRIBUTE_TYPE#' and
+					event_attribute_units is not null
+			</cfquery>
+		</cfif>
 	</cfloop>
+	<cfquery name="upCID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_event_attrs
+		set
+			determined_by_agent_id = (select agent_id from agent_name where agent_name.agent_name = cf_temp_event_attrs.event_determiner)
+		where
+			upper(username)='#ucase(session.username)#' and
+			guid is not null
+	</cfquery>
+
+	<cfquery name="upCIDF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update
+			cf_temp_event_attrs
+		set
+			status='determiner not found' where
+			determined_by_agent_id is null and
+			event_determiner is not null and
+			upper(username)='#ucase(session.username)#'
+	</cfquery>
+
+
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update
-				cf_temp_parts
+				cf_temp_event_attrs
 			set
 				status = 'valid'
 			where
@@ -559,7 +454,7 @@ CREATE TABLE cf_temp_event_attrs (
 				status is null
 		</cfquery>
 
-		<cflocation url="BulkloadParts.cfm?action=manageMyStuff" addtoken="false">
+		<cflocation url="BulkloadEventAttrs.cfm?action=manageMyStuff" addtoken="false">
 
 		<!----
 		---->
@@ -568,6 +463,8 @@ CREATE TABLE cf_temp_event_attrs (
 <!-------------------------------------------------------------------------------------------->
 <cfif action is "loadToDb">
 <cfoutput>
+
+	no<cfabort>
 
 	<p>
 		Timeout errors? Just reload....
