@@ -359,7 +359,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			status is null and
 			upper(username)='#ucase(session.username)#' and
 			event_name is not null and
-			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT)
+			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT  where COLLECTING_EVENT_NAME is not null)
 	</cfquery>
 	update
 			cf_temp_event_attrs
@@ -369,7 +369,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			status is null and
 			upper(username)='#ucase(session.username)#' and
 			event_name is not null and
-			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT)
+			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT  where COLLECTING_EVENT_NAME is not null)
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_event_attrs
 	</cfquery>
