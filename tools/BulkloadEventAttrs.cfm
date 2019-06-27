@@ -589,7 +589,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			   	 		'#escapeQuotes(eevt.COLL_EVENT_REMARKS)#',
 			   	 		'#eevt.BEGAN_DATE#',
 			   	 		'#eevt.ENDED_DATE#',
-			   	 		'#eevt.VERBATIM_COORDINATES#'
+			   	 		'#eevt.VERBATIM_COORDINATES#',
 			   	 		'#eevt.DATUM#'
 			   	 	)
 				</cfquery>
