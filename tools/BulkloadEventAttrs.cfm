@@ -602,7 +602,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 					select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and collection_object_id = #collection_object_id#
 				</cfquery>
 				<cfloop query="tsarrts">
-					<cfquery name="insCollAttr" datasource="uam_god">
+					<cfquery name="insCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						insert into collecting_event_attributes (
 							collecting_event_attribute_id,
 							collecting_event_id,
