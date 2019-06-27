@@ -277,7 +277,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 	<cfquery name="ckc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and
 		(guid is not null and event_name is not null) or
-		(guid is null and event_name is null) or
+		(guid is null and event_name is null)
 	</cfquery>
 	<cfif ckc.c gt 0>
 		Exaactly one of guid or event_name is required<cfabort>
