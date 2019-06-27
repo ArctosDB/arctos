@@ -222,12 +222,11 @@ grant all on cf_temp_event_attrs to manage_collection;
 		<cfset clist=listdeleteat(clist,listfind(clist,'KEY'))>
 		----->
 
-
 		<p>
 			You have #mine.recordcount# records in the staging table.
 		</p>
 		<p>
-			<a href="BulkloadEventAttrs.cfm">Load more records</a>
+			<a href="BulkloadEventAttrs.cfm">Load more records to this app</a>
 		</p>
 		<p>
 			<a href="BulkloadEventAttrs.cfm?action=validate">validate records</a>
@@ -237,7 +236,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			<a href="BulkloadEventAttrs.cfm?action=deleteMine">delete all of your data from the staging table</a>
 		</p>
 		<p>
-			<a href="BulkloadEventAttrs.cfm?action=getCSV">Download as CSV</a>
+			<a href="BulkloadEventAttrs.cfm?action=getCSV">Download your data as CSV</a>
 		</p>
 		<cfquery name="willload" dbtype="query">
 			select count(*) c from mine where status = 'valid'
@@ -263,9 +262,6 @@ grant all on cf_temp_event_attrs to manage_collection;
 <!------------------------------------------------------->
 <cfif action is "validate">
 <cfoutput>
-
-
-
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_event_attrs
@@ -275,18 +271,6 @@ grant all on cf_temp_event_attrs to manage_collection;
 			status != 'loaded' and
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
-	update
-			cf_temp_event_attrs
-		set
-			status = NULL
-		where
-			status != 'loaded' and
-			upper(username)='#ucase(session.username)#'
-
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_event_attrs
-	</cfquery>
-	<cfdump var=#q#>
 
 	<cfquery name="ckc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and
@@ -317,17 +301,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			upper(username)='#ucase(session.username)#' and
 			guid is not null
 	</cfquery>
-		update
-			cf_temp_event_attrs
-		set
-			collection_object_id = (select collection_object_id from flat where flat.guid = cf_temp_event_attrs.guid)
-		where
-			upper(username)='#ucase(session.username)#' and
-			guid is not null
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_event_attrs
-	</cfquery>
-	<cfdump var=#q#>
+
 	<cfquery name="upCIDF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_event_attrs
@@ -339,17 +313,6 @@ grant all on cf_temp_event_attrs to manage_collection;
 	</cfquery>
 
 
-	update
-			cf_temp_event_attrs
-		set
-			status='specimen not found' where
-			collection_object_id is null and
-			guid is not null and
-			upper(username)='#ucase(session.username)#'
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_event_attrs
-	</cfquery>
-	<cfdump var=#q#>
 
 	<cfquery name="upCLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 		update
@@ -362,20 +325,6 @@ grant all on cf_temp_event_attrs to manage_collection;
 			event_name is not null and
 			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT  where COLLECTING_EVENT_NAME is not null)
 	</cfquery>
-	update
-			cf_temp_event_attrs
-		set
-			status='event not found'
-		where
-			status is null and
-			upper(username)='#ucase(session.username)#' and
-			event_name is not null and
-			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT  where COLLECTING_EVENT_NAME is not null)
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_event_attrs
-	</cfquery>
-	<cfdump var=#q#>
-
 
 
 	<cfquery name="cat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -664,6 +613,59 @@ grant all on cf_temp_event_attrs to manage_collection;
 		</cfloop>
 	</cfif>
 
+	<cfif getTempData_g.recordcount gt 1>
+		<!--- just adding attributes to existing events ---->
+		<cfquery name="devts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select distinct event_name from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and event_name is not null
+		</cfquery>
+		<cfloop query="devts">
+			<cftransaction>
+				<cfquery name="cid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select collecting_event_id cid from collecting_event where collecting_event_name='#devts.event_name#'
+				</cfquery>
+				<cfquery name="tsarrts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and event_name = '#devts.event_name#'
+				</cfquery>
+				<cfloop query="tsarrts">
+					<cfquery name="insCollAttr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+						insert into collecting_event_attributes (
+							collecting_event_attribute_id,
+							collecting_event_id,
+							determined_by_agent_id,
+							event_attribute_type,
+							event_attribute_value,
+							event_attribute_units,
+							event_attribute_remark,
+							event_determination_method,
+							event_determined_date
+						) values (
+							sq_coll_event_attribute_id.nextval,
+							#cid.cid#,
+							<cfif len(tsarrts.determined_by_agent_id) gt 0>#tsarrts.determined_by_agent_id#<cfelse>NULL</cfif>,
+							'#escapeQuotes(tsarrts.event_attribute_type)#',
+							'#escapeQuotes(tsarrts.event_attribute_value)#',
+							'#escapeQuotes(tsarrts.event_attribute_units)#',
+							'#escapeQuotes(tsarrts.event_attribute_remark)#',
+							'#escapeQuotes(tsarrts.event_determination_method)#',
+							'#escapeQuotes(tsarrts.event_determined_date)#'
+						)
+					</cfquery>
+				</cfloop>
+				<cfquery name="tsarrts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update cf_temp_event_attrs set status='loaded' where upper(username)='#ucase(session.username)#' and status='valid' and  event_name = '#devts.event_name#'
+				</cfquery>
+			</cftransaction>
+		</cfloop>
+
+	</cfif>
+
+<p>
+	If you're seeing this and no errors, the load probably worked.
+
+	<a href="BulkloadEventAttrs.cfm?action=manageMyStuff">Return to the splashpage</a> and confirm that all of your records have status=loaded.
+	Carefully check the specimens to make sure everything worked. Then delete data from this app so
+	you don't find a way to make duplicates!
+</p>
 
 	<cfabort>
 	<!----
