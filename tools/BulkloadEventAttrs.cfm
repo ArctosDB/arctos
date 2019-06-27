@@ -430,7 +430,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			determined_by_agent_id = (select agent_id from agent_name where agent_name.agent_name = cf_temp_event_attrs.event_determiner)
 		where
 			upper(username)='#ucase(session.username)#' and
-			guid is not null
+			event_determiner is not null
 	</cfquery>
 
 	<cfquery name="upCIDF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
