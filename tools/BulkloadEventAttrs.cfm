@@ -313,7 +313,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			upper(username)='#ucase(session.username)#'
 	</cfquery>
 
-	<cfquery name="upCLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	<cfquery name="upCLID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="x">
 		update
 			cf_temp_event_attrs
 		set
@@ -325,7 +325,10 @@ grant all on cf_temp_event_attrs to manage_collection;
 			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT)
 	</cfquery>
 
-	<cfdump var=#upCLID#>
+	<cfdump var=#x#>
+
+
+
 
 	<cfquery name="cat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
