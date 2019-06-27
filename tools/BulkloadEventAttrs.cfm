@@ -348,10 +348,10 @@ grant all on cf_temp_event_attrs to manage_collection;
 				select * from #isctl.UNIT_CODE_TABLE# where 1=2
 			</cfquery>
 			<cfset cl=uc.columnlist>
-			<cfif listcontains(cl,'COLLECTION_CDE'>
+			<cfif listcontains(cl,'COLLECTION_CDE')>
 				<CFSET CL=LISTDELETEAT(CL,LISTFIND(CL,'COLLECTION_CDE'))>
 			</cfif>
-			<cfif listcontains(cl,'DESCRIPTION'>
+			<cfif listcontains(cl,'DESCRIPTION')>
 				<CFSET CL=LISTDELETEAT(CL,LISTFIND(CL,'DESCRIPTION'))>
 			</cfif>
 			<cfquery name="nctl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -392,10 +392,10 @@ grant all on cf_temp_event_attrs to manage_collection;
 				select * from #isctl.VALUE_CODE_TABLE# where 1=2
 			</cfquery>
 			<cfset cl=uc.columnlist>
-			<cfif listcontains(cl,'COLLECTION_CDE'>
+			<cfif listcontains(cl,'COLLECTION_CDE')>
 				<CFSET CL=LISTDELETEAT(CL,LISTFIND(CL,'COLLECTION_CDE'))>
 			</cfif>
-			<cfif listcontains(cl,'DESCRIPTION'>
+			<cfif listcontains(cl,'DESCRIPTION')>
 				<CFSET CL=LISTDELETEAT(CL,LISTFIND(CL,'DESCRIPTION'))>
 			</cfif>
 			<cfquery name="nctl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
