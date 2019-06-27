@@ -146,7 +146,11 @@
 	<cfif d.recordcount is 0>
 		<p>
 			No archived collecting event information found.
-		<cfabort>
+			<cfif isdefined("collecting_event_id") and listlen(	collecting_event_id ) is 1>
+				<a href="collectingEventArchive.cfm?action=eventAttrArchive&collecting_event_id=#collecting_event_id#">Check event attribute archive</a>
+			</cfif>
+
+			<cfabort>
 		</p>
 	</cfif>
 	<!---- check attribues ---->
