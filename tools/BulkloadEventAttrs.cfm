@@ -537,10 +537,27 @@ grant all on cf_temp_event_attrs to manage_collection;
 	<cfflush>
 
 
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid'
+	<cfquery name="getTempData_g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and collection_object_id is not null
 	</cfquery>
+	<cfquery name="getTempData_c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and event_name is not null
+	</cfquery>
+	<cfif getTempData_g.recordcount gt 1 and  getTempData_c.recordcount gt 1 >
+		mix<cfabort>
+	</cfif>
+	<cfif getTempData_g.recordcount gt 1>
+		<br>guid
+		<cfquery name="d_s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select distinct collection_object_id from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and collection_object_id is not null
+		</cfquery>
+		<cfloop query="d_s">
+			<br>collection_object_id::#collection_object_id#
+		</cfloop>
+	</cfif>
 
+
+	<cfabort>
 	<!----
 		OPTIONS;
 			1) guid
