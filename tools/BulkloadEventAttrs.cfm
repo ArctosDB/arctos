@@ -325,6 +325,8 @@ grant all on cf_temp_event_attrs to manage_collection;
 			event_name not in (select COLLECTING_EVENT_NAME from COLLECTING_EVENT)
 	</cfquery>
 
+	<cfdump var=#upCLID#>
+
 	<cfquery name="cat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update
 			cf_temp_event_attrs
@@ -454,9 +456,10 @@ grant all on cf_temp_event_attrs to manage_collection;
 				status is null
 		</cfquery>
 
-		<cflocation url="BulkloadEventAttrs.cfm?action=manageMyStuff" addtoken="false">
 
 		<!----
+				<cflocation url="BulkloadEventAttrs.cfm?action=manageMyStuff" addtoken="false">
+
 		---->
 </cfoutput>
 </cfif>
