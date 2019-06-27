@@ -71,6 +71,47 @@ grant all on cf_temp_event_attrs to manage_collection;
 		</p>
 	</cfoutput>
 
+	<p>
+		¡CUIDADO!
+	</p>
+	<P>
+		This form has two modes: add to existing named events, or fork events and add to them. It is exceptionally important
+		that you understand this in detail before proceeding.
+		<h4>Add to Named Event</h4>
+		<p>
+			If you provide event_name, Event Attributes here will be added to an existing event, and therefore inherited by anything using that event.
+			The event will not be affected (other than by the addition of the attributes you load here), and the name
+			will be preserved.
+		</p>
+		<h4>Fork Events</h4>
+		<p>
+			Fork-Edit mode is available only for specimens with exactly one specimen-event.
+			If you provide a GUID, the following will happen:
+			<ol>
+				<li>
+					A new collecting_event will be created from the specimen's existing collecting event. It will not have a name, even
+					if the source did.
+				</li>
+				<li>
+					Any collecting event attributes will be copied from the source event to the new event.
+				</li>
+				<li>
+					The specimen-event will be moved to the new event.
+				</li>
+				<li>
+					The collecting event attribute data you load here will be added to the new event
+				</li>
+			</ol>
+			This will result in a new collecting_event with exactly one specimen in it. The merger scripts may eventually recombine events; they
+			currently run 30 days after events are created. Old events may be deleted, if your actions here result in all specimens being removed from them.
+		</p>
+	</P>
+	<p>
+		Please file an Issue if this is unclear in any way. This form is new as of 2019-06-27; proceed with great caution.
+	</p>
+	<p>
+		/¡CUIDADO!
+	</p>
 
 
 	Step 1: Upload a comma-delimited text file including column headings. (<a href="BulkloadEventAttrs.cfm?action=template">download BulkloadEventAttrs.csv template</a>)
@@ -87,7 +128,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 			<td>
 				You must provide specimen GUID _or_ event_name. You may not provide both, and you must be consistent throughout a single load.
 				GUID will work ONLY for specimens with a single specimen-event. Locality and collecting event will be duplicated, and may
-				(after the waiting period - currently 30 days) eventually be reconciled by the merger scripts.
+				eventually be reconciled by the merger scripts.
 				<br>Note that existing event names will not survive this process for specimens in this file.
 			</td>
 			<td></td>
@@ -491,7 +532,6 @@ grant all on cf_temp_event_attrs to manage_collection;
 	<cfquery name="getTempData_c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and event_name is not null
 	</cfquery>
-	<cfdump var=#getTempData_c#>
 	<cfif getTempData_g.recordcount gt 1 and  getTempData_c.recordcount gt 1 >
 		mix<cfabort>
 	</cfif>
