@@ -317,7 +317,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 		update
 			cf_temp_event_attrs
 		set
-			status='event not found' where
+			status='event not found'
 		where
 			status is null and
 			upper(username)='#ucase(session.username)#' and
