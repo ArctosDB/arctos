@@ -152,7 +152,7 @@
 		</p>
 	</cfif>
 	<!---- check attribues ---->
-
+	<h3>Event Attributes Archive</h3>
 
 	<table border>
 		<tr>
