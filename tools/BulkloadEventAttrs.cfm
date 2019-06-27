@@ -88,6 +88,7 @@ grant all on cf_temp_event_attrs to manage_collection;
 				You must provide specimen GUID _or_ event_name. You may not provide both, and you must be consistent throughout a single load.
 				GUID will work ONLY for specimens with a single specimen-event. Locality and collecting event will be duplicated, and may
 				(after the waiting period - currently 30 days) eventually be reconciled by the merger scripts.
+				<br>Note that existing event names will not survive this process for specimens in this file.
 			</td>
 			<td></td>
 		</tr>
@@ -529,8 +530,6 @@ grant all on cf_temp_event_attrs to manage_collection;
 <!-------------------------------------------------------------------------------------------->
 <cfif action is "loadToDb">
 <cfoutput>
-
-
 	<p>
 		Timeout errors? Just reload....
 	</p>
@@ -552,6 +551,82 @@ grant all on cf_temp_event_attrs to manage_collection;
 			select distinct collection_object_id from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and collection_object_id is not null
 		</cfquery>
 		<cfloop query="d_s">
+			<cftransaction>
+				<!--- always make a new event ---->
+				<cfquery name="cid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select sq_collecting_event_id.nextval cid from dual
+				</cfquery>
+				<cfquery name="teid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select collecting_event_id,specimen_event_id from specimen_event where collection_object_id=#collection_object_id#
+				</cfquery>
+				<cfif teid.recordcount is not 1>
+					not one event<cfabort>
+				</cfif>
+				<cfquery name="eevt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from collecting_event where collecting_event_id = #teid.collecting_event_id#
+				</cfquery>
+				<!---
+					new event
+					use old locality
+					no name is possible here
+				---->
+				<cfquery name="nevt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					insert into collecting_event (
+						COLLECTING_EVENT_ID,
+						LOCALITY_ID,
+						VERBATIM_DATE,
+						VERBATIM_LOCALITY,
+						COLL_EVENT_REMARKS,
+						BEGAN_DATE,
+						ENDED_DATE,
+						VERBATIM_COORDINATES,
+						DATUM
+			   	 	) values (
+			   	 		#cid.cid#,
+			   	 		#eevt.locality_id#,
+			   	 		'#escapeQuotes(eevt.VERBATIM_DATE)#',
+			   	 		'#escapeQuotes(eevt.VERBATIM_LOCALITY)#',
+			   	 		'#escapeQuotes(eevt.COLL_EVENT_REMARKS)#',
+			   	 		'#eevt.BEGAN_DATE#',
+			   	 		'#eevt.ENDED_DATE#',
+			   	 		'#eevt.VERBATIM_COORDINATES#'
+			   	 		'#eevt.DATUM#'
+			   	 	)
+				</cfquery>
+				<!--- move the specimen_event to use the collecting_event we just made--->
+				<cfquery name="upse" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					update specimen_event set collecting_event_id=#cid.cid# where specimen_event_id=#teid.specimen_event_id#
+				</cfquery>
+				<!--- now get all attributes for this specimen ---->
+				<cfquery name="tsarrts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select * from cf_temp_event_attrs where upper(username)='#ucase(session.username)#' and status='valid' and collection_object_id = #collection_object_id#
+				</cfquery>
+				<cfloop query="tsarrts">
+					<cfquery name="insCollAttr" datasource="uam_god">
+						insert into collecting_event_attributes (
+							collecting_event_attribute_id,
+							collecting_event_id,
+							determined_by_agent_id,
+							event_attribute_type,
+							event_attribute_value,
+							event_attribute_units,
+							event_attribute_remark,
+							event_determination_method,
+							event_determined_date
+						) values (
+							sq_coll_event_attribute_id.nextval,
+							#cid.cid#,
+							<cfif len(determined_by_agent_id) gt 0>#determined_by_agent_id#<cfelse>NULL</cfif>,
+							'#escapeQuotes(event_attribute_type)#',
+							'#escapeQuotes(event_attribute_value)#',
+							'#escapeQuotes(event_attribute_units)#',
+							'#escapeQuotes(event_attribute_remark)#',
+							'#escapeQuotes(event_determination_method)#',
+							'#escapeQuotes(event_determined_date)#'
+						)
+					</cfquery>
+				</cfloop>
+			</cftransaction>
 			<br>collection_object_id::#collection_object_id#
 		</cfloop>
 	</cfif>
