@@ -7,16 +7,22 @@
 		$(document).on("change", '[id^="ceattribute_type_placeholder_"]', function(){
 			console.log('change');
 			var i =  this.id;
+			console.log(i);
 			i=i.replace("ceattribute_type_placeholder_", "");
 			var thisVal=this.value;
+
+			console.log(thisVal);
 			if ($('#' + thisVal).length){
 				alert('That Attribute has already been added.');
 				$("#" + this.id).val('');
 				return;
 			}
 			var thisTxt=$("#" + this.id + " option:selected").text();
+			console.log(thisTxt);
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
 			//nEl+='<span class="infoLink" onclick="resetCEAttr(' + this.id + ')">reset</span>';
+			console.log(thisTxt);
+
 			$("#ceattribute_type_placeholder_" + i).html(nEl);
 			// hide the placeholder/picker
 			var nlbl='<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
