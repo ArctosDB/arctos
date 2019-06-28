@@ -50,6 +50,91 @@
         $('#ceattrCtlTR').before(nelem);
         $('#ceattribute_type_placeholder_1').find('option').clone().appendTo('#ceattribute_type_placeholder_' + nextNum);
 	}
+
+
+
+	function populateEvtAttrs(id) {
+		//console.log('populateEvtAttrs==got id:'+id);
+		var idNum=id.replace('event_attribute_type_','');
+		var currentTypeValue=$("#event_attribute_type_" + idNum).val();
+		var valueObjName="event_attribute_value_" + idNum;
+		var unitObjName="event_attribute_units_" + idNum;
+		var unitsCellName="event_attribute_units_cell_" + idNum;
+		var valueCellName="event_attribute_value_cell_" + idNum;
+		if (currentTypeValue.length==0){
+			//console.log('zero-length type; resetting');
+			var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+			$("#"+unitsCellName).html(s);
+			var s='<input  type="hidden" name="'+valueObjName+'" id="'+valueObjName+'" value="">';
+			$("#"+valueCellName).html(s);
+			return false;
+		}
+		//console.log('did not return false');
+		var currentValue=$("#" + valueObjName).val();
+		var currentUnits=$("#" + unitObjName).val();
+		//console.log('currentTypeValue:'+currentTypeValue);
+		//console.log('currentValue:'+currentValue);
+		//console.log('currentUnits:'+currentUnits);
+
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "getEvtAttCodeTbl",
+				attribute : currentTypeValue,
+				element : currentTypeValue,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				//console.log(r);
+				if (r.STATUS != 'success'){
+					alert('error occurred in getEvtAttCodeTbl');
+					return false;
+				} else {
+					if (r.CTLFLD=='units'){
+						var dv=$.parseJSON(r.DATA);
+						//console.log(dv);
+						var s='<select required class="reqdClr" name="'+unitObjName+'" id="'+unitObjName+'">';
+						s+='<option></option>';
+						$.each(dv, function( index, value ) {
+							//console.log(value[0]);
+							s+='<option value="' + value[0] + '">' + value[0] + '</option>';
+						});
+						s+='</select>';
+						//console.log(s);
+						$("#"+unitsCellName).html(s);
+						$("#"+unitObjName).val(currentUnits);
+
+						var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
+					}
+					if (r.CTLFLD=='values'){
+						var dv=$.parseJSON(r.DATA);
+						var s='<select required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'">';
+						s+='<option></option>';
+						$.each(dv, function( index, value ) {
+							s+='<option value="' + value[0] + '">' + value[0] + '</option>';
+						});
+						s+='</select>';
+
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
+
+						var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+						$("#"+unitsCellName).html(s);
+					}
+					if (r.CTLFLD=='none'){
+						var s='<textarea required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
+						$("#"+valueCellName).html(s);
+						$("#"+valueObjName).val(currentValue);
+
+						var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
+						$("#"+unitsCellName).html(s);
+					}
+				}
+			}
+		);
+	}
 </script>
 
 
@@ -64,8 +149,8 @@
 <cfquery name="ctspecimen_event_type"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select specimen_event_type from ctspecimen_event_type group by specimen_event_type order by specimen_event_type
 </cfquery>
-<cfquery name="ctCeAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select distinct(event_attribute_type) from ctcoll_event_attr_type order by event_attribute_type
+<cfquery name="ctcoll_event_attr_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select event_attribute_type from ctcoll_event_attr_type order by event_attribute_type
 </cfquery>
 
 <cfoutput>
@@ -295,6 +380,48 @@
 		</td>
 	</tr>
 
+<tr>
+	<td colspan="2">
+
+<table border>
+<cfloop from="1" to="3" index="na">
+						<tr class="newRec">
+							<td>
+								<select name="event_attribute_type_new_#na#" id="event_attribute_type_new_#na#" onchange="populateEvtAttrs(this.id)">
+									<option value="">select new event attribute</option>
+									<cfloop query="ctcoll_event_attr_type">
+										<option value="#event_attribute_type#">#event_attribute_type#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td id="event_attribute_value_cell_new_#na#">
+								<select name="event_attribute_value_new_#na#" id="event_attribute_value_new_#na#"></select>
+							</td>
+							<td id="event_attribute_units_cell_new_#na#">
+								<select name="event_attribute_units_new_#na#" id="event_attribute_units_new_#na#"></select>
+							</td>
+							<td>
+								<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
+								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
+									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
+				 					onKeyPress="return noenter(event);">
+							</td>
+							<td>
+								<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
+
+							</td>
+							<td>
+								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
+							</td>
+							<td>
+								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
+							</td>
+						</tr>
+					</cfloop>
+
+					</table>
+		</td>
+</tr>
 
 	<tr>
 		<td class="lbl">
