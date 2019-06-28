@@ -226,7 +226,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
 	</cfif>
 	<cfset basJoin = " #basJoin# INNER JOIN collecting_event_attributes collecting_event_attributes1 ON (collecting_event.collecting_event_id = collecting_event_attributes.collecting_event_id)">
-	<cfset basQual = " #basQual# AND collecting_event_attributes1#.event_attribute_type = '#event_attribute_type_1#'">
+	<cfset basQual = " #basQual# AND collecting_event_attributes1.event_attribute_type = '#event_attribute_type_1#'">
 </cfif>
 
 <!---- abandon dynamic for now, it's too weird with the rest of our stuff...
