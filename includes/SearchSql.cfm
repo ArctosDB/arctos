@@ -234,6 +234,12 @@
 				</cfif>
 				<!--- add an alias for every attribute we need to find ---->
 				<cfset basJoin = " #basJoin# INNER JOIN collecting_event_attributes collecting_event_attributes#thisID# ON collecting_event.collecting_event_id = collecting_event_attributes.collecting_event_id)">
+				<cfset basQual = " #basQual# AND collecting_event_attributes#thisID#.event_attribute_type = '#thisAttrType#'">
+
+				<!--- see if we got value/units ---->
+				<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+				<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+				<!--- that's it, for now - we can add determiner and etc later if we need to ---->
 
 				basJoin: #basJoin#
 				<br>got event_attribute_type_
@@ -241,18 +247,10 @@
 			</cfif>
 		</cfif>
 		</cfoutput>
-		<!----						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-								<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
-								<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
-								<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
-								<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
-								<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
-		---->
 
 
 	</cfloop>
 </cfif>
-<cfif session.username is 'dlm'>dlm<cfabort></cfif>
 
 
 <cfif isdefined("ocr_text") AND len(ocr_text) gt 0>
