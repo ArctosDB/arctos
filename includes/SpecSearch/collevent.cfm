@@ -125,7 +125,7 @@
 					}
 					if (r.CTLFLD=='none'){
 						//var s='<textarea required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
-						//var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr" placeholder="value">';
+						var s='<input type="text" size="40"  name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr" placeholder="value">';
 						$("#"+valueCellName).html(s);
 						$("#"+valueObjName).val(currentValue);
 
