@@ -217,6 +217,7 @@
 	<cfset basQual = " #basQual# AND specimen_event.specimen_event_type = '#specimen_event_type#'">
 </cfif>
 <cfloop list="#form.FIELDNAMES#" index="i">
+	<cfoutput>
 	<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
 		<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
 		<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
@@ -225,6 +226,7 @@
 			<br>thisAttrType: #thisAttrType#
 		</cfif>
 	</cfif>
+	</cfoutput>
 	<!----						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
 							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
 							<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
