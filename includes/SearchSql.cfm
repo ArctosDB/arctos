@@ -244,7 +244,7 @@
 			<cfset srchval=ucase(escapeQuotes(right(event_attribute_value_1,len(event_attribute_value_1)-1)))>
 			<cfset basQual = " #basQual# AND upper(collecting_event_attributes1.event_attribute_value) > #srchval#">
 		<cfelse>
-			<cfset basQual = " #basQual# AND upper(collecting_event_attributes1.event_attribute_value) LIKE '#ucase(escapeQuotes(event_attribute_value_1))#'">
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes1.event_attribute_value) LIKE '%#ucase(escapeQuotes(event_attribute_value_1))#%'">
 		</cfif>
 	</cfif>
 </cfif>
