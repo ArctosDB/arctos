@@ -264,6 +264,17 @@
 	</cfif>
 	<cfset tmp = buidEvtAttrCode(n="1", typ="#event_attribute_type_1#", valu="#v#", units="#u#") />
 </cfif>
+<cfif isdefined("event_attribute_type_2") AND len(event_attribute_type_2) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_2") AND len(event_attribute_units_2) gt 0>
+		<cfset u=event_attribute_units_1>
+	</cfif>
+	<cfif isdefined("event_attribute_value_2") AND len(event_attribute_value_2) gt 0>
+		<cfset v=event_attribute_value_1>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="2", typ="#event_attribute_type_2#", valu="#v#", units="#u#") />
+</cfif>
 
 <!----
 <cfif isdefined("event_attribute_type_1") AND len(event_attribute_type_1) gt 0>
