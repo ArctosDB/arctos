@@ -16,7 +16,7 @@
 			}
 			var thisTxt=$("#" + this.id + " option:selected").text();
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
-			//nEl+='<span class="infoLink" onclick="resetAttr(' + this.id + ')">reset</span>';
+			//nEl+='<span class="infoLink" onclick="resetCEAttr(' + this.id + ')">reset</span>';
 			$("#ceattribute_type_placeholder_" + i).html(nEl);
 			// hide the placeholder/picker
 			var nlbl='<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
@@ -25,7 +25,7 @@
 
 	});
 
-	function moreAttr(){
+	function moreCEAttr(){
 		var i;
 		 $('[id^= "ceattribute_type_placeholder_"]').each(function(){
             i=this.id.replace("ceattribute_type_placeholder_", "");
@@ -294,14 +294,14 @@
 			  </select>
 		</td>
 		<td class="srch">
-			<span id="attribute_value_placeholder_1"></span>
+			<span id="ceattribute_value_placeholder_1"></span>
 		</td>
 	</tr>
 	<tr id="ceattrCtlTR">
 		<td colspan="2">
 			<div style="margin-left:3em;margin:1em;padding:.5em;border:1px solid green;;">
 				<div>
-					<span class="likeLink" onclick="moreAttr()">Add attribute</span> for more search options.
+					<span class="likeLink" onclick="moreCEAttr()">Add Event-Attribute</span> for more search options.
 					Click the label after selecting an attribute type for more information.
 					Empty values are ignored.
 				</div>
