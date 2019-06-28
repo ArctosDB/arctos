@@ -380,12 +380,13 @@
 		</td>
 	</tr>
 
+Event Attributes
 <tr>
 	<td colspan="2">
 
 <table border>
 <cfloop from="1" to="3" index="na">
-						<tr class="newRec">
+						<tr class="">
 							<td>
 								<select name="event_attribute_type_#na#" id="event_attribute_type_#na#" onchange="populateEvtAttrs(this.id)">
 									<option value="">select new event attribute</option>
