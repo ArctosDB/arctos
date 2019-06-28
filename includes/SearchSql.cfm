@@ -1,3 +1,39 @@
+<cffunction name="buidEvtAttrCode" returnType="string">
+	<cfargument name="n" type="string" required="yes">
+	<cfargument name="typ" type="string" required="yes">
+	<cfargument name="valu" type="string" required="no">
+	<cfargument name="units" type="string" required="no">
+	<cfset mapurl = "#mapurl#&event_attribute_type_#n#=#typ#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basJoin = " #basJoin# INNER JOIN collecting_event_attributes collecting_event_attributes#n# ON (collecting_event.collecting_event_id = collecting_event_attributes#n#.collecting_event_id)">
+	<cfset basQual = " #basQual# AND collecting_event_attributes#n#.event_attribute_type = '#typ#'">
+	<cfif isdefined("units") AND len(units) gt 0>
+		<cfset mapurl = "#mapurl#&event_attribute_units_#n#=#units#">
+		<cfset basQual = " #basQual# AND collecting_event_attributes#n#.event_attribute_units = '#units#'">
+	</cfif>
+	<cfif isdefined("valu") AND len(valu) gt 0>
+		<cfset mapurl = "#mapurl#&event_attribute_value_#n#=#valu#">
+		<!--- oo, fancy...---->
+		<cfif left(valu,1) is '='>
+			<cfset srchval=ucase(escapeQuotes(right(valu,len(valu)-1)))>
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes#n#.event_attribute_value) = '#srchval#'">
+		<cfelseif left(valu,1) is '<'>
+			<cfset srchval=ucase(escapeQuotes(right(valu,len(valu)-1)))>
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes#n#.event_attribute_value) < #srchval#">
+		<cfelseif left(valu,1) is '>'>
+			<cfset srchval=ucase(escapeQuotes(right(valu,len(valu)-1)))>
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes#n#.event_attribute_value) > #srchval#">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes#n#.event_attribute_value) LIKE '%#ucase(escapeQuotes(valu))#%'">
+		</cfif>
+	</cfif>
+	<cfreturn>
+</cffunction>
 <cfset utilities = CreateObject("component","component.utilities")>
 <cfset getFlatSQL=utilities.getFlatSQL>
 <!----------------------------------------------------------------------------------------------------------->
@@ -217,42 +253,12 @@
 	<cfset basQual = " #basQual# AND specimen_event.specimen_event_type = '#specimen_event_type#'">
 </cfif>
 
-<cffunction name="buidEvtAttrCode" returnType="string">
-	<cfargument name="n" type="string" required="yes">
-	<cfargument name="typ" type="string" required="yes">
-	<cfargument name="valu" type="string" required="no">
-	<cfargument name="units" type="string" required="no">
-	<cfset mapurl = "#mapurl#&event_attribute_type_#n#=#typ#">
-	<cfif basJoin does not contain " specimen_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
-	</cfif>
-	<cfif basJoin does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
-	</cfif>
-	<cfset basJoin = " #basJoin# INNER JOIN collecting_event_attributes collecting_event_attributes#n# ON (collecting_event.collecting_event_id = collecting_event_attributes#n#.collecting_event_id)">
-	<cfset basQual = " #basQual# AND collecting_event_attributes#n#.event_attribute_type = '#typ#'">
-	<cfif isdefined("units") AND len(units) gt 0>
-		<cfset mapurl = "#mapurl#&event_attribute_units_#n#=#units#">
-		<cfset basQual = " #basQual# AND collecting_event_attributes#n#.event_attribute_units = '#units#'">
-	</cfif>
-	<cfif isdefined("valu") AND len(valu) gt 0>
-		<cfset mapurl = "#mapurl#&event_attribute_value_#n#=#valu#">
-		<!--- oo, fancy...---->
-		<cfif left(valu,1) is '='>
-			<cfset srchval=ucase(escapeQuotes(right(valu,len(valu)-1)))>
-			<cfset basQual = " #basQual# AND upper(collecting_event_attributes#n#.event_attribute_value) = '#srchval#'">
-		<cfelseif left(valu,1) is '<'>
-			<cfset srchval=ucase(escapeQuotes(right(valu,len(valu)-1)))>
-			<cfset basQual = " #basQual# AND upper(collecting_event_attributes#n#.event_attribute_value) < #srchval#">
-		<cfelseif left(valu,1) is '>'>
-			<cfset srchval=ucase(escapeQuotes(right(valu,len(valu)-1)))>
-			<cfset basQual = " #basQual# AND upper(collecting_event_attributes#n#.event_attribute_value) > #srchval#">
-		<cfelse>
-			<cfset basQual = " #basQual# AND upper(collecting_event_attributes#n#.event_attribute_value) LIKE '%#ucase(escapeQuotes(valu))#%'">
-		</cfif>
-	</cfif>
-	<cfreturn>
-</cffunction>
+
+<!--- 
+	it's difficult to do this dynamically because of how this is included, so 
+	build the call with Admin/buildAttributeSearchByNameCode.cfm and pass 
+	it off to a fucntion to put it all together as SQL 
+--->
 <cfif isdefined("event_attribute_type_1") AND len(event_attribute_type_1) gt 0>
 	<cfset u="">
 	<cfset v="">

@@ -281,5 +281,25 @@ declare
 end;
 /
 </textarea>
+
+<!--- more or less a one-time things to build event attribute search ---->
+<cfset cac="">
+<cfloop from="1" to="10" index="i">
+	<cfset cac=cac & '<cfif isdefined("event_attribute_type_#i#") AND len(event_attribute_type_#i#) gt 0>'>
+	<cfset cac=cac & chr(10) & chr(9) & '<cfset u="">'>
+	<!----
+		<cfset v="">
+		<cfif isdefined("event_attribute_units_1") AND len(event_attribute_units_1) gt 0>
+			<cfset u=event_attribute_units_1>
+		</cfif>
+		<cfif isdefined("event_attribute_value_1") AND len(event_attribute_value_1) gt 0>
+			<cfset v=event_attribute_value_1>
+		</cfif>
+		<cfset tmp = buidEvtAttrCode(n="1", typ="#event_attribute_type_1#", valu="#v#", units="#u#") />
+	</cfif>
+	---->
+</cfloop>
+
+<textarea rows="10" cols="100">#cac#</textarea>
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
