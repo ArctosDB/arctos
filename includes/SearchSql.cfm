@@ -217,6 +217,20 @@
 	<cfset basQual = " #basQual# AND specimen_event.specimen_event_type = '#specimen_event_type#'">
 </cfif>
 
+<cfif isdefined("event_attribute_type_1") AND len(event_attribute_type_1) gt 0>
+	<cfset mapurl = "#mapurl#&event_attribute_type_1=#event_attribute_type_1#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basJoin = " #basJoin# INNER JOIN collecting_event_attributes collecting_event_attributes1 ON (collecting_event.collecting_event_id = collecting_event_attributes.collecting_event_id)">
+	<cfset basQual = " #basQual# AND collecting_event_attributes1#.event_attribute_type = '#event_attribute_type_1#'">
+</cfif>
+
+<!---- abandon dynamic for now, it's too weird with the rest of our stuff...
+
 <cfif isdefined("form.FIELDNAMES") and form.FIELDNAMES contains "EVENT_ATTRIBUTE_TYPE_">
 	<!--- cheaper than a loop, makes sure we're coming from a form --->
 	<cfloop list="#form.FIELDNAMES#" index="i">
@@ -253,7 +267,7 @@
 
 	</cfloop>
 </cfif>
-
+---->
 
 <cfif isdefined("ocr_text") AND len(ocr_text) gt 0>
 	<cfset mapurl = "#mapurl#&ocr_text=#ocr_text#">
