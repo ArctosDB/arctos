@@ -10,9 +10,13 @@
 			console.log('i:'+i);
 
 			i=i.replace("ceattribute_type_placeholder_", "");
+
+			console.log('i:'+i);
+
 			var thisVal=this.value;
 
 			console.log('thisVal:'+thisVal);
+
 			if ($('#' + thisVal).length){
 				alert('That Attribute has already been added.');
 				$("#" + this.id).val('');
