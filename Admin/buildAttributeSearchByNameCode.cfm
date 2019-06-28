@@ -301,6 +301,7 @@ end;
 </cfloop>
 <br>
 searchSQL for event attributes:
-<textarea rows="10" cols="100">#cac#</textarea>
+<br>
+<textarea rows="50" cols="100">#cac#</textarea>
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">

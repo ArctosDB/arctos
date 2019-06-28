@@ -254,10 +254,10 @@
 </cfif>
 
 
-<!--- 
-	it's difficult to do this dynamically because of how this is included, so 
-	build the call with Admin/buildAttributeSearchByNameCode.cfm and pass 
-	it off to a fucntion to put it all together as SQL 
+<!---
+	it's difficult to do this dynamically because of how this is included, so
+	build the call with Admin/buildAttributeSearchByNameCode.cfm and pass
+	it off to a function to put it all together as SQL
 --->
 <cfif isdefined("event_attribute_type_1") AND len(event_attribute_type_1) gt 0>
 	<cfset u="">
@@ -270,7 +270,6 @@
 	</cfif>
 	<cfset tmp = buidEvtAttrCode(n="1", typ="#event_attribute_type_1#", valu="#v#", units="#u#") />
 </cfif>
-
 <cfif isdefined("event_attribute_type_2") AND len(event_attribute_type_2) gt 0>
 	<cfset u="">
 	<cfset v="">
@@ -282,6 +281,95 @@
 	</cfif>
 	<cfset tmp = buidEvtAttrCode(n="2", typ="#event_attribute_type_2#", valu="#v#", units="#u#") />
 </cfif>
+<cfif isdefined("event_attribute_type_3") AND len(event_attribute_type_3) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_3") AND len(event_attribute_units_3) gt 0>
+		<cfset u=event_attribute_units_3>
+	</cfif>
+	<cfif isdefined("event_attribute_value_3") AND len(event_attribute_value_3) gt 0>
+		<cfset v=event_attribute_value_3>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="3", typ="#event_attribute_type_3#", valu="#v#", units="#u#") />
+</cfif>
+<cfif isdefined("event_attribute_type_4") AND len(event_attribute_type_4) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_4") AND len(event_attribute_units_4) gt 0>
+		<cfset u=event_attribute_units_4>
+	</cfif>
+	<cfif isdefined("event_attribute_value_4") AND len(event_attribute_value_4) gt 0>
+		<cfset v=event_attribute_value_4>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="4", typ="#event_attribute_type_4#", valu="#v#", units="#u#") />
+</cfif>
+<cfif isdefined("event_attribute_type_5") AND len(event_attribute_type_5) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_5") AND len(event_attribute_units_5) gt 0>
+		<cfset u=event_attribute_units_5>
+	</cfif>
+	<cfif isdefined("event_attribute_value_5") AND len(event_attribute_value_5) gt 0>
+		<cfset v=event_attribute_value_5>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="5", typ="#event_attribute_type_5#", valu="#v#", units="#u#") />
+</cfif>
+<cfif isdefined("event_attribute_type_6") AND len(event_attribute_type_6) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_6") AND len(event_attribute_units_6) gt 0>
+		<cfset u=event_attribute_units_6>
+	</cfif>
+	<cfif isdefined("event_attribute_value_6") AND len(event_attribute_value_6) gt 0>
+		<cfset v=event_attribute_value_6>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="6", typ="#event_attribute_type_6#", valu="#v#", units="#u#") />
+</cfif>
+<cfif isdefined("event_attribute_type_7") AND len(event_attribute_type_7) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_7") AND len(event_attribute_units_7) gt 0>
+		<cfset u=event_attribute_units_7>
+	</cfif>
+	<cfif isdefined("event_attribute_value_7") AND len(event_attribute_value_7) gt 0>
+		<cfset v=event_attribute_value_7>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="7", typ="#event_attribute_type_7#", valu="#v#", units="#u#") />
+</cfif>
+<cfif isdefined("event_attribute_type_8") AND len(event_attribute_type_8) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_8") AND len(event_attribute_units_8) gt 0>
+		<cfset u=event_attribute_units_8>
+	</cfif>
+	<cfif isdefined("event_attribute_value_8") AND len(event_attribute_value_8) gt 0>
+		<cfset v=event_attribute_value_8>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="8", typ="#event_attribute_type_8#", valu="#v#", units="#u#") />
+</cfif>
+<cfif isdefined("event_attribute_type_9") AND len(event_attribute_type_9) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_9") AND len(event_attribute_units_9) gt 0>
+		<cfset u=event_attribute_units_9>
+	</cfif>
+	<cfif isdefined("event_attribute_value_9") AND len(event_attribute_value_9) gt 0>
+		<cfset v=event_attribute_value_9>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="9", typ="#event_attribute_type_9#", valu="#v#", units="#u#") />
+</cfif>
+<cfif isdefined("event_attribute_type_10") AND len(event_attribute_type_10) gt 0>
+	<cfset u="">
+	<cfset v="">
+	<cfif isdefined("event_attribute_units_10") AND len(event_attribute_units_10) gt 0>
+		<cfset u=event_attribute_units_10>
+	</cfif>
+	<cfif isdefined("event_attribute_value_10") AND len(event_attribute_value_10) gt 0>
+		<cfset v=event_attribute_value_10>
+	</cfif>
+	<cfset tmp = buidEvtAttrCode(n="10", typ="#event_attribute_type_10#", valu="#v#", units="#u#") />
+</cfif>
+
 
 <!----
 <cfif isdefined("event_attribute_type_1") AND len(event_attribute_type_1) gt 0>
