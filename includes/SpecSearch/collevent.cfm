@@ -381,10 +381,13 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_event_attributes">Event Attributes:</span>
+			<span class="helpLink" id="_event_attributes">
+				Event Attributes
+				<br><span class="infoLink" onclick="addEvtAttrSchTrm()">Add a row</span>
+			</span>
 		</td>
 		<td >
-			<table border>
+			<table id="evtAttrSchTbl" border>
 				<cfloop from="1" to="3" index="na">
 					<tr class="">
 						<td>
