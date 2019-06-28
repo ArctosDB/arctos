@@ -294,7 +294,7 @@ end;
 	<cfset cac=cac & chr(10) & chr(9) & '<cfif isdefined("event_attribute_value_#i#") AND len(event_attribute_value_#i#) gt 0>'>
 	<cfset cac=cac & chr(10) & chr(9) & chr(9) & '<cfset v=event_attribute_value_#i#>'>
 	<cfset cac=cac & chr(10) & chr(9) & '</cfif>'>
-	<cfset cac=cac & chr(10) & chr(9) & '<cfset tmp = buidEvtAttrCode(n="#i#", typ="#event_attribute_type_#i##", valu="#v#", units="#u#") />'>
+	<cfset cac=cac & chr(10) & chr(9) & '<cfset tmp = buidEvtAttrCode(n="#i#", typ="##event_attribute_type_#i###", valu="#v#", units="#u#") />'>
 	<cfset cac=cac & chr(10) & '</cfif>'>
 			<cfset cac=cac & chr(10)>
 	<!----
