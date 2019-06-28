@@ -218,11 +218,12 @@
 </cfif>
 <cfloop list="#form.FIELDNAMES#" index="i">
 	<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
-	<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
-	<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
-	<cfif len(thisAttrType) gt 0>
-		<br>got event_attribute_type_
-		<br>thisAttrType: #thisAttrType#
+		<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
+		<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
+		<cfif len(thisAttrType) gt 0>
+			<br>got event_attribute_type_
+			<br>thisAttrType: #thisAttrType#
+		</cfif>
 	</cfif>
 	<!----						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
 							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
