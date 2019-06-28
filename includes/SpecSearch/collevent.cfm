@@ -407,7 +407,7 @@
 		</td>
 		<td >
 			<table id="evtAttrSchTbl" border>
-				<cfloop from="1" to="3" index="na">
+				<cfloop from="1" to="1" index="na">
 					<tr class="">
 						<td>
 							<select name="event_attribute_type_#na#" id="event_attribute_type_#na#" onchange="populateEvtAttrs(this.id)">
@@ -423,24 +423,6 @@
 						<td id="event_attribute_units_cell_#na#">
 							<input type="hidden" name="event_attribute_units_#na#" id="event_attribute_units_#na#">
 						</td>
-						<!----
-						<td>
-							<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
-							<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
-								onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
-			 					onKeyPress="return noenter(event);">
-						</td>
-						<td>
-							<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
-
-						</td>
-						<td>
-							<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
-						</td>
-						<td>
-							<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
-						</td>
-						---->
 					</tr>
 				</cfloop>
 				<input type="hidden" name="na" id="na" value="#na#">
