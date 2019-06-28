@@ -418,10 +418,10 @@
 							</select>
 						</td>
 						<td id="event_attribute_value_cell_#na#">
-							<select name="event_attribute_value_#na#" id="event_attribute_value_#na#"></select>
+							<input type="hidden" name="event_attribute_value_#na#" id="event_attribute_value_#na#">
 						</td>
 						<td id="event_attribute_units_cell_#na#">
-							<select name="event_attribute_units_#na#" id="event_attribute_units_#na#"></select>
+							<input type="hidden" name="event_attribute_units_#na#" id="event_attribute_units_#na#">
 						</td>
 						<!----
 						<td>
