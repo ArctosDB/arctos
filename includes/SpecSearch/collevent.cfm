@@ -138,6 +138,10 @@
 
 	function addEvtAttrSchTrm(){
 		var i=parseInt($("#na").val());
+		if (i>10){
+			alert('Only 10 Event Attributes are currently supported; file an Issue.');
+			return false;
+		}
 		// + parseInt(1);
 		var h='<tr>';
 		h+='<td><select name="event_attribute_type_' + i + '" id="event_attribute_type_' + i + '" onchange="populateEvtAttrs(this.id)"></select></td>';
