@@ -928,7 +928,7 @@
 		var i=parseInt($("#na").val());
 		// + parseInt(1);
 		var h='<tr class="newRec">';
-		h+='<td><select name="event_attribute_type_new_' + i + '" id="event_attribute_type_new_' + i + '" onchange="populateEvtAttrs(this.id)"></select>';
+		h+='<td><select name="event_attribute_type_new_' + i + '" id="event_attribute_type_new_' + i + '" onchange="populateEvtAttrs(this.id)"></select></td>';
 		h+='<td id="event_attribute_value_cell_new_' + i + '"><select name="event_attribute_value_new_' + i + '" id="event_attribute_value_new' + i + '"></select></td>';
 		h+='<td id="event_attribute_units_cell_new_' + i + '"><select name="event_attribute_units_new_' + i + '" id="event_attribute_units_new_' + i + '"></select></td>';
 		h+='<td><input type="hidden" name="evt_att_determiner_id_new_' + i + '" id="evt_att_determiner_id_new_' + i + '">';

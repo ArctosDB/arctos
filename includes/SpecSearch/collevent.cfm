@@ -135,6 +135,21 @@
 			}
 		);
 	}
+
+	function addEvtAttrSchTrm(){
+		var i=parseInt($("#na").val());
+		// + parseInt(1);
+		var h='<tr>';
+		h+='<td><select name="event_attribute_type_' + i + '" id="event_attribute_type_' + i + '" onchange="populateEvtAttrs(this.id)"></select></td>';
+		h+='<td id="event_attribute_value_cell_' + i + '"><select name="event_attribute_value_' + i + '" id="event_attribute_value_' + i + '"></select></td>';
+		h+='<td id="event_attribute_units_cell_' + i + '"><select name="event_attribute_units_' + i + '" id="event_attribute_units_' + i + '"></select></td>';
+
+		h+='</tr>';
+		$("#evtAttrSchTbl").append(h);
+		$('#event_attribute_type_1').find('option').clone().appendTo('#event_attribute_type_' + i);
+		populateEvtAttrs('event_attribute_type_' + i);
+		$("#na").val(i + parseInt(1));
+	}
 </script>
 
 
@@ -424,6 +439,7 @@
 						---->
 					</tr>
 				</cfloop>
+				<input type="hidden" name="na" id="na" value="#na#">
 			</table>
 		</td>
 </tr>
