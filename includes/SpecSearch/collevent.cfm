@@ -22,7 +22,7 @@
 			console.log('thisTxt:'+thisTxt);
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
 			//nEl+='<span class="infoLink" onclick="resetCEAttr(' + this.id + ')">reset</span>';
-			console.log(thisTxt);
+			console.log('nEl:'+nEl);
 
 			$("#ceattribute_type_placeholder_" + i).html(nEl);
 			// hide the placeholder/picker
