@@ -245,7 +245,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 						<a href="ctDocumentation.cfm?table=#value_code_table#">#value_code_table#</a>
 					</td>
 					<td>
-						<a href="ctDocumentation.cfm?table=#units_code_table#">#units_code_table#</a>
+						<a href="ctDocumentation.cfm?table=#unit_code_table#">#unit_code_table#</a>
 					</td>
 					<td>
 				</tr>
