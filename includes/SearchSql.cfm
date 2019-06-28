@@ -216,28 +216,31 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND specimen_event.specimen_event_type = '#specimen_event_type#'">
 </cfif>
-<cfloop list="#form.FIELDNAMES#" index="i">
-	<cfoutput>
-	<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
-		<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
-		<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
-		<cfif len(thisAttrType) gt 0>
-			<br>got event_attribute_type_
-			<br>thisAttrType: #thisAttrType#
+
+<cfif isdefined("form.FIELDNAMES") and form.FIELDNAMES contains "EVENT_ATTRIBUTE_TYPE_">
+	<!--- cheaper than a loop, makes sure we're coming from a form --->
+	<cfloop list="#form.FIELDNAMES#" index="i">
+		<cfoutput>
+		<cfif left(i,21) is 'EVENT_ATTRIBUTE_TYPE_'>
+			<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
+			<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
+			<cfif len(thisAttrType) gt 0>
+				<br>got event_attribute_type_
+				<br>thisAttrType: #thisAttrType#
+			</cfif>
 		</cfif>
-	</cfif>
-	</cfoutput>
-	<!----						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
-							<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
-							<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
-							<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
-							<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
-							<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
-	---->
+		</cfoutput>
+		<!----						<cfset thisAttrVal=evaluate("EVENT_ATTRIBUTE_VALUE_" & thisID)>
+								<cfset thisAttrUnit=evaluate("EVENT_ATTRIBUTE_UNITS_" & thisID)>
+								<cfset thisAttrDiD=evaluate("EVT_ATT_DETERMINER_ID_" & thisID)>
+								<cfset thisAttrDate=evaluate("EVENT_ATT_DETERMINED_DATE_" & thisID)>
+								<cfset thisAttrMeth=evaluate("EVENT_DETERMINATION_METHOD_" & thisID)>
+								<cfset thisAttrRemk=evaluate("EVENT_ATTRIBUTE_REMARK_" & thisID)>
+		---->
 
 
-</cfloop>
-
+	</cfloop>
+</cfif>
 <cfif session.username is 'dlm'>dlm<cfabort></cfif>
 
 
