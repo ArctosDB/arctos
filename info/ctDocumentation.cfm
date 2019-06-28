@@ -219,6 +219,38 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</tr>
 			</cfloop>
 		</table>
+	<cfelseif table is "CTCOLL_EVENT_ATT_ATT">
+		<cfquery name="ctcoll_event_attr_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select distinct(event_attribute_type) from ctcoll_event_attr_type
+		</cfquery>
+		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			Select * from CTCOLL_EVENT_ATT_ATT	order by event_attribute_type
+		</cfquery>
+		<cfquery name="allCTs" datasource="uam_god">
+			select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
+		</cfquery>
+		<table border id="t" class="sortable">
+			<tr>
+				<th>Event Attribute</th>
+				<th>Value Code Table</th>
+				<th>Units Code Table</th>
+			</tr>
+			<cfset i=1>
+			<cfloop query="thisRec">
+				<tr>
+					<td name="#event_attribute_type#">
+						<a href="ctDocumentation.cfm?table=ctcoll_event_attr_type&field=#event_attribute_type#">#event_attribute_type#</a>
+					</td>
+					<td>
+						<a href="ctDocumentation.cfm?table=#value_code_table#">#value_code_table#</a>
+					</td>
+					<td>
+						<a href="ctDocumentation.cfm?table=#units_code_table#">#units_code_table#</a>
+					</td>
+					<td>
+				</tr>
+			</cfloop>
+		</table>
 	<cfelseif table is "ctspecimen_part_name">
 		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select * from ctspecimen_part_name <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif> order by part_name,collection_cde,is_tissue
