@@ -104,7 +104,7 @@
 						$("#"+unitsCellName).html(s);
 						$("#"+unitObjName).val(currentUnits);
 
-						var s='<input  type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'"  placeholder="value">';
+						var s='<input  type="text" name="'+valueObjName+'" id="'+valueObjName+'"  placeholder="value; =, <, and > are allowed for numeric">';
 						$("#"+valueCellName).html(s);
 						$("#"+valueObjName).val(currentValue);
 					}
