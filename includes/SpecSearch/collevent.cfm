@@ -3,58 +3,9 @@
 		$("#begDate").datepicker();
 		$("#endDate").datepicker();
 		$("#inMon").multiselect();
-
-		$(document).on("change", '[id^="ceattribute_type_placeholder_"]', function(){
-			console.log('change');
-			var i =  this.id;
-			console.log('i:'+i);
-
-			i=i.replace("ceattribute_type_placeholder_", "");
-
-			console.log('i:'+i);
-
-			var thisVal=this.value;
-
-			console.log('thisVal:'+thisVal);
-
-			if ($('#' + thisVal).length){
-				alert('That Attribute has already been added.');
-				$("#" + this.id).val('');
-				return;
-			}
-			var thisTxt=$("#" + this.id + " option:selected").text();
-			console.log('thisTxt:'+thisTxt);
-			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
-			//nEl+='<span class="infoLink" onclick="resetCEAttr(' + this.id + ')">reset</span>';
-			console.log('nEl:'+nEl);
-
-			$("#ceattribute_type_placeholder_" + i).html(nEl);
-			// hide the placeholder/picker
-			var nlbl='<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
-			$("#" + this.id).hide().after(nlbl);
-		});
-
 	});
 
-	function moreCEAttr(){
-		var i;
-		console.log('i:'+i);
-		 $('[id^= "ceattribute_type_placeholder_"]').each(function(){
-            i=this.id.replace("ceattribute_type_placeholder_", "");
-        });
-        var lastNum=i;
-        var nextNum=parseInt(i)+parseInt(1);
-        var nelem='<tr><td class="lbl">';
-        nelem+='<select name="ceattribute_type_placeholder_'+nextNum+'" id="attribute_type_placeholder_'+nextNum+'" size="1"></select>';
-        nelem+='</td><td class="srch"><span id="ceattribute_value_placeholder_'+nextNum+'"></span></td></tr>';
-        $('#ceattrCtlTR').before(nelem);
-        $('#ceattribute_type_placeholder_1').find('option').clone().appendTo('#ceattribute_type_placeholder_' + nextNum);
-	}
-
-
-
 	function populateEvtAttrs(id) {
-		//console.log('populateEvtAttrs==got id:'+id);
 		var idNum=id.replace('event_attribute_type_','');
 		var currentTypeValue=$("#event_attribute_type_" + idNum).val();
 		var valueObjName="event_attribute_value_" + idNum;
@@ -62,20 +13,14 @@
 		var unitsCellName="event_attribute_units_cell_" + idNum;
 		var valueCellName="event_attribute_value_cell_" + idNum;
 		if (currentTypeValue.length==0){
-			//console.log('zero-length type; resetting');
 			var s='<input  type="hidden" name="'+unitObjName+'" id="'+unitObjName+'" value="">';
 			$("#"+unitsCellName).html(s);
 			var s='<input  type="hidden" name="'+valueObjName+'" id="'+valueObjName+'" value="">';
 			$("#"+valueCellName).html(s);
 			return false;
 		}
-		//console.log('did not return false');
 		var currentValue=$("#" + valueObjName).val();
 		var currentUnits=$("#" + unitObjName).val();
-		//console.log('currentTypeValue:'+currentTypeValue);
-		//console.log('currentValue:'+currentValue);
-		//console.log('currentUnits:'+currentUnits);
-
 		jQuery.getJSON("/component/DataEntry.cfc",
 			{
 				method : "getEvtAttCodeTbl",
@@ -85,22 +30,18 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				//console.log(r);
 				if (r.STATUS != 'success'){
 					alert('error occurred in getEvtAttCodeTbl');
 					return false;
 				} else {
 					if (r.CTLFLD=='units'){
 						var dv=$.parseJSON(r.DATA);
-						//console.log(dv);
 						var s='<select name="'+unitObjName+'" id="'+unitObjName+'">';
 						s+='<option></option>';
 						$.each(dv, function( index, value ) {
-							//console.log(value[0]);
 							s+='<option value="' + value[0] + '">' + value[0] + '</option>';
 						});
 						s+='</select>';
-						//console.log(s);
 						$("#"+unitsCellName).html(s);
 						$("#"+unitObjName).val(currentUnits);
 
@@ -142,12 +83,10 @@
 			alert('Only 10 Event Attributes are currently supported; file an Issue.');
 			return false;
 		}
-		// + parseInt(1);
 		var h='<tr>';
 		h+='<td><select name="event_attribute_type_' + i + '" id="event_attribute_type_' + i + '" onchange="populateEvtAttrs(this.id)"></select></td>';
 		h+='<td id="event_attribute_value_cell_' + i + '"><select name="event_attribute_value_' + i + '" id="event_attribute_value_' + i + '"></select></td>';
 		h+='<td id="event_attribute_units_cell_' + i + '"><select name="event_attribute_units_' + i + '" id="event_attribute_units_' + i + '"></select></td>';
-
 		h+='</tr>';
 		$("#evtAttrSchTbl").append(h);
 		$('#event_attribute_type_1').find('option').clone().appendTo('#event_attribute_type_' + i);
