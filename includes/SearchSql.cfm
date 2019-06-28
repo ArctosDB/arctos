@@ -228,6 +228,7 @@
 	<cfset basJoin = " #basJoin# INNER JOIN collecting_event_attributes collecting_event_attributes1 ON (collecting_event.collecting_event_id = collecting_event_attributes1.collecting_event_id)">
 	<cfset basQual = " #basQual# AND collecting_event_attributes1.event_attribute_type = '#event_attribute_type_1#'">
 	<cfif isdefined("event_attribute_units_1") AND len(event_attribute_units_1) gt 0>
+		<cfset mapurl = "#mapurl#&event_attribute_units_1=#event_attribute_units_1#">
 		<cfset basQual = " #basQual# AND collecting_event_attributes1.event_attribute_units = '#event_attribute_units_1#'">
 	</cfif>
 </cfif>
