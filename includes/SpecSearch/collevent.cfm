@@ -45,7 +45,7 @@
 						$("#"+unitsCellName).html(s);
 						$("#"+unitObjName).val(currentUnits);
 
-						var s='<input  type="text" name="'+valueObjName+'" id="'+valueObjName+'"  placeholder="value; =, <, and > are allowed for numeric">';
+						var s='<input  type="text" name="'+valueObjName+'" id="'+valueObjName+'"  placeholder="Default LIKE or =, <, >.">';
 						$("#"+valueCellName).html(s);
 						$("#"+valueObjName).val(currentValue);
 					}
