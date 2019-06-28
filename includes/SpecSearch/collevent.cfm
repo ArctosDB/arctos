@@ -104,7 +104,7 @@
 						$("#"+unitsCellName).html(s);
 						$("#"+unitObjName).val(currentUnits);
 
-						var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr">';
+						var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr" placeholder="value">';
 						$("#"+valueCellName).html(s);
 						$("#"+valueObjName).val(currentValue);
 					}
@@ -124,7 +124,8 @@
 						$("#"+unitsCellName).html(s);
 					}
 					if (r.CTLFLD=='none'){
-						var s='<textarea required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
+						//var s='<textarea required class="reqdClr" name="'+valueObjName+'" id="'+valueObjName+'"></textarea>';
+						//var s='<input required class="reqdClr" type="number" step="any" name="'+valueObjName+'" id="'+valueObjName+'" class="reqdClr" placeholder="value">';
 						$("#"+valueCellName).html(s);
 						$("#"+valueObjName).val(currentValue);
 
@@ -389,7 +390,7 @@ Event Attributes
 						<tr class="">
 							<td>
 								<select name="event_attribute_type_#na#" id="event_attribute_type_#na#" onchange="populateEvtAttrs(this.id)">
-									<option value="">select new event attribute</option>
+									<option value="">select event attribute</option>
 									<cfloop query="ctcoll_event_attr_type">
 										<option value="#event_attribute_type#">#event_attribute_type#</option>
 									</cfloop>
