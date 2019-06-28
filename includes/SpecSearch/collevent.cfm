@@ -3,8 +3,45 @@
 		$("#begDate").datepicker();
 		$("#endDate").datepicker();
 		$("#inMon").multiselect();
+
+		$(document).on("change", '[id^="ceattribute_type_placeholder_"]', function(){
+			var i =  this.id;
+			i=i.replace("ceattribute_type_placeholder_", "");
+			var thisVal=this.value;
+			if ($('#' + thisVal).length){
+				alert('That Attribute has already been added.');
+				$("#" + this.id).val('');
+				return;
+			}
+			var thisTxt=$("#" + this.id + " option:selected").text();
+			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
+			//nEl+='<span class="infoLink" onclick="resetAttr(' + this.id + ')">reset</span>';
+			$("#ceattribute_type_placeholder_" + i).html(nEl);
+			// hide the placeholder/picker
+			var nlbl='<span class="helpLink" id="_' +thisVal+'">'+thisTxt+'</span>';
+			$("#" + this.id).hide().after(nlbl);
+		});
+
 	});
+
+	function moreAttr(){
+		var i;
+		 $('[id^= "ceattribute_type_placeholder_"]').each(function(){
+            i=this.id.replace("ceattribute_type_placeholder_", "");
+        });
+        var lastNum=i;
+        var nextNum=parseInt(i)+parseInt(1);
+        var nelem='<tr><td class="lbl">';
+        nelem+='<select name="ceattribute_type_placeholder_'+nextNum+'" id="attribute_type_placeholder_'+nextNum+'" size="1"></select>';
+        nelem+='</td><td class="srch"><span id="ceattribute_value_placeholder_'+nextNum+'"></span></td></tr>';
+        $('#ceattrCtlTR').before(nelem);
+        $('#ceattribute_type_placeholder_1').find('option').clone().appendTo('#ceattribute_type_placeholder_' + nextNum);
+	}
 </script>
+
+
+
+
 <cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select collecting_source from ctcollecting_source order by collecting_source
 </cfquery>
@@ -14,7 +51,9 @@
 <cfquery name="ctspecimen_event_type"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select specimen_event_type from ctspecimen_event_type group by specimen_event_type order by specimen_event_type
 </cfquery>
-
+<cfquery name="ctCeAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select distinct(event_attribute_type) from ctcoll_event_attr_type order by event_attribute_type
+</cfquery>
 
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
@@ -241,6 +280,33 @@
 		<td class="srch">
 			<input type="text" name="coll_event_remarks" id="coll_event_remarks" size="50">
 		</td>
+	</tr>
+
+
+	<tr>
+		<td class="lbl">
+			<select name="ceattribute_type_placeholder_1" id="ceattribute_type_placeholder_1" size="1">
+				<option selected value="">[ pick an event-attribute ]</option>
+					<cfloop query="ctCeAttributeType">
+						<option value="#ctCeAttributeType.event_attribute_type#">#ctCeAttributeType.event_attribute_type#</option>
+					</cfloop>
+			  </select>
+		</td>
+		<td class="srch">
+			<span id="attribute_value_placeholder_1"></span>
+		</td>
+	</tr>
+	<tr id="ceattrCtlTR">
+		<td colspan="2">
+			<div style="margin-left:3em;margin:1em;padding:.5em;border:1px solid green;;">
+				<div>
+					<span class="likeLink" onclick="moreAttr()">Add attribute</span> for more search options.
+					Click the label after selecting an attribute type for more information.
+					Empty values are ignored.
+				</div>
+			</div>
+		</td>
+
 	</tr>
 </table>
 </cfoutput>
