@@ -379,56 +379,49 @@
 			<input type="text" name="coll_event_remarks" id="coll_event_remarks" size="50">
 		</td>
 	</tr>
-
-<tr>
-<td class="lbl">
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_event_attributes">Event Attributes:</span>
 		</td>
+		<td >
+			<table border>
+				<cfloop from="1" to="3" index="na">
+					<tr class="">
+						<td>
+							<select name="event_attribute_type_#na#" id="event_attribute_type_#na#" onchange="populateEvtAttrs(this.id)">
+								<option value="">select event attribute</option>
+								<cfloop query="ctcoll_event_attr_type">
+									<option value="#event_attribute_type#">#event_attribute_type#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td id="event_attribute_value_cell_#na#">
+							<select name="event_attribute_value_#na#" id="event_attribute_value_#na#"></select>
+						</td>
+						<td id="event_attribute_units_cell_#na#">
+							<select name="event_attribute_units_#na#" id="event_attribute_units_#na#"></select>
+						</td>
+						<!----
+						<td>
+							<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
+							<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
+								onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
+			 					onKeyPress="return noenter(event);">
+						</td>
+						<td>
+							<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
 
-
-
-
-	<td colspan="2">
-
-<table border>
-<cfloop from="1" to="3" index="na">
-						<tr class="">
-							<td>
-								<select name="event_attribute_type_#na#" id="event_attribute_type_#na#" onchange="populateEvtAttrs(this.id)">
-									<option value="">select event attribute</option>
-									<cfloop query="ctcoll_event_attr_type">
-										<option value="#event_attribute_type#">#event_attribute_type#</option>
-									</cfloop>
-								</select>
-							</td>
-							<td id="event_attribute_value_cell_#na#">
-								<select name="event_attribute_value_#na#" id="event_attribute_value_#na#"></select>
-							</td>
-							<td id="event_attribute_units_cell_#na#">
-								<select name="event_attribute_units_#na#" id="event_attribute_units_#na#"></select>
-							</td>
-							<!----
-							<td>
-								<input type="hidden" name="evt_att_determiner_id_new_#na#" id="evt_att_determiner_id_new_#na#">
-								<input placeholder="determiner" type="text" name="evt_att_determiner_new_#na#" id="evt_att_determiner_new_#na#" value="" size="20"
-									onchange="pickAgentModal('evt_att_determiner_id_new_#na#',this.id,this.value); return false;"
-				 					onKeyPress="return noenter(event);">
-							</td>
-							<td>
-								<input type="text" name="event_att_determined_date_new_#na#" id="event_att_determined_date_new_#na#">
-
-							</td>
-							<td>
-								<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
-							</td>
-							<td>
-								<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
-							</td>
-							---->
-						</tr>
-					</cfloop>
-
-					</table>
+						</td>
+						<td>
+							<input type="text" name="event_determination_method_new_#na#" id="event_determination_method_new_#na#" size="20">
+						</td>
+						<td>
+							<input type="text" name="event_attribute_remark_new_#na#" id="event_attribute_remark_new_#na#" size="20">
+						</td>
+						---->
+					</tr>
+				</cfloop>
+			</table>
 		</td>
 </tr>
 
