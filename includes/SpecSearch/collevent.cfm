@@ -5,6 +5,7 @@
 		$("#inMon").multiselect();
 
 		$(document).on("change", '[id^="ceattribute_type_placeholder_"]', function(){
+			console.log('change');
 			var i =  this.id;
 			i=i.replace("ceattribute_type_placeholder_", "");
 			var thisVal=this.value;
