@@ -296,20 +296,11 @@ end;
 	<cfset cac=cac & chr(10) & chr(9) & '</cfif>'>
 	<cfset cac=cac & chr(10) & chr(9) & '<cfset tmp = buidEvtAttrCode(n="#i#", typ="##event_attribute_type_#i###", valu="##v##", units="##u##") />'>
 	<cfset cac=cac & chr(10) & '</cfif>'>
-			<cfset cac=cac & chr(10)>
-	<!----
+	<cfset cac=cac & chr(10)>
 
-
-
-
-
-
-
-
-
-	---->
 </cfloop>
-
+<br>
+searchSQL for event attributes:
 <textarea rows="10" cols="100">#cac#</textarea>
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
