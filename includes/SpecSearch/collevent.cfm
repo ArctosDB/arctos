@@ -423,30 +423,5 @@
 		</td>
 </tr>
 
-	<tr>
-		<td class="lbl">
-			<select name="ceattribute_type_placeholder_1" id="ceattribute_type_placeholder_1" size="1">
-				<option selected value="">[ pick an event-attribute ]</option>
-					<cfloop query="ctCeAttributeType">
-						<option value="#ctCeAttributeType.event_attribute_type#">#ctCeAttributeType.event_attribute_type#</option>
-					</cfloop>
-			  </select>
-		</td>
-		<td class="srch">
-			<span id="ceattribute_value_placeholder_1"></span>
-		</td>
-	</tr>
-	<tr id="ceattrCtlTR">
-		<td colspan="2">
-			<div style="margin-left:3em;margin:1em;padding:.5em;border:1px solid green;;">
-				<div>
-					<span class="likeLink" onclick="moreCEAttr()">Add Event-Attribute</span> for more search options.
-					Click the label after selecting an attribute type for more information.
-					Empty values are ignored.
-				</div>
-			</div>
-		</td>
-
-	</tr>
 </table>
 </cfoutput>
