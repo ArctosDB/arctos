@@ -380,8 +380,14 @@
 		</td>
 	</tr>
 
-Event Attributes
 <tr>
+<td class="lbl">
+			<span class="helpLink" id="_event_attributes">Event Attributes:</span>
+		</td>
+
+
+
+
 	<td colspan="2">
 
 <table border>
