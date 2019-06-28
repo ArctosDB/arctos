@@ -225,6 +225,8 @@
 			<cfset thisID=replace(i,'EVENT_ATTRIBUTE_TYPE_','')>
 			<cfset thisAttrType=evaluate("EVENT_ATTRIBUTE_TYPE_" & thisID)>
 			<cfif len(thisAttrType) gt 0>
+				<cfset mapurl = "#mapurl#&specimen_event_type=#specimen_event_type#">
+
 				<!--- got a type, we are going to search ---->
 				<cfif basJoin does not contain " specimen_event ">
 					<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">

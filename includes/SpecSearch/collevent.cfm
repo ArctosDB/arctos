@@ -385,7 +385,7 @@
 		</td>
 		<td >
 			<table border>
-				<cfloop from="1" to="3" index="na">
+				<cfloop from="1" to="1" index="na">
 					<tr class="">
 						<td>
 							<select name="event_attribute_type_#na#" id="event_attribute_type_#na#" onchange="populateEvtAttrs(this.id)">
