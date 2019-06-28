@@ -7,18 +7,19 @@
 		$(document).on("change", '[id^="ceattribute_type_placeholder_"]', function(){
 			console.log('change');
 			var i =  this.id;
-			console.log(i);
+			console.log('i:'+i);
+
 			i=i.replace("ceattribute_type_placeholder_", "");
 			var thisVal=this.value;
 
-			console.log(thisVal);
+			console.log('thisVal:'+thisVal);
 			if ($('#' + thisVal).length){
 				alert('That Attribute has already been added.');
 				$("#" + this.id).val('');
 				return;
 			}
 			var thisTxt=$("#" + this.id + " option:selected").text();
-			console.log(thisTxt);
+			console.log('thisTxt:'+thisTxt);
 			var nEl='<input type="text" name="' + thisVal + '" id="' + thisVal + '" placeholder="' + thisTxt + '">';
 			//nEl+='<span class="infoLink" onclick="resetCEAttr(' + this.id + ')">reset</span>';
 			console.log(thisTxt);
@@ -33,6 +34,7 @@
 
 	function moreCEAttr(){
 		var i;
+		console.log('i:'+i);
 		 $('[id^= "ceattribute_type_placeholder_"]').each(function(){
             i=this.id.replace("ceattribute_type_placeholder_", "");
         });
