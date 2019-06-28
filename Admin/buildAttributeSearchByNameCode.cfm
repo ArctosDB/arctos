@@ -287,16 +287,26 @@ end;
 <cfloop from="1" to="10" index="i">
 	<cfset cac=cac & '<cfif isdefined("event_attribute_type_#i#") AND len(event_attribute_type_#i#) gt 0>'>
 	<cfset cac=cac & chr(10) & chr(9) & '<cfset u="">'>
+	<cfset cac=cac & chr(10) & chr(9) & '<cfset v="">'>
+	<cfset cac=cac & chr(10) & chr(9) & '<cfif isdefined("event_attribute_units_#i#") AND len(event_attribute_units_#i#) gt 0>'>
+	<cfset cac=cac & chr(10) & chr(9) & chr(9) & '<cfset u=event_attribute_units_#i#>'>
+	<cfset cac=cac & chr(10) & chr(9) & '</cfif>'>
+	<cfset cac=cac & chr(10) & chr(9) & '<cfif isdefined("event_attribute_value_#i#") AND len(event_attribute_value_#i#) gt 0>'>
+	<cfset cac=cac & chr(10) & chr(9) & chr(9) & '<cfset v=event_attribute_value_#i#>'>
+	<cfset cac=cac & chr(10) & chr(9) & '</cfif>'>
+	<cfset cac=cac & chr(10) & chr(9) & '<cfset tmp = buidEvtAttrCode(n="#i#", typ="#event_attribute_type_#i##", valu="#v#", units="#u#") />'>
+	<cfset cac=cac & chr(10) & '</cfif>'>
+			<cfset cac=cac & chr(10)>
 	<!----
-		<cfset v="">
-		<cfif isdefined("event_attribute_units_1") AND len(event_attribute_units_1) gt 0>
-			<cfset u=event_attribute_units_1>
-		</cfif>
-		<cfif isdefined("event_attribute_value_1") AND len(event_attribute_value_1) gt 0>
-			<cfset v=event_attribute_value_1>
-		</cfif>
-		<cfset tmp = buidEvtAttrCode(n="1", typ="#event_attribute_type_1#", valu="#v#", units="#u#") />
-	</cfif>
+
+
+
+
+
+
+
+
+
 	---->
 </cfloop>
 
