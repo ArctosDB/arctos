@@ -383,8 +383,8 @@
 		<td class="lbl">
 			<span class="helpLink" id="_event_attributes">
 				Event Attributes
-				<br><span class="infoLink" onclick="addEvtAttrSchTrm()">Add a row</span>
 			</span>
+			<br><span class="infoLink" onclick="addEvtAttrSchTrm()">Add a row</span>
 		</td>
 		<td >
 			<table id="evtAttrSchTbl" border>
