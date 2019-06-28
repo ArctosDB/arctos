@@ -231,6 +231,22 @@
 		<cfset mapurl = "#mapurl#&event_attribute_units_1=#event_attribute_units_1#">
 		<cfset basQual = " #basQual# AND collecting_event_attributes1.event_attribute_units = '#event_attribute_units_1#'">
 	</cfif>
+	<cfif isdefined("event_attribute_value_1") AND len(event_attribute_value_1) gt 0>
+		<cfset mapurl = "#mapurl#&event_attribute_value_1=#event_attribute_value_1#">
+		<!--- oo, fancy...---->
+		<cfif left(event_attribute_value_1,1) is '='>
+			<cfset srchval=ucase(escapeQuotes(right(event_attribute_value_1,len(event_attribute_value_1)-1)))>
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes1.event_attribute_value) = '#srchval#'">
+		<cfif left(event_attribute_value_1,1) is '<'>
+			<cfset srchval=ucase(escapeQuotes(right(event_attribute_value_1,len(event_attribute_value_1)-1)))>
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes1.event_attribute_value) < '#srchval#'">
+		<cfif left(event_attribute_value_1,1) is '>'>
+			<cfset srchval=ucase(escapeQuotes(right(event_attribute_value_1,len(event_attribute_value_1)-1)))>
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes1.event_attribute_value) > '#srchval#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(collecting_event_attributes1.event_attribute_value) LIKE '#ucase(escapeQuotes(event_attribute_value_1))#'">
+		</cfif>
+	</cfif>
 </cfif>
 
 <!---- abandon dynamic for now, it's too weird with the rest of our stuff...
