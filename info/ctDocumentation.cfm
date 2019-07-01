@@ -186,6 +186,37 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				</tr>
 			</cfloop>
 		</table>
+	<cfelseif table is "CTPART_PRESERVATION">
+		<cfquery name="CTPART_PRESERVATION" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select distinct(PART_PRESERVATION) from CTPART_PRESERVATION order by PART_PRESERVATION
+		</cfquery>
+		<table border id="t" class="sortable">
+			<tr>
+				<th>Part_Preservation</th>
+				<th>Tissueness</th>
+				<th>Description</th>
+			</tr>
+			<cfset i=1>
+			<cfloop query="CTPART_PRESERVATION">
+				<tr>
+					<td name="#PART_PRESERVATION#">
+						#PART_PRESERVATION#
+					</td>
+					<td>
+						<cfif TISSUE_FG is 1>
+							Allows
+						<cfelseif TISSUE_FG is 0>
+							Denies
+						<cfelse>
+							No Influence
+						</cfif>
+					</td>
+					<td>
+						#DESCRIPTION#
+					</td>
+				</tr>
+			</cfloop>
+		</table>
 	<cfelseif table is "ctattribute_code_tables">
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select distinct(attribute_type) from ctAttribute_type <cfif len(coln) gt 0> where collection_cde='#coln#'</cfif>
