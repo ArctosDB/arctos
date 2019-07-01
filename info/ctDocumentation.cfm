@@ -187,7 +187,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			</cfloop>
 		</table>
 	<cfelseif table is "CTPART_PRESERVATION">
-		See <a href="http://handbook.arctosdb.org/documentation/parts.html#preservation">documentation</a>.
+		See <a href="http://handbook.arctosdb.org/documentation/parts.html##preservation">documentation</a>.
 		<cfquery name="CTPART_PRESERVATION" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select * from CTPART_PRESERVATION order by PART_PRESERVATION
 		</cfquery>
