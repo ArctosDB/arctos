@@ -188,7 +188,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		</table>
 	<cfelseif table is "CTPART_PRESERVATION">
 		<cfquery name="CTPART_PRESERVATION" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select distinct(PART_PRESERVATION) from CTPART_PRESERVATION order by PART_PRESERVATION
+			select * from CTPART_PRESERVATION order by PART_PRESERVATION
 		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
