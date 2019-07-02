@@ -11,7 +11,7 @@
 <cfset murl=obj.googleSignURL(urlPath="/maps/api/js",urlParams="libraries=places,geometry")>
 
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
-<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js?v=3.445'></script>
+<script type='text/javascript' language="javascript" src='/includes/SpecimenResults.js?v=3.446'></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
 <cfhtmlhead text='<script src="#murl#" type="text/javascript"></script>'>

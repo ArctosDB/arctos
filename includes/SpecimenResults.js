@@ -386,6 +386,8 @@ function formatPartDetail(){
 		$("#ssControl").append(bgn);
 	}
 }
+
+
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
 		var r = $.parseJSON($("#" + this.id).html());
@@ -397,25 +399,25 @@ function displayMedia(idList){
 		jQuery.each(r, function(index, DATA) {
 			//console.log(DATA.MEDIA_ID);
 			//console.log(i);
-			if (DATA.MIMECAT=='audio' && DATA.MEDIA_URI.split('.').pop()=='mp3'){
+			if (DATA.MT=='audio' && DATA.MU.split('.').pop()=='mp3'){
 				theHTML+='<div class="one_thumb">';
 				theHTML+='<audio controls>';
-				theHTML+='<source src="' + DATA.MEDIA_URI + '" type="audio/mp3">';
-				theHTML+='<a href="/media/' + DATA.MEDIA_ID + '?open" target="_blank">download</a>';
+				theHTML+='<source src="' + DATA.MU + '" type="audio/mp3">';
+				theHTML+='<a href="/media/' + DATA.MI + '?open" target="_blank">download</a>';
 				theHTML+='</audio> ';
-				theHTML+='<br><a target="_blank" href="/media/' + DATA.MEDIA_ID + '">Media Detail</a></p></div>';
+				theHTML+='<br><a target="_blank" href="/media/' + DATA.MI + '">Media Detail</a></p></div>';
 			} else {
-				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + DATA.PREVIEW_URI + '&media_type=' +  DATA.MIMECAT + '&returnformat=json&queryformat=column';
+				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + DATA.PU + '&media_type=' +  DATA.MT + '&returnformat=json&queryformat=column';
 				$.ajax({
 					url: theURL,
 					dataType: 'json',
 					async: false,
 					success: function(result) {
 						theHTML+='<div class="one_thumb">';
-						theHTML+='<a href="/media/' + DATA.MEDIA_ID + '?open" target="_blank">';
+						theHTML+='<a href="/media/' + DATA.MI + '?open" target="_blank">';
 						theHTML+='<img src="' + result + '" class="theThumb"></a>';
-						theHTML+='<p>' + DATA.MIMECAT + ' (' + DATA.MIME_TYPE + ')';
-						theHTML+='<br><a target="_blank" href="/media/' +DATA.MEDIA_ID + '">Media Detail</a></p></div>';
+						theHTML+='<p>' + DATA.MT + ' (' + DATA.ME + ')';
+						theHTML+='<br><a target="_blank" href="/media/' +DATA.MI + '">Media Detail</a></p></div>';
 					}
 				});
 			}
