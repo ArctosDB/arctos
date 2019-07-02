@@ -498,7 +498,7 @@
 											<li><a target="_top" href="/info/queryStats.cfm">Query Statistics</a></li>
 											<li><a target="_top" href="/info/sysstats.cfm">System Statistics</a></li>
 											<li><a target="_top" href="/info/MoreCitationStats.cfm">Usage Statistics</a></li>
-											<cfif listfind(formList,"info/SpecimenCountByInstitution.cfm")>
+											<cfif listfind(formList,"/info/SpecimenCountByInstitution.cfm")>
 												<li><a target="_top" href="/info/SpecimenCountByInstitution.cfm">SpecimenCountByInstitution</a></li>
 											</cfif>
 										</ul>
