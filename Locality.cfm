@@ -2327,11 +2327,11 @@ You deleted a collecting event.
 			Found #localityResults.recordcount# records
 			<cfif localityResults.recordcount lt 1000>
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Map <strong>localities</strong> @BerkeleyMapper</a>
-				<br><input type="button" value="Name these events" class="savBtn" onclick="tools.action.value='massNameCollEvent';tools.submit();">>
+				<br><input type="button" value="Name these events" class="savBtn" onclick="tools.action.value='massNameCollEvent';tools.submit();">
 			<cfelse>
 				1000 record limit on mapping, sorry...
 			</cfif>
-			<span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
+			<br><span class="likeLink" onclick="tools.action.value='csvCollEvent';tools.submit();">[ csv ]</span>
 			<cfif isdefined("locality_id") and len(locality_id) gt 0>
 				<a href="/tools/mergeDuplicateEvents.cfm?locality_id=#locality_id#">[ find and merge duplicates ]</a>
 			</cfif>
