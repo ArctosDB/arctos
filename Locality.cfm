@@ -2348,7 +2348,7 @@ You deleted a collecting event.
 			select
 				higher_geog,
 				spec_locality,
-				locality_name
+				locality_name,
 				locality.locality_id
 			from
 				locality,
