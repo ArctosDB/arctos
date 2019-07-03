@@ -2314,6 +2314,26 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 
 <cfif action is "massNameCollEvent">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			higher_geog,
+			spec_locality,
+			locality_name,
+			verbatim_locality,
+			collecting_event_name,
+			locality.locality_id,
+			collecting_event.collecting_event_id
+		from
+			collecting_event,
+			locality,
+			geog_auth_rec
+		where
+			collecting_event.locality_id=locality.locality_id and
+			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+			collecting_event.collecting_event_id in (#COLLECTING_EVENT_ID#)
+	</cfquery>
+	<cfdump var=#d#>
+
 	<cfdump var=#form#>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
