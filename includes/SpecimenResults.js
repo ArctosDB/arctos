@@ -416,7 +416,7 @@ function displayMedia(idList){
 						theHTML+='<div class="one_thumb">';
 						theHTML+='<a href="/media/' + DATA.MI + '?open" target="_blank">';
 						theHTML+='<img src="' + result + '" class="theThumb"></a>';
-						theHTML+='<p>' + DATA.MT + ' (' + DATA.ME + ')';
+						theHTML+='<p>' + DATA.MT + ' (' + DATA.MC + ')';
 						theHTML+='<br><a target="_blank" href="/media/' +DATA.MI + '">Media Detail</a></p></div>';
 					}
 				});
