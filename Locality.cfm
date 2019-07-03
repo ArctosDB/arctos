@@ -2312,7 +2312,13 @@ You deleted a collecting event.
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
+
+<cfif action is "massNameCollEvent">
+	<cfdump var=#form#>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
 <cfif action is "findCollEvent">
+
 	<cfoutput>
 		<cfset title="collecting events: search results">
 		<form name="tools" method="post" action="Locality.cfm">
@@ -2321,6 +2327,7 @@ You deleted a collecting event.
 			Found #localityResults.recordcount# records
 			<cfif localityResults.recordcount lt 1000>
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Map <strong>localities</strong> @BerkeleyMapper</a>
+				<br><input type="button" value="Name these events" class="savBtn" onclick="tools.action.value='massNameCollEvent';tools.submit();">>
 			<cfelse>
 				1000 record limit on mapping, sorry...
 			</cfif>
