@@ -2334,7 +2334,29 @@ You deleted a collecting event.
 	</cfoutput>
 </cfif>
 
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "goNameLocality">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update locality set locality_name='temp_'||locality_id where locality_name is null and
+			locality_id in (#locality_id#)
+		</cfquery>
+		<cflocation addtoken="no" url="Locality.cfm?action=manageLocalityName&locality_id=#locality_id#">
+	</cfoutput>
+</cfif>
 
+
+<!---------------------------------------------------------------------------------------------------->
+<cfif action is "goUnNameLocality">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update locality set locality_name=null where
+			locality_name='temp_'||locality_id and
+			locality_id in (#locality_id#)
+		</cfquery>
+		<cflocation addtoken="no" url="Locality.cfm?action=manageLocalityName&locality_id=#locality_id#">
+	</cfoutput>
+</cfif>
 
 
 
@@ -2380,7 +2402,7 @@ You deleted a collecting event.
 			<input type="hidden" name="locality_id" value="#locality_id#">
 			<input type="hidden" name="action">
 			<br><input type="button" value="Name These Localities" class="savBtn" onclick="f.action.value='goNameLocality';f.submit();">
-			<br><input type="button" value="Un-Name These Localities" class="delBtn" onclick="f.action.value='goUnNameNameLocality';f.submit();">
+			<br><input type="button" value="Un-Name These Localities" class="delBtn" onclick="f.action.value='goUnNameLocality';f.submit();">
 		</form>
 
 
