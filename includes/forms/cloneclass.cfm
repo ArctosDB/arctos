@@ -1,4 +1,4 @@
-<cfinclude template="/includes/alwaysInclude.cfm">
+<cfinclude template="/includes/_frameHeader.cfm">
 <cfoutput>
 <cfif action is "nothing">
 	<cfquery name="cttaxonomy_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
