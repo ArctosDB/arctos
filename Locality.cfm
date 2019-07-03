@@ -2364,7 +2364,6 @@ You deleted a collecting event.
 
 
 <cfif action is "manageLocalityName">
-	<cfdump var=#form#>
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
