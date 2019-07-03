@@ -2366,6 +2366,7 @@ You deleted a collecting event.
 
 		<form name="f" method="post" action="Locality.cfm">
 			<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
+			<input type="hidden" name="action">
 			<br><input type="button" value="Name These Events" class="savBtn" onclick="f.action.value='goNameEvents';f.submit();">
 			<br><input type="button" value="Un-Name These Events" class="delBtn" onclick="f.action.value='goUnNameEvents';f.submit();">
 		</form>
