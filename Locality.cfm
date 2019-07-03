@@ -2333,9 +2333,19 @@ You deleted a collecting event.
 		<cflocation addtoken="no" url="Locality.cfm?action=manageCollEventName&collecting_event_id=#collecting_event_id#">
 	</cfoutput>
 </cfif>
+
+
+
+
+
 <!---------------------------------------------------------------------------------------------------->
 
 
+<cfif action is "manageLocalityName">
+	<cfdump var=#form#>
+</cfif>
+
+<!---------------------------------------------------------------------------------------------------->
 <cfif action is "manageCollEventName">
 	<cfoutput>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -2704,6 +2714,11 @@ You deleted a collecting event.
 	<cfset title="Locality Search Results">
 	<cfif localityResults.recordcount lt 1000>
 		<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">BerkeleyMapper</a>
+		<form method="post" action="Locality.cfm" target="_blank">
+			<input type="hidden" name="action" value="manageLocalityName" >
+			<input type="hidden" name="locality_id" value="#valuelist(localityResults.locality_id)#">
+			<input type="submit" value="Manage Locality Names">
+		</form>
 	<cfelse>
 		1000 record limit on mapping, sorry...
 	</cfif>
