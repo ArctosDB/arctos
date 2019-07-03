@@ -2319,7 +2319,7 @@ You deleted a collecting event.
 			update collecting_event set COLLECTING_EVENT_NAME='temp_'||collecting_event_id where COLLECTING_EVENT_NAME is null and
 			collecting_event_id in (#collecting_event_id#)
 		</cfquery>
-		<cflocation addtoken="no" url="editLocality.cfm?actoin=manageCollEventName&collecting_event_id=#collecting_event_id#">
+		<cflocation addtoken="no" url="editLocality.cfm?action=manageCollEventName&collecting_event_id=#collecting_event_id#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
