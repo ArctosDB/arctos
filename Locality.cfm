@@ -2311,7 +2311,19 @@ You deleted a collecting event.
 		<cflocation addtoken="no" url="editLocality.cfm?locality_id=#nextLoc.nextLoc#">
 	</cfoutput>
 </cfif>
+
 <!---------------------------------------------------------------------------------------------------->
+<cfif action is "goNameEvents">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update collecting_event set COLLECTING_EVENT_NAME='temp_'||collecting_event_id where COLLECTING_EVENT_NAME is null and
+			collecting_event_id in (#collecting_event_id#)
+		</cfquery>
+		<cflocation addtoken="no" url="editLocality.cfm?actoin=manageCollEventName&collecting_event_id=#collecting_event_id#">
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
+
 
 <cfif action is "manageCollEventName">
 	<cfoutput>
@@ -2353,7 +2365,6 @@ You deleted a collecting event.
 		</p>
 
 		<form name="f" method="post" action="Locality.cfm">
-			<input type="hidden" name="action" value="reallyNameEvents">
 			<input type="hidden" name="collecting_event_id" value="#collecting_event_id#">
 			<br><input type="button" value="Name These Events" class="savBtn" onclick="f.action.value='goNameEvents';f.submit();">
 			<br><input type="button" value="Un-Name These Events" class="delBtn" onclick="f.action.value='goUnNameEvents';f.submit();">
@@ -2395,7 +2406,7 @@ You deleted a collecting event.
 			Found #localityResults.recordcount# records
 			<cfif localityResults.recordcount lt 1000>
 				<a href="/bnhmMaps/bnhmPointMapper.cfm?locality_id=#valuelist(localityResults.locality_id)#" target="_blank">Map <strong>localities</strong> @BerkeleyMapper</a>
-				<br><input type="button" value="Name these events" class="savBtn" onclick="tools.action.value='manageCollEventName';tools.submit();">
+				<br><input type="button" value="Manage Event Names" class="savBtn" onclick="tools.action.value='manageCollEventName';tools.submit();">
 			<cfelse>
 				1000 record limit on mapping, sorry...
 			</cfif>
