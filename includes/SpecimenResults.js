@@ -388,8 +388,10 @@ function formatPartDetail(){
 }
 
 
+
 function displayMedia(idList){
 	$("div[id^='jsonmedia_']").each(function() {
+		//console.log('i am doing media stuff');
 		var r = $.parseJSON($("#" + this.id).html());
 		if (r.length>0){
 			//console.log('got something');
@@ -399,7 +401,7 @@ function displayMedia(idList){
 		jQuery.each(r, function(index, DATA) {
 			//console.log(DATA.MEDIA_ID);
 			//console.log(i);
-			if (DATA.MT=='audio' && DATA.MU.split('.').pop()=='mp3'){
+			if (DATA.MC=='audio' && DATA.MU.split('.').pop()=='mp3'){
 				theHTML+='<div class="one_thumb">';
 				theHTML+='<audio controls>';
 				theHTML+='<source src="' + DATA.MU + '" type="audio/mp3">';
@@ -407,7 +409,7 @@ function displayMedia(idList){
 				theHTML+='</audio> ';
 				theHTML+='<br><a target="_blank" href="/media/' + DATA.MI + '">Media Detail</a></p></div>';
 			} else {
-				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + DATA.PU + '&media_type=' +  DATA.MT + '&returnformat=json&queryformat=column';
+				var theURL='/component/functions.cfc?method=getMediaPreview&preview_uri=' + DATA.PU + '&media_type=' +  DATA.MC + '&returnformat=json&queryformat=column';
 				$.ajax({
 					url: theURL,
 					dataType: 'json',
@@ -416,7 +418,7 @@ function displayMedia(idList){
 						theHTML+='<div class="one_thumb">';
 						theHTML+='<a href="/media/' + DATA.MI + '?open" target="_blank">';
 						theHTML+='<img src="' + result + '" class="theThumb"></a>';
-						theHTML+='<p>' + DATA.MT + ' (' + DATA.MC + ')';
+						theHTML+='<p>' + DATA.MC + ' (' + DATA.MT + ')';
 						theHTML+='<br><a target="_blank" href="/media/' +DATA.MI + '">Media Detail</a></p></div>';
 					}
 				});
@@ -431,6 +433,8 @@ function displayMedia(idList){
 		}
 	});
 }
+
+
 function insertMedia(idList) {
 	$('<div id="ajaxStatusM" class="ajaxStatus">Checking for Media...</div>').appendTo("body");
 	jQuery.getJSON("/component/SpecimenResults.cfc",
