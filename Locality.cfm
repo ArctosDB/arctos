@@ -2323,6 +2323,17 @@ You deleted a collecting event.
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
+<cfif action is "goUnNameEvents">
+	<cfoutput>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			update collecting_event set COLLECTING_EVENT_NAME=null
+			where COLLECTING_EVENT_NAME ='temp_'||collecting_event_id  and
+			collecting_event_id in (#collecting_event_id#)
+		</cfquery>
+		<cflocation addtoken="no" url="Locality.cfm?action=manageCollEventName&collecting_event_id=#collecting_event_id#">
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------->
 
 
 <cfif action is "manageCollEventName">
