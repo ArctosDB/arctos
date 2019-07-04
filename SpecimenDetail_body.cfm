@@ -452,8 +452,16 @@
 		VERBATIM_DATE,
 		VERBATIM_LOCALITY,
 		COLL_EVENT_REMARKS,
-		BEGAN_DATE,
-		ENDED_DATE,
+		CASE
+            WHEN #oneOfUs# != 1 and '#one.encumbrances#' LIKE '%mask year collected%'
+            THEN '8888'||substr(began_date,5)
+            ELSE BEGAN_DATE
+        END BEGAN_DATE,
+		CASE
+            WHEN #oneOfUs# != 1 and '#one.encumbrances#' LIKE '%mask year collected%'
+            THEN '8888'||substr(ENDED_DATE,5)
+            ELSE ENDED_DATE
+        END ENDED_DATE,
 		CASE
             WHEN #oneOfUs# != 1 and '#one.encumbrances#' LIKE '%mask coordinates%'
             THEN NULL
