@@ -54,6 +54,7 @@
 				</td>
 				<td>
     				<font color="##FF0000" size="+1"><strong>An error occurred while processing this page!</strong></font>
+		<cfoutput>
 					<cfif isdefined("exception.message")>
 						<cfif isdefined("exception.detail")>
 							<cfset m=exception.detail>
@@ -102,6 +103,7 @@
 							</p>
 						</cfif>
 					</cfif>
+					</cfoutput>
 					<p>This message has been logged. Please <a href="/contact.cfm">contact us</a>
 					with any information that might help us to resolve this problem.</p>
 				</td>
