@@ -1834,7 +1834,7 @@
 			----->
 			<!---- random junk that in combination with an error is always indicitive of bot/spam/probe/etc. traffic---->
 			<cfset x="">
-			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0,/)">
+			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0,/,0admin,0manager)">
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads,ackBulletin,aupm,apply">
 			<cfset x=x & ",ashx,app_debug,assets,auth,App,ASPSamp,AdvWorks,AccountService,Accounts,autoprov">
@@ -1850,7 +1850,7 @@
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana,hooks,heads">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
 			<cfset x=x & ",jbossws,jbossmq-httpil,jspa,jiraHNAP1,jsp,jmx-console,journals,JBoss,jira,jkstatus,joomla,jsf,jobs,jd_rsa">
-			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization,logs,logon,linksys">
+			<cfset x=x & ",lib,lightbox,local-bin,LoginForm,localization,logs,logon,linksys,ldskflks">
 			<cfset x=x & ",master,mpx,mysql,mysql2,mydbs,manager,myadmin,muieblackcat,mail,magento_version,manifests,market,mrtg,modules,mychat">
 			<cfset x=x & ",news,nyet,newdsn,node">
 			<cfset x=x & ",ord_dicom,ordsys,owssvr,ol,objects,owa,openshift,onrequestend,openings">
@@ -1869,6 +1869,8 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress,webforms">
 			<cfset x=x & ",YandexImages,yealink">
 			<cfset x=x & ",zboard">
+
+
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME,dashboard">
 			<cfloop list="#hasCausedProbsNoCheck#" index="i">
