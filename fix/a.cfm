@@ -1,12 +1,30 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+
+		<cfset m="ORA-00001: unique constraint (UAM.IX_TAXON_NAME_SCINAME) violated">
+		<br>m:#m#
+		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
+		<br>m:#m#
+		<cfset fcp=find(":",m)>
+		<br>fcp:#fcp#
+		<cfset m=right(m,len(m)-fcp)>
+		<br>m:#m#
+
+		<cfset fcp=find("ORA-",m)>
+		<br>fcp:#fcp#
+
+		<cfset m=left(m,fcp-1)>
+		<br>m:#m#
+
+
+<!----
 <cftry>
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update collecting_event set verbatim_locality='test' where collecting_event_id=11326795
 	</cfquery>
 
 	<cfcatch>
-		<cfset m=cfcatch.cause.message>
+		<cfset m="ORA-00001: unique constraint (UAM.IX_TAXON_NAME_SCINAME) violated">
 		<br>m:#m#
 		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
 		<br>m:#m#
@@ -30,7 +48,7 @@
 
 </cftry>
 <cfset x="[Macromedia][Oracle JDBC Driver][Oracle]ORA-20001: This collecting event is used in verified specimen/events and may not be changed or deleted. ORA-06512: at &quot;UAM.TR_COLLECTINGEVENT_BUID&quot;, line 25 ORA-04088: error during execution of trigger 'UAM.TR_COLLECTINGEVENT_BUID'">
-
+---->
 </cfoutput>
 
 
