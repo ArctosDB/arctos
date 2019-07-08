@@ -8,8 +8,10 @@
 		<br>m:#m#
 		<cfset fcp=find(":",m)>
 		<br>fcp:#fcp#
+		<cfif fcp gt 0>
 		<cfset m=right(m,len(m)-fcp)>
 		<br>m:#m#
+		</cfif>
 
 		<cfset fcp=find("ORA-",m)>
 		<br>fcp:#fcp#
