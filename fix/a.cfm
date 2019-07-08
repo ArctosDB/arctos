@@ -6,6 +6,14 @@
 	</cfquery>
 
 	<cfcatch>
+		<cfset m=cfcatch.message>
+		<br>m:#m#
+		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
+		<br>m:#m#
+
+
+
+
 		<cfdump var=#cfcatch#>
 	</cfcatch>
 
