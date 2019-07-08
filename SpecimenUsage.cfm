@@ -409,6 +409,7 @@
 				<cfset basWhere = " #basWhere# AND doi is not null">
 			<cfelse>
 				<cfset basWhere = "#basWhere# AND doi ='#doi#'">
+				<br>basWhere:#basWhere#
 			</cfif>
 			<cfset go="yes">
 		</cfif>
