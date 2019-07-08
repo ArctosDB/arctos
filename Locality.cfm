@@ -2358,10 +2358,7 @@ You deleted a collecting event.
 	</cfoutput>
 </cfif>
 
-
-
 <!---------------------------------------------------------------------------------------------------->
-
 
 <cfif action is "manageLocalityName">
 	<cfoutput>
