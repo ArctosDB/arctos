@@ -330,7 +330,6 @@
 					(select project_id from project_publication where publication_id=#publication_id#)">
 				<cfset go="yes">
 			<cfelse>
-				setting doi#publication_id#
 				<cfset doi=publication_id>
 				<cfset publication_id="">
 			</cfif>
@@ -403,14 +402,12 @@
 			</cfif>
 		</cfif>
 		<cfif isdefined("doi") AND len(doi) gt 0>
-		got doi#doi#
 			<cfif compare(doi,"NULL") is 0>
 				<cfset basWhere = " #basWhere# AND doi is null">
 			<cfelseif compare(doi,"_") is 0>
 				<cfset basWhere = " #basWhere# AND doi is not null">
 			<cfelse>
 				<cfset basWhere = "#basWhere# AND doi ='#doi#'">
-				<br>basWhere:#basWhere#
 			</cfif>
 			<cfset go="yes">
 		</cfif>
@@ -556,7 +553,6 @@
 		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from (#preservesinglequotes(basSQL)#) where rownum<=#maxNumberOfRows#
 		</cfquery>
-		<cfdump var=#publication#>
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 			<a href="/Reports/SpecUsageReport.cfm?project_id=#valuelist(projects.project_id)#&publication_id=#valuelist(publication.publication_id)#">Create Report Data</a>
 		</cfif>
