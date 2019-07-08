@@ -10,7 +10,10 @@
 		<br>m:#m#
 		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
 		<br>m:#m#
-
+		<cfset fcp=find(":",m)>
+		<br>fcp:#fcp#
+		<cfset m=right(m,len(m)-fcp)>
+		<br>m:#m#
 
 
 
