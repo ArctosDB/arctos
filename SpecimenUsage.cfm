@@ -330,6 +330,7 @@
 					(select project_id from project_publication where publication_id=#publication_id#)">
 				<cfset go="yes">
 			<cfelse>
+				setting doi#publication_id#
 				<cfset doi=publication_id>
 			</cfif>
 		</cfif>
@@ -401,6 +402,7 @@
 			</cfif>
 		</cfif>
 		<cfif isdefined("doi") AND len(doi) gt 0>
+		got doi#doi#
 			<cfif compare(doi,"NULL") is 0>
 				<cfset basWhere = " #basWhere# AND doi is null">
 			<cfelseif compare(doi,"_") is 0>
