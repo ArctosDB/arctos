@@ -324,10 +324,16 @@
 			<cfset whr = "#whr# AND upper(PROJECT_REMARKS) like '%#trim(escapeQuotes(ucase(proj_pub_remark)))#%' ">
 		</cfif>
 		<cfif isdefined("publication_id") AND len(publication_id) gt 0>
-			<cfset whr = "#whr# AND project.project_id in
-				(select project_id from project_publication where publication_id=#publication_id#)">
-			<cfset go="yes">
+			<!--- accept DOI via /publication/{doi}; if we get one here, redirect --->
+			<cfif isnumeric("publication_id")>
+				<cfset whr = "#whr# AND project.project_id in
+					(select project_id from project_publication where publication_id=#publication_id#)">
+				<cfset go="yes">
+			<cfelse>
+				<cfset doi=publication_id>
+			</cfif>
 		</cfif>
+
 		<cfif isdefined("project_id") AND len(project_id) gt 0>
 			<cfset whr = "#whr# AND project.project_id = #project_id#">
 			<cfset go="yes">
