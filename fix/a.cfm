@@ -1,5 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
 
+
+<cfset x="[Macromedia][Oracle JDBC Driver][Oracle]ORA-20001: This collecting event is used in verified specimen/events and may not be changed or deleted. ORA-06512: at &quot;UAM.TR_COLLECTINGEVENT_BUID&quot;, line 25 ORA-04088: error during execution of trigger 'UAM.TR_COLLECTINGEVENT_BUID'">
+
+
+<cfoutput>
+	x:#x#
+</cfoutput>
+
+
+<cfabort>
+
+
 <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
 
 <script>
