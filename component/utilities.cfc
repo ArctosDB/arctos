@@ -34,12 +34,16 @@
 			<cfif isdefined("globi") and len(globi) gt 0>
 				<!--- we got some id_references, see if they're used things --->
 				<cfset gHandles="eaten by,ate,host of,parasite of">
+				<cfset goGoGlobi=false>
 				<cfloop list="#gHandles#" index="i">
 					<cfif listfind(globi,i)>
 						<!--- there's a potential globi refrence; we should check it, but that's not available yet so... ---->
-						<cfset r=r & '<div><a href="https://www.globalbioticinteractions.org/index.html?interactionType=interactsWith&accordingTo=http://arctos.database.museum/guid/#guid#" target="_blank" class="external">GloBI</a></div>'>
+						<cfset goGoGlobi=true>
 					</cfif>
 				</cfloop>
+				<cfif goGoGlobi is true>
+					<cfset r=r & '<div><a href="https://www.globalbioticinteractions.org/index.html?interactionType=interactsWith&accordingTo=http://arctos.database.museum/guid/#guid#" target="_blank" class="external">GloBI</a></div>'>
+				</cfif>
 			</cfif>
 		</cfoutput>
 		<cfcatch>
