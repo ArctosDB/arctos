@@ -277,6 +277,10 @@
 			<cfset gPos=listfindnocase(request.rdurl,"publication","/")>
 			<cfif listlen(request.rdurl,"/") gt 1>
 				<cfset publication_id = listgetat(request.rdurl,gPos+1,"/")>
+				<!--- this also accepts DOI as publication_id; DOIs have slashies in them.... --->
+				<cfif listlen(request.rdurl,"/") is gPos+2>
+					<cfset publication_id=publication_id & "/" & 	listgetat(request.rdurl,gPos+2,"/")>
+				</cfif>
 				<cfset action="search">
 			</cfif>
 			<cfinclude template="/SpecimenUsage.cfm">
