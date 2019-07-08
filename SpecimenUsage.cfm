@@ -332,6 +332,7 @@
 			<cfelse>
 				setting doi#publication_id#
 				<cfset doi=publication_id>
+				<cfset publication_id="">
 			</cfif>
 		</cfif>
 
