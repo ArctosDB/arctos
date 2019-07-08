@@ -1,5 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+
+						<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/MSB:Para:1678" method="head"></cfhttp>
+
+
+<cfdump var=#gbi#>
+
+		<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/MSB:Para:1678999999" method="head"></cfhttp>
+
+
+<cfdump var=#gbi#>
 		<!----
 		<cfset m="ORA-00001: unique constraint (UAM.IX_TAXON_NAME_SCINAME) violated">
 		<cfset m="The 2 parameter of the Left function, which is now -1, must be a positive integer">
