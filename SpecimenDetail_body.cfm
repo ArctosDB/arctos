@@ -149,12 +149,13 @@
 					data: {
 						method:  "getAggregatorLinks",
 						guid: '#guid#',
+						globi: $("##rtyps").val(),
 						returnformat : "plain"
 					},
 					success: function(r) {
 						//console.log('happy');
 						$("##rellnks").show();
-						$("##rel_links").html(r);
+						$("##rel_links").html(r);						
 					},
 					error: function (xhr, textStatus, errorThrown){
 				    // show error
@@ -1459,6 +1460,8 @@
 			<cfquery name="rels" dbtype="query">
 				select * from oid where id_references != 'self' order by id_references,other_id_type
 			</cfquery>
+			<!--- little cache for globi linking ---->
+			<cfset rtyps="">
 			<cfif len(rels.other_id_type) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">
@@ -1470,6 +1473,7 @@
 					</div>
 					<div class="detailBlock expandoscroll-small" id="id_relations" data-expandoclass="expandoscroll-small">
 						<cfloop query="rels">
+							<cfset rtyps=listappend(rtyps,id_references)>
 							<cfquery name="relcache" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 								select * from cf_relations_cache where COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID# order by term
 							</cfquery>
@@ -1503,7 +1507,8 @@
 					</div>
 				</div>
 			</cfif>
-
+			<!--- little cache for globi linking ---->
+			<input type="hidden" id="rtyps" value="#rtyps#">
 
 			<!------------- DWC portals -------------------------->
 				<div class="detailCell" id="rellnks" style="display:none">

@@ -1,6 +1,10 @@
 <cfcomponent>
 <cffunction name="getAggregatorLinks" output="true" returnType="any" access="remote">
 	<cfargument name="guid" required="yes"><!--- DWC triplet --->
+	<cfargument name="globi" required="no"><!--- list of id_references --->
+	getAggregatorLinks
+
+
 	<cfset r="">
 	<cftry>
 		<cfoutput>
@@ -28,6 +32,16 @@
 					<cfset thisStruct=idb.items[i]>
 					<cfset thisIDBID=thisStruct.indexTerms.uuid>
 					<cfset r=r & '<div><a href="https://www.idigbio.org/portal/records/#thisIDBID#" target="_blank" class="external">iDigBio Occurrence</a></div>'>
+				</cfloop>
+			</cfif>
+			<cfif isdefined("globi") and len(globi) gt 0>
+				<!--- we got some id_references, see if they're used things --->
+				<cfset gHandles="eaten by,ate,host of,parasite of">
+				<cfloop list="#gHandles#" index="i">
+					<cfif listfind(globi,i)>
+						<!--- there's a potential globi refrence; we should check it, but that's not available yet so... ---->
+						<cfset r=r & '<div><a href="https://www.globalbioticinteractions.org/index.html?interactionType=interactsWith&accordingTo=http://arctos.database.museum/guid/#guid#" target="_blank" class="external">Globi</a></div>'>
+					</cfif>
 				</cfloop>
 			</cfif>
 		</cfoutput>
