@@ -37,7 +37,7 @@
 				<cfloop list="#gHandles#" index="i">
 					<cfif listfind(globi,i)>
 						<!--- there's a potential globi refrence; we should check it, but that's not available yet so... ---->
-						<cfset r=r & '<div><a href="https://www.globalbioticinteractions.org/index.html?interactionType=interactsWith&accordingTo=http://arctos.database.museum/guid/#guid#" target="_blank" class="external">Globi</a></div>'>
+						<cfset r=r & '<div><a href="https://www.globalbioticinteractions.org/index.html?interactionType=interactsWith&accordingTo=http://arctos.database.museum/guid/#guid#" target="_blank" class="external">GloBI</a></div>'>
 					</cfif>
 				</cfloop>
 			</cfif>
