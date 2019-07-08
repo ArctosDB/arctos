@@ -55,7 +55,15 @@
 				<td>
     				<font color="##FF0000" size="+1"><strong>An error occurred while processing this page!</strong></font>
 					<cfif isdefined("exception.message")>
-						<br><i><cfoutput>#exception.message#
+						<cfoutput>
+							<cfset m=exception.message>
+							<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
+							<cfset fcp=find(":",m)>
+							<cfif fcp gt 0><cfset m=right(m,len(m)-fcp)></cfif>
+							<cfset fcp=find("ORA-",m)>
+							<cfif fcp gt 0><cfset m=left(m,fcp-1)></cfif>
+							<div style="font-weight:bold">#m#</div>
+							<div>#exception.message#</div>
 						<cfif isdefined("exception.detail")>
 							<br>#exception.detail#
 							<cfif FindNoCase("ORA-28000", exception.detail)>
