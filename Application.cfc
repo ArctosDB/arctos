@@ -54,55 +54,55 @@
 				</td>
 				<td>
     				<font color="##FF0000" size="+1"><strong>An error occurred while processing this page!</strong></font>
-		<cfoutput>
-					<cfif isdefined("exception.message")>
-						<cfif isdefined("exception.detail")>
-							<cfset m=exception.detail>
-							<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
-							<cfset fcp=find(":",m)>
-							<cfif fcp gt 0><cfset m=right(m,len(m)-fcp)></cfif>
-							<cfset fcp=find("ORA-",m)>
-							<cfif fcp gt 0><cfset m=left(m,fcp-1)></cfif>
-							<div style="font-weight:bold">#m#</div>
-							<div>#exception.detail#</div>
-							<cfif FindNoCase("ORA-28000", exception.detail)>
-								<p>The account is locked. Contact your supervisor to restore access.</p>
+					<cfoutput>
+						<cfif isdefined("exception.message")>
+							<cfif isdefined("exception.detail")>
+								<cfset m=exception.detail>
+								<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
+								<cfset fcp=find(":",m)>
+								<cfif fcp gt 0><cfset m=right(m,len(m)-fcp)></cfif>
+								<cfset fcp=find("ORA-",m)>
+								<cfif fcp gt 0><cfset m=left(m,fcp-1)></cfif>
+								<div style="font-weight:bold;margin:1em;padding:1em;">#m#</div>
+								<div>#exception.detail#</div>
+								<cfif FindNoCase("ORA-28000", exception.detail)>
+									<p>The account is locked. Contact your supervisor to restore access.</p>
+								</cfif>
+								<cfif exception.detail is 'access denied'>
+									<p>
+										You must log in to see this page. Please log in and try again. If you are still unable to access the report, contact the person who manages your Arctos collection to request appropriate privileges.
+									</p>
+								</cfif>
 							</cfif>
-							<cfif exception.detail is 'access denied'>
+							<div>#exception.message#</div>
+							<cfif subject is "Execution timeout expired." and request.rdurl contains "SpecimenResults.cfm">
 								<p>
-									You must log in to see this page. Please log in and try again. If you are still unable to access the report, contact the person who manages your Arctos collection to request appropriate privileges.
+									We impose no strict limits on the number of records that may be returned, but query time is limited. Following are some
+									suggestions for dealing with timeout problems. Use the Contact link below if you are unable to get what you need.
+									<ul>
+										<li>
+											Remove unnecessary results columns. Attributes are particularly expensive.
+											<span class="likeLink" onclick="openCustomize()">Customize Results</span>
+										</li>
+										<li>Try a more specific search.
+											<ul>
+												<li>Scientific Name instead of Higher Taxonomy.</li>
+												<li>Use Country, State, County, etc. instead of Any Geography</li>
+												<li>Use longer substrings. (<em>E.g.</em>, OtherID contains 1 finds >1.5m specimens and will time out.)</li>
+											</ul>
+										 </li>
+										<li>Add search criteria
+											<ul>
+												<li>include geography</li>
+												<li>draw a bounding box on the map</li>
+												<li>specify collector agent or other ID type</li>
+												<li>Select collection(s)</li>
+											</ul>
+										</li>
+									</ul>
 								</p>
 							</cfif>
 						</cfif>
-						<div>#exception.message#</div>
-						<cfif subject is "Execution timeout expired." and request.rdurl contains "SpecimenResults.cfm">
-							<p>
-								We impose no strict limits on the number of records that may be returned, but query time is limited. Following are some
-								suggestions for dealing with timeout problems. Use the Contact link below if you are unable to get what you need.
-								<ul>
-									<li>
-										Remove unnecessary results columns. Attributes are particularly expensive.
-										<span class="likeLink" onclick="openCustomize()">Customize Results</span>
-									</li>
-									<li>Try a more specific search.
-										<ul>
-											<li>Scientific Name instead of Higher Taxonomy.</li>
-											<li>Use Country, State, County, etc. instead of Any Geography</li>
-											<li>Use longer substrings. (<em>E.g.</em>, OtherID contains 1 finds >1.5m specimens and will time out.)</li>
-										</ul>
-									 </li>
-									<li>Add search criteria
-										<ul>
-											<li>include geography</li>
-											<li>draw a bounding box on the map</li>
-											<li>specify collector agent or other ID type</li>
-											<li>Select collection(s)</li>
-										</ul>
-									</li>
-								</ul>
-							</p>
-						</cfif>
-					</cfif>
 					</cfoutput>
 					<p>This message has been logged. Please <a href="/contact.cfm">contact us</a>
 					with any information that might help us to resolve this problem.</p>
