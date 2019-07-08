@@ -15,6 +15,12 @@
 		<cfset m=right(m,len(m)-fcp)>
 		<br>m:#m#
 
+		<cfset fcp=find("ORA-",m)>
+		<br>fcp:#fcp#
+
+		<cfset m=left(m,fcp)>
+		<br>m:#m#
+
 
 
 		<cfdump var=#cfcatch#>
