@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-
+<cfoutput>
 <cftry>
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update collecting_event set verbatim_locality='test' where collecting_event_id=11326795
@@ -22,9 +22,6 @@
 </cftry>
 <cfset x="[Macromedia][Oracle JDBC Driver][Oracle]ORA-20001: This collecting event is used in verified specimen/events and may not be changed or deleted. ORA-06512: at &quot;UAM.TR_COLLECTINGEVENT_BUID&quot;, line 25 ORA-04088: error during execution of trigger 'UAM.TR_COLLECTINGEVENT_BUID'">
 
-
-<cfoutput>
-	x:#x#
 </cfoutput>
 
 
