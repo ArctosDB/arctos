@@ -42,7 +42,11 @@
 					</cfif>
 				</cfloop>
 				<cfif goGoGlobi is true>
-					<cfset r=r & '<div><a href="https://www.globalbioticinteractions.org/index.html?interactionType=interactsWith&accordingTo=http://arctos.database.museum/guid/#guid#" target="_blank" class="external">GloBI</a></div>'>
+					<!---- make sure that the resource exists ---->
+					<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/#guid#" method="head"></cfhttp>
+					<cfif isdefined("gbi.statuscode") and gbi.statuscode is "200 OK">
+						<cfset r=r & '<div><a href="https://www.globalbioticinteractions.org/index.html?interactionType=interactsWith&accordingTo=http://arctos.database.museum/guid/#guid#" target="_blank" class="external">GloBI</a></div>'>
+					</cfif>
 				</cfif>
 			</cfif>
 		</cfoutput>
