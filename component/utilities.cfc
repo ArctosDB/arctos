@@ -2,9 +2,6 @@
 <cffunction name="getAggregatorLinks" output="true" returnType="any" access="remote">
 	<cfargument name="guid" required="yes"><!--- DWC triplet --->
 	<cfargument name="globi" required="no"><!--- list of id_references --->
-	getAggregatorLinks
-
-
 	<cfset r="">
 	<cftry>
 		<cfoutput>
