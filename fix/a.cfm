@@ -2,6 +2,7 @@
 <cfoutput>
 
 		<cfset m="ORA-00001: unique constraint (UAM.IX_TAXON_NAME_SCINAME) violated">
+		<cfset m="The 2 parameter of the Left function, which is now -1, must be a positive integer">
 		<br>m:#m#
 		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
 		<br>m:#m#
