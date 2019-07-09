@@ -728,7 +728,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
 	</cfif>
 	<cfif basJoin does not contain " geog_auth_rec ">
-		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec)">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
 	</cfif>
 	<cfif compare(feature,"NULL") is 0>
 		<cfset basQual = " #basQual# AND geog_auth_rec.feature is null">
@@ -751,7 +751,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
 	</cfif>
 	<cfif basJoin does not contain " geog_auth_rec ">
-		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec)">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
 	</cfif>
 	<cfif compare(drainage,"NULL") is 0>
 		<cfset basQual = " #basQual# AND geog_auth_rec.drainage is null">
