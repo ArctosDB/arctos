@@ -155,6 +155,188 @@
    </cfif>
 </cfif>
 
+
+<!------ event/locality: update to https://github.com/ArctosDB/arctos/issues/2097; always join tables so we're always searching one stack ---------------------------------------->
+
+
+
+<cfif isdefined("begYear") AND len(begYear) gt 0>
+	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
+		<div class="error">
+			Begin year must be a 4-digit number.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&begYear=#begYear#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif  compare(begYear,"NULL") is 0>
+		<cfset basQual = " #basQual# AND collecting_event.began_date is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND collecting_event.year >= '#begYear#'">
+	</cfif>
+</cfif>
+<cfif isdefined("begMon") AND len(begMon) gt 0>
+	<cfset mapurl = "#mapurl#&begMon=#begMon#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND substr(collecting_event.began_date,6,2) >= '#begMon#'">
+</cfif>
+<cfif isdefined("begDay") AND len(begDay) gt 0>
+	<cfset mapurl = "#mapurl#&begDay=#begDay#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND substr(collecting_event.began_date,9,2) >= '#begDay#'">
+</cfif>
+<cfif isdefined("endYear") AND len(endYear) gt 0>
+	<cfif not isYear(endYear) and compare(endYear,"NULL") is not 0>
+		<div class="error">
+			End year must be a 4-digit number.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&endYear=#endYear#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif  compare(endYear,"NULL") is 0>
+		<cfset basQual = " #basQual# AND collecting_event.ended_date is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND substr(collecting_event.ended_date,1,4) <= '#endYear#'">
+	</cfif>
+</cfif>
+<cfif isdefined("endMon") AND len(endMon) gt 0>
+	<cfset mapurl = "#mapurl#&endMon=#endMon#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND substr(collecting_event.ended_date,6,2) <= '#endMon#'">
+</cfif>
+<cfif isdefined("endDay") AND len(endDay) gt 0>
+	<cfset mapurl = "#mapurl#&endDay=#endDay#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND substr(collecting_event.ended_date,9,2) <= #endDay#">
+</cfif>
+<cfif isdefined("specimen_event_id") AND len(specimen_event_id) gt 0>
+	<cfset mapurl = "#mapurl#&specimen_event_id=#specimen_event_id#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND specimen_event.specimen_event_id = #val(specimen_event_id)#">
+</cfif>
+<cfif isdefined("collecting_event_id") AND len(collecting_event_id) gt 0>
+	<cfset mapurl = "#mapurl#&collecting_event_id=#collecting_event_id#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND specimen_event.collecting_event_id IN ( #collecting_event_id# )">
+</cfif>
+<cfif isdefined("coll_event_remarks") AND len(coll_event_remarks) gt 0>
+	<cfset mapurl = "#mapurl#&coll_event_remarks=#coll_event_remarks#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(collecting_event.coll_event_remarks) like '%#ucase(coll_event_remarks)#%'">
+</cfif>
+<cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
+	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif left(verificationstatus,1) is '!'>
+			<cfset basQual = " #basQual# AND specimen_event.verificationstatus != '#right(verificationstatus,len(verificationstatus)-1)#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND specimen_event.verificationstatus = '#verificationstatus#'">
+		</cfif>
+</cfif>
+<cfif isdefined("locality_id") AND len(locality_id) gt 0>
+	<cfset mapurl = "#mapurl#&locality_id=#locality_id#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND collecting_event.locality_id IN ( #locality_id# )">
+</cfif>
+
+<cfif isdefined("inMon") AND len(inMon) gt 0>
+	<cfset mapurl = "#mapurl#&inMon=#inMon#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND is_number(substr(collecting_event.began_date,6,2))=1 and TO_NUMBER(substr(collecting_event.began_date,6,2)) IN (#inMon#)">
+</cfif>
+<cfif isdefined("verbatim_date") AND len(verbatim_date) gt 0>
+	<cfset mapurl = "#mapurl#&verbatim_date=#verbatim_date#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_date) LIKE '%#ucase(escapeQuotes(verbatim_date))#%'">
+</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!------ END event/locality ------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
 <cfif isdefined("anyid") and len(trim(anyid)) gt 0>
 	<cfset mapurl = "#mapurl#&anyid=#anyid#">
 	<!----
@@ -1454,107 +1636,6 @@
 	<cfelse>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.day = #day#">
 	</cfif>
-</cfif>
-<cfif isdefined("begYear") AND len(begYear) gt 0>
-	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
-		<div class="error">
-			Begin year must be a 4-digit number.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset mapurl = "#mapurl#&begYear=#begYear#">
-	<cfif  compare(begYear,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.began_date is null ">
-	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.year >= #begYear#">
-	</cfif>
-</cfif>
-<cfif isdefined("begMon") AND len(begMon) gt 0>
-	<cfset mapurl = "#mapurl#&begMon=#begMon#">
-	<cfset basQual = " #basQual# AND #session.flatTableName#.month >= #begMon#">
-</cfif>
-<cfif isdefined("begDay") AND len(begDay) gt 0>
-	<cfset mapurl = "#mapurl#&begDay=#begDay#">
-	<cfset basQual = " #basQual# AND #session.flatTableName#.day >= #begDay#">
-</cfif>
-
-<cfif isdefined("endYear") AND len(endYear) gt 0>
-	<cfif not isYear(endYear) and compare(endYear,"NULL") is not 0>
-		<div class="error">
-			End year must be a 4-digit number.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset mapurl = "#mapurl#&endYear=#endYear#">
-	<cfif  compare(endYear,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date is null ">
-	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.year <= #endYear#">
-	</cfif>
-</cfif>
-<cfif isdefined("endMon") AND len(endMon) gt 0>
-	<cfset mapurl = "#mapurl#&endMon=#endMon#">
-	<cfset basQual = " #basQual# AND #session.flatTableName#.month <= #endMon#">
-</cfif>
-<cfif isdefined("endDay") AND len(endDay) gt 0>
-	<cfset mapurl = "#mapurl#&endDay=#endDay#">
-	<cfset basQual = " #basQual# AND #session.flatTableName#.day <= #endDay#">
-</cfif>
-<cfif isdefined("specimen_event_id") AND len(specimen_event_id) gt 0>
-	<cfset mapurl = "#mapurl#&specimen_event_id=#specimen_event_id#">
-	<cfif basJoin does not contain " specimen_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND specimen_event.specimen_event_id = #val(specimen_event_id)#">
-</cfif>
-<cfif isdefined("collecting_event_id") AND len(collecting_event_id) gt 0>
-	<cfset mapurl = "#mapurl#&collecting_event_id=#collecting_event_id#">
-	<cfif basJoin does not contain " specimen_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND specimen_event.collecting_event_id IN ( #collecting_event_id# )">
-</cfif>
-<cfif isdefined("coll_event_remarks") AND len(coll_event_remarks) gt 0>
-	<cfset mapurl = "#mapurl#&coll_event_remarks=#coll_event_remarks#">
-	<cfif basJoin does not contain " specimen_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
-	</cfif>
-	<cfif basJoin does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND upper(collecting_event.coll_event_remarks) like '%#ucase(coll_event_remarks)#%'">
-</cfif>
-<cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
-	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
-	<cfif basJoin does not contain " specimen_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
-	</cfif>
-	<cfif left(verificationstatus,1) is '!'>
-			<cfset basQual = " #basQual# AND specimen_event.verificationstatus != '#right(verificationstatus,len(verificationstatus)-1)#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND specimen_event.verificationstatus = '#verificationstatus#'">
-		</cfif>
-</cfif>
-
-<cfif isdefined("locality_id") AND len(locality_id) gt 0>
-	<cfset mapurl = "#mapurl#&locality_id=#locality_id#">
-	<cfif basJoin does not contain " specimen_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
-	</cfif>
-	<cfif basJoin does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND collecting_event.locality_id IN ( #locality_id# )">
-</cfif>
-<cfif isdefined("inMon") AND len(inMon) gt 0>
-	<cfset mapurl = "#mapurl#&inMon=#inMon#">
-	<cfset basQual = " #basQual# AND TO_NUMBER(substr(#session.flatTableName#.began_date,6,2)) IN (#inMon#)">
-</cfif>
-<cfif isdefined("verbatim_date") AND len(verbatim_date) gt 0>
-	<cfset mapurl = "#mapurl#&verbatim_date=#verbatim_date#">
-	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.verbatim_date) LIKE '%#ucase(escapeQuotes(verbatim_date))#%'">
 </cfif>
 <cfif isdefined("accn_trans_id") AND len(accn_trans_id) gt 0>
 	<cfset mapurl = "#mapurl#&accn_trans_id=#accn_trans_id#">
