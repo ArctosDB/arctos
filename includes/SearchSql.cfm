@@ -658,32 +658,11 @@
 		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
 	</cfif>
 	<cfif left(verbatim_locality,1) is '='>
-		<cfset basQual = " #basQual# AND uppercollecting_event.verbatim_locality) = '#ucase(escapeQuotes(right(verbatim_locality,len(verbatim_locality)-1)))#'">
+		<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_locality) = '#ucase(escapeQuotes(right(verbatim_locality,len(verbatim_locality)-1)))#'">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_locality) like '%#ucase(escapeQuotes(verbatim_locality))#%'">
 	</cfif>
 </cfif>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <cfif isdefined("minimum_elevation") and len(minimum_elevation) gt 0>
 	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
@@ -696,9 +675,23 @@
 		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfset basQual = " #basQual# AND MIN_ELEV_IN_M >= #getMeters(minimum_elevation,orig_elev_units)#" >
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND to_meters(locality.MINIMUM_ELEVATION,locality.ORIG_ELEV_UNITS) >= #getMeters(minimum_elevation,orig_elev_units)#" >
 	<cfset mapurl = "#mapurl#&minimum_elevation=#minimum_elevation#&orig_elev_units=#orig_elev_units#">
 </cfif>
+
+
+
+
+
 <cfif isdefined("maximum_elevation") and len(maximum_elevation) gt 0>
 	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
 		<div class="error">You must supply units to search by elevation.</div>
@@ -710,12 +703,23 @@
 		<script>hidePageLoad();</script>
 		<cfabort>
 	</cfif>
-	<cfset basQual = " #basQual# AND MAX_ELEV_IN_M <= #getMeters(maximum_elevation,orig_elev_units)#" >
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND to_meters(locality.MAXIMUM_ELEVATION,locality.ORIG_ELEV_UNITS) <= #getMeters(maximum_elevation,orig_elev_units)#" >
 	<cfset mapurl = "#mapurl#&maximum_elevation=#maximum_elevation#">
 	<cfif mapurl does not contain "orig_elev_units">
 		<cfset mapurl = "#mapurl#&orig_elev_units=#orig_elev_units#">
 	</cfif>
 </cfif>
+
+
 <cfif isdefined("feature") AND len(feature) gt 0>
 	<cfif compare(feature,"NULL") is 0>
 		<cfset basQual = " #basQual# AND #session.flatTableName#.feature is null">
