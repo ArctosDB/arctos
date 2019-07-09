@@ -1073,34 +1073,77 @@
 	</cfif>
 </cfif>
 
-
-
-
-
 <cfif isdefined("geog_auth_rec_id") AND len(geog_auth_rec_id) gt 0>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.geog_auth_rec_id=#geog_auth_rec_id#">
 	<cfset mapurl = "#mapurl#&geog_auth_rec_id=#geog_auth_rec_id#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif basJoin does not contain " geog_auth_rec ">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND geog_auth_rec.geog_auth_rec_id=#geog_auth_rec_id#">
+
 </cfif>
 <cfif isdefined("higher_geog") AND len(higher_geog) gt 0>
-	<cfset basQual = " #basQual# AND upper(higher_geog) LIKE '%#ucase(higher_geog)#%'">
 	<cfset mapurl = "#mapurl#&higher_geog=#URLEncodedFormat(higher_geog)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif basJoin does not contain " geog_auth_rec ">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(geog_auth_rec.higher_geog) LIKE '%#ucase(higher_geog)#%'">
 </cfif>
 
 <cfif isdefined("datum") AND len(datum) gt 0>
-	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.datum) LIKE '%#UCASE(datum)#%'">
 	<cfset mapurl = "#mapurl#&datum=#datum#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(locality.datum) LIKE '%#UCASE(datum)#%'">
 </cfif>
 <cfif isdefined("county") AND len(county) gt 0>
-	<cfif compare(County,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.County is null">
-	<cfelseif left(county,1) is '='>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.County) = '#UCASE(escapeQuotes(right(County,len(County)-1)))#'">
-	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.County) LIKE '%#UCASE(County)#%'">
-	</cfif>
 	<cfset mapurl = "#mapurl#&county=#URLEncodedFormat(county)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif basJoin does not contain " geog_auth_rec ">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfif compare(County,"NULL") is 0>
+		<cfset basQual = " #basQual# AND geog_auth_rec.County is null">
+	<cfelseif left(county,1) is '='>
+		<cfset basQual = " #basQual# AND upper(geog_auth_rec.County) = '#UCASE(escapeQuotes(right(County,len(County)-1)))#'">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(geog_auth_rec.County) LIKE '%#UCASE(County)#%'">
+	</cfif>
 </cfif>
 <cfif isdefined("inCounty") AND len(inCounty) gt 0>
+	<cfset mapurl = "#mapurl#&inCounty=#URLEncodedFormat(inCounty)#">
 	<cfset tCounty = "">
 	<cfloop list="#inCounty#" delimiters="," index="i">
 		<cfif len(#tCounty#) is 0>
@@ -1109,11 +1152,43 @@
 			<cfset tCounty = "#tCounty#,'#i#'">
 		</cfif>
 	</cfloop>
-	<cfset basQual = " #basQual# AND County IN (#tCounty#)">
-	<cfset mapurl = "#mapurl#&inCounty=#URLEncodedFormat(inCounty)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif basJoin does not contain " geog_auth_rec ">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND geog_auth_rec.County IN (#tCounty#)">
 </cfif>
-<cfif isdefined("Quad") AND len(Quad) gt 0>
-	<cfset temp=getFlatSql(fld="Quad", val=Quad)>
+<cfif isdefined("quad") AND len(quad) gt 0>
+	<cfset mapurl = "#mapurl#&quad=#URLEncodedFormat(quad)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif basJoin does not contain " geog_auth_rec ">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfif compare(quad,"NULL") is 0>
+		<cfset basQual = " #basQual# AND geog_auth_rec.quad is null">
+	<cfelse>
+		<cfif left(quad,1) is '='>
+			<cfset basQual = " #basQual# AND upper(geog_auth_rec.quad) = '#ucase(escapeQuotes(right(quad,len(quad)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND UPPER(geog_auth_rec.quad) LIKE '%#UCASE(escapeQuotes(quad))#%'">
+		</cfif>
+	</cfif>
 </cfif>
 
 
