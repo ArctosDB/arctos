@@ -158,7 +158,73 @@
 
 <!------ event/locality: update to https://github.com/ArctosDB/arctos/issues/2097; always join tables so we're always searching one stack ---------------------------------------->
 
+<!----- this stuff seems to be deprecated, but keep it here for now Just In Case
 
+<cfif isdefined("year") AND len(year) gt 0>
+		<!--- ignore, already exact-match ---->
+	<cfif left(year,1) is '='>
+		<cfset year=right(year,len(year)-1)>
+	</cfif>
+	<cfif not isYear(year) and compare(year,"NULL") is not 0>
+		<div class="error">
+			Year (<cfoutput>#year#</cfoutput>) must be a 4-digit number.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&year=#year#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+
+	<cfif  compare(year,"NULL") is 0>
+		<cfset basQual = " #basQual# AND collecting_event.ended_date is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND substr(collecting_event.began_date,1,4) = '#year#' AND substr(collecting_event.ended_date,1,4) = '#year#'">
+	</cfif>
+</cfif>
+<cfif isdefined("month") AND len(month) gt 0>
+		<!--- ignore, already exact-match ---->
+	<cfif left(month,1) is '='>
+		<cfset month=right(month,len(month)-1)>
+	</cfif>
+	<cfif compare(month,"NULL") is not 0 and not (month gte 1 and month lte 12)>
+		<div class="error">
+			month (<cfoutput>#month#</cfoutput>) must be between 1 and 12.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&month=#month#">
+	<cfif  compare(month,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.month is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.month = #month#">
+	</cfif>
+</cfif>
+<cfif isdefined("day") AND len(day) gt 0>
+		<!--- ignore, already exact-match ---->
+	<cfif left(day,1) is '='>
+		<cfset day=right(day,len(day)-1)>
+	</cfif>
+	<cfif compare(day,"NULL") is not 0 and not (day gte 1 and day lte 31)>
+		<div class="error">
+			day (<cfoutput>#day#</cfoutput>) must be between 1 and 31.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&day=#day#">
+	<cfif  compare(day,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.day is null ">
+	<cfelse>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.day = #day#">
+	</cfif>
+</cfif>
+--------- END deprecated ------------------------->
 
 <cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
@@ -308,60 +374,72 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_date) LIKE '%#ucase(escapeQuotes(verbatim_date))#%'">
 </cfif>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!------ END event/locality ------------------------------------------------------------------------------------------------------------------------------------------------------->
-
-
-<cfif isdefined("anyid") and len(trim(anyid)) gt 0>
-	<cfset mapurl = "#mapurl#&anyid=#anyid#">
-	<!----
-		because Oracle optimizer is weird,
-		a in (union everything) query performs
-		much better than ORs
-		See v7.4.1 for old code
-	---->
-	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
-		 select collection_object_id from coll_obj_other_id_num where upper(display_value) LIKE '#ucase(escapeQuotes(anyid))#'
-		 union select collection_object_id from #session.flatTableName# where upper(cat_num) like '#ucase(escapeQuotes(anyid))#'
-		 union select collection_object_id from #session.flatTableName# where upper(guid) like '#ucase(escapeQuotes(anyid))#'
-		 union select collection_object_id from #session.flatTableName# where upper(accession) like '#ucase(escapeQuotes(anyid))#'
-		 union select derived_from_cat_item from specimen_part,coll_obj_cont_hist,container c, container p
-    		where specimen_part.COLLECTION_OBJECT_ID=coll_obj_cont_hist.COLLECTION_OBJECT_ID and
-    		coll_obj_cont_hist.container_id=c.container_id and
-    		c.parent_container_id=p.container_id and
-    		upper(p.barcode) like '#ucase(escapeQuotes(anyid))#'
-		)">
+<cfif isdefined("began_date") AND len(began_date) gt 0>
+	<cfset mapurl = "#mapurl#&began_date=#began_date#">
+	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select is_iso8601('#began_date#') isdate from dual
+	</cfquery>
+	<cfif isdate.isdate is not "valid">
+		<div class="error">
+			The begin date you entered is not a valid ISO8601 date.
+			See <span class="helpLink" data-helplink="dates">About Arctos Dates</span>
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND collecting_event.began_date >= '#began_date#'">
+</cfif>
+<cfif isdefined("ended_date") AND len(ended_date) gt 0>
+	<cfset mapurl = "#mapurl#&ended_date=#ended_date#">
+	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select is_iso8601('#ended_date#') isdate from dual
+	</cfquery>
+	<cfif isdate.isdate is not "valid">
+		<div class="error">
+			The ended date you entered is not a valid ISO8601 date.
+			See <span class="helpLink" data-helplink="dates">About Arctos Dates</span>
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND collecting_event.ended_date <= '#ended_date#'">
+</cfif>
+<cfif isdefined("chronological_extent") AND len(chronological_extent) gt 0>
+	<cfif not isnumeric(chronological_extent)>
+		<div class="error">chronological_extent must be numeric.</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset mapurl = "#mapurl#&chronological_extent=#chronological_extent#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND
+					length(collecting_event.ended_date)>=10 and
+					length(collecting_event.began_date)>=10 and
+					(
+						to_number(to_char(to_date(substrcollecting_event.ended_date,1,10),'yyyy-mm-dd'),'J')) -
+						to_number(to_char(to_date(substr(collecting_event#.began_date,1,10),'yyyy-mm-dd'),'J'))
+					)
+					<= #chronological_extent#">
 </cfif>
 
-<cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
-	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
-	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
-</cfif>
+
 <!---- rcoords is round(n,1) concatenated coordinates from spatial browse ---->
 <cfif isdefined("rcoords") AND len(rcoords) gt 0>
 	<cfset mapurl = "#mapurl#&rcoords=#rcoords#">
@@ -372,13 +450,26 @@
 	in a pipe-separated list
 	Currently from edit geog
 ---->
-
 <cfif isdefined("rcoordslist") AND len(rcoordslist) gt 0>
 	<cfset rcl=listqualify(rcoordslist,"'","|")>
 	<cfset rcl=listchangedelims(rcl,",","|")>
 	<cfset mapurl = "#mapurl#&rcoordslist=#rcoordslist#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<!----
 	<cfset basQual = "#basQual# AND round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1) in (#rcl#)" >
+	---->
+	<cfset basQual = "#basQual# AND roundlocality.dec_lat,1) || ',' || round(locality.dec_long,1) in (#rcl#)" >
 </cfif>
+
+
 <cfif isdefined("coordinates") AND len(coordinates) gt 0>
 	<cfset mapurl = "#mapurl#&coordinates=#coordinates#">
 	<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat=#listgetat(coordinates,1)# and #session.flatTableName#.dec_long=#listgetat(coordinates,2)#" >
@@ -434,6 +525,19 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND specimen_event.specimen_event_type = '#specimen_event_type#'">
 </cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!---
@@ -625,6 +729,53 @@
 	</cfloop>
 </cfif>
 ---->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!------ END event/locality ------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+<cfif isdefined("anyid") and len(trim(anyid)) gt 0>
+	<cfset mapurl = "#mapurl#&anyid=#anyid#">
+	<!----
+		because Oracle optimizer is weird,
+		a in (union everything) query performs
+		much better than ORs
+		See v7.4.1 for old code
+	---->
+	<cfset basQual = " #basQual# AND #session.flatTableName#.collection_object_id IN (
+		 select collection_object_id from coll_obj_other_id_num where upper(display_value) LIKE '#ucase(escapeQuotes(anyid))#'
+		 union select collection_object_id from #session.flatTableName# where upper(cat_num) like '#ucase(escapeQuotes(anyid))#'
+		 union select collection_object_id from #session.flatTableName# where upper(guid) like '#ucase(escapeQuotes(anyid))#'
+		 union select collection_object_id from #session.flatTableName# where upper(accession) like '#ucase(escapeQuotes(anyid))#'
+		 union select derived_from_cat_item from specimen_part,coll_obj_cont_hist,container c, container p
+    		where specimen_part.COLLECTION_OBJECT_ID=coll_obj_cont_hist.COLLECTION_OBJECT_ID and
+    		coll_obj_cont_hist.container_id=c.container_id and
+    		c.parent_container_id=p.container_id and
+    		upper(p.barcode) like '#ucase(escapeQuotes(anyid))#'
+		)">
+</cfif>
+
+<cfif isdefined("cataloged_item_type") AND len(cataloged_item_type) gt 0>
+	<cfset mapurl = "#mapurl#&cataloged_item_type=#cataloged_item_type#">
+	<cfset basQual = "#basQual#  AND  #session.flatTableName#.cataloged_item_type='#cataloged_item_type#'" >
+</cfif>
+
 
 <cfif isdefined("ocr_text") AND len(ocr_text) gt 0>
 	<cfset mapurl = "#mapurl#&ocr_text=#ocr_text#">
@@ -1549,94 +1700,6 @@
 		</cfif>
 	</cfif>
 </cfif>
-<cfif isdefined("began_date") AND len(began_date) gt 0>
-	<cfset mapurl = "#mapurl#&began_date=#began_date#">
-	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select is_iso8601('#began_date#') isdate from dual
-	</cfquery>
-	<cfif isdate.isdate is not "valid">
-		<div class="error">
-			The begin date you entered is not a valid ISO8601 date.
-			See <span class="helpLink" data-helplink="dates">About Arctos Dates</span>
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.began_date >= '#began_date#'">
-</cfif>
-<cfif isdefined("ended_date") AND len(ended_date) gt 0>
-	<cfset mapurl = "#mapurl#&ended_date=#ended_date#">
-	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select is_iso8601('#ended_date#') isdate from dual
-	</cfquery>
-	<cfif isdate.isdate is not "valid">
-		<div class="error">
-			The ended date you entered is not a valid ISO8601 date.
-			See <span class="helpLink" data-helplink="dates">About Arctos Dates</span>
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset basQual = " #basQual# AND #session.flatTableName#.ended_date <= '#ended_date#'">
-</cfif>
-
-<cfif isdefined("year") AND len(year) gt 0>
-		<!--- ignore, already exact-match ---->
-	<cfif left(year,1) is '='>
-		<cfset year=right(year,len(year)-1)>
-	</cfif>
-	<cfif not isYear(year) and compare(year,"NULL") is not 0>
-		<div class="error">
-			Year (<cfoutput>#year#</cfoutput>) must be a 4-digit number.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset mapurl = "#mapurl#&year=#year#">
-	<cfif  compare(year,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.year is null ">
-	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.year = #year#">
-	</cfif>
-</cfif>
-<cfif isdefined("month") AND len(month) gt 0>
-		<!--- ignore, already exact-match ---->
-	<cfif left(month,1) is '='>
-		<cfset month=right(month,len(month)-1)>
-	</cfif>
-	<cfif compare(month,"NULL") is not 0 and not (month gte 1 and month lte 12)>
-		<div class="error">
-			month (<cfoutput>#month#</cfoutput>) must be between 1 and 12.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset mapurl = "#mapurl#&month=#month#">
-	<cfif  compare(month,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.month is null ">
-	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.month = #month#">
-	</cfif>
-</cfif>
-<cfif isdefined("day") AND len(day) gt 0>
-		<!--- ignore, already exact-match ---->
-	<cfif left(day,1) is '='>
-		<cfset day=right(day,len(day)-1)>
-	</cfif>
-	<cfif compare(day,"NULL") is not 0 and not (day gte 1 and day lte 31)>
-		<div class="error">
-			day (<cfoutput>#day#</cfoutput>) must be between 1 and 31.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset mapurl = "#mapurl#&day=#day#">
-	<cfif  compare(day,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.day is null ">
-	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.day = #day#">
-	</cfif>
-</cfif>
 <cfif isdefined("accn_trans_id") AND len(accn_trans_id) gt 0>
 	<cfset mapurl = "#mapurl#&accn_trans_id=#accn_trans_id#">
 	<cfset basQual = " #basQual# AND #session.flatTableName#.accn_id IN (#accn_trans_id#)">
@@ -1952,22 +2015,6 @@
 		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS
 			> to_meters(#min_max_error#,'#max_error_units#') and #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS <= to_meters(#max_max_error#,'#max_error_units#')">
 	</cfif>
-</cfif>
-<cfif isdefined("chronological_extent") AND len(chronological_extent) gt 0>
-	<cfif not isnumeric(chronological_extent)>
-		<div class="error">chronological_extent must be numeric.</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset mapurl = "#mapurl#&chronological_extent=#chronological_extent#">
-	<cfset basQual = " #basQual# AND
-					length(#session.flatTableName#.ended_date)>=10 and
-					length(#session.flatTableName#.began_date)>=10 and
-					(
-						to_number(to_char(to_date(substr(#session.flatTableName#.ended_date,1,10),'yyyy-mm-dd'),'J')) -
-						to_number(to_char(to_date(substr(#session.flatTableName#.began_date,1,10),'yyyy-mm-dd'),'J'))
-					)
-					<= #chronological_extent#">
 </cfif>
 <cfif (isdefined("NELat") and len(NELat) gt 0)
 	OR (isdefined("NELong") and len(NELong) gt 0)
