@@ -328,8 +328,10 @@
 			<cfif isnumeric("publication_id")>
 				<cfset whr = "#whr# AND project.project_id in
 					(select project_id from project_publication where publication_id=#publication_id#)">
+					<br>set numeric
 				<cfset go="yes">
 			<cfelse>
+				<br>set doi
 				<cfset doi=publication_id>
 				<cfset publication_id="">
 			</cfif>
