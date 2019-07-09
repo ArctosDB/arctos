@@ -469,6 +469,31 @@
 	<cfset basQual = "#basQual# AND roundlocality.dec_lat,1) || ',' || round(locality.dec_long,1) in (#rcl#)" >
 </cfif>
 
+<cfif isdefined("coordslist") AND len(coordslist) gt 0>
+	<cfset mapurl = "#mapurl#&coordslist=#coordslist#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+
+	<cfset basQual = "#basQual# AND ( ">
+	<cfloop list="#coordslist#" delimiters="|" index="c">
+		<cfset basQual = "#basQual# locality.dec_lat=#listgetat(c,1)# and locality.dec_long=#listgetat(c,2)#" >
+		<cfif listlast(coordslist,"|") is not c>
+			<cfset basQual = "#basQual# OR ">
+		</cfif>
+	</cfloop>
+	<cfset basQual = "#basQual# ) ">
+</cfif>
+
+
+
+
 
 <cfif isdefined("coordinates") AND len(coordinates) gt 0>
 	<cfset mapurl = "#mapurl#&coordinates=#coordinates#">
@@ -478,17 +503,6 @@
 	coordslist is a pipe-separated list of coordinate pairs
 ---->
 
-<cfif isdefined("coordslist") AND len(coordslist) gt 0>
-	<cfset mapurl = "#mapurl#&coordslist=#coordslist#">
-	<cfset basQual = "#basQual# AND ( ">
-	<cfloop list="#coordslist#" delimiters="|" index="c">
-		<cfset basQual = "#basQual#  #session.flatTableName#.dec_lat=#listgetat(c,1)# and #session.flatTableName#.dec_long=#listgetat(c,2)#" >
-		<cfif listlast(coordslist,"|") is not c>
-			<cfset basQual = "#basQual# OR ">
-		</cfif>
-	</cfloop>
-	<cfset basQual = "#basQual# ) ">
-</cfif>
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
 	<cfif isGeoreferenced is true>
