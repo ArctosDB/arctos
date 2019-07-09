@@ -768,6 +768,223 @@
 
 
 
+<cfif isdefined("geology_attribute_value") AND len(geology_attribute_value) gt 0>
+	<cfset mapurl = "#mapurl#&geology_attribute_value=#geology_attribute_value#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif basJoin does not contain " geology_attributes ">
+		<cfset basJoin = " #basJoin# INNER JOIN geology_attributes ON (locality.locality_id = geology_attributes.locality_id)">
+	</cfif>
+	<cfif isdefined("geology_hierarchies") and geology_hierarchies is 1>
+		<cfset basQual = "#basQual# AND geology_attributes.geo_att_value IN (
+				SELECT
+	 				attribute_value
+	 			FROM
+					geology_attribute_hierarchy
+				start with
+					upper(attribute_value) like '%#ucase(geology_attribute_value)#%'
+				CONNECT BY PRIOR
+					geology_attribute_hierarchy_id = parent_id
+				)">
+	<cfelse>
+		<cfset basQual = "#basQual# AND upper(geology_attributes.geo_att_value) like '%#ucase(geology_attribute_value)#%'">
+	</cfif>
+</cfif>
+
+<cfif isdefined("continent_ocean") AND len(continent_ocean) gt 0>
+	<cfset mapurl = "#mapurl#&continent_ocean=#URLEncodedFormat(continent_ocean)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif basJoin does not contain " geog_auth_rec ">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfif compare(continent_ocean,"NULL") is 0>
+		<cfset basQual = " #basQual# AND geog_auth_rec.continent_ocean is null">
+	<cfelse>
+		<cfif left(continent_ocean,1) is '='>
+			<cfset basQual = " #basQual# AND upper(geog_auth_rec.continent_ocean) = '#ucase(escapeQuotes(right(continent_ocean,len(continent_ocean)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND UPPER(geog_auth_rec.continent_ocean) LIKE '%#UCASE(escapeQuotes(continent_ocean))#%'">
+		</cfif>
+	</cfif>
+</cfif>
+
+
+
+<cfif isdefined("sea") AND len(sea) gt 0>
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif basJoin does not contain " geog_auth_rec ">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfif compare(sea,"NULL") is 0>
+		<cfset basQual = " #basQual# AND geog_auth_rec.sea is null">
+	<cfelse>
+		<cfif left(sea,1) is '='>
+			<cfset basQual = " #basQual# AND upper(geog_auth_rec.sea) = '#ucase(escapeQuotes(right(sea,len(sea)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND UPPER(geog_auth_rec.sea) LIKE '%#UCASE(escapeQuotes(sea))#%'">
+		</cfif>
+	</cfif>
+</cfif>
+
+<cfif isdefined("Country") AND len(Country) gt 0>
+	<cfset temp=getFlatSql(fld="Country", val=Country)>
+</cfif>
+<cfif isdefined("state_prov") AND len(state_prov) gt 0>
+	<cfif compare(state_prov,"NULL") is 0>
+		<cfset basQual = " #basQual# AND state_prov is null">
+	<cfelseif state_prov contains "|">
+		<cfset i=1>
+		<cfset basQual = " #basQual# AND ( ">
+			<cfloop list="#state_prov#" index="s" delimiters="|">
+				  <cfif i gt 1>
+				 	<cfset basQual = " #basQual# OR ">
+				 </cfif>
+				 <cfset basQual = " #basQual# UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(trim(escapeQuotes(s)))#%'">
+				 <cfset i=i+1>
+			</cfloop>
+		<cfset basQual = " #basQual# ) ">
+	<cfelse>
+		<cfif left(state_prov,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.state_prov) = '#ucase(escapeQuotes(right(state_prov,len(state_prov)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(escapeQuotes(state_prov))#%'">
+		</cfif>
+	</cfif>
+	<cfset mapurl = "#mapurl#&state_prov=#URLEncodedFormat(state_prov)#">
+</cfif>
+
+<cfif isdefined("island_group") AND len(island_group) gt 0>
+	<cfset temp=getFlatSql(fld="island_group", val=island_group)>
+</cfif>
+<cfif isdefined("Island") AND len(Island) gt 0>
+	<cfset temp=getFlatSql(fld="Island", val=Island)>
+</cfif>
+<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
+	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) eq 0)>
+		<!---got min, not max - set max to some improbably large number----->
+		<cfset max_max_error=999999999999999999999999999>
+	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) eq 0)>
+		<!---got max , not min - set min to some 0---->
+		<cfset min_max_error=0>
+	</cfif>
+	<cfif 	min_max_error contains "," or max_max_error contains ",">
+		<div class="error">min and max precision must be integers.
+		<br>Searching by precision and then clicking some "specimens with precision...." links can also cause this error.</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
+		<cfset max_error_units='m'>
+	</cfif>
+	<cfset mapurl = "#mapurl#&min_max_error=#min_max_error#&max_max_error=#max_max_error#&max_error_units=#max_error_units#">
+	<cfif compare(min_max_error,"NULL") is 0>
+		<!-- return only records with coordinates BUT with no error ---->
+		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat is not null and (#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS is null OR #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS=0)">
+	<cfelse>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS
+			> to_meters(#min_max_error#,'#max_error_units#') and #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS <= to_meters(#max_max_error#,'#max_error_units#')">
+	</cfif>
+</cfif>
+<cfif (isdefined("NELat") and len(NELat) gt 0)
+	OR (isdefined("NELong") and len(NELong) gt 0)
+	OR (isdefined("SWLat") and len(SWLat) gt 0)
+	OR (isdefined("SWLong") and len(SWLong) gt 0)>
+	<!--- got at least one point, see if we got enough to run ---->
+	<cfif (isdefined("NELat") and isnumeric(NELat))
+		AND (isdefined("SWLat") and isnumeric(SWLat))
+		AND (isdefined("NELong") and isnumeric(NELong))
+		AND (isdefined("SWLong") and isnumeric(SWLong))>
+		<cfif not isdefined("sq_error")>
+			<cfset sq_error='false'>
+		</cfif>
+		<cfif sq_error is true>
+			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
+			<cfif NELong lt 0 and SWLong gt 0><!--- overlaps 180, need a pair of extra statements ----->
+				<cfset basQual = " #basQual# AND
+					(
+						(
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							fake_coordinate_error.swlat between #SWLat# and #NELat# OR
+							fake_coordinate_error.nelat between #SWLat# and #NELat#
+						) AND (
+							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							fake_coordinate_error.swlong between #swlong# and 180 OR
+							fake_coordinate_error.swlong between -180 and #nelong# OR
+							fake_coordinate_error.nelong between #swlong# and 180 OR
+							fake_coordinate_error.nelong between -180 and #nelong#
+						)
+					)">
+			<cfelse><!--- longitude does not overlap 180 --->
+				<cfset basQual = " #basQual# AND
+					(
+						(
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							fake_coordinate_error.swlat between #SWLat# and #NELat# OR
+							fake_coordinate_error.nelat between #SWLat# and #NELat#
+						) AND (
+							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							fake_coordinate_error.swlong between #swlong# and #nelong# OR
+							fake_coordinate_error.nelong between #swlong# and #nelong#
+						)
+					)">
+			</cfif>
+		<cfelse>
+			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
+			<cfif NELong lt 0 and SWLong gt 0>
+				<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #SWLong# and 180 OR
+					#session.flatTableName#.dec_long between -180 and #NELong#)">
+			<cfelse>
+				<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #SWLong# AND #NELong#">
+			</cfif>
+		</cfif>
+		<cfset mapurl = "#mapurl#&NELat=#NELat#&NELong=#NELong#&SWLat=#SWLat#&SWLong=#SWLong#&sq_error=#sq_error#">
+	<cfelse>
+		<div class="error">
+			You entered at least one bounding box point, but didn't enter sufficient
+			information to finish the query. To search by bounding box, you must specify 2 coordinate sets
+			in decimal latitude format.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+</cfif>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1318,26 +1535,6 @@
 				)">
 	<cfelse>
 		<cfset basQual = "#basQual# AND geology_attributes.geology_attribute = '#geology_attribute#'">
-	</cfif>
-</cfif>
-<cfif isdefined("geology_attribute_value") AND len(geology_attribute_value) gt 0>
-	<cfset mapurl = "#mapurl#&geology_attribute_value=#geology_attribute_value#">
-	<cfif basJoin does not contain " geology_attributes ">
-		<cfset basJoin = " #basJoin# INNER JOIN geology_attributes ON (#session.flatTableName#.locality_id = geology_attributes.locality_id)">
-	</cfif>
-	<cfif isdefined("geology_hierarchies") and geology_hierarchies is 1>
-		<cfset basQual = "#basQual# AND geology_attributes.geo_att_value IN (
-				SELECT
-	 				attribute_value
-	 			FROM
-					geology_attribute_hierarchy
-				start with
-					upper(attribute_value) like '%#ucase(geology_attribute_value)#%'
-				CONNECT BY PRIOR
-					geology_attribute_hierarchy_id = parent_id
-				)">
-	<cfelse>
-		<cfset basQual = "#basQual# AND upper(geology_attributes.geo_att_value) like '%#ucase(geology_attribute_value)#%'">
 	</cfif>
 </cfif>
 <cfif isdefined("last_edit_by") AND len(last_edit_by) gt 0>
@@ -2178,148 +2375,6 @@
 		<cfset basQual = " #basQual# AND (#session.flatTableName#.encumbrances is null or #session.flatTableName#.encumbrances not like '%mask original field number%') ">
 	</cfif>
 </cfif>
-<cfif isdefined("continent_ocean") AND len(continent_ocean) gt 0>
-	<cfif compare(continent_ocean,"NULL") is 0>
-		<cfset basQual = " #basQual# AND continent_ocean is null">
-	<cfelse>
-		<cfif left(continent_ocean,1) is '='>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.continent_ocean) = '#ucase(escapeQuotes(right(continent_ocean,len(continent_ocean)-1)))#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.continent_ocean) LIKE '%#UCASE(escapeQuotes(continent_ocean))#%'">
-		</cfif>
-	</cfif>
-	<cfset mapurl = "#mapurl#&continent_ocean=#URLEncodedFormat(continent_ocean)#">
-</cfif>
-<cfif isdefined("sea") AND len(sea) gt 0>
-	<cfset temp=getFlatSql(fld="sea", val=sea)>
-</cfif>
-<cfif isdefined("Country") AND len(Country) gt 0>
-	<cfset temp=getFlatSql(fld="Country", val=Country)>
-</cfif>
-<cfif isdefined("state_prov") AND len(state_prov) gt 0>
-	<cfif compare(state_prov,"NULL") is 0>
-		<cfset basQual = " #basQual# AND state_prov is null">
-	<cfelseif state_prov contains "|">
-		<cfset i=1>
-		<cfset basQual = " #basQual# AND ( ">
-			<cfloop list="#state_prov#" index="s" delimiters="|">
-				  <cfif i gt 1>
-				 	<cfset basQual = " #basQual# OR ">
-				 </cfif>
-				 <cfset basQual = " #basQual# UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(trim(escapeQuotes(s)))#%'">
-				 <cfset i=i+1>
-			</cfloop>
-		<cfset basQual = " #basQual# ) ">
-	<cfelse>
-		<cfif left(state_prov,1) is '='>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.state_prov) = '#ucase(escapeQuotes(right(state_prov,len(state_prov)-1)))#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND UPPER(#session.flatTableName#.state_prov) LIKE '%#UCASE(escapeQuotes(state_prov))#%'">
-		</cfif>
-	</cfif>
-	<cfset mapurl = "#mapurl#&state_prov=#URLEncodedFormat(state_prov)#">
-</cfif>
-
-<cfif isdefined("island_group") AND len(island_group) gt 0>
-	<cfset temp=getFlatSql(fld="island_group", val=island_group)>
-</cfif>
-<cfif isdefined("Island") AND len(Island) gt 0>
-	<cfset temp=getFlatSql(fld="Island", val=Island)>
-</cfif>
-<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
-	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) eq 0)>
-		<!---got min, not max - set max to some improbably large number----->
-		<cfset max_max_error=999999999999999999999999999>
-	<cfelseif (isdefined("max_max_error") AND len(max_max_error) gt 0) and ((not isdefined("min_max_error")) or len(min_max_error) eq 0)>
-		<!---got max , not min - set min to some 0---->
-		<cfset min_max_error=0>
-	</cfif>
-	<cfif 	min_max_error contains "," or max_max_error contains ",">
-		<div class="error">min and max precision must be integers.
-		<br>Searching by precision and then clicking some "specimens with precision...." links can also cause this error.</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
-		<cfset max_error_units='m'>
-	</cfif>
-	<cfset mapurl = "#mapurl#&min_max_error=#min_max_error#&max_max_error=#max_max_error#&max_error_units=#max_error_units#">
-	<cfif compare(min_max_error,"NULL") is 0>
-		<!-- return only records with coordinates BUT with no error ---->
-		<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat is not null and (#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS is null OR #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS=0)">
-	<cfelse>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS
-			> to_meters(#min_max_error#,'#max_error_units#') and #session.flatTableName#.COORDINATEUNCERTAINTYINMETERS <= to_meters(#max_max_error#,'#max_error_units#')">
-	</cfif>
-</cfif>
-<cfif (isdefined("NELat") and len(NELat) gt 0)
-	OR (isdefined("NELong") and len(NELong) gt 0)
-	OR (isdefined("SWLat") and len(SWLat) gt 0)
-	OR (isdefined("SWLong") and len(SWLong) gt 0)>
-	<!--- got at least one point, see if we got enough to run ---->
-	<cfif (isdefined("NELat") and isnumeric(NELat))
-		AND (isdefined("SWLat") and isnumeric(SWLat))
-		AND (isdefined("NELong") and isnumeric(NELong))
-		AND (isdefined("SWLong") and isnumeric(SWLong))>
-		<cfif not isdefined("sq_error")>
-			<cfset sq_error='false'>
-		</cfif>
-		<cfif sq_error is true>
-			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
-			<cfif NELong lt 0 and SWLong gt 0><!--- overlaps 180, need a pair of extra statements ----->
-				<cfset basQual = " #basQual# AND
-					(
-						(
-							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
-							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
-							fake_coordinate_error.swlat between #SWLat# and #NELat# OR
-							fake_coordinate_error.nelat between #SWLat# and #NELat#
-						) AND (
-							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
-							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
-							fake_coordinate_error.swlong between #swlong# and 180 OR
-							fake_coordinate_error.swlong between -180 and #nelong# OR
-							fake_coordinate_error.nelong between #swlong# and 180 OR
-							fake_coordinate_error.nelong between -180 and #nelong#
-						)
-					)">
-			<cfelse><!--- longitude does not overlap 180 --->
-				<cfset basQual = " #basQual# AND
-					(
-						(
-							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
-							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
-							fake_coordinate_error.swlat between #SWLat# and #NELat# OR
-							fake_coordinate_error.nelat between #SWLat# and #NELat#
-						) AND (
-							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
-							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
-							fake_coordinate_error.swlong between #swlong# and #nelong# OR
-							fake_coordinate_error.nelong between #swlong# and #nelong#
-						)
-					)">
-			</cfif>
-		<cfelse>
-			<cfset basQual = " #basQual# AND #session.flatTableName#.dec_lat BETWEEN #SWLat# AND #NELat#">
-			<cfif NELong lt 0 and SWLong gt 0>
-				<cfset basQual = " #basQual# AND (#session.flatTableName#.dec_long between #SWLong# and 180 OR
-					#session.flatTableName#.dec_long between -180 and #NELong#)">
-			<cfelse>
-				<cfset basQual = " #basQual# AND #session.flatTableName#.dec_long BETWEEN #SWLong# AND #NELong#">
-			</cfif>
-		</cfif>
-		<cfset mapurl = "#mapurl#&NELat=#NELat#&NELong=#NELong#&SWLat=#SWLat#&SWLong=#SWLong#&sq_error=#sq_error#">
-	<cfelse>
-		<div class="error">
-			You entered at least one bounding box point, but didn't enter sufficient
-			information to finish the query. To search by bounding box, you must specify 2 coordinate sets
-			in decimal latitude format.
-		</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-</cfif>
-
 
 <!--------- this is legacy from the old spatial query and can probably be deprecated rather than updated when that becomes an issue ---->
 <cfif (isdefined("NWLat") and len(NWLat) gt 0)
