@@ -1008,6 +1008,84 @@
 		<cfif not isdefined("sq_error")>
 			<cfset sq_error='false'>
 		</cfif>
+		<cfif basJoin does not contain " specimen_event ">
+			<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+		</cfif>
+		<cfif basJoin does not contain " collecting_event ">
+			<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+		</cfif>
+		<cfif basJoin does not contain " locality ">
+			<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+		</cfif>
+		<cfif sq_error is true>
+			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (locality.locality_id = fake_coordinate_error.locality_id)">
+			<cfif NELong lt 0 and SWLong gt 0><!--- overlaps 180, need a pair of extra statements ----->
+				<cfset basQual = " #basQual# AND
+					(
+						(
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							fake_coordinate_error.swlat between #SWLat# and #NELat# OR
+							fake_coordinate_error.nelat between #SWLat# and #NELat#
+						) AND (
+							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							fake_coordinate_error.swlong between #swlong# and 180 OR
+							fake_coordinate_error.swlong between -180 and #nelong# OR
+							fake_coordinate_error.nelong between #swlong# and 180 OR
+							fake_coordinate_error.nelong between -180 and #nelong#
+						)
+					)">
+			<cfelse><!--- longitude does not overlap 180 --->
+				<cfset basQual = " #basQual# AND
+					(
+						(
+							#NELat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							#SWLat# between fake_coordinate_error.swlat and fake_coordinate_error.nelat OR
+							fake_coordinate_error.swlat between #SWLat# and #NELat# OR
+							fake_coordinate_error.nelat between #SWLat# and #NELat#
+						) AND (
+							#swlong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							#nelong# between fake_coordinate_error.swlong and fake_coordinate_error.nelong OR
+							fake_coordinate_error.swlong between #swlong# and #nelong# OR
+							fake_coordinate_error.nelong between #swlong# and #nelong#
+						)
+					)">
+			</cfif>
+		<cfelse>
+			<cfset basQual = " #basQual# AND locality.dec_lat BETWEEN #SWLat# AND #NELat#">
+			<cfif NELong lt 0 and SWLong gt 0>
+				<cfset basQual = " #basQual# AND (locality.dec_long between #SWLong# and 180 OR
+					locality.dec_long between -180 and #NELong#)">
+			<cfelse>
+				<cfset basQual = " #basQual# AND locality.dec_long BETWEEN #SWLong# AND #NELong#">
+			</cfif>
+		</cfif>
+		<cfset mapurl = "#mapurl#&NELat=#NELat#&NELong=#NELong#&SWLat=#SWLat#&SWLong=#SWLong#&sq_error=#sq_error#">
+	<cfelse>
+		<div class="error">
+			You entered at least one bounding box point, but didn't enter sufficient
+			information to finish the query. To search by bounding box, you must specify 2 coordinate sets
+			in decimal latitude format.
+		</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+</cfif>
+
+<!---- original, in case better-joined won't perform
+<cfif (isdefined("NELat") and len(NELat) gt 0)
+	OR (isdefined("NELong") and len(NELong) gt 0)
+	OR (isdefined("SWLat") and len(SWLat) gt 0)
+	OR (isdefined("SWLong") and len(SWLong) gt 0)>
+	<!--- got at least one point, see if we got enough to run ---->
+	<cfif (isdefined("NELat") and isnumeric(NELat))
+		AND (isdefined("SWLat") and isnumeric(SWLat))
+		AND (isdefined("NELong") and isnumeric(NELong))
+		AND (isdefined("SWLong") and isnumeric(SWLong))>
+		<cfif not isdefined("sq_error")>
+			<cfset sq_error='false'>
+		</cfif>
 		<cfif sq_error is true>
 			<cfset basJoin = " #basJoin# INNER JOIN fake_coordinate_error ON (#session.flatTableName#.locality_id = fake_coordinate_error.locality_id)">
 			<cfif NELong lt 0 and SWLong gt 0><!--- overlaps 180, need a pair of extra statements ----->
@@ -1063,7 +1141,7 @@
 		<cfabort>
 	</cfif>
 </cfif>
-
+---->
 
 
 
