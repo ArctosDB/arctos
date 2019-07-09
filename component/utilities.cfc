@@ -1856,7 +1856,7 @@
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0,/,0admin,0manager)">
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads,ackBulletin,aupm,apply">
-			<cfset x=x & ",ashx,app_debug,assets,auth,App,ASPSamp,AdvWorks,AccountService,Accounts,autoprov">
+			<cfset x=x & ",ashx,app_debug,assets,auth,App,ASPSamp,AdvWorks,AccountService,Accounts,autoprov,amf">
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch,bea_wls_deployment_internal">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
@@ -1864,7 +1864,7 @@
 			<cfset x=x & ",classLoader,cacheObjectMaxSize,configs,cisco">
 			<cfset x=x & ",drithsx,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config,dbm,device">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment,env">
-			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gatewa,FxCodeShell">
+			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway,FxCodeShell">
 			<cfset x=x & ",getmappingxpath,get_host_address,git,globalHandler,git,.git,grandstream,glp">
 			<cfset x=x & ",html(,HNAP1,htdocs,horde,HovercardLauncher,HelloWorld,has_dbaccess,hana,hooks,heads">
 			<cfset x=x & ",inurl,invoker,ini,into,INFORMATION_SCHEMA,iefixes,id_rsa,id_dsa">
@@ -1888,7 +1888,6 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress,webforms">
 			<cfset x=x & ",YandexImages,yealink">
 			<cfset x=x & ",zboard">
-
 
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME,dashboard">
