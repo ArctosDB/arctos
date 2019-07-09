@@ -434,7 +434,7 @@
 					length(collecting_event.began_date)>=10 and
 					(
 						to_number(to_char(to_date(substrcollecting_event.ended_date,1,10),'yyyy-mm-dd'),'J')) -
-						to_number(to_char(to_date(substr(collecting_event#.began_date,1,10),'yyyy-mm-dd'),'J'))
+						to_number(to_char(to_date(substr(collecting_event.began_date,1,10),'yyyy-mm-dd'),'J'))
 					)
 					<= #chronological_extent#">
 </cfif>
