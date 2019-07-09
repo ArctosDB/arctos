@@ -826,6 +826,7 @@
 
 
 <cfif isdefined("sea") AND len(sea) gt 0>
+	<cfset mapurl = "#mapurl#&sea=#URLEncodedFormat(sea)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
 	</cfif>
