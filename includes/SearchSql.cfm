@@ -466,7 +466,7 @@
 	<!----
 	<cfset basQual = "#basQual# AND round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1) in (#rcl#)" >
 	---->
-	<cfset basQual = "#basQual# AND roundlocality.dec_lat,1) || ',' || round(locality.dec_long,1) in (#rcl#)" >
+	<cfset basQual = "#basQual# AND round(locality.dec_lat,1) || ',' || round(locality.dec_long,1) in (#rcl#)" >
 </cfif>
 
 <cfif isdefined("coordslist") AND len(coordslist) gt 0>
@@ -480,7 +480,6 @@
 	<cfif basJoin does not contain " locality ">
 		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
 	</cfif>
-
 	<cfset basQual = "#basQual# AND ( ">
 	<cfloop list="#coordslist#" delimiters="|" index="c">
 		<cfset basQual = "#basQual# locality.dec_lat=#listgetat(c,1)# and locality.dec_long=#listgetat(c,2)#" >
@@ -490,14 +489,18 @@
 	</cfloop>
 	<cfset basQual = "#basQual# ) ">
 </cfif>
-
-
-
-
-
 <cfif isdefined("coordinates") AND len(coordinates) gt 0>
 	<cfset mapurl = "#mapurl#&coordinates=#coordinates#">
-	<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat=#listgetat(coordinates,1)# and #session.flatTableName#.dec_long=#listgetat(coordinates,2)#" >
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = "#basQual#  AND  locality.dec_lat=#listgetat(coordinates,1)# and locality.dec_long=#listgetat(coordinates,2)#" >
 </cfif>
 <!----
 	coordslist is a pipe-separated list of coordinate pairs
@@ -505,12 +508,22 @@
 
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
 	<cfif isGeoreferenced is true>
-		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat is not null" >
+		<cfset basQual = "#basQual#  AND  locality.dec_lat is not null" >
 	<cfelse>
-		<cfset basQual = "#basQual#  AND  #session.flatTableName#.dec_lat is null" >
+		<cfset basQual = "#basQual#  AND  locality.dec_lat is null" >
 	</cfif>
 </cfif>
+
 <cfif isdefined("collecting_method") AND len(collecting_method) gt 0>
 	<cfset mapurl = "#mapurl#&collecting_method=#collecting_method#">
 	<cfif basJoin does not contain " specimen_event ">
@@ -518,6 +531,7 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND upper(specimen_event.collecting_method) like '%#ucase(escapeQuotes(collecting_method))#%'">
 </cfif>
+
 <cfif isdefined("collecting_source") AND len(collecting_source) gt 0>
 	<cfset mapurl = "#mapurl#&collecting_source=#collecting_source#">
 	<cfif basJoin does not contain " specimen_event ">
@@ -540,8 +554,198 @@
 	<cfset basQual = " #basQual# AND specimen_event.specimen_event_type = '#specimen_event_type#'">
 </cfif>
 
+<cfif isdefined("georeference_source") and len(georeference_source) gt 0>
+	<cfset mapurl = "#mapurl#&georeference_source=#URLEncodedFormat(georeference_source)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif compare(georeference_source,"NULL") is 0>
+		<cfset basQual = " #basQual# AND locality.georeference_source is null">
+	<cfelse>
+		<cfif left(georeference_source,1) is '='>
+			<cfset basQual = " #basQual# AND upper(locality.georeference_source) = '#ucase(escapeQuotes(right(georeference_source,len(georeference_source)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(locality.georeference_source) like '%#ucase(escapeQuotes(georeference_source))#%'">
+		</cfif>
+	</cfif>
+</cfif>
+<cfif isdefined("spec_locality") and len(spec_locality) gt 0>
+	<cfset mapurl = "#mapurl#&spec_locality=#URLEncodedFormat(spec_locality)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfif compare(spec_locality,"NULL") is 0>
+		<cfset basQual = " #basQual# AND locality.spec_locality is null">
+	<cfelse>
+		<cfif left(spec_locality,1) is '='>
+			<cfset basQual = " #basQual# AND upper(locality.spec_locality) = '#ucase(escapeQuotes(right(spec_locality,len(spec_locality)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(locality.spec_locality) like '%#ucase(escapeQuotes(spec_locality))#%'">
+		</cfif>
+	</cfif>
+</cfif>
+
+<cfif isdefined("coord_serv_diff") and len(coord_serv_diff) gt 0>
+	<cfset mapurl = "#mapurl#&coord_serv_diff=#coord_serv_diff#">
+	<cfif not listfind("=,<,>",left(coord_serv_diff,1)) or
+		not isnumeric(mid(coord_serv_diff,2,999))>
+		<p>
+			coord_serv_diff format is (=,<, or >) followed by an integer (in KM). Example, in a form:
+			<ul>
+				<li>=10</li>
+				<li>>10</li>
+				<li><10</li>
+			</ul>
+			Example, in a URL:
+			<ul>
+				<li>==10</li>
+				<li>=>10</li>
+				<li>=<10</li>
+			</ul>
+		</p>
+		<cfabort>
+	</cfif>
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND checkLocalityError(locality.locality_id) #coord_serv_diff#">
+</cfif>
+<cfif isdefined("locality_remarks") and len(locality_remarks) gt 0>
+	<cfset mapurl = "#mapurl#&locality_remarks=#URLEncodedFormat(locality_remarks)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(locality.locality_remarks) like '%#ucase(escapeQuotes(locality_remarks))#%'">
+</cfif>
+<cfif isdefined("habitat") and len(habitat) gt 0>
+	<cfset mapurl = "#mapurl#&habitat=#URLEncodedFormat(habitat)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND upper(specimen_event.habitat) like '%#ucase(escapeQuotes(habitat))#%'">
+</cfif>
+
+<cfif isdefined("verbatim_locality") and len(verbatim_locality) gt 0>
+	<cfset mapurl = "#mapurl#&verbatim_locality=#URLEncodedFormat(verbatim_locality)#">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif left(verbatim_locality,1) is '='>
+		<cfset basQual = " #basQual# AND uppercollecting_event.verbatim_locality) = '#ucase(escapeQuotes(right(verbatim_locality,len(verbatim_locality)-1)))#'">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_locality) like '%#ucase(escapeQuotes(verbatim_locality))#%'">
+	</cfif>
+</cfif>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<cfif isdefined("minimum_elevation") and len(minimum_elevation) gt 0>
+	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
+		<div class="error">You must supply units to search by elevation.</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfif not isnumeric(minimum_elevation)>
+		<div class="error">Minimum Elevation must be numeric.</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset basQual = " #basQual# AND MIN_ELEV_IN_M >= #getMeters(minimum_elevation,orig_elev_units)#" >
+	<cfset mapurl = "#mapurl#&minimum_elevation=#minimum_elevation#&orig_elev_units=#orig_elev_units#">
+</cfif>
+<cfif isdefined("maximum_elevation") and len(maximum_elevation) gt 0>
+	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
+		<div class="error">You must supply units to search by elevation.</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfif not isnumeric(maximum_elevation)>
+		<div class="error">Maximum Elevation must be numeric.</div>
+		<script>hidePageLoad();</script>
+		<cfabort>
+	</cfif>
+	<cfset basQual = " #basQual# AND MAX_ELEV_IN_M <= #getMeters(maximum_elevation,orig_elev_units)#" >
+	<cfset mapurl = "#mapurl#&maximum_elevation=#maximum_elevation#">
+	<cfif mapurl does not contain "orig_elev_units">
+		<cfset mapurl = "#mapurl#&orig_elev_units=#orig_elev_units#">
+	</cfif>
+</cfif>
+<cfif isdefined("feature") AND len(feature) gt 0>
+	<cfif compare(feature,"NULL") is 0>
+		<cfset basQual = " #basQual# AND #session.flatTableName#.feature is null">
+	<cfelse>
+		<cfif left(feature,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.feature) = '#ucase(escapeQuotes(right(feature,len(feature)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.feature) LIKE '%#ucase(escapeQuotes(feature))#%'">
+		</cfif>
+	</cfif>
+	<cfset mapurl = "#mapurl#&feature=#URLEncodedFormat(feature)#">
+</cfif>
+<cfif isdefined("drainage") AND len(drainage) gt 0>
+	<cfif basJoin does not contain 'geog_auth_rec'>
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
+	</cfif>
+	<cfif compare(drainage,"NULL") is 0>
+		<cfset basQual = " #basQual# AND geog_auth_rec.drainage is null">
+	<cfelse>
+		<cfif left(drainage,1) is '='>
+			<cfset basQual = " #basQual# AND upper(geog_auth_rec.drainage) = '#ucase(escapeQuotes(right(drainage,len(drainage)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(geog_auth_rec.drainage) LIKE '%#ucase(escapeQuotes(drainage))#%'">
+		</cfif>
+	</cfif>
+	<cfset mapurl = "#mapurl#&drainage=#URLEncodedFormat(drainage)#">
+</cfif>
 
 
 
@@ -2127,135 +2331,6 @@
 	</cfif>
 </cfif>
 <!--------- the above is legacy from the old spatial query and can probably be deprecated rather than updated when that becomes an issue ---->
-
-<cfif isdefined("georeference_source") and len(georeference_source) gt 0>
-	<cfset mapurl = "#mapurl#&georeference_source=#URLEncodedFormat(georeference_source)#">
-	<cfif compare(georeference_source,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.georeference_source is null">
-	<cfelse>
-		<cfif left(georeference_source,1) is '='>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.georeference_source) = '#ucase(escapeQuotes(right(georeference_source,len(georeference_source)-1)))#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.georeference_source) like '%#ucase(escapeQuotes(georeference_source))#%'">
-		</cfif>
-	</cfif>
-</cfif>
-<cfif isdefined("spec_locality") and len(spec_locality) gt 0>
-	<cfset mapurl = "#mapurl#&spec_locality=#URLEncodedFormat(spec_locality)#">
-	<cfif compare(spec_locality,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.spec_locality is null">
-	<cfelse>
-		<cfif left(spec_locality,1) is '='>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.spec_locality) = '#ucase(escapeQuotes(right(spec_locality,len(spec_locality)-1)))#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.spec_locality) like '%#ucase(escapeQuotes(spec_locality))#%'">
-		</cfif>
-	</cfif>
-</cfif>
-<cfif isdefined("coord_serv_diff") and len(coord_serv_diff) gt 0>
-	<cfset mapurl = "#mapurl#&coord_serv_diff=#coord_serv_diff#">
-	<cfif not listfind("=,<,>",left(coord_serv_diff,1)) or
-		not isnumeric(mid(coord_serv_diff,2,999))>
-		<p>
-			coord_serv_diff format is (=,<, or >) followed by an integer (in KM). Example, in a form:
-			<ul>
-				<li>=10</li>
-				<li>>10</li>
-				<li><10</li>
-			</ul>
-			Example, in a URL:
-			<ul>
-				<li>==10</li>
-				<li>=>10</li>
-				<li>=<10</li>
-			</ul>
-		</p>
-		<cfabort>
-	</cfif><cfif basJoin does not contain " locality ">
-		<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND checkLocalityError(locality.locality_id) #coord_serv_diff#">
-</cfif>
-<cfif isdefined("locality_remarks") and len(locality_remarks) gt 0>
-	<cfset mapurl = "#mapurl#&locality_remarks=#URLEncodedFormat(locality_remarks)#">
-	<cfif basJoin does not contain " locality ">
-		<cfset basJoin = " #basJoin# INNER JOIN locality ON (#session.flatTableName#.locality_id = locality.locality_id)">
-	</cfif>
-	<cfset basQual = " #basQual# AND upper(locality.locality_remarks) like '%#ucase(escapeQuotes(locality_remarks))#%'">
-</cfif>
-<cfif isdefined("habitat") and len(habitat) gt 0>
-	<cfset mapurl = "#mapurl#&habitat=#URLEncodedFormat(habitat)#">
-	<cfset basQual = " #basQual# AND upper(#session.flatTableName#.habitat) like '%#ucase(escapeQuotes(habitat))#%'">
-</cfif>
-<cfif isdefined("verbatim_locality") and len(verbatim_locality) gt 0>
-	<cfset mapurl = "#mapurl#&verbatim_locality=#URLEncodedFormat(verbatim_locality)#">
-	<cfif left(verbatim_locality,1) is '='>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.verbatim_locality) = '#ucase(escapeQuotes(right(verbatim_locality,len(verbatim_locality)-1)))#'">
-	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#session.flatTableName#.verbatim_locality) like '%#ucase(escapeQuotes(verbatim_locality))#%'">
-	</cfif>
-</cfif>
-<cfif isdefined("minimum_elevation") and len(minimum_elevation) gt 0>
-	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
-		<div class="error">You must supply units to search by elevation.</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfif not isnumeric(minimum_elevation)>
-		<div class="error">Minimum Elevation must be numeric.</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset basQual = " #basQual# AND MIN_ELEV_IN_M >= #getMeters(minimum_elevation,orig_elev_units)#" >
-	<cfset mapurl = "#mapurl#&minimum_elevation=#minimum_elevation#&orig_elev_units=#orig_elev_units#">
-</cfif>
-<cfif isdefined("maximum_elevation") and len(maximum_elevation) gt 0>
-	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
-		<div class="error">You must supply units to search by elevation.</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfif not isnumeric(maximum_elevation)>
-		<div class="error">Maximum Elevation must be numeric.</div>
-		<script>hidePageLoad();</script>
-		<cfabort>
-	</cfif>
-	<cfset basQual = " #basQual# AND MAX_ELEV_IN_M <= #getMeters(maximum_elevation,orig_elev_units)#" >
-	<cfset mapurl = "#mapurl#&maximum_elevation=#maximum_elevation#">
-	<cfif mapurl does not contain "orig_elev_units">
-		<cfset mapurl = "#mapurl#&orig_elev_units=#orig_elev_units#">
-	</cfif>
-</cfif>
-<cfif isdefined("feature") AND len(feature) gt 0>
-	<cfif compare(feature,"NULL") is 0>
-		<cfset basQual = " #basQual# AND #session.flatTableName#.feature is null">
-	<cfelse>
-		<cfif left(feature,1) is '='>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.feature) = '#ucase(escapeQuotes(right(feature,len(feature)-1)))#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND upper(#session.flatTableName#.feature) LIKE '%#ucase(escapeQuotes(feature))#%'">
-		</cfif>
-	</cfif>
-	<cfset mapurl = "#mapurl#&feature=#URLEncodedFormat(feature)#">
-</cfif>
-<cfif isdefined("drainage") AND len(drainage) gt 0>
-	<cfif basJoin does not contain 'geog_auth_rec'>
-		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
-		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
-		<cfset basJoin = " #basJoin# INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)">
-	</cfif>
-	<cfif compare(drainage,"NULL") is 0>
-		<cfset basQual = " #basQual# AND geog_auth_rec.drainage is null">
-	<cfelse>
-		<cfif left(drainage,1) is '='>
-			<cfset basQual = " #basQual# AND upper(geog_auth_rec.drainage) = '#ucase(escapeQuotes(right(drainage,len(drainage)-1)))#'">
-		<cfelse>
-			<cfset basQual = " #basQual# AND upper(geog_auth_rec.drainage) LIKE '%#ucase(escapeQuotes(drainage))#%'">
-		</cfif>
-	</cfif>
-	<cfset mapurl = "#mapurl#&drainage=#URLEncodedFormat(drainage)#">
-</cfif>
 
 
 <cfif isdefined("any_geog") AND len(any_geog) gt 0>
