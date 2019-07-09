@@ -104,6 +104,10 @@
 							</cfif>
 						</cfif>
 					</cfoutput>
+					<div>
+						Check the <a href=http://handbook.arctosdb.org/documentation/understanding-errors.html>Arctos Handbook</a> for more information on errors.
+					</div>
+
 					<p>This message has been logged. Please <a href="/contact.cfm">contact us</a>
 					with any information that might help us to resolve this problem.</p>
 				</td>
