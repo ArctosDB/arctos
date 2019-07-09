@@ -377,7 +377,8 @@
 					} else {
 						$("#doilookup").text(' [ crossref ] ');
 						$("#pmidlookup").text(' [ pubmed ] ');
-						alert(d.DATA.STATUS);
+						var st='An error has occurred. Check the DOI/PMID, and contact the publisher if the identifier is malfunctioning.\n'+d.DATA.STATUS;
+						alert(st);
 					}
 				}
 			);
