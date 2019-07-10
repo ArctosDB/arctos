@@ -2084,7 +2084,7 @@ function pickedRelationship (id){
 		findCatalogedItem(idInputName,dispInputName,'newMedia');
 	} else if (relatedTable=='project'){
 		getProject(idInputName,dispInputName,'newMedia');
-	} else if (relatedTable=='taxonomy'){
+	} else if (relatedTable=='taxon_name'){
 		taxaPick(idInputName,dispInputName,'newMedia');
 	} else if (relatedTable=='publication'){
 		getPublication(dispInputName,idInputName,'');
