@@ -1390,8 +1390,8 @@
 	<cfset result.http_target=http_target>
 	<!---- ensure that the reqeust is for something in our Media table ---->
 	<cfif result.status is "spiffy">
-	<!---cachedwithin="#createtimespan(0,0,60,0)#"--->
-		<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+	<!------>
+		<cfquery name="isus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c from media where upper(trim(media_uri))='#ucase(trim(http_target))#'
 		</cfquery>
 		<cfif isus.c neq 1>
