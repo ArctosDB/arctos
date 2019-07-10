@@ -24,7 +24,8 @@
 		Noid<cfabort>
 	</cfif>
 	<cfset  func = CreateObject("component","component.functions")>
-	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<!----cachedwithin="#createtimespan(0,0,60,0)#---->
+	<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
 		select
 			media_flat.media_id,
 			media_flat.media_uri,
