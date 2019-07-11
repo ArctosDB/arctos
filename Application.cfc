@@ -62,7 +62,7 @@
 								<cfset fcp=find(":",m)>
 								<cfif fcp gt 0><cfset m=right(m,len(m)-fcp)></cfif>
 								<cfset fcp=find("ORA-",m)>
-								<cfif fcp gt 0><cfset m=left(m,fcp-1)></cfif>
+								<cfif fcp gt 2><cfset m=left(m,fcp-1)></cfif>
 								<div style="font-weight:bold;margin:1em;padding:1em;">#m#</div>
 								<div>#exception.detail#</div>
 								<cfif FindNoCase("ORA-28000", exception.detail)>
