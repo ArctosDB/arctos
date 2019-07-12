@@ -332,8 +332,9 @@ New field (free text) OR build with "Data Quality Contact (Year of last edit to 
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '</collection>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<specimenPreservationMethod>#d.specimen_preservation_method#</specimenPreservationMethod>'>
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<livingTimePeriod>#d.time_coverage#</livingTimePeriod>'>
+		<!----
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & chr(9) & '<dc:replaces>f85f5c5c-ce02-4337-9317-23fe54769ff2/v1.3.xml</dc:replaces>'>
-
+	---->
 		<cfset eml=eml & chr(10) & chr(9) & chr(9) & '</gbif>'>
 		<cfset eml=eml & chr(10) & chr(9) & '</metadata>'>
 
