@@ -1139,7 +1139,7 @@
 				</cfloop>
 			</select>
 			<h3>
-				Non-Classification Terms <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
+				Classification Metadata <span class="likeLink" onclick="getCtDoc('cttaxon_term');">code table</span>
 			</h3>
 			<p style="font-size:small;font-weight:bold;color:red;">
 				<ul>

@@ -88,11 +88,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 CREATE OR REPLACE TRIGGER trg_cf_temp_specevent_biu
     BEFORE INSERT OR UPDATE ON cf_temp_specevent
     FOR EACH ROW
-    BEGIN
-	    -- Oracle is making some super-weird distinct
-  	if dbms_lob.getlength(:NEW.wkt_polygon) = 0 then
-    	:NEW.wkt_polygon:=NULL;
-    end if;
+    BEGIN  
 
 	IF :new.orig_lat_long_units = 'deg. min. sec.' THEN
             :new.c$lat := :new.LAT_DEG + (:new.LAT_MIN / 60) + (nvl(:new.LAT_SEC,0) / 3600);
