@@ -1194,7 +1194,7 @@
 
 
 
-			<cfset shouldUsuallyHave="display_name,author_text,nomenclatural_code">
+			<cfset shouldUsuallyHave="author_text,nomenclatural_code">
 			<cfset aterms=valuelist(noclass.TERM_TYPE)>
 			<cfloop list="#aterms#" index="i">
 				<cfif listfind(shouldUsuallyHave,i)>
