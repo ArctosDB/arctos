@@ -1,3 +1,11 @@
+
+<div class="slidecontainer">
+	<label>Identification Confidence</label>
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+</div>
+<!--------------
+
+
 <cfset title="demo">
 <cfinclude template="/includes/_header.cfm">
 <h3>Google Breaker</h3>
@@ -287,7 +295,7 @@ Individual IDs:
 		<td>We can eventually pull stuff from a service</td>
 	</tr>
 </table>
-
+----------->
 <!-----------
 
 
