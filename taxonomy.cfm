@@ -626,9 +626,9 @@ function showmetadata(){
 		<div id="ckCites"><a span class="likeLink" onclick="checkCites('#taxon_name_id.taxon_name_id#','#scientific_name.scientific_name#')">[ Check CITES ]</a></div>
 		<div id="validatorResults"></div>
 		<cfquery name="usedBy" datasource="uam_god">
-			select guid_prefix,count(*) from collection,cataloged_item,identification,identification_taxonomy where collection.collection_id=cataloged_item.collection_id and
+			select guid_prefix,count(*) c from collection,cataloged_item,identification,identification_taxonomy where collection.collection_id=cataloged_item.collection_id and
 			cataloged_item.collection_object_id=identification.collection_object_id and identification.identification_id=identification_taxonomy.identification_id and
-			identification_taxonomy.taxon_name_id=#taxon_name_id.taxon_name_id#
+			identification_taxonomy.taxon_name_id=#taxon_name_id.taxon_name_id# group by guid_prefix
 		</cfquery>
 		<cfdump var=#usedBy#>
 		<cfquery name="wdi" datasource="uam_god">
