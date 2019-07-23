@@ -625,6 +625,12 @@ function showmetadata(){
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Name + Related Data ]</a>
 		<div id="ckCites"><a span class="likeLink" onclick="checkCites('#taxon_name_id.taxon_name_id#','#scientific_name.scientific_name#')">[ Check CITES ]</a></div>
 		<div id="validatorResults"></div>
+		<cfquery name="usedBy" datasource="uam_god">
+			select guid_prefix,count(*) from collection,cataloged_item,identification,identification_taxonomy where collection.collection_id=cataloged_item.collection_id and
+			cataloged_item.collection_object_id=identification.collection_object_id and identification.identification_id=identification_taxonomy.identification_id and
+			identification_taxonomy.taxon_name_id=##taxon_name_id.taxon_name_id##
+		</cfquery>
+		<cfdump var=#usedBy#>
 		<cfquery name="wdi" datasource="uam_god">
 			select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=#taxon_name_id.taxon_name_id#
 		</cfquery>
