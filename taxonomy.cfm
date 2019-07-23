@@ -647,9 +647,9 @@ function showmetadata(){
 				guid_prefix
 		</cfquery>
 		<cfif usedBy.recordcount is 0>
-			<br>This name is not used in identifications.
+			<div>This name is not used in identifications.</div>
 		<cfelse>
-			<br>This name is used in identifications. Please coordinate fundamental changes with all users.
+			<divThis name is used in identifications. Please coordinate fundamental changes with all users.</div>
 			<table border>
 				<tr>
 					<th>Collection</th>
