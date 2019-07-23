@@ -1637,26 +1637,36 @@
 	<cfset request.requestingSubnet=trim(requestingSubnet)>
 </cffunction>
 <!------------------------------------------------------------------------------------>
-
 <cffunction name="setAppBL">
+	<!--- get IPs that aren't subnet-blocked --->
 	<cfquery name="d" datasource="uam_god">
 		select distinct ip from uam.blacklist where
 			status='active' and
 			sysdate-LISTDATE<180 and
 			calc_subnet not in (
-				select subnet from blacklist_subnet where status in ('active','autoinsert','hardblock') and sysdate-INSERT_DATE<180
+				select distinct subnet from (
+		    		select subnet from uam.blacklist_subnet where status in  ('active','autoinsert') and sysdate-INSERT_DATE<180
+					union
+		    		select  subnet from uam.blacklist_subnet where status ='hardblock'
+		    	)
 			)
 	</cfquery>
 	<cfset Application.blacklist=valuelist(d.ip)>
+	<!--- 
+		actively blocked subnets
+		never autorelease hardblock
+		the weird format performs slightly better
+	---->
 	<cfquery name="sn" datasource="uam_god">
-		select distinct subnet from uam.blacklist_subnet where status in  ('active','autoinsert','hardblock') and sysdate-INSERT_DATE<180
+		select distinct subnet from (
+    		select subnet from uam.blacklist_subnet where status in  ('active','autoinsert') and sysdate-INSERT_DATE<180
+			union
+    		select  subnet from uam.blacklist_subnet where status ='hardblock'
+    	)
 	</cfquery>
 	<cfset application.subnet_blacklist=valuelist(sn.subnet)>
 </cffunction>
-
 <!------------------------------------------------------------------------------------>
-
-
 <cffunction name="checkRequest">
 	<cfargument name="inp" type="any" required="false"/>
 	<cfif session.roles contains "coldfusion_user">
