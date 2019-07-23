@@ -39,7 +39,7 @@ EXECUTIONTIME 	3460
 <cfset x=valuelist(pa.subnet)>
 
 
-<cfif listfind(x,'94.180'>
+<cfif listfind(x,'94.180')>
 	found it
 </cfif>
 <!----
