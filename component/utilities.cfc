@@ -1000,18 +1000,14 @@
 				<cfquery name="blsn" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 					select
 						count(*) c,
-					    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-					      else 'recent'
-					    END dstatus,
+						round(sysdate-INSERT_DATE) days_since_block,
 					    status
 				    from
 				        blacklist_subnet
 				        where
 				        subnet='#sn#'
 				        group by
-				    CASE when sysdate-INSERT_DATE > 180 then 'expired'
-				      else 'recent'
-				    END,
+				   round(sysdate-INSERT_DATE),
 				    status
 				</cfquery>
 				Block history:
@@ -1033,7 +1029,7 @@
 					<cfloop query="blsn">
 						<tr>
 							<td>subnet</td>
-							<td>#dstatus#</td>
+							<td>#days_since_block#</td>
 							<td>#status#</td>
 							<td>#c#</td>
 						</tr>
@@ -1652,7 +1648,7 @@
 			)
 	</cfquery>
 	<cfset Application.blacklist=valuelist(d.ip)>
-	<!--- 
+	<!---
 		actively blocked subnets
 		never autorelease hardblock
 		the weird format performs slightly better
