@@ -45,12 +45,24 @@ EXECUTIONTIME 	3460
 
 <!--- list --->
 
+<cfset strttime= GetTickCount()>
+
 <cfset x=valuelist(pa.subnet)>
+<cfset etime =GetTickCount()>
+<cfset elap=etime-strttime>
+<br>made list in #elap#
+
+<cfset strttime= GetTickCount()>
 
 
 <cfif listfind(x,'94.180')>
 	found it
 </cfif>
+
+
+<cfset etime =GetTickCount()>
+<cfset elap=etime-strttime>
+<br>searched list in #elap#
 <!----
 
 
