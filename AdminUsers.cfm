@@ -390,7 +390,10 @@
 									<cfif session.roles contains "global_admin">
 										<a href="AdminUsers.cfm?action=unlockOracleAccount&username=#username#">unlock</a>
 									<cfelse>
-										Use the <a href="/contact.cfm">contact</a> link if you need this account unlocked.
+										<a target="_blank"
+											class="external"
+											href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=account unlock">Request help</a>
+											with unlocking this account.
 									</cfif>
 								<cfelseif hasInvite.allow is 1>
 									Awaiting User Action

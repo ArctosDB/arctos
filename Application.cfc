@@ -108,8 +108,13 @@
 						Check the <a href=http://handbook.arctosdb.org/documentation/understanding-errors.html>Arctos Handbook</a> for more information on errors.
 					</div>
 
-					<p>This message has been logged. Please <a href="/contact.cfm">contact us</a>
-					with any information that might help us to resolve this problem.</p>
+					<p>
+						This message has been logged. Please
+						<a target="_blank"
+							class="external"
+							href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=error feedback">contact us</a>
+						with any information that might help us to resolve this problem. For best results, include the error and a detail description of how it came to occur in the Issue.
+					</p>
 				</td>
 			</tr>
 		</table>
