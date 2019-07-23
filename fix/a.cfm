@@ -32,7 +32,7 @@ EXECUTIONTIME 	3460
 </cfquery>
 <cfset etime =GetTickCount()>
 <cfset elap=etime-strttime>
-<br>executed uncached query in #elap#
+<br>executed uncached count query in #elap#
 
 
 
