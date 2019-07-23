@@ -1,9 +1,19 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 
+<cfset strttime= GetTickCount()>
+
 <cfquery name="pa" datasource="uam_god">
 	select  distinct subnet from blacklist_subnet
 </cfquery>
+
+
+<cfset etime =GetTickCount()>
+<cfset elap=etime-strttime>
+<br>executed full uncached query in #elap#
+
+
+
 <!----
 
 raw query:
