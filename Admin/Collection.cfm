@@ -67,7 +67,8 @@
 		CAUTION!!
 		<br>
 		Misuse of this form can be very dangerous. You can break all links to and from your specimens.
-		<br>If you don't know exactly what you're doing, please <a href="/contact.cfm">ask first</a>.
+		<br>If you don't know exactly what you're doing, please
+		<a target="_blank" href=" https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=manage collection">ask first</a>.
 	</h2>
 	<table border>
 		<tr>
