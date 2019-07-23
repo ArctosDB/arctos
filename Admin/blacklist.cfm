@@ -55,7 +55,7 @@
 						STATUS,
 						to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
 						calc_subnet,
-						round(sysdate-LASTDATE) days_since_block
+						round(sysdate-LASTDATE) dsb
 					from
 						uam.blacklist
 					where
@@ -217,8 +217,8 @@
 													<td>#LISTDATE#</td>
 													<td>#LASTDATE#</td>
 													<td>
-														#STATUS# #days_since_block#
-														<cfif days_since_block gte 180> (time released)</cfif>
+														#STATUS# #dsb#
+														<cfif dsb gte 180> (time released)</cfif>
 													</td>
 												</tr>
 											</cfloop>
