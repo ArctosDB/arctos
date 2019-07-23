@@ -44,7 +44,7 @@
 			<input type="button" id="resetfilter" value="reset">
 		</form>
 		<p>
-			* All IP-based access restrictions expire after 180 days, and data older than 180 days is by default excluded from this form.
+			* All IP-based access restrictions except hardblock expire after 180 days.
 		</p>
 		<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			Select * from (
@@ -58,7 +58,8 @@
 					from
 						uam.blacklist
 					where
-						sysdate-LISTDATE<#sincedays#
+						1=1
+						--sysdate-LISTDATE<#sincedays#
 						<cfif len(ipstartswith) gt 0>
 							and ip like '#snstartswith#%'
 						</cfif>
