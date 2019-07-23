@@ -639,7 +639,7 @@ function showmetadata(){
 					<th>Collection</th>
 					<th>##IDs</th>
 				</tr>
-				<cfloop query="">
+				<cfloop query="usedBy">
 					<tr>
 						<td>#guid_prefix#</td>
 						<td>#c#</td>
