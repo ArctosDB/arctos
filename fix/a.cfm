@@ -4,8 +4,22 @@
 <cfquery name="pa" datasource="uam_god">
 	select  distinct subnet from blacklist_subnet
 </cfquery>
+<!----
+
+raw query:
+
 <cfdump var=#pa#>
 
+4274 	rows
+EXECUTIONTIME 	3460
+---->
+
+<!--- cached query, first run ---->
+<cfset qn="checksingleip#RandRange(1,10000)#">
+<cfquery name="#qn#" datasource="uam_god">
+	select  count(*) c from blacklist_subnet where subnet='94.180'
+</cfquery>
+<cfdump var=#qn#>
 
 <!----
 
