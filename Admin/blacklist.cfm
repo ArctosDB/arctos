@@ -217,8 +217,7 @@
 													<td>#LISTDATE#</td>
 													<td>#LASTDATE#</td>
 													<td>
-														#STATUS# #dsb#
-														<cfif dsb gte 180> (time released)</cfif>
+														#STATUS# <cfif dsb gte 180> (time released)</cfif>
 													</td>
 												</tr>
 											</cfloop>
