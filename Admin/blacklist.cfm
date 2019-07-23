@@ -75,7 +75,7 @@
 				STATUS,
 				to_char(INSERT_DATE,'yyyy-mm-dd') INSERT_DATE,
 				to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
-				sysdate-INSERT_DATE days_since_block
+				round(sysdate-INSERT_DATE) days_since_block
 			from
 				uam.blacklist_subnet
 		</cfquery>
