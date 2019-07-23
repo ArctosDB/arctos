@@ -217,7 +217,7 @@
 													<td>#LISTDATE#</td>
 													<td>#LASTDATE#</td>
 													<td>
-														#STATUS#
+														#STATUS# #days_since_block#
 														<cfif days_since_block gte 180> (time released)</cfif>
 													</td>
 												</tr>
