@@ -17,19 +17,28 @@ EXECUTIONTIME 	3460
 <!--- cached query, first run ---->
 
 <cfset strttime= GetTickCount()>
-
 <cfquery name="abc1" datasource="uam_god">
 	select  count(*) c from blacklist_subnet where subnet='94.180'
 </cfquery>
-
 <cfset etime =GetTickCount()>
-
-<cfset elap=strttime-etime>
+<cfset elap=etime-strttime>
 <br>executed uncached query in #elap#
+
+
+
+<cfset strttime= GetTickCount()>
+
 <cfquery name="abc1" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select  count(*) c from blacklist_subnet where subnet='94.180'
 </cfquery>
-<cfdump var=#abc1#>
+
+
+<cfset etime =GetTickCount()>
+<cfset elap=etime-strttime>
+<br>executed cached query in #elap#
+
+
+
 
 <!--- EXECUTIONTIME 	1  for both cached and uncached ---->
 
