@@ -15,18 +15,35 @@ EXECUTIONTIME 	3460
 ---->
 
 <!--- cached query, first run ---->
+
+<cfset strttime= GetTickCount()>
+
 <cfquery name="abc1" datasource="uam_god">
 	select  count(*) c from blacklist_subnet where subnet='94.180'
 </cfquery>
-<cfdump var=#abc1#>
 
+<cfset etime =GetTickCount()>
+
+<cfset elap=strttime-etime>
+<br>executed uncached query in #elap#
 <cfquery name="abc1" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 	select  count(*) c from blacklist_subnet where subnet='94.180'
 </cfquery>
 <cfdump var=#abc1#>
 
+<!--- EXECUTIONTIME 	1  for both cached and uncached ---->
 
+
+<!--- list --->
+
+<cfset x=valuelist(pa.subnet)>
+
+
+<cfif listfind(x,'94.180'>
+	found it
+</cfif>
 <!----
+
 
 
 						<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/MSB:Para:1678" method="head"></cfhttp>
