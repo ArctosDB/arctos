@@ -950,7 +950,7 @@ function showmetadata(){
 									<cfset ttlink=tlink & "&term_type=NULL">
 									<cfset sttyp='NULL'>
 								</cfif>
-								<cfset srclnk=ttlink & "&source=#sources.source#">
+								<cfset srclnk=ttlink & "&source==#sources.source#">
 								<a rel="nofollow" href="#tlink#">[ more like this term ]</a>
 								<a rel="nofollow" href="#ttlink#">[ including rank ]</a>
 								<a rel="nofollow" href="#srclnk#">[ from this source ]</a>
