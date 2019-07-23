@@ -63,6 +63,18 @@ EXECUTIONTIME 	3460
 <cfset etime =GetTickCount()>
 <cfset elap=etime-strttime>
 <br>searched list in #elap#
+
+
+<cfset strttime= GetTickCount()>
+
+
+<cfset x=ValueArray(pa, subnet)>
+
+
+<cfset etime =GetTickCount()>
+<cfset elap=etime-strttime>
+<br>made array in #elap#
+
 <!----
 
 
