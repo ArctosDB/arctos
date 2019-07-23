@@ -73,11 +73,10 @@
 				SUBNET,
 				STATUS,
 				to_char(INSERT_DATE,'yyyy-mm-dd') INSERT_DATE,
-				to_char(LASTDATE,'yyyy-mm-dd') LASTDATE
+				to_char(LASTDATE,'yyyy-mm-dd') LASTDATE,
+				sysdate-INSERT_DATE days_since_block
 			from
 				uam.blacklist_subnet
-			where
-				sysdate-INSERT_DATE<#sincedays#
 		</cfquery>
 		<cfset utilities = CreateObject("component","component.utilities")>
 		<cfset utilities.setAppBL()>
@@ -114,7 +113,7 @@
 		<p>
 			"Probably malicious" subnets should be hard-blocked using the tools below. These blocks cannot be
 			removed by users, but users may fill in a form asking for removal; this must be evaluated by Arctos personnel. Create and release
-			these restrictions with caution.
+			these restrictions with caution. Hardblocks do not expire.
 		</p>
 		<p>
 			More-malicious subnets should be blocked at the firewall. Send email to TACC. Users from
@@ -166,12 +165,14 @@
 								<tr>
 									<th>subnet-listdate</th>
 									<th>lastdate</th>
+									<th>days_since_block</th>
 									<th>status</th>
 								</tr>
 								<cfloop query="#tsnd#">
 									<tr>
 										<td>#INSERT_DATE#</td>
 										<td>#LASTDATE#</td>
+										<td>#days_since_block#</td>
 										<td>#STATUS#</td>
 									</tr>
 								</cfloop>
