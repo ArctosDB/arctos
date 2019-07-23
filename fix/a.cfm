@@ -1,6 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 
+<cfquery name="pa" datasource="uam_god">
+	select  distinct subnet from blacklist_subnet
+</cfquery>
+<cfdump var=#pa#>
+
+
+<!----
+
+
 						<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/MSB:Para:1678" method="head"></cfhttp>
 
 
@@ -32,8 +41,6 @@
 		<br>m:#m#
 		</cfif>
 
-
-<!----
 <cftry>
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update collecting_event set verbatim_locality='test' where collecting_event_id=11326795
