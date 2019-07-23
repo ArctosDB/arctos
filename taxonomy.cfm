@@ -628,9 +628,25 @@ function showmetadata(){
 		<cfquery name="usedBy" datasource="uam_god">
 			select guid_prefix,count(*) c from collection,cataloged_item,identification,identification_taxonomy where collection.collection_id=cataloged_item.collection_id and
 			cataloged_item.collection_object_id=identification.collection_object_id and identification.identification_id=identification_taxonomy.identification_id and
-			identification_taxonomy.taxon_name_id=#taxon_name_id.taxon_name_id# group by guid_prefix
+			identification_taxonomy.taxon_name_id=#taxon_name_id.taxon_name_id# group by guid_prefix order by guid_prefix
 		</cfquery>
-		<cfdump var=#usedBy#>
+		<cfif usedBy.recordcount is 0>
+			<br>This name is not used in identifications.
+		<cfelse>
+			<br>This name is used in identifications. Please coordinate fundamental changes with all users.
+			<table border>
+				<tr>
+					<th>Collection</th>
+					<th>##IDs</th>
+				</tr>
+				<cfloop query="">
+					<tr>
+						<td>#guid_prefix#</td>
+						<td>#c#</td>
+					</tr>
+				</cfloop>
+			</table>
+		</cfif>
 		<cfquery name="wdi" datasource="uam_god">
 			select getPreferredAgentName(created_by_agent_id) cb, to_char(created_date,'YYYY-MM-DD') cd from taxon_name where taxon_name_id=#taxon_name_id.taxon_name_id#
 		</cfquery>
