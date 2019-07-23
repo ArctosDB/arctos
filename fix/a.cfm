@@ -15,11 +15,16 @@ EXECUTIONTIME 	3460
 ---->
 
 <!--- cached query, first run ---->
-<cfset qn="checksingleip#RandRange(1,10000)#">
-<cfquery name="#qn#" datasource="uam_god">
+<cfquery name="abc1" datasource="uam_god">
 	select  count(*) c from blacklist_subnet where subnet='94.180'
 </cfquery>
-<cfdump var=#qn#>
+<cfdump var=#abc1#>
+
+<cfquery name="abc1" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+	select  count(*) c from blacklist_subnet where subnet='94.180'
+</cfquery>
+<cfdump var=#abc1#>
+
 
 <!----
 
