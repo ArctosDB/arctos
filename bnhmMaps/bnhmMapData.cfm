@@ -74,7 +74,6 @@
 <cfif getMapData.recordcount is 0>
 	<div class="error">
 		Oops! We didn't find anything mappable.
-		<a href='/contact.cfm'>Contact us</a> if you think this message is in error.
 	</div>
 	<cfabort>
 </cfif>
