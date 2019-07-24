@@ -150,7 +150,8 @@ function removeIdentifier ( identification_id,num  ) {
 	affElemId.value='DELETE'
 	affElemId.className='';
 	affElem.className='';
-	affElem.value='';											
+	affElem.value='';
+	$("#" + affElemS).removeClass().prop('required',false);
 }
 function addIdentifier(identification_id,num) {
 	var tns = 'identifierTableBody_' + identification_id;
