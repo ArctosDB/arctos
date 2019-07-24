@@ -17,7 +17,7 @@
 		bulkloader but not yet to Arctos
 	</p>
 	<p>
-		Documentation, including field definitions, is at <a href="https://arctosdb.wordpress.com/how-to/create/bulkloader/">Bulkloader Docs</a>
+		Documentation, including field definitions, is at <a href="http://handbook.arctosdb.org/documentation/bulkloader.html">Bulkloader Docs</a>
 	</p>
 
 	<p>
@@ -57,7 +57,11 @@
 				access the bulkloader.  If you are waiting to use the bulkloader, please allow at least 30 minutes
 				from the time the current user uploaded to the bulkloader page before contacting them.
 				If you do not receive a response from the person using the bulkloader within 30 minutes of contacting them,
-				please <a href="/contact.cfm">Contact us</a> for assistance.
+				please
+				<a target="_blank"
+					class="external"
+					href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=bulkloader assistance">contact us</a>
+				for assistance.
 			</p>
 			<table border>
 				<tr>

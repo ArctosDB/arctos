@@ -266,7 +266,7 @@ BEGIN
     end_date    => NULL
   );
 END;
-/ 
+/
 
 select STATE,LAST_START_DATE,NEXT_RUN_DATE from all_scheduler_jobs where JOB_NAME='J_TEMP_CACHE_GEOREF_STATS';
 
@@ -290,8 +290,7 @@ one would expect such a condition in a collection which downloads GPS data and p
 </h3>
 <ul>
 	<li>
-		This is a cached report and overview. It's not necessarily current or correct. Contact a DBA or exec CACHE_GEOREF_STATS (see page source)
-		for an update.
+		This is a cached report and overview which refreshes weekly.
 	</li>
 	<li>
 		Understanding
