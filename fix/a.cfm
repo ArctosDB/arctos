@@ -1,5 +1,32 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+
+<form>
+<textarea name="x">
+	<cfquery name="pa" datasource="uam_god">
+		select distinct spec_locality from temp_amnh_loc
+	</cfquery>
+	<cfloop query="pa">
+		<cfloop list="#spec_locality#" index="i" delimiters="|">
+			<cfif i contains "LocationID">
+				<cfquery name="u" datasource="uam_god">
+					update temp_amnh_loc set locid='#trim(i)#' where spec_locality='#spec_locality#'
+				</cfquery>
+			</cfif>
+		</cfloop>
+	</cfloop>
+</textarea>
+<input type="submit">
+</form>
+
+<cfif isdefined('x')>
+	<cfset c=checkSql(x)>
+	<c:::<cfdump var=#c#>
+</cfif>
+
+</cfoutput>
+<!----
+
 	<cfquery name="pa" datasource="uam_god">
 		select distinct spec_locality from temp_amnh_loc
 	</cfquery>
@@ -13,8 +40,6 @@
 		</cfloop>
 	</cfloop>
 
-</cfoutput>
-<!----
 
 
 
