@@ -40,9 +40,11 @@
 						taxon_term.source='Arctos Legal'
 				</cfquery>
 				<td valign="top">
-					<cfloop query="lgl">
-						<li>#term_type#=#term#</li>
-					</cfloop>
+					<ul>
+						<cfloop query="lgl">
+							<li>#term_type#=#term#</li>
+						</cfloop>
+					</ul>
 				</td>
 				<cfquery name="guids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select guid from #session.username#.#table_name# where scientific_name='#tid.scientific_name#' order by guid
