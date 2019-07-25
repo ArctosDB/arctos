@@ -1,77 +1,77 @@
 <cfinclude template = "/includes/_header.cfm">
 <cfset title="legal">
-	<cfoutput>
-		<p>
-			IMPORTANT! This form only considers current identifications of formula "A."
-		</p>
-		<!---- get TID of includes specimens --->
-		<cfquery name="tid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select distinct
-				identification.scientific_name,
-				identification_taxonomy.taxon_name_id
-			from
-				#session.username#.#table_name#,
-				identification,
-				identification_taxonomy
-			where
-				#session.username#.#table_name#.collection_object_id=identification.collection_object_id and
-				identification.identification_id=identification_taxonomy.identification_id and
-				identification.accepted_id_fg=1 and
-				TAXA_FORMULA='A'
-		</cfquery>
-		<table border>
+<cfoutput>
+	<p>
+		IMPORTANT! This form only considers current identifications of formula "A."
+	</p>
+	<!---- get TID of includes specimens --->
+	<cfquery name="tid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select distinct
+			identification.scientific_name,
+			identification_taxonomy.taxon_name_id
+		from
+			#session.username#.#table_name#,
+			identification,
+			identification_taxonomy
+		where
+			#session.username#.#table_name#.collection_object_id=identification.collection_object_id and
+			identification.identification_id=identification_taxonomy.identification_id and
+			identification.accepted_id_fg=1 and
+			TAXA_FORMULA='A'
+	</cfquery>
+	<table border>
+	<tr>
+		<th>CurrentID</th>
+		<th>ArctosLegal</th>
+		<th>GUIDs from Search Results</th>
+	</tr>
+	<cfloop query="tid">
 		<tr>
-			<th>CurrentID</th>
-			<th>ArctosLegal</th>
-			<th>GUIDs from Search Results</th>
+			<td valign="top">#tid.scientific_name#</td>
+			<cfquery name="lgl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select
+					term_type,
+					term,
+					position_in_classification
+				from
+					taxon_term
+				where
+					taxon_term.taxon_name_id=#tid.taxon_name_id# and
+					taxon_term.source='Arctos Legal'
+			</cfquery>
+			<cfquery name="nc" dbtype="query">
+				select * from lgl where position_in_classification is null
+			</cfquery>
+			<cfquery name="oc" dbtype="query">
+				select * from lgl where position_in_classification is not null order by position_in_classification
+			</cfquery>
+			<td valign="top">
+				<ul>
+					<cfloop query="nc">
+						<li>#term_type#=#term#</li>
+					</cfloop>
+				</ul>
+				<cfset sp=1>
+				<ul>
+					<cfloop query="oc">
+						<li style="margin-left:#sp#em;">#term# (#term_type#)</li>
+						<cfset sp=sp+1>
+					</cfloop>
+				</ul>
+			</td>
+			<cfquery name="guids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+				select guid from #session.username#.#table_name# where scientific_name='#tid.scientific_name#' order by guid
+			</cfquery>
+			<td>
+				<div style="max-height: 30em; width:20em;overflow:auto">
+					<cfloop query="guids">
+						<div><a href="/guid/#guid#">#guid#</a></div>
+					</cfloop>
+				</div>
+			</td>
 		</tr>
-		<cfloop query="tid">
-			<tr>
-				<td valign="top">#tid.scientific_name#</td>
-				<cfquery name="lgl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select
-						term_type,
-						term,
-						position_in_classification
-					from
-						taxon_term
-					where
-						taxon_term.taxon_name_id=#tid.taxon_name_id# and
-						taxon_term.source='Arctos Legal'
-				</cfquery>
-				<cfquery name="nc" dbtype="query">
-					select * from lgl where position_in_classification is null
-				</cfquery>
-				<cfquery name="oc" dbtype="query">
-					select * from lgl where position_in_classification is not null order by position_in_classification
-				</cfquery>
-				<td valign="top">
-					<ul>
-						<cfloop query="nc">
-							<li>#term_type#=#term#</li>
-						</cfloop>
-					</ul>
-					<cfset sp=1>
-					<ul>
-						<cfloop query="oc">
-							<li style="margin-left:#sp#em;">#term# (#term_type#)</li>
-							<cfset sp=sp+1>
-						</cfloop>
-					</ul>
-				</td>
-				<cfquery name="guids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select guid from #session.username#.#table_name# where scientific_name='#tid.scientific_name#' order by guid
-				</cfquery>
-				<td>
-					<div style="max-height: 30em; width:20em;overflow:auto">
-						<cfloop query="guids">
-							<div><a href="/guid/#guid#">#guid#</a></div>
-						</cfloop>
-					</div>
-				</td>
-			</tr>
-		</cfloop>
-	</cfoutput>
+	</cfloop>
+</cfoutput>
 <!----
 <p>
 	This form check the Arctos Legal classification for data related to identifications. Only specimens which use taxa for which an Arctos Legal classification exists will be shown here.
