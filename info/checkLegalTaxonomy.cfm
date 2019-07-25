@@ -49,7 +49,7 @@
 					select guid from #session.username#.#table_name# where scientific_name='#tid.scientific_name#'
 				</cfquery>
 				<td>
-					<div style="max-height: 30em; overflow:auto">
+					<div style="max-height: 30em; width:50em;overflow:auto">
 						<cfloop query="guids">
 							<div><a href="/guid/#guid#">#guid#</a></div>
 						</cfloop>
@@ -59,6 +59,7 @@
 		</cfloop>
 	</cfoutput>
 </cfif>
+<!----
 <p>
 	This form check the Arctos Legal classification for data related to identifications. Only specimens which use taxa for which an Arctos Legal classification exists will be shown here.
 </p>
@@ -117,4 +118,5 @@
 		</cfloop>
 	</table>
 </cfoutput>
+---->
 <cfinclude template = "/includes/_footer.cfm">
