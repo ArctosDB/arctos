@@ -25,7 +25,7 @@
 		<tr>
 			<th>CurrentID</th>
 			<th>ArctosLegal</th>
-			<th>GUIDs</th>
+			<th>GUIDs from Search Results</th>
 		</tr>
 		<cfloop query="tid">
 			<tr>
@@ -49,7 +49,7 @@
 					select guid from #session.username#.#table_name# where scientific_name='#tid.scientific_name#'
 				</cfquery>
 				<td>
-					<div style="max-height: 30em; width:50em;overflow:auto">
+					<div style="max-height: 30em; width:20em;overflow:auto">
 						<cfloop query="guids">
 							<div><a href="/guid/#guid#">#guid#</a></div>
 						</cfloop>
