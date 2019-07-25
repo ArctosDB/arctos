@@ -73,7 +73,8 @@
 		</script>
 		<span class="likeLink" onclick="autorelease()">autorelease</span>
 	</cfif>
-
+	<!--- force-stop --->
+	<cfabort>
 </cfif>
 <cfif isdefined("action") and action is "p">
 	<cfoutput>
