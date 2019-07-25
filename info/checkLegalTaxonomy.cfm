@@ -20,7 +20,6 @@
 				identification.accepted_id_fg=1 and
 				TAXA_FORMULA='A'
 		</cfquery>
-		<cfdump var=#tid#>
 		<table border>
 		<tr>
 			<th>CurrentID</th>
@@ -29,7 +28,7 @@
 		</tr>
 		<cfloop query="tid">
 			<tr>
-				<td>#tid.scientific_name#</td>
+				<td valign="top">#tid.scientific_name#</td>
 				<cfquery name="lgl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						term_type,
@@ -40,7 +39,7 @@
 						taxon_term.taxon_name_id=#tid.taxon_name_id# and
 						taxon_term.source='Arctos Legal'
 				</cfquery>
-				<td>
+				<td valign="top">
 					<cfloop query="lgl">
 						<li>#term_type#=#term#</li>
 					</cfloop>
