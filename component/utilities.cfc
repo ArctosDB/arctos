@@ -1770,7 +1770,7 @@
 	<cfset badbot=badbot & ",naver,Nutch,netEstate">
 	<cfset badbot=badbot & ",Qwantify">
 	<cfset badbot=badbot & ",re-animator">
-	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot,Seekport">
+	<cfset badbot=badbot & ",SemrushBot,spbot,Synapse,Sogou,SiteExplorer,Slurp,SeznamBot,Seekport,sqlmap">
 	<cfset badbot=badbot & ",TweetmemeBot,TurnitinBot">
 	<cfset badbot=badbot & ",UnisterBot">
 	<cfset badbot=badbot & ",VelenPublicWebCrawler">
