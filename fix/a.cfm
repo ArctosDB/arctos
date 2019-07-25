@@ -1,5 +1,91 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+	<cfquery name="pa" datasource="uam_god">
+		select distinct spec_locality from temp_amnh_loc
+	</cfquery>
+	<cfloop query="pa">
+		<cfloop list="#spec_locality#" index="i" delimiter="|">
+			<cfif i contains "LocationID">
+				<cfquery name="u" datasource="uam_god">
+					update temp_amnh_loc set locid='#trim(i)#' where spec_locality='#spec_locality#'
+				</cfquery>
+			</cfif>
+		</cfloop>
+	</cfloop>
+
+</cfoutput>
+<!----
+
+
+
+						<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/MSB:Para:1678" method="head"></cfhttp>
+
+
+<cfdump var=#gbi#>
+
+		<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/MSB:Para:1678999999" method="head"></cfhttp>
+
+
+<cfdump var=#gbi#>
+		<!----
+		<cfset m="ORA-00001: unique constraint (UAM.IX_TAXON_NAME_SCINAME) violated">
+		<cfset m="The 2 parameter of the Left function, which is now -1, must be a positive integer">
+		---->
+		<br>m:#m#
+		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
+		<br>m:#m#
+		<cfset fcp=find(":",m)>
+		<br>fcp:#fcp#
+		<cfif fcp gt 0>
+		<cfset m=right(m,len(m)-fcp)>
+		<br>m:#m#
+		</cfif>
+
+		<cfset fcp=find("ORA-",m)>
+		<br>fcp:#fcp#
+
+		<cfif fcp gt 0>
+		<cfset m=left(m,fcp-1)>
+		<br>m:#m#
+		</cfif>
+
+<cftry>
+	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		update collecting_event set verbatim_locality='test' where collecting_event_id=11326795
+	</cfquery>
+
+	<cfcatch>
+		<cfset m="ORA-00001: unique constraint (UAM.IX_TAXON_NAME_SCINAME) violated">
+		<br>m:#m#
+		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
+		<br>m:#m#
+		<cfset fcp=find(":",m)>
+		<br>fcp:#fcp#
+		<cfset m=right(m,len(m)-fcp)>
+		<br>m:#m#
+
+		<cfset fcp=find("ORA-",m)>
+		<br>fcp:#fcp#
+
+		<cfset m=left(m,fcp-1)>
+		<br>m:#m#
+
+
+
+		<cfdump var=#cfcatch#>
+	</cfcatch>
+
+
+
+</cftry>
+<cfset x="[Macromedia][Oracle JDBC Driver][Oracle]ORA-20001: This collecting event is used in verified specimen/events and may not be changed or deleted. ORA-06512: at &quot;UAM.TR_COLLECTINGEVENT_BUID&quot;, line 25 ORA-04088: error during execution of trigger 'UAM.TR_COLLECTINGEVENT_BUID'">
+---->
+
+
+<cfabort>
+
+<cfoutput>
+</cfoutput>
 
 <cfset strttime= GetTickCount()>
 
@@ -84,78 +170,6 @@ EXECUTIONTIME 	3460
 <cfset etime =GetTickCount()>
 <cfset elap=etime-strttime>
 <br>made array in #elap#
-
-<!----
-
-
-
-						<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/MSB:Para:1678" method="head"></cfhttp>
-
-
-<cfdump var=#gbi#>
-
-		<cfhttp result="gbi" url="https://api.globalbioticinteractions.org/exists?accordingTo=http://arctos.database.museum/guid/MSB:Para:1678999999" method="head"></cfhttp>
-
-
-<cfdump var=#gbi#>
-		<!----
-		<cfset m="ORA-00001: unique constraint (UAM.IX_TAXON_NAME_SCINAME) violated">
-		<cfset m="The 2 parameter of the Left function, which is now -1, must be a positive integer">
-		---->
-		<br>m:#m#
-		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
-		<br>m:#m#
-		<cfset fcp=find(":",m)>
-		<br>fcp:#fcp#
-		<cfif fcp gt 0>
-		<cfset m=right(m,len(m)-fcp)>
-		<br>m:#m#
-		</cfif>
-
-		<cfset fcp=find("ORA-",m)>
-		<br>fcp:#fcp#
-
-		<cfif fcp gt 0>
-		<cfset m=left(m,fcp-1)>
-		<br>m:#m#
-		</cfif>
-
-<cftry>
-	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		update collecting_event set verbatim_locality='test' where collecting_event_id=11326795
-	</cfquery>
-
-	<cfcatch>
-		<cfset m="ORA-00001: unique constraint (UAM.IX_TAXON_NAME_SCINAME) violated">
-		<br>m:#m#
-		<cfset m=replace(m,'[Macromedia][Oracle JDBC Driver][Oracle]','','first')>
-		<br>m:#m#
-		<cfset fcp=find(":",m)>
-		<br>fcp:#fcp#
-		<cfset m=right(m,len(m)-fcp)>
-		<br>m:#m#
-
-		<cfset fcp=find("ORA-",m)>
-		<br>fcp:#fcp#
-
-		<cfset m=left(m,fcp-1)>
-		<br>m:#m#
-
-
-
-		<cfdump var=#cfcatch#>
-	</cfcatch>
-
-
-
-</cftry>
-<cfset x="[Macromedia][Oracle JDBC Driver][Oracle]ORA-20001: This collecting event is used in verified specimen/events and may not be changed or deleted. ORA-06512: at &quot;UAM.TR_COLLECTINGEVENT_BUID&quot;, line 25 ORA-04088: error during execution of trigger 'UAM.TR_COLLECTINGEVENT_BUID'">
----->
-</cfoutput>
-
-
-<cfabort>
-
 
 <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
 
