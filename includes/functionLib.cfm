@@ -63,7 +63,7 @@
 <!------------------------------------------------------------------------------------->
 <cffunction name="checkSql" access="public" output="true" returntype="boolean">
     <cfargument name="sql" required="true" type="string">
-    <cfset nono="chr,char,update,insert,drop,create,execute,exec,begin,declare,all_tables,session,sys,ascii,ctxsys,XMLType,RAWTOHEX,OWNER">
+    <cfset nono="chr,char,update,insert,drop,create,execute,exec,begin,declare,all_tables,session,sys,ascii,ctxsys,XMLType,RAWTOHEX,OWNER,DRITHSX">
     <cfset safe=0>
     <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()#chr(10)##chr(13)##chr(9)#@">
 	    <cfif ListFindNoCase(nono, i)>
