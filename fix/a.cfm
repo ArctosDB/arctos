@@ -4,7 +4,7 @@
 		select distinct spec_locality from temp_amnh_loc
 	</cfquery>
 	<cfloop query="pa">
-		<cfloop list="#spec_locality#" index="i" delimiter="|">
+		<cfloop list="#spec_locality#" index="i" delimiters="|">
 			<cfif i contains "LocationID">
 				<cfquery name="u" datasource="uam_god">
 					update temp_amnh_loc set locid='#trim(i)#' where spec_locality='#spec_locality#'
