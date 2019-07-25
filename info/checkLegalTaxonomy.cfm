@@ -2,24 +2,19 @@
 <cfset title="legal">
 <cfif action is "v2">
 	<cfoutput>
-		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			select
-				taxon_term.term_type,
-				taxon_term.term,
-				taxon_term.position_in_classification,
-				#session.username#.#table_name#.guid,
-				#session.username#.#table_name#.scientific_name
+		<!---- get TID of includes specimens --->
+		<cfquery name="tid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			select distinct
+				identification_taxonomy.taxon_name_id
 			from
 				#session.username#.#table_name#,
 				identification,
-				identification_taxonomy,
-				taxon_term
+				identification_taxonomy
 			where
 				#session.username#.#table_name#.collection_object_id=identification.collection_object_id and
-				identification.identification_id=identification_taxonomy.identification_id and
-				identification_taxonomy.taxon_name_id=taxon_term.taxon_name_id (+) and
-				taxon_term.source='Arctos Legal' (+)
+				identification.identification_id=identification_taxonomy.identification_id
 		</cfquery>
+		<cfdump var=#tid#>
 	</cfoutput>
 </cfif>
 <p>
