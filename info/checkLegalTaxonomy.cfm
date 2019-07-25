@@ -52,9 +52,11 @@
 							<li>#term_type#=#term#</li>
 						</cfloop>
 					</ul>
+					<cfset sp=1>
 					<ul>
 						<cfloop query="oc">
-							<li>#term_type#=#term#</li>
+							<li style="margin-left:#sp#em;">#term# (#term_type#)</li>
+							<cfset sp=sp+1>
 						</cfloop>
 					</ul>
 				</td>
