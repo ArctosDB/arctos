@@ -1,6 +1,5 @@
 <cfinclude template = "/includes/_header.cfm">
 <cfset title="legal">
-<cfif action is "v2">
 	<cfoutput>
 		<p>
 			IMPORTANT! This form only considers current identifications of formula "A."
@@ -73,7 +72,6 @@
 			</tr>
 		</cfloop>
 	</cfoutput>
-</cfif>
 <!----
 <p>
 	This form check the Arctos Legal classification for data related to identifications. Only specimens which use taxa for which an Arctos Legal classification exists will be shown here.
