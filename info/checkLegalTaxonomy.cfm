@@ -32,16 +32,28 @@
 				<cfquery name="lgl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 					select
 						term_type,
-						term
+						term,
+						position_in_classification
 					from
 						taxon_term
 					where
 						taxon_term.taxon_name_id=#tid.taxon_name_id# and
 						taxon_term.source='Arctos Legal'
 				</cfquery>
+				<cfquery name="nc" dbtype="query">
+					select * from lgl where position_in_classification is null
+				</cfquery>
+				<cfquery name="oc" dbtype="query">
+					select * from lgl where position_in_classification is not null order by position_in_classification
+				</cfquery>
 				<td valign="top">
 					<ul>
-						<cfloop query="lgl">
+						<cfloop query="nc">
+							<li>#term_type#=#term#</li>
+						</cfloop>
+					</ul>
+					<ul>
+						<cfloop query="oc">
 							<li>#term_type#=#term#</li>
 						</cfloop>
 					</ul>
