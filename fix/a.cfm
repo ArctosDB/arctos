@@ -21,6 +21,10 @@
 
 <cfif isdefined('x')>
 	<cfset c=checkSql(x)>
+
+	<p>
+		#c#
+	</p>
 	<c:::<cfdump var=#c#>
 </cfif>
 
