@@ -45,7 +45,7 @@
 					</cfloop>
 				</td>
 				<cfquery name="guids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select guid from #session.username#.#table_name# where scientific_name='#tid.scientific_name#'
+					select guid from #session.username#.#table_name# where scientific_name='#tid.scientific_name#' order by guid
 				</cfquery>
 				<td>
 					<div style="max-height: 30em; width:20em;overflow:auto">
