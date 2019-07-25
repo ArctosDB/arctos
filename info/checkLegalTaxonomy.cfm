@@ -12,7 +12,9 @@
 				identification_taxonomy
 			where
 				#session.username#.#table_name#.collection_object_id=identification.collection_object_id and
-				identification.identification_id=identification_taxonomy.identification_id
+				identification.identification_id=identification_taxonomy.identification_id and
+				identification.accepted_id_fg=1 and
+				TAXA_FORMULA='A'
 		</cfquery>
 		<cfdump var=#tid#>
 	</cfoutput>
