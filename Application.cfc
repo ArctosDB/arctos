@@ -107,7 +107,6 @@
 					<div>
 						Check the <a href=http://handbook.arctosdb.org/documentation/understanding-errors.html>Arctos Handbook</a> for more information on errors.
 					</div>
-
 					<p>
 						This message has been logged. Please
 						<a target="_blank"

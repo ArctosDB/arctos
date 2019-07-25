@@ -1070,6 +1070,7 @@
 			spce.locality_id=loce.locality_id and
 			loce.collecting_event_id = media_relations.related_primary_key and
 			SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1)='collecting_event' and
+			#session.flatTableName#.COORDINATEUNCERTAINTYINMETERS< 10000 and
 			#session.flatTableName#.collection_object_id in (#idList#)
 	</cfquery>
 	<cfquery name="did" dbtype="query">
