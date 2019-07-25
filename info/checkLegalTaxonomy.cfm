@@ -2,9 +2,13 @@
 <cfset title="legal">
 <cfif action is "v2">
 	<cfoutput>
+		<p>
+			IMPORTANT! This form only considers current identifications of formula "A."
+		</p>
 		<!---- get TID of includes specimens --->
 		<cfquery name="tid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select distinct
+				identification.scientific_name,
 				identification_taxonomy.taxon_name_id
 			from
 				#session.username#.#table_name#,
@@ -17,6 +21,42 @@
 				TAXA_FORMULA='A'
 		</cfquery>
 		<cfdump var=#tid#>
+		<table border>
+		<tr>
+			<th>CurrentID</th>
+			<th>ArctosLegal</th>
+			<th>GUIDs</th>
+		</tr>
+		<cfloop query="tid">
+			<tr>
+				<td>#tid.scientific_name#</td>
+				<cfquery name="lgl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						term_type,
+						term
+					from
+						taxon_term
+					where
+						taxon_term.taxon_name_id=#tid.taxon_name_id# and
+						taxon_term.source='Arctos Legal'
+				</cfquery>
+				<td>
+					<cfloop query="lgl">
+						<li>#term_type#=#term#</li>
+					</cfloop>
+				</td>
+				<cfquery name="guids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select guid from #session.username#.#table_name# where scientific_name='#tid.scientific_name#'
+				</cfquery>
+				<td>
+					<div style="max-height: 30em; overflow:auto">
+						<cfloop query="guids">
+							<div><a href="/guid/#guid#">#guid#</a></div>
+						</cfloop>
+					</div>
+				</td>
+			</tr>
+		</cfloop>
 	</cfoutput>
 </cfif>
 <p>
