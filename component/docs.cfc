@@ -1,10 +1,7 @@
 <cfcomponent>
 <cffunction name="jsonEscape" access="remote">
 	<cfargument name="inpstr" required="yes">
-	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
-      <cfthrow message="unauthorized">
-    </cfif>
+	<!--- this must be unrestricted --->
 	<cfset inpstr=replace(inpstr,'\','\\',"all")>
 	<cfset inpstr=replace(inpstr,'"','\"',"all")>
 	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
