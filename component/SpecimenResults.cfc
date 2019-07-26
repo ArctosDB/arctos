@@ -782,6 +782,7 @@
 <cffunction name="getVocabulary" access="remote">
 	<cfargument name="key" required="true" type="string">
 	<cfargument name="scope" required="false" default="" type="string">
+	<!--- this is publicly accessible--->
 	<cfif scope is "results">
 		<!---- just get values from their data ----->
 		<cfquery name="currentdata" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
