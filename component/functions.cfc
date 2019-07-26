@@ -347,7 +347,7 @@
 	<cfreturn s.c>
 </cffunction>
 <!---------------------------------------------------------------------->
-<cffunction name="getLoanItems" access="public" returnformat="plain" queryFormat="column">
+<cffunction name="getLoanItems" access="remote" returnformat="plain" queryFormat="column">
 	<cfparam name="transaction_id" type="numeric">
 	<cfparam name="jtStartIndex" type="numeric" default="0">
 	<cfparam name="jtPageSize" type="numeric" default="10">
