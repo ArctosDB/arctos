@@ -2,7 +2,7 @@
 <cffunction name="jsonEscape" access="remote">
 	<cfargument name="inpstr" required="yes">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cfset inpstr=replace(inpstr,'\','\\',"all")>
@@ -30,7 +30,7 @@
 	<cfargument name="SQL_ELEMENT" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cfif not isdefined("escapeQuotes")>
@@ -112,7 +112,7 @@
 <cffunction name="deleteDocDoc" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cftry>
@@ -154,7 +154,7 @@
 	<cfargument name="SQL_ELEMENT" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 
@@ -221,7 +221,7 @@
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
 
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<!--- jtables likes to start at 0, which confuses CF, so.... ---->
