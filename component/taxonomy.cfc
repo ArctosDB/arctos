@@ -2032,7 +2032,7 @@
 
 ---->
 
-<cfquery name="related" datasource="uam_god">
+<cfquery name="related" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			TAXON_RELATIONSHIP,
 			RELATION_AUTHORITY,
@@ -2047,7 +2047,7 @@
 			taxon_relations.taxon_name_id=b.taxon_name_id and
 			taxon_relations.taxon_name_id=#taxon_name_id#
 	</cfquery>
-	<cfquery name="revrelated" datasource="uam_god">
+	<cfquery name="revrelated" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select
 			TAXON_RELATIONSHIP,
 			RELATION_AUTHORITY,
@@ -2065,7 +2065,6 @@
 	<cfset d=queryNew('relationship')>
     <cfloop query="related">
 	  	<cfset tr='#this_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a target="_blank" href="/name/#related_name#">#related_name#</a>'>
-
         <cfif len(RELATION_AUTHORITY) gt 0>
 			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
 		</cfif>
@@ -2073,7 +2072,6 @@
      </cfloop>
  <cfloop query="revrelated">
 		<cfset tr='<a target="_blank" href="/name/#related_name#">#related_name#</a>  &##8594; #TAXON_RELATIONSHIP# &##8594; #this_name#'>
-
         <cfif len(RELATION_AUTHORITY) gt 0>
 			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
 		</cfif>
