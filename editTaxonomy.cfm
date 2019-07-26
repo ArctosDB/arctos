@@ -1191,9 +1191,6 @@
 				</tbody>
 			</table>
 			<span class="likeLink" onclick="nc_addARow();">[ add a row ]</span>
-
-
-
 			<cfset shouldUsuallyHave="author_text,nomenclatural_code">
 			<cfset aterms=valuelist(noclass.TERM_TYPE)>
 			<cfloop list="#aterms#" index="i">
