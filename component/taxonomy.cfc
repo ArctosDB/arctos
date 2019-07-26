@@ -2092,7 +2092,6 @@
 			<cfloop query="d">
 				<cfset x=listappend(x,'#term# (#source#)',';')>
 			</cfloop>
-
 			<cfset result.status="success">
 			<cfset result.taxon_name_id=taxon_name_id>
 			<cfset result.taxon_status=x>
