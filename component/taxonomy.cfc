@@ -449,6 +449,10 @@
 	<cffunction name="updateArctosLegalClassData" access="public">
 		<cfargument name="tid" type="numeric" required="true">
 		<cfargument name="name" type="string" required="true">
+		<!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfif not isdefined("debug")>
 			<cfset debug=false>
 		</cfif>
