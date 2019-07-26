@@ -1,6 +1,10 @@
 <cfcomponent>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getCollectionCodeFromGuidPrefix" access="remote" returnformat="json" queryformat="column">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfargument name="guid_prefix" required="yes">
 	<cfquery name="cc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection_cde from collection where guid_prefix='#guid_prefix#'
@@ -10,6 +14,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewCollector" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -56,6 +64,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewIdentifier" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -103,6 +115,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewSpecimenAttribute" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -158,6 +174,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewSpecimenPart" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -303,6 +323,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewSpecimenEvent" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfoutput>
 
 
@@ -509,6 +533,10 @@
 
 <cffunction name="loadRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif collection_object_id gt 500><!--- don't check templates/new records--->
 		<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select nvl(bulk_check_one(collection_object_id),'waiting approval') ld from bulkloader where collection_object_id=#collection_object_id#
@@ -548,6 +576,10 @@
 
 <cffunction name="bulk_check_one" access="remote">
 	<cfargument name="collection_object_id" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif collection_object_id lt 500>
 			<cfset result = querynew("result")>
 			<cfset temp = queryaddrow(result,1)>
@@ -562,6 +594,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getExistingCatItemData" access="remote">
 	<cfargument name="collection_object_id" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			collecting_event_id,
@@ -578,6 +614,10 @@
 <cffunction name="splitGeog" access="remote">
 	<cfargument name="geog" required="yes">
 	<cfargument name="specloc" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			country,
@@ -608,6 +648,10 @@
 <cffunction name="geolocate" access="remote">
 	<cfargument name="geog" required="yes">
 	<cfargument name="specloc" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			country,
@@ -654,6 +698,10 @@
 <cffunction name="incrementCustomId" access="remote">
 	<cfargument name="cidType" required="no">
 	<cfargument name="cidVal" required="no">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif isdefined("cidType") and len(cidType) gt 0>
 		<cfset cVal="">
 		<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
@@ -680,6 +728,10 @@
 
 <cffunction name="deleteRecord" access="remote">
 	<cfargument name="collection_object_id" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from bulkloader where collection_object_id=#collection_object_id#
@@ -692,6 +744,10 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="checkshowcal" access="remote">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select show_calendars from cf_dataentry_settings where username='#session.username#'
 	</cfquery>
@@ -700,6 +756,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="show_calendars" access="remote">
 	<cfargument name="onoff" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_dataentry_settings set show_calendars=#onoff# where username='#session.username#'
 	</cfquery>
@@ -710,6 +770,10 @@
 <cffunction name="set_sort_order" access="remote">
 	<cfargument name="sort_leftcolumn" required="yes">
 	<cfargument name="sort_rightcolumn" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		update cf_dataentry_settings set sort_leftcolumn='#sort_leftcolumn#',sort_rightcolumn='#sort_rightcolumn#'  where username='#session.username#'
 	</cfquery>
@@ -717,6 +781,10 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="get_sort_order" access="remote">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select sort_leftcolumn,sort_rightcolumn from cf_dataentry_settings where username='#session.username#'
 	</cfquery>
@@ -726,6 +794,11 @@
 <cffunction name="updateMySettings" access="remote">
 	<cfargument name="element" required="yes">
 	<cfargument name="value" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
+
 	<cfif value is true>
 		<cfset thisValue=1>
 	<cfelse>
@@ -741,6 +814,10 @@
 <!----------------------------------------------------------------------------------------->
 
 <cffunction name="getPrefs" access="remote">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from cf_dataentry_settings where username='#session.username#'
 	</cfquery>
@@ -749,6 +826,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveEdits" access="remote">
 	<cfargument name="q" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfoutput>
 		<cfquery name="getCols" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select column_name from sys.user_tab_cols
@@ -814,6 +895,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="saveNewRecord" access="remote" returnformat="json" queryformat="column">
 	<cfargument name="q" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfoutput>
 		<cfquery name="getCols" datasource="uam_god">
 			select column_name from sys.user_tab_cols
@@ -879,6 +964,10 @@
     <cfargument name="pageSize" required="yes">
 	<cfargument name="gridsortcolumn" required="yes">
     <cfargument name="gridsortdirection" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfset startrow=page * pageSize>
 	<cfset stoprow=startrow + pageSize>
 	<cfif len(gridsortcolumn) is 0>
@@ -902,6 +991,10 @@
 	<cfargument name="accn" required="yes">
 	<cfargument name="enteredby" required="yes">
 	<cfargument name="colln" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfset startrow=page * pageSize>
 	<cfset stoprow=startrow + pageSize>
 	<cfif len(gridsortcolumn) is 0>
@@ -937,6 +1030,10 @@
 	<cfargument name="cfgridaction" required="yes">
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfoutput>
 		<cftry>
 		<cfset colname = StructKeyList(cfgridchanged)>
@@ -958,6 +1055,10 @@
 		<cfargument name="cfgridaction" required="yes">
 	    <cfargument name="cfgridrow" required="yes">
 		<cfargument name="cfgridchanged" required="yes">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 		<cfoutput>
 			<cfset colname = StructKeyList(cfgridchanged)>
 			<cfset value = cfgridchanged[colname]>
