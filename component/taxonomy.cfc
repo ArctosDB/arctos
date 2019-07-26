@@ -2084,11 +2084,10 @@
 	<cffunction name="getTaxonStatus" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name_id" type="numeric" required="true">
-
-
-		<cfdump var=#session#>
-
-
+		<!---- this has to be called remotely, but only allow logged-in Operators access--->
+		<cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER'>
+			<cfthrow message="unauthorized">
+		</cfif>
 		<cfoutput>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,60,0)#">
 				select term, source from taxon_term where term_type='taxon_status' and taxon_name_id=#taxon_name_id# group by term, source order by term, source
