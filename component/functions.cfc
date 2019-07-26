@@ -2,6 +2,10 @@
 
 <cffunction name="pubToAry" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="doi" required="true" type="string">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="c" datasource="uam_god">
 		select * from cache_publication_sdata where source='crossref' and doi='#doi#' and last_date > sysdate-30
 	</cfquery>
@@ -130,6 +134,7 @@
 
 <cffunction name="getPubCitSts" access="remote" returnformat="json" queryFormat="column">
 	<cfargument name="doilist" required="true" type="string">
+	<cfdump var=#session#>
 	<cftry>
 		<cfset r.STATUS='SUCCESS'>
 		<cfset ar=[]>
@@ -218,6 +223,10 @@
 <!----------------------------------------------------------------------------->
 <cffunction name="autocreatepublication" access="remote" returnformat="json" queryFormat="column">
 	<cfargument name="doi" required="true" type="string">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 
 		<cfset r.STATUS='SUCCESS'>
