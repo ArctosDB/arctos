@@ -709,7 +709,10 @@
 	<cfargument name="id" required="yes" type="numeric">
 	<cfargument name="pid" required="yes" type="numeric">
 
-
+ <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	   	<cfset result = "#treeID#||success">
 	   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 		<cfreturn result>
@@ -719,7 +722,10 @@
 <cffunction name="getContChildren" returntype="string">
 	<cfargument name="treeID" required="yes" type="string">
 	<cfargument name="contr_id" required="no" type="string">
-
+ <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<!--- require some search terms --->
 	<cfif len(#contr_id#) is 0 OR  len(#treeID#) is 0>
 		<cfset result = "#treeID#||You must enter search criteria.">
