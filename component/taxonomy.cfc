@@ -910,151 +910,14 @@
 		<cfreturn runstatus>
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
-	<cffunction name="checkConsistency" access="remote">
-		<!---- hierarchical taxonomy editor ---->
-		<cfargument name="tid" type="numeric" required="true">
-		<cfargument name="cid" type="string" required="true">
-		<cfoutput>
-			<br>tid:#tid#
-			<br>cid:#cid#
-
-
-			<cfquery name="cttaxon_term" datasource="uam_god">
-				select RELATIVE_POSITION,TAXON_TERM from  cttaxon_term where IS_CLASSIFICATION=1
-			</cfquery>
-			<cfquery name="taxon" datasource="uam_god">
-				select scientific_name from taxon_name where taxon_name_id=#tid#
-			</cfquery>
-			<cfquery name="source" datasource="uam_god">
-				select distinct source from taxon_term where  classification_id='#cid#' and taxon_name_id=#tid#
-			</cfquery>
-			<cfdump var=#source#>
-			<cfquery name="d" datasource="uam_god">
-				select TERM,TERM_TYPE,POSITION_IN_CLASSIFICATION from taxon_term where POSITION_IN_CLASSIFICATION is not null and taxon_name_id=#tid# and classification_id='#cid#' order by POSITION_IN_CLASSIFICATION desc
-			</cfquery>
-			<cfloop query="d">
-				<br>#TERM_type# #term#
-				<cfif TERM_type is "species" or TERM_type is "genus">
-					<!----
-					<cfquery name="rAbsPosn" dbtype="query">
-						select RELATIVE_POSITION from cttaxon_term where TAXON_TERM='#TERM_type#'
-					</cfquery>
-					<!---- copy of the query that we cna diff --->
-					<cfquery name="rJSON" dbtype="query">
-						select  TERM,TERM_TYPE from d order by POSITION_IN_CLASSIFICATION
-					</cfquery>
-					<cfset rJsonStr=SerializeJSON(rJSON)>
-					---->
-
-
-					<!---- find any lower terms --->
-					<cfquery name="ssp" datasource="uam_god">
-						select scientific_name, taxon_name_id from taxon_name where scientific_name like '#term# %'
-					</cfquery>
-					<cfdump var=#ssp#>
-					<cfloop query="ssp">
-						<cfquery name="sspdata" datasource="uam_god">
-							select TERM,TERM_TYPE,POSITION_IN_CLASSIFICATION from taxon_term where POSITION_IN_CLASSIFICATION is not null and
-							taxon_name_id=#ssp.taxon_name_id# and source='#source.source#'
-							 order by POSITION_IN_CLASSIFICATION desc
-						</cfquery>
-						<cfdump var=#sspdata#>
-						<!---- get the relative position of the term we're working from ---->
-						<cfquery name="thisRelPos" dbtype="query">
-							select POSITION_IN_CLASSIFICATION from sspdata where term_type='#d.TERM_TYPE#'
-						</cfquery>
-
-						<cfdump var=#thisRelPos#>
-						<!----
-						<cfdump var=#thisRelPos#>
-
-						<cfloop query="sspdata">
-							<cfquery name="rAbsPosn" dbtype="query">
-								select RELATIVE_POSITION from cttaxon_term where TAXON_TERM='#TERM_type#'
-							</cfquery>
-
-						</cfloop>
-						---------->
-					</cfloop>
-				</cfif>
-			</cfloop>
-
-
-			<cfdump var=#d#>
-		</cfoutput>
-	</cffunction>
-
-
-<!--------------------------------------------------------------------------------------->
-	<cffunction name="getWormsChanged" access="remote">
-		<cfargument name="thedate" type="string" required="true">
-		<cfoutput>
-			<!---
-
-				<!--- blargh need a temp table to handle this; it can take a while ---->
-				drop table cf_worms_refresh_job;
-				create table cf_worms_refresh_job (
-					last_run_date date,
-					last_status varchar2(255)
-				);
-
-				insert into cf_worms_refresh_job(last_run_date,last_status) values (to_date('2018-12-20'),'new');
-
-				select last_run_date-sysdate from cf_worms_refresh_job;
-
-				for one day, loop until we get everything
-				worms date handling is a little wonky, so "start" today and "end" tomorrow??
-
-				DateAdd(datepart, number, date)
-
-			--->
-			<cfquery name="rs" datasource="uam_god">
-				select * from cf_worms_refresh_job
-			</cfquery>
-			<cfdump var=#rs#>
-			<cfif rs.last_run_date neq dateformat(now(),"YYYY-MM-DD")>
-				<br>we have not run today
-			</cfif>
-
-			<cfset lastRunDate=listgetat(Application.wrmsbkmrk,1,"|")>
-			<cfset lastRunLoop=listgetat(Application.wrmsbkmrk,2,"|")>
-
-			<br>lastRunDate:#lastRunDate#
-			<br>lastRunLoop:#lastRunLoop#
-
-				<cfset edate=DateAdd("d", 1, thedate)>
-				<cfdump var=#edate#>
-				<cfset edate=dateformat(edate,"YYYY-MM-DD")>
-				<cfdump var=#edate#>
-
-				<cfset st=thedate & "T00%3A00%3A00%2B00%3A00">
-				<cfset et=thedate & "T24%3A00%3A00%2B00%3A00">
-
-
-
-			<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#o#">
-			<cfdump var=#theURL#>
-			<!----
-			<cfset theURL=urlencodedFormat(theURL)>
-			<cfdump var=#theURL#>
----->
-			<cfhttp result="ga" url="#theURL#" method="get"></cfhttp>
-			<cfdump var=#ga#>
-			<cfif left(ga.Statuscode,3) is "204">
-				<br>got nothing no more loopy
-			<cfelseif left(ga.Statuscode,3) is "200">
-				<br>got some stuff
-			<cfelse>
-				<br>bah bad status!
-			</cfif>
-		</cfoutput>
-	</cffunction>
-
-<!--------------------------------------------------------------------------------------->
 	<cffunction name="updateWormsArctosByAphiaID" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="aphiaID" type="string" required="true">
 		<cfargument name="taxon_name_id" type="string" required="true">
+		<!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfparam name="debug" default="false">
 		<cfoutput>
 		<cftry>
@@ -1573,15 +1436,14 @@
 		</cfoutput>
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
-
-
-
-
-
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getWormsData" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name" type="string" required="true">
+		<!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfparam name="debug" default="false">
 		<cfoutput>
 		<cftry>
@@ -1898,6 +1760,10 @@
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getDisplayClassData" access="remote">
 		<cfargument name="taxon_name_id" type="numeric" required="true">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfquery name="raw" datasource="uam_god">
 			select
 				TERM,
@@ -1941,87 +1807,61 @@
 			<cfset d=d & '</div>'>
 		</cfoutput>
 		<cfreturn d>
-
 	</cffunction>
+<!--------------------------------------------------------------------------------------->
 	<cffunction name="getRelatedTaxa" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="TAXON_NAME_ID" type="numeric" required="true">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
-			<!----
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#"  cachedwithin="#createtimespan(0,0,60,0)#">
-				select #TAXON_NAME_ID# TAXON_NAME_ID,reldir,scientific_name,TAXON_RELATIONSHIP from (
-					select
-						'from' reldir,
-						scientific_name,
-						TAXON_RELATIONSHIP
-					from
-						taxon_name,
-						taxon_relations
-					where
-						taxon_name.taxon_name_id=taxon_relations.taxon_name_id and
-						taxon_relations.RELATED_TAXON_NAME_ID=#taxon_name_id#
-					union
-					select
-						'to' reldir,
-						scientific_name,
-						TAXON_RELATIONSHIP
-					from
-						taxon_name,
-						taxon_relations
-					where
-						taxon_name.taxon_name_id=taxon_relations.RELATED_TAXON_NAME_ID and
-						taxon_relations.taxon_name_id=#taxon_name_id#
-				) order by scientific_name
-
+			<cfquery name="related" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select
+					TAXON_RELATIONSHIP,
+					RELATION_AUTHORITY,
+					a.scientific_name related_name,
+					b.scientific_name this_name
+				from
+					taxon_relations,
+					taxon_name a,
+					taxon_name b
+				where
+					taxon_relations.related_taxon_name_id=a.taxon_name_id and
+					taxon_relations.taxon_name_id=b.taxon_name_id and
+					taxon_relations.taxon_name_id=#taxon_name_id#
 			</cfquery>
-
----->
-
-<cfquery name="related" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			TAXON_RELATIONSHIP,
-			RELATION_AUTHORITY,
-			a.scientific_name related_name,
-			b.scientific_name this_name
-		from
-			taxon_relations,
-			taxon_name a,
-			taxon_name b
-		where
-			taxon_relations.related_taxon_name_id=a.taxon_name_id and
-			taxon_relations.taxon_name_id=b.taxon_name_id and
-			taxon_relations.taxon_name_id=#taxon_name_id#
-	</cfquery>
-	<cfquery name="revrelated" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
-		select
-			TAXON_RELATIONSHIP,
-			RELATION_AUTHORITY,
-			b.scientific_name related_name ,
-			a.scientific_name this_name
-		from
-			taxon_relations,
-			taxon_name a,
-			taxon_name b
-		where
-			taxon_relations.related_taxon_name_id=a.taxon_name_id and
-			taxon_relations.taxon_name_id=b.taxon_name_id and
-			taxon_relations.related_taxon_name_id=#taxon_name_id#
-	</cfquery>
-	<cfset d=queryNew('relationship')>
-    <cfloop query="related">
-	  	<cfset tr='#this_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a target="_blank" href="/name/#related_name#">#related_name#</a>'>
-        <cfif len(RELATION_AUTHORITY) gt 0>
-			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
-		</cfif>
-		<cfset queryAddRow(d,{relationship="#tr#"})>
-     </cfloop>
- <cfloop query="revrelated">
-		<cfset tr='<a target="_blank" href="/name/#related_name#">#related_name#</a>  &##8594; #TAXON_RELATIONSHIP# &##8594; #this_name#'>
-        <cfif len(RELATION_AUTHORITY) gt 0>
-			<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
-		</cfif>
-		<cfset queryAddRow(d,{relationship="#tr#"})>
-     </cfloop>
+			<cfquery name="revrelated" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select
+					TAXON_RELATIONSHIP,
+					RELATION_AUTHORITY,
+					b.scientific_name related_name ,
+					a.scientific_name this_name
+				from
+					taxon_relations,
+					taxon_name a,
+					taxon_name b
+				where
+					taxon_relations.related_taxon_name_id=a.taxon_name_id and
+					taxon_relations.taxon_name_id=b.taxon_name_id and
+					taxon_relations.related_taxon_name_id=#taxon_name_id#
+			</cfquery>
+			<cfset d=queryNew('relationship')>
+		    <cfloop query="related">
+			  	<cfset tr='#this_name# &##8594; #TAXON_RELATIONSHIP# &##8594; <a target="_blank" href="/name/#related_name#">#related_name#</a>'>
+		        <cfif len(RELATION_AUTHORITY) gt 0>
+					<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
+				</cfif>
+				<cfset queryAddRow(d,{relationship="#tr#"})>
+		     </cfloop>
+		 <cfloop query="revrelated">
+				<cfset tr='<a target="_blank" href="/name/#related_name#">#related_name#</a>  &##8594; #TAXON_RELATIONSHIP# &##8594; #this_name#'>
+		        <cfif len(RELATION_AUTHORITY) gt 0>
+					<cfset tr=tr & " (Authority: #RELATION_AUTHORITY#)">
+				</cfif>
+				<cfset queryAddRow(d,{relationship="#tr#"})>
+		     </cfloop>
 			<cfreturn d>
 		</cfoutput>
 	</cffunction>
@@ -2048,12 +1888,14 @@
 		</cfoutput>
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
-
-
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="validateName" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name" type="string" required="true">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
 			<cfset result.consensus="probably_not_valid">
 			<cfhttp url="https://www.wikidata.org/w/api.php?action=wbsearchentities&search=#taxon_name#&language=en&format=json" method="get">
@@ -2139,6 +1981,10 @@
 	<cffunction name="deleteSeed" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="tid" type="string" required="true">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
 			<cftry>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -2175,6 +2021,11 @@
 	<cffunction name="exportSeed" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="tid" type="string" required="true">
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
 			<cftry>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -2211,6 +2062,11 @@
 	<cffunction name="consistencyCheck" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="term" type="string" required="true">
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select
@@ -2271,6 +2127,11 @@
 		<cfargument name="id" type="numeric" required="true">
 		<cfargument name="newChildTerm" type="string" required="true">
 		<cfargument name="newChildTermRank" type="string" required="true">
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cftry>
 			<cfoutput>
 				<cfif len(newChildTerm) is 0 or len(newChildTermRank) is 0>
@@ -2319,6 +2180,11 @@
 	<cffunction name="deleteTerm" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="id" type="numeric" required="true">
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
 			<cftry>
 			<cftransaction>
@@ -2354,6 +2220,11 @@
 	<cffunction name="saveMetaEdit" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		 <cfargument name="q" type="string" required="true">
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 	<cfoutput>
 		<!----
 			de-serialize q
@@ -2509,6 +2380,11 @@
 	   <cfargument name="family" type="string" required="false">
 	   <cfargument name="genus" type="string" required="false">
 
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
+
 
 
 		<cfoutput>
@@ -2550,6 +2426,11 @@
 		<cfargument name="dataset_id" type="numeric" required="true"/>
 		<cfargument name="tid" type="numeric" required="true">
 		<cfargument name="parent_tid" type="numeric" required="true">
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
 			<cftry>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -2568,6 +2449,11 @@
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="dataset_id" type="numeric" required="true"/>
 		<cfargument name="id" type="numeric" required="true">
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
 			<cftry>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -2587,6 +2473,11 @@
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="dataset_id" type="numeric" required="true"/>
 	   <cfargument name="q" type="string" required="true">
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<!---- https://goo.gl/TWqGAo is the quest for a better query. For now, ugly though it be..... ---->
 		<cfoutput>
 			<cftry>
@@ -2627,124 +2518,7 @@
 
 
 				<cfreturn x>
-				<!----
-				<cfdump var=#d#>
-				--->
 
-
-
-			<!-------------
-
-			<!---- first get the terms that match our search ---->
-
-			<!--- result isn't working properly with this type of SQL so.... ---->
-			<cftransaction>
-
-				<!--- this works
-				<cfquery name="dc0" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r_dc0">
-					insert into htax_srchhlpr (
-						key,
-						parent_tid
-					) (
-						select distinct
-							#key#,
-							nvl(parent_tid,0)
-						from
-							hierarchical_taxonomy
-						where
-							dataset_id=#dataset_id# and
-							upper(term) like '#ucase(q)#%'
-					)
-				</cfquery>
-				<cfquery name="rst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" result="r_dc0">
-					select count(*) c from htax_srchhlpr where key=#key#
-				</cfquery>
-			</cftransaction>
-
-			<cfif not rst.c gt 0>
-				<!--- nothing to clean up, just return ---->
-				<cfreturn 'ERROR: nothing found'>
-			</cfif>
-
-
-			<!--- this will die if we ever get more than 100-deep ---->
-			<cfset thisIds=valuelist(dc0.parent_tid)>
-			<cfloop from="1" to="100" index="i">
-				<!---find next parent--->
-				<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
-				</cfquery>
-
-
----->
-			<!---- first get the terms that match our search ---->
-			<cfquery name="dc0" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select distinct nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where
-				dataset_id=#dataset_id# and
-				upper(term) like '#ucase(q)#%'
-			</cfquery>
-			<cfif not dc0.recordcount gt 0>
-				<cfreturn 'ERROR: nothing found'>
-			</cfif>
-
-			<!---- copy init query---->
-			<cfquery name="rsltQry" dbtype="query">
-				select * from dc0
-			</cfquery>
-			<!--- this will die if we ever get more than 100-deep ---->
-			<cfset thisIds=valuelist(dc0.parent_tid)>
-			<cfloop from="1" to="100" index="i">
-				<!---find next parent--->
-				<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where tid in (#thisIds#)
-				</cfquery>
-
-
-
-				<!--- next loop --->
-
-				<cfset thisIds=valuelist(q.parent_tid)>
-
-				<cfif len(thisIds) is 0>
-					<cfbreak>
-				</cfif>
-
-
-				<cfloop query="q">
-					<!--- don't insert if we already have it ---->
-					<cfquery dbtype="query" name="alreadyGotOne">
-						select count(*) c from rsltQry where tid=#tid#
-					</cfquery>
-					<cfif not alreadyGotONe.c gt 0>
-						<!--- insert ---->
-						<cfset queryaddrow(rsltQry,{
-							tid=q.tid,
-							parent_tid=q.parent_tid,
-							term=q.term,
-							rank=q.rank
-						})>
-					</cfif>
-				</cfloop>
-
-			</cfloop>
-
-			<cfset x="[">
-			<cfset i=1>
-			<cfloop query="rsltQry">
-
-				<!----
-				<cfset x=x & '{"id":"id_#tid#","text":"#term# (#rank#)","children":true}'>
-				---->
-				<cfset x=x & '["#tid#","#parent_tid#","#term# (#rank#)"]'>
-				<cfif i lt rsltQry.recordcount>
-					<cfset x=x & ",">
-				</cfif>
-				<cfset i=i+1>
-			</cfloop>
-			<cfset x=x & "]">
-
-			<cfreturn x>
-			-------------->
 	<cfcatch>
 		<cfreturn 'ERROR: ' & cfcatch.message & ' ' & cfcatch.detail>
 	</cfcatch>
@@ -2757,6 +2531,11 @@
 	<cffunction name="getInitTaxTree" access="remote">
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="dataset_id" type="numeric" required="true"/>
+
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfoutput>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 				select nvl(parent_tid,0) parent_tid, term,tid,rank from hierarchical_taxonomy where
@@ -2776,4 +2555,153 @@
 		</cfoutput>
 	</cffunction>
 <!--------------------------------------------------------------------------------------->
+
+<!--------------------------------------------------------------------------------------->
+	<cffunction name="checkConsistency" access="remote">
+		deprecated<cfabort>
+		<!------------
+		<!---- hierarchical taxonomy editor ---->
+		<cfargument name="tid" type="numeric" required="true">
+		<cfargument name="cid" type="string" required="true">
+		<cfoutput>
+			<br>tid:#tid#
+			<br>cid:#cid#
+
+
+			<cfquery name="cttaxon_term" datasource="uam_god">
+				select RELATIVE_POSITION,TAXON_TERM from  cttaxon_term where IS_CLASSIFICATION=1
+			</cfquery>
+			<cfquery name="taxon" datasource="uam_god">
+				select scientific_name from taxon_name where taxon_name_id=#tid#
+			</cfquery>
+			<cfquery name="source" datasource="uam_god">
+				select distinct source from taxon_term where  classification_id='#cid#' and taxon_name_id=#tid#
+			</cfquery>
+			<cfdump var=#source#>
+			<cfquery name="d" datasource="uam_god">
+				select TERM,TERM_TYPE,POSITION_IN_CLASSIFICATION from taxon_term where POSITION_IN_CLASSIFICATION is not null and taxon_name_id=#tid# and classification_id='#cid#' order by POSITION_IN_CLASSIFICATION desc
+			</cfquery>
+			<cfloop query="d">
+				<br>#TERM_type# #term#
+				<cfif TERM_type is "species" or TERM_type is "genus">
+					<!----
+					<cfquery name="rAbsPosn" dbtype="query">
+						select RELATIVE_POSITION from cttaxon_term where TAXON_TERM='#TERM_type#'
+					</cfquery>
+					<!---- copy of the query that we cna diff --->
+					<cfquery name="rJSON" dbtype="query">
+						select  TERM,TERM_TYPE from d order by POSITION_IN_CLASSIFICATION
+					</cfquery>
+					<cfset rJsonStr=SerializeJSON(rJSON)>
+					---->
+
+
+					<!---- find any lower terms --->
+					<cfquery name="ssp" datasource="uam_god">
+						select scientific_name, taxon_name_id from taxon_name where scientific_name like '#term# %'
+					</cfquery>
+					<cfdump var=#ssp#>
+					<cfloop query="ssp">
+						<cfquery name="sspdata" datasource="uam_god">
+							select TERM,TERM_TYPE,POSITION_IN_CLASSIFICATION from taxon_term where POSITION_IN_CLASSIFICATION is not null and
+							taxon_name_id=#ssp.taxon_name_id# and source='#source.source#'
+							 order by POSITION_IN_CLASSIFICATION desc
+						</cfquery>
+						<cfdump var=#sspdata#>
+						<!---- get the relative position of the term we're working from ---->
+						<cfquery name="thisRelPos" dbtype="query">
+							select POSITION_IN_CLASSIFICATION from sspdata where term_type='#d.TERM_TYPE#'
+						</cfquery>
+
+						<cfdump var=#thisRelPos#>
+						<!----
+						<cfdump var=#thisRelPos#>
+
+						<cfloop query="sspdata">
+							<cfquery name="rAbsPosn" dbtype="query">
+								select RELATIVE_POSITION from cttaxon_term where TAXON_TERM='#TERM_type#'
+							</cfquery>
+
+						</cfloop>
+						---------->
+					</cfloop>
+				</cfif>
+			</cfloop>
+
+
+			<cfdump var=#d#>
+		</cfoutput>
+		---------->
+	</cffunction>
+
+
+<!--------------------------------------------------------------------------------------->
+	<cffunction name="getWormsChanged" access="remote">
+		deprecated<cfabort>
+		<!----
+		<cfargument name="thedate" type="string" required="true">
+		<cfoutput>
+			<!---
+
+				<!--- blargh need a temp table to handle this; it can take a while ---->
+				drop table cf_worms_refresh_job;
+				create table cf_worms_refresh_job (
+					last_run_date date,
+					last_status varchar2(255)
+				);
+
+				insert into cf_worms_refresh_job(last_run_date,last_status) values (to_date('2018-12-20'),'new');
+
+				select last_run_date-sysdate from cf_worms_refresh_job;
+
+				for one day, loop until we get everything
+				worms date handling is a little wonky, so "start" today and "end" tomorrow??
+
+				DateAdd(datepart, number, date)
+
+			--->
+			<cfquery name="rs" datasource="uam_god">
+				select * from cf_worms_refresh_job
+			</cfquery>
+			<cfdump var=#rs#>
+			<cfif rs.last_run_date neq dateformat(now(),"YYYY-MM-DD")>
+				<br>we have not run today
+			</cfif>
+
+			<cfset lastRunDate=listgetat(Application.wrmsbkmrk,1,"|")>
+			<cfset lastRunLoop=listgetat(Application.wrmsbkmrk,2,"|")>
+
+			<br>lastRunDate:#lastRunDate#
+			<br>lastRunLoop:#lastRunLoop#
+
+				<cfset edate=DateAdd("d", 1, thedate)>
+				<cfdump var=#edate#>
+				<cfset edate=dateformat(edate,"YYYY-MM-DD")>
+				<cfdump var=#edate#>
+
+				<cfset st=thedate & "T00%3A00%3A00%2B00%3A00">
+				<cfset et=thedate & "T24%3A00%3A00%2B00%3A00">
+
+
+
+			<cfset theURL="http://www.marinespecies.org/rest/AphiaRecordsByDate?startdate=#st#&enddate=#et#&marine_only=false&offset=#o#">
+			<cfdump var=#theURL#>
+			<!----
+			<cfset theURL=urlencodedFormat(theURL)>
+			<cfdump var=#theURL#>
+---->
+			<cfhttp result="ga" url="#theURL#" method="get"></cfhttp>
+			<cfdump var=#ga#>
+			<cfif left(ga.Statuscode,3) is "204">
+				<br>got nothing no more loopy
+			<cfelseif left(ga.Statuscode,3) is "200">
+				<br>got some stuff
+			<cfelse>
+				<br>bah bad status!
+			</cfif>
+		</cfoutput>
+		---->
+	</cffunction>
+
+
 </cfcomponent>
