@@ -5,6 +5,11 @@
 <cffunction name="getPartAttCodeTbl"  access="remote">
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="element" type="string" required="yes">
+
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from CTSPEC_PART_ATT_ATT where attribute_type='#attribute#'
 	</cfquery>
@@ -118,6 +123,11 @@
 <!------------------------------------------------------------------------------->
 <cffunction name="checkExtendedData" access="remote" returnformat="json">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
+
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select OTHER_ID_NUM_4 idval from bulkloader where OTHER_ID_NUM_TYPE_4='UUID' and OTHER_ID_NUM_4 is not null and collection_object_id=#collection_object_id#
 	</cfquery>
@@ -197,6 +207,11 @@
 <!------------------------------------------------------------------------------->
 <cffunction name="isValidISODate"  access="remote">
 	<cfargument name="datestring" type="string" required="yes">
+
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select is_iso8601('#datestring#') r from dual
 	</cfquery>
@@ -216,6 +231,11 @@
 			- these will never be collection-specific; we'll just ignore that here
 	 --->
 	<cfargument name="attribute" type="string" required="yes">
+
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from ctcoll_event_att_att where event_attribute_type='#attribute#'
 	</cfquery>
@@ -254,6 +274,10 @@
 <cffunction name="getEvtAttCodeTbl__oldNBusted"  access="remote">
 	<!--- get code table stuff for collecting event attributes	 --->
 	<cfargument name="attribute" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNIT_CODE_TABLE from ctcoll_event_att_att where event_attribute_type='#attribute#'
 	</cfquery>
@@ -345,6 +369,10 @@
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="guid_prefix" type="string" required="yes">
 	<cfargument name="element" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where attribute_type='#attribute#'
 	</cfquery>
@@ -463,6 +491,10 @@
 <!---------------------------------------------------------------->
 <cffunction name="getcatNumSeq" access="remote">
 	<cfargument name="guid_prefix" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select max(cat_num + 1) as nextnum
@@ -488,6 +520,10 @@
 	<cfargument name="accn" type="string" required="yes">
 	<cfargument name="collection_cde" type="string" required="yes">
 	<cfargument name="institution_acronym" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 	<cfif accn contains "[" and accn contains "]">
 		<cfset p = find(']',accn)>
@@ -525,6 +561,10 @@
 <!---------------------------------------------------------------------------------------->
 <cffunction name="incrementCustomID" access="remote">
 	<cfargument name="otherID" type="string" required="no">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfif isnumeric(otherID)>
 			<cfset cVal = otherID + 1>
@@ -543,6 +583,10 @@
 <!---------------------------------------------------------------------------------------->
 <cffunction name="get_picked_event" access="remote">
 	<cfargument name="collecting_event_id" type="numeric" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 		<cftry>
 
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -633,6 +677,10 @@
 <!---------------------------------------------------------------------------------------->
 <cffunction name="get_picked_locality" access="remote">
 	<cfargument name="locality_id" type="numeric" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select
