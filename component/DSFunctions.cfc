@@ -1,6 +1,10 @@
 <cfcomponent>
 	<cffunction name="getHostInfo" access="remote">
 		<cfargument name="ip" type="string" required="yes">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfset inet_address = CreateObject("java", "java.net.InetAddress")>
 		<cfset getCanonicalHostName = inet_address.getByName("#ip#").getCanonicalHostName()>
 		<cfreturn getCanonicalHostName>
@@ -9,6 +13,10 @@
 	<cffunction name="updatecf_temp_spec_to_geog" access="remote">
 		<cfargument name="old" type="string" required="yes">
 		<cfargument name="new" type="string" required="yes">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfquery name="gotone" datasource="uam_god">
 			update cf_temp_spec_to_geog set higher_geog='#new#' where spec_locality='#old#'
 		</cfquery>
@@ -18,6 +26,10 @@
 	<cffunction name="upDSStatus" access="remote">
 		<cfargument name="pkey" type="numeric" required="yes">
 		<cfargument name="status" type="string" required="yes">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update ds_temp_geog set status='#status#' where pkey=#pkey#
 		</cfquery>
@@ -27,6 +39,10 @@
 	<cffunction name="upDSStatusHG" access="remote">
 		<cfargument name="pkey" type="numeric" required="yes">
 		<cfargument name="status" type="string" required="yes">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update ds_temp_geog_hg set status='#status#' where pkey=#pkey#
 		</cfquery>
@@ -36,6 +52,10 @@
 	<cffunction name="upDSGeog" access="remote">
 		<cfargument name="pkey" type="numeric" required="yes">
 		<cfargument name="geog" type="string" required="yes">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update ds_temp_geog set HIGHER_GEOG='#geog#' where pkey=#pkey#
 		</cfquery>
@@ -45,6 +65,10 @@
 	<cffunction name="upDSGeogHG" access="remote">
 		<cfargument name="pkey" type="numeric" required="yes">
 		<cfargument name="geog" type="string" required="yes">
+		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			update ds_temp_geog_hg set HIGHER_GEOG='#geog#' where pkey=#pkey#
 		</cfquery>
@@ -137,6 +161,10 @@
 
 <cffunction name="getGuidByPartBarcode" access="remote">
 	<cfargument name="barcode" type="any" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="uam_god">
 		select
 			c.barcode,
@@ -156,9 +184,14 @@
 	</cfquery>
 	<cfreturn d>
 </cffunction>
+<!----------------------------------------------------------------------------------->
 <cffunction name="getMediaUriByFilename" access="remote">
 	<cfargument name="filename" type="any" required="yes">
 	<cfargument name="mimetype" type="any" required="no">
+	<!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="uam_god">
 		select media_uri from media where media_uri like '%/#filename#%'
 		<cfif isdefined("mimetype") and len(mimetype) gt 0>
@@ -170,6 +203,11 @@
 <!---------------------------------------------------------------------->
 <cffunction name="getMediaByFilename" access="remote">
 	<cfargument name="filename" type="any" required="yes">
+	<!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
+
 	<cfquery name="d" datasource="uam_god">
 		select count(*) c from media where media_uri like '%/#filename#%'
 	</cfquery>
@@ -178,6 +216,10 @@
 <!---------------------------------------------------------------------->
 <cffunction name="getMediaByExactFilename" access="remote">
 	<cfargument name="filename" type="any" required="yes">
+	<!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="uam_god">
 		select count(*) c from media where media_uri like '%/#filename#'
 	</cfquery>
@@ -188,6 +230,10 @@
 
 <cffunction name="getAllAgentNames" access="remote">
 	<cfargument name="agent_id" type="any" required="yes">
+	<!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif isnumeric(agent_id) and len(agent_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select agent_name from agent_name where agent_id=#agent_id# order by agent_name
@@ -198,272 +244,14 @@
 	</cfif>
 </cffunction>
 
-<!--------------------
-<cffunction name="loadAgent" access="remote">
-	<cfargument name="key" type="numeric" required="yes">
-	<cfargument name="agent_id" type="any" required="yes">
-	<cfset status="">
-	<cfset msg="">
-	<cfif isnumeric(agent_id) and agent_id gt -1>
-		<cftry>
-			<cfset msg="">
-			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				select * from ds_temp_agent where key=#key#
-			</cfquery>
-			<cftransaction>
-				<cfset thisName=trim(d.preferred_name)>
-				<cfset nametype='aka'>
-				<cftry>
-					<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						insert into agent_name (
-							agent_name_id,
-							AGENT_ID,
-							AGENT_NAME_TYPE,
-							AGENT_NAME
-						) values (
-							sq_agent_name_id.nextval,
-							#agent_id#,
-							'#nametype#',
-							'#thisName#'
-						)
-					</cfquery>
-					<cfset msg=listappend(msg,'Added #thisName# (#nametype#)')>
-				<cfcatch>
-					<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
-				</cfcatch>
-				</cftry>
-				<cfif len(d.other_name_1) gt 0>
-					<cfset thisName=trim(d.other_name_1)>
-					<cfset nametype=d.other_name_type_1>
-					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							insert into agent_name (
-								agent_name_id,
-								AGENT_ID,
-								AGENT_NAME_TYPE,
-								AGENT_NAME
-							) values (
-								sq_agent_name_id.nextval,
-								#agent_id#,
-								'#nametype#',
-								'#thisName#'
-							)
-						</cfquery>
-						<cfset msg=listappend(msg,'Added #thisName# (#nametype#)')>
-					<cfcatch>
-						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
-					</cfcatch>
-					</cftry>
-				</cfif>
-
-				<cfif len(d.other_name_2) gt 0>
-					<cfset thisName=trim(d.other_name_2)>
-					<cfset nametype=d.other_name_type_2>
-					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							insert into agent_name (
-								agent_name_id,
-								AGENT_ID,
-								AGENT_NAME_TYPE,
-								AGENT_NAME
-							) values (
-								sq_agent_name_id.nextval,
-								#agent_id#,
-								'#nametype#',
-								'#thisName#'
-							)
-						</cfquery>
-						<cfset msg=listappend(msg,'Added #thisName# (#nametype#)')>
-					<cfcatch>
-						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
-					</cfcatch>
-					</cftry>
-				</cfif>
-				<cfif len(d.other_name_3) gt 0>
-					<cfset thisName=trim(d.other_name_3)>
-					<cfset nametype=d.other_name_type_3>
-					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							insert into agent_name (
-								sq_agent_name_id.nextval,
-								agent_name_id,
-								AGENT_ID,
-								AGENT_NAME_TYPE,
-								AGENT_NAME
-							) values (
-								#agent_id#,
-								'#nametype#',
-								'#thisName#'
-							)
-						</cfquery>
-						<cfset msg=listappend(msg,'Added #thisName# (#nametype#)')>
-					<cfcatch>
-						<cfset msg=listappend(msg,'Failed: add #thisName# (#nametype#)<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
-					</cfcatch>
-					</cftry>
-				</cfif>
-				<cfif len(d.agent_remark) gt 0>
-					<cftry>
-						<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-							update agent set agent_remarks=
-								decode(trim(agent_remarks),
-								null,'#trim(d.agent_remark)#',
-								'#trim(d.agent_remark)#','#trim(d.agent_remark)#',
-								agent_remarks || '; #trim(d.agent_remark)#')
-								where agent_id=#agent_id#
-						</cfquery>
-						<cfset msg=listappend(msg,'Added remark')>
-					<cfcatch>
-						<cfset msg=listappend(msg,'Failed: add remark<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>')>
-					</cfcatch>
-					</cftry>
-				</cfif>
-			</cftransaction>
-			<cfset status="PASS">
-			<cfset msg=listappend(msg,'<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent record</a>')>
-			<cfset msg=listchangedelims(msg,"<br>")>
-		<cfcatch>
-			<cfset status="FAIL">
-			<cfset msg='Failed: update agent<br><span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]ORA-00001: ","","all")#</span>'>
-		</cfcatch>
-		</cftry>
-	<cfelseif agent_id is -1>
-		<cftry>
-			<cftransaction>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select * from ds_temp_agent where key=#key#
-				</cfquery>
-				<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select sq_agent_id.nextval nextAgentId from dual
-				</cfquery>
-				<cfquery name="agentNameID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					select sq_agent_name_id.nextval nextAgentNameId from dual
-				</cfquery>
-				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO agent (
-						agent_id,
-						agent_type,
-						preferred_agent_name_id,
-						AGENT_REMARKS
-					) VALUES (
-						#agentID.nextAgentId#,
-						'person',
-						#agentNameID.nextAgentNameId#,
-						'#trim(d.agent_remark)#'
-						)
-				</cfquery>
-				<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO person (
-						PERSON_ID
-						,prefix
-						,LAST_NAME
-						,FIRST_NAME
-						,MIDDLE_NAME
-						,SUFFIX,
-						BIRTH_DATE,
-						DEATH_DATE
-					) VALUES (
-						#agentID.nextAgentId#
-						,'#trim(d.prefix)#'
-						,'#trim(d.LAST_NAME)#'
-						,'#trim(d.FIRST_NAME)#'
-						,'#trim(d.MIDDLE_NAME)#'
-						,'#trim(d.SUFFIX)#'
-						,'#trim(d.birth_date)#'
-						,'#trim(d.death_date)#'
-					)
-				</cfquery>
-				<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-					INSERT INTO agent_name (
-						agent_name_id,
-						agent_id,
-						agent_name_type,
-						agent_name,
-						donor_card_present_fg
-					) VALUES (
-						#agentNameID.nextAgentNameId#,
-						#agentID.nextAgentId#,
-						'preferred',
-						'#trim(d.preferred_name)#',
-						0
-					)
-				</cfquery>
-			<cftransaction action="commit"><!--- stoopid trigger workaround to have preferred name --->
-				<cfif len(d.other_name_1) gt 0>
-					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						INSERT INTO agent_name (
-							agent_name_id,
-							agent_id,
-							agent_name_type,
-							agent_name,
-							donor_card_present_fg
-						) VALUES (
-							sq_agent_name_id.nextval,
-							#agentID.nextAgentId#,
-							'#d.other_name_type_1#',
-							'#trim(d.other_name_1)#',
-							0
-						)
-					</cfquery>
-				</cfif>
-				<cfif len(d.other_name_2) gt 0>
-					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						INSERT INTO agent_name (
-							agent_name_id,
-							agent_id,
-							agent_name_type,
-							agent_name,
-							donor_card_present_fg
-						) VALUES (
-							sq_agent_name_id.nextval,
-							#agentID.nextAgentId#,
-							'#d.other_name_type_2#',
-							'#trim(d.other_name_2)#',
-							0
-						)
-					</cfquery>
-				</cfif>
-				<cfif len(d.other_name_3) gt 0>
-					<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-						INSERT INTO agent_name (
-							agent_name_id,
-							agent_id,
-							agent_name_type,
-							agent_name,
-							donor_card_present_fg
-						) VALUES (
-							sq_agent_name_id.nextval,
-							#agentID.nextAgentId#,
-							'#d.other_name_type_3#',
-							'#trim(d.other_name_3)#',
-							0
-						)
-					</cfquery>
-				</cfif>
-			</cftransaction>
-			<cfset status="PASS">
-			<cfset agent_id=agentID.nextAgentId>
-			<cfset msg='<a href="/agents.cfm?agent_id=#agent_id#" target="_blank">agent</a> created'>
-		<cfcatch>
-			<cfset status="FAIL">
-			<cfset agent_id="">
-			<cfset msg='Failed: Create agent<span class="cfcatch">#replace(cfcatch.detail,"[Macromedia][Oracle JDBC Driver][Oracle]","","all")#</span>'>
-		</cfcatch>
-		</cftry>
-	</cfif>
-	<cfset result = querynew("KEY,STATUS,MSG,AGENT_ID")>
-	<cfset temp = queryaddrow(result,1)>
-	<cfset temp = QuerySetCell(result, "KEY", key, 1)>
-	<cfset temp = QuerySetCell(result, "STATUS", status, 1)>
-	<cfset temp = QuerySetCell(result, "MSG", msg, 1)>
-	<cfset temp = QuerySetCell(result, "AGENT_ID", agent_id, 1)>
-	<cfreturn result>
-</cffunction>
------------------------------>
 <!--------------------------------------------->
 
 <cffunction name="findAgentMatch" access="remote">
 	<cfargument name="key" type="numeric" required="yes">
+	<!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select first_name,middle_name,last_name,preferred_name,other_name_1,other_name_2,other_name_3
 		from ds_temp_agent where key=#key#
@@ -506,6 +294,10 @@
 <!------------------------------------------>
 <cffunction name="findAgentMatchOld" access="remote">
 	<cfargument name="key" type="numeric" required="yes">
+	<!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ds_temp_agent where key=#key#
 	</cfquery>
