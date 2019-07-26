@@ -4,6 +4,10 @@
 	<cfargument name="exclagnt" type="any" required="no" default="">
 	<cfargument name="pg" type="any" required="no" default="1">
 	<cfargument name="feh_ptype" type="any" required="no" default="">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<!--- if there's nothing, stop now ---->
 		<cfquery name="cepc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -135,6 +139,10 @@
     <cfargument name="new_h" type="string" required="no">
     <cfargument name="new_w" type="string" required="no">
     <cfargument name="new_l" type="string" required="no">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 
 
 	<cftry>
@@ -282,6 +290,11 @@
 <cffunction name="getContDetails" access="remote">
 	<cfargument name="treeID" required="yes" type="string">
 	<cfargument name="contr_id" required="no" type="string">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
+
 	<cfif len(#contr_id#) is 0 OR  len(#treeID#) is 0>
 		<cfset result = "#treeID#||You must enter search criteria.">
 		<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
@@ -322,6 +335,10 @@
 <!-------------------------------------------------------------->
 <cffunction name="get_containerContents" access="remote">
 	<cfargument name="contr_id" required="yes" type="string"><!--- ID of div, just gets passed back --->
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="result" timeout="60" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
@@ -358,6 +375,10 @@
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" access="remote">
 	<cfargument name="q" type="string" required="true">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<!--- accept a url-type argument, parse it out here --->
 
 	<cfset loan_number="">
