@@ -1,5 +1,5 @@
 <cfcomponent>
-	<cffunction name="updateArctosLegalClassData_guts" access="remote">
+	<cffunction name="updateArctosLegalClassData_guts" access="public">
 		<!----
 
 ---->
