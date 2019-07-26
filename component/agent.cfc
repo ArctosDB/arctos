@@ -104,7 +104,7 @@
     <cfargument name="middle_name" required="false" type="string" default="">
     <cfargument name="last_name" required="false" type="string" default="">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 
@@ -583,7 +583,7 @@
 	<cfargument name="OTHER_NAME_5" type="string" required="false">
 	<cfargument name="OTHER_NAME_6" type="string" required="false">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cfif not isdefined("escapeQuotes")>
@@ -627,7 +627,7 @@
 <cffunction name="deleteAgentPreload" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="KEY" type="numeric" required="true">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cftry>
@@ -658,7 +658,7 @@
 	<cfparam name="jtPageSize" type="integer" default="100">
 	<cfparam name="jtSorting" type="string" default="PREFERRED_NAME ASC">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cfset jtStopIndex=jtStartIndex+jtPageSize>
@@ -720,7 +720,7 @@
 <!---------------------------------------------------------------->
 <cffunction name="saveAgent" access="remote">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cfif not isdefined("escapeQuotes")>
@@ -968,7 +968,7 @@
 <!---------------------------------------------------------------->
 <cffunction name="findAgents" access="remote">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cfoutput>
@@ -1088,7 +1088,7 @@
    	<cfargument name="name" required="true" type="string">
    	<cfargument name="agent_type" required="false" type="string" default="person">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+    <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
 	<cfif isdefined("agent_type") and len(agent_type) gt 0 and agent_type neq 'person'>
