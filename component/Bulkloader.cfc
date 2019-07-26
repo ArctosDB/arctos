@@ -991,12 +991,10 @@
 	<cfargument name="accn" required="yes">
 	<cfargument name="enteredby" required="yes">
 	<cfargument name="colln" required="yes">
-	<!----
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
     <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
-	---->
 	<cfset startrow=page * pageSize>
 	<cfset stoprow=startrow + pageSize>
 	<cfif len(gridsortcolumn) is 0>
