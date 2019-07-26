@@ -1,11 +1,11 @@
 <cfcomponent>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getCollectionCodeFromGuidPrefix" access="remote" returnformat="json" queryformat="column">
+	<cfargument name="guid_prefix" required="yes">
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
     <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
-	<cfargument name="guid_prefix" required="yes">
 	<cfquery name="cc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection_cde from collection where guid_prefix='#guid_prefix#'
 	</cfquery>
