@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="jsonEscape" access="remote">
+<cffunction name="jsonEscape" access="public">
 	<cfargument name="inpstr" required="yes">
 	<cfset inpstr=replace(inpstr,'\','\\',"all")>
 	<cfset inpstr=replace(inpstr,'"','\"',"all")>
@@ -13,7 +13,7 @@
 
 
 <!-------------------------------------------------------------------------------->
-<cffunction name="checkFunkyAgent" access="remote">
+<cffunction name="checkFunkyAgent" access="public">
 	<!---
 		For existing agents
 		these are SUGGESTIONS not RULES
@@ -103,6 +103,11 @@
     <cfargument name="first_name" required="false" type="string" default="">
     <cfargument name="middle_name" required="false" type="string" default="">
     <cfargument name="last_name" required="false" type="string" default="">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
+
     <cfif not isdefined("escapeQuotes")>
         <cfinclude template="/includes/functionLib.cfm">
     </cfif>
@@ -565,38 +570,6 @@
     <cfreturn problems>
 </cffunction>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="updateAgentPreload" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="KEY" type="numeric" required="true">
@@ -609,6 +582,10 @@
 	<cfargument name="OTHER_NAME_4" type="string" required="false">
 	<cfargument name="OTHER_NAME_5" type="string" required="false">
 	<cfargument name="OTHER_NAME_6" type="string" required="false">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -649,6 +626,10 @@
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="deleteAgentPreload" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="KEY" type="numeric" required="true">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from
@@ -676,7 +657,11 @@
 	<cfparam name="jtStartIndex" type="integer" default="0">
 	<cfparam name="jtPageSize" type="integer" default="100">
 	<cfparam name="jtSorting" type="string" default="PREFERRED_NAME ASC">
-			<cfset jtStopIndex=jtStartIndex+jtPageSize>
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
+	<cfset jtStopIndex=jtStartIndex+jtPageSize>
 
 	<!--- jtables likes to start at 0, which confuses CF, so.... ---->
 	<cfset theFirstRow=jtStartIndex+1>
@@ -734,6 +719,10 @@
 </cffunction>
 <!---------------------------------------------------------------->
 <cffunction name="saveAgent" access="remote">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -978,6 +967,10 @@
 </cffunction>
 <!---------------------------------------------------------------->
 <cffunction name="findAgents" access="remote">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfoutput>
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
@@ -1094,6 +1087,10 @@
 <cffunction name="splitAgentName" access="remote" returnformat="json">
    	<cfargument name="name" required="true" type="string">
    	<cfargument name="agent_type" required="false" type="string" default="person">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif isdefined("agent_type") and len(agent_type) gt 0 and agent_type neq 'person'>
 		<cfset d = querynew("name,nametype,first,middle,last,formatted_name")>
 		<cfset temp = queryaddrow(d,1)>
