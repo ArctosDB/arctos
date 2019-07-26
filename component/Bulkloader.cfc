@@ -1030,10 +1030,12 @@
 	<cfargument name="cfgridaction" required="yes">
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
+	<!----
 	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
     <cfif not isdefined("session.roles") or not listFind(session.roles, 'COLDFUSION_USER')>
       <cfthrow message="unauthorized">
     </cfif>
+	---->
 	<cfoutput>
 		<cftry>
 		<cfset colname = StructKeyList(cfgridchanged)>
