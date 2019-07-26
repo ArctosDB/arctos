@@ -2085,7 +2085,7 @@
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="taxon_name_id" type="numeric" required="true">
 		<!---- this has to be called remotely, but only allow logged-in Operators access--->
-		<cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER'>
+		<cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
 			<cfthrow message="unauthorized">
 		</cfif>
 		<cfoutput>
