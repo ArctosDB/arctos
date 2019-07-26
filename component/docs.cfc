@@ -1,6 +1,10 @@
 <cfcomponent>
 <cffunction name="jsonEscape" access="remote">
 	<cfargument name="inpstr" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfset inpstr=replace(inpstr,'\','\\',"all")>
 	<cfset inpstr=replace(inpstr,'"','\"',"all")>
 	<cfset inpstr=replace(inpstr,chr(10),'<br>',"all")>
@@ -25,6 +29,10 @@
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="SQL_ELEMENT" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
 	</cfif>
@@ -103,6 +111,10 @@
 <!------------------------------------------------------------------------------------------------------------------------------>
 <cffunction name="deleteDocDoc" access="remote" returnformat="plain" queryFormat="column">
 	<cfargument name="SSRCH_FIELD_DOC_ID" type="numeric" required="true">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from
@@ -141,6 +153,10 @@
 	<cfargument name="SPECIMEN_RESULTS_COL" type="string" required="false">
 	<cfargument name="SQL_ELEMENT" type="string" required="false">
 	<cfargument name="specimen_query_term" type="string" required="false">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 
 	<cfif not isdefined("escapeQuotes")>
 		<cfinclude template="/includes/functionLib.cfm">
@@ -203,6 +219,11 @@
 	<cfparam name="jtStartIndex" type="integer" default="0">
 	<cfparam name="jtPageSize" type="integer" default="10">
 	<cfparam name="jtSorting" type="string" default="CF_VARIABLE ASC">
+
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<!--- jtables likes to start at 0, which confuses CF, so.... ---->
 	<cfset theFirstRow=jtStartIndex+1>
 	<cfset theLastRow=theFirstRow+jtPageSize>
