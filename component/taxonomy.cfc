@@ -446,7 +446,7 @@
 	</cffunction>
 
 <!--------------------------------------------------------------------------------------->
-	<cffunction name="updateArctosLegalClassData" access="public">
+	<cffunction name="updateArctosLegalClassData" access="remote">
 		<cfargument name="tid" type="numeric" required="true">
 		<cfargument name="name" type="string" required="true">
 		<!---- this has to be called remotely, but only allow logged-in Operators access--->
