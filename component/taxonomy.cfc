@@ -914,10 +914,12 @@
 		<!---- hierarchical taxonomy editor ---->
 		<cfargument name="aphiaID" type="string" required="true">
 		<cfargument name="taxon_name_id" type="string" required="true">
+		<!--- scheduled tasks use this ---
 		<!---- this has to be called remotely, but only allow logged-in Operators access--->
 	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
 	      <cfthrow message="unauthorized">
 	    </cfif>
+	    --->
 		<cfparam name="debug" default="false">
 		<cfoutput>
 		<cftry>

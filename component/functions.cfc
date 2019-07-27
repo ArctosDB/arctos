@@ -353,6 +353,11 @@
 	<cfparam name="jtPageSize" type="numeric" default="10">
 	<cfparam name="jtSorting" type="string" default="GUID ASC">
 
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
+
 	<cfset jtStopIndex=jtStartIndex+jtPageSize>
 
 
@@ -601,7 +606,7 @@
 	<cfreturn result>
 </cffunction>
 <!------------------------------------------------------------------------>
-<cffunction name="getCollectionContactEmail" access="remote">
+<cffunction name="getCollectionContactEmail" access="public">
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfargument name="contact_role" type="string" required="yes">
 	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -619,6 +624,10 @@
 <!--------------------------------------------------------------------------------------------------------->
 <cffunction name="cloneFullCatalogedItem" access="remote" output="true">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="guid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select guid from flat where collection_object_id=#collection_object_id#
@@ -636,6 +645,7 @@
 <!------------------------------------------------------------------>
 <cffunction name="setResultsBrowsePrefs" access="remote">
 	<cfargument name="val" type="string" required="no">
+	<!--- this is publicly accessible --->
 	<cfif val is not "1">
 		<cfset val=0>
 	</cfif>
@@ -654,6 +664,7 @@
    	<cfargument name="neLat" required="true" type="numeric">
    	<cfargument name="neLng" required="true" type="numeric">
    	<cfargument name="zoomlevel" required="true" type="numeric">
+	<!--- this is publicly accessible --->
   	<cfif zoomlevel lte 3>
 		<cfset swLat=round(swLat)>
 	</cfif>
@@ -663,6 +674,10 @@
 <cffunction name="removeNonprinting" access="remote" returnformat="json">
    	<cfargument name="orig" required="true" type="string">
    	<cfargument name="userString" required="false" type="string">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfif not isdefined("userString") or len(userString) is 0>
 		<cfset userString="<br>">
@@ -677,28 +692,11 @@
 	</cfquery>
 	<cfreturn result>
 </cffunction>
-<!--------------------------------------------------------------------------------------->
-<cffunction name="reverseGeocode" access="remote" returnformat="json">
-	<cfreturn "ok">
-
-	<!--------
-	<cfquery name="hasRG" datasource="uam_god" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select
-			S$DEC_LAT,
-			S$DEC_LONG,
-			s$S$ELEVATION,
-			S$GEOGRAPHY
-		from
-			locality
-		where
-			locality_id=#detail.locality_id#
-	</cfquery>
-	<cfdump var=#hasRG#>
---------->
-</cffunction>
+<!------------------------------------------------------------------->
 
 <cffunction name="ac_georeference_source" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
+	<!---- this is public --->
 	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select georeference_source label from locality where upper(georeference_source) like '%#ucase(term)#%'
 		and rownum < 50
@@ -711,6 +709,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="ac_nc_source" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
+	<!---- this is public --->
 	<cfquery name="classification_termtype" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select source from taxon_term group by source
 	</cfquery>
@@ -724,6 +723,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="ac_alltaxterm_tt" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
+	<!---- this is public --->
 	<cfquery name="classification_termtype" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select term_type from taxon_term group by term_type
 	</cfquery>
@@ -736,6 +736,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="ac_isclass_tt" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
+	<!---- this is public --->
 	<cfquery name="classification_termtype" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select term_type from taxon_term where position_in_classification is not null group by term_type
 	</cfquery>
@@ -748,6 +749,7 @@
 <!------------------------------------------------------------------->
 <cffunction name="ac_noclass_tt" access="remote" returnformat="json">
    	<cfargument name="term" required="true" type="string">
+	<!---- this is public --->
 	<cfquery name="noclassification_termtype" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select term_type from taxon_term where position_in_classification is null group by term_type
 	</cfquery>
@@ -763,6 +765,10 @@
 <cffunction name="saveDeSettings" access="remote">
 	   	<cfargument name="id" required="true" type="string">
 	   	<cfargument name="val" required="true" type="string">
+	   	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+	      <cfthrow message="unauthorized">
+	    </cfif>
 	   	<cfif val is true>
 	   		<cfset val=1>
 	   	<cfelse>
@@ -777,6 +783,7 @@
 <cffunction name="getMediaDocumentInfo" access="remote">
    <cfargument name="urltitle" required="true" type="string">
    <cfargument name="page" required="false" type="numeric">
+	<!--- this is public --->
 	<cfif not isdefined("page")>
 		<cfset page=1>
 	</cfif>
@@ -793,6 +800,7 @@
 <cffunction name="getMediaPreview" access="remote">
 	<cfargument name="preview_uri" required="true" type="string">
 	<cfargument name="media_type" required="false" type="string">
+	<!--- this is public --->
 
 	<cfif len(preview_uri) gt 0>
 		<cftry>
@@ -824,7 +832,7 @@
 	</cfif>
 </cffunction>
 <!------------------------------------------------------------------->
-<cffunction name="agentCollectionContacts" access="remote">
+<cffunction name="agentCollectionContacts" access="public">
 	<!--------- get email addresses of people who have some involvement with agent(s) ---->
 	<cfargument name="agent_id" type="string" required="yes">
 	<cfquery name="colns" datasource="uam_god">
@@ -1001,139 +1009,6 @@
 		)
 	</cfquery>
 	<cfreturn colns>
-</cffunction>
-
-<cffunction name="getLocalityCacheStuff__orig" access="remote">
-	<cfargument name="locality_id" type="string" required="no" default="">
-	<cfargument name="dec_lat" type="string" required="no" default="">
-	<cfargument name="dec_long" type="string" required="no" default="">
-	<cfargument name="s_lastdate" type="string" required="no" default="">
-	<cfargument name="spec_locality" type="string" required="no" default="">
-	<cfargument name="higher_geog" type="string" required="no" default="">
-	<cfargument name="S_ELEVATION" type="string" required="no" default="">
-	<cfargument name="forceOverrideCache" type="string" required="no" default="false">
-	<cfparam name="debug" default="false">
-	<cfoutput>
-	<cfset intStartTime = GetTickCount() />
-	<!--- for some strange reason, this must be mapped like zo.... ----->
-	<cfset obj = CreateObject("component","functions")>
-	<cfif forceOverrideCache is "true" or len(s_lastdate) is 0>
-		<cfset daysSinceLast=9000>
-	<cfelse>
-		<cfset daysSinceLast=DateDiff("d", "#s_lastdate#","#dateformat(now(),'yyyy-mm-dd')#")>
-	</cfif>
-	<!--- if we got some sort of response AND it's been a while....--->
-	<cfif debug is true>
-		<br>daysSinceLast::#daysSinceLast#
-	</cfif>
-	<cfif len(locality_id) gt 0 and daysSinceLast gt 180>
-		<cfif debug is true>
-			<br>going locality
-		</cfif>
-		<cfset geoList="">
-		<cfset slat="">
-		<cfset slon="">
-		<cfset elevRslt=''>
-		<cfif len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
-			<!--- geography data from curatorial coordinates ---->
-			<cfset signedURL = obj.googleSignURL(
-				urlPath="/maps/api/geocode/json",
-				urlParams="latlng=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#",
-				int_ext="int")>
-			<cfif debug is true>
-				<cfdump var=#signedURL#>
-			</cfif>
-			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-			<cfif debug is true>
-				<cfdump var=#cfhttp#>
-			</cfif>
-			<cfif cfhttp.responseHeader.Status_Code is 200>
-				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-				<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-					<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-						</cfif>
-						<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-							<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-						</cfif>
-					</cfloop>
-				</cfloop>
-			</cfif>
-		</cfif>
-		<cfif len(spec_locality) gt 0 and len(higher_geog) gt 0>
-			<cfset signedURL = obj.googleSignURL(
-				urlPath="/maps/api/geocode/json",
-				urlParams="address=#URLEncodedFormat('#spec_locality#, #higher_geog#')#",
-				int_ext="int")>
-			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-			<cfif cfhttp.responseHeader.Status_Code is 200>
-				<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-				<cfif llresult.status is "OK">
-					<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-						<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-							</cfif>
-							<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-								<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-							</cfif>
-						</cfloop>
-					</cfloop>
-					<cfset slat=llresult.results[1].geometry.location.lat>
-					<cfset slon=llresult.results[1].geometry.location.lng>
-				<cfelseif llresult.status is "ZERO_RESULTS">
-					<!--- try without specloc, which is user-supplied and often wonky ---->
-					<cfset signedURL = obj.googleSignURL(
-						urlPath="/maps/api/geocode/json",
-						urlParams="address=#URLEncodedFormat('#higher_geog#')#",
-						int_ext="int")>
-					<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-					<cfif cfhttp.responseHeader.Status_Code is 200>
-						<cfset llresult=DeserializeJSON(cfhttp.fileContent)>
-						<cfif llresult.status is "OK">
-							<cfloop from="1" to ="#arraylen(llresult.results)#" index="llr">
-								<cfloop from="1" to="#arraylen(llresult.results[llr].address_components)#" index="ac">
-									<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].long_name)>
-										<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].long_name)>
-									</cfif>
-									<cfif not listcontainsnocase(geolist,llresult.results[llr].address_components[ac].short_name)>
-										<cfset geolist=listappend(geolist,llresult.results[llr].address_components[ac].short_name)>
-									</cfif>
-								</cfloop>
-							</cfloop>
-							<cfset slat=llresult.results[1].geometry.location.lat>
-							<cfset slon=llresult.results[1].geometry.location.lng>
-						</cfif>
-					</cfif>
-				</cfif>
-			</cfif>
-		</cfif>
-		<cfif len(S_ELEVATION) is 0 and len(DEC_LAT) gt 0 and len(DEC_LONG) gt 0>
-			<cfset signedURL = obj.googleSignURL(
-				urlPath="/maps/api/elevation/json",
-				urlParams="locations=#URLEncodedFormat('#DEC_LAT#,#DEC_LONG#')#",
-				int_ext="int")>
-			<cfhttp method="get" url="#signedURL#" timeout="1"></cfhttp>
-			<cfif cfhttp.responseHeader.Status_Code is 200>
-				<cfset elevResult=DeserializeJSON(cfhttp.fileContent)>
-				<cfif isdefined("elevResult.status") and elevResult.status is "OK">
-					<cfset elevRslt=round(elevResult.results[1].elevation)>
-				</cfif>
-			</cfif>
-		</cfif>
-		<!---- update cache ---->
-		<cfquery name="upEsDollar" datasource="uam_god">
-			update locality set
-				S$ELEVATION=<cfif len(elevRslt) is 0>NULL<cfelse>#elevRslt#</cfif>,
-				S$GEOGRAPHY='#replace(geoList,"'","''","all")#',
-				S$DEC_LAT=<cfif len(slat) is 0>NULL<cfelse>#slat#</cfif>,
-				S$DEC_LONG=<cfif len(slon) is 0>NULL<cfelse>#slon#</cfif>,
-				S$LASTDATE=sysdate
-			where locality_id=#locality_id#
-		</cfquery>
-	</cfif><!--- end service call --->
-</cfoutput>
 </cffunction>
 
 
