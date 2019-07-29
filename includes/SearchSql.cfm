@@ -158,7 +158,6 @@
 
 <!------ event/locality: update to https://github.com/ArctosDB/arctos/issues/2097; always join tables so we're always searching one stack ---------------------------------------->
 
-<!----- this stuff seems to be deprecated, but keep it here for now Just In Case
 
 <cfif isdefined("year") AND len(year) gt 0>
 		<!--- ignore, already exact-match ---->
@@ -179,7 +178,6 @@
 	<cfif basJoin does not contain " collecting_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
 	</cfif>
-
 	<cfif  compare(year,"NULL") is 0>
 		<cfset basQual = " #basQual# AND collecting_event.ended_date is null ">
 	<cfelse>
@@ -224,7 +222,6 @@
 		<cfset basQual = " #basQual# AND #session.flatTableName#.day = #day#">
 	</cfif>
 </cfif>
---------- END deprecated ------------------------->
 
 <cfif isdefined("begYear") AND len(begYear) gt 0>
 	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
