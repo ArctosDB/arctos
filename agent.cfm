@@ -63,9 +63,9 @@
 	<cfif isdefined("agent_id") and len(agent_id) gt 0>
 		<script>
 			jQuery(document).ready(function(){
-				var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("#agent_id").val();
+				var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##agent_id").val();
 				jQuery.get(am, function(data){
-					jQuery('#agentMedia').html(data);
+					jQuery('##agentMedia').html(data);
 				})
 			})
 		</script>
