@@ -1571,7 +1571,7 @@
 			<span class="likeLink" onclick="addARow();">[ add a row ]</span>
 			<cfset aterms=valuelist(hasclass.TERM_TYPE)>
 
-			<cfset shouldUsuallyHave="scientific_name,subspecies,species,genus,kingdom">
+			<cfset shouldUsuallyHave="subspecies,species,genus,kingdom">
 			<cfloop list="#aterms#" index="i">
 				<cfif listfind(shouldUsuallyHave,i)>
 					<cfset shouldUsuallyHave=listdeleteat(shouldUsuallyHave,listfind(shouldUsuallyHave,i))>
