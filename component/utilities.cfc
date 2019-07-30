@@ -68,6 +68,10 @@
 	<cfargument name="tmp_path" required="yes">
 	<cfargument name="filename" required="yes">
 
+	<!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 
 
 
@@ -716,7 +720,7 @@
 
 
 
-<cffunction name="isProtectedIp" returnType="string" access="remote">
+<cffunction name="isProtectedIp" returnType="string" access="public">
 	<cfargument name="ip" type="string" required="yes">
 	<cfquery name="protected_ip_list" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select protected_ip_list from cf_global_settings
@@ -741,6 +745,10 @@
 
 <cffunction name="georeferenceAddress" returnType="string" access="remote">
 	<cfargument name="address" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfset coords="">
 	<cfset mAddress=address>
@@ -826,7 +834,7 @@
 		<cfreturn>
 	</cfif>
 </cffunction>
-<cffunction name="generateDisplayName" returnType="string" access="remote">
+<cffunction name="generateDisplayName" returnType="string" access="public">
 	<cfargument name="cid" type="string" required="yes">
 	<cfoutput>
 		<cftry>
@@ -970,7 +978,7 @@
 
 
 
-<cffunction name="getBlacklistHistory" returnType="string" access="remote">
+<cffunction name="getBlacklistHistory" returnType="string" access="public">
 	<cfargument name="ip" required="yes">
 	<!---- look up blacklist history; return email-safe HTML ---->
 	<cfoutput>
@@ -1050,6 +1058,10 @@
 
 <cffunction name="loadFileS3" output="false" returnType="any" access="remote">
 	<cfargument name="nothumb" required="no" default="false">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="s3" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select S3_ENDPOINT,S3_ACCESSKEY,S3_SECRETKEY from cf_global_settings
@@ -1356,7 +1368,7 @@
 </cffunction>
 ---------->
 <!------------------>
-<cffunction name="exitLink" access="remote">
+<cffunction name="exitLink" access="public">
 	<cfargument name="target" required="yes">
 	<!----
 		This is called with the ?open parameter on media exit links
@@ -1487,19 +1499,23 @@
 	</cfif>
 	<cfreturn err>
 </cffunction>
-<!----------------------->
-<cffunction name="mdflip" output="false" returnType="string" access="remote">
-    <!--- translate mobile URLs to desktop and vice-versa --->
-    <cfargument name="q" type="string" required="true" />
-	<cfif q contains Application.mobileURL>
-	   <cfset r=replace(q,Application.mobileURL,'/')>
-	<cfelse>
-	   <cfset r=Application.mobileURL & "/" & q>
-	</cfif>
-    <cfset r=replace(r,'//','/','all')>
-    <cfset r=replace(r,'//','/','all')>
-	<cfreturn r>
-</cffunction>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!------------------>
 <cffunction name="isMobileClient" output="true" returnType="boolean" access="remote">
     <cfif reFindNoCase("(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino",CGI.HTTP_USER_AGENT) GT 0 OR
@@ -1509,7 +1525,7 @@
 	   <cfreturn false>
     </cfif>
 </cffunction>
-<cffunction name="isMobileTemplate" output="true" returnType="boolean" access="remote">
+<cffunction name="isMobileTemplate" output="true" returnType="boolean" access="public">
 	<cfset thisFolder=listgetat(request.rdurl,1,"/")>
 	<cfif thisFolder is replace(Application.mobileURL,"/","","all")>
 	   <cfreturn true>
@@ -1518,7 +1534,7 @@
 	</cfif>
 </cffunction>
 <!------------------------------------------------------->
-<cffunction name="mobileDesktopRedirect" output="true" returnType="string" access="remote">
+<cffunction name="mobileDesktopRedirect" output="true" returnType="string" access="public">
 	<!----
 		<br>START mobileDesktopRedirect
 		<br>cgi.script_name: #cgi.script_name#
@@ -1569,16 +1585,6 @@
 </cffunction>
 
 
-<!---------------------------------------------->
-<cffunction name="listCommon" output="false" returnType="string" access="remote">
-   <cfargument name="list1" type="string" required="true" />
-   <cfargument name="list2" type="string" required="true" />
-   <cfset var list1Array = ListToArray(arguments.List1) />
-   <cfset var list2Array = ListToArray(arguments.List2) />
-   <cfset list1Array.retainAll(list2Array) />
-   <!--- Return in list format --->
-   <cfreturn ArrayToList(list1Array) />
-</cffunction>
 <!------------------>
 
 <cffunction name="makeCaptchaString" returnType="string" output="false">
@@ -2011,7 +2017,7 @@
 		<cfreturn ArrayToList(LOCAL.Rows,LOCAL.NewLine) />
 	</cffunction>
 	<!---------------------------------------------------------------------------------------------->
-	<cffunction name="CSVToQuery" access="remote" returntype="query" output="false" hint="Converts the given CSV string to a query.">
+	<cffunction name="CSVToQuery" access="public" returntype="query" output="false" hint="Converts the given CSV string to a query.">
 		<!--- from http://www.bennadel.com/blog/501-parsing-csv-values-in-to-a-coldfusion-query.htm ---->
 		<cfargument name="CSV" type="string" required="true" hint="This is the CSV string that will be manipulated."/>
  		<cfargument name="Delimiter" type="string" required="false" default="," hint="This is the delimiter that will separate the fields within the CSV value."/>
@@ -2149,4 +2155,29 @@
 		</cfhttp>
 		<cfreturn cfhttp.filecontent>
 	</cffunction>
+
+
+
+	<!--------- deprecated
+
+
+
+
+<!----------------------->
+<cffunction name="mdflip" output="false" returnType="string" access="remote">
+    <!--- translate mobile URLs to desktop and vice-versa --->
+    <cfargument name="q" type="string" required="true" />
+	<cfif q contains Application.mobileURL>
+	   <cfset r=replace(q,Application.mobileURL,'/')>
+	<cfelse>
+	   <cfset r=Application.mobileURL & "/" & q>
+	</cfif>
+    <cfset r=replace(r,'//','/','all')>
+    <cfset r=replace(r,'//','/','all')>
+	<cfreturn r>
+</cffunction>
+
+
+
+---------------_>
 </cfcomponent>

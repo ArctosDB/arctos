@@ -1,8 +1,7 @@
 <cfcomponent>
 	<cffunction name="updateArctosLegalClassData_guts" access="public">
-
-<cfargument name="tid" type="numeric" required="true">
-		<cfargument name="thisConcept" type="any" required="true">
+	<cfargument name="tid" type="numeric" required="true">
+	<cfargument name="thisConcept" type="any" required="true">
 	<cfif not isdefined("debug")>
 			<cfset debug=false>
 		</cfif>
