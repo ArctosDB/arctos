@@ -63,7 +63,7 @@
 	<cfif isdefined("agent_id") and len(agent_id) gt 0>
 		<script>
 			jQuery(document).ready(function(){
-				var am='/form/inclMedia.cfm?typ=agent&tgt=agentMedia&q=' +  $("##agent_id").val();
+				var am='/form/inclMedia.cfm?typ=shows_agent&tgt=agentMedia&q=' +  $("##agent_id").val();
 				jQuery.get(am, function(data){
 					jQuery('##agentMedia').html(data);
 				})
