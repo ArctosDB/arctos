@@ -63,14 +63,12 @@
 	<cfif isdefined("agent_id") and len(agent_id) gt 0>
 		<script>
 			jQuery(document).ready(function(){
-				var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("##agent_id").val();
+				var am='/form/inclMedia.cfm?typ=agent&tgt=agentMedia&q=' +  $("##agent_id").val();
 				jQuery.get(am, function(data){
 					jQuery('##agentMedia').html(data);
 				})
 			})
 		</script>
-
-
 		<input type="hidden" id="agent_id" value="#agent_id#">
 		<div align="center">
 			<div class="ui-state-highlight ui-corner-all" style="display:inline-block;margin:1em;padding:1em;">
