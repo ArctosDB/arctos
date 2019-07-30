@@ -2,6 +2,10 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="deleteTag" access="remote">
 	<cfargument name="tag_id" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from tag where tag_id=#tag_id#
@@ -113,7 +117,7 @@
 				union select * from t#o#
 			</cfloop>
 		</cfquery>
-		
+
 		<cfreturn q>
 	<cfelse>
 		<cfreturn />
@@ -131,6 +135,10 @@
 	<cfargument name="refw" required="yes">
 	<cfargument name="imgh" required="yes">
 	<cfargument name="imgw" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfoutput>
 	<cftry>
@@ -175,7 +183,7 @@
 	<cfcatch>
 		<cfreturn "fail: #cfcatch.message# #cfcatch.detail# #cfcatch.sql#">
 	</cfcatch>
-	</cftry>	
+	</cftry>
 	</cfoutput>
 </cffunction>
 <!--------------------------------------->
@@ -190,6 +198,10 @@
 	<cfargument name="refw" required="yes">
 	<cfargument name="imgh" required="yes">
 	<cfargument name="imgw" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfoutput>
 	<cftry>
@@ -242,7 +254,7 @@
 	<cfcatch>
 		<cfreturn "fail: #cfcatch.message# #cfcatch.detail# #cfcatch.sql#">
 	</cfcatch>
-	</cftry>	
+	</cftry>
 	</cfoutput>
 </cffunction>
 <!--------------------------------------->
