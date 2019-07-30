@@ -134,6 +134,7 @@
 
 <cffunction name="getPubCitSts" access="remote" returnformat="json" queryFormat="column">
 	<cfargument name="doilist" required="true" type="string">
+	<!--- this is accessible to public users ---->
 	<cftry>
 		<cfset r.STATUS='SUCCESS'>
 		<cfset ar=[]>
@@ -307,6 +308,10 @@
 <!------------------------------------------------------>
 <cffunction name="getMediaLocalityCount" access="remote" returnformat="plain" queryFormat="column">
 	<cfparam name="locid" type="numeric">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from (
 			select
@@ -333,6 +338,10 @@
 <!---------------------------------------------------------->
 <cffunction name="getMediaCollectingEventCount" access="remote" returnformat="plain" queryFormat="column">
 	<cfparam name="cid" type="numeric">
+	<!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="s" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select count(*) c from (
 			select
@@ -1022,6 +1031,7 @@
 	<cfargument name="S_ELEVATION" type="string" required="no" default="">
 	<cfargument name="forceOverrideCache" type="string" required="no" default="false">
 	<cfparam name="debug" default="false">
+	<!---- this is called from scheduled tasks; it needs to be public ---->
 	<cfoutput>
 		<!--- for some strange reason, this must be mapped like zo.... ----->
 		<cfset obj = CreateObject("component","functions")>
@@ -1032,8 +1042,6 @@
 		</cfif>
 		<!--- if we got some sort of response AND it's been a while....--->
 		<cfif len(locality_id) gt 0 and daysSinceLast gt 180>
-
-
 			<cfif debug is true>
 				<br>Got Locality_ID, cache expired or overridden: proceeding.
 			</cfif>
@@ -1323,6 +1331,7 @@
 	<cfargument name="media_id" type="any" required="no" default="">
 	<cfargument name="showCaption" type="boolean" required="no" default="true">
 	<cfargument name="forceOverrideCache" type="boolean" required="no" default="false">
+	<!---- this is public --->
 	<cftry>
 		<cfif len(locality_id) gt 0>
 			<cfif forceOverrideCache>
@@ -1568,7 +1577,7 @@
 	<cfargument name="int_ext" type="string" required="no" default="ext" hint="public-facing (ext, default) or internal (int, for caching elevation etc.) key to use">
 	<cfif int_ext is "int">
 		<!--- use the unrestricted key for mapping in UIs and such ---->
-		<!-------->
+		<!---this is public----->
 		<cfquery name="cf_global_settings_int" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select GMAP_API_KEY_INTERNAL from cf_global_settings
 		</cfquery>
@@ -1585,34 +1594,6 @@
 		urlParams &= '&key=' & gmapkey;
 		fullURL = baseURL & urlPath & "?" & urlParams;
 		return fullURL;
-	</cfscript>
-</cffunction>
-<!------------------------------------------------------------------->
-<cffunction name="googleSignURL__orig" access="remote">
-	<cfargument name="urlPath" type="string" required="yes">
-	<cfargument name="urlParams" type="string" required="yes" cachedwithin="#createtimespan(0,0,60,0)#">
-	<cfquery name="cf_global_settings" datasource="uam_god">
-		select
-			google_client_id,
-			google_private_key
-		from cf_global_settings
-	</cfquery>
-	<cfscript>
-		baseURL = "https://maps.googleapis.com";
-		urlParams &= '&client=' & cf_global_settings.google_client_id;
-		fullURL = baseURL & urlPath & "?" & urlParams;
-		urlToSign=urlPath & "?" & urlParams;
-		privatekey = cf_global_settings.google_private_key;
-		privatekeyBase64 = Replace(Replace(privatekey,"-","+","all"),"_","/","all");
-		decodedKeyBinary = BinaryDecode(privatekeyBase64,"base64");
-		secretKeySpec = CreateObject("java","javax.crypto.spec.SecretKeySpec").init(decodedKeyBinary,"HmacSHA1");
-  		Hmac=CreateObject("java","javax.crypto.Mac").getInstance("HmacSHA1");
-		Hmac.init(secretKeySpec);
-		encryptedBytes = Hmac.doFinal(toBinary(toBase64(urlToSign)));
-	  	signature = BinaryEncode(encryptedBytes, "base64");
-	  	signatureModified = Replace(Replace(signature,"+","-","all"),"/","_","all");
-	  	theFinalURL=fullURL & "&signature=" & signatureModified;
-		return theFinalURL;
 	</cfscript>
 </cffunction>
 <!------------------------------------------------------------------->
@@ -1802,7 +1783,7 @@
 	<cfreturn return>
 </cffunction>
 <!------------------------------------------------------------------->
-<cffunction name="checkDOI" access="remote">
+<cffunction name="checkDOI" access="public">
 	<cfargument name="doi" type="string" required="yes">
 	<cfhttp method="head" url="https://doi.org/#doi#"></cfhttp>
 	<cfif left(cfhttp.statuscode,3) is "404">
@@ -1816,6 +1797,7 @@
 	<cfargument name="idtype" type="string" required="yes">
 	<cfargument name="identifier" type="string" required="yes">
 	<cfparam name="debug" default="false">
+	<!--- this is public --->
 	<cfset rauths="">
 	<cfset lPage=''>
 	<cfset pubYear=''>
@@ -2059,6 +2041,7 @@
 	<cfargument name="uri" type="string" required="yes">
 	<cfargument name="anchor" type="string" required="no">
 
+	<!---- this is public --->
 	<!----
 	<cfif uri is "lat_long">
 		<cfset uri="documentation/places/coordinates">
@@ -2120,15 +2103,13 @@
 	<cfreturn fullURI>
 </cffunction>
 <!------------------------------------------------------------------->
-<cffunction name="getExternalStatus" access="remote">
-	<cfargument name="uri" type="string" required="yes">
-	<cfhttp url="#uri#" method="head"></cfhttp>
-	<cfreturn left(cfhttp.statuscode,3)>
-</cffunction>
-<!------------------------------------------------------------------->
 <cffunction name="getPartByContainer" access="remote">
 	<cfargument name="barcode" type="string" required="yes">
 	<cfargument name="i" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			1 C,
@@ -2177,6 +2158,10 @@
 <!------------------------------------------------------------------->
 <cffunction name="strToIso8601" access="remote">
 	<cfargument name="str" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfset began=''>
 	<cfset end="">
 	<cfif isdate(str)>
@@ -2195,6 +2180,10 @@
 <cffunction name="flagDupAgent" access="remote">
 	<cfargument name="bad" type="numeric" required="yes">
 	<cfargument name="good" type="numeric" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into agent_relations (agent_id,related_agent_id,agent_relationship) values (#bad#,#good#,'bad duplicate of')
@@ -2220,6 +2209,10 @@
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="collection_cde" type="string" required="yes">
 	<cfargument name="element" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where attribute_type='#attribute#'
 	</cfquery>
@@ -2322,6 +2315,10 @@
 <cffunction name="removeAccnContainer" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id from container where barcode='#barcode#'
@@ -2356,6 +2353,10 @@
 <cffunction name="addAccnContainer" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfargument name="barcode" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select container_id from container where barcode='#barcode#'
@@ -2393,6 +2394,10 @@
 <!----------------------------------------->
 <cffunction name="getPartAttOptions" access="remote">
 	<cfargument name="patype" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ctspec_part_att_att where attribute_type='#patype#'
 	</cfquery>
@@ -2432,21 +2437,12 @@
 		<cfreturn rA>
 	</cfif>
 </cffunction>
-
-<cffunction name="deleteCtPartName" access="remote">
-	<cfargument name="ctspnid" type="numeric" required="yes">
-	<cftry>
-		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			delete from ctspecimen_part_name where ctspnid=#ctspnid#
-		</cfquery>
-		<cfreturn ctspnid>
-	<cfcatch>
-		<cfreturn cfcatch.message & ': ' & cfcatch.detail>
-	</cfcatch>
-	</cftry>
-</cffunction>
 <!------------------------------------------------------->
 <cffunction name="getTrans_agent_role" access="remote">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select trans_agent_role from cttrans_agent_role where trans_agent_role != 'entered by' order by trans_agent_role
 	</cfquery>
@@ -2456,6 +2452,10 @@
 <cffunction name="insertAgentName" access="remote">
 	<cfargument name="name" type="string" required="yes">
 	<cfargument name="id" type="numeric" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			INSERT INTO agent_name (
@@ -2473,6 +2473,10 @@
 <cffunction name="encumberThis" access="remote">
 	<cfargument name="cid" type="numeric" required="yes">
 	<cfargument name="eid" type="numeric" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into  coll_object_encumbrance (ENCUMBRANCE_ID,COLLECTION_OBJECT_ID)
@@ -2935,6 +2939,10 @@
 	<cfargument name="refType" type="string" required="yes">
 	<cfargument name="taxon_name" type="string" required="yes">
 	<cfargument name="collection_id" type="numeric" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfset status="spiffy">
 	<cfinclude template="/includes/functionLib.cfm">
 
@@ -3211,6 +3219,10 @@
 <!------------------------------------------------------->
 <cffunction name="getGeologyValues" access="remote">
 	<cfargument name="attribute" type="string" required="no">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfif isdefined("attribute") and len(attribute) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
@@ -3232,6 +3244,10 @@
 <!------------------------------------------------------->
 <cffunction name="revokeAgentRank" access="remote">
 	<cfargument name="agent_rank_id" type="numeric" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			delete from agent_rank where agent_rank_id=#agent_rank_id#
@@ -3248,6 +3264,10 @@
 	<cfargument name="agent_rank" type="string" required="yes">
 	<cfargument name="remark" type="string" required="yes">
 	<cfargument name="transaction_type" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 		<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -3286,6 +3306,10 @@
 <!------------------------------------------------------->
 <cffunction name="getPubAttributes" access="remote">
 	<cfargument name="attribute" type="string" required="yes">
+	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
+    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftry>
 		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select control from ctpublication_attribute where publication_attribute ='#attribute#'
@@ -3319,6 +3343,10 @@
 <!------------------------------------------------------->
 <cffunction name="kill_archive" access="remote">
 	<cfargument name="archive_name" type="string" required="yes">
+	<!--- this is public, but only for logged-in users --->
+    <cfif not isdefined("session.username") or left(session.username,7) is 'PUB_USR')>
+      <cfthrow message="unauthorized">
+    </cfif>
 	<cftransaction>
 		<cftry>
 			<cfquery name="res" datasource="cf_dbuser">
