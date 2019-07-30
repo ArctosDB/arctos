@@ -3344,7 +3344,7 @@
 <cffunction name="kill_archive" access="remote">
 	<cfargument name="archive_name" type="string" required="yes">
 	<!--- this is public, but only for logged-in users --->
-    <cfif not isdefined("session.username") or left(session.username,7) is 'PUB_USR')>
+    <cfif not isdefined("session.username") or left(session.username,7) is 'PUB_USR'>
       <cfthrow message="unauthorized">
     </cfif>
 	<cftransaction>
