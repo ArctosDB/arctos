@@ -1,5 +1,7 @@
 <cfinclude template = "/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+
+
 <cfoutput>
 	<cfset title = "Agent Activity">
 	<cfparam name="agent_name" default="">
@@ -59,6 +61,17 @@
 	</cfif>
 	<!--- If we DO have an ID, show the agent info ---->
 	<cfif isdefined("agent_id") and len(agent_id) gt 0>
+		<script>
+			jQuery(document).ready(function(){
+				var am='/form/inclMedia.cfm?typ=taxon&tgt=specTaxMedia&q=' +  $("#agent_id").val();
+				jQuery.get(am, function(data){
+					jQuery('#agentMedia').html(data);
+				})
+			})
+		</script>
+
+
+		<input type="hidden" id="agent_id" value="#agent_id#">
 		<div align="center">
 			<div class="ui-state-highlight ui-corner-all" style="display:inline-block;margin:1em;padding:1em;">
 				Your login may prevent access to some linked data. The summary data below are accurate, except
@@ -351,6 +364,9 @@
 				</CFLOOP>
 			</table>
 		</cfif>
+
+
+		<div id="agentMedia"></div>
 
 		<cfquery name="collectormedia" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select count(*) c
