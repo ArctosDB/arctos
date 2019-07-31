@@ -19,6 +19,8 @@
 			var ctime = (new Date).getTime();
 			// time set onRequestStart
 			var ltime=$("#slcd").val();
+
+			// fake
 			var ltime= ltime=5400000;
 			// ms between onRequestStart and now()
 			var etime=ctime-ltime;
@@ -28,8 +30,8 @@
 			var tms=5400000;
 			var tr=tms-etime;
 
-			console.log('trm');
-			console.log(trm);
+			console.log('tr');
+			console.log(tr);
 
 			var trm=Math.round(tr/60000);
 
