@@ -24,7 +24,7 @@
 			// session timeout is 90 minutes; convert to MS
 			var tms=5400000;
 			var tr=tms-etime;
-			var trm=Math.round(tr/600);
+			var trm=Math.round(tr/60000);
 
 			console.log('trm');
 			console.log(trm);
@@ -58,7 +58,7 @@
 	    });
 	    window.setInterval(function(){
 			setMS();
-		}, 60000);
+		}, 600);
 
 	</script>
 
