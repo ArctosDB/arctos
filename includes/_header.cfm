@@ -157,10 +157,11 @@
 							<cfif len(session.username) gt 0>
 								<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
-									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
+									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)&nbsp;
 									<cfif isdefined("session.username") and session.username is "dlm">
 										Session Expires: <span id="sessExpMin">1234</span> minutes&nbsp;<a class="infoLink">[ info ]</a>
 									</cfif>
+									</span>
 								</cfif>
 								<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
 									<br>
