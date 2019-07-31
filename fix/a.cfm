@@ -5,6 +5,11 @@
 <cfset tracker = createObject("java","coldfusion.runtime.SessionTracker")>
 <cfset sessions = tracker.getSessionCollection(application.applicationName)>
 <cfscript>
+
+	<cfdump var=#tracker#>
+	<cfdump var=#sessions#>
+
+
 a = ArrayNew(1);
 sessionClass = a.getClass.forName("coldfusion.runtime.SessionScope");
 getTimeSinceLastAccessMethod = sessionClass.getMethod("getTimeSinceLastAcccess",a);
