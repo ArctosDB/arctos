@@ -1,6 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 
 <script>
+
+
+	window.setInterval(function(){
+  setMS();
+}, 1000);
+
+
+
 	function setMS() {
 		var ctime = (new Date).getTime();
 
@@ -34,7 +42,6 @@
 
 
 
-<input type="text" id="slcd" value="#session.LastCheckinTime#">
 
 
 		 --->
@@ -42,7 +49,7 @@
 
     utcms: #utcms#<br />
 
-<input type="text" id="slcd" value="#utcms#">
+<input type="text" id="slcd" value="#session.LastCheckinTime#">
 
 
 
