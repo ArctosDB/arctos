@@ -1,4 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
+
+<script>
+	function setMS(){
+		console.log('hi');
+
+		var milliseconds = (new Date).getTime();
+		console.log(milliseconds);
+		$("#sexpin").val(milliseconds);
+		}
+</script>
+
+
+
 <cfoutput>
 
 	<cfset localDate = now() />
@@ -19,13 +32,6 @@
 </cfoutput>
 
 
-<script>
-	function setMS(){
-		var milliseconds = (new Date).getTime();
-		console.log(milliseconds);
-		$("#sexpin").val(milliseconds);
-		}
-</script>
 
 
 <span onlick="setMS()">setMS</span>
