@@ -17,12 +17,15 @@
 		function setMS() {
 			var ctime = (new Date).getTime();
 			var ltime=$("#slcd").val();
-			var ltime=5400000;
+			var ltime= (new Date).getTime();
 			var etime=ctime-ltime;
 			// session timeout is 90 minutes; convert to MS
 			var tms=5400000;
 			var tr=tms-etime;
-			var trm=Math.round(tr/60000);
+			var trm=Math.round(tr/600);
+			if(trm<0){
+				trm='NOW!';
+			}
 			$("#sessExpMin").html(trm);
 		}
 
