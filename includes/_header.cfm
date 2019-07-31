@@ -176,9 +176,8 @@
 								<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
 									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)&nbsp;
-									<cfif isdefined("session.username") and session.username is "dlm">
+									<cfif isdefined("session.roles") and listfind(session.roles,'COLDFUSION_USER')>
 										Session Expires: <span id="sessExpMin">?</span> minutes&nbsp;<a  class="helpLink" id="_sessiontime">[ info ]</a>
-
 									</cfif>
 									</span>
 								</cfif>
