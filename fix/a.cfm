@@ -2,11 +2,13 @@
 
 <script>
 	function setMS() {
-		console.log('hi');
+		var ctime = (new Date).getTime();
+		var ltime=$("#slcd").val();
+		var etime=ctime-ltime;
+		console.log(ctime);
+		$("#sexpin").val(etime);
 
-		var milliseconds = (new Date).getTime();
-		console.log(milliseconds);
-		$("#sexpin").val(milliseconds);
+
 		}
 </script>
 
