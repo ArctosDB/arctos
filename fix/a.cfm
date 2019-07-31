@@ -41,7 +41,7 @@
 
 
 
-<span class="likeLink" onlick="setMS()">setMS</span>
+<span class="likeLink" onclick="setMS()">setMS</span>
 <cfabort>
 
 
