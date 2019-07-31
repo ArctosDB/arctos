@@ -159,7 +159,7 @@
 								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
 									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)</span>&nbsp;
 									<cfif isdefined("session.username") and session.username is "dlm">
-										Session Expires: 1234 <a class="infoLink">[ info ]</a>
+										Session Expires: <span id="sessExpMin">1234</span> minutes&nbsp;<a class="infoLink">[ info ]</a>
 									</cfif>
 								</cfif>
 								<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
