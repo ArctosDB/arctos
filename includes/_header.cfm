@@ -40,6 +40,7 @@
 				$("#header_color").hide();
 				$("#_footerTable").hide();
 			}
+			setMS();
 	    });
 	    window.setInterval(function(){
 			setMS();
