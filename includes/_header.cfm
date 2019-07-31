@@ -24,6 +24,7 @@
 			var tms=5400000;
 			var tr=tms-etime;
 			var trm=Math.round(tr/600);
+			console.log(etime);
 			if(trm<0){
 				trm='NOW!';
 			}
