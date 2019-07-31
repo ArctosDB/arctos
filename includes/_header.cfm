@@ -19,15 +19,23 @@
 			var ltime=$("#slcd").val();
 			var ltime= (new Date).getTime();
 			var etime=ctime-ltime;
+			console.log('etime');
 			console.log(etime);
 			// session timeout is 90 minutes; convert to MS
 			var tms=5400000;
 			var tr=tms-etime;
 			var trm=Math.round(tr/600);
-			console.log(etime);
+
+			console.log('trm');
+			console.log(trm);
+
 			if(trm<0){
 				trm='NOW!';
 			}
+
+			console.log('trm');
+			console.log(trm);
+
 			$("#sessExpMin").html(trm);
 		}
 
