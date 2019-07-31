@@ -21,7 +21,7 @@
 			var ltime=$("#slcd").val();
 
 			// fake
-			var ltime= ltime-5400000+10000;
+			var ltime= ltime-5400000+100000;
 			// ms between onRequestStart and now()
 			var etime=ctime-ltime;
 			console.log('etime');
