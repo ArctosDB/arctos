@@ -1,9 +1,16 @@
 <cfcomponent>
 <cffunction name="getSessionTimeout"  output="true" returnType="any"  access="remote">
 
-
-<cfoutput><p>Last request was #session.getTimeSinceLastAccess()# seconds ago</p></cfoutput>
-
+<cfset tracker = createObject("java","coldfusion.runtime.SessionTracker")>
+<cfset sessions = tracker.getSessionCollection(application.applicationName)>
+<cfscript>
+a = ArrayNew(1);
+sessionClass = a.getClass.forName("coldfusion.runtime.SessionScope");
+getTimeSinceLastAccessMethod = sessionClass.getMethod("getTimeSinceLastAcccess",a);
+</cfscript>
+<cfloop item="s" collection="#sessions#">
+    <cfoutput>#s# - #getTimeSinceLastAccessMethod(sessions[s],a)#<br></cfoutput>
+</cfloop>
 	<cfif isdefined("session.username") and len(#session.username#) gt 0>
 		<cfif isdefined("cookie.ArctosSession")>
 			<cfset thisTime = #dateconvert('local2Utc',now())#>
