@@ -13,6 +13,8 @@
 			<cfset tleft=0>
 		</cfif>
 
+
+
 		<cfif tleft lt 5>
 			<cfset err = "Your Arctos session is expiring soon.\n
 				You will lose all unsaved data in #tleft# minutes.\n
@@ -35,6 +37,13 @@
 		<!--- nobody logged in here - no reason to expire anything --->
 		<cfreturn "">
 	</cfif>
+	<cfoutput>
+	tleft::#tleft#
+	</cfoutput>
+
+		<cfreturn tleft>
+
+
 </cffunction>
 
 
