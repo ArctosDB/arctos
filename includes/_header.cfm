@@ -38,7 +38,7 @@
 			console.log('trm');
 			console.log(trm);
 
-			if(trm<0){
+			if(trm<=0){
 				trm='NOW!';
 			}
 
