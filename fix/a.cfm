@@ -21,8 +21,9 @@
 
 <script>
 	function setMS(){
-var milliseconds = (new Date).getTime();
-$("#sexpin").val(milliseconds);
+		var milliseconds = (new Date).getTime();
+		console.log(milliseconds);
+		$("#sexpin").val(milliseconds);
 		}
 </script>
 
