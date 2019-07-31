@@ -15,15 +15,22 @@
 	<script language="javascript" type="text/javascript">
 
 		function setMS() {
+			// current time
 			var ctime = (new Date).getTime();
+			// time set onRequestStart
 			var ltime=$("#slcd").val();
-			var ltime= (new Date).getTime();
+			var ltime= ltime=5400000;
+			// ms between onRequestStart and now()
 			var etime=ctime-ltime;
 			console.log('etime');
 			console.log(etime);
 			// session timeout is 90 minutes; convert to MS
 			var tms=5400000;
 			var tr=tms-etime;
+
+			console.log('trm');
+			console.log(trm);
+
 			var trm=Math.round(tr/60000);
 
 			console.log('trm');
