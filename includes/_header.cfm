@@ -65,9 +65,9 @@
 			}
 			setMS();
 	    });
-	    window.setInterval(function(){
-			setMS();
-		}, 600);
+	 //   window.setInterval(function(){
+		//	setMS();
+		//}, 600);
 
 	</script>
 
