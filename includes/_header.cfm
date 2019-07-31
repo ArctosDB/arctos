@@ -4,56 +4,30 @@
 	<cfif not isdefined("session.header_color")>
 		<cfset setDbUser()>
 	</cfif>
-
 	<!----
 	cachedwithin="#createtimespan(0,0,60,0)#"
 	---->
 	<cfquery name="g_a_t" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select announcement_text from cf_global_settings where  announcement_expires>=trunc(sysdate)
 	</cfquery>
-
 	<script language="javascript" type="text/javascript">
-
 		function setMS() {
-			// current time
 			var ctime = (new Date).getTime();
-			// time set onRequestStart
 			var ltime=$("#slcd").val();
-
-			// fake
-			var ltime= ltime-5400000+370000;
-			// ms between onRequestStart and now()
 			var etime=ctime-ltime;
-			console.log('etime');
-			console.log(etime);
-			// session timeout is 90 minutes; convert to MS
 			var tms=5400000;
 			var tr=tms-etime;
-
-			console.log('tr');
-			console.log(tr);
-
 			var trm=Math.round(tr/60000);
-
-			console.log('trm');
-			console.log(trm);
 			var theClass='';
-
 			if(trm<=0){
 				trm='NOW!';
 				theClass='expSoon';
 			}
-
 			if (trm<=5){
 				theClass='expSoon';
 			}
-			console.log('trm');
-			console.log(trm);
-
 			$("#sessExpMin").html(trm).removeClass().addClass(theClass);
 		}
-
-
 		jQuery(document).ready(function(){
 	        jQuery("ul.sf-menu").supersubs({
 	            minWidth:    12,
@@ -72,21 +46,16 @@
 	    });
 	    window.setInterval(function(){
 			setMS();
-		}, 600);
-
+		}, 60000);
 	</script>
-
-
 	<style>
-		.expSoon{color:red;font-size:large;}
-
+		.expSoon{color:red;font-size:x-large;border:3px solid red;margin:.3em;padding:.3em;}
 		.collectionCell {vertical-align:text-bottom;padding:0px 0px 7px 0px;}
 		.headerImageCell {padding:.3em 1em .3em .3em;text-align:right;}
 		@media (max-width: 600px) {
 		  #headerLoginDiv{display:none;}
 		}
-
-.newsDefault{
+		.newsDefault{
 			background:#f9f7f7;
 			border:1px solid red;
 			width:250px;
