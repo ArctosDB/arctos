@@ -4,6 +4,9 @@
 	function setMS() {
 		console.log('hi');
 
+		var milliseconds = (new Date).getTime();
+		console.log(milliseconds);
+		$("#sexpin").val(milliseconds);
 		}
 </script>
 
@@ -19,9 +22,6 @@
 
 
 
-		var milliseconds = (new Date).getTime();
-		console.log(milliseconds);
-		$("#sexpin").val(milliseconds);
 
 
 
