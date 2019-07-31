@@ -172,7 +172,7 @@
 					<div id="header-login-cell">
 						<div id="header-login-inner">
 							<cfif len(session.username) gt 0>
-								<input type="text" id="slcd" value="#session.LastCheckinTime#">
+								<input type="hidden" id="slcd" value="#session.LastCheckinTime#">
 								<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
 									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)&nbsp;
