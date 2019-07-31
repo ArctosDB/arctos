@@ -13,6 +13,19 @@
 	</cfquery>
 
 	<script language="javascript" type="text/javascript">
+
+		function setMS() {
+			var ctime = (new Date).getTime();
+			var ltime=$("#slcd").val();
+			var etime=ctime-ltime;
+			// session timeout is 90 minutes; convert to MS
+			var tms=5400000;
+			var tr=tms-etime;
+			var trm=Math.round(tr/60000);
+			$("#sessExpMin").html(trm);
+		}
+
+
 		jQuery(document).ready(function(){
 	        jQuery("ul.sf-menu").supersubs({
 	            minWidth:    12,
@@ -28,6 +41,10 @@
 				$("#_footerTable").hide();
 			}
 	    });
+	    window.setInterval(function(){
+			setMS();
+		}, 60000);
+
 	</script>
 
 
@@ -155,6 +172,7 @@
 					<div id="header-login-cell">
 						<div id="header-login-inner">
 							<cfif len(session.username) gt 0>
+								<input type="text" id="slcd" value="#session.LastCheckinTime#">
 								<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
 									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)&nbsp;
