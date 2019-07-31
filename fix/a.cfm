@@ -4,10 +4,14 @@
 
 <cfset tracker = createObject("java","coldfusion.runtime.SessionTracker")>
 <cfset sessions = tracker.getSessionCollection(application.applicationName)>
-<cfscript>
+
 
 	<cfdump var=#tracker#>
 	<cfdump var=#sessions#>
+
+
+<cfscript>
+
 
 
 a = ArrayNew(1);
