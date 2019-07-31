@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="getSessionTimeout" returntype="string">
+<cffunction name="getSessionTimeout" returntype="string" access="remote">
 	<cfif isdefined("session.username") and len(#session.username#) gt 0>
 		<cfif isdefined("cookie.ArctosSession")>
 			<cfset thisTime = #dateconvert('local2Utc',now())#>
