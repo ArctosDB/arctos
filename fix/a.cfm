@@ -6,7 +6,6 @@
 	<cfset utcms=utcDate.getTime()>
 
 <!--- Output the millseconds since the epoch. --->
-<cfoutput>
 
 
     utcms: #utcms#<br />
