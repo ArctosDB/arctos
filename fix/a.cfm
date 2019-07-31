@@ -3,7 +3,16 @@
 <script>
 	function setMS() {
 		var ctime = (new Date).getTime();
+
+		console.log(ctime);
+
+
 		var ltime=$("#slcd").val();
+
+
+		console.log(ctime);
+
+
 		var etime=ctime-ltime;
 		console.log(ctime);
 		$("#sexpin").val(etime);
@@ -25,6 +34,7 @@
 
 
 
+<input type="text" id="slcd" value="#session.LastCheckinTime#">
 
 
 		 --->
@@ -32,9 +42,9 @@
 
     utcms: #utcms#<br />
 
+<input type="text" id="slcd" value="#utcms#">
 
 
-<input type="text" id="slcd" value="#session.LastCheckinTime#">
 
 <input type="text" id="sexpin" value="">
 
