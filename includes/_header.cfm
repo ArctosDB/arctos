@@ -44,6 +44,9 @@
 				theClass='expSoon';
 			}
 
+			if (trm<=5){
+				theClass='expSoon';
+			}
 			console.log('trm');
 			console.log(trm);
 
