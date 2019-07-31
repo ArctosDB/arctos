@@ -28,13 +28,14 @@
 
 		var tr=tms-etime;
 
-		console.log(tr);
+var trm=tr/60000;
+		console.log(trm);
 
 
 		//console.log(ctime);
 
 
-		$("#sexpin").val(tr);
+		$("#sexpin").val(trm);
 
 
 		}
