@@ -28,7 +28,7 @@
 
 		var tr=tms-etime;
 
-var trm=tr/60000;
+var trm=Math.round(tr/60000);
 		console.log(trm);
 
 
