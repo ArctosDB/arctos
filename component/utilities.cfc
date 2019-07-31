@@ -1,4 +1,42 @@
 <cfcomponent>
+<cffunction name="getSessionTimeout" returntype="string">
+	<cfif isdefined("session.username") and len(#session.username#) gt 0>
+		<cfif isdefined("cookie.ArctosSession")>
+			<cfset thisTime = #dateconvert('local2Utc',now())#>
+			<cfset cookieTime = #cookie.ArctosSession#>
+			<cfset cage = DateDiff("n",cookieTime, thisTime)>
+			<cfset tleft = Application.session_timeout - cage>
+		<cfelse>
+			<!--- log them out immediately --->
+			<cfcookie name="ArctosSession" value="-" expires="NOW" domain="#Application.domain#" path="/">
+			<cfset tleft=0>
+		</cfif>
+
+		<cfif tleft lt 5>
+			<cfset err = "Your Arctos session is expiring soon.\n
+				You will lose all unsaved data in #tleft# minutes.\n
+				Save changes immediately to avoid data loss.">
+			<script>
+				alert('#err#');
+			</script>
+		<cfelse>
+			<cfset err = "test;;Your Arctos session is expiring soon.\n
+				You will lose all unsaved data in #tleft# minutes.\n
+				Save changes immediately to avoid data loss.">
+			<script>
+				alert('#err#');
+			</script>
+
+		</cfif>
+
+		<cfreturn tleft>
+	<cfelse>
+		<!--- nobody logged in here - no reason to expire anything --->
+		<cfreturn "">
+	</cfif>
+</cffunction>
+
+
 <cffunction name="getAggregatorLinks" output="true" returnType="any" access="remote">
 	<cfargument name="guid" required="yes"><!--- DWC triplet --->
 	<cfargument name="globi" required="no"><!--- list of id_references --->
