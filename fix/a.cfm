@@ -1,30 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
+<cfoutput>
+<input type="text" id="slcd" value="#session.LastCheckinTime#">
 
+<input type="text" id="sexpin" value="">
 
+</cfoutput>
 
-<cfset tracker = createObject("java","coldfusion.runtime.SessionTracker")>
-<cfset sessions = tracker.getSessionCollection(application.applicationName)>
-
-
-	<cfdump var=#tracker#>
-	<cfdump var=#sessions#>
-
-
-<cfscript>
-
-
-
-a = ArrayNew(1);
-sessionClass = a.getClass.forName("coldfusion.runtime.SessionScope");
-getTimeSinceLastAccessMethod = sessionClass.getMethod("getTimeSinceLastAcccess",a);
-</cfscript>
-<cfloop item="s" collection="#sessions#">
-    <cfoutput>#s# - #getTimeSinceLastAccessMethod(sessions[s],a)#<br></cfoutput>
-</cfloop>
-
-
-
-
+<cfabort>
 
 
 
