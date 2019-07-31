@@ -1,5 +1,18 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+
+	<cfset localDate = now() />
+	<cfset utcDate = dateConvert( "local2utc", localDate ) />
+	<cfset utcms=utcDate.getTime()>
+
+<!--- Output the millseconds since the epoch. --->
+<cfoutput>
+
+
+    utcms: #utcms#<br />
+
+
+
 <input type="text" id="slcd" value="#session.LastCheckinTime#">
 
 <input type="text" id="sexpin" value="">
