@@ -17,6 +17,7 @@
 		function setMS() {
 			var ctime = (new Date).getTime();
 			var ltime=$("#slcd").val();
+			var ltime=5400000;
 			var etime=ctime-ltime;
 			// session timeout is 90 minutes; convert to MS
 			var tms=5400000;
