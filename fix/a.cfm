@@ -12,20 +12,29 @@
 	function setMS() {
 		var ctime = (new Date).getTime();
 
-		console.log(ctime);
+		//console.log(ctime);
 
 
 		var ltime=$("#slcd").val();
 
 
-		console.log(ctime);
+		//console.log(ctime);
 
 
 		var etime=ctime-ltime;
-		console.log(ctime);
+
+		// session timeout is 90 minutes; convert to MS
+		var tms=5400000;
+
+		var tr=tms-etime;
+
+		console.log(tr);
 
 
-		$("#sexpin").val(msToTime(etime));
+		//console.log(ctime);
+
+
+		$("#sexpin").val(tr);
 
 
 		}
