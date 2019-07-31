@@ -18,6 +18,16 @@
 
 </cfoutput>
 
+
+<script>
+	function setMS(){
+var milliseconds = (new Date).getTime();
+$("#sexpin").val(milliseconds);
+		}
+</script>
+
+
+<span onlick="setMS()">setMS</span>
 <cfabort>
 
 
