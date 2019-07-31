@@ -1,12 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 
 <script>
-	function setMS(){
+	function setMS() {
 		console.log('hi');
 
-		var milliseconds = (new Date).getTime();
-		console.log(milliseconds);
-		$("#sexpin").val(milliseconds);
 		}
 </script>
 
@@ -18,7 +15,17 @@
 	<cfset utcDate = dateConvert( "local2utc", localDate ) />
 	<cfset utcms=utcDate.getTime()>
 
-<!--- Output the millseconds since the epoch. --->
+<!--- Output the millseconds since the epoch.
+
+
+
+		var milliseconds = (new Date).getTime();
+		console.log(milliseconds);
+		$("#sexpin").val(milliseconds);
+
+
+
+		 --->
 
 
     utcms: #utcms#<br />
