@@ -4,7 +4,7 @@
 
 	function postSessTime(d){
 		if(typeof d != 'undefined'){
-			// save to a local cache
+			// save to a local cache; hidden element seems most performant
 			$("#slcd").val(d);
 		}
 		try {
