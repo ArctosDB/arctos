@@ -56,11 +56,6 @@ $(document).ready(function() {
 			    console.log("Received message: %o", e.data);
 			    postSessTime(e.data);
 			};
-			channel.onmessage = function (ev) {
-				console.log('onmessage');
-				console.log(ev);
-				postSessTime(ev);
-			}
 
 	    } catch(err) {
 	        console.log('FAIL creating a channel');
@@ -107,11 +102,11 @@ ima page
 </cfoutput>
 
 
+<span class="likeLink" onclick="postSessTime()">postSessTime</span>
 
 
 <cfabort>
 
-<span class="likeLink" onclick="setMS()">setMS</span>
 
 
 <cfoutput>
