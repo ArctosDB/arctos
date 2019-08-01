@@ -5,9 +5,12 @@
 	function postSessTime(d){
 
 		console.log('ima postSessTime');
-		console.log(d);
-		console.log('here it is: '+d);
-
+		if(typeof d != 'undefined'){
+			console.log(d);
+			console.log('here it is: '+d);
+			} else {
+				console.log('we did not get d passed in');
+			}
 		 try {
 
 		 		var ctime = (new Date).getTime();
