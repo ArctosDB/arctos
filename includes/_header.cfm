@@ -157,7 +157,7 @@
 								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
 									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)&nbsp;
 										<cfif isdefined("session.roles") and listfind(session.roles,'COLDFUSION_USER')>
-											<input type="text" id="slcd"><span id="sessExpMin"></span>
+											<input type="hidden" id="slcd"><span id="sessExpMin"></span>
 										</cfif>
 									</span>
 								</cfif>
