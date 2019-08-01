@@ -3,7 +3,7 @@
 
 
 	function postSessTime(d){
-		if (!($("#slcd").length || $("#sessExpMin").length)) {
+		if (!($("#slcd").length && $("#sessExpMin").length)) {
 			// don't have what we need
 			return false;
 		}
