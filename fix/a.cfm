@@ -3,68 +3,50 @@
 
 
 	function postSessTime(d){
-
-		console.log('ima postSessTime');
 		if(typeof d != 'undefined'){
-			console.log(d);
-			console.log('here it is: '+d);
 			// save to a local cache
 			$("#slcd").val(d);
-			} else {
-				console.log('we did not get d passed in');
-			}
-		 try {
-
-		 		var ctime = (new Date).getTime();
-				var ltime=$("#slcd").val();
-				var etime=ctime-ltime;
-				var tms=5400000;
-				var tr=tms-etime;
-				//var trm=Math.round(tr/60000);
-				var trm=tr/60000;
-				var theClass;
-				if (trm<=5){
-					theClass='expSoon';
-				}
-				if(trm<=0){
-					trm='NOW!';
-				}
-				var snTxt='Session expires in ' + trm + ' minutes.';
-				$("#sessExpMin").html(snTxt).removeClass().addClass(theClass);
-
-		 	 } catch(err) {
-		        // failed in posting session data, whatever
-		         console.log('FAIL posting session data');
-		         console.log(err);
-		    }
-
-
 		}
+		try {
+			var ctime = (new Date).getTime();
+			var ltime=$("#slcd").val();
+			var etime=ctime-ltime;
+			var tms=5400000;
+			var tr=tms-etime;
+			//var trm=Math.round(tr/60000);
+			var trm=tr/60000;
+			var theClass;
+			if (trm<=5){
+				theClass='expSoon';
+			}
+			if(trm<=0){
+				trm='NOW!';
+			}
+			var snTxt='Session expires in ' + trm + ' minutes.';
+			$("#sessExpMin").html(snTxt).removeClass().addClass(theClass);
+	 	 } catch(err) {
+	        // failed in posting session data, whatever
+	         console.log('FAIL posting session data');
+	         console.log(err);
+	    }
+	}
 
 
 $(document).ready(function() {
 
-
     if (("BroadcastChannel" in self)) {
         // have browser support
-        console.log('have browser support');
          try {
-	        const channel = new BroadcastChannel("feature_test");
-	        console.log('success creating a channel');
-	       // channel.close();
-	        //return true;
-
+	        const stchannel = new BroadcastChannel("session_time");
 	        var ctime = (new Date).getTime();
-
-	        channel.postMessage(ctime);
-	        channel.onmessage = function(e) {
-			    console.log("Received message: %o", e.data);
+	        stchannel.postMessage(ctime);
+	        stchannel.onmessage = function(e) {
 			    postSessTime(e.data);
 			};
 			// local pages don't listen to broadcasts from themselves, so fire things off
 			postSessTime(ctime);
-
 	    } catch(err) {
+	        // whatever
 	        console.log('FAIL creating a channel');
 	    }
     }
