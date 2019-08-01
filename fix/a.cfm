@@ -16,6 +16,7 @@
 				var tms=5400000;
 				var tr=tms-etime;
 				var trm=Math.round(tr/60000);
+				var theClass;
 				if (trm<=5){
 					theClass='expSoon';
 				}
@@ -73,7 +74,7 @@ $(document).ready(function() {
 
 ima page
 
-<input id="sessExpMin">
+<span id="sessExpMin"></span>
 <!----
 	<cfset localDate = now() />
 	<cfset utcDate = dateConvert( "local2utc", localDate ) />
