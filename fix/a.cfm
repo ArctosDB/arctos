@@ -4,9 +4,17 @@
 
 	function postSessTime(d){
 
-	console.log('ima postSessTime');
-	console.log(d);
-	console.log('here it is: '+d);
+		console.log('ima postSessTime');
+		console.log(d);
+		console.log('here it is: '+d);
+
+		 try {
+		 	 } catch(err) {
+		        // failed in posting session data, whatever
+		         console.log('FAIL posting session data');
+		    }
+
+
 		}
 
 
