@@ -61,6 +61,8 @@ $(document).ready(function() {
 			    console.log("Received message: %o", e.data);
 			    postSessTime(e.data);
 			};
+			// local pages don't listen to broadcasts from themselves, so fire things off
+			postSessTime(ctime);
 
 	    } catch(err) {
 	        console.log('FAIL creating a channel');
