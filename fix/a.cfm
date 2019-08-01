@@ -3,15 +3,16 @@
 
 
 	function postSessTime(d){
+		if (!($("#slcd").length || $("#sessExpMin").length)) {
+			// don't have what we need
+			return false;
+		}
 		if(typeof d != 'undefined'){
 			// save to a local cache; hidden element seems most performant
 			$("#slcd").val(d);
 		}
 		try {
-			if (!$("#slcd").length) {
-				// don't have what we need
-				return false;
-			}
+
 			var ctime = (new Date).getTime();
 			var ltime=$("#slcd").val();
 			var etime=ctime-ltime;
