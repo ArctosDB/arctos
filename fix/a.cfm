@@ -22,12 +22,13 @@
 				if(trm<=0){
 					trm='NOW!';
 				}
-				var snTxt='Session expires in ' + trm + ' minutes.'
-				$("#sessExpMin").html(trm).removeClass().addClass(theClass);
+				var snTxt='Session expires in ' + trm + ' minutes.';
+				$("#sessExpMin").html(snTxt).removeClass().addClass(theClass);
 
 		 	 } catch(err) {
 		        // failed in posting session data, whatever
 		         console.log('FAIL posting session data');
+		         console.log(err);
 		    }
 
 
