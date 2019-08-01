@@ -1,6 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
 <script>
+
+
+	function postSessTime(d){
+
+	console.log('ima postSessTime');
+	console.log(d);
+	console.log('here it is: '+d);
+		}
+
+
 $(document).ready(function() {
+
 
     if (("BroadcastChannel" in self)) {
         // have browser support
@@ -16,6 +27,7 @@ $(document).ready(function() {
 	        channel.postMessage(ctime);
 	        channel.onmessage = function(e) {
 			    console.log("Received message: %o", e.data);
+			    postSessTime(e.data);
 			};
 
 	    } catch(err) {
