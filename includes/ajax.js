@@ -1,6 +1,13 @@
 $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
 
 $(document).ready(function() {
+	// broadcast current time, which ~is session start time
+	var ctime = (new Date).getTime();
+	cnl_sndt.postMessage(ctime);
+	// call the function to update the current page
+	upSessTime(ctime);
+	// catch the broadcast for other pages
+	cnl_sndt.onmessage = function (ev) { upSessTime(ev); }
 	$(".helpLink").live('click', function(e){
 		// new and snazzy: use the data-helplink attribute to find help
 		// avoid all problems with unique ID
@@ -58,7 +65,11 @@ $(document).ready(function() {
 	$("input[type='date'], input[type='datetime']" ).datepicker();
 });
 
-
+function upSessTime(t){
+	//update session time
+	console.log('upSessTime');
+	console.log(t);
+}
 
 function createAgent(type,caller,agentIdFld,agentNameFld){
 	if (!caller){
