@@ -1584,7 +1584,20 @@
 	</cfoutput>
 	<cfreturn>
 </cffunction>
+<!------------------>
 
+<cffunction name="mdflip" output="false" returnType="string" access="private">
+    <!--- translate mobile URLs to desktop and vice-versa --->
+    <cfargument name="q" type="string" required="true" />
+	<cfif q contains Application.mobileURL>
+	   <cfset r=replace(q,Application.mobileURL,'/')>
+	<cfelse>
+	   <cfset r=Application.mobileURL & "/" & q>
+	</cfif>
+    <cfset r=replace(r,'//','/','all')>
+    <cfset r=replace(r,'//','/','all')>
+	<cfreturn r>
+</cffunction>
 
 <!------------------>
 
@@ -2165,18 +2178,6 @@
 
 
 <!----------------------->
-<cffunction name="mdflip" output="false" returnType="string" access="remote">
-    <!--- translate mobile URLs to desktop and vice-versa --->
-    <cfargument name="q" type="string" required="true" />
-	<cfif q contains Application.mobileURL>
-	   <cfset r=replace(q,Application.mobileURL,'/')>
-	<cfelse>
-	   <cfset r=Application.mobileURL & "/" & q>
-	</cfif>
-    <cfset r=replace(r,'//','/','all')>
-    <cfset r=replace(r,'//','/','all')>
-	<cfreturn r>
-</cffunction>
 
 
 
