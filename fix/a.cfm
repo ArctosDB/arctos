@@ -1,59 +1,25 @@
 <cfinclude template="/includes/_header.cfm">
 
 <script>
+$(document).ready(function() {
 
+    if (("BroadcastChannel" in self)) {
+        // have browser support
+        console.log('have browser support');
+         try {
+	        const channel = new BroadcastChannel("feature_test");
+	        console.log('success creating a channel');
+	       // channel.close();
+	        //return true;
+	    } catch(err) {
+	        console.log('FAIL creating a channel');
+	    }
+    }
 
-	window.setInterval(function(){
-  setMS();
-}, 1000);
+    // When running in a sandboxed iframe, the BroadcastChannel API
+    // is not actually available and throws an exception
 
-
-
-	function setMS() {
-		var ctime = (new Date).getTime();
-
-		//console.log(ctime);
-
-
-		var ltime=$("#slcd").val();
-
-
-		//console.log(ctime);
-
-
-		var etime=ctime-ltime;
-
-		// session timeout is 90 minutes; convert to MS
-		var tms=5400000;
-
-		var tr=tms-etime;
-
-var trm=Math.round(tr/60000);
-		console.log(trm);
-
-
-		//console.log(ctime);
-
-
-		$("#sexpin").val(trm);
-
-
-		}
-
-
-		function msToTime(duration) {
-  var milliseconds = parseInt((duration % 1000) / 100),
-    seconds = Math.floor((duration / 1000) % 60),
-    minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-  hours = (hours < 10) ? "0" + hours : hours;
-  minutes = (minutes < 10) ? "0" + minutes : minutes;
-  seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-  return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
-}
-
+	});
 
 </script>
 
@@ -61,6 +27,8 @@ var trm=Math.round(tr/60000);
 
 <cfoutput>
 
+ima page
+<!----
 	<cfset localDate = now() />
 	<cfset utcDate = dateConvert( "local2utc", localDate ) />
 	<cfset utcms=utcDate.getTime()>
@@ -82,15 +50,15 @@ var trm=Math.round(tr/60000);
 
 
 <input type="text" id="sexpin" value="">
-
+---->
 </cfoutput>
 
 
 
 
-<span class="likeLink" onclick="setMS()">setMS</span>
 <cfabort>
 
+<span class="likeLink" onclick="setMS()">setMS</span>
 
 
 <cfoutput>
