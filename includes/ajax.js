@@ -79,6 +79,10 @@ function postSessTime(d){
 			// don't have what we need
 			return false;
 		}
+		if(!($.browser.mozilla)) {
+			// chrome and especially safari do evil things; FF is "official Arctos browser" - so...
+			return false;			
+		}
 		if(typeof d != 'undefined'){
 			// save to a local cache; hidden element seems most performant
 			$("#slcd").val(d);
