@@ -8,13 +8,15 @@
 		if(typeof d != 'undefined'){
 			console.log(d);
 			console.log('here it is: '+d);
+			// save to a local cache
+			$("#slcd").val(d);
 			} else {
 				console.log('we did not get d passed in');
 			}
 		 try {
 
 		 		var ctime = (new Date).getTime();
-				var ltime=d;
+				var ltime=$("#slcd").val();
 				var etime=ctime-ltime;
 				var tms=5400000;
 				var tr=tms-etime;
@@ -77,6 +79,9 @@ $(document).ready(function() {
 <cfoutput>
 
 ima page
+
+
+<input type="text" id="slcd" >
 
 <span id="sessExpMin"></span>
 <!----
