@@ -69,6 +69,10 @@ $(document).ready(function() {
 	    }
     }
 
+	  window.setInterval(function(){
+			postSessTime();
+		}, 60000);
+
     // When running in a sandboxed iframe, the BroadcastChannel API
     // is not actually available and throws an exception
 
