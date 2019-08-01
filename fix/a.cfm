@@ -56,6 +56,11 @@ $(document).ready(function() {
 			    console.log("Received message: %o", e.data);
 			    postSessTime(e.data);
 			};
+			channel.onmessage = function (ev) {
+				console.log('onmessage');
+				console.log(ev);
+				postSessTime(ev);
+			}
 
 	    } catch(err) {
 	        console.log('FAIL creating a channel');
