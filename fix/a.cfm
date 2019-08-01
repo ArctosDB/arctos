@@ -9,6 +9,22 @@
 		console.log('here it is: '+d);
 
 		 try {
+
+		 		var ctime = (new Date).getTime();
+				var ltime=d;
+				var etime=ctime-ltime;
+				var tms=5400000;
+				var tr=tms-etime;
+				var trm=Math.round(tr/60000);
+				if (trm<=5){
+					theClass='expSoon';
+				}
+				if(trm<=0){
+					trm='NOW!';
+				}
+				var snTxt='Session expires in ' + trm + ' minutes.'
+				$("#sessExpMin").html(trm).removeClass().addClass(theClass);
+
 		 	 } catch(err) {
 		        // failed in posting session data, whatever
 		         console.log('FAIL posting session data');
@@ -55,6 +71,8 @@ $(document).ready(function() {
 <cfoutput>
 
 ima page
+
+<input id="sessExpMin">
 <!----
 	<cfset localDate = now() />
 	<cfset utcDate = dateConvert( "local2utc", localDate ) />

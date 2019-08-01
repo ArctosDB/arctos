@@ -53,7 +53,6 @@
 		*/
 	</script>
 	<style>
-		.expSoon{color:red;font-size:x-large;border:3px solid red;margin:.3em;padding:.3em;}
 		.collectionCell {vertical-align:text-bottom;padding:0px 0px 7px 0px;}
 		.headerImageCell {padding:.3em 1em .3em .3em;text-align:right;}
 		@media (max-width: 600px) {

@@ -56,6 +56,10 @@
 
 
 
+/* style session timer when expiration is imminent */
+
+.expSoon{color:red;font-size:x-large;border:3px solid red;margin:.3em;padding:.3em;}
+
 
 /*
 	BEGIN media include widget
