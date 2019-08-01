@@ -746,10 +746,7 @@
 
 <cffunction name="georeferenceAddress" returnType="string" access="remote">
 	<cfargument name="address" type="string" required="yes">
-	 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
-      <cfthrow message="unauthorized">
-    </cfif>
+	 <!---- this has to be called remotely by a function, which does not pass on credentials==public--->
 	<cfset obj = CreateObject("component","component.functions")>
 	<cfset coords="">
 	<cfset mAddress=address>
