@@ -8,6 +8,10 @@
 			$("#slcd").val(d);
 		}
 		try {
+			if (!$("#slcd").length) {
+				// don't have what we need
+				return false;
+			}
 			var ctime = (new Date).getTime();
 			var ltime=$("#slcd").val();
 			var etime=ctime-ltime;
