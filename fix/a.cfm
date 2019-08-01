@@ -15,7 +15,8 @@
 				var etime=ctime-ltime;
 				var tms=5400000;
 				var tr=tms-etime;
-				var trm=Math.round(tr/60000);
+				//var trm=Math.round(tr/60000);
+				var trm=tr/60000;
 				var theClass;
 				if (trm<=5){
 					theClass='expSoon';
