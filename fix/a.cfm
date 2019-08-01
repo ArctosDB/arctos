@@ -3,16 +3,15 @@
 
 
 	function postSessTime(d){
-		if (!($("#slcd").length && $("#sessExpMin").length)) {
-			// don't have what we need
-			return false;
-		}
-		if(typeof d != 'undefined'){
-			// save to a local cache; hidden element seems most performant
-			$("#slcd").val(d);
-		}
 		try {
-
+			if (!($("#slcd").length && $("#sessExpMin").length)) {
+				// don't have what we need
+				return false;
+			}
+			if(typeof d != 'undefined'){
+				// save to a local cache; hidden element seems most performant
+				$("#slcd").val(d);
+			}
 			var ctime = (new Date).getTime();
 			var ltime=$("#slcd").val();
 			var etime=ctime-ltime;
@@ -75,7 +74,7 @@ ima page
 
 <!----
 ---->
-<input type="text" id="slcd" >
+<input type="text" id="slcd">
 <span id="sessExpMin"></span>
 <!----
 	<cfset localDate = now() />

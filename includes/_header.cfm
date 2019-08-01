@@ -11,25 +11,6 @@
 		select announcement_text from cf_global_settings where  announcement_expires>=trunc(sysdate)
 	</cfquery>
 	<script language="javascript" type="text/javascript">
-		  /*
-		function setMS() {
-			var ctime = (new Date).getTime();
-			var ltime=$("#slcd").val();
-			var etime=ctime-ltime;
-			var tms=5400000;
-			var tr=tms-etime;
-			var trm=Math.round(tr/60000);
-			var theClass='';
-			if(trm<=0){
-				trm='NOW!';
-				theClass='expSoon';
-			}
-			if (trm<=5){
-				theClass='expSoon';
-			}
-			$("#sessExpMin").html(trm).removeClass().addClass(theClass);
-		}
-		*/
 		jQuery(document).ready(function(){
 	        jQuery("ul.sf-menu").supersubs({
 	            minWidth:    12,
@@ -44,13 +25,7 @@
 				$("#header_color").hide();
 				$("#_footerTable").hide();
 			}
-			//setMS();
 	    });
-	    /*
-	    window.setInterval(function(){
-			setMS();
-		}, 60000);
-		*/
 	</script>
 	<style>
 		.collectionCell {vertical-align:text-bottom;padding:0px 0px 7px 0px;}
@@ -181,11 +156,9 @@
 								<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
 									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)&nbsp;
-									<!----
-									<cfif isdefined("session.roles") and listfind(session.roles,'COLDFUSION_USER')>
-										Session Expires: <span id="sessExpMin">?</span> minutes&nbsp;<a  class="helpLink" id="_sessiontime">[ info ]</a>
-									</cfif>
-									---->
+										<cfif isdefined("session.roles") and listfind(session.roles,'COLDFUSION_USER')>
+											<input type="text" id="slcd"><span id="sessExpMin"></span>
+										</cfif>
 									</span>
 								</cfif>
 								<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>

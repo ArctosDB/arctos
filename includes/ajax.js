@@ -1,7 +1,19 @@
 $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd',changeMonth: true, changeYear: true, constrainInput: false });
 
 $(document).ready(function() {
-
+	if (("BroadcastChannel" in self)) {
+         try {
+	        const stchannel = new BroadcastChannel("session_time");
+	        var ctime = (new Date).getTime();
+	        stchannel.postMessage(ctime);
+	        stchannel.onmessage = function(e) {
+			    postSessTime(e.data);
+			};
+			postSessTime(ctime);
+	    } catch(err) {
+	        // whatever
+	    }
+    }
 	$(".helpLink").live('click', function(e){
 		// new and snazzy: use the data-helplink attribute to find help
 		// avoid all problems with unique ID
@@ -57,12 +69,38 @@ $(document).ready(function() {
 		}
 	}
 	$("input[type='date'], input[type='datetime']" ).datepicker();
+	window.setInterval(function(){
+		postSessTime();
+	}, 60000);
 });
-
-function upSessTime(t){
-	//update session time
-	console.log('upSessTime');
-	console.log(t);
+function postSessTime(d){
+	try {
+		if (!($("#slcd").length && $("#sessExpMin").length)) {
+			// don't have what we need
+			return false;
+		}
+		if(typeof d != 'undefined'){
+			// save to a local cache; hidden element seems most performant
+			$("#slcd").val(d);
+		}
+		var ctime = (new Date).getTime();
+		var ltime=$("#slcd").val();
+		var etime=ctime-ltime;
+		var tms=5400000;
+		var tr=tms-etime;
+		var trm=Math.round(tr/60000);
+		var theClass;
+		if (trm<=5){
+			theClass='expSoon';
+		}
+		if(trm<=0){
+			trm='NOW!';
+		}
+		var snTxt='Session expires in ' + trm + ' minutes.';
+		$("#sessExpMin").html(snTxt).removeClass().addClass(theClass);
+ 	 } catch(err) {
+        // failed in posting session data, whatever
+    }
 }
 
 function createAgent(type,caller,agentIdFld,agentNameFld){
