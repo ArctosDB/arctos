@@ -58,6 +58,9 @@
 </cfif>
 <!------------------------------------------------------------>
 <CFIF action is "signIn">
+	<script>
+		const cnl_sndt = new BroadcastChannel('session_date');
+	</script>
 	<cfoutput>
 		<cfset initSession('#username#','#password#')>
 		<cfif len(session.username) is 0>
