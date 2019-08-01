@@ -10,6 +10,10 @@ $(document).ready(function() {
 	        console.log('success creating a channel');
 	       // channel.close();
 	        //return true;
+
+	        var ctime = (new Date).getTime();
+
+	        channel.postMessage(ctime);
 	    } catch(err) {
 	        console.log('FAIL creating a channel');
 	    }
