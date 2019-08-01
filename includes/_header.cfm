@@ -44,7 +44,7 @@
 				$("#header_color").hide();
 				$("#_footerTable").hide();
 			}
-			setMS();
+			//setMS();
 	    });
 	    /*
 	    window.setInterval(function(){
