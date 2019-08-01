@@ -4,6 +4,9 @@
 </cfif>
 <!------------------------------------------------------------>
 <cfif action is "signOut">
+	<script>
+		cnl_sndt.close();
+	</script>
 	<cfset initSession()>
 	<cflocation url="/login.cfm" addtoken="false">
 </cfif>
