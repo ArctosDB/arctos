@@ -68,9 +68,9 @@ $(document).ready(function() {
 
 ima page
 
-
+<!----
 <input type="text" id="slcd" >
-
+---->
 <span id="sessExpMin"></span>
 <!----
 	<cfset localDate = now() />
