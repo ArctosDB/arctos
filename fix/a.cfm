@@ -14,6 +14,10 @@ $(document).ready(function() {
 	        var ctime = (new Date).getTime();
 
 	        channel.postMessage(ctime);
+	        channel.onmessage = function(e) {
+			    console.log("Received message: %o", e.data);
+			};
+
 	    } catch(err) {
 	        console.log('FAIL creating a channel');
 	    }
