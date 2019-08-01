@@ -11,6 +11,7 @@
 		select announcement_text from cf_global_settings where  announcement_expires>=trunc(sysdate)
 	</cfquery>
 	<script language="javascript" type="text/javascript">
+		  /*
 		function setMS() {
 			var ctime = (new Date).getTime();
 			var ltime=$("#slcd").val();
@@ -28,6 +29,7 @@
 			}
 			$("#sessExpMin").html(trm).removeClass().addClass(theClass);
 		}
+		*/
 		jQuery(document).ready(function(){
 	        jQuery("ul.sf-menu").supersubs({
 	            minWidth:    12,
@@ -44,9 +46,11 @@
 			}
 			setMS();
 	    });
+	    /*
 	    window.setInterval(function(){
 			setMS();
 		}, 60000);
+		*/
 	</script>
 	<style>
 		.expSoon{color:red;font-size:x-large;border:3px solid red;margin:.3em;padding:.3em;}
@@ -176,9 +180,11 @@
 								<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 								<cfif isdefined("session.last_login") and len(session.last_login) gt 0>
 									<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "yyyy-mm-dd")#)&nbsp;
+									<!----
 									<cfif isdefined("session.roles") and listfind(session.roles,'COLDFUSION_USER')>
 										Session Expires: <span id="sessExpMin">?</span> minutes&nbsp;<a  class="helpLink" id="_sessiontime">[ info ]</a>
 									</cfif>
+									---->
 									</span>
 								</cfif>
 								<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
