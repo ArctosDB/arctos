@@ -1,6 +1,4 @@
-<!----
 <cfinclude template="/includes/_header.cfm">
----->
 <script>
 $(document).ready(function() {
 
