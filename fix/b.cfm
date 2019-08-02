@@ -1,6 +1,5 @@
-
 	<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select * from locality where locality_remarks like '%{"UTM":"%';
+		select * from locality where locality_remarks like '%{"UTM":"%'
 	</cfquery>
 
 	<cfdump var=#one#>
