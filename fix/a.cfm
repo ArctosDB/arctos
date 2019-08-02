@@ -6,10 +6,12 @@
 		try {
 			if (!($("#slcd").length && $("#sessExpMin").length)) {
 				// don't have what we need
+				console.log('fail at element check');
 				return false;
 			}
 			if(typeof d != 'undefined'){
 				// save to a local cache; hidden element seems most performant
+				console.log('got/setting d: '+d);
 				$("#slcd").val(d);
 			}
 			var ctime = (new Date).getTime();
