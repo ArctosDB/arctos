@@ -5,6 +5,7 @@
 
 
 <cfoutput>
+	<cfset csv="northing, easting, zone">
 <cfloop query="one">
 	<br>#locality_remarks#
 	<cfset lremk=mid(locality_remarks,find('{',locality_remarks,1),find('}',locality_remarks,1))>
@@ -20,11 +21,11 @@
 	<cfset z=listgetat(u,4," ")>
 	<br>z:#z#
 
-936948N 171084E ZONE 18
+	<cfset csv=csv & chr(10) & "#n#,#e#,#z#">
 
 
 </cfloop>
-
+<textarea>#csv#</textarea>
 
 
 </cfoutput>
