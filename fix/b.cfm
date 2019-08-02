@@ -9,6 +9,10 @@
 	<br>#locality_remarks#
 	<cfset lremk=mid(locality_remarks,find('{',locality_remarks,1),find('}',locality_remarks,1))>
 	<br>lremk:#lremk#
+	<cfset j=SerializeJSON(lremk)>
+	<cfdump var=#j#>
+	<cfset u=j.UTM>
+	<cfdump var=#u#>
 
 </cfloop>
 
