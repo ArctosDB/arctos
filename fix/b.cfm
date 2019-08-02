@@ -13,6 +13,16 @@
 	<cfdump var=#j#>
 	<cfset u=j.UTM>
 	<cfdump var=#u#>
+	<cfset n=replace(listgetat(u,1," "),'N','')>
+	<br>n:#n#
+	<cfset e=replace(listgetat(u,2," "),'E','')>
+	<br>e:#e#
+	<cfset z=listgetat(u,4," ")>
+	<br>z:#z#
+
+936948N 171084E ZONE 18
+
+
 </cfloop>
 
 
