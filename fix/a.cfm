@@ -39,7 +39,7 @@
 
 
 $(document).ready(function() {
-
+	console.log('init');
     if (("BroadcastChannel" in self)) {
         // have browser support
          try {
