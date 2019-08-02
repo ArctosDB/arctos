@@ -3,30 +3,19 @@
 <script language="JavaScript" src="/includes/wellknown.js" type="text/javascript"></script>
 
 	<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-		select wkt_polygon from geog_auth_rec where geog_auth_rec_id=1001663
+		select * from locality where locality_remarks like '%{"UTM":"%';
 	</cfquery>
+
 	<cfdump var=#one#>
 
-	<script>
 
-		function encthis(){
-			var w=$("#wkt").val();
-			var x=parse(w);
-			console.log(x);
-			console.log('coords: ' + x.coordinates);
-			console.log(x.coordinates[0]);
-
-
-			var pl=polyline.encode(x.coordinates[0]);
-			console.log(pl);
-		}
-
-
-	</script>
 <cfoutput>
+<cfloop query="one">
+	<br>#locality_remarks#
+	<cfset lremk=mid(locality_remarks,find(locality_remarks,'{',1),find(locality_remarks,'{',find(locality_remarks,'{',1)+1)>
+	<br>lremk:#lremk#
 
-<span class="likeLink" onclick="encthis()">encthis</span>
-<input type="text" id="wkt" value="#one.wkt_polygon#">
+</cfloop>
 
 
 
