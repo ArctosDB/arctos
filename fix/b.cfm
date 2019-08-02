@@ -5,7 +5,12 @@
 
 
 <cfoutput>
+	<!-- first run -->
 	<cfset csv="locality_id,northing, easting, zone">
+	<!-- second run -->
+
+		<cfset csv="northing, easting, zone">
+
 <cfloop query="one">
 	<hr>#locality_remarks#
 	<cftry>
@@ -19,7 +24,10 @@
 	<br>e:#e#
 	<cfset z=listgetat(u,4," ")>
 	<br>z:#z#
+	<!---- first run
 	<cfset csv=csv & chr(10) & "#locality_id#,#n#,#e#,#z#">
+	--->
+	<cfset csv=csv & chr(10) & "#n#,#e#,#z#">
 	<cfcatch><p>----------------------------------------------------------------------FAIL-----------------------------------------------------------</p></cfcatch>
 </cftry>
 
