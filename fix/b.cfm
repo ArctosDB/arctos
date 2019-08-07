@@ -5,10 +5,12 @@ alter table temp_g_m add stuff varchar2(255);
 	<cfquery name="one" datasource="uam_god" >
 		select * from temp_g_m where stuff is null and rownum<1
 	</cfquery>
+	<cfdump var=#one#>
 	<cfloop query="one">
 			<cfquery name="m" datasource="uam_god" >
 				select media_uri from media where media_id=#WKT_MEDIA_ID#
 			</cfquery>
+	<cfdump var=#m#>
 			<cfhttp method="get" url="#m.media_uri#"></cfhttp>
 			<cfdump var=#cfhttp#>
 
