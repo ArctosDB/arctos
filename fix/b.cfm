@@ -13,6 +13,15 @@ alter table temp_g_m add stuff varchar2(255);
 	<cfdump var=#m#>
 			<cfhttp method="get" url="#m.media_uri#"></cfhttp>
 			<cfdump var=#cfhttp#>
+			<cfif cfhttp.filecontent contains 'MEDIA::'>
+					<cfquery name="u" datasource="uam_god" >
+						update temp_g_m set stuff='#cfhttp.filecontent#' where media_id=#WKT_MEDIA_ID#
+					</cfquery>
+			<cfelse>
+				<cfquery name="u" datasource="uam_god" >
+						update temp_g_m set stuff='spiffy' where media_id=#WKT_MEDIA_ID#
+					</cfquery>
+			</cfif>
 
 	</cfloop>
 
