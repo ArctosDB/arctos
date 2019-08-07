@@ -104,6 +104,9 @@ CTSPEC_PART_ATT_ATT
 <p>
 	<a href="/Admin/CodeTableEditor.cfm">Back to table list</a>
 </p>
+<cfif isdefined("tbl") and len(tbl) gt 0>
+	<a href="/info/ctchange_log.cfm?tbl=#tbl#">changelog</a>
+</cfif>
 <cfif action is "edit">
 
 	<cfif tbl is "CTGEOLOGY_ATTRIBUTE">
