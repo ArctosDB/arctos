@@ -521,6 +521,9 @@ CTSPEC_PART_ATT_ATT
 
 
 <cfif action is "editPartAttAtt">
+	<p>
+		<a href="/info/ctchange_log.cfm?tbl=ctspecpart_attribute_type">changelog</a>
+	</p>
 	<cfset title="part attribute controls">
 	<cfoutput>
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
