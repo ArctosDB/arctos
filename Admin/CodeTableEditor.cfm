@@ -522,7 +522,7 @@ CTSPEC_PART_ATT_ATT
 
 <cfif action is "editPartAttAtt">
 	<p>
-		<a href="/info/ctchange_log.cfm?tbl=ctspecpart_attribute_type">changelog</a>
+		<a href="/info/ctchange_log.cfm?tbl=CTSPECPART_ATTRIBUTE_TYPE">changelog</a>
 	</p>
 	<cfset title="part attribute controls">
 	<cfoutput>
