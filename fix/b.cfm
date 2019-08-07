@@ -3,7 +3,7 @@ create table temp_g_m as select distinct WKT_MEDIA_ID from geog_auth_rec where W
 alter table temp_g_m add stuff varchar2(255);
 
 	<cfquery name="one" datasource="uam_god" >
-		select * from temp_g_m where stuff is null and rownum<200
+		select * from temp_g_m where stuff is null and rownum<500
 	</cfquery>
 	<!----
 	<cfdump var=#one#>
