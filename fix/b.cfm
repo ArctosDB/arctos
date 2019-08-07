@@ -1,3 +1,21 @@
+
+create table temp_g_m as select distinct WKT_MEDIA_ID from geog_auth_rec where WKT_MEDIA_ID is not null;
+alter table temp_g_m add stuff varchar2(255);
+
+	<cfquery name="one" datasource="uam_god" >
+		select * from temp_g_m where stuff is null and rownum<1
+	</cfquery>
+	<cfloop query="one">
+			<cfquery name="m" datasource="uam_god" >
+				select media_uri from media where media_id=#WKT_MEDIA_ID#
+			</cfquery>
+			<cfhttp method="get" url="#m.media_uri#"></cfhttp>
+			<cfdump var=#cfhttp#>
+
+	</cfloop>
+
+<cfabort>
+
  select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
 create table temp_l1 as select * from dlm.my_temp_cf;
 select * from temp_l1;
@@ -60,7 +78,7 @@ exec pause_maintenance('off');
 
 begin
 	for r in (select * from temp_l1) loop
-		update locality set 
+		update locality set
 			DEC_LAT=r.DEC_LAT,
 			DEC_LONG=r.DEC_LONG,
 			MAX_ERROR_DISTANCE=10,
@@ -74,7 +92,7 @@ begin
 end;
 /
 
-	
+
 
 	<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from locality where locality_remarks like '%{"UTM":"%'
