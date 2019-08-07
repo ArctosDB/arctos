@@ -1824,6 +1824,9 @@ Terms must be lower-case
 <!---------------------------------------->
 
 <cfif action is "editGeologyTree">
+	<p>
+		<a href="/info/ctchange_log.cfm?tbl=GEOLOGY_ATTRIBUTE_HIY">changelog</a>
+	</p>
 	<cfset title="Geology Attribute Hierarchy">
 	<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 SELECT
