@@ -20,7 +20,7 @@
 		</cfquery>
 		<cfloop query="ctlogtbl">
 			<cfquery name="ctab" datasource="uam_god">
-				select * from #table_name# where WHEN between to_date('#start#') and to_date('#stop#') order by when
+				select * from #table_name# where change_date between to_date('#start#') and to_date('#stop#') order by change_date
 			</cfquery>
 			<cfif ctab.recordcount gt 0>
 				<cfsavecontent variable="ctChanges">
