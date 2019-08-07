@@ -105,7 +105,9 @@ CTSPEC_PART_ATT_ATT
 	<a href="/Admin/CodeTableEditor.cfm">Back to table list</a>
 </p>
 <cfif isdefined("tbl") and len(tbl) gt 0>
-	<a href="/info/ctchange_log.cfm?tbl=#tbl#">changelog</a>
+	<p>
+		<a href="/info/ctchange_log.cfm?tbl=<cfoutput>#tbl#</cfoutput>">changelog</a>
+	</p>
 </cfif>
 <cfif action is "edit">
 
