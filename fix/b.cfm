@@ -2,6 +2,60 @@
 create table temp_g_m as select distinct WKT_MEDIA_ID from geog_auth_rec where WKT_MEDIA_ID is not null;
 alter table temp_g_m add stuff varchar2(255);
 
+
+delete from temp_g_m where stuff='spiffy';
+
+alter table temp_g_m add gid number;
+
+begin
+	update temp_g_m set gid=(select GEOG_AUTH_REC_ID from GEOG_AUTH_REC where GEOG_AUTH_REC.WKT_MEDIA_ID=temp_g_m.WKT_MEDIA_ID);
+
+alter table temp_g_m add msb number;
+
+select stuff,replace(stuff,'media::') from temp_g_m;
+
+
+create table BAK_GEOG_AUTH_REC20190807 as select * from GEOG_AUTH_REC;
+
+select trigger_name from all_triggers where table_name='GEOG_AUTH_REC';
+
+exec pause_maintenance('off');
+
+lock table GEOG_AUTH_REC in exclusive mode nowait;
+
+alter trigger TRG_MK_HIGHER_GEOG disable;
+alter trigger TRG_HIGHER_GEOG_MAGICDUPS disable;
+alter trigger TR_LOG_GEOG_UPDATE disable;
+alter trigger TR_GEOGAUTHREC_AU_FLAT disable;
+
+
+
+begin
+	for r in (select * from temp_g_m) loop
+		update GEOG_AUTH_REC set WKT_MEDIA_ID=replace(r.stuff,'media::') where WKT_MEDIA_ID=r.WKT_MEDIA_ID;
+	end loop;
+end;
+/
+
+alter trigger TRG_MK_HIGHER_GEOG enable;
+alter trigger TRG_HIGHER_GEOG_MAGICDUPS enable;
+alter trigger TR_LOG_GEOG_UPDATE enable;
+alter trigger TR_GEOGAUTHREC_AU_FLAT enable;
+
+commit;
+exec pause_maintenance('on');
+
+
+BAK_GEOG_AUTH_REC20190521
+
+
+SELECT GEOG_AUTH_REC_ID FROM GEOG_AUTH_REC WHERE WKT_MEDIA_ID=10596968;
+
+SELECT WKT_POLYGON FROM BAK_GEOG_AUTH_REC20190521 WHERE GEOG_AUTH_REC_ID=453;
+
+media::10587971
+media::10587971
+
 	<cfquery name="one" datasource="uam_god" >
 		select * from temp_g_m where stuff is null and rownum<500
 	</cfquery>

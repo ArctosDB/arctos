@@ -155,7 +155,7 @@
 					success: function(r) {
 						//console.log('happy');
 						$("##rellnks").show();
-						$("##rel_links").html(r);						
+						$("##rel_links").html(r);
 					},
 					error: function (xhr, textStatus, errorThrown){
 				    // show error
@@ -1196,7 +1196,10 @@
 									event_determination_method,
 									event_determined_date
 								from
-									rawevent where collecting_event_id=#collecting_event_id#
+									rawevent
+								where
+									event_attribute_type is not null and
+									collecting_event_id=#collecting_event_id#
 								order by
 									event_attribute_type,
 									event_determined_date,
@@ -1230,8 +1233,6 @@
 									</td>
 								</tr>
 							</cfloop>
-
-
 
 							<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 								select * from
