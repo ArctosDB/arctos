@@ -1761,10 +1761,8 @@
 <!--------------------------------------------------------------------------------------->
 	<cffunction name="getDisplayClassData" access="remote">
 		<cfargument name="taxon_name_id" type="numeric" required="true">
-		 <!---- this has to be called remotely, but only allow logged-in Operators access--->
-	    <cfif not isdefined("session.roles") or not listcontains(session.roles, 'COLDFUSION_USER')>
-	      <cfthrow message="unauthorized">
-	    </cfif>
+		 <!---- public---->
+
 		<cfquery name="raw" datasource="uam_god">
 			select
 				TERM,
