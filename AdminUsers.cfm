@@ -423,6 +423,7 @@
 			<tr>
 				<td valign="top">
 					<cfif isdefined("isDbUser.account_status") and isDbUser.account_status is "open">
+						<div id="manageUsers" style="display:none;">
 						<table border>
 							<tr>
 								<td colspan="3">Roles <a href="AdminUsers.cfm?username=#username#&action=dbRole" class="infoLink">[ show roles ]</td>
@@ -487,6 +488,7 @@
 									</tr>
 							</cfloop>
 						</table>
+						</div>
 					</cfif>
 				</td>
 			</tr>
