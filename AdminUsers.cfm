@@ -528,6 +528,9 @@
 		<cfif getTheirEmail.email is "">
 			<div class="error">
 				The user needs a valid email address in their profile before you can continue.
+				<p>
+					Carefully review <a href="http://handbook.arctosdb.org/documentation/users.html">http://handbook.arctosdb.org/documentation/users.html</a> before continuing.
+				</p>
 			</div>
 			<cfabort>
 		</cfif>
