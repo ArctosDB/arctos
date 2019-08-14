@@ -526,13 +526,7 @@
 				cf_users.user_id=#user_id#
 		</cfquery>
 		<cfif getTheirEmail.email is "">
-			<div class="error">
-				The user needs a valid email address in their profile before you can continue.
-				<p>
-					Carefully review <a href="http://handbook.arctosdb.org/documentation/users.html">http://handbook.arctosdb.org/documentation/users.html</a> before continuing.
-				</p>
-			</div>
-			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator">
+			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator. Carefully review http://handbook.arctosdb.org/documentation/users.html before proceeding.">
 			<cfabort>
 		</cfif>
 		<cfquery name="getMyEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
