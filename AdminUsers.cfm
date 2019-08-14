@@ -513,6 +513,14 @@
 <!---------------------------------------------------->
 <cfif action is "makeNewDbUser">
 	<cfoutput>
+
+		<cfif session.username is not "dlm">
+			check back later<cfabort>
+		</cfif>
+
+		me users. Their account name must use only letters and numbers (ASCII characters A-Z, a-z, and 0-9), and cannot begin with a number. (Public users can use any characters.) They must have an email address in their Profile. A password of at least six characters, starting with a letter, containing only A-Z, a-z, 0-9, and !$%&()`*+,-/:;?_., not containing the username, an
+
+
 		<!--- see if they have all the right stuff to be a user --->
 		<cfquery name="getTheirEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
@@ -526,9 +534,16 @@
 				cf_users.user_id=#user_id#
 		</cfquery>
 		<cfif getTheirEmail.email is "">
-			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator. Carefully review http://handbook.arctosdb.org/documentation/users.html before proceeding.">
+			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
 			<cfabort>
 		</cfif>
+		<cfif  REFIND("[^A-Za-z0-9.]",getTheirEmail.username)>
+			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
+			<cfabort>
+		<cfelse>
+		spiffy...
+		</cfif>
+
 		<cfquery name="getMyEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				EMAIL
@@ -540,9 +555,7 @@
 				username='#session.username#'
 		</cfquery>
 		<cfif getMyEmail.email is "">
-			<div class="error">
-				You need a valid email address in your profile before you can continue.
-			</div>
+			<cfthrow message="invalid user invitation" detail="You cannot invite users without a valid email address in your profile.">
 			<cfabort>
 		</cfif>
 		<cfquery name="getAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
@@ -557,9 +570,7 @@
 				cf_users.user_id=#user_id#
 		</cfquery>
 		<cfif getAgent.agent_id is "" or getAgent.recordcount is not 1>
-			<div class="error">
-				The user needs a unique agent name of type login (found #getAgent.recordcount# matches).
-			</div>
+			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
 			<cfabort>
 		</cfif>
 		<cfif len(getTheirEmail.EMAIL) gt 0 and len(getMyEmail.EMAIL) gt 0 and getAgent.recordcount is 1>
