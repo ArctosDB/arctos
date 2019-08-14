@@ -405,94 +405,96 @@
 						</tr>
 					</table>
 				</td>
-			</tr><tr>
-				<td colspan="2">
-					<ul>
-						<li>Users must have both functional roles and access to collections to use Arctos</li>
-						<li>All operators require the coldfusion_user role</li>
-						<li>Give role "public" to everyone, just because Oracle is goofy</li>
-						<li>Be very cautious in assigning access to shared information, such as agents and places</li>
-						<li>Only members of the Arctos Advisory Committee or their designated representatives should have access to code tables, geography, and taxonomy</li>
-						<li>
-							<div class="importantNotification">
-								<a href="Admin/user_roles.cfm">Read this before assigning roles to users</a>
-							</div>
-						</li>
-					</ul>
-				</td>
-			<tr>
-				<td valign="top">
-					<cfif isdefined("isDbUser.account_status") and isDbUser.account_status is "open">
-						<div id="manageUsers" style="display:none;">
-						<table border>
-							<tr>
-								<td colspan="3">Roles <a href="AdminUsers.cfm?username=#username#&action=dbRole" class="infoLink">[ show roles ]</td>
-							</tr>
-							<tr class="newRec">
-								<form name="ar" method="post" action="AdminUsers.cfm">
-									<td>
-										<input type="hidden" name="action" value="addRole" />
-										<input type="hidden" name="username" value="#getUsers.username#" />
-										<select name="role_name" size="1">
-											<cfloop query="ctRoleName">
-												<option value="#role_name#">#role_name#</option>
-											</cfloop>
-										</select>
-									</td>
-									<td>
-										<input type="submit" value="Grant Role" class="savBtn">
-									</td>
-								</form>
-							</tr>
-							<cfloop query="roles">
+			</tr>
+		</table>
+
+		<ul>
+			<li>Users must have both functional roles and access to collections to use Arctos</li>
+			<li>All operators require the coldfusion_user role</li>
+			<li>Give role "public" to everyone, just because Oracle is goofy</li>
+			<li>Be very cautious in assigning access to shared information, such as agents and places</li>
+			<li>Only members of the Arctos Advisory Committee or their designated representatives should have access to code tables, geography, and taxonomy</li>
+			<li>
+				<div class="importantNotification">
+					<a href="Admin/user_roles.cfm">Read this before assigning roles to users</a>
+				</div>
+			</li>
+		</ul>
+
+		<cfif isdefined("isDbUser.account_status") and isDbUser.account_status is "open">
+			<div id="manageUsers" style="display:none;">
+				<table>
+					<tr>
+						<td>
+							<table border>
 								<tr>
-									<td>#role_name#</td>
-									<td>
-										<a href="AdminUsers.cfm?action=remrole&role_name=#role_name#&username=#username#&user_id=#getUsers.user_id#">[ revoke ]</a>
-									</td>
+									<td colspan="3">Roles <a href="AdminUsers.cfm?username=#username#&action=dbRole" class="infoLink">[ show roles ]</td>
 								</tr>
-							</cfloop>
-						</table>
-					</td>
-					<td valign="top">
-						<table border>
-							<tr>
-								<th>Collection</th>
-								<th>Access</th>
-							</tr>
-							<form name="ar" method="post" action="AdminUsers.cfm">
-								<input type="hidden" name="action" value="addRole" />
-								<input type="hidden" name="username" value="#getUsers.username#" />
-								<tr>
-									<td>
-										<select name="role_name" size="1">
-											<cfloop query="croles">
-												<cfif not listfindnocase(valuelist(user_croles.role_name),role_name)
-														and listfindnocase(valuelist(myroles.role_name),role_name)>
+								<tr class="newRec">
+									<form name="ar" method="post" action="AdminUsers.cfm">
+										<td>
+											<input type="hidden" name="action" value="addRole" />
+											<input type="hidden" name="username" value="#getUsers.username#" />
+											<select name="role_name" size="1">
+												<cfloop query="ctRoleName">
 													<option value="#role_name#">#role_name#</option>
-												</cfif>
-											</cfloop>
-										</select>
-									</td>
-									<td>
-										<input type="submit" value="Grant Access" class="savBtn">
-									</td>
+												</cfloop>
+											</select>
+										</td>
+										<td>
+											<input type="submit" value="Grant Role" class="savBtn">
+										</td>
+									</form>
 								</tr>
-							</form>
-							<cfloop query="user_croles">
+								<cfloop query="roles">
 									<tr>
 										<td>#role_name#</td>
 										<td>
 											<a href="AdminUsers.cfm?action=remrole&role_name=#role_name#&username=#username#&user_id=#getUsers.user_id#">[ revoke ]</a>
 										</td>
 									</tr>
-							</cfloop>
-						</table>
-						</div>
-					</cfif>
-				</td>
-			</tr>
-		</table>
+								</cfloop>
+							</table>
+						</td>
+						<td>
+							<table border>
+								<tr>
+									<th>Collection</th>
+									<th>Access</th>
+								</tr>
+								<form name="ar" method="post" action="AdminUsers.cfm">
+									<input type="hidden" name="action" value="addRole" />
+									<input type="hidden" name="username" value="#getUsers.username#" />
+									<tr>
+										<td>
+											<select name="role_name" size="1">
+												<cfloop query="croles">
+													<cfif not listfindnocase(valuelist(user_croles.role_name),role_name)
+															and listfindnocase(valuelist(myroles.role_name),role_name)>
+														<option value="#role_name#">#role_name#</option>
+													</cfif>
+												</cfloop>
+											</select>
+										</td>
+										<td>
+											<input type="submit" value="Grant Access" class="savBtn">
+										</td>
+									</tr>
+								</form>
+								<cfloop query="user_croles">
+										<tr>
+											<td>#role_name#</td>
+											<td>
+												<a href="AdminUsers.cfm?action=remrole&role_name=#role_name#&username=#username#&user_id=#getUsers.user_id#">[ revoke ]</a>
+											</td>
+										</tr>
+								</cfloop>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</cfif>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
