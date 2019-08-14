@@ -532,6 +532,7 @@
 					Carefully review <a href="http://handbook.arctosdb.org/documentation/users.html">http://handbook.arctosdb.org/documentation/users.html</a> before continuing.
 				</p>
 			</div>
+			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator">
 			<cfabort>
 		</cfif>
 		<cfquery name="getMyEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
