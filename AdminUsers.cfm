@@ -534,10 +534,12 @@
 				cf_users.user_id=#user_id#
 		</cfquery>
 		<cfif getTheirEmail.email is "">
+			<p>noemail</p>
 			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
 			<cfabort>
 		</cfif>
 		<cfif  REFIND("[^A-Za-z0-9.]",getTheirEmail.username)>
+			<p>bad username</p>
 			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
 			<cfabort>
 		<cfelse>
