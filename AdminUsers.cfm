@@ -425,9 +425,7 @@
 					you may <a href="AdminUsers.cfm?action=confirmDocsRead&username=#getUsers.username#">enable user management</a> for the remainder of your login session.
 				</li>
 			</cfif>
-
 		</ul>
-
 		<cfif isdefined("isDbUser.account_status") and isDbUser.account_status is "open" and (isdefined("session.confirmManageUserDocs") and session.confirmManageUserDocs is true)>
 				<table>
 					<tr>
