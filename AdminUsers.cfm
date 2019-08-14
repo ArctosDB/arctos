@@ -557,6 +557,7 @@
 				username='#session.username#'
 		</cfquery>
 		<cfif getMyEmail.email is "">
+
 			<cfthrow message="invalid user invitation" detail="You cannot invite users without a valid email address in your profile.">
 			<cfabort>
 		</cfif>
@@ -572,6 +573,7 @@
 				cf_users.user_id=#user_id#
 		</cfquery>
 		<cfif getAgent.agent_id is "" or getAgent.recordcount is not 1>
+			<p>bad agent</p>
 			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
 			<cfabort>
 		</cfif>
