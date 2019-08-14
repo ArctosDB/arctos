@@ -538,7 +538,7 @@
 			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
 			<cfabort>
 		</cfif>
-		<cfif  REFIND("[^A-Za-z0-9.]",getTheirEmail.username)>
+		<cfif  REFIND("[^A-Za-z0-9]",getTheirEmail.username) or REFIND("[^A-Za-z]",left(getTheirEmail.username,1))>
 			<p>bad username</p>
 			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
 			<cfabort>
