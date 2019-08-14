@@ -422,7 +422,7 @@
 			<cfif isdefined("isDbUser.account_status") and isDbUser.account_status is "open" and (not isdefined("session.confirmManageUserDocs") or session.confirmManageUserDocs is not true)>
 				<li>
 					Once you have read and understood the documentation, including the obligation to provide any associated 'required reading' documentation to users receiving roles,
-					you may <a href="AdminUsers.cfm?action=confirmDocsRead">enable user management</a> for the remainder of your login session.
+					you may <a href="AdminUsers.cfm?action=confirmDocsRead&username=#getUsers.username#">enable user management</a> for the remainder of your login session.
 				</li>
 			</cfif>
 
