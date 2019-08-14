@@ -506,7 +506,7 @@
 <cfif action is "confirmDocsRead">
 	<cfoutput>
 		<cfset session.confirmManageUserDocs=true>
-		<a href="AdminUsers.cfm?username=#username#&action=edit">Continue</a>
+		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
