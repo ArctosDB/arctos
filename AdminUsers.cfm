@@ -213,7 +213,7 @@
 <cfif action is "addRole">
 	<cfoutput>
 		<cfif account_status is not 'OPEN'>
-			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
+			<cfthrow message="invalid user management" detail="Cannot manage non-open user accounts.">
 			<cfabort>
 		</cfif>
 		<cfquery name="g" datasource="uam_god">
