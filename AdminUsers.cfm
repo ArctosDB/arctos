@@ -212,6 +212,10 @@
 <!-------------------------------------------------->
 <cfif action is "addRole">
 	<cfoutput>
+		<cfif account_status is not 'OPEN'>
+			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
+			<cfabort>
+		</cfif>
 		<cfquery name="g" datasource="uam_god">
 			grant #role_name# to #username#
 		</cfquery>
@@ -430,6 +434,7 @@
 							<form name="ar" method="post" action="AdminUsers.cfm">
 								<td>
 									<input type="hidden" name="action" value="addRole" />
+									<input type="hidden" name="account_status" value="#isDbUser.account_status#" />
 									<input type="hidden" name="username" value="#getUsers.username#" />
 									<select name="role_name" size="1">
 										<cfloop query="ctRoleName">
@@ -513,14 +518,6 @@
 <!---------------------------------------------------->
 <cfif action is "makeNewDbUser">
 	<cfoutput>
-
-		<cfif session.username is not "dlm">
-			check back later<cfabort>
-		</cfif>
-
-		me users. Their account name must use only letters and numbers (ASCII characters A-Z, a-z, and 0-9), and cannot begin with a number. (Public users can use any characters.) They must have an email address in their Profile. A password of at least six characters, starting with a letter, containing only A-Z, a-z, 0-9, and !$%&()`*+,-/:;?_., not containing the username, an
-
-
 		<!--- see if they have all the right stuff to be a user --->
 		<cfquery name="getTheirEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
@@ -542,10 +539,7 @@
 			<p>bad username</p>
 			<cfthrow message="invalid user invitation" detail="A user that does not meet requirements was invited to become an operator.">
 			<cfabort>
-		<cfelse>
-		spiffy...
 		</cfif>
-
 		<cfquery name="getMyEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			SELECT
 				EMAIL
@@ -557,7 +551,6 @@
 				username='#session.username#'
 		</cfquery>
 		<cfif getMyEmail.email is "">
-
 			<cfthrow message="invalid user invitation" detail="You cannot invite users without a valid email address in your profile.">
 			<cfabort>
 		</cfif>
