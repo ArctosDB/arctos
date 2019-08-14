@@ -419,10 +419,16 @@
 					<a href="Admin/user_roles.cfm">Read this before assigning roles to users</a>
 				</div>
 			</li>
+			<cfif isdefined("isDbUser.account_status") and isDbUser.account_status is "open" and (not isdefined("session.confirmManageUserDocs") or session.confirmManageUserDocs is not true)>
+				<li>
+					Once you have read and understood the documentation, including the obligation to provide any associated 'required reading' documentation to users receiving roles,
+					you may <a href="AdminUsers.cfm?action=confirmDocsRead">enable user management</a> for the remainder of your login session.
+				</li>
+			</cfif>
+
 		</ul>
 
-		<cfif isdefined("isDbUser.account_status") and isDbUser.account_status is "open">
-			<div id="manageUsers" style="display:none;">
+		<cfif isdefined("isDbUser.account_status") and isDbUser.account_status is "open" and (isdefined("session.confirmManageUserDocs") and session.confirmManageUserDocs is true)>
 				<table>
 					<tr>
 						<td>
@@ -493,8 +499,14 @@
 						</td>
 					</tr>
 				</table>
-			</div>
 		</cfif>
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------->
+<cfif action is "confirmDocsRead">
+	<cfoutput>
+		<cfset session.confirmManageUserDocs=true>
+		<a href="AdminUsers.cfm?username=#username#&action=edit">Continue</a>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
