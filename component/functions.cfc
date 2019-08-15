@@ -2401,18 +2401,15 @@
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ctspec_part_att_att where attribute_type='#patype#'
 	</cfquery>
-	<cfdump var=#k#>
 	<cfif len(k.VALUE_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #k.VALUE_code_table#
 		</cfquery>
-	<cfdump var=#d#>
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde" and i is not "TISSUE_FG">
 				<cfquery name="r" dbtype="query">
 					select #i# d from d order by #i#
 				</cfquery>
-	<cfdump var=#r#>
 			</cfif>
 		</cfloop>
 		<cfset rA=structNew()>
