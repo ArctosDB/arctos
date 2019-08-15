@@ -2408,7 +2408,7 @@
 		</cfquery>
 	<cfdump var=#d#>
 		<cfloop list="#d.columnlist#" index="i">
-			<cfif i is not "description" and i is not "collection_cde">
+			<cfif i is not "description" and i is not "collection_cde" and i is not "TISSUE_FG">
 				<cfquery name="r" dbtype="query">
 					select #i# d from d order by #i#
 				</cfquery>
