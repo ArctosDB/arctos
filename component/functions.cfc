@@ -2401,6 +2401,7 @@
 	<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select * from ctspec_part_att_att where attribute_type='#patype#'
 	</cfquery>
+	<cfdump var=#k#>
 	<cfif len(k.VALUE_code_table) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #k.VALUE_code_table#
