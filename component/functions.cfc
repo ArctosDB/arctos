@@ -2412,6 +2412,7 @@
 				<cfquery name="r" dbtype="query">
 					select #i# d from d order by #i#
 				</cfquery>
+	<cfdump var=#r#>
 			</cfif>
 		</cfloop>
 		<cfset rA=structNew()>
