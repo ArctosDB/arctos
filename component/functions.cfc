@@ -2406,6 +2406,7 @@
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select * from #k.VALUE_code_table#
 		</cfquery>
+	<cfdump var=#d#>
 		<cfloop list="#d.columnlist#" index="i">
 			<cfif i is not "description" and i is not "collection_cde">
 				<cfquery name="r" dbtype="query">
