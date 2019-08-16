@@ -3017,6 +3017,7 @@
 					identification_agent,
 					preferred_agent_name
 				where
+					identification.accepted_id_fg=1 and
 					identification.identification_id=identification_agent.identification_id and
 					identification_agent.agent_id=preferred_agent_name.agent_id and
 					identification.collection_object_id = #collection_object_id#
