@@ -1249,6 +1249,7 @@
 				<option value="">pick one</option>
 				<option value="add">unaccept current specimen_event; add Event with these data</option>
 				<option value="edit">Edit the current specimen_event</option>
+				<option value="addNoChange">Add, change no existing data</option>
 			</select>
 			<span id="sbmtBtnSpn">
 				<input id="btnSubmit" type="submit" class="savBtn" value="Save Changes" >
@@ -1389,7 +1390,6 @@
 		   	 			'#VERIFIED_DATE#'
 		   	 		)
 				</cfquery>
-
 				<cfquery name="arksevt" datasource="uam_god">
 					update
 		   	 			specimen_event
@@ -1399,6 +1399,42 @@
 		   	 			specimen_event_id=#specimen_event_id#
 				</cfquery>
 				<cfset redirSEID=sid.sid>
+			<cfelseif sav_action is "addNoChange">
+				<!--- Add an event, do nothing else --->
+				<cfquery name="sid" datasource="uam_god">
+					select sq_specimen_event_id.nextval sid from dual
+				</cfquery>
+				<cfquery name="mksevt" datasource="uam_god">
+					insert into specimen_event (
+		   	 			SPECIMEN_EVENT_ID,
+		   	 			COLLECTION_OBJECT_ID,
+		   	 			COLLECTING_EVENT_ID,
+		   	 			ASSIGNED_BY_AGENT_ID,
+		   	 			ASSIGNED_DATE,
+		   	 			SPECIMEN_EVENT_REMARK,
+		   	 			SPECIMEN_EVENT_TYPE,
+		   	 			COLLECTING_METHOD,
+		   	 			COLLECTING_SOURCE,
+		   	 			VERIFICATIONSTATUS,
+		   	 			HABITAT,
+		   	 			VERIFIED_BY_AGENT_ID,
+		   	 			VERIFIED_DATE
+		   	 		) values (
+		   	 			#sid.sid#,
+		   	 			#COLLECTION_OBJECT_ID#,
+		   	 			#cid.cid#,
+		   	 			#ASSIGNED_BY_AGENT_ID#,
+		   	 			'#ASSIGNED_DATE#',
+		   	 			'#escapeQuotes(SPECIMEN_EVENT_REMARK)#',
+		   	 			'#SPECIMEN_EVENT_TYPE#',
+		   	 			'#escapeQuotes(COLLECTING_METHOD)#',
+		   	 			'#COLLECTING_SOURCE#',
+		   	 			'#VERIFICATIONSTATUS#',
+		   	 			'#escapeQuotes(HABITAT)#',
+		   	 			<cfif len(VERIFIED_BY_AGENT_ID) gt 0>#VERIFIED_BY_AGENT_ID#<cfelse>NULL</cfif>,
+		   	 			'#VERIFIED_DATE#'
+		   	 		)
+				</cfquery>
 			<cfelse>
 				<!--- we should never get here --->
 				<cfthrow message="invalid sav_action #sav_action#">
