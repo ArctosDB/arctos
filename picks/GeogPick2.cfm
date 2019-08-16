@@ -71,6 +71,7 @@
 </cfquery>
 <table border>
 	<tr>
+		<th>Select</th>
 		<th>Higher Geog</th>
 		<th>Has WKT?</th>
 		<th>Continent/Ocean</th>
@@ -86,10 +87,12 @@
 		<th>Remark</th>
 		<th>Source</th>
 		<th>SearchTerms</th>
-		<th>Select</th>
 	</tr>
 <cfoutput query="localityResults">
 	<tr <cfif has_geo_poly is "YES">class="haspoly"</cfif> >
+		<td>
+			<a href="##" onClick="useGeo('#geog_auth_rec_id#','#replace(higher_geog,"'","\'","all")#');">use</a>
+		</td>
 		<td>
 		 	#higher_geog#
 		</td>
@@ -123,9 +126,6 @@
 					#SEARCH_TERM#
 				</div>
 			</cfloop>
-		</td>
-		<td>
-			<a href="##" onClick="useGeo('#geog_auth_rec_id#','#replace(higher_geog,"'","\'","all")#');">use</a>
 		</td>
 	</tr>
 </cfoutput>
