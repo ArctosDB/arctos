@@ -672,6 +672,10 @@
 		<cfquery name="ctspecimen_event_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select specimen_event_type from ctspecimen_event_type order by specimen_event_type
 		</cfquery>
+		<cfquery name="ctgeoreference_protocol" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select georeference_protocol from ctgeoreference_protocol order by georeference_protocol
+		</cfquery>
+
 		<h3>
 			#l.guid#: Fork-edit place-time
 			<div style="font-size:small;">
@@ -860,7 +864,12 @@
 							</cfloop>
 						</select>
 						<label for="georeference_protocol" class="helpLink" data-helplink="georeference_protocol">Georeference Protocol</label>
-						<input type="text" name="georeference_protocol" id="georeference_protocol" value="#l.georeference_protocol#" size="75">
+						<select name="georeference_protocol" id="georeference_protocol" size="1">
+							<cfloop query="ctgeoreference_protocol">
+								<option <cfif l.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
+									value="#georeference_protocol#">#georeference_protocol#</option>
+							</cfloop>
+						</select>
 
 						<label for="georeference_source" class="helpLink" data-helplink="georeference_source">Georeference Source</label>
 						<input type="text" name="georeference_source" id="georeference_source" value="#l.georeference_source#" size="75">
