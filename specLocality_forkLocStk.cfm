@@ -29,6 +29,17 @@
 		  return d.toFixed(3);
 		}
 
+		function deGeoReference(){
+			// NULL and coordinate-things; remove required
+			$("#dec_lat").val('').removeClass('reqdClr').prop('required',false);
+			$("#dec_long").val('').removeClass('reqdClr').prop('required',false);
+			$("#max_error_distance").val('').removeClass('reqdClr').prop('required',false);
+			$("#max_error_units").val('').removeClass('reqdClr').prop('required',false);
+			$("#datum").val('').removeClass('reqdClr').prop('required',false);
+			$("#georeference_protocol").val('').removeClass('reqdClr').prop('required',false);
+			$("#georeference_source").val('').removeClass('reqdClr').prop('required',false);
+		}
+
 		function closeThisThing(c,e) {
 			var q='specLocality|' + c + '|' + e;
 			parent.loadEditApp(q);
@@ -828,6 +839,9 @@
 
 						<label for="locality_remarks" class="helpLink" data-helplink="locality_remarks">Locality Remarks</label>
 						<input type="text" name="locality_remarks" id="locality_remarks" value="#l.locality_remarks#" size="75">
+						<p>
+							<span class="likeLink" onclick="deGeoReference()">De-Georeference</span>
+						</p>
 						<table>
 							<tr>
 								<td>
@@ -848,6 +862,7 @@
 								<td>
 									<label for="max_error_units" class="helpLink" data-helplink="max_error_units">Error Units</label>
 									<select name="max_error_units" id="max_error_units" size="1">
+										<option value=""></option>
 										<cfloop query="cterror">
 											<option <cfif l.max_error_units is cterror.LAT_LONG_ERROR_UNITS> selected="selected" </cfif>
 												value="#LAT_LONG_ERROR_UNITS#">#LAT_LONG_ERROR_UNITS#</option>
@@ -858,6 +873,7 @@
 						</table>
 						<label for="datum" class="helpLink" data-helplink="datum">Datum</label>
 						<select name="datum" id="datum" size="1">
+							<option value=""></option>
 							<cfloop query="ctdatum">
 								<option <cfif l.datum is ctdatum.datum> selected="selected" </cfif>
 									value="#datum#">#datum#</option>
@@ -865,6 +881,7 @@
 						</select>
 						<label for="georeference_protocol" class="helpLink" data-helplink="georeference_protocol">Georeference Protocol</label>
 						<select name="georeference_protocol" id="georeference_protocol" size="1">
+							<option value=""></option>
 							<cfloop query="ctgeoreference_protocol">
 								<option <cfif l.georeference_protocol is ctgeoreference_protocol.georeference_protocol> selected="selected" </cfif>
 									value="#georeference_protocol#">#georeference_protocol#</option>
