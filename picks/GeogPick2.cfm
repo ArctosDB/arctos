@@ -33,7 +33,6 @@
 </style>
 <cf_findLocality type="geog">
 
-<cfdump var=#localityResults#>
 <cfquery name="localityResults" dbtype="query">
 	select
 	 	CONTINENT_OCEAN,
@@ -74,6 +73,18 @@
 	<tr>
 		<th>Higher Geog</th>
 		<th>Has WKT?</th>
+		<th>Continent/Ocean</th>
+		<th>Sea</th>
+		<th>Country</th>
+		<th>State/Province</th>
+		<th>County</th>
+		<th>Quad</th>
+		<th>Feature</th>
+		<th>Drainage</th>
+		<th>Island</th>
+		<th>IslandGroup</th>
+		<th>Remark</th>
+		<th>Source</th>
 		<th>SearchTerms</th>
 		<th>Select</th>
 	</tr>
@@ -84,6 +95,24 @@
 		</td>
 		<td>
 			#has_geo_poly#
+		</td>
+		<td>#CONTINENT_OCEAN#</td>
+		<td>#SEA#</td>
+		<td>#COUNTRY#</td>
+		<td>#STATE_PROV#</td>
+		<td>#COUNTY#</td>
+		<td>#QUAD#</td>
+		<td>#FEATURE#</td>
+		<td>#DRAINAGE#</td>
+		<td>#ISLAND#</td>
+		<td>#ISLAND_GROUP#</td>
+		<td>#GEOG_REMARK#</td>
+		<td>
+			<cfif left(SOURCE_AUTHORITY,4) is 'http'>
+				<a href="#SOURCE_AUTHORITY#" target="_blank" class="external">#SOURCE_AUTHORITY#</a>
+			<cfelse>
+				#SOURCE_AUTHORITY#
+			</cfif>
 		</td>
 		<td>
 			<cfquery name="searchterm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
