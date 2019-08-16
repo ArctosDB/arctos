@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_pickHeader.cfm">
+<script src="/includes/sorttable.js"></script>
 <!----
 	edit: griddy: https://github.com/ArctosDB/arctos/issues/1786
 --->
@@ -69,7 +70,7 @@
 	 	STATE_PROV
 	order by higher_geog
 </cfquery>
-<table border>
+<table border id="tblt" class="sortable">
 	<tr>
 		<th>Select</th>
 		<th>Higher Geog</th>
