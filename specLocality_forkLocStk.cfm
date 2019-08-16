@@ -1435,6 +1435,7 @@
 		   	 			'#VERIFIED_DATE#'
 		   	 		)
 				</cfquery>
+				<cfset redirSEID=sid.sid>
 			<cfelse>
 				<!--- we should never get here --->
 				<cfthrow message="invalid sav_action #sav_action#">
