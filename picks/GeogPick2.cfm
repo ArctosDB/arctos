@@ -35,9 +35,39 @@
 
 <cfdump var=#localityResults#>
 <cfquery name="localityResults" dbtype="query">
-	select geog_auth_rec_id,higher_geog,has_geo_poly
+	select
+	 	CONTINENT_OCEAN,
+	 	COUNTRY,
+	 	COUNTY,
+	 	DRAINAGE,
+	 	FEATURE,
+	 	GEOG_AUTH_REC_ID,
+	 	GEOG_REMARK,
+	 	HAS_GEO_POLY,
+	 	HIGHER_GEOG,
+	 	ISLAND,
+	 	ISLAND_GROUP,
+	 	QUAD,
+	 	SEA,
+	 	SOURCE_AUTHORITY,
+	 	STATE_PROV
 	from localityResults
-	group by geog_auth_rec_id,higher_geog,has_geo_poly
+	group by
+		CONTINENT_OCEAN,
+	 	COUNTRY,
+	 	COUNTY,
+	 	DRAINAGE,
+	 	FEATURE,
+	 	GEOG_AUTH_REC_ID,
+	 	GEOG_REMARK,
+	 	HAS_GEO_POLY,
+	 	HIGHER_GEOG,
+	 	ISLAND,
+	 	ISLAND_GROUP,
+	 	QUAD,
+	 	SEA,
+	 	SOURCE_AUTHORITY,
+	 	STATE_PROV
 	order by higher_geog
 </cfquery>
 <table border>
