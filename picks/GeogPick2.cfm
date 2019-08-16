@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_pickHeader.cfm">
+<!----
+	edit: griddy: https://github.com/ArctosDB/arctos/issues/1786
+--->
 <cfset title = "Pick Higher Geog">
 <cfif not isdefined("srchstring") or srchstring is "undefined">
 	<cfset srchstring="">
@@ -30,6 +33,7 @@
 </style>
 <cf_findLocality type="geog">
 
+<cfdump var=#localityResults#>
 <cfquery name="localityResults" dbtype="query">
 	select geog_auth_rec_id,higher_geog,has_geo_poly
 	from localityResults
