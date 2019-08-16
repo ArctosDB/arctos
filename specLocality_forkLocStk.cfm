@@ -840,7 +840,7 @@
 						<label for="locality_remarks" class="helpLink" data-helplink="locality_remarks">Locality Remarks</label>
 						<input type="text" name="locality_remarks" id="locality_remarks" value="#l.locality_remarks#" size="75">
 						<p>
-							<span class="likeLink" onclick="deGeoReference()">De-Georeference</span>
+							<input type="button" class="delBtn" onclick="deGeoReference()" value="De-Georeference">
 						</p>
 						<table>
 							<tr>
