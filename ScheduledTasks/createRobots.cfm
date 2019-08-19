@@ -136,6 +136,10 @@
 		---->
 		<cfset badbot="Apache-HttpClient,AlphaBot,admx,arquivo">
 	<cfset badbot=badbot & ",Baiduspider,bash,BUbiNG,Barkrowler,BLEXBot">
+	<!-----
+		Bing took Arctos down several times. Talk with their tech support, they "fix the problem," a few weeks later it happens again. Consulted with TACC, agree we have no alternative
+	----->
+	<cfset badbot=badbot & ",bingbot">
 	<cfset badbot=badbot & ",ca-crawler,CCBot,coccocbot">
 	<cfset badbot=badbot & ",Domain,DeuSu,DomainTunoCrawler,DnyzBot">
 	<cfset badbot=badbot & ",Exabot">
