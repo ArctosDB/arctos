@@ -512,6 +512,7 @@ document.getElementById('saveme').submit();
 	</form>
 	</td>
 </cfif>
+<!----
 <cfif isdefined("session.loan_request_coll_id") and #session.loan_request_coll_id# gt 0>
 	<cfquery name="active_loan_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select  USER_LOAN_ID from
@@ -528,6 +529,7 @@ document.getElementById('saveme').submit();
 
 	<td><b>Request</b></td>
 </cfif>
+---->
 	<td nowrap><strong>Catalog ##</strong>
 	<cfif
 		(isdefined("session.username") AND #detail_level# gte 2)
