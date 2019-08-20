@@ -116,8 +116,8 @@
 <!------------------------------------------------------------------->
 <cfif action is "nothing">
 	<cfquery name="getPrefs" datasource="cf_dbuser">
-		select * from cf_users, user_loan_request
-		where  cf_users.user_id = user_loan_request.user_id (+) and
+		select * from cf_users
+		where
 		username = '#session.username#' order by cf_users.user_id
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
