@@ -764,9 +764,11 @@
 		<cfif len(#spec_locality#) gt 0>
 			<cfset locality = "#locality# #spec_locality#">
 		</cfif>
+		<!----
 		<cfif len(#coordinates#) gt 0>
 		 	<cfset locality = "#locality#, #coordinates#">
 		 </cfif>
+		 ---->
 		 <cfif len(#ORIG_ELEV_UNITS#) gt 0>
 		 	<cfif MINIMUM_ELEVATION is MAXIMUM_ELEVATION>
 				<cfset locality = "#locality#. Elev. #MINIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
