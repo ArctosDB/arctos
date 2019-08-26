@@ -17,7 +17,7 @@
             <br>
             <input type="submit" value="Run Query" class="lnkBtn">
 	    </form>
-	    <a href="https://docs.google.com/document/d/1tkpikzS9XqPDz8jmPkq8Hj7g1bQtl_iB7WmLKRWM5wk/edit" target="_blank" class="external">cheat sheet</a>
+	    <a href="https://docs.google.com/document/d/15e3b8WNErFPqg1SW-QNq0nI_RjiEEZjWQDznxIJNFHE/edit" target="_blank" class="external">cheat sheet</a>
 	    <cfif #action# is "run">
 	       <hr>
 
