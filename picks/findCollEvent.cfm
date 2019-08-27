@@ -133,6 +133,7 @@
 						<div title="verbatim_coordinates">#verbatim_coordinates#</div>
 					</cfif>
 					<div title="collecting date">#thisDate#</div>
+					<div>ID: #collecting_event_id#</div>
 				</td>
 				<td>
 					<input type="button" value="UseThis" class="savBtn"
