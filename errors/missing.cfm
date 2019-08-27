@@ -407,7 +407,7 @@
 		 <cfset oid = listgetat(request.rdurl,gPos+1,"/")>
 		<cfquery name="getAgntId" datasource="uam_god">
 			select distinct agent_id from address where address_type='ORCID' and upper(substr(address, - instr(reverse(address), '/') + 1))=
-			<cfqueryparam value = "#ucase(oid)#" CFSQLType = "CF_SQL_VARCHAR" list = "no"  null = "no">
+			<cfqueryparam value="#ucase(oid)#" CFSQLType="CF_SQL_VARCHAR" list="no"  null="no">
 		</cfquery>
 		<cfif getAgntId.recordcount is 1 and len(getAgntId.agent_id) gt 0>
 			<cfset agent_id=#getAgntId.agent_id#>
