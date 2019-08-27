@@ -411,6 +411,8 @@
 		<cfif getAgntId.recordcount is 1 and len(getAgntId.agent_id) gt 0>
 			<cfset agent_id=#getAgntId.agent_id#>
 			<cfinclude template="/agent.cfm">
+		<cfelse>
+			<cfinclude template="/errors/404.cfm">
 		</cfif>
 		<cfcatch>
 			<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
