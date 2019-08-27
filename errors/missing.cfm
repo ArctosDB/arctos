@@ -43,6 +43,7 @@
 	        </cftry>
 	    </cfif>
 	</cfif>
+
 <cfelseif listfindnocase(request.rdurl,'doi',"/")>
 	<cftry>
 		<cfset gPos=listfindnocase(request.rdurl,"doi","/")>
@@ -399,6 +400,25 @@
 			</cfcatch>
 		</cftry>
 	</cfoutput>
+
+<cfelseif listfindnocase(request.rdurl,'orcid',"/")>
+	<cftry>
+		<cfset gPos=listfindnocase(request.rdurl,"orcid","/")>
+		 <cfset oid = listgetat(request.rdurl,gPos+1,"/")>
+		<cfquery name="getAgntId" datasource="uam_god">
+			select distinct agent_id from address where address_type='ORCID' and upper(substr(str, - instr(reverse(address), '/') + 1))='#ucase(oid)#'
+		</cfquery>
+		<cfif getAgntId.recordcount is 1 and len(getAgntId.agent_id) gt 0>
+			<cfset agent_id=#getAgntId.agent_id#>
+			<cfinclude template="/agent.cfm">
+		</cfif>
+		<cfcatch>
+			<cfif isdefined("session.roles") and session.roles contains "coldfusion_user">
+				<cfdump var=#cfcatch#>
+			</cfif>
+			<cfinclude template="/errors/404.cfm">
+		</cfcatch>
+	</cftry>
 <cfelseif FileExists("#Application.webDirectory#/#request.rdurl#.cfm")>
 	<cfscript>
 		getPageContext().forward("/" & request.rdurl & ".cfm?" & cgi.redirect_query_string);
