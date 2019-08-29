@@ -371,6 +371,7 @@
 										<td align="right"><span class="f11a">Nature</span></td>
 										<td>
 											<select name="nature_of_id" class="reqdClr" id="nature_of_id">
+												<option value=""></option>
 												<cfloop query="ctnature">
 													<option value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
 												</cfloop>
