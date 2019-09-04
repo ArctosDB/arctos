@@ -72,6 +72,7 @@
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'OTHER_ID_NUM_TYPE_#i# [ ' || coalesce(rec.OTHER_ID_NUM_TYPE_#i#,'NULL') || ' ] is invalid';">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
    		<cfset s=s & chr(10) & chr(9) & 'end if;'>
+   		<cfset s=s & chr(10) & 'end if;'>
 	</cfloop>
 
 
