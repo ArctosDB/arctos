@@ -1,5 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
-
+<p>
+Random generated code that's useful in various places.
+</p>
 <cfoutput>
 	<cfset s="">
 	<cfloop from ="1" to="10" index="i">
