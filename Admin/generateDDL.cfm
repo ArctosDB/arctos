@@ -16,7 +16,7 @@
 		<cfset s=s & chr(10) & chr(9) & "numRecs := isValidAgent(rec.ATTRIBUTE_DETERMINER_#i#);">
 
 		 <cfset s=s & chr(10) & chr(9) & "if numRecs !=1 then">
-		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'ATTRIBUTE_DETERMINER_1 [ ' || coalesce(rec.ATTRIBUTE_DETERMINER_1,'NULL') || ' ] matches ' || numRecs || ' agents';">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'ATTRIBUTE_DETERMINER_#i# [ ' || coalesce(rec.ATTRIBUTE_DETERMINER_#i#,'NULL') || ' ] matches ' || numRecs || ' agents';">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
    		<cfset s=s & chr(10) & chr(9) & 'end if;'>
    		<cfset s=s & chr(10)  & 'end if;'>
