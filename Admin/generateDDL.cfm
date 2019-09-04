@@ -79,6 +79,24 @@
 	<textarea rows="100" cols="150">#s#</textarea>
 
 
+	<cfset s="">
+	<cfloop from ="1" to="8" index="i">
+		<cfset s=s & chr(10) & "if rec.COLLECTOR_AGENT_#i# is not null THEN">
+		<cfset s=s & chr(10) & chr(9) & "SELECT count(*) INTO STRICT numRecs FROM ctcollector_role WHERE collector_role = rec.COLLECTOR_ROLE_#i#;">
+		<cfset s=s & chr(10) & chr(9) & "if numRecs != 1 then">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'COLLECTOR_ROLE_#i# [ ' || coalesce(rec.COLLECTOR_ROLE_#i#,'NULL') || ' ] is invalid';">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
+   		<cfset s=s & chr(10) & chr(9) & 'end if;'>
+		<cfset s=s & chr(10) & chr(9) & 'numRecs := select isValidAgent(rec.COLLECTOR_AGENT_#i#);'>
+		<cfset s=s & chr(10) & chr(9) & "if numRecs != 1 then">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'COLLECTOR_AGENT_#i# [ ' || coalesce(rec.COLLECTOR_AGENT_#i#,'NULL') || ' ] is invalid';">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
+   		<cfset s=s & chr(10) & chr(9) & 'end if;'>
+   		<cfset s=s & chr(10) & 'end if;'>
+	</cfloop>
+	<textarea rows="100" cols="150">#s#</textarea>
+
+
 </cfoutput>
 
 <cfinclude template="/includes/_footer.cfm">
