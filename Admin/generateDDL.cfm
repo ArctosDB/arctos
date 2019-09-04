@@ -1,8 +1,9 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfoutput>
+	<cfset s="">
 	<cfloop from ="1" to="12" index="i">
-		<cfset s="IF rec.ATTRIBUTE_#i# is not null and rec.ATTRIBUTE_VALUE_#i# is not null THEN">
+		<cfset s=s & "IF rec.ATTRIBUTE_#i# is not null and rec.ATTRIBUTE_VALUE_#i# is not null THEN">
 		<cfset s=s & chr(10) & chr(9) & 'select isValidAttribute(rec.ATTRIBUTE_#i#,rec.ATTRIBUTE_VALUE_#i#,rec.ATTRIBUTE_UNITS_#i#,r_collection_cde) INTO STRICT numRecs;'>
 		<cfset s=s & chr(10) & chr(9) & 'if numRecs = 0 then'>
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'ATTRIBUTE_#i# is not valid';">
