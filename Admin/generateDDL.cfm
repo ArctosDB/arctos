@@ -42,6 +42,7 @@
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "SELECT count(*) INTO STRICT numRecs FROM container WHERE barcode = rec.PART_BARCODE_#i#;">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "if numRecs = 0 then">
     	<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "thisError :=  'PART_BARCODE_#i# [ ' || coalesce(rec.PART_BARCODE_#i#,'NULL') || ' ] is invalid';">
+    	<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "END IF;">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "SELECT count(*) INTO STRICT numRecs FROM container WHERE container_type !='cryovial label' AND container_type LIKE '%label%' AND barcode = rec.PART_BARCODE_#i#;">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "if numRecs != 0 then">
@@ -62,6 +63,20 @@
 	</cfloop>
 
 	<textarea rows="100" cols="150">#s#</textarea>
+
+	<cfset s="">
+	<cfloop from ="1" to="5" index="i">
+		<cfset s=s & chr(10) & "if rec.OTHER_ID_NUM_#i# is not null THEN">
+		<cfset s=s & chr(10) & chr(9) & "SELECT count(*) INTO STRICT numRecs FROM ctcoll_other_id_type WHERE OTHER_ID_TYPE = rec.OTHER_ID_NUM_TYPE_#i#;">
+		<cfset s=s & chr(10) & chr(9) & "if numRecs = 0 then">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'OTHER_ID_NUM_TYPE_#i# [ ' || coalesce(rec.OTHER_ID_NUM_TYPE_#i#,'NULL') || ' ] is invalid';">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
+   		<cfset s=s & chr(10) & chr(9) & 'end if;'>
+	</cfloop>
+
+
+	<textarea rows="100" cols="150">#s#</textarea>
+
 
 </cfoutput>
 
