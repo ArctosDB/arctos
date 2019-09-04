@@ -56,7 +56,7 @@
 	    <cfset s=s & chr(10) & chr(9) & 'end if;'>
 	    <cfset s=s & chr(10) & chr(9) & 'SELECT count(*) INTO STRICT numRecs FROM ctcoll_obj_disp WHERE COLL_OBJ_DISPOSITION = rec.PART_DISPOSITION_#i#;'>
 		<cfset s=s & chr(10) & chr(9) & 'if numRecs = 0 then'>
-    	<cfset s=s & chr(10) & chr(9) & chr(9)  & "thisError := 'PART_DISPOSITION_#i# [ ' || coalesce(rec.PART_DISPOSITION_#i#,'NULL') || ' ] is invalid;'">
+    	<cfset s=s & chr(10) & chr(9) & chr(9)  & "thisError := 'PART_DISPOSITION_#i# [ ' || coalesce(rec.PART_DISPOSITION_#i#,'NULL') || ' ] is invalid';">
     	<cfset s=s & chr(10) & chr(9) & chr(9)  & "allError:=concat_ws('; ',allError,thisError);">
     	<cfset s=s & chr(10) & chr(9) &  "END IF;">
    		<cfset s=s & chr(10) & 'end if;'>
