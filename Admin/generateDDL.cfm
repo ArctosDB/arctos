@@ -45,7 +45,7 @@
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "END IF;">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "SELECT count(*) INTO STRICT numRecs FROM container WHERE container_type !='cryovial label' AND container_type LIKE '%label%' AND barcode = rec.PART_BARCODE_#i#;">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "if numRecs != 0 then">
-    	<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "thisError :=  'PART_BARCODE_1#i# [ ' || coalesce(rec.PART_BARCODE_1#i#,'NULL') || ' ] is a label';">
+    	<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "thisError :=  'PART_BARCODE_#i# [ ' || coalesce(rec.PART_BARCODE_#i#,'NULL') || ' ] is a label';">
     	<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
     	<cfset s=s & chr(10) & chr(9) & chr(9) & "END IF;">
    		<cfset s=s & chr(10) & chr(9) & 'end if;'>
@@ -55,10 +55,10 @@
 	    <cfset s=s & chr(10) & chr(9) & 'end if;'>
 	    <cfset s=s & chr(10) & chr(9) & 'SELECT count(*) INTO STRICT numRecs FROM ctcoll_obj_disp WHERE COLL_OBJ_DISPOSITION = rec.PART_DISPOSITION_#i#;'>
 		<cfset s=s & chr(10) & chr(9) & 'if numRecs = 0 then'>
-    	<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "thisError := 'PART_DISPOSITION_#i# [ ' || coalesce(rec.PART_DISPOSITION_#i#,'NULL') || ' ] is invalid;'">
-    	<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
-    	<cfset s=s & chr(10) & chr(9) & chr(9) & "END IF;">
-   		<cfset s=s & chr(10) & chr(9) & 'end if;'>
+    	<cfset s=s & chr(10) & chr(9) & chr(9)  & "thisError := 'PART_DISPOSITION_#i# [ ' || coalesce(rec.PART_DISPOSITION_#i#,'NULL') || ' ] is invalid;'">
+    	<cfset s=s & chr(10) & chr(9) & chr(9)  & "allError:=concat_ws('; ',allError,thisError);">
+    	<cfset s=s & chr(10) & chr(9) &  "END IF;">
+   		<cfset s=s & chr(10) & 'end if;'>
 	</cfloop>
 
 	<textarea rows="100" cols="150">#s#</textarea>
