@@ -780,6 +780,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN geology_attributes ON (locality.locality_id = geology_attributes.locality_id)">
 	</cfif>
 	<cfif isdefined("geology_hierarchies") and geology_hierarchies is 1>
+		<cfset mapurl = "#mapurl#&geology_attribute_value=#geology_attribute_value#">
 		<cfset basQual = "#basQual# AND geology_attributes.geo_att_value IN (
 				SELECT
 	 				attribute_value
