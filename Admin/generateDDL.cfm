@@ -87,7 +87,7 @@
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'COLLECTOR_ROLE_#i# [ ' || coalesce(rec.COLLECTOR_ROLE_#i#,'NULL') || ' ] is invalid';">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
    		<cfset s=s & chr(10) & chr(9) & 'end if;'>
-		<cfset s=s & chr(10) & chr(9) & 'numRecs := select isValidAgent(rec.COLLECTOR_AGENT_#i#);'>
+		<cfset s=s & chr(10) & chr(9) & 'numRecs := isValidAgent(rec.COLLECTOR_AGENT_#i#);'>
 		<cfset s=s & chr(10) & chr(9) & "if numRecs != 1 then">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "thisError :=  'COLLECTOR_AGENT_#i# [ ' || coalesce(rec.COLLECTOR_AGENT_#i#,'NULL') || ' ] is invalid';">
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "allError:=concat_ws('; ',allError,thisError);">
