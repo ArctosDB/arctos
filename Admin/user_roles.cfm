@@ -62,6 +62,8 @@ grant insert,update,delete on citation to manage_specimens;
 <!---------------------------------------------------------------------->
 <cfif action is "saveEditSumTbl">
 	<cfoutput>
+		hi
+
 		<cfdump var=#form#>
 	</cfoutput>
 </cfif>
