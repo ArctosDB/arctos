@@ -32,8 +32,8 @@
 		<cfset r=r+1>
 	</cfif>
 </cfloop>
-<cfquery name="ctroles" dbtype="query">
-	select distinct ROLE_NAME from qcurrent order by role_name
+<cfquery name="ctroles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	select distinct ROLE_NAME from cf_form_permissions order by role_name
 </cfquery>
 <form method="post" action="view_form_permissions.cfm">
 	<select name="filter_role">
@@ -45,7 +45,7 @@
 	<br><input type="submit" value="filter">
 </form>
 <cfquery name="f_rslt" dbtype="query">
-	select * from rslt <cfif isdefined("filter_role") and len(filter_role) gt 0> where ROLE_NAME='#filter_role#'</cfif>
+	select * from rslt <cfif isdefined("filter_role") and len(filter_role) gt 0> where privs like '%#filter_role#%'</cfif>
 	order by path
 </cfquery>
 <table border id="v" class="sortable">
