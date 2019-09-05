@@ -66,6 +66,32 @@ grant insert,update,delete on citation to manage_specimens;
 			select * from cf_ctuser_roles order by role_name
 		</cfquery>
 		<cfdump var=#d#>
+
+			<cfset i=1>
+			<table border>
+				<tr>
+					<th>ROLE_NAME</th>
+					<th>USER_TYPE</th>
+					<th>SHARED</th>
+					<th>DESCRIPTION</th>
+					<th>REQUIRED_READING</th>
+					<th>TEXT_DOCUMENTATION</th>
+					<th>AV_DOCUMENTATION</th>
+				</tr>
+				<form name="f" method="post" action="user_roles.cfm">
+					<input type="hidden" name="action" value="saveEditSumTbl">
+					<input type="hidden" name="role_name" value="#role_name#">
+				<tr>
+					<td>
+						<input type="text" name="USER_TYPE" value="#USER_TYPE#">
+					</td>
+				</tr>
+			</table>
+			<cfloop query="d">
+				<cfset i=i+1>
+			</cfloop>
+
+		</form>
 	</cfoutput>
 </cfif>
 <cfif action IS "defineRole">
