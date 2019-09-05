@@ -133,8 +133,8 @@ grant insert,update,delete on citation to manage_specimens;
 			<label for="t">Display Text</label>
 			<input id="t" type="text" size="80">
 
-			<input type="button" onclick="linky()" value="Click this, copy/paste below">
-			<label for="r">Link</label>
+			<br><input type="button" onclick="linky()" value="Click this, copy/paste below">
+			<label for="r">Result</label>
 			<input id="r" type="text" size="120">
 
 
