@@ -83,7 +83,8 @@ grant insert,update,delete on citation to manage_specimens;
 		function linky(){
 			var l=$("#l").val();
 			var t=$("#t").val();
-			var x='	<a class="external" target="_blank" href="' + l + '">' + t | '</a>';
+			var x='<a class="external" target="_blank" href="' + l + '">' + t + '</a>';
+			console.log(x);
 			$("#r").val(x);
 		}
 	</script>
