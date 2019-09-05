@@ -134,7 +134,7 @@ grant insert,update,delete on citation to manage_specimens;
 			<label for="r">Link</label>
 			<input id="r" type="text" size="80">
 
-			<input type="button" oclick="linky()" value="make a link">
+			<input type="button" onclick="linky()" value="make a link">
 
 		</div>
 
