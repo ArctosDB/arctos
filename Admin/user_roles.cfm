@@ -86,7 +86,45 @@ grant insert,update,delete on citation to manage_specimens;
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_ctuser_roles order by role_name
 		</cfquery>
-		<cfdump var=#d#>
+		READ THIS!
+		<ul>
+			<li>ROLE_NAME is a database role. Click the [define] link <a href="user_roles.cfm">here</a> to get CRUD access</li>
+			<li>
+				USER_TYPE is a suggestion for the types of users who should receive roles. Suggested Vocabulary:
+				<ul>
+					<li>Novice user (limited experience):New student/volunteer with limited skills and experience.</li>
+					<li>Trained user (practical application):Operator has received training, including working directly with an experienced user as well as utilizing online resources. Advanced student or volunteer.</li>
+					<li>Collection adminstrator (applied theory):Operator has received training, including working directly with an experienced user as well as utilizing online resources. Collection manager or curator of the collection.</li>
+					<li>Global administrator (recognized authority):Operator has received training, including working directly with an experienced user as well as utilizing online resources. Arctos programmers and officers only.</li>
+				</ul>
+			</li>
+			<li>
+				SHARED is an additional flag cautioning Managers about assigning permissions
+			</li>
+			<li>
+				DESCRIPTION is a general description of the role
+			</li>
+			<li>
+				REQUIRED_READING is documentation critical to using the role safely (eg, without breaking other collections)
+			</li>
+			<li>TEXT_DOCUMENTATION is links to textual documentation. See "forming links" below.</li>
+			<li>AV_DOCUMENTATION is links to audiovisual documentation (eg, video tutorials). See "forming links" below.</li>
+		</ul>
+		<p>
+			Forming Links
+		</p>
+		<div>
+			Links should look like this:
+			<pre>
+			<a class="external" target="_blank" href="http://handbook.arctosdb.org/how_to/Understanding-data-entry.html">Understanding Data Entry</a>
+			</pre>
+			<ul>
+				<li><code>class="external"</code> styles the link to alert the user of an external link</li>
+			</ul>
+
+		</div>
+
+
 
 			<cfset i=1>
 			<table border>
