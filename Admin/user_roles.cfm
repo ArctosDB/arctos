@@ -37,6 +37,7 @@ grant insert,update,delete on citation to manage_specimens;
 				</li>
 			</ul>
 		</div>
+		<br>
 		<cfif isdefined("session.roles") and session.roles contains "manage_documentation">
 			<a href="user_roles.cfm?action=editSummaryTable">Edit this table</a>
 		</cfif>
