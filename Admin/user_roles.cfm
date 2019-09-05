@@ -92,7 +92,8 @@ grant insert,update,delete on citation to manage_specimens;
 							<input type="text" name="SHARED" value="#SHARED#">
 						</td>
 						<td>
-							<input type="text" name="DESCRIPTION" value="#DESCRIPTION#">
+							<textarea name="DESCRIPTION" class="largetextarea">#DESCRIPTION#</textarea>
+							<input type="text" name="" value="">
 						</td>
 						<td>
 							<input type="text" name="REQUIRED_READING" value="#REQUIRED_READING#">
