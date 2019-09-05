@@ -87,6 +87,21 @@ grant insert,update,delete on citation to manage_specimens;
 						<td>
 							<input type="text" name="USER_TYPE" value="#USER_TYPE#">
 						</td>
+						<td>
+							<input type="text" name="SHARED" value="#SHARED#">
+						</td>
+						<td>
+							<input type="text" name="DESCRIPTION" value="#DESCRIPTION#">
+						</td>
+						<td>
+							<input type="text" name="REQUIRED_READING" value="#REQUIRED_READING#">
+						</td>
+						<td>
+							<input type="text" name="TEXT_DOCUMENTATION" value="#TEXT_DOCUMENTATION#">
+						</td>
+						<td>
+							<input type="text" name="AV_DOCUMENTATION" value="#AV_DOCUMENTATION#">
+						</td>
 					</tr>
 				</cfloop>
 			</table>
