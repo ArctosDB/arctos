@@ -77,6 +77,7 @@ grant insert,update,delete on citation to manage_specimens;
 					<th>REQUIRED_READING</th>
 					<th>TEXT_DOCUMENTATION</th>
 					<th>AV_DOCUMENTATION</th>
+					<th>Save</th>
 				</tr>
 				<cfloop query="d">
 					<form name="f" method="post" action="user_roles.cfm">
@@ -101,6 +102,9 @@ grant insert,update,delete on citation to manage_specimens;
 						</td>
 						<td>
 							<input type="text" name="AV_DOCUMENTATION" value="#AV_DOCUMENTATION#">
+						</td>
+						<td>
+							<input type="submit" value="Save Row" class="savBtn">
 						</td>
 					</tr>
 				</cfloop>
