@@ -127,14 +127,16 @@ grant insert,update,delete on citation to manage_specimens;
 			<code>
 			&lt;a class="external" target="_blank" href="http://handbook.arctosdb.org/how_to/Understanding-data-entry.html"&gt;Understanding Data Entry&lt;/a&gt;
 			</code>
-			<label for="l">Link</label>
+			<br>Linkinator 5000
+			<label for="l">Link (URL)</label>
 			<input id="l" type="text" size="80">
-			<label for="t">Text</label>
+			<label for="t">Display Text</label>
 			<input id="t" type="text" size="80">
-			<label for="r">Link</label>
-			<input id="r" type="text" size="80">
 
-			<input type="button" onclick="linky()" value="make a link">
+			<input type="button" onclick="linky()" value="Click this, copy/paste below">
+			<label for="r">Link</label>
+			<input id="r" type="text" size="120">
+
 
 		</div>
 
