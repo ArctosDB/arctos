@@ -79,6 +79,13 @@ grant insert,update,delete on citation to manage_specimens;
 </cfif>
 <!---------------------------------------------------------------------->
 <cfif action is "editSummaryTable">
+	<script>
+		function linky(){
+			var l=$("#l").val();
+			var t=$("#t").val();
+			var x='	<a class="external" target="_blank" href="' + l + '">' + t | '</a>';
+			$("#r").val(x);
+	</script>
 	<cfoutput>
 		<p>
 			<a href="user_roles.cfm">done</a>
@@ -118,9 +125,14 @@ grant insert,update,delete on citation to manage_specimens;
 			<code>
 			&lt;a class="external" target="_blank" href="http://handbook.arctosdb.org/how_to/Understanding-data-entry.html"&gt;Understanding Data Entry&lt;/a&gt;
 			</code>
-			<ul>
-				<li><code>class="external"</code> styles the link to alert the user of an external link</li>
-			</ul>
+			<label for="l">Link</label>
+			<input id="l" type="text" size="80">
+			<label for="t">Text</label>
+			<input id="t" type="text" size="80">
+			<label for="r">Link</label>
+			<input id="r" type="text" size="80">
+
+			<input type="button" oclick="linky()" value="make a link">
 
 		</div>
 
