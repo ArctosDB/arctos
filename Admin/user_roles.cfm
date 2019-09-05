@@ -93,16 +93,16 @@ grant insert,update,delete on citation to manage_specimens;
 						</td>
 						<td>
 							<textarea name="DESCRIPTION" class="largetextarea">#DESCRIPTION#</textarea>
-							<input type="text" name="" value="">
 						</td>
 						<td>
-							<input type="text" name="REQUIRED_READING" value="#REQUIRED_READING#">
+						<td>
+							<textarea name="REQUIRED_READING" class="largetextarea">#REQUIRED_READING#</textarea>
 						</td>
 						<td>
-							<input type="text" name="TEXT_DOCUMENTATION" value="#TEXT_DOCUMENTATION#">
+							<textarea name="TEXT_DOCUMENTATION" class="largetextarea">#TEXT_DOCUMENTATION#</textarea>
 						</td>
 						<td>
-							<input type="text" name="AV_DOCUMENTATION" value="#AV_DOCUMENTATION#">
+							<textarea name="AV_DOCUMENTATION" class="largetextarea">#AV_DOCUMENTATION#</textarea>
 						</td>
 						<td>
 							<input type="submit" value="Save Row" class="savBtn">
