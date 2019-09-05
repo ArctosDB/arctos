@@ -21,19 +21,19 @@
 		#name# contains ".cfm">
 		<cfset thisPath=replace(directory,application.webDirectory,"","all")>
 		<cfset thisName="#thisPath#/#name#">
-		<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		<cfquery name="qcurrent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			select ROLE_NAME, count(*) c from cf_form_permissions where form_path='#thisName#'
 			group by ROLE_NAME
 		</cfquery>
 		<cfset temp = queryaddrow(rslt,1)>
 		<cfset temp = QuerySetCell(rslt, "path", "#thisPath#/#name#", r)>
-		<cfset temp = QuerySetCell(rslt, "privs", "#valuelist(current.role_name)#", r)>
+		<cfset temp = QuerySetCell(rslt, "privs", "#valuelist(qcurrent.role_name)#", r)>
 		<cfset temp = QuerySetCell(rslt, "type", "#type#", r)>
 		<cfset r=r+1>
 	</cfif>
 </cfloop>
 <cfquery name="ctroles" dbtype="query">
-	select distinct ROLE_NAME from current order by role_name
+	select distinct ROLE_NAME from qcurrent order by role_name
 </cfquery>
 <form method="post" action="view_form_permissions.cfm">
 	<select name="filter_role">
