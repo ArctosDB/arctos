@@ -45,15 +45,25 @@ grant insert,update,delete on citation to manage_specimens;
 			<tr>
 				<td>Role Name</td>
 				<td>Description</td>
+				<td>Shared across collections?</td>
+				<td>Appropriate For</td>
 				<td>Required Reading</td>
+				<td>Text Docs</td>
+				<td>AV Docs</td>
 				<td>DB Definition</td>
+				<td>Form Access</td>
 			</tr>
 		<cfloop query="current">
 			<tr>
 				<td>#role_name#</td>
 				<td>#Description#</td>
-				<td>#required_reading#</td>
+				<td>#SHARED#</td>
+				<td>#USER_TYPE#</td>
+				<td>#REQUIRED_READING#</td>
+				<td>#TEXT_DOCUMENTATION#</td>
+				<td>#AV_DOCUMENTATION#</td>
 				<td><a href="user_roles.cfm?action=defineRole&role_name=#role_name#">[&nbsp;Def&nbsp;]</a></td>
+				<td><a href="/tools/view_form_permissions.cfm?filter_role=#role_name#">[&nbsp;Frm&nbsp;]</a></td>
 			</tr>
 		</cfloop>
 		</table>
@@ -84,7 +94,6 @@ grant insert,update,delete on citation to manage_specimens;
 			var l=$("#l").val();
 			var t=$("#t").val();
 			var x='<a class="external" target="_blank" href="' + l + '">' + t + '</a>';
-			console.log(x);
 			$("#r").val(x);
 		}
 	</script>
@@ -139,10 +148,6 @@ grant insert,update,delete on citation to manage_specimens;
 			<label for="r">Result</label>
 			<input id="r" type="text" size="120">
 		</div>
-
-
-
-			<cfset i=1>
 			<table border>
 				<tr>
 					<th>ROLE_NAME</th>
@@ -185,7 +190,6 @@ grant insert,update,delete on citation to manage_specimens;
 					</form>
 				</cfloop>
 			</table>
-
 		</form>
 	</cfoutput>
 </cfif>
