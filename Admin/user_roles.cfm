@@ -91,30 +91,31 @@ grant insert,update,delete on citation to manage_specimens;
 					<form name="f" method="post" action="user_roles.cfm">
 						<input type="hidden" name="action" value="saveEditSumTbl">
 						<input type="hidden" name="role_name" value="#role_name#">
-					<tr>
-						<td>#ROLE_NAME#</td>
-						<td>
-							<input type="text" name="USER_TYPE" value="#USER_TYPE#">
-						</td>
-						<td>
-							<input type="text" name="SHARED" value="#SHARED#">
-						</td>
-						<td>
-							<textarea name="DESCRIPTION" class="largetextarea">#DESCRIPTION#</textarea>
-						</td>
-						<td>
-							<textarea name="REQUIRED_READING" class="largetextarea">#REQUIRED_READING#</textarea>
-						</td>
-						<td>
-							<textarea name="TEXT_DOCUMENTATION" class="largetextarea">#TEXT_DOCUMENTATION#</textarea>
-						</td>
-						<td>
-							<textarea name="AV_DOCUMENTATION" class="largetextarea">#AV_DOCUMENTATION#</textarea>
-						</td>
-						<td>
-							<input type="submit" value="Save Row" class="savBtn">
-						</td>
-					</tr>
+						<tr>
+							<td>#ROLE_NAME#</td>
+							<td>
+								<input type="text" name="USER_TYPE" value="#USER_TYPE#">
+							</td>
+							<td>
+								<input type="text" name="SHARED" value="#SHARED#">
+							</td>
+							<td>
+								<textarea name="DESCRIPTION" class="largetextarea">#DESCRIPTION#</textarea>
+							</td>
+							<td>
+								<textarea name="REQUIRED_READING" class="largetextarea">#REQUIRED_READING#</textarea>
+							</td>
+							<td>
+								<textarea name="TEXT_DOCUMENTATION" class="largetextarea">#TEXT_DOCUMENTATION#</textarea>
+							</td>
+							<td>
+								<textarea name="AV_DOCUMENTATION" class="largetextarea">#AV_DOCUMENTATION#</textarea>
+							</td>
+							<td>
+								<input type="submit" value="Save Row" class="savBtn">
+							</td>
+						</tr>
+					</form>
 				</cfloop>
 			</table>
 
