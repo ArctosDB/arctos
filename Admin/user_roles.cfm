@@ -95,7 +95,6 @@ grant insert,update,delete on citation to manage_specimens;
 							<textarea name="DESCRIPTION" class="largetextarea">#DESCRIPTION#</textarea>
 						</td>
 						<td>
-						<td>
 							<textarea name="REQUIRED_READING" class="largetextarea">#REQUIRED_READING#</textarea>
 						</td>
 						<td>
