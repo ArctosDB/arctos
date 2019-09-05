@@ -115,9 +115,9 @@ grant insert,update,delete on citation to manage_specimens;
 		</p>
 		<div>
 			Links should look like this:
-			<pre>
+			<code>
 			<a class="external" target="_blank" href="http://handbook.arctosdb.org/how_to/Understanding-data-entry.html">Understanding Data Entry</a>
-			</pre>
+			</code>
 			<ul>
 				<li><code>class="external"</code> styles the link to alert the user of an external link</li>
 			</ul>
