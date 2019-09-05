@@ -32,7 +32,7 @@
 		<cfset r=r+1>
 	</cfif>
 </cfloop>
-<cfquery name="ctroles">
+<cfquery name="ctroles" dbtype="query">
 	select distinct ROLE_NAME from current order by role_name
 </cfquery>
 <form method="post" action="view_form_permissions.cfm">
