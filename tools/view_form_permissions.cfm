@@ -35,14 +35,18 @@
 <cfquery name="ctroles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select distinct ROLE_NAME from cf_form_permissions order by role_name
 </cfquery>
+<p>
+	NOTE: A form that requires roles "A,B" is only accessible to users who have BOTH roles A and B.
+</p>
 <form method="post" action="view_form_permissions.cfm">
+	<label for="filter_role">Filter for Role</label>
 	<select name="filter_role">
 		<option value=""></option>
 		<cfloop query="ctroles">
 			<option value="#ROLE_NAME#">#ROLE_NAME#</option>
 		</cfloop>
 	</select>
-	<br><input type="submit" value="filter">
+	<input type="submit" value="filter">
 </form>
 <cfquery name="f_rslt" dbtype="query">
 	select * from rslt <cfif isdefined("filter_role") and len(filter_role) gt 0> where privs like '%#filter_role#%'</cfif>
@@ -50,9 +54,8 @@
 </cfquery>
 <table border id="v" class="sortable">
 	<tr>
-		<th>form</th>
-		<th>Perms</th>
-		<th>type</th>
+		<th>Form</th>
+		<th>Roles</th>
 		<th></th>
 		<th></th>
 	</tr>
@@ -60,7 +63,6 @@
 		<tr>
 			<td>#path#</td>
 			<td>#privs#</td>
-			<td>#type#</td>
 			<td><a href="/Admin/form_roles.cfm?action=setRoles&filter=#path#">set permissions</a></td>
 			<td><a href="#path#">Visit Form</a></td>
 		</tr>
