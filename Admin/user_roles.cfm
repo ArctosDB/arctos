@@ -85,6 +85,7 @@ grant insert,update,delete on citation to manage_specimens;
 			var t=$("#t").val();
 			var x='	<a class="external" target="_blank" href="' + l + '">' + t | '</a>';
 			$("#r").val(x);
+		}
 	</script>
 	<cfoutput>
 		<p>
