@@ -124,10 +124,12 @@ grant insert,update,delete on citation to manage_specimens;
 		</p>
 		<div>
 			Links should look like this:
-			<code>
-			&lt;a class="external" target="_blank" href="http://handbook.arctosdb.org/how_to/Understanding-data-entry.html"&gt;Understanding Data Entry&lt;/a&gt;
-			</code>
-			<br>Linkinator 5000
+			<div>
+				<code>
+					&lt;a class="external" target="_blank" href="http://handbook.arctosdb.org/how_to/Understanding-data-entry.html"&gt;Understanding Data Entry&lt;/a&gt;
+				</code>
+			</div>
+			<h3>Linkinator 5000</h3>
 			<label for="l">Link (URL)</label>
 			<input id="l" type="text" size="80">
 			<label for="t">Display Text</label>
@@ -136,8 +138,6 @@ grant insert,update,delete on citation to manage_specimens;
 			<br><input type="button" onclick="linky()" value="Click this, copy/paste below">
 			<label for="r">Result</label>
 			<input id="r" type="text" size="120">
-
-
 		</div>
 
 
