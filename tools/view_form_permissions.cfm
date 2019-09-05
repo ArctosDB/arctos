@@ -16,7 +16,7 @@
 		and #directory# does not contain "CFIDE" and #name# is not "CFIDE"
 		and #directory# does not contain "fix" and #name# is not "fix"
 		and #directory# does not contain "WEB-INF" and #name# is not "WEB-INF"
-		and #directory# does not contain "cfdocs" and #name# is not "cfdocs"			
+		and #directory# does not contain "cfdocs" and #name# is not "cfdocs"
 		and #directory# does not contain "WEB-INF" and #name# is not "META-INF" and
 		#name# contains ".cfm">
 		<cfset thisPath=replace(directory,application.webDirectory,"","all")>
@@ -28,10 +28,26 @@
 		<cfset temp = queryaddrow(rslt,1)>
 		<cfset temp = QuerySetCell(rslt, "path", "#thisPath#/#name#", r)>
 		<cfset temp = QuerySetCell(rslt, "privs", "#valuelist(current.role_name)#", r)>
-		<cfset temp = QuerySetCell(rslt, "type", "#type#", r)>	
+		<cfset temp = QuerySetCell(rslt, "type", "#type#", r)>
 		<cfset r=r+1>
 	</cfif>
 </cfloop>
+<cfquery name="ctroles">
+	select distinct ROLE_NAME from current order by role_name
+</cfquery>
+<form method="post" action="view_form_permissions.cfm">
+	<select name="filter_role">
+		<option value=""></option>
+		<cfloop query="ctroles">
+			<option value="#ROLE_NAME#">#ROLE_NAME#</option>
+		</cfloop>
+	</select>
+	<br><input type="submit" value="filter">
+</form>
+<cfquery name="f_rslt" dbtype="query">
+	select * from rslt <cfif isdefined("filter_role") and len(filter_role) gt 0> where ROLE_NAME='#filter_role#'</cfif>
+	order by path
+</cfquery>
 <table border id="v" class="sortable">
 	<tr>
 		<th>form</th>
@@ -40,7 +56,7 @@
 		<th></th>
 		<th></th>
 	</tr>
-	<cfloop query="rslt">
+	<cfloop query="f_rslt">
 		<tr>
 			<td>#path#</td>
 			<td>#privs#</td>
@@ -59,9 +75,9 @@
 
 <!----
 <table border>
-	
-	
-	
+
+
+
 
 		<tr>
 			<td>
@@ -71,10 +87,10 @@
 				#valuelist(current.role_name)#
 			</td>
 			<td>
-				
+
 			</td>
 			<td>
-				
+
 			</td>
 		</tr>
 </cfif>

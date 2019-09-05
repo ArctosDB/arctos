@@ -426,7 +426,7 @@
 									<li><a target="_top" href="##">Roles/Permissions</a>
 										<ul>
 											<li><a target="_top" href="/Admin/form_roles.cfm">Form Permissions</a></li>
-											<li><a target="_top" href="/tools/uncontrolledPages.cfm">See Form Permissions</a></li>
+											<li><a target="_top" href="/tools/view_form_permissions.cfm">See Form Permissions</a></li>
 											<li><a target="_top" href="/Admin/blacklist.cfm">Blacklist IP</a></li>
 											<li><a target="_top" href="/AdminUsers.cfm">Arctos Users</a></li>
 											<li><a target="_top" href="/Admin/user_roles.cfm">Database Roles</a></li>
