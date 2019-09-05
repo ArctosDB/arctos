@@ -62,14 +62,27 @@ grant insert,update,delete on citation to manage_specimens;
 <!---------------------------------------------------------------------->
 <cfif action is "saveEditSumTbl">
 	<cfoutput>
-		hi
+		<cfquery name="up" datasource="uam_god">
+			update cf_ctuser_roles set
+				AV_DOCUMENTATION='#escapeQuotes(AV_DOCUMENTATION)#',
+				DESCRIPTION='#escapeQuotes(DESCRIPTION)#',
+				REQUIRED_READING='#escapeQuotes(REQUIRED_READING)#',
+				TEXT_DOCUMENTATION='#escapeQuotes(TEXT_DOCUMENTATION)#',
+				SHARED='#escapeQuotes(SHARED)#',
+				USER_TYPE='#escapeQuotes(USER_TYPE)#'
+			where
+				ROLE_NAME='#ROLE_NAME#'
+		</cfquery>
+		<cflocation url="user_roles.cfm?ation==#editSummaryTable#" addtoken="false">
 
-		<cfdump var=#form#>
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------->
 <cfif action is "editSummaryTable">
 	<cfoutput>
+		<p>
+			<a href="user_roles.cfm">done</a>
+		</p>
 		<cfquery name="d" datasource="uam_god">
 			select * from cf_ctuser_roles order by role_name
 		</cfquery>
