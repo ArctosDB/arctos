@@ -60,6 +60,12 @@ grant insert,update,delete on citation to manage_specimens;
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------->
+<cfif action is "saveEditSumTbl">
+	<cfoutput>
+		<cfdump var=#form#>
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------->
 <cfif action is "editSummaryTable">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
