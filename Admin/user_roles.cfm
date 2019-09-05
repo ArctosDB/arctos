@@ -37,7 +37,9 @@ grant insert,update,delete on citation to manage_specimens;
 				</li>
 			</ul>
 		</div>
-
+		<cfif isdefined("session.roles") and session.roles contains "manage_documentation">
+			<a href="user_roles.cfm?action=editSummaryTable">Edit this table</a>
+		</cfif>
 		<table border>
 			<tr>
 				<td>Role Name</td>
@@ -57,6 +59,14 @@ grant insert,update,delete on citation to manage_specimens;
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------->
+<cfif action is "editSummaryTable">
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from cf_ctuser_roles order by role_name
+		</cfquery>
+		<cfdump var=#d#>
+	</cfoutput>
+</cfif>
 <cfif action IS "defineRole">
 	<cfoutput>
 		The following table is authoritative as of #dateformat(now(), 'YYYY-MM-DD')#.
