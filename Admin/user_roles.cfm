@@ -78,18 +78,17 @@ grant insert,update,delete on citation to manage_specimens;
 					<th>TEXT_DOCUMENTATION</th>
 					<th>AV_DOCUMENTATION</th>
 				</tr>
-				<form name="f" method="post" action="user_roles.cfm">
-					<input type="hidden" name="action" value="saveEditSumTbl">
-					<input type="hidden" name="role_name" value="#role_name#">
-				<tr>
-					<td>
-						<input type="text" name="USER_TYPE" value="#USER_TYPE#">
-					</td>
-				</tr>
+				<cfloop query="d">
+					<form name="f" method="post" action="user_roles.cfm">
+						<input type="hidden" name="action" value="saveEditSumTbl">
+						<input type="hidden" name="role_name" value="#role_name#">
+					<tr>
+						<td>
+							<input type="text" name="USER_TYPE" value="#USER_TYPE#">
+						</td>
+					</tr>
+				</cfloop>
 			</table>
-			<cfloop query="d">
-				<cfset i=i+1>
-			</cfloop>
 
 		</form>
 	</cfoutput>
