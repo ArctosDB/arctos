@@ -138,6 +138,9 @@ grant insert,update,delete on citation to manage_specimens;
 					&lt;a class="external" target="_blank" href="http://handbook.arctosdb.org/how_to/Understanding-data-entry.html"&gt;Understanding Data Entry&lt;/a&gt;
 				</code>
 			</div>
+			<div>
+				Separate links with <code>&lt;br&gt;</code><br>
+			</div>
 			<h3>Linkinator 5000</h3>
 			<label for="l">Link (URL)</label>
 			<input id="l" type="text" size="80">
