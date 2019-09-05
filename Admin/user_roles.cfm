@@ -73,7 +73,7 @@ grant insert,update,delete on citation to manage_specimens;
 			where
 				ROLE_NAME='#ROLE_NAME#'
 		</cfquery>
-		<cflocation url="user_roles.cfm?ation=editSummaryTable" addtoken="false">
+		<cflocation url="user_roles.cfm?action=editSummaryTable" addtoken="false">
 
 	</cfoutput>
 </cfif>
