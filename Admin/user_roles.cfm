@@ -83,6 +83,7 @@ grant insert,update,delete on citation to manage_specimens;
 						<input type="hidden" name="action" value="saveEditSumTbl">
 						<input type="hidden" name="role_name" value="#role_name#">
 					<tr>
+						<td>#ROLE_NAME#</td>
 						<td>
 							<input type="text" name="USER_TYPE" value="#USER_TYPE#">
 						</td>
