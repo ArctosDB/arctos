@@ -13,6 +13,7 @@ grant insert,update,delete on citation to manage_specimens;
 ------------------------>
 <cfset title="User Roles">
 <cfif action IS "nothing">
+	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
 		<cfquery name="current" datasource="uam_god">
 			select * from cf_ctuser_roles order by role_name
@@ -41,7 +42,7 @@ grant insert,update,delete on citation to manage_specimens;
 		<cfif isdefined("session.roles") and session.roles contains "manage_documentation">
 			<a href="user_roles.cfm?action=editSummaryTable">Edit this table</a>
 		</cfif>
-		<table border>
+		<table border id="t" class="sortable">
 			<tr>
 				<td>Role Name</td>
 				<td>Description</td>
