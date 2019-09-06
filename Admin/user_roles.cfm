@@ -51,7 +51,7 @@ grant insert,update,delete on citation to manage_specimens;
 				<td>Required Reading</td>
 				<td>Text Docs</td>
 				<td>AV Docs</td>
-				<td>DB Definition</td>
+				<td>Data Access</td>
 				<td>Form Access</td>
 			</tr>
 		<cfloop query="current">
@@ -60,11 +60,11 @@ grant insert,update,delete on citation to manage_specimens;
 				<td>#Description#</td>
 				<td>#SHARED#</td>
 				<td>#USER_TYPE#</td>
-				<td>#REQUIRED_READING#</td>
-				<td>#TEXT_DOCUMENTATION#</td>
-				<td>#AV_DOCUMENTATION#</td>
-				<td><a href="user_roles.cfm?action=defineRole&role_name=#role_name#">[&nbsp;Def&nbsp;]</a></td>
-				<td><a href="/tools/view_form_permissions.cfm?filter_role=#role_name#">[&nbsp;Frm&nbsp;]</a></td>
+				<td nowrap>#REQUIRED_READING#</td>
+				<td nowrap>#TEXT_DOCUMENTATION#</td>
+				<td nowrap>#AV_DOCUMENTATION#</td>
+				<td nowrap><a href="user_roles.cfm?action=defineRole&role_name=#role_name#">[&nbsp;Def&nbsp;]</a></td>
+				<td nowrap><a href="/tools/view_form_permissions.cfm?filter_role=#role_name#">[&nbsp;Frm&nbsp;]</a></td>
 			</tr>
 		</cfloop>
 		</table>
@@ -72,6 +72,9 @@ grant insert,update,delete on citation to manage_specimens;
 </cfif>
 <!---------------------------------------------------------------------->
 <cfif action is "saveEditSumTbl">
+	<cfif not isdefined("session.roles") or session.roles does not contain "manage_documentation">
+		no<cfabort>
+	</cfif>
 	<cfoutput>
 		<cfquery name="up" datasource="uam_god">
 			update cf_ctuser_roles set
@@ -90,6 +93,9 @@ grant insert,update,delete on citation to manage_specimens;
 </cfif>
 <!---------------------------------------------------------------------->
 <cfif action is "editSummaryTable">
+	<cfif not isdefined("session.roles") or session.roles does not contain "manage_documentation">
+		no<cfabort>
+	</cfif>
 	<script>
 		function linky(){
 			var l=$("#l").val();
@@ -200,7 +206,6 @@ grant insert,update,delete on citation to manage_specimens;
 <cfif action IS "defineRole">
 	<cfoutput>
 		The following table is authoritative as of #dateformat(now(), 'YYYY-MM-DD')#.
-
 		<p>
 			Note: EXECUTE applies to stored procedures, which may perform various operations on behalf of users.
 			See <a href="https://github.com/ArctosDB/DDL" target="_blank" class="external">https://github.com/ArctosDB/DDL</a> for more information.
