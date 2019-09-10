@@ -5,6 +5,17 @@ Random generated code that's useful in various places.
 <cfoutput>
 
 
+	<cfset s="">
+	<cfloop from ="1" to="5" index="i">
+		<cfset s=s & chr(10) & "if rec.OTHER_ID_NUM_#i# is not null then">
+			<cfset s=s & chr(10) & chr(9) & 'call parse_other_id (l_collection_object_id,rec.OTHER_ID_NUM_#i#,rec.other_id_num_type_#i#,rec.other_id_references_#i#);'>
+		<cfset s=s & chr(10) & "end if;">
+	</cfloop>
+
+
+	<textarea rows="100" cols="150">#s#</textarea>
+
+
 
 	<cfset s="">
 	<cfloop from ="1" to="6" index="i">
