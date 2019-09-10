@@ -4,6 +4,32 @@ Random generated code that's useful in various places.
 </p>
 <cfoutput>
 
+
+
+	<cfset s="">
+	<cfloop from ="1" to="6" index="i">
+		<cfset s=s & chr(10) & "if rec.collector_agent_#i# is not null then">
+			<cfset s=s & chr(10) & chr(9) & 'insert into collector ( ('>
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "COLLECTION_OBJECT_ID,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "AGENT_ID,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "COLLECTOR_ROLE,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "COLL_ORDER">
+				<cfset s=s & chr(10) & chr(9) & ") values (">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "l_collection_object_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "getAgentId(rec.collector_agent_#i#),">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.collector_role_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "#i#">
+			<cfset s=s & chr(10) & chr(9) & ");">
+		<cfset s=s & chr(10) & "end if;">
+	</cfloop>
+
+
+	<textarea rows="100" cols="150">#s#</textarea>
+
+
+
+
+
 	<cfset s="">
 	<cfloop from ="1" to="6" index="i">
 		<cfset s=s & chr(10) & "if rec.geology_attribute_#i# is not null then">
