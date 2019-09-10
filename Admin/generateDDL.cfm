@@ -9,7 +9,7 @@ Random generated code that's useful in various places.
 	<cfset s="">
 	<cfloop from ="1" to="6" index="i">
 		<cfset s=s & chr(10) & "if rec.collector_agent_#i# is not null then">
-			<cfset s=s & chr(10) & chr(9) & 'insert into collector ( ('>
+			<cfset s=s & chr(10) & chr(9) & 'insert into collector ('>
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "COLLECTION_OBJECT_ID,">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "AGENT_ID,">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "COLLECTOR_ROLE,">
