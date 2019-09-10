@@ -6,7 +6,7 @@ Random generated code that's useful in various places.
 
 	<cfset s="">
 	<cfloop from ="1" to="6" index="i">
-		<cfset s=s & chr(10) & "if loc.geology_attribute_#i# is not null then">
+		<cfset s=s & chr(10) & "if rec.geology_attribute_#i# is not null then">
 			<cfset s=s & chr(10) & chr(9) & 'insert into geology_attributes ('>
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "geology_attribute_id,">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "v_locality_id,">
@@ -18,12 +18,12 @@ Random generated code that's useful in various places.
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "geo_att_remark">
 				<cfset s=s & chr(10) & chr(9) & ") values (">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "nextval('sq_geology_attribute_id'),">
-				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geology_attribute_#i#,">
-				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geo_att_value_#i#,">
-				<cfset s=s & chr(10) & chr(9) & chr(9) & "getAgentId(loc.geo_att_determiner_#i#),">
-				<cfset s=s & chr(10) & chr(9) & chr(9) & "to_date(loc.geo_att_determined_date_#i#,'YYYY-MM-DD'),">
-				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geo_att_determined_method_#i#,">
-				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geo_att_remark_#i#">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.geology_attribute_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.geo_att_value_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "getAgentId(rec.geo_att_determiner_#i#),">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "to_date(rec.geo_att_determined_date_#i#,'YYYY-MM-DD'),">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.geo_att_determined_method_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.geo_att_remark_#i#">
 			<cfset s=s & chr(10) & chr(9) & ");">
 		<cfset s=s & chr(10) & "end if;">
 	</cfloop>
