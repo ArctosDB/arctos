@@ -9,52 +9,52 @@ Random generated code that's useful in various places.
 	<cfloop from ="1" to="12" index="i">
 		<cfset s=s & chr(10) & "if rec.PART_NAME_#i# is not null then">
 			<cfset s=s & chr(10) & chr(9) & 'INSERT INTO coll_object ('>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'COLLECTION_OBJECT_ID,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'COLL_OBJECT_TYPE,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'ENTERED_PERSON_ID,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'COLL_OBJECT_ENTERED_DATE,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'COLL_OBJ_DISPOSITION,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'LOT_COUNT,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'CONDITION,'>
+			<cfset s=s & chr(10) & chr(9) &  chr(9) & 'COLLECTION_OBJECT_ID,'>
+			<cfset s=s & chr(10) & chr(9) &  chr(9) & 'COLL_OBJECT_TYPE,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'ENTERED_PERSON_ID,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'COLL_OBJECT_ENTERED_DATE,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'COLL_OBJ_DISPOSITION,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'LOT_COUNT,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'CONDITION,'>
 			<cfset s=s & chr(10) & chr(9) & ') values ('>
 
 
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & "nextval('sq_collection_object_id'),">
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & "'SP,'">
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'l_entered_person_id,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'CURRENT_TIMESTAMP,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'rec.PART_DISPOSITION_#i#,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'rec.PART_LOT_COUNT_#i#,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'rec.PART_CONDITION_#i#,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & "nextval('sq_collection_object_id'),">
+			<cfset s=s & chr(10) & chr(9) & chr(9) & "'SP,'">
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'l_entered_person_id,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'CURRENT_TIMESTAMP,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_DISPOSITION_#i#,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_LOT_COUNT_#i#,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_CONDITION_#i#,'>
 			<cfset s=s & chr(10) & chr(9) & ');'>
 			<cfset s=s & chr(10) & chr(9) & 'INSERT INTO specimen_part ('>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'COLLECTION_OBJECT_ID,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'PART_NAME,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'DERIVED_FROM_CAT_ITEM,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'COLLECTION_OBJECT_ID,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'PART_NAME,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'DERIVED_FROM_CAT_ITEM,'>
 			<cfset s=s & chr(10) & chr(9) & ') values ('>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & "currval('sq_collection_object_id'),">
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'rec.PART_NAME_#i#,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'l_collection_object_id'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & "currval('sq_collection_object_id'),">
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_NAME_#i#,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'l_collection_object_id'>
 			<cfset s=s & chr(10) & chr(9) & ');'>
 			<cfset s=s & chr(10) & chr(9) & 'if rec.part_remark_#i# is not null then'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'INSERT INTO coll_object_remark ('>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & chr(9) & 'collection_object_id,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & chr(9) & 'coll_object_remarks,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & ') values ('>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & chr(9) & "currval('sq_collection_object_id'),">
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & chr(9) & "rec.part_remark_#i#">
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & ');'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'INSERT INTO coll_object_remark ('>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & 'collection_object_id,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & 'coll_object_remarks,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & ') values ('>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "currval('sq_collection_object_id'),">
+			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "rec.part_remark_#i#">
+			<cfset s=s & chr(10) & chr(9) & chr(9) & ');'>
 			<cfset s=s & chr(10) & chr(9) & 'end if;'>
 
 
 
 			<cfset s=s & chr(10) & chr(9) & 'if rec.part_barcode_#i# is not null then'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & "SELECT container_id INTO r_container_id FROM coll_obj_cont_hist WHERE collection_object_id = currval('sq_collection_object_id');">
+			<cfset s=s & chr(10) & chr(9) & chr(9) & "SELECT container_id INTO r_container_id FROM coll_obj_cont_hist WHERE collection_object_id = currval('sq_collection_object_id');">
 
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'UPDATE container SET '>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & chr(9) & 'parent_container_id = r_parent_container_id'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & 'WHERE,'>
-			<cfset s=s & chr(10) & chr(9) &  & chr(9) & chr(9) & "container_id = r_container_id;">
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'UPDATE container SET '>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & 'parent_container_id = r_parent_container_id'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'WHERE,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "container_id = r_container_id;">
 			<cfset s=s & chr(10) & chr(9) & 'end if;'>
 
 
