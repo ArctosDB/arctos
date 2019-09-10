@@ -9,7 +9,7 @@ Random generated code that's useful in various places.
 		<cfset s=s & chr(10) & "if loc.geology_attribute_#i# is not null then">
 			<cfset s=s & chr(10) & chr(9) & 'insert into geology_attributes ('>
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "geology_attribute_id,">
-				<cfset s=s & chr(10) & chr(9) & chr(9) & "locality_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "v_locality_id,">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "geology_attribute,">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "geo_att_value,">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "geo_att_determiner_id,">
