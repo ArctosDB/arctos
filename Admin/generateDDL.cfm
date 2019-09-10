@@ -3,6 +3,33 @@
 Random generated code that's useful in various places.
 </p>
 <cfoutput>
+
+	<cfset s="">
+	<cfloop from ="1" to="6" index="i">
+		<cfset s=s & chr(10) & "if loc.geology_attribute_#i# is not null then">
+			<cfset s=s & chr(10) & chr(9) & 'insert into geology_attributes ('>
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "geology_attribute_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "locality_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "geology_attribute,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "geo_att_value,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "geo_att_determiner_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "geo_att_determined_date,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "geo_att_determined_method,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "geo_att_remark">
+				<cfset s=s & chr(10) & chr(9) & ") values (">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "nextval('sq_geology_attribute_id'),">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geology_attribute_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geo_att_value_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "getAgentId(loc.geo_att_determiner_#i#),">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "to_date(loc.geo_att_determined_date_#i#,'YYYY-MM-DD'),">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geo_att_determined_method_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geo_att_remark_#i#">
+			<cfset s=s & chr(10) & chr(9) & ");">
+	<cfset s=s & chr(10) & "end if;">
+
+
+	<textarea rows="100" cols="150">#s#</textarea>
+
 	<cfset s="">
 	<cfloop from ="1" to="10" index="i">
 		<cfset s=s & chr(10) & "IF rec.ATTRIBUTE_#i# is not null and rec.ATTRIBUTE_VALUE_#i# is not null THEN">
