@@ -25,7 +25,8 @@ Random generated code that's useful in various places.
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geo_att_determined_method_#i#,">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "loc.geo_att_remark_#i#">
 			<cfset s=s & chr(10) & chr(9) & ");">
-	<cfset s=s & chr(10) & "end if;">
+		<cfset s=s & chr(10) & "end if;">
+	</cfloop>
 
 
 	<textarea rows="100" cols="150">#s#</textarea>
