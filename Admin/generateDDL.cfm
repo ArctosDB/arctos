@@ -50,7 +50,7 @@ Random generated code that's useful in various places.
 			<cfset s=s & chr(10) & chr(9) & 'if rec.part_barcode_#i# is not null then'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & "SELECT container_id INTO r_container_id FROM coll_obj_cont_hist WHERE collection_object_id = currval('sq_collection_object_id');">
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'UPDATE container SET '>
-			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & 'parent_container_id = r_parent_container_id'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & 'parent_container_id = (select container_id from container where barcode=rec.part_barcode_#i#)'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'WHERE'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "container_id = r_container_id;">
 			<cfset s=s & chr(10) & chr(9) & 'end if;'>
