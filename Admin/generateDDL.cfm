@@ -5,6 +5,40 @@ Random generated code that's useful in various places.
 <cfoutput>
 
 
+
+	<cfset s="">
+	<cfloop from ="1" to="10" index="i">
+		<cfset s=s & chr(10) & "if rec.attribute_value_#i# is not null and rec.attribute_7#i# then">
+			<cfset s=s & chr(10) & chr(9) & 'insert into attributes ('>
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "attribute_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "collection_object_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "determined_by_agent_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "attribute_type,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "attribute_value,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "attribute_units,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "attribute_remark,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "determination_method,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "determined_date">
+				<cfset s=s & chr(10) & chr(9) & ") values (">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "nextval('sq_attribute_id'),">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "l_collection_object_id,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "getAgentId(rec.attribute_determiner_#i#),">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.attribute_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.attribute_value_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.attribute_units_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.attribute_remarks_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.attribute_det_meth_#i#,">
+				<cfset s=s & chr(10) & chr(9) & chr(9) & "rec.attribute_date_#i#">
+			<cfset s=s & chr(10) & chr(9) & ");">
+		<cfset s=s & chr(10) & "end if;">
+	</cfloop>
+
+
+	<textarea rows="100" cols="150">#s#</textarea>
+
+
+
+
 	<cfset s="">
 	<cfloop from ="1" to="12" index="i">
 		<cfset s=s & chr(10) & "if rec.PART_NAME_#i# is not null then">
