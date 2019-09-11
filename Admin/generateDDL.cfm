@@ -18,7 +18,7 @@ Random generated code that's useful in various places.
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'CONDITION'>
 			<cfset s=s & chr(10) & chr(9) & ') values ('>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & "nextval('sq_collection_object_id'),">
-			<cfset s=s & chr(10) & chr(9) & chr(9) & "'SP,'">
+			<cfset s=s & chr(10) & chr(9) & chr(9) & "'SP',">
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'l_entered_person_id,'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'CURRENT_TIMESTAMP,'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_DISPOSITION_#i#,'>
