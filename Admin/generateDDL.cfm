@@ -8,7 +8,7 @@ Random generated code that's useful in various places.
 
 	<cfset s="">
 	<cfloop from ="1" to="10" index="i">
-		<cfset s=s & chr(10) & "if rec.attribute_value_#i# is not null and rec.attribute_#i# then">
+		<cfset s=s & chr(10) & "if rec.attribute_value_#i# is not null and rec.attribute_#i# is not null then">
 			<cfset s=s & chr(10) & chr(9) & 'insert into attributes ('>
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "attribute_id,">
 				<cfset s=s & chr(10) & chr(9) & chr(9) & "collection_object_id,">
