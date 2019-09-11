@@ -15,10 +15,8 @@ Random generated code that's useful in various places.
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'COLL_OBJECT_ENTERED_DATE,'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'COLL_OBJ_DISPOSITION,'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'LOT_COUNT,'>
-			<cfset s=s & chr(10) & chr(9) & chr(9) & 'CONDITION,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'CONDITION'>
 			<cfset s=s & chr(10) & chr(9) & ') values ('>
-
-
 			<cfset s=s & chr(10) & chr(9) & chr(9) & "nextval('sq_collection_object_id'),">
 			<cfset s=s & chr(10) & chr(9) & chr(9) & "'SP,'">
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'l_entered_person_id,'>
