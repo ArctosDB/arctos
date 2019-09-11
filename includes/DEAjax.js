@@ -628,7 +628,7 @@ function loadRecordEdit (collection_object_id) {
 						//console.log('a6==weight--' + r.DATA.ATTRIBUTE_6);
 					}
 				}
-				if(ccde=='ES') {
+				if(ccde=='ES' || ccde=='Inv') {
 					//console.log('ccde is ES');
 					$("#sort_geology").show();
 				}
@@ -749,7 +749,7 @@ function loadRecordEnter(collection_object_id){
 				// fix the dropdowns for anything that landed in the table
 				set_attribute_dropdowns();
 				// turn this thing on when necessary
-				if(ccde=='ES') {
+				if(ccde=='ES' || ccde=='Inv') {
 					//console.log('is ES');
 					/*
 					 * 
