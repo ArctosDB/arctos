@@ -23,8 +23,9 @@ Random generated code that's useful in various places.
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'CURRENT_TIMESTAMP,'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_DISPOSITION_#i#,'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_LOT_COUNT_#i#,'>
-			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_CONDITION_#i#,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_CONDITION_#i#'>
 			<cfset s=s & chr(10) & chr(9) & ');'>
+
 			<cfset s=s & chr(10) & chr(9) & 'INSERT INTO specimen_part ('>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'COLLECTION_OBJECT_ID,'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'PART_NAME,'>
