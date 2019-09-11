@@ -29,7 +29,7 @@ Random generated code that's useful in various places.
 			<cfset s=s & chr(10) & chr(9) & 'INSERT INTO specimen_part ('>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'COLLECTION_OBJECT_ID,'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'PART_NAME,'>
-			<cfset s=s & chr(10) & chr(9) & chr(9) & 'DERIVED_FROM_CAT_ITEM,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & 'DERIVED_FROM_CAT_ITEM'>
 			<cfset s=s & chr(10) & chr(9) & ') values ('>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & "currval('sq_collection_object_id'),">
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'rec.PART_NAME_#i#,'>
@@ -38,7 +38,7 @@ Random generated code that's useful in various places.
 			<cfset s=s & chr(10) & chr(9) & 'if rec.part_remark_#i# is not null then'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & 'INSERT INTO coll_object_remark ('>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & 'collection_object_id,'>
-			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & 'coll_object_remarks,'>
+			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & 'coll_object_remarks'>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & ') values ('>
 			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "currval('sq_collection_object_id'),">
 			<cfset s=s & chr(10) & chr(9) & chr(9) & chr(9) & "rec.part_remark_#i#">
