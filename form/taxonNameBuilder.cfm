@@ -60,7 +60,7 @@
 		});
 		$( "#taxa_formula" ).change(function() {
 			var formula=$("#taxa_formula").val();
-			if (formula=='A' || formula=='A ?' || formula=='A aff.' || formula=='A cf.' || formula=='A ssp.' || formula=='A cspf.'){
+			if (formula=='A' || formula=='A ?' || formula=='A aff.' || formula=='A cf.' || formula=='A ssp.' || formula=='A sp.'){
 				$("#dt1").show();
 				$("#dt2").hide();
 				$("#dts").hide();
