@@ -205,7 +205,7 @@
 			document.body.appendChild(popDiv);
 			var cDiv=document.createElement('div');
 			cDiv.className = 'fancybox-close';
-			cDiv.id='cDiv';
+			cDiv.id='GLcDiv';
 			cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
 			$("#GLpopDiv").append(cDiv);
 			var hDiv=document.createElement('div');
@@ -217,7 +217,7 @@
 			$("#GLpopDiv").append(hDiv);
 			$("#GLpopDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 			var theFrame = document.createElement('iFrame');
-			theFrame.id='theFrame';
+			theFrame.id='GLtheFrame';
 			theFrame.className = 'editFrame';
 			theFrame.src=guri;
 			$("#GLpopDiv").append(theFrame);
@@ -247,10 +247,10 @@
 			$('#bgDiv', window.parent.document).remove();
 			$('#GLpopDiv').remove();
 			$('#GLpopDiv', window.parent.document).remove();
-			$('#cDiv').remove();
-			$('#cDiv', window.parent.document).remove();
-			$('#theFrame').remove();
-			$('#theFrame', window.parent.document).remove();
+			$('#GLcDiv').remove();
+			$('#GLcDiv', window.parent.document).remove();
+			$('#GLtheFrame').remove();
+			$('#GLtheFrame', window.parent.document).remove();
 		}
 
 		function useAutoCoords(){
