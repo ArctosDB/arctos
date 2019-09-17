@@ -200,27 +200,27 @@
 			bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
 			document.body.appendChild(bgDiv);
 			var popDiv=document.createElement('div');
-			popDiv.id = 'popDiv';
+			popDiv.id = 'GLpopDiv';
 			popDiv.className = 'editAppBox';
 			document.body.appendChild(popDiv);
 			var cDiv=document.createElement('div');
 			cDiv.className = 'fancybox-close';
 			cDiv.id='cDiv';
 			cDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
-			$("#popDiv").append(cDiv);
+			$("#GLpopDiv").append(cDiv);
 			var hDiv=document.createElement('div');
 			hDiv.className = 'fancybox-help';
 			hDiv.id='hDiv';
 			//hDiv.innerHTML='<a href="https://arctosdb.wordpress.com/how-to/create/data-entry/geolocate/" target="blank">[ help ]</a>';
 			//hDiv.innerHTML='<span class="helpLink" id="geolocate">[ help ]</span>';
 
-			$("#popDiv").append(hDiv);
-			$("#popDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
+			$("#GLpopDiv").append(hDiv);
+			$("#GLpopDiv").append('<img src="/images/loadingAnimation.gif" class="centeredImage">');
 			var theFrame = document.createElement('iFrame');
 			theFrame.id='theFrame';
 			theFrame.className = 'editFrame';
 			theFrame.src=guri;
-			$("#popDiv").append(theFrame);
+			$("#GLpopDiv").append(theFrame);
 		}
 
 		function getGeolocate(evt) {
@@ -245,8 +245,8 @@
 		function closeGeoLocate(msg) {
 			$('#geolocateBGDiv').remove();
 			$('#bgDiv', window.parent.document).remove();
-			$('#popDiv').remove();
-			$('#popDiv', window.parent.document).remove();
+			$('#GLpopDiv').remove();
+			$('#GLpopDiv', window.parent.document).remove();
 			$('#cDiv').remove();
 			$('#cDiv', window.parent.document).remove();
 			$('#theFrame').remove();
