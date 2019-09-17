@@ -195,7 +195,7 @@
 				guri+="&locality="+$("#spec_locality").val();
 			}
 			var bgDiv = document.createElement('div');
-			bgDiv.id = 'bgDiv';
+			bgDiv.id = 'geolocateBGDiv';
 			bgDiv.className = 'bgDiv';
 			bgDiv.setAttribute('onclick','closeGeoLocate("clicked closed")');
 			document.body.appendChild(bgDiv);
@@ -243,7 +243,7 @@
 		    }
 		}
 		function closeGeoLocate(msg) {
-			$('#bgDiv').remove();
+			$('#geolocateBGDiv').remove();
 			$('#bgDiv', window.parent.document).remove();
 			$('#popDiv').remove();
 			$('#popDiv', window.parent.document).remove();
