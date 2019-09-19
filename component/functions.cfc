@@ -2878,7 +2878,6 @@
 				<cfset QuerySetCell(result, "PART_NAME_#n#", "#prt.part_name#", i)>
 				<cfset QuerySetCell(result, "PART_CONDITION_#n#", "#prt.condition#", i)>
 				<cfset QuerySetCell(result, "PART_BARCODE_#n#", "#prt.barcode#", i)>
-				<cfset QuerySetCell(result, "PART_CONTAINER_LABEL_#n#", "#prt.label#", i)>
 				<cfset QuerySetCell(result, "PART_LOT_COUNT_#n#", "#prt.lot_count#", i)>
 				<cfset QuerySetCell(result, "PART_DISPOSITION_#n#", "#prt.COLL_OBJ_DISPOSITION#", i)>
 				<cfset QuerySetCell(result, "PART_REMARK_#n#", "#prt.partremark#", i)>
