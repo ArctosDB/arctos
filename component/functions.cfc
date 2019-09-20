@@ -2556,7 +2556,7 @@
 			flat.collection_object_id=specimen_part.derived_from_cat_item (+) and
 			specimen_part.collection_object_id=coll_object.collection_object_id  (+) and
 			specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
-			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id (+) and
 			coll_obj_cont_hist.container_id=c.container_id (+) and
 			c.parent_container_id=p.container_id (+) and
 			flat.collection_object_id=attributes.collection_object_id (+) and
