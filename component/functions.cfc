@@ -2489,7 +2489,7 @@
 	</cftry>
 </cffunction>
 <!----------------------------------------------------------------------------------------------->
-<cffunction name="getCloneOfCatalogedItemInBulkloaderFormat" access="remote" output="true" returnType="query">
+<cffunction name="getCloneOfCatalogedItemInBulkloaderFormat" access="public" output="true" returnType="query">
 	<cfargument name="table_name" type="any" required="yes">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
@@ -2563,7 +2563,6 @@
 			attributes.DETERMINED_BY_AGENT_ID=atagnt.agent_id (+) and
 			flat.collection_object_id in (select collection_object_id from #table_name#)
 	</cfquery>
-	<cfdump var=#d#>
 	<cfquery name="one" dbtype="query">
 		select
 			COLLECTION_OBJECT_ID,
