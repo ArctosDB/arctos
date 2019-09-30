@@ -222,7 +222,9 @@
 			                <li><a target="_top" href="/showLocality.cfm">Places</a></li>
 			                <li><a target="_top" href="/info/ctDocumentation.cfm">Code&nbsp;Tables</a></li>
 							<li><a target="_top" href="/googlesearch.cfm">Google&nbsp;Custom&nbsp;(BETA)</a></li>
+							<!----
 							<li><a target="_top" href="/spatialBrowse.cfm">Spatial&nbsp;Browse&nbsp;(BETA)</a></li>
+							---->
 							<li><a target="_top" href="/agent.cfm">Agents</a></li>
 							<li><a target="_top" href="/info/api.cfm">API</a></li>
 						</ul>
