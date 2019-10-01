@@ -1464,9 +1464,16 @@
 			<!--- little cache for globi linking ---->
 			<cfset rtyps="">
 			<cfif len(rels.other_id_type) gt 0>
+				<cfquery name="drt" dbtype="query">
+					select distinct id_references from rels order by id_references
+				</cfquery>
+
 				<div class="detailCell">
 					<div class="detailLabel">
 						Relationships <a href="/SpecimenResults.cfm?related_base=#guid#">[ Find All ]</a>
+						<cfloop query="drt">
+							<a href="/SpecimenResults.cfm?related_base=#guid#&related_by=#id_references#">[ Find #id_references# ]</a>
+						</cfloop>
 						<span class="expandoHolder" id="expando-id_relations"></span>
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
