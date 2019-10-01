@@ -1466,7 +1466,7 @@
 			<cfif len(rels.other_id_type) gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">
-						Relationships
+						Relationships <a href="/SpecimenResults.cfm?related_base=#guid#">[ Find All ]</a>
 						<span class="expandoHolder" id="expando-id_relations"></span>
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>

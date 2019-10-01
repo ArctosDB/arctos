@@ -2595,7 +2595,6 @@
 	<cfquery name="bid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select #session.flatTableName#.collection_object_id from #session.flatTableName# where guid='#related_base#'
 	</cfquery>
-	<cfdump var=#bid#>
 	<cfif bid.recordcount is not 1>
 		related_base not found<cfabort>
 	</cfif>
@@ -2613,17 +2612,12 @@
 				and coll_obj_other_id_num.ID_REFERENCES='#related_by#'
 			</cfif>
 	</cfquery>
-	<cfdump var=#rcid#>
 	<cfset l1=valuelist(bid.collection_object_id)>
 	<cfset l2=valuelist(rcid.collection_object_id)>
 	<cfset thisIDList=l1>
 	<cfif len(l2) gt 0>
-	<cfset thisIDList=listappend(thisIDList,l2)>
+		<cfset thisIDList=listappend(thisIDList,l2)>
 	</cfif>
-	<cfdump var=#thisIDList#>
-
-
-
 	<cfset basQual = " #basQual# and #session.flatTableName#.collection_object_id IN (#thisIDList#)">
 </cfif>
 
