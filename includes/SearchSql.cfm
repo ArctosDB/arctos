@@ -2614,7 +2614,9 @@
 	<cfset l1=valuelist(bid.collection_object_id)>
 	<cfset l2=valuelist(rcid.collection_object_id)>
 	<cfset thisIDList=l1>
+	<cfif len(l2) gt 0>
 	<cfset thisIDList=listappend(thisIDList,l2)>
+	</cfif>
 	<cfdump var=#thisIDList#>
 
 
