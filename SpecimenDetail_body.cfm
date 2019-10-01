@@ -1470,11 +1470,12 @@
 
 				<div class="detailCell">
 					<div class="detailLabel">
-						Relationships <a href="/SpecimenResults.cfm?related_base=#guid#">[ Find All ]</a>
-						<cfloop query="drt">
-							<a href="/SpecimenResults.cfm?related_base=#guid#&related_by=#id_references#">[ Find #id_references# ]</a>
-						</cfloop>
+						Relationships
 						<span class="expandoHolder" id="expando-id_relations"></span>
+						<a class="infoLink" href="/SpecimenResults.cfm?related_base=#guid#">[ Find All ]</a>
+						<cfloop query="drt">
+							<a  class="infoLink" href="/SpecimenResults.cfm?related_base=#guid#&related_by=#id_references#">[ Find #id_references# ]</a>
+						</cfloop>
 						<cfif oneOfUs is 1>
 							<span class="detailEditCell" onclick="window.parent.loadEditApp('editIdentifiers');">Edit</span>
 						</cfif>
