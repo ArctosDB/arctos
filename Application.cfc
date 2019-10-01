@@ -420,7 +420,6 @@
             cPath does not contain "/errors/dev_login.cfm" and
             cPath does not contain "/login.cfm" and
             cPath does not contain "/ChangePassword.cfm" and
-            cPath does not contain "/contact.cfm" and
             cPath does not contain "/dumpAll.cfm" and
             cPath does not contain "/get_short_doc.cfm" and
             cPath does not contain "/errors/blocked.cfm" and
