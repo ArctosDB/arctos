@@ -5,7 +5,8 @@ Arctos offers several methods by which users may investigate suspect data. None 
 encoded as database rules, rather than after-the-fact reports.
 
 <p>
-	This is a static page, and may be incomplete, incorrect, or out of date. Please <a href="/contact.cfm">let us know</a> 
+	This is a static page, and may be incomplete, incorrect, or out of date. Please 
+		<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
 	if that seems to be the case.
 </p>
 

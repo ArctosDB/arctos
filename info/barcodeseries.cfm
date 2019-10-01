@@ -917,7 +917,8 @@ GRANT EXECUTE ON is_iso8601 TO PUBLIC;
 </div>
 <cfsavecontent variable="doc_barcodeseriessql">
 	<div style="max-height:10em;overflow:scroll;">
-		<a style="font-weight:bold;size:large" href="/contact.cfm">Contact us for help in writing SQL</a>
+		<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+		for help in writing SQL
 		<p>
 			"barcodeseriessql" is the SQL statement that MUST return true when analyzed against any barcode in the intended series, and false
 			against any other string. It is evaluated as "select count(*) from dual where {whatever_you_type}". That MUST return

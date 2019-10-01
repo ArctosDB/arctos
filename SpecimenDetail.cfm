@@ -616,7 +616,8 @@
 	<cf_logError subject="SpecimenDetail error" attributeCollection=#cfcatch#>
 	<div class="error">
 		Oh no! Part of this page has failed to load!
-		<br>This error has been logged. Please <a href="/contact.cfm?ref=specimendetail">contact us</a> with any useful information.
+		<br>This error has been logged. Please 	<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+		 with any useful information.
 	</div>
 </cfcatch>
 </cftry>

@@ -213,7 +213,8 @@ Upload CSV:
 	</p>
 	<p>
 		You may NOT create localities with geology attributes from this form - create them in Arctos, name them, and use locality_name here.
-		<a href="/contact.cfm">contact us</a> if you need other functionality.
+			<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+ if you need other functionality.
 	</p>
 	<p>
 		Coordinates will go to collecting_event (verbatim coordinates) and locality. Pre-create events and use collecting_event_name if you need more control.

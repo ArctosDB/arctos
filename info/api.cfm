@@ -6,7 +6,8 @@
 		Partial list of ways to talk to Arctos.
 	</h2>
 	<p>
-		 <a href="/contact.cfm?ref=api">Contact us</a> for help or additional access.
+		 	<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+ for help or additional access.
 	</p>
 	<p>
 		You may search specimens using the <a href="/api/specsrch">SpecimenResults.cfm API</a>.

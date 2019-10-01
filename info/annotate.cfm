@@ -85,7 +85,8 @@
 			</cfquery>
 		<cfelse>
 			<div class="error">
-				Oops! I can't handle that request. <a href="/contact.cfm?ref=failedAnnotationType">contact us</a>
+				Oops! I can't handle that request. 	
+				<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
 				<cfthrow detail="unhandled_annotation" errorcode="9999" message="unhandled annotation">
 			</div>
 			<cfabort>

@@ -420,7 +420,7 @@
 				 available from <a href="http://www.mozilla.com/firefox/" target="_blank" class="external">Mozilla</a>.</li>
 			<li><strong>The Rest:</strong>
 		    	Most of Arctos should work most of the time in most other browsers.
-				<cfoutput><a href="#Application.ServerRootUrl#/contact.cfm" target="_blank">Let us know</a></cfoutput> if
+		    		<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Let us know</a> if
 				you have trouble accessing this site in your browser, and we'll fix it if we can.
 			</li>
 		</ul>

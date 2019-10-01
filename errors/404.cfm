@@ -129,7 +129,8 @@
 	</cfif>
 
 	<p>
-		If you followed a link from within Arctos, please <a href="/contact.cfm">Contact Us</a>
+		If you followed a link from within Arctos, please
+			<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
 	 	with any information that might help us resolve this issue.
 	</p>
 	<p>

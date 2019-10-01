@@ -143,7 +143,9 @@
 <cfif action is "getFile">
 <cfoutput>
 
-	Seeing errors? Here are some common causes and their solution. <a href="/contact.cfm">Let us know</a> if you find more problems and/or solutions.
+	Seeing errors? Here are some common causes and their solution. 	
+	<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+ if you find more problems and/or solutions.
 
 	<ul>
 		<li>

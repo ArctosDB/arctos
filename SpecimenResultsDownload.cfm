@@ -406,7 +406,8 @@
 			<li>Use your browser's back button or click <a href="javascript: history.back();">here</a>
 				if you wish to agree to the terms and proceed with the download.</li>
 			<li>
-				<a href="/contact.cfm">Contact us</a> if you wish to discuss the terms of usage.
+					<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+ if you wish to discuss the terms of usage.
 			</li>
 		</ul>
 		<cfabort>

@@ -359,7 +359,8 @@ select
 			has read and understands the agent creation guidelines.
 		</p>
 		<p>
-			Please use the <a href="#application.serverRootURL#/contact.cfm?ref=noncompliant_agent_notice">contact</a> link at the bottom of any Arctos form
+			Please use the 	<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+ link at the bottom of any Arctos form
 			if you believe you have received this mail in error, or if you wish to discuss the Arctos Agent Creation Guidelines.
 		<p>
 			Please review the following agents and make corrections or additions as appropriate.
