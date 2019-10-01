@@ -28,7 +28,7 @@ https://docs.google.com/spreadsheet/ccc?key=0AtA8jKNH8nVLdFVTY1E3cENlLTB0ZDVRZ0s
 
 <p>
 	The following is a probably-biased comparison of Arctos and Specify. 
-	We've tried to be fair, and we welcome <a href="/contact.cfm">feedback</a>. 
+	We've tried to be fair, and we welcome	<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">feedback</a>. 
 	Let us know if we've misrepresented something and we'll clarify.
 </p>
 <p>

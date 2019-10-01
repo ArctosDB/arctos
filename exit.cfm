@@ -107,7 +107,8 @@
 				Click the following link(s) to attempt to load the resource manually.
 			</p>
 			<p>
-				Please <a href="/contact.cfm?ref=#target#">contact us</a> if you experience additional problems with the link.
+				Please 	<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+ if you experience additional problems with the link.
 			</p>
 			<p>Link as provided: <a href="#target#">#target#</a></p>
 				<cfif http_target is not target>

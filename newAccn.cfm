@@ -145,7 +145,8 @@
 					</table>
 				</td>
 				<td valign="top">
-					<label for=""><a href="/contact.cfm">Contact us</a> to request collection-specific next accession number suggestions.</label>
+					<label for="">	<a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+ to request collection-specific next accession number suggestions.</label>
 					<table id="sugnTabl" border="1">
 						<tr>
 							<td>Collection</td>

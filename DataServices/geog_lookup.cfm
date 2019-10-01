@@ -442,7 +442,8 @@ from geog_auth_rec where rownum<10
 	<br>full_component_match > componentMatch_noCont > componentMatch_noSea > componentMatch_noCountry > componentMatch_JustIsland
 	<br>Manually select suggestions; the more you do here, the fewer problems later.
 	<br><a href="geog_lookup.cfm?action=csv">download CSV</a>
-	<br><a href="/contact.cfm">contact us</a> if we could make something unstoopider
+	<br><a target="_blank" href="https://github.com/ArctosDB/arctos/issues/new?assignees=&labels=contact&template=contact-arctos.md&title=%5BCONTACT%5D">Contact Us</a>
+	 if we could make something unstoopider
 	<hr>
 	<cfparam name="rows" default="100">
 	<cfparam name="hidestatus" default="yes">
