@@ -9,6 +9,8 @@ assignees: ''
 
 ** Please use the "Report Bad Data" link where available to ensure the correct Curator receives your message. **
 
+** Outages should be reported to the contacts listed at https://arctosdb.org/arctos-down/ **
+
 ** Arctos Documentation is http://handbook.arctosdb.org/ **
 
 ** Learn more about Arctos at https://arctosdb.org/ **
