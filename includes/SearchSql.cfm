@@ -2582,6 +2582,46 @@
 	</cfif>
 </cfif>
 
+
+
+
+<cfif isdefined("related_base") and len(related_base) gt 0>
+	<cfif not isdefined("related_by") OR len(related_by) is 0>
+		<cfset related_by = "">
+	</cfif>
+	<cfset mapurl = "#mapurl#&related_base=#URLEncodedFormat(related_base)#">
+	<cfset mapurl = "#mapurl#&related_by=#URLEncodedFormat(related_by)#">
+	<!--- collection object id of the base record ---->
+	<cfquery name="bid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select #session.flatTableName#.collection_object_id from #session.flatTableName# where guid='#related_base#'
+	</cfquery>
+	<cfdump var=#bid#>
+	<cfif bid.recordcount is not 1>
+		related_base not found<cfabort>
+	</cfif>
+	<!--- CID of anything related from base --->
+	<cfquery name="rcid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select
+			#session.flatTableName#.collection_object_id
+		from
+			#session.flatTableName#,
+			coll_obj_other_id_num
+		where
+			coll_obj_other_id_num.collection_object_id=#bid.collection_object_id# and
+			#session.flatTableName#.guid=coll_obj_other_id_num.OTHER_ID_TYPE || coll_obj_other_id_num.display_value
+	</cfquery>
+	<cfdump var=#rcid#>
+	<cfset l1=valuelist(bid.collection_object_id)>
+	<cfset l2=valuelist(rcid.collection_object_id)>
+	<cfset thisIDList=l1>
+	<cfset thisIDList=listappend(thisIDList,l2)>
+	<cfdump var=#thisIDList#>
+
+
+
+	<cfset basQual = " #basQual# and #session.flatTableName#.collection_object_id IN (#thisIDList#)">
+</cfif>
+
 <!--------- this is legacy from the old spatial query and can probably be deprecated rather than updated when that becomes an issue ---->
 <cfif (isdefined("NWLat") and len(NWLat) gt 0)
 	OR (isdefined("NWLong") and len(NWLong) gt 0)
