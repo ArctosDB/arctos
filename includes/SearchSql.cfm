@@ -2610,7 +2610,7 @@
 			coll_obj_other_id_num.collection_object_id=#bid.collection_object_id# and
 			#session.flatTableName#.guid=coll_obj_other_id_num.OTHER_ID_TYPE || ':' || coll_obj_other_id_num.display_value
 			<cfif len(related_by) gt 0>
-				and coll_obj_other_id_num.OTHER_ID_TYPE='#related_by#'
+				and coll_obj_other_id_num.ID_REFERENCES='#related_by#'
 			</cfif>
 	</cfquery>
 	<cfdump var=#rcid#>
