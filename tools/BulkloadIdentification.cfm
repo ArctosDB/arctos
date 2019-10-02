@@ -156,6 +156,12 @@ sho err
 			<td><a href="/info/ctDocumentation.cfm?table=CTNATURE_OF_ID">CTNATURE_OF_ID</a></td>
 		</tr>
 		<tr>
+			<td>identification_confidence</td>
+			<td>no</td>
+			<td><a href="/info/ctDocumentation.cfm?table=CTidentification_confidence">CTidentification_confidence</a></td>
+		</tr>
+
+		<tr>
 			<td>made_date</td>
 			<td>no</td>
 			<td>ISO8601</td>
@@ -192,7 +198,7 @@ sho err
 </cfif>
 <!------------------------------------------------------->
 <cfif action is "makeTemplate">
-	<cfset header="guid,guid_prefix,other_id_type,other_id_number,scientific_name,made_date,nature_of_id,accepted_fg,identification_remarks,agent_1,agent_2">
+	<cfset header="guid,guid_prefix,other_id_type,other_id_number,scientific_name,made_date,nature_of_id,identification_confidence,accepted_fg,identification_remarks,agent_1,agent_2">
 	<cffile action = "write"
     file = "#Application.webDirectory#/download/BulkloadIdentification.csv"
     output = "#header#"
@@ -254,6 +260,14 @@ sho err
 				accepted_fg is null
 			)
 		</cfquery>
+
+
+		<cfquery name="noidc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+	        update cf_temp_id set status='invalid identification_confidence' where identification_confidence is not null and
+	        identification_confidence not in (select identification_confidence from ctidentification_confidence) and
+			status is null and upper(username)='#ucase(session.username)#'
+	    </cfquery>
+
 		<cfquery name="noid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	        update cf_temp_id set status='invalid nature_of_id' where nature_of_id not in (select nature_of_id from ctnature_of_id) and
 			status is null and upper(username)='#ucase(session.username)#'
@@ -453,6 +467,8 @@ sho err
           <th>scientific_name</th>
           <th>made_date</th>
           <th>nature_of_id</th>
+          <th>identification_confidence</th>
+
           <th>accepted_fg</th>
           <th>identification_remarks</th>
           <th>agent_1</th>
@@ -468,6 +484,7 @@ sho err
           <td>#scientific_name#</td>
           <td>#made_date#</td>
           <td>#nature_of_id#</td>
+          <td>#identification_confidence#</td>
           <td>#accepted_fg#</td>
           <td>#identification_remarks#</td>
           <td>#agent_1#</td>
@@ -504,27 +521,6 @@ sho err
 				update identification set ACCEPTED_ID_FG=0 where COLLECTION_OBJECT_ID=#COLLECTION_OBJECT_ID#
 			</cfquery>
 		</cfif>
-		<P>
-		insert into identification (
-				IDENTIFICATION_ID,
-				COLLECTION_OBJECT_ID,
-				MADE_DATE,
-				NATURE_OF_ID,
-				ACCEPTED_ID_FG,
-				IDENTIFICATION_REMARKS,
-				TAXA_FORMULA,
-				SCIENTIFIC_NAME
-			) values (
-				sq_identification_id.nextval,
-				#COLLECTION_OBJECT_ID#,
-				'#MADE_DATE#',
-				'#NATURE_OF_ID#',
-				#ACCEPTED_FG#,
-				'#IDENTIFICATION_REMARKS#',
-				'#TAXA_FORMULA#',
-				'#id_sci_name#'
-			)
-		</P>
 		<cfquery name="insert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			insert into identification (
 				IDENTIFICATION_ID,
@@ -534,7 +530,8 @@ sho err
 				ACCEPTED_ID_FG,
 				IDENTIFICATION_REMARKS,
 				TAXA_FORMULA,
-				SCIENTIFIC_NAME
+				SCIENTIFIC_NAME,
+				identification_confidence
 			) values (
 				sq_identification_id.nextval,
 				#COLLECTION_OBJECT_ID#,
@@ -543,7 +540,8 @@ sho err
 				#ACCEPTED_FG#,
 				'#IDENTIFICATION_REMARKS#',
 				'#TAXA_FORMULA#',
-				'#id_sci_name#'
+				'#id_sci_name#',
+				'#identification_confidence#'
 			)
 		</cfquery>
 		<p>insert into identification_taxonomy (
