@@ -12,10 +12,15 @@
 		<cfquery name="uact" datasource="uam_god">
 			select user_id from cf_users where username='#username#'
 		</cfquery>
+		<cfdump var=#uact#>
 		<cfif uact.recordcount is 1 and len(uact.user_id) gt 0>
-			<cfquery name="uem" datasource="uam_god">
+			<cfquery name="uem" datasource="uam_god" result="x">
 				update cf_user_data set email='#email#' where user_id=#uact.user_id#
 			</cfquery>
+
+		<cfdump var=#x#>
+
+		<cfabort>
 		<cfelse>
 			fail<cfabort>
 		</cfif>
