@@ -627,6 +627,8 @@
 			<cfset thisNature = evaluate("NATURE_OF_ID_" & n)>
 			<cfset thisNumIds = evaluate("NUMBER_OF_IDENTIFIERS_" & n)>
 			<cfset thisPubId = evaluate("publication_id_" & n)>
+			<cfset thisIdConf = evaluate("identification_confidence_" & n)>
+
 
 			<!--- citations --->
 			<cfloop list="#form.fieldnames#" index="i">
@@ -717,6 +719,7 @@
 						scientific_name = '#escapeQuotes(thisScientificName)#',
 						nature_of_id = '#thisNature#',
 						made_date = '#thisMadeDate#',
+						identification_confidence_='#thisIdConf#',
 						identification_remarks = '#escapeQuotes(thisIdRemark)#'
 						<cfif len(thisPubId) gt 0>
 							,publication_id = #thisPubId#
@@ -751,6 +754,7 @@
 						UPDATE identification SET
 						nature_of_id = '#thisNature#',
 						made_date = '#thisMadeDate#',
+						identification_confidence_='#thisIdConf#',
 						identification_remarks = '#escapeQuotes(thisIdRemark)#'
 						<cfif len(thisPubId) gt 0>
 							,publication_id = #thisPubId#
