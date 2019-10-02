@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <script type='text/javascript' src='/includes/_editIdentification.js?v=1'></script>
-<script type='text/javascript' src='/includes/checkForm.js'></script>
 <style>
 	.fordelete {
 		background-color: red;
