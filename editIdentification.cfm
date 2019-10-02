@@ -219,7 +219,7 @@
 			<div class="helpLink" id="_identification_confidence">Confidence</div>
 		</td>
 		<td>
-			<select name="identification_confidence" id="identification_confidence" size="1" class="reqdClr">
+			<select name="identification_confidence" id="identification_confidence" size="1">
 				<option></option>
             	<cfloop query="ctidentification_confidence">
                 	<option  value="#ctidentification_confidence.identification_confidence#">#ctidentification_confidence.identification_confidence#</option>
