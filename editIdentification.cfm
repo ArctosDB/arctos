@@ -754,7 +754,7 @@
 						UPDATE identification SET
 						nature_of_id = '#thisNature#',
 						made_date = '#thisMadeDate#',
-						identification_confidence_='#thisIdConf#',
+						identification_confidence='#thisIdConf#',
 						identification_remarks = '#escapeQuotes(thisIdRemark)#'
 						<cfif len(thisPubId) gt 0>
 							,publication_id = #thisPubId#
