@@ -665,6 +665,7 @@
 									concatidagent(identification.identification_id) agent_name,
 									made_date,
 									nature_of_id,
+									identification_confidence,
 									identification_remarks,
 									identification.identification_id,
 									accepted_id_fg,
@@ -692,6 +693,7 @@
 									agent_name,
 									made_date,
 									nature_of_id,
+									identification_confidence,
 									identification_remarks,
 									identification_id,
 									accepted_id_fg,
@@ -705,6 +707,7 @@
 									agent_name,
 									made_date,
 									nature_of_id,
+									identification_confidence,
 									identification_remarks,
 									identification_id,
 									accepted_id_fg,
@@ -758,6 +761,10 @@
 										on #made_date#
 									</cfif>
 									<br>Nature of ID: #nature_of_id#
+
+									<cfif len(identification_confidence) gt 0>
+										<br>Confidence: #identification_confidence#
+									</cfif>
 									<cfif len(identification_remarks) gt 0>
 										<br>Remarks: #identification_remarks#
 									</cfif>

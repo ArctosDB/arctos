@@ -2324,8 +2324,19 @@
 	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "currentID">
 		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 	</cfif>
-
 </cfif>
+<cfif isdefined("identification_confidence") AND len(identification_confidence) gt 0>
+	<cfset mapurl = "#mapurl#&identification_confidence=#identification_confidence#">
+	<cfif basJoin does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON (#session.flatTableName#.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND identification.identification_confidence = '#identification_confidence#'">
+	<cfif isdefined("scientific_name_scope") and scientific_name_scope is "currentID">
+		<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+	</cfif>
+</cfif>
+
+
 
 <cfif isdefined("identified_agent") AND len(identified_agent) gt 0>
 	<cfset mapurl = "#mapurl#&identified_agent=#identified_agent#">

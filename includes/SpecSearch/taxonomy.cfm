@@ -10,6 +10,10 @@
 <cfquery name="CTTAXA_FORMULA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	SELECT DISTINCT(TAXA_FORMULA) FROM CTTAXA_FORMULA ORDER BY TAXA_FORMULA
 </cfquery>
+<cfquery name="CTidentification_confidence" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	SELECT DISTINCT(identification_confidence) FROM CTidentification_confidence ORDER BY identification_confidence
+</cfquery>
+
 <!--------
 <cfquery name="ct_taxon_term_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select
@@ -127,6 +131,23 @@
 			</select><span class="infoLink" onclick="getCtDoc('ctnature_of_id',SpecData.nature_of_id.value);">Define</span>
 		</td>
 	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_identification_confidence">ID Confidence:</span>
+		</td>
+		<td class="srch">
+			<select name="identification_confidence" id="identification_confidence" size="1">
+				<option value=""></option>
+				<cfloop query="ctidentification_confidence">
+					<option value="#ctidentification_confidence.identification_confidence#">#ctidentification_confidence.identification_confidence#</option>
+				</cfloop>
+			</select><span class="infoLink" onclick="getCtDoc('ctidentification_confidence',SpecData.identification_confidence.value);">Define</span>
+		</td>
+	</tr>
+
+
+
+
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="identifier">ID Determiner:</span>
