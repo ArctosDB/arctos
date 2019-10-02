@@ -228,10 +228,6 @@
 			<span class="infoLink" onClick="getCtDoc('ctidentification_confidence',newID.identification_confidence.value)">Define</span>
 		</td>
 	</tr>
-
-
-
-
     <tr>
     	<td>
 			<div class="helpLink" id="identification_publication">Sensu:</div>
@@ -275,7 +271,8 @@
 		identification_remarks,
 		short_citation,
 		publication_id,
-		taxa_formula
+		taxa_formula,
+		identification_confidence
 	FROM
 		getID
 	GROUP BY
@@ -289,7 +286,8 @@
 		identification_remarks,
 		short_citation,
 		publication_id,
-		taxa_formula
+		taxa_formula,
+		identification_confidence
 	ORDER BY
 		accepted_id_fg DESC,
 		made_date
@@ -458,6 +456,23 @@
 				<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
 			</td>
         </tr>
+		  <tr>
+    	<td>
+			<div class="helpLink" id="_identification_confidence">Confidence</div>
+		</td>
+		<td>
+
+			<cfset thicConf = identification_confidence>
+			<select name="identification_confidence_#i#" id="identification_confidence_#i#" size="1">
+				<option></option>
+            	<cfloop query="ctidentification_confidence">
+                	<option  <cfif #ctidentification_confidence.identification_confidence# is #thicConf#> selected </cfif> value="#ctidentification_confidence.identification_confidence#">#ctidentification_confidence.identification_confidence#</option>
+                </cfloop>
+            </select>
+			<span class="infoLink" onClick="getCtDoc('ctidentification_confidence',newID.identification_confidence.value)">Define</span>
+		</td>
+	</tr>
+
         <tr>
 	        <td>
 				<div class="helpLink" id="identification_publication">Sensu:</div>
