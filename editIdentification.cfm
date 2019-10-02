@@ -38,10 +38,14 @@
 <cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select type_status from ctcitation_type_status order by type_status
 </cfquery>
+<cfquery name="ctidentification_confidence" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	select identification_confidence from ctidentification_confidence order by identification_confidence
+</cfquery>
 <cfquery name="getID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	SELECT
 		identification.identification_id,
 		identification.scientific_name,
+		identification.identification_confidence,
 		cataloged_item.cat_num,
 		cataloged_item.collection_cde,
 		preferred_agent_name.agent_name,
@@ -210,6 +214,24 @@
 			<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
 		</td>
 	</tr>
+    <tr>
+    	<td>
+			<div class="helpLink" id="_identification_confidence">Confidence</div>
+		</td>
+		<td>
+			<select name="identification_confidence" id="identification_confidence" size="1" class="reqdClr">
+				<option></option>
+            	<cfloop query="ctidentification_confidence">
+                	<option  value="#ctidentification_confidence.identification_confidence#">#ctidentification_confidence.identification_confidence#</option>
+                </cfloop>
+            </select>
+			<span class="infoLink" onClick="getCtDoc('ctidentification_confidence',newID.identification_confidence.value)">Define</span>
+		</td>
+	</tr>
+
+
+
+
     <tr>
     	<td>
 			<div class="helpLink" id="identification_publication">Sensu:</div>
