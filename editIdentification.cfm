@@ -887,7 +887,8 @@
 			IDENTIFICATION_REMARKS,
 			taxa_formula,
 			scientific_name,
-			publication_id
+			publication_id,
+			identification_confidence
 		) VALUES (
 			sq_identification_id.nextval,
 			#COLLECTION_OBJECT_ID#,
@@ -901,7 +902,8 @@
 				#new_publication_id#
 			<cfelse>
 				NULL
-			</cfif>
+			</cfif>,
+			'#identification_confidence#'
 		)
 	</cfquery>
 	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
