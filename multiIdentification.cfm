@@ -492,9 +492,10 @@
 					<cfif formnature_of_id is "use_existing_noid">
 						<cfset nature_of_id=cID.nature_of_id>
 					</cfif>
+					<cfif formidBy is "use_existing_agent">
+						<cfset identification_confidence is "use_existing_conf">
+					</cfif>
 				</cfif>
-				<cfif formidBy is "use_existing_agent">
-					identification_confidence is "use_existing_conf"
 				<!--- now we're either adding an ID from the form values, or we've set "form values" to appropriate things
 					from the existing ID and can do our regular routine anyway
 				---->
