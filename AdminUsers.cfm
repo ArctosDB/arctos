@@ -14,13 +14,15 @@
 		</cfquery>
 		<cfdump var=#uact#>
 		<cfif uact.recordcount is 1 and len(uact.user_id) gt 0>
-			<cfquery name="uem" datasource="uam_god" result="x">
+			<cfquery name="hud" datasource="uam_god" result="x">
+				select count(*) c from cf_user_data where  user_id=#uact.user_id#
+			</cfquery>
+			<cfif hud.c is 0>
+				This form cannot create user data. Direct the user to http://arctos.database.museum/myArctos.cfm. <cfabort>
+			</cfif>
+			<cfquery name="uem" datasource="uam_god">
 				update cf_user_data set email='#email#' where user_id=#uact.user_id#
 			</cfquery>
-
-		<cfdump var=#x#>
-
-		<cfabort>
 		<cfelse>
 			fail<cfabort>
 		</cfif>
