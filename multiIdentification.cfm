@@ -14,6 +14,10 @@
 	<cfquery name="ctContainer_Type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select container_type from ctcontainer_type order by container_type
 	</cfquery>
+	<cfquery name="ctidentification_confidence" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+		select identification_confidence from ctidentification_confidence order by identification_confidence
+	</cfquery>
+
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		 SELECT
 		 	flat.guid,
@@ -219,6 +223,26 @@
 							<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">define</span>
 						</td>
 					</tr>
+
+					<tr>
+						<td>
+							<div align="right">
+								<span  class="helpLink" data-helplink="identification_confidence">Confidence:</span></td>
+							</div>
+						</td>
+						<td>
+							<select name="identification_confidence" id="identification_confidence" size="1">
+								<option></option>
+								<option value="use_existing_conf">use_existing_noid</option>
+								<cfloop query="ctidentification_confidence">
+									<option  value="#ctidentification_confidence.identification_confidence#">#ctidentification_confidence.identification_confidence#</option>
+								</cfloop>
+							</select>
+							<span class="infoLink" onClick="getCtDoc('ctidentification_confidence',newID.identification_confidence.value)">define</span>
+						</td>
+					</tr>
+
+
 					<tr>
 						<td>
 							<div align="right">
@@ -401,12 +425,15 @@
 			<cfset formidBy=idBy>
 			<cfset formmade_date=made_date>
 			<cfset formnature_of_id=nature_of_id>
+			<cfset formidentification_confidence=identification_confidence>
 			<cfloop query="theList">
 				<!--- if any "use existing" values, grab them before messing with current ID ---->
 				<cfif formTaxaFormula is "use_existing_name" or
 					formidBy is "use_existing_agent" or
 					formmade_date is "use_existing_date" or
-					formnature_of_id is "use_existing_noid">
+					formnature_of_id is "use_existing_noid" or
+					formidentification_confidence is "use_existing_conf"
+					>
 					<!--- need existing ID --->
 					<cfquery name="cID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 						select * from identification where ACCEPTED_ID_FG=1 and collection_object_id = #collection_object_id#
@@ -459,10 +486,15 @@
 					<cfif formmade_date is "use_existing_date">
 						<cfset made_date=cID.made_date>
 					</cfif>
+					<cfif formidentification_confidence is "use_existing_conf">
+						<cfset identification_confidence=cID.identification_confidence>
+					</cfif>
 					<cfif formnature_of_id is "use_existing_noid">
 						<cfset nature_of_id=cID.nature_of_id>
 					</cfif>
 				</cfif>
+				<cfif formidBy is "use_existing_agent">
+					identification_confidence is "use_existing_conf"
 				<!--- now we're either adding an ID from the form values, or we've set "form values" to appropriate things
 					from the existing ID and can do our regular routine anyway
 				---->
@@ -483,7 +515,8 @@
 						</cfif>
 						,taxa_formula
 						,scientific_name,
-						PUBLICATION_ID)
+						PUBLICATION_ID,
+						identification_confidence)
 					VALUES (
 						sq_identification_id.nextval,
 						#collection_object_id#
@@ -501,7 +534,8 @@
 							#new_publication_id#
 						<cfelse>
 							NULL
-						</cfif>
+						</cfif>,
+						'#identification_confidence#'
 					)
 					</cfquery>
 
