@@ -12,7 +12,6 @@
 		<cfquery name="uact" datasource="uam_god">
 			select user_id from cf_users where username='#username#'
 		</cfquery>
-		<cfdump var=#uact#>
 		<cfif uact.recordcount is 1 and len(uact.user_id) gt 0>
 			<cfquery name="hud" datasource="uam_god" result="x">
 				select count(*) c from cf_user_data where  user_id=#uact.user_id#
