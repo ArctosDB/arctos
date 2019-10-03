@@ -1,6 +1,6 @@
 <!--- send an email to all collections ----------->
 <cfquery name="colns" datasource="uam_god">
-	select * from collection order by guid_prefix
+	select * from collection where collection_id=1 order by guid_prefix
 </cfquery>
 <cfoutput>
 	<cfloop query="colns">
@@ -16,7 +16,6 @@
 			where
 				collection_contacts.collection_id=#collection_id# and
 				collection_contacts.contact_agent_id=agent.agent_id
-				and collection_id=1
 			order by preferred_agent_name
 		</cfquery>
 		<!--- get all encumbrances that touch this collection --->
