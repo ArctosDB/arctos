@@ -744,7 +744,9 @@ function showmetadata(){
 							taxon_concept_rel_id,
 							taxon_concept.concept_label to_label,
 							tcp.SHORT_CITATION to_pub,
+							tcp.publication_id to_pubid,
 							publication.SHORT_CITATION act_pub,
+							publication.publication_id act_pubid,
 							relationship,
 							taxon_name.scientific_name
 						from
@@ -764,7 +766,7 @@ function showmetadata(){
 						<ul>
 							<cfloop query="tcrel">
 								<li>
-									#relationship# --> #to_label# (#scientific_name# - #to_pub#) according to #act_pub#
+									#relationship# --> #to_label# (<a href="/name/#scientific_name#">#scientific_name#</a> - <a href="/publication/#to_pubid#">#to_pub#</a>) according to <a href="/publication/#act_pubid#">#act_pub#</a>
 								</li>
 							</cfloop>
 						</ul>
