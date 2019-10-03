@@ -723,7 +723,8 @@ function showmetadata(){
 		select
 			taxon_concept_id,
 			taxon_concept.publication_id,
-			publication.SHORT_CITATION
+			publication.SHORT_CITATION,
+			taxon_concept.concept_label
 		from
 			taxon_concept,
 			publication
@@ -735,7 +736,7 @@ function showmetadata(){
 		<h4>Concept(s)</h4>
 		<ul>
 			<cfloop query="concept">
-				<li><a href="/publication/#publication_id#">#SHORT_CITATION#</a></li>
+				<li>#concept_label# <a href="/publication/#publication_id#">[ open publication ]</a></li>
 			</cfloop>
 		</ul>
 	</cfif>
