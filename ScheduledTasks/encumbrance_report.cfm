@@ -16,6 +16,7 @@
 			where
 				collection_contacts.collection_id=#collection_id# and
 				collection_contacts.contact_agent_id=agent.agent_id
+				and collection_id=1
 			order by preferred_agent_name
 		</cfquery>
 		<!--- get all encumbrances that touch this collection --->
