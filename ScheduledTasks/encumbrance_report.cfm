@@ -1,6 +1,55 @@
 <!--- send an email to all collections ----------->
+<!---
+
+this does not perform, need cache
+
+
+create table cache_encumbrance_summary as select
+	get_address(collection_contacts.contact_agent_id,'email') address,
+				collection_contacts.CONTACT_ROLE,
+				agent.preferred_agent_name
+			from
+				collection_contacts,
+				agent
+			where
+				collection_contacts.collection_id=#collection_id# and
+				collection_contacts.contact_agent_id=agent.agent_id
+			order by preferred_agent_name
+		</cfquery>
+		<!--- get all encumbrances that touch this collection --->
+		<cfquery name="encumbrances"  datasource="uam_god">
+			select
+				encumbrance.encumbrance_id,
+				get_address(ENCUMBERING_AGENT_ID,'email') address,
+				getPreferredAgentName(ENCUMBERING_AGENT_ID) encumberer,
+				EXPIRATION_DATE,
+				ENCUMBRANCE,
+				MADE_DATE,
+				REMARKS,
+				ENCUMBRANCE_ACTION,
+				count(coll_object_encumbrance.COLLECTION_OBJECT_ID) numberSpecimens
+			from
+				encumbrance,
+				coll_object_encumbrance,
+				cataloged_item
+			where
+				encumbrance.encumbrance_id=coll_object_encumbrance.encumbrance_id and
+				coll_object_encumbrance.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
+				cataloged_item.collection_id=#collection_id#
+			group by
+				encumbrance.encumbrance_id,
+				get_address(ENCUMBERING_AGENT_ID,'email'),
+				getPreferredAgentName(ENCUMBERING_AGENT_ID),
+				EXPIRATION_DATE,
+				ENCUMBRANCE,
+				MADE_DATE,
+				REMARKS,
+				ENCUMBRANCE_ACTION
+
+
+				----------->
 <cfquery name="colns" datasource="uam_god">
-	select * from collection where collection_id=1 order by guid_prefix
+	select * from collection order by guid_prefix
 </cfquery>
 <cfoutput>
 	<cfloop query="colns">
