@@ -764,8 +764,7 @@ function showmetadata(){
 						<ul>
 							<cfloop query="tcrel">
 								<li>
-														<br>thisConcept is #relationship# --> #to_label# (#scientific_name# - #to_pub#) according to #act_pub#
-
+									#relationship# --> #to_label# (#scientific_name# - #to_pub#) according to #act_pub#
 								</li>
 							</cfloop>
 						</ul>
