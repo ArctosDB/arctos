@@ -124,6 +124,8 @@ function pickTaxonConcept(tcidFld,tcvFld,name){
 					</form>
 					<cfloop query="r">
 						<br>thisConcept is #relationship# --> #to_label# (#scientific_name# - #to_pub#) according to #act_pub#
+						<br><a href="manageTaxonConcepts.cfm?action=deleteRel&taxon_name_id=#taxon_name_id#&taxon_concept_rel_id=#taxon_concept_rel_id#">delete</a>
+
 					</cfloop>
 
 
@@ -134,6 +136,14 @@ function pickTaxonConcept(tcidFld,tcvFld,name){
 	</cfoutput>
 </cfif>
 
+<cfif action is "deleteRel">
+	<cfoutput>
+		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			delete from taxon_concept_rel where taxon_concept_rel_id=#taxon_concept_rel_id#
+		</cfquery>
+		<cflocation url="manageTaxonConcepts.cfm?action=nothing&taxon_name_id=#taxon_name_id#" addtoken="false">
+	</cfoutput>
+</cfif>
 <cfif action is "newRelationship">
 	<cfoutput>
 		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
