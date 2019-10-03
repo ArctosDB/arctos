@@ -99,9 +99,9 @@ function pickTaxonConcept(tcidFld,tcvFld,name){
 					<input type="hidden" name="action" value="newRelationship">
 					<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
 					<input type="hidden" name="taxon_concept_id" value="#taxon_concept_id#">
-					<input type="hidden" name="publication_id" id="publication_id">
+					<input type="hidden" name="trp_publication_id" id="trp_#taxon_concept_id#">
 					<label for="publication">pick publication</label>
-					<input type="text" id="publication"	value='' onchange="getPublication(this.id,'publication_id',this.value)" size="50" required class='reqdClr' >
+					<input type="text" id="trpv_#taxon_concept_id#"	value='' onchange="getPublication(this.id,'trp_#taxon_concept_id#',this.value)" size="50" required class='reqdClr' >
 
 					<label for="relationship">pick relationship</label>
 					<select name="relationship">
@@ -128,6 +128,28 @@ function pickTaxonConcept(tcidFld,tcvFld,name){
 		</cfloop>
 	</cfoutput>
 </cfif>
+
+<cfif action is "newRelationship">
+	<cfoutput>
+		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+			insert into taxon_concept_rel (
+				taxon_concept_rel_id,
+				from_taxon_concept_id,
+				to_taxon_concept_id,
+				relationship,
+				according_to_publication_id
+			) values (
+				sq_taxon_concept_rel_id.nextval,
+				#taxon_concept_id#,
+				#rcid#,
+				'#relationship#',
+				#trp_publication_id#
+			)
+		</cfquery>
+		<cflocation url="manageTaxonConcepts.cfm?action=nothing&taxon_name_id=#taxon_name_id#" addtoken="false">
+	</cfoutput>
+</cfif>
+
 <cfif action is "delete">
 	<cfoutput>
 		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
