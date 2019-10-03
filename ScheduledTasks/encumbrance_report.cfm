@@ -48,6 +48,38 @@
 				REMARKS,
 				ENCUMBRANCE_ACTION
 		</cfquery>
+		<!--- merged mailto --->
+		<cfquery name="mt" dbtype="query">
+			select address from contacts union select address from encumbrances
+		</cfquery>
+		<p>
+			Mailto (encumbrancer plus all collection contacts): #valuelist(mt.address)#
+		</p>
+		All encumbrances
+		<table border>
+			<tr>
+				<th>encumberer</th>
+				<th>MADE_DATE</th>
+				<th>EXPIRATION_DATE</th>
+				<th>ENCUMBRANCE</th>
+				<th>REMARKS</th>
+				<th>ENCUMBRANCE_ACTION</th>
+				<th>numberSpecimens</th>
+				<th>link</th>
+			</tr>
+			<cfloop query="encumbrances">
+				<tr>
+					<td>#encumberer#</td>
+					<td>#MADE_DATE#</td>
+					<td>#EXPIRATION_DATE#</td>
+					<td>#ENCUMBRANCE#</td>
+					<td>#REMARKS#</td>
+					<td>#ENCUMBRANCE_ACTION#</td>
+					<td>#numberSpecimens#</td>
+					<td><a href="https://arctos.database.museum/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">link</a></td>
+				</tr>
+			</cfloop>
+		</table>
 	</cfloop>
 </cfoutput>
 
