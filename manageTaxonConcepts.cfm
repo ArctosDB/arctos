@@ -19,7 +19,7 @@
 	</cfquery>
 
 	<cfoutput>
-		<p>Manage concepts for #t.scientific_name#</p>
+		<p>Manage concepts for <a href="/name/#t.scientific_name#">#t.scientific_name#</a></p>
 
 		<h3>Create</h3>
 		<form name="n" method="post" action="manageTaxonConcepts.cfm">
