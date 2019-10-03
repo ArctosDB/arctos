@@ -737,30 +737,30 @@ function showmetadata(){
 		<h4>Concept(s)</h4>
 		<ul>
 			<cfloop query="concept">
-				<li>#concept_label# <a href="/publication/#publication_id#">[ open publication ]</a></li>
-				<cfquery name="tcrel" datasource="uam_god">
-					select
-						taxon_concept_rel_id,
-						taxon_concept.concept_label to_label,
-						tcp.SHORT_CITATION to_pub,
-						publication.SHORT_CITATION act_pub,
-						relationship,
-						taxon_name.scientific_name
-					from
-						taxon_concept_rel,
-						taxon_concept,
-						publication tcp,
-						publication,
-						taxon_name
-					where
-						taxon_concept_rel.to_taxon_concept_id=taxon_concept.taxon_concept_id and
-						taxon_concept.publication_id=tcp.publication_id and
-						taxon_concept.taxon_name_id=taxon_name.taxon_name_id and
-						taxon_concept_rel.according_to_publication_id=publication.publication_id and
-						from_taxon_concept_id=#taxon_concept_id#
-				</cfquery>
-				<cfif tcrel.recordcount gte 1>
-					<li>
+				<li>
+					#concept_label# <a href="/publication/#publication_id#">[ open publication ]</a>
+					<cfquery name="tcrel" datasource="uam_god">
+						select
+							taxon_concept_rel_id,
+							taxon_concept.concept_label to_label,
+							tcp.SHORT_CITATION to_pub,
+							publication.SHORT_CITATION act_pub,
+							relationship,
+							taxon_name.scientific_name
+						from
+							taxon_concept_rel,
+							taxon_concept,
+							publication tcp,
+							publication,
+							taxon_name
+						where
+							taxon_concept_rel.to_taxon_concept_id=taxon_concept.taxon_concept_id and
+							taxon_concept.publication_id=tcp.publication_id and
+							taxon_concept.taxon_name_id=taxon_name.taxon_name_id and
+							taxon_concept_rel.according_to_publication_id=publication.publication_id and
+							from_taxon_concept_id=#taxon_concept_id#
+					</cfquery>
+					<cfif tcrel.recordcount gte 1>
 						<ul>
 							<cfloop query="tcrel">
 								<li>
@@ -768,9 +768,8 @@ function showmetadata(){
 								</li>
 							</cfloop>
 						</ul>
-					</li>
-				</cfif>
-
+					</cfif>
+				</li>
 			</cfloop>
 		</ul>
 	</cfif>
