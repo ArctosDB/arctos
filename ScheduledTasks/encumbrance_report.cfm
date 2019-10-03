@@ -40,7 +40,7 @@
 				cataloged_item.collection_id=#collection_id#
 			group by
 				encumbrance.encumbrance_id,
-				get_address(ENCUMBERING_AGENT_ID,'email')
+				get_address(ENCUMBERING_AGENT_ID,'email'),
 				getPreferredAgentName(ENCUMBERING_AGENT_ID),
 				EXPIRATION_DATE,
 				ENCUMBRANCE,
