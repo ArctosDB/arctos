@@ -106,7 +106,8 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION,systimestamp from a
 				agent
 			where
 				collection_contacts.collection_id=#collection_id# and
-				collection_contacts.contact_agent_id=agent.agent_id
+				collection_contacts.contact_agent_id=agent.agent_id and
+				CONTACT_ROLE='data quality'
 			order by preferred_agent_name
 		</cfquery>
 		<!--- get all encumbrances that touch this collection --->
@@ -118,7 +119,7 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION,systimestamp from a
 			select address from contacts union select address from encumbrances
 		</cfquery>
 		<p>
-			Mailto (encumbrancer plus all collection contacts): #valuelist(mt.address)#
+			Mailto (encumbrancer plus data quality collection contacts): #valuelist(mt.address)#
 		</p>
 		All encumbrances
 		<table border>
