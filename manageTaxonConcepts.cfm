@@ -124,7 +124,7 @@ function pickTaxonConcept(tcidFld,tcvFld,name){
 					</form>
 					<cfloop query="r">
 						<br>thisConcept is #relationship# --> #to_label# (#scientific_name# - #to_pub#) according to #act_pub#
-						<br><a href="manageTaxonConcepts.cfm?action=deleteRel&taxon_name_id=#taxon_name_id#&taxon_concept_rel_id=#taxon_concept_rel_id#">delete</a>
+						<a href="manageTaxonConcepts.cfm?action=deleteRel&taxon_name_id=#taxon_name_id#&taxon_concept_rel_id=#taxon_concept_rel_id#">delete</a>
 
 					</cfloop>
 
