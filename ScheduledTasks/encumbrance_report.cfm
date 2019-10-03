@@ -4,47 +4,89 @@
 this does not perform, need cache
 
 
-create table cache_encumbrance_summary as select
-	get_address(collection_contacts.contact_agent_id,'email') address,
-				collection_contacts.CONTACT_ROLE,
-				agent.preferred_agent_name
-			from
-				collection_contacts,
-				agent
-			where
-				collection_contacts.collection_id=#collection_id# and
-				collection_contacts.contact_agent_id=agent.agent_id
-			order by preferred_agent_name
-		</cfquery>
-		<!--- get all encumbrances that touch this collection --->
-		<cfquery name="encumbrances"  datasource="uam_god">
-			select
-				encumbrance.encumbrance_id,
-				get_address(ENCUMBERING_AGENT_ID,'email') address,
-				getPreferredAgentName(ENCUMBERING_AGENT_ID) encumberer,
-				EXPIRATION_DATE,
-				ENCUMBRANCE,
-				MADE_DATE,
-				REMARKS,
-				ENCUMBRANCE_ACTION,
-				count(coll_object_encumbrance.COLLECTION_OBJECT_ID) numberSpecimens
-			from
-				encumbrance,
-				coll_object_encumbrance,
-				cataloged_item
-			where
-				encumbrance.encumbrance_id=coll_object_encumbrance.encumbrance_id and
-				coll_object_encumbrance.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
-				cataloged_item.collection_id=#collection_id#
-			group by
-				encumbrance.encumbrance_id,
-				get_address(ENCUMBERING_AGENT_ID,'email'),
-				getPreferredAgentName(ENCUMBERING_AGENT_ID),
-				EXPIRATION_DATE,
-				ENCUMBRANCE,
-				MADE_DATE,
-				REMARKS,
-				ENCUMBRANCE_ACTION
+create or replace view v_cache_encumbrance_summary as select
+	cataloged_item.collection_id,
+	encumbrance.encumbrance_id,
+	get_address(ENCUMBERING_AGENT_ID,'email') address,
+	getPreferredAgentName(ENCUMBERING_AGENT_ID) encumberer,
+	EXPIRATION_DATE,
+	ENCUMBRANCE,
+	MADE_DATE,
+	REMARKS,
+	ENCUMBRANCE_ACTION,
+	count(coll_object_encumbrance.COLLECTION_OBJECT_ID) numberSpecimens,
+	sysdate as last_cache_date
+from
+	encumbrance,
+	coll_object_encumbrance,
+	cataloged_item
+where
+	encumbrance.encumbrance_id=coll_object_encumbrance.encumbrance_id and
+	coll_object_encumbrance.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID
+group by
+	cataloged_item.collection_id,
+	encumbrance.encumbrance_id,
+	get_address(ENCUMBERING_AGENT_ID,'email'),
+	getPreferredAgentName(ENCUMBERING_AGENT_ID),
+	EXPIRATION_DATE,
+	ENCUMBRANCE,
+	MADE_DATE,
+	REMARKS,
+	ENCUMBRANCE_ACTION,
+	sysdate
+;
+
+create table tbl_cache_encumbrance_summary NOLOGGING as select * from v_cache_encumbrance_summary where 1=2 ;
+
+
+CREATE OR REPLACE PROCEDURE proc_ref_enc_smy_tbl IS
+BEGIN
+	execute immediate 'truncate table tbl_cache_encumbrance_summary';
+	insert /*+ APPEND */ into tbl_cache_encumbrance_summary ( select * from v_cache_encumbrance_summary);
+end;
+/
+sho err;
+
+BEGIN
+  DBMS_SCHEDULER.drop_job (
+   job_name => 'j_proc_ref_enc_smy_tbl',
+   force    => TRUE);
+END;
+/
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'j_proc_ref_enc_smy_tbl',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'proc_ref_enc_smy_tbl',
+    enabled     => TRUE,
+    start_date  =>  '26-AUG-17 02.00.00 AM -05:00',
+    repeat_interval        =>  'freq=weekly; byday=sun'
+  );
+END;
+/
+
+ select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION from all_scheduler_jobs where lower(JOB_NAME)='j_proc_ref_enc_smy_tbl';
+
+-- currently takes about an hour
+
+
+BEGIN
+  DBMS_SCHEDULER.CREATE_JOB (
+    job_name    => 'J_temp_update_junk',
+    job_type    => 'STORED_PROCEDURE',
+    job_action    => 'proc_ref_enc_smy_tbl',
+    enabled     => TRUE,
+    end_date    => NULL
+  );
+END;
+/
+select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION,systimestamp from all_scheduler_jobs where JOB_NAME='J_TEMP_UPDATE_JUNK';
+
+
+
+03-OCT-19 02.53.34.494241 PM CST6CDT
+
 
 
 				----------->
@@ -69,33 +111,7 @@ create table cache_encumbrance_summary as select
 		</cfquery>
 		<!--- get all encumbrances that touch this collection --->
 		<cfquery name="encumbrances"  datasource="uam_god">
-			select
-				encumbrance.encumbrance_id,
-				get_address(ENCUMBERING_AGENT_ID,'email') address,
-				getPreferredAgentName(ENCUMBERING_AGENT_ID) encumberer,
-				EXPIRATION_DATE,
-				ENCUMBRANCE,
-				MADE_DATE,
-				REMARKS,
-				ENCUMBRANCE_ACTION,
-				count(coll_object_encumbrance.COLLECTION_OBJECT_ID) numberSpecimens
-			from
-				encumbrance,
-				coll_object_encumbrance,
-				cataloged_item
-			where
-				encumbrance.encumbrance_id=coll_object_encumbrance.encumbrance_id and
-				coll_object_encumbrance.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
-				cataloged_item.collection_id=#collection_id#
-			group by
-				encumbrance.encumbrance_id,
-				get_address(ENCUMBERING_AGENT_ID,'email'),
-				getPreferredAgentName(ENCUMBERING_AGENT_ID),
-				EXPIRATION_DATE,
-				ENCUMBRANCE,
-				MADE_DATE,
-				REMARKS,
-				ENCUMBRANCE_ACTION
+			select * from tbl_cache_encumbrance_summary where collection_id=#collection_id#
 		</cfquery>
 		<!--- merged mailto --->
 		<cfquery name="mt" dbtype="query">
@@ -110,6 +126,7 @@ create table cache_encumbrance_summary as select
 				<th>encumberer</th>
 				<th>MADE_DATE</th>
 				<th>EXPIRATION_DATE</th>
+				<th>cache_date</th>
 				<th>ENCUMBRANCE</th>
 				<th>REMARKS</th>
 				<th>ENCUMBRANCE_ACTION</th>
@@ -121,6 +138,7 @@ create table cache_encumbrance_summary as select
 					<td>#encumberer#</td>
 					<td>#MADE_DATE#</td>
 					<td>#EXPIRATION_DATE#</td>
+					<td>#last_cache_date#</td>
 					<td>#ENCUMBRANCE#</td>
 					<td>#REMARKS#</td>
 					<td>#ENCUMBRANCE_ACTION#</td>
