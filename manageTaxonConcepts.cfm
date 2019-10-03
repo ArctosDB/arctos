@@ -34,10 +34,29 @@
 		</form>
 		<h3>Delete (and re-create to edit, for now)</h3>
 		<cfloop query="c">
-			<div>
+			<div style="border:1px solid green;margin:1em;padding:1em;">
 				concept_label: #concept_label#
 				<br>pub:<a href="/publication/#publication_id#">[ open publication ]</a>
 				<br><a href="manageTaxonConcepts.cfm?action=delete&taxon_name_id=#taxon_name_id#&taxon_concept_id=#taxon_concept_id#">delete</a>
+				<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
+					select
+						taxon_concept_rel_id,
+						taxon_concept.concept_label to_label,
+						tcp.SHORT_CITATION to_pub,
+						publication.SHORT_CITATION act_pub,
+						relationship
+					from
+						taxon_concept_rel,
+						taxon_concept,
+						publication tcp,
+						publication
+					where
+						taxon_concept_rel.to_taxon_concept_id=taxon_concept.taxon_concept_id and
+						taxon_concept.publication_id=tcp.publication_id and
+						taxon_concept_rel.according_to_publication_id=publication.publication_id and
+						from_taxon_concept_id=#taxon_concept_id#
+				</cfquery>
+				<cfdump var=#r#>
 			</div>
 
 		</cfloop>
