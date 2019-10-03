@@ -4,7 +4,6 @@
 	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select scientific_name from taxon_name where taxon_name_id=#val(taxon_name_id)#
 	</cfquery>
-	<p>Manage concepts for #t.scientific_name#</p>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select
 			taxon_concept_id,
@@ -20,6 +19,8 @@
 	</cfquery>
 
 	<cfoutput>
+		<p>Manage concepts for #t.scientific_name#</p>
+
 		<h3>Create</h3>
 		<form name="n" method="post" action="manageTaxonConcepts.cfm">
 			<input type="hidden" name="action" value="new">
