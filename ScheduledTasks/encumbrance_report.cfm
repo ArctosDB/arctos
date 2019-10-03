@@ -95,7 +95,6 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION,systimestamp from a
 </cfquery>
 <cfoutput>
 	<cfloop query="colns">
-		<hr>running for #colns.guid_prefix#
 		<cfquery name="contacts"  datasource="uam_god">
 			select
 				get_address(collection_contacts.contact_agent_id,'email') address,
