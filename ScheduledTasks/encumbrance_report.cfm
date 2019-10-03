@@ -118,10 +118,21 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION,systimestamp from a
 		<cfquery name="mt" dbtype="query">
 			select address from contacts where addres is not null union select address from encumbrances where addres is not null
 		</cfquery>
+
 		<p>
-			Mailto (encumbrancer plus data quality collection contacts): #valuelist(mt.address)#
+			Subject: Weekly Encumbrance Summary
 		</p>
-		All encumbrances
+		<p>
+			From: encumbrance_summary@arctos.database.museum
+		</p>
+		<p>
+			To (encumbrancer plus data quality collection contacts): #valuelist(mt.address)#
+		</p>
+		<p>
+			You are receiving this message because you are an encumbererer, or because you are a data quality contact for a collection which holds
+			encumbered specimens. Note that this report includes expired encumbrances.
+		</p>
+		Summary of encumbrances attached to #guid_prefix# specimens:
 		<table border>
 			<tr>
 				<th>encumberer</th>
