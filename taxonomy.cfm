@@ -734,7 +734,7 @@ function showmetadata(){
 	</cfquery>
 	<cfif concept.recordcount gte 1>
 		<h4>Concept(s)</h4>
-		<a href="manageTaxonConcepts.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">[ manage ]</a>
+		<a href="/manageTaxonConcepts.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">[ manage ]</a>
 		<ul>
 			<cfloop query="concept">
 				<li>#concept_label# <a href="/publication/#publication_id#">[ open publication ]</a></li>
