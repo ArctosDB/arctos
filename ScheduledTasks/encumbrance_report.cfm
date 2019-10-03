@@ -116,7 +116,7 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION,systimestamp from a
 		</cfquery>
 		<!--- merged mailto --->
 		<cfquery name="mt" dbtype="query">
-			select address from contacts where addres is not null union select address from encumbrances where addres is not null
+			select address from contacts where address is not null union select address from encumbrances where address is not null
 		</cfquery>
 
 		<p>
