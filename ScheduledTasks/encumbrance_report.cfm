@@ -129,8 +129,8 @@ select STATE,LAST_START_DATE,NEXT_RUN_DATE,LAST_RUN_DURATION,systimestamp from a
 			To (encumbrancer plus data quality collection contacts): #valuelist(mt.address)#
 		</p>
 		<p>
-			You are receiving this message because you are an encumbererer, or because you are a data quality contact for a collection which holds
-			encumbered specimens. Note that this report includes expired encumbrances.
+			You are receiving this message because you have encumbered #guid_prefix# specimens, or because you are a #guid_prefix# data quality contact.
+			Note that this report includes expired encumbrances.
 		</p>
 		Summary of encumbrances attached to #guid_prefix# specimens:
 		<table border>
