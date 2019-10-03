@@ -119,7 +119,9 @@ function pickTaxonConcept(tcidFld,tcvFld,name){
 
 						<br><input type="submit" value='create'>
 					</form>
-					<br>thisConcept is #relationship# #to_label# (#to_pub#) according to #act_pub#
+					<cfloop query="r">
+						<br>thisConcept is #relationship# #to_label# (#to_pub#) according to #act_pub#
+					</cfloop>
 
 
 				</div>
