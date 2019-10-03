@@ -94,35 +94,35 @@ function pickTaxonConcept(tcidFld,tcvFld,name){
 						taxon_concept_rel.according_to_publication_id=publication.publication_id and
 						from_taxon_concept_id=#taxon_concept_id#
 				</cfquery>
-				<p>Create Relationship</p>
-				<form name="n" method="post" action="manageTaxonConcepts.cfm">
-					<input type="hidden" name="action" value="newRelationship">
-					<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
-					<input type="hidden" name="taxon_concept_id" value="#taxon_concept_id#">
-					<input type="hidden" name="trp_publication_id" id="trp_#taxon_concept_id#">
-					<label for="publication">pick publication</label>
-					<input type="text" id="trpv_#taxon_concept_id#"	value='' onchange="getPublication(this.id,'trp_#taxon_concept_id#',this.value)" size="50" required class='reqdClr' >
+				<div style="border:1px solid green;margin:1em;padding:1em;">
+					<p>Create Relationship</p>
+					<form name="n" method="post" action="manageTaxonConcepts.cfm">
+						<input type="hidden" name="action" value="newRelationship">
+						<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
+						<input type="hidden" name="taxon_concept_id" value="#taxon_concept_id#">
+						<input type="hidden" name="trp_publication_id" id="trp_#taxon_concept_id#">
+						<label for="publication">pick publication</label>
+						<input type="text" id="trpv_#taxon_concept_id#"	value='' onchange="getPublication(this.id,'trp_#taxon_concept_id#',this.value)" size="50" required class='reqdClr' >
 
-					<label for="relationship">pick relationship</label>
-					<select name="relationship">
-						<option value=""></option>
-						<cfloop query="cttaxon_concept_relationship">
-							<option value="#relationship#">#relationship#</option>
-						</cfloop>
-					</select>
-					<input type="hidden" name="rcid" id="rcid_#taxon_concept_id#">
-					<label for="publication">pick related concept</label>
-					<input type="text" id="rc_#taxon_concept_id#" value='' onchange="pickTaxonConcept('rcid_#taxon_concept_id#',this.id,this.value)" size="50" required class='reqdClr' >
-
-
-
-					<br><input type="submit" value='create'>
-				</form>
+						<label for="relationship">pick relationship</label>
+						<select name="relationship">
+							<option value=""></option>
+							<cfloop query="cttaxon_concept_relationship">
+								<option value="#relationship#">#relationship#</option>
+							</cfloop>
+						</select>
+						<input type="hidden" name="rcid" id="rcid_#taxon_concept_id#">
+						<label for="publication">pick related concept</label>
+						<input type="text" id="rc_#taxon_concept_id#" value='' onchange="pickTaxonConcept('rcid_#taxon_concept_id#',this.id,this.value)" size="50" required class='reqdClr' >
 
 
 
+						<br><input type="submit" value='create'>
+					</form>
+					<br>thisConcept is #relationship# #to_label# (#to_pub#) according to #act_pub#
 
-				<cfdump var=#r#>
+
+				</div>
 			</div>
 
 		</cfloop>
