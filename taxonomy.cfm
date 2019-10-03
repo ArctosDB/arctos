@@ -718,6 +718,28 @@ function showmetadata(){
             </ul>
         </p>
     </cfif>
+
+	<cfquery name="concept" datasource="uam_god">
+		select
+			taxon_concept_id,
+			taxon_concept.publication_id,
+			publication.SHORT_CITATION
+		from
+			taxon_concept,
+			publication
+		where
+			taxon_concept.publication_id=publication.publication_id and
+			taxon_concept.taxon_name_id=#taxon_name_id.taxon_name_id#
+	</cfquery>
+	<cfif concept.recordcount gte 1>
+		<h4>Concept(s)</h4>
+		<ul>
+			<cfloop query="concept">
+				<li><a href="/publication/#publication_id#">#SHORT_CITATION#</a></li>
+			</cfloop>
+		</ul>
+	</cfif>
+
 	<cfquery name="common_name" datasource="uam_god">
 		select
 			common_name
