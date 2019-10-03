@@ -622,6 +622,7 @@ function showmetadata(){
 			}
 		</script>
 		<a href="/editTaxonomy.cfm?action=editnoclass&taxon_name_id=#taxon_name_id.taxon_name_id#">[ Edit Name + Related Data ]</a>
+		<div><a href="/manageTaxonConcepts.cfm?taxon_name_id=#taxon_name_id.taxon_name_id#">[ manage concepts ]</a></div>
 		<div id="ckCites"><a span class="likeLink" onclick="checkCites('#taxon_name_id.taxon_name_id#','#scientific_name.scientific_name#')">[ Check CITES ]</a></div>
 		<div id="validatorResults"></div>
 		<cfquery name="usedBy" datasource="uam_god">
