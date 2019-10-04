@@ -747,10 +747,9 @@ function showmetadata(){
 			publication
 		where
 			this_name.taxon_name_id=#taxon_name_id.taxon_name_id# and
-			this_name.taxon_concept_id=taxon_concept_rel.from_taxon_concept_id and
-			taxon_concept_rel.to_taxon_concept_id=related_concept.taxon_concept_id and
+			this_name.taxon_concept_id=taxon_concept_rel.to_taxon_concept_id and
+			taxon_concept_rel.from_taxon_concept_id=related_concept.taxon_concept_id and
 			related_concept.publication_id=publication.publication_id
-			and 1=2
 	</cfquery>
 
 
