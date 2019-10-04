@@ -66,7 +66,7 @@ function pickTaxonConcept(tcidFld,tcvFld,name){
 			<input type="hidden" name="publication_id" id="publication_id">
 			<label for="publication">pick publication</label>
 			<input type="text" id="publication"	value='' onchange="getPublication(this.id,'publication_id',this.value)" size="50" required class='reqdClr' >
-			<label for="concept_label">concept_label (suggested format: &lti&gt;Claytonia scammaniana&lt;/i&gt; Hulten <i>sensu</i> Hulton 1942)</label>
+			<label for="concept_label">concept_label (suggested format: &lti&gt;Claytonia scammaniana&lt;/i&gt; Hulten &lti&gt;sensu&lt;/i&gt; Hulton 1942)</label>
 			<input type='text' name='concept_label' size='100' id='concept_label' required class='reqdClr'>
 			<br><input type="submit" value='create'>
 		</form>
