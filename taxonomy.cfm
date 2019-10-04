@@ -726,7 +726,7 @@ function showmetadata(){
 		      taxon_concept.publication_id,
 		      publication.SHORT_CITATION,
 		      taxon_concept.concept_label,
-		      'FROM' direction
+		      'FROM' orgn
 		    from
 		      taxon_concept,
 		      publication
@@ -739,7 +739,7 @@ function showmetadata(){
 		        related_concept.publication_id publication_id,
 		        publication.SHORT_CITATION,
 		        related_concept.concept_label concept_label,
-		        'TO' direction
+		        'TO' orgn
 		    from
 				taxon_concept this_name,
 				taxon_concept_rel,
@@ -756,7 +756,7 @@ function showmetadata(){
 		<ul>
 			<cfloop query="concept">
 				<li>
-					#direction# #concept_label# <a href="/publication/#publication_id#">[ open publication ]</a>
+					#orgn# #concept_label# <a href="/publication/#publication_id#">[ open publication ]</a>
 					<cfquery name="tcrel" datasource="uam_god">
 						select
 							taxon_concept_rel_id,
