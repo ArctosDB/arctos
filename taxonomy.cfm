@@ -734,22 +734,30 @@ function showmetadata(){
 		      taxon_concept.taxon_name_id=#taxon_name_id.taxon_name_id#
 	</cfquery>
 	<cfquery name="related_concept" datasource="uam_god">
-	 	select
-	    	related_concept.taxon_concept_id taxon_concept_id,
-	        related_concept.publication_id publication_id,
-	        publication.SHORT_CITATION,
-	        related_concept.concept_label concept_label,
-	        'TO' orgn
-	    from
-			taxon_concept this_name,
-			taxon_concept_rel,
-			taxon_concept related_concept,
-			publication
-		where
-			this_name.taxon_name_id=#taxon_name_id.taxon_name_id# and
-			this_name.taxon_concept_id=taxon_concept_rel.to_taxon_concept_id and
-			taxon_concept_rel.from_taxon_concept_id=related_concept.taxon_concept_id and
-			related_concept.publication_id=publication.publication_id
+	   select
+        related_concept.taxon_concept_id taxon_concept_id,
+          related_concept.publication_id publication_id,
+          rec_con_pub.SHORT_CITATION rec_con_cit,
+          rec_con_pub.publication_id rec_pub_id,
+          rec_auth_pub.SHORT_CITATION rec_auth_cit,
+          rec_auth_pub.publication_id rec_auth_id,
+          related_concept.concept_label concept_label,
+          taxon_concept_rel.RELATIONSHIP,
+          taxon_name.scientific_name
+      from
+      taxon_concept this_name,
+      taxon_concept_rel,
+      taxon_concept related_concept,
+      publication rec_con_pub,
+      publication rec_auth_pub,
+      taxon_name
+    where
+      this_name.taxon_name_id=#taxon_name_id.taxon_name_id# and
+      this_name.taxon_concept_id=taxon_concept_rel.to_taxon_concept_id and
+      taxon_concept_rel.from_taxon_concept_id=related_concept.taxon_concept_id and
+      related_concept.publication_id=rec_con_pub.publication_id and
+      taxon_concept_rel.ACCORDING_TO_PUBLICATION_ID=rec_auth_pub.publication_id and
+      related_concept.taxon_name_id=taxon_name.taxon_name_id
 	</cfquery>
 
 
@@ -795,12 +803,19 @@ function showmetadata(){
 					</cfif>
 				</li>
 			</cfloop>
-			<cfloop query="related_concept">
-				<li>
-					RELATED: #concept_label# <a href="/publication/#publication_id#">[ open publication ]</a>
-				</li>
-			</cfloop>
 		</ul>
+		<cfif related_concept.recordcount gte 1>
+			<h5>Related Concepts</h5>
+			<ul>
+				<cfloop query="related_concept">
+					<li>
+						#concept_label# is #RELATIONSHIP# from
+							<a href="/name/#scientific_name#">#scientific_name#</a> - <a href="/publication/#rec_pub_id#">#rec_con_cit#</a>
+							according to <a href="/publication/#rec_auth_id#">#rec_auth_cit#</a>
+					</li>
+				</cfloop>
+			</ul>
+		</cfif>
 	</cfif>
 
 	<cfquery name="common_name" datasource="uam_god">
