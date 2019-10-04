@@ -755,7 +755,7 @@ function showmetadata(){
 
 
 
-	<cfif concept.recordcount gte 1>
+	<cfif concept.recordcount gte 1 or related_concept.recordcount gte 1>
 		<h4>Concept(s)</h4>
 		<ul>
 			<cfloop query="concept">
@@ -793,6 +793,11 @@ function showmetadata(){
 							</cfloop>
 						</ul>
 					</cfif>
+				</li>
+			</cfloop>
+			<cfloop query="related_concept">
+				<li>
+					RELATED: #concept_label# <a href="/publication/#publication_id#">[ open publication ]</a>
 				</li>
 			</cfloop>
 		</ul>
