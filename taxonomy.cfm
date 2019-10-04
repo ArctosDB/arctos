@@ -732,7 +732,7 @@ function showmetadata(){
 		      publication
 		    where
 		      taxon_concept.publication_id=publication.publication_id and
-		      taxon_concept.taxon_name_id=#taxon_name_id#
+		      taxon_concept.taxon_name_id=#taxon_name_id.taxon_name_id#
 		    union
 		    select
 		    	related_concept.taxon_concept_id taxon_concept_id,
@@ -746,7 +746,7 @@ function showmetadata(){
 				taxon_concept related_concept,
 				publication
 			where
-				this_name.taxon_name_id==#taxon_name_id# and
+				this_name.taxon_name_id=#taxon_name_id.taxon_name_id# and
 				this_name.taxon_concept_id=taxon_concept_rel.from_taxon_concept_id and
 				taxon_concept_rel.to_taxon_concept_id=related_concept.taxon_concept_id and
 				related_concept.publication_id=publication.publication_id
