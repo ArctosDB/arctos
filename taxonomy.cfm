@@ -721,24 +721,42 @@ function showmetadata(){
     </cfif>
 
 	<cfquery name="concept" datasource="uam_god">
-		select
-			taxon_concept_id,
-			taxon_concept.publication_id,
-			publication.SHORT_CITATION,
-			taxon_concept.concept_label
-		from
-			taxon_concept,
-			publication
-		where
-			taxon_concept.publication_id=publication.publication_id and
-			taxon_concept.taxon_name_id=#taxon_name_id.taxon_name_id#
+		  select
+		      taxon_concept_id,
+		      taxon_concept.publication_id,
+		      publication.SHORT_CITATION,
+		      taxon_concept.concept_label,
+		      'FROM' direction
+		    from
+		      taxon_concept,
+		      publication
+		    where
+		      taxon_concept.publication_id=publication.publication_id and
+		      taxon_concept.taxon_name_id=#taxon_name_id#
+		    union
+		    select
+		    	related_concept.taxon_concept_id taxon_concept_id,
+		        related_concept.publication_id publication_id,
+		        publication.SHORT_CITATION,
+		        related_concept.concept_label concept_label,
+		        'TO' direction
+		    from
+				taxon_concept this_name,
+				taxon_concept_rel,
+				taxon_concept related_concept,
+				publication
+			where
+				this_name.taxon_name_id==#taxon_name_id# and
+				this_name.taxon_concept_id=taxon_concept_rel.from_taxon_concept_id and
+				taxon_concept_rel.to_taxon_concept_id=related_concept.taxon_concept_id and
+				related_concept.publication_id=publication.publication_id
 	</cfquery>
 	<cfif concept.recordcount gte 1>
 		<h4>Concept(s)</h4>
 		<ul>
 			<cfloop query="concept">
 				<li>
-					#concept_label# <a href="/publication/#publication_id#">[ open publication ]</a>
+					#direction# #concept_label# <a href="/publication/#publication_id#">[ open publication ]</a>
 					<cfquery name="tcrel" datasource="uam_god">
 						select
 							taxon_concept_rel_id,
