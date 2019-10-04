@@ -750,6 +750,7 @@ function showmetadata(){
 			this_name.taxon_concept_id=taxon_concept_rel.from_taxon_concept_id and
 			taxon_concept_rel.to_taxon_concept_id=related_concept.taxon_concept_id and
 			related_concept.publication_id=publication.publication_id
+			and 1=2
 	</cfquery>
 
 
