@@ -251,6 +251,7 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="true">
+	im onSessionStart
 	<cfif cgi.HTTP_HOST contains "altai.corral.tacc.utexas.edu">
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="http://login.corral.tacc.utexas.edu/">
@@ -274,7 +275,7 @@
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
 
-	im lucee
+	im onRequestStart
 	<!--- uncomment for a break from googlebot
 	<cfif cgi.HTTP_USER_AGENT contains "bot" or cgi.HTTP_USER_AGENT contains "slurp" or cgi.HTTP_USER_AGENT contains "spider" cgi.HTTP_USER_AGENT contains "bing">
 		<cfheader statuscode="503" statustext="Service Temporarily Unavailable"/>
