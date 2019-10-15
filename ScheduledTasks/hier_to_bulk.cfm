@@ -7,6 +7,7 @@ alter table cf_temp_classification_fh add aphiaid varchar2(255);
 alter table cf_temp_classification_fh add preferred_name varchar2(255);
 
 alter table cf_temp_classification_fh add epifamily varchar2(255);
+alter table cf_temp_classification_fh add managed_by varchar2(255);
 
 cf_temp_classification_fh
 

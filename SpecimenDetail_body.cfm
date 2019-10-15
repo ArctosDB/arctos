@@ -1248,6 +1248,7 @@
 								where
 								geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
 								 locality_id=#locality_id#
+								 order by GEOLOGY_ATTRIBUTE
 							</cfquery>
 							<cfloop query="geology">
 								<tr>
