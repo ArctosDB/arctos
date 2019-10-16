@@ -186,6 +186,7 @@
 	</cfif>
 </cfif>
 <cfif isdefined("month") AND len(month) gt 0>
+	<cfset isLocalitySearch=true>
 		<!--- ignore, already exact-match ---->
 	<cfif left(month,1) is '='>
 		<cfset month=right(month,len(month)-1)>
@@ -205,6 +206,7 @@
 	</cfif>
 </cfif>
 <cfif isdefined("day") AND len(day) gt 0>
+	<cfset isLocalitySearch=true>
 		<!--- ignore, already exact-match ---->
 	<cfif left(day,1) is '='>
 		<cfset day=right(day,len(day)-1)>
@@ -225,6 +227,7 @@
 </cfif>
 
 <cfif isdefined("begYear") AND len(begYear) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfif not isYear(begYear) and compare(begYear,"NULL") is not 0>
 		<div class="error">
 			Begin year must be a 4-digit number.
@@ -246,6 +249,7 @@
 	</cfif>
 </cfif>
 <cfif isdefined("begMon") AND len(begMon) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&begMon=#begMon#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -256,6 +260,7 @@
 	<cfset basQual = " #basQual# AND substr(collecting_event.began_date,6,2) >= '#begMon#'">
 </cfif>
 <cfif isdefined("begDay") AND len(begDay) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&begDay=#begDay#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -266,6 +271,7 @@
 	<cfset basQual = " #basQual# AND substr(collecting_event.began_date,9,2) >= '#begDay#'">
 </cfif>
 <cfif isdefined("endYear") AND len(endYear) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfif not isYear(endYear) and compare(endYear,"NULL") is not 0>
 		<div class="error">
 			End year must be a 4-digit number.
@@ -287,6 +293,7 @@
 	</cfif>
 </cfif>
 <cfif isdefined("endMon") AND len(endMon) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&endMon=#endMon#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -297,6 +304,7 @@
 	<cfset basQual = " #basQual# AND substr(collecting_event.ended_date,6,2) <= '#endMon#'">
 </cfif>
 <cfif isdefined("endDay") AND len(endDay) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&endDay=#endDay#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -307,6 +315,7 @@
 	<cfset basQual = " #basQual# AND substr(collecting_event.ended_date,9,2) <= #endDay#">
 </cfif>
 <cfif isdefined("specimen_event_id") AND len(specimen_event_id) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&specimen_event_id=#specimen_event_id#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -314,6 +323,7 @@
 	<cfset basQual = " #basQual# AND specimen_event.specimen_event_id = #val(specimen_event_id)#">
 </cfif>
 <cfif isdefined("collecting_event_id") AND len(collecting_event_id) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&collecting_event_id=#collecting_event_id#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -321,6 +331,7 @@
 	<cfset basQual = " #basQual# AND specimen_event.collecting_event_id IN ( #collecting_event_id# )">
 </cfif>
 <cfif isdefined("coll_event_remarks") AND len(coll_event_remarks) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&coll_event_remarks=#coll_event_remarks#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -331,6 +342,7 @@
 	<cfset basQual = " #basQual# AND upper(collecting_event.coll_event_remarks) like '%#ucase(coll_event_remarks)#%'">
 </cfif>
 <cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -342,6 +354,7 @@
 		</cfif>
 </cfif>
 <cfif isdefined("locality_id") AND len(locality_id) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&locality_id=#locality_id#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -353,6 +366,7 @@
 </cfif>
 
 <cfif isdefined("inMon") AND len(inMon) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&inMon=#inMon#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -363,6 +377,7 @@
 	<cfset basQual = " #basQual# AND is_number(substr(collecting_event.began_date,6,2))=1 and TO_NUMBER(substr(collecting_event.began_date,6,2)) IN (#inMon#)">
 </cfif>
 <cfif isdefined("verbatim_date") AND len(verbatim_date) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&verbatim_date=#verbatim_date#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -373,6 +388,7 @@
 	<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_date) LIKE '%#ucase(escapeQuotes(verbatim_date))#%'">
 </cfif>
 <cfif isdefined("began_date") AND len(began_date) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&began_date=#began_date#">
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select is_iso8601('#began_date#') isdate from dual
@@ -394,6 +410,7 @@
 	<cfset basQual = " #basQual# AND collecting_event.began_date >= '#began_date#'">
 </cfif>
 <cfif isdefined("ended_date") AND len(ended_date) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&ended_date=#ended_date#">
 	<cfquery name="isdate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 		select is_iso8601('#ended_date#') isdate from dual
@@ -415,6 +432,7 @@
 	<cfset basQual = " #basQual# AND collecting_event.ended_date <= '#ended_date#'">
 </cfif>
 <cfif isdefined("chronological_extent") AND len(chronological_extent) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfif not isnumeric(chronological_extent)>
 		<div class="error">chronological_extent must be numeric.</div>
 		<script>hidePageLoad();</script>
@@ -440,6 +458,7 @@
 
 <!---- rcoords is round(n,1) concatenated coordinates from spatial browse ---->
 <cfif isdefined("rcoords") AND len(rcoords) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&rcoords=#rcoords#">
 	<cfset basQual = "#basQual#  AND  round(#session.flatTableName#.dec_lat,1) || ',' || round(#session.flatTableName#.dec_long,1)='#rcoords#'" >
 </cfif>
@@ -449,6 +468,7 @@
 	Currently from edit geog
 ---->
 <cfif isdefined("rcoordslist") AND len(rcoordslist) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset rcl=listqualify(rcoordslist,"'","|")>
 	<cfset rcl=listchangedelims(rcl,",","|")>
 	<cfset mapurl = "#mapurl#&rcoordslist=#rcoordslist#">
@@ -468,6 +488,7 @@
 </cfif>
 
 <cfif isdefined("coordslist") AND len(coordslist) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&coordslist=#coordslist#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -488,6 +509,7 @@
 	<cfset basQual = "#basQual# ) ">
 </cfif>
 <cfif isdefined("coordinates") AND len(coordinates) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&coordinates=#coordinates#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -505,6 +527,7 @@
 ---->
 
 <cfif isdefined("isGeoreferenced") AND len(isGeoreferenced) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&isGeoreferenced=#isGeoreferenced#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -523,6 +546,7 @@
 </cfif>
 
 <cfif isdefined("collecting_method") AND len(collecting_method) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&collecting_method=#collecting_method#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -531,6 +555,7 @@
 </cfif>
 
 <cfif isdefined("collecting_source") AND len(collecting_source) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&collecting_source=#collecting_source#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -538,6 +563,7 @@
 	<cfset basQual = " #basQual# AND specimen_event.collecting_source = '#collecting_source#'">
 </cfif>
 <cfif isdefined("specimen_event_remark") AND len(specimen_event_remark) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&specimen_event_remark=#specimen_event_remark#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -545,6 +571,7 @@
 	<cfset basQual = " #basQual# AND upper(specimen_event.specimen_event_remark) like '%#ucase(escapequotes(specimen_event_remark))#%'">
 </cfif>
 <cfif isdefined("specimen_event_type") AND len(specimen_event_type) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&specimen_event_type=#specimen_event_type#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -553,6 +580,7 @@
 </cfif>
 
 <cfif isdefined("georeference_source") and len(georeference_source) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&georeference_source=#URLEncodedFormat(georeference_source)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -574,6 +602,7 @@
 	</cfif>
 </cfif>
 <cfif isdefined("spec_locality") and len(spec_locality) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&spec_locality=#URLEncodedFormat(spec_locality)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -596,6 +625,7 @@
 </cfif>
 
 <cfif isdefined("coord_serv_diff") and len(coord_serv_diff) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&coord_serv_diff=#coord_serv_diff#">
 	<cfif not listfind("=,<,>",left(coord_serv_diff,1)) or
 		not isnumeric(mid(coord_serv_diff,2,999))>
