@@ -160,6 +160,7 @@
 
 
 <cfif isdefined("year") AND len(year) gt 0>
+	<cfset isLocalitySearch=true>
 		<!--- ignore, already exact-match ---->
 	<cfif left(year,1) is '='>
 		<cfset year=right(year,len(year)-1)>
@@ -3209,7 +3210,23 @@
 <cfinclude template="/includes/SearchSql_attributes.cfm">
 
 
-
+<!----
+	if we're searching for anything locality-related, do NOT return any data with geology 'access'='private'
+ ---->
+<cfif isdefined("isLocalitySearch") and isLocalitySearch is true and session.flatTableName is not "flat">
+	<cfif basJoin does not contain " specimen_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
+	</cfif>
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (specimen_event.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif basJoin does not contain " locality ">
+		<cfset basJoin = " #basJoin# INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# and not exists (select locality_id from geology_attributes where geology_attributes.locality_id=locality.locality_id and GEOLOGY_ATTRIBUTE='access' and GEO_ATT_VALUE='private')">
+</cfif>
+	<!----
+</cfif>
 <!---------- SPECIAL NOTE: Archives may not be combined with anything else. This MUST be the last thing in the code ----->
 
 <cfif isdefined("archive_name") AND len(archive_name) gt 0>
