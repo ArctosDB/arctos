@@ -657,6 +657,7 @@
 	<cfset basQual = " #basQual# AND checkLocalityError(locality.locality_id) #coord_serv_diff#">
 </cfif>
 <cfif isdefined("locality_remarks") and len(locality_remarks) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&locality_remarks=#URLEncodedFormat(locality_remarks)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -678,6 +679,7 @@
 </cfif>
 
 <cfif isdefined("verbatim_locality") and len(verbatim_locality) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&verbatim_locality=#URLEncodedFormat(verbatim_locality)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -693,6 +695,7 @@
 </cfif>
 
 <cfif isdefined("minimum_elevation") and len(minimum_elevation) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
 		<div class="error">You must supply units to search by elevation.</div>
 		<script>hidePageLoad();</script>
@@ -717,6 +720,7 @@
 </cfif>
 
 <cfif isdefined("maximum_elevation") and len(maximum_elevation) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfif not isdefined("orig_elev_units") OR len(orig_elev_units) is 0>
 		<div class="error">You must supply units to search by elevation.</div>
 		<script>hidePageLoad();</script>
@@ -745,6 +749,7 @@
 
 
 <cfif isdefined("feature") AND len(feature) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&feature=#URLEncodedFormat(feature)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -769,6 +774,7 @@
 	</cfif>
 </cfif>
 <cfif isdefined("drainage") AND len(drainage) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
 	</cfif>
@@ -797,6 +803,7 @@
 
 
 <cfif isdefined("geology_attribute_value") AND len(geology_attribute_value) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&geology_attribute_value=#geology_attribute_value#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -828,6 +835,7 @@
 </cfif>
 
 <cfif isdefined("continent_ocean") AND len(continent_ocean) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&continent_ocean=#URLEncodedFormat(continent_ocean)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -853,6 +861,7 @@
 </cfif>
 
 <cfif isdefined("sea") AND len(sea) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&sea=#URLEncodedFormat(sea)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -878,6 +887,7 @@
 </cfif>
 
 <cfif isdefined("country") AND len(country) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&country=#URLEncodedFormat(country)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -902,6 +912,7 @@
 	</cfif>
 </cfif>
 <cfif isdefined("state_prov") AND len(state_prov) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&state_prov=#URLEncodedFormat(state_prov)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -939,6 +950,7 @@
 
 
 <cfif isdefined("island_group") AND len(island_group) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&island_group=#URLEncodedFormat(island_group)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -964,6 +976,7 @@
 </cfif>
 
 <cfif isdefined("island") AND len(island) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&island=#URLEncodedFormat(island)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -989,6 +1002,7 @@
 </cfif>
 
 <cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
+	<cfset isLocalitySearch=true>
 	<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) and ((not isdefined("max_max_error")) or len(max_max_error) eq 0)>
 		<!---got min, not max - set max to some improbably large number----->
 		<cfset max_max_error=999999999999999999999999999>
@@ -1029,6 +1043,7 @@
 	OR (isdefined("NELong") and len(NELong) gt 0)
 	OR (isdefined("SWLat") and len(SWLat) gt 0)
 	OR (isdefined("SWLong") and len(SWLong) gt 0)>
+	<cfset isLocalitySearch=true>
 	<!--- got at least one point, see if we got enough to run ---->
 	<cfif (isdefined("NELat") and isnumeric(NELat))
 		AND (isdefined("SWLat") and isnumeric(SWLat))
@@ -1103,6 +1118,7 @@
 </cfif>
 
 <cfif isdefined("geog_auth_rec_id") AND len(geog_auth_rec_id) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&geog_auth_rec_id=#geog_auth_rec_id#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -1120,6 +1136,7 @@
 
 </cfif>
 <cfif isdefined("higher_geog") AND len(higher_geog) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&higher_geog=#URLEncodedFormat(higher_geog)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -1137,6 +1154,7 @@
 </cfif>
 
 <cfif isdefined("datum") AND len(datum) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&datum=#datum#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -1150,6 +1168,7 @@
 	<cfset basQual = " #basQual# AND upper(locality.datum) LIKE '%#UCASE(datum)#%'">
 </cfif>
 <cfif isdefined("county") AND len(county) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&county=#URLEncodedFormat(county)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -1172,6 +1191,7 @@
 	</cfif>
 </cfif>
 <cfif isdefined("inCounty") AND len(inCounty) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&inCounty=#URLEncodedFormat(inCounty)#">
 	<cfset tCounty = "">
 	<cfloop list="#inCounty#" delimiters="," index="i">
@@ -1196,6 +1216,7 @@
 	<cfset basQual = " #basQual# AND geog_auth_rec.County IN (#tCounty#)">
 </cfif>
 <cfif isdefined("quad") AND len(quad) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset mapurl = "#mapurl#&quad=#URLEncodedFormat(quad)#">
 	<cfif basJoin does not contain " specimen_event ">
 		<cfset basJoin = " #basJoin# INNER JOIN specimen_event ON (#session.flatTableName#.collection_object_id = specimen_event.collection_object_id)">
@@ -1235,6 +1256,7 @@
 	it off to a function to put it all together as SQL
 --->
 <cfif isdefined("event_attribute_type_1") AND len(event_attribute_type_1) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_1") AND len(event_attribute_units_1) gt 0>
@@ -1246,6 +1268,7 @@
 	<cfset tmp = buidEvtAttrCode(n="1", typ="#event_attribute_type_1#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_2") AND len(event_attribute_type_2) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_2") AND len(event_attribute_units_2) gt 0>
@@ -1257,6 +1280,7 @@
 	<cfset tmp = buidEvtAttrCode(n="2", typ="#event_attribute_type_2#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_3") AND len(event_attribute_type_3) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_3") AND len(event_attribute_units_3) gt 0>
@@ -1268,6 +1292,7 @@
 	<cfset tmp = buidEvtAttrCode(n="3", typ="#event_attribute_type_3#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_4") AND len(event_attribute_type_4) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_4") AND len(event_attribute_units_4) gt 0>
@@ -1279,6 +1304,7 @@
 	<cfset tmp = buidEvtAttrCode(n="4", typ="#event_attribute_type_4#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_5") AND len(event_attribute_type_5) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_5") AND len(event_attribute_units_5) gt 0>
@@ -1290,6 +1316,7 @@
 	<cfset tmp = buidEvtAttrCode(n="5", typ="#event_attribute_type_5#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_6") AND len(event_attribute_type_6) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_6") AND len(event_attribute_units_6) gt 0>
@@ -1301,6 +1328,7 @@
 	<cfset tmp = buidEvtAttrCode(n="6", typ="#event_attribute_type_6#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_7") AND len(event_attribute_type_7) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_7") AND len(event_attribute_units_7) gt 0>
@@ -1312,6 +1340,7 @@
 	<cfset tmp = buidEvtAttrCode(n="7", typ="#event_attribute_type_7#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_8") AND len(event_attribute_type_8) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_8") AND len(event_attribute_units_8) gt 0>
@@ -1323,6 +1352,7 @@
 	<cfset tmp = buidEvtAttrCode(n="8", typ="#event_attribute_type_8#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_9") AND len(event_attribute_type_9) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_9") AND len(event_attribute_units_9) gt 0>
@@ -1334,6 +1364,7 @@
 	<cfset tmp = buidEvtAttrCode(n="9", typ="#event_attribute_type_9#", valu="#v#", units="#u#") />
 </cfif>
 <cfif isdefined("event_attribute_type_10") AND len(event_attribute_type_10) gt 0>
+	<cfset isLocalitySearch=true>
 	<cfset u="">
 	<cfset v="">
 	<cfif isdefined("event_attribute_units_10") AND len(event_attribute_units_10) gt 0>
