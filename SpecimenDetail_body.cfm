@@ -534,7 +534,7 @@
 		--specimen_event.verificationstatus != 'unaccepted' and
 		specimen_event.collection_object_id=<cfqueryparam value = "#collection_object_id#" CFSQLType = "CF_SQL_INTEGER">
 		<cfif oneOfUs is not 1>
-			and locality.locality_id not in (select locality from geology_attributes where GEOLOGY_ATTRIBUTE='access' and GEO_ATT_VALUE='private')
+			and locality.locality_id not in (select locality_id from geology_attributes where GEOLOGY_ATTRIBUTE='access' and GEO_ATT_VALUE='private')
 		</cfif>
 </cfquery>
 <cfquery name="event" dbtype="query">
