@@ -3225,8 +3225,6 @@
 	</cfif>
 	<cfset basQual = " #basQual# and not exists (select locality_id from geology_attributes where geology_attributes.locality_id=locality.locality_id and GEOLOGY_ATTRIBUTE='access' and GEO_ATT_VALUE='private')">
 </cfif>
-	<!----
-</cfif>
 <!---------- SPECIAL NOTE: Archives may not be combined with anything else. This MUST be the last thing in the code ----->
 
 <cfif isdefined("archive_name") AND len(archive_name) gt 0>
