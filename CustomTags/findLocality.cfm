@@ -47,9 +47,9 @@
 	<cfset frm=frm & ",locality,geology_attributes">
 	<cfset whr=whr & " and geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and locality.locality_id = geology_attributes.locality_id (+)">
 	<!--- mask localities with a geology_attribute of private for not-us---->
-	<cfif (not isdefined("sesssion.roles")) or (not listfindnocase(session.roles,'coldfusion_user'))>
+	<cfif (not isdefined("sesssion.roles")) or (not listfindnocase(session.roles,'coldfusion_user') gt 0)>
 
-		#listfindnocase(session.roles,'coldfusion_uservv')#
+		#listfindnocase(session.roles,'coldfusion_user')#
 		-public-
 		<cfset whr=whr & " and  not exists (select locality_id from geology_attributes where geology_attributes.locality_id=locality.locality_id and GEOLOGY_ATTRIBUTE='access' and GEO_ATT_VALUE='private')">
 	</cfif>
