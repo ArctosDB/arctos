@@ -1,10 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <p>
-	Random generated code that's useful in various places. 
+	Random generated code that's useful in various places.
 </p>
 <cfoutput>
 	<cfset s="">
-	<cfloop from ="1" to="13" index="i">
+	<cfloop from ="1" to="16" index="i">
 		<cfset s=s & chr(10) & "if r.GEOLOGY_ATTRIBUTE_#i# is not null then">
 		<cfset s=s & chr(10) & chr(9) & 'insert into geology_attributes ('>
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "GEOLOGY_ATTRIBUTE_ID,">
