@@ -28,6 +28,7 @@ Random generated code that's useful in various places.
 		<cfset s=s & chr(10) & chr(9) & chr(9) & "r.GEO_ATT_REMARK_#i#">
 		<cfset s=s & chr(10) & chr(9) & ');'>
 		<cfset s=s & chr(10) & "end if;">
+	</cfloop>
 
 
 
