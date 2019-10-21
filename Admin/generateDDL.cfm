@@ -5,6 +5,34 @@ Random generated code that's useful in various places.
 <cfoutput>
 
 
+	<cfset s="">
+	<cfloop from ="1" to="13" index="i">
+		<cfset s=s & chr(10) & "if r.GEOLOGY_ATTRIBUTE_#i# is not null then">
+		<cfset s=s & chr(10) & chr(9) & 'insert into geology_attributes ('>
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "GEOLOGY_ATTRIBUTE_ID,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "LOCALITY_ID,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "GEOLOGY_ATTRIBUTE,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "GEO_ATT_VALUE,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "GEO_ATT_DETERMINER_ID,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "GEO_ATT_DETERMINED_DATE,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "GEO_ATT_DETERMINED_METHOD,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "GEO_ATT_REMARK">
+		<cfset s=s & chr(10) & chr(9) & ') values ('>
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "sq_GEOLOGY_ATTRIBUTE_ID.nextval,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "sq_locality_id.currval,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "r.GEOLOGY_ATTRIBUTE_#i#,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "r.GEO_ATT_VALUE_#i#,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "getAgentID(r.GEO_ATT_DETERMINER_ID_#i#),">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "r.GEO_ATT_DETERMINED_DATE_#i#,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "r.GEO_ATT_DETERMINED_METHOD_#i#,">
+		<cfset s=s & chr(10) & chr(9) & chr(9) & "r.GEO_ATT_REMARK_#i#">
+		<cfset s=s & chr(10) & chr(9) & ');'>
+		<cfset s=s & chr(10) & "end if;">
+
+
+
+	<textarea rows="100" cols="150">#s#</textarea>
+
 
 	<cfset s="">
 	<cfloop from ="1" to="10" index="i">
