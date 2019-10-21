@@ -5,12 +5,11 @@
 		margin-left:1em;
 	}
 </style>
-	<script>
-	$(document).ready(function() {
+
+<!----
+$(document).ready(function() {
 		$("div[data-tid]").each(function( i, val ) {
-			//console.log(val);
 			var tid=$(this).attr("data-tid");
-			//dois.push(doi);
 			 $.ajax({
 		        url: "/component/taxonomy.cfc?queryformat=column",
 		        type: "GET",
@@ -43,34 +42,22 @@
 		          returnformat : "json"
 		        },
 		        success: function(r) {
-		        	//console.log(r);
 		        	var rd='';
 		        	for (i=0;i<r.ROWCOUNT;i++) {
-    					//console.log(r.DATA.RELATIONSHIP[i]);
     					rd+='<div>' + r.DATA.RELATIONSHIP[i] + '</div>';
 		        	}
-
 					$("#t_" + tid).append(rd);
-		         // var rd='';
-		         // for (i=0;i<r.ROWCOUNT;i++) {
-		         // 	console.log(i);
-		        //  	rd+='<div><a target="_blank" href="/name/' + r.DATA.SCIENTIFIC_NAME[i] + '">' + r.DATA.SCIENTIFIC_NAME[i] + '</a> [' + r.DATA.TAXON_RELATIONSHIP[i] + '] [' + r.DATA.RELDIR[i] + ' this name]</div>';
-
-				//	console.log(rd);
-
-		       // }
-					//console.log(tid);
-				//	if ((rd) && rd.length>0){
-
-		        //		$("#t_" + tid).append(rd);
-				//	}
 		        },
 		          error: function (xhr, textStatus, errorThrown){
 		            alert(errorThrown + ': ' + textStatus + ': ' + xhr);
 		        }
 		      });
 		});
+
 	});
+	---->
+	<script>
+
 		function settaxaPickPrefs (v) {
 			jQuery.getJSON("/component/functions.cfc",
 				{
