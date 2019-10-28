@@ -88,7 +88,7 @@ grant all on cf_temp_specevent to coldfusion_user;
 CREATE OR REPLACE TRIGGER trg_cf_temp_specevent_biu
     BEFORE INSERT OR UPDATE ON cf_temp_specevent
     FOR EACH ROW
-    BEGIN  
+    BEGIN
 
 	IF :new.orig_lat_long_units = 'deg. min. sec.' THEN
             :new.c$lat := :new.LAT_DEG + (:new.LAT_MIN / 60) + (nvl(:new.LAT_SEC,0) / 3600);
@@ -1147,7 +1147,8 @@ Upload CSV:
 					delete from cf_temp_specevent where	key=#x.key#
 				</cfquery>
 			<cfelse>
-				<br>fail: #x.guid# #x.status#
+				<br>fail:
+				<cfdump var=#x#>
 				<cfquery name="ud" datasource="uam_god">
 					update cf_temp_specevent set status='#x.status#' where key=#x.key#
 				</cfquery>
