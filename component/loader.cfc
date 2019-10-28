@@ -151,92 +151,96 @@
 		<cfargument name="q" required="yes" type="query">
 		<cftry>
 			<cftransaction>
-				<!--- first find or build a locality --->
-				<!--- if we have locality_name then we just need the ID --->
-				<cfif len(q.locality_name) gt 0>
-					<cfquery name="x" datasource="uam_god">
-						select locality_id from locality where locality_name='#q.locality_name#'
-					</cfquery>
-					<cfset locid=x.locality_id>
-				<cfelse>
-					<!--- just build one, the merger scripts will deal with it ---->
-					<cfquery name="nLocId" datasource="uam_god">
-						select sq_locality_id.nextval nv from dual
-					</cfquery>
-					<cfset locid=nLocId.nv>
-					<cfquery name="newLocality" datasource="uam_god">
-						INSERT INTO locality (
-							LOCALITY_ID,
-							GEOG_AUTH_REC_ID,
-							MAXIMUM_ELEVATION,
-							MINIMUM_ELEVATION,
-							ORIG_ELEV_UNITS,
-							SPEC_LOCALITY,
-							LOCALITY_REMARKS,
-							DEPTH_UNITS,
-							MIN_DEPTH,
-							MAX_DEPTH,
-							DEC_LAT,
-							DEC_LONG,
-							MAX_ERROR_DISTANCE,
-							MAX_ERROR_UNITS,
-							DATUM,
-							georeference_source,
-							georeference_protocol,
-							wkt_media_id
-						)  values (
-							#locid#,
-							(select geog_auth_rec_id from geog_auth_rec where higher_geog='#q.higher_geog#'),
-							<cfif len(q.MAXIMUM_ELEVATION) gt 0>
-								#q.MAXIMUM_ELEVATION#
-							<cfelse>
-								NULL
-							</cfif>,
-							<cfif len(q.MINIMUM_ELEVATION) gt 0>
-								#q.MINIMUM_ELEVATION#
-							<cfelse>
-								NULL
-							</cfif>,
-							'#q.ORIG_ELEV_UNITS#',
-							'#q.SPEC_LOCALITY#',
-							'#q.LOCALITY_REMARKS#',
-							'#q.DEPTH_UNITS#',
-							<cfif len(q.MIN_DEPTH) gt 0>
-								#q.MIN_DEPTH#
-							<cfelse>
-								NULL
-							</cfif>,
-							<cfif len(q.MAX_DEPTH) gt 0>
-								#q.MAX_DEPTH#
-							<cfelse>
-								NULL
-							</cfif>,
-							<cfif len(q.c$LAT) gt 0>
-								#q.c$LAT#
-							<cfelse>
-								NULL
-							</cfif>,
-							<cfif len(q.c$LONG) gt 0>
-								#q.c$LONG#
-							<cfelse>
-								NULL
-							</cfif>,
-							<cfif len(q.MAX_ERROR_DISTANCE) gt 0>
-								#q.MAX_ERROR_DISTANCE#
-							<cfelse>
-								NULL
-							</cfif>,
-							'#q.MAX_ERROR_UNITS#',
-							'#q.DATUM#',
-							'#q.georeference_source#',
-							'#q.georeference_protocol#',
-							<cfif len(q.wkt_media_id) gt 0>
-								#q.wkt_media_id#
-							<cfelse>
-								NULL
-							</cfif>
-						)
-					</cfquery>
+				<!---- skip this if we have an event name ---->
+				<cfif len(q.collecting_event_name) is 0>
+
+					<!--- first find or build a locality --->
+					<!--- if we have locality_name then we just need the ID --->
+					<cfif len(q.locality_name) gt 0>
+						<cfquery name="x" datasource="uam_god">
+							select locality_id from locality where locality_name='#q.locality_name#'
+						</cfquery>
+						<cfset locid=x.locality_id>
+					<cfelse>
+						<!--- just build one, the merger scripts will deal with it ---->
+						<cfquery name="nLocId" datasource="uam_god">
+							select sq_locality_id.nextval nv from dual
+						</cfquery>
+						<cfset locid=nLocId.nv>
+						<cfquery name="newLocality" datasource="uam_god">
+							INSERT INTO locality (
+								LOCALITY_ID,
+								GEOG_AUTH_REC_ID,
+								MAXIMUM_ELEVATION,
+								MINIMUM_ELEVATION,
+								ORIG_ELEV_UNITS,
+								SPEC_LOCALITY,
+								LOCALITY_REMARKS,
+								DEPTH_UNITS,
+								MIN_DEPTH,
+								MAX_DEPTH,
+								DEC_LAT,
+								DEC_LONG,
+								MAX_ERROR_DISTANCE,
+								MAX_ERROR_UNITS,
+								DATUM,
+								georeference_source,
+								georeference_protocol,
+								wkt_media_id
+							)  values (
+								#locid#,
+								(select geog_auth_rec_id from geog_auth_rec where higher_geog='#q.higher_geog#'),
+								<cfif len(q.MAXIMUM_ELEVATION) gt 0>
+									#q.MAXIMUM_ELEVATION#
+								<cfelse>
+									NULL
+								</cfif>,
+								<cfif len(q.MINIMUM_ELEVATION) gt 0>
+									#q.MINIMUM_ELEVATION#
+								<cfelse>
+									NULL
+								</cfif>,
+								'#q.ORIG_ELEV_UNITS#',
+								'#q.SPEC_LOCALITY#',
+								'#q.LOCALITY_REMARKS#',
+								'#q.DEPTH_UNITS#',
+								<cfif len(q.MIN_DEPTH) gt 0>
+									#q.MIN_DEPTH#
+								<cfelse>
+									NULL
+								</cfif>,
+								<cfif len(q.MAX_DEPTH) gt 0>
+									#q.MAX_DEPTH#
+								<cfelse>
+									NULL
+								</cfif>,
+								<cfif len(q.c$LAT) gt 0>
+									#q.c$LAT#
+								<cfelse>
+									NULL
+								</cfif>,
+								<cfif len(q.c$LONG) gt 0>
+									#q.c$LONG#
+								<cfelse>
+									NULL
+								</cfif>,
+								<cfif len(q.MAX_ERROR_DISTANCE) gt 0>
+									#q.MAX_ERROR_DISTANCE#
+								<cfelse>
+									NULL
+								</cfif>,
+								'#q.MAX_ERROR_UNITS#',
+								'#q.DATUM#',
+								'#q.georeference_source#',
+								'#q.georeference_protocol#',
+								<cfif len(q.wkt_media_id) gt 0>
+									#q.wkt_media_id#
+								<cfelse>
+									NULL
+								</cfif>
+							)
+						</cfquery>
+					</cfif>
 				</cfif>
 
 
