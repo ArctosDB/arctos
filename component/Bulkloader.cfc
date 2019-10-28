@@ -906,6 +906,9 @@
 			and column_name not like '%$%'
 			order by internal_column_id
 		</cfquery>
+
+		<cfdump var=#getCols#>
+
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
 			<cfset v=replace(kv,k & "=",'')>
