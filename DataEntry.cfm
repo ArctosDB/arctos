@@ -183,6 +183,9 @@
 		<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select geology_attribute from ctgeology_attribute order by geology_attribute
 		</cfquery>
+		<cfquery name="ctidentification_confidence" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select identification_confidence from ctidentification_confidence order by identification_confidence
+		</cfquery>
 		<cfquery name="ctCodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				attribute_type,
@@ -378,6 +381,18 @@
 											</select>
 										</td>
 									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Confidence</span></td>
+										<td>
+											<select name="identification_confidence" class="" id="identification_confidence">
+												<option value=""></option>
+												<cfloop query="ctidentification_confidence">
+													<option value="#ctidentification_confidence.identification_confidence#">#ctidentification_confidence.identification_confidence#</option>
+												</cfloop>
+											</select>
+										</td>
+									</tr>
+
 									<tr>
 										<td align="right"><span class="f11a">Date</span></td>
 										<td>

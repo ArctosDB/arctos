@@ -907,7 +907,6 @@
 			order by internal_column_id
 		</cfquery>
 
-		<cfdump var=#getCols#>
 
 		<cfloop list="#q#" index="kv" delimiters="&">
 			<cfset k=listfirst(kv,"=")>
@@ -953,7 +952,6 @@
 			</cfquery>
 		<cfcatch>
 
-			<cfdump var=#cfcatch#>
 
 			<cfset result = querynew("COLLECTION_OBJECT_ID,RSLT")>
 			<cfset temp = queryaddrow(result,1)>
