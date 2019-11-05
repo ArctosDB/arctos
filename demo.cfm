@@ -2,32 +2,32 @@ create table temp_wtf(w varchar);
 grant all on temp_wtf to coldfusion_user;
 <cfinclude template="/includes/_header.cfm">
 <p>trunc</p>
-<cfquery name="x" datasource="uam_god">
+<cfquery name="x" datasource="postgres">
 	truncate table temp_wtf
 </cfquery>
 
 <p>result</p>
-<cfquery name="x" datasource="uam_god">
+<cfquery name="x" datasource="postgres">
 	select * from  temp_wtf
 </cfquery>
 <cfdump var=#x#>
 <p>nontransaction insert</p>
-<cfquery name="x" datasource="uam_god">
+<cfquery name="x" datasource="postgres">
 	insert into temp_wtf(w) values ('nontransaction insert')
 </cfquery>
 <p>result</p>
-<cfquery name="x" datasource="uam_god">
+<cfquery name="x" datasource="postgres">
 	select * from  temp_wtf
 </cfquery>
 <cfdump var=#x#>
 <p>transaction insert</p>
 <cftransaction>
-	<cfquery name="x" datasource="uam_god">
+	<cfquery name="x" datasource="postgres">
 		insert into temp_wtf(w) values ('transaction insert')
 	</cfquery>
 </cftransaction>
 <p>result</p>
-<cfquery name="x" datasource="uam_god">
+<cfquery name="x" datasource="postgres">
 	select * from  temp_wtf
 </cfquery>
 <cfdump var=#x#>
