@@ -1,4 +1,4 @@
-create table temp_wtf(w varchar);
+create table temp_wtf(w varchar2(255));
 grant all on temp_wtf to coldfusion_user;
 <cfinclude template="/includes/_header.cfm">
 <p>trunc</p>
@@ -28,6 +28,41 @@ grant all on temp_wtf to coldfusion_user;
 </cftransaction>
 <p>result</p>
 <cfquery name="x" datasource="postgres">
+	select * from  temp_wtf
+</cfquery>
+<cfdump var=#x#>
+
+
+
+
+<p>oracle</p>
+<p>trunc</p>
+<cfquery name="x" datasource="uam_god">
+	truncate table temp_wtf
+</cfquery>
+
+<p>result</p>
+<cfquery name="x" datasource="uam_god">
+	select * from  temp_wtf
+</cfquery>
+<cfdump var=#x#>
+<p>nontransaction insert</p>
+<cfquery name="x" datasource="uam_god">
+	insert into temp_wtf(w) values ('nontransaction insert')
+</cfquery>
+<p>result</p>
+<cfquery name="x" datasource="uam_god">
+	select * from  temp_wtf
+</cfquery>
+<cfdump var=#x#>
+<p>transaction insert</p>
+<cftransaction>
+	<cfquery name="x" datasource="uam_god">
+		insert into temp_wtf(w) values ('transaction insert')
+	</cfquery>
+</cftransaction>
+<p>result</p>
+<cfquery name="x" datasource="uam_god">
 	select * from  temp_wtf
 </cfquery>
 <cfdump var=#x#>
