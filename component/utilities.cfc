@@ -1885,7 +1885,7 @@
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
 			<cfset x=x & ",catalog,cart,CoordinatorPortType,chat,cpanel,cf_scripts,COMMIT_EDITMSG,console,CHANGELOG,com_sun_web_ui,cfdocs">
-			<cfset x=x & ",classLoader,cacheObjectMaxSize,configs,cisco">
+			<cfset x=x & ",classLoader,cacheObjectMaxSize,configs,cisco,cof">
 			<cfset x=x & ",drithsx,dbg,dbadmin,declare,DB_NAME,databases,displayAbstract,db_backup,do,downloader,DEADBEEF,deployment-config,dbm,device">
 			<cfset x=x & ",etc,environ,exe,editor,ehcp,employee,entries,elfinder,erpfilemanager,equipment,env">
 			<cfset x=x & ",fulltext,feed,feeds,filemanager,fckeditor,FileZilla,fetch,FETCH_STATUS,ftpconfig,flex2gateway,FxCodeShell">
@@ -1907,9 +1907,9 @@
 			<cfset x=x & ",sysobjects,svn,sap,ssh,stash">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects,sample">
 			<cfset x=x & ",trackback,texteditor,tar">
-			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource">
+			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource,unepwcmcsml">
 			<cfset x=x & ",verify-tldnotify,version,varien,viagra,vscode,views,vacancies">
-			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress,webforms">
+			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress,webforms,wdpa">
 			<cfset x=x & ",YandexImages,yealink">
 			<cfset x=x & ",zboard">
 
