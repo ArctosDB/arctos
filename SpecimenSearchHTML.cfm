@@ -1,8 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title="Specimen Search">
+<cfset title="Catalog Record Search">
 <cfset helpBaseUrl="">
 <cfoutput>
-<cfset metaDesc="Provides plain HTML functinality to search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
+<cfset metaDesc="Provides plain HTML functinality to search for catalog records and observations by taxonomy, identifications, cataloged item attributes, and usage history.">
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	select count(collection_object_id) as cnt from cataloged_item
 </cfquery>
