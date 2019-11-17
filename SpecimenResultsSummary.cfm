@@ -1,7 +1,7 @@
 <cfinclude template = "/includes/_header.cfm">
 <script type='text/javascript' language="javascript" src='/includes/jtable/jquery.jtable.min.js'></script>
 <link rel="stylesheet" title="lightcolor-blue"  href="/includes/jtable/themes/lightcolor/blue/jtable.min.css" type="text/css">
-<cfset title="Specimen Results Summary">
+<cfset title="Catalog Records Results Summary">
 <!---
 Bad things? Last standalone copy of this form is in v6.11
 ---->
@@ -85,7 +85,7 @@ Bad things? Last standalone copy of this form is in v6.11
 					}
 
 					$('##specresults').jtable({
-			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + r.TotalRecordCount + ' records.',
+			            title: 'Catalog Record Summary: ' + r.TotalSpecimenCount + ' Catalog Records grouped into ' + r.TotalRecordCount + ' records.',
 						paging: true, //Enable paging
 			            pageSize: 100, //Set page size (default: 10)
 			            sorting: true, //Enable sorting
@@ -160,7 +160,7 @@ Bad things? Last standalone copy of this form is in v6.11
 			   		 	return false;
 					}
 					 $('##specresults').jtable({
-			            title: 'Specimen Summary: ' + r.TotalSpecimenCount + ' Specimens grouped into ' + r.TotalRecordCount + ' records.',
+			            title: 'Catalog Records Summary: ' + r.TotalSpecimenCount + ' Catalog Records grouped into ' + r.TotalRecordCount + ' records.',
 						paging: true, //Enable paging
 			            pageSize: 100, //Set page size (default: 10)
 			            sorting: true, //Enable sorting
@@ -180,7 +180,7 @@ Bad things? Last standalone copy of this form is in v6.11
 			            },
 			            fields:  {
 							COUNTOFCATALOGEDITEM:{title: 'Count'},
-							LINKTOSPECIMENS: {title: 'Specimens'},
+							LINKTOSPECIMENS: {title: 'Catalog Records'},
 							<cfset thisLoopNum=1>
 						 	<cfset numFlds=listlen(groupby)>
 							<cfloop list="#groupby#" index="col">
