@@ -105,7 +105,7 @@ Bad things? Last standalone copy of this form is in v6.11
 			            },
 			            fields:  {
 							COUNTOFCATALOGEDITEM:{title: 'Count'},
-							LINKTOSPECIMENS: {title: 'Specimens'},
+							LINKTOSPECIMENS: {title: 'Catalog Records'},
 							<cfset thisLoopNum=1>
 						 	<cfset numFlds=listlen(groupby)>
 							<cfloop list="#groupby#" index="col">
