@@ -225,7 +225,7 @@
 					Don't assume we've accurately or predictably recorded data.
 				</li>
 				<li>
-					 Not all specimens have coordinates, and the spatial query tool will not locate all cataloged items.
+					 Not all catalog records have coordinates, and the spatial query tool will not locate all cataloged items.
 				</li>
 				<li>
 					Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways.
