@@ -23,7 +23,7 @@
 ---------->
 <cfoutput>
 </cfoutput>
-<cfset title="Specimen Results">
+<cfset title="Catalog Record Results">
 <cfif not isdefined("displayrows")>
 	<cfset displayrows = session.displayrows>
 </cfif>
@@ -366,7 +366,7 @@
 
 <form name="map" method="post" action="/bnhmMaps/bnhmMapData.cfm?#mapurl#" target="_blank">
 
-  <H4>List of specimens #StartRow# through #ToRow# of the #collectionObjectIds.RecordCount# records that matched your criteria.
+  <H4>List of catalog records #StartRow# through #ToRow# of the #collectionObjectIds.RecordCount# records that matched your criteria.
   <br>Click on catalog numbers for individual details.
 
 <cfset bnhmUrl="/bnhmMaps/bnhmMapData.cfm?#mapurl#">
@@ -880,10 +880,10 @@ document.getElementById('saveme').submit();
 </cfif>
 <cfif #detail_level# gte 2>
 	<td nowrap>
-		<strong>Specimen Remarks</strong>
+		<strong>Catalog Item Remarks</strong>
 	</td>
 	<td nowrap>
-		<strong>Specimen Disposition</strong>
+		<strong>Catalog Item Disposition</strong>
 	</td>
 </cfif>
 </cfoutput>
