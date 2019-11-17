@@ -3,8 +3,8 @@
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script src="/includes/jquery.multiselect.min.js"></script>
 <link rel="stylesheet" href="/includes/jquery.multiselect.css" />
-<cfset title="Specimen Search">
-<cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
+<cfset title="Catalog Record Search">
+<cfset metaDesc="Search for catalog records and observations by taxonomy, identifications, cataloged item attributes, and usage history.">
 <cfoutput>
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select count(cataloged_item.collection_object_id) as cnt from cataloged_item,filtered_flat where
@@ -79,11 +79,11 @@
 		</td>
 		<td valign="top">
 		 	<select name="tgtForm" id="tgtForm" size="1"  onChange="changeTarget(this.id,this.value);">
-				<option value="SpecimenResults.cfm">Specimen Records</option>
-				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
+				<option value="SpecimenResults.cfm">Catalog Records</option>
+				<option value="SpecimenResultsHTML.cfm">HTML Catalog Records</option>
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
 				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
-				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
+				<option value="SpecimenResultsSummary.cfm">Catalog Record Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
 			</select>
 		</td>
@@ -355,7 +355,7 @@
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-				<span class="secLabel">Specimen Record</span>
+				<span class="secLabel">Catalog Record</span>
 				<span class="secControl" id="c_biolindiv" onclick="showHide('biolindiv',1)">Show More Options</span>
 			</td>
 		</tr>
@@ -502,11 +502,11 @@
 		</td>
 		<td align="left" colspan="2" valign="top">
 			<select name="tgtForm" id="tgtForm" size="1" onChange="changeTarget(this.id,this.value);">
-				<option value="">Specimen Records</option>
-				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
+				<option value="">Catalog Records</option>
+				<option value="SpecimenResultsHTML.cfm">HTML Catalog Records</option>
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
 				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
-				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
+				<option value="SpecimenResultsSummary.cfm">Catalog Record Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
 				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/Link.cfm">Link's Form</option>
