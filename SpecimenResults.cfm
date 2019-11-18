@@ -3,7 +3,7 @@
 <cfif not isdefined("session.RESULTSBROWSEPREFS")>
 	<cfset session.RESULTSBROWSEPREFS=0>
 </cfif>
-<cfset title="Specimen Results">
+<cfset title="Catalog Record Search Results">
 <cfif not isdefined("session.srmapclass") or len(session.srmapclass) is 0>
 	<cfset session.srmapclass='nomap'>
 </cfif>
@@ -124,7 +124,7 @@
 			$("##usertools").menu();
 			$("##goWhere").menu();
 	        $('##specresults').jtable({
-	            title: 'Specimen Results',
+	            title: 'Catalog Record Search Results',
 				paging: true, //Enable paging
 	            pageSize: 100, //Set page size (default: 10)
 	            sorting: true, //Enable sorting
@@ -232,7 +232,7 @@
 					Don't assume we've accurately or predictably recorded data.
 				</li>
 				<li>
-					 Not all specimens have coordinates, and the spatial query tool will not locate all specimens.
+					 Not all catalog records have coordinates, and the spatial query tool will not locate all catalog records.
 				</li>
 				<li>
 					Use dropdowns or partial word matches instead of text strings, which may be entered in unexpected ways.
@@ -375,10 +375,10 @@
 					</cfquery>
 					<cfif partsForLoan.recordcount gte 1>
 						<br>Customize, turn on Remove Rows option to remove anything that should not be added to this loan, them you can
-						use this form to add an item from all found specimens (not necessarily just the ones visible on this page)
+						use this form to add an item from all found records (not necessarily just the ones visible on this page)
 						to your loan.
 						<p>
-							For all specimens, add this:
+							For all records, add this:
 						</p>
 						<label for="loan_all_part_name">Part Name</label>
 						<select name="loan_all_part_name" id="loan_all_part_name">
@@ -403,7 +403,7 @@
 		<table border="0" width="100%">
 			<tr>
 			<td>
-				<strong>Found #summary.recordcount# specimens.</strong>
+				<strong>Found #summary.recordcount# catalog records.</strong>
 				<span class="helpLink" id="_specimen_results">About</span>
 			</td>
 				<cfif willmap.recordcount gt 0>
