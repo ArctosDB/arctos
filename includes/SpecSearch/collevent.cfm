@@ -259,7 +259,7 @@
 
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_specimen_event_type">Specimen/Event Type:</span>
+			<span class="helpLink" id="_specimen_event_type">Record/Event Type:</span>
 		</td>
 		<td class="srch">
 			<select name="specimen_event_type" id="specimen_event_type" size="1">
@@ -273,7 +273,7 @@
 
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="_specimen_event_remark">Specimen/Event Remark:</span>
+			<span class="helpLink" id="_specimen_event_remark">Record/Event Remark:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="specimen_event_remark" id="specimen_event_remark" size="50">
