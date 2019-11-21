@@ -226,7 +226,7 @@
 			<a href="/saved/#URLEncodedFormat(search_name)#">#Application.ServerRootUrl#/saved/#URLEncodedFormat(search_name)#</a>
 		</td>
 		<td>
-			<span class="likeLink" onclick="window.open('/saveSearch.cfm?action=emailSearch&canned_id=#canned_id#','_mail','height=300,width=400,resizable,scrollbars')">Mail</span>
+			<span class="likeLink" onclick="window.open('/saveSearch.cfm?action=emailSearch&canned_id=#canned_id#','_mail','height=600,width=800,resizable,scrollbars')">Mail</span>
 		</td>
 	</tr>
 </cfloop>
