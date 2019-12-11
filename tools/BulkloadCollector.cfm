@@ -440,7 +440,7 @@ end;
             <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 	            insert into cf_temp_collector (#cols#) values (
 	            <cfloop list="#cols#" index="i">
-	            	'#stripQuotes(evaluate(i))#'
+	            	'#escapeQuotes(evaluate(i))#'
 	            	<cfif i is not listlast(cols)>
 	            		,
 	            	</cfif>
