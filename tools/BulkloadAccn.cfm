@@ -346,6 +346,11 @@ Step 1: Upload a comma-delimited text file (csv).
 <cfelse>
 	Review the dump below. If everything seems OK,
 	<a href="BulkloadAccn.cfm?action=loadData">click here to proceed</a>.
+
+	<div class="importantNotification">
+		Bug Alert: Check Agents for corresponding IDs.
+		<a href="https://github.com/ArctosDB/arctos/issues/2378" target="_blank" class="external">https://github.com/ArctosDB/arctos/issues/2378</a>
+	</div>
 	<cfdump var=#d#>
 </cfif>
 
