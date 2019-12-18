@@ -18,7 +18,8 @@
 	</script>
 	<script src="/includes/sorttable.js"></script>
 	<cfoutput>
-		<hr>Filter
+		<hr>
+		Filter 
 		<cfparam name="sincedays" default="180">
 		<cfparam name="ipstartswith" default="">
 		<cfset ipstartswith=trim(ipstartswith)>
@@ -32,19 +33,28 @@
 		<cfset startrow=(pg*pgsize)-pgsize>
 		<cfset stoprow=startrow+pgsize>
 		<form method="post" id="ff" action="blacklist.cfm">
-			<label for="ipstartswith">IP (starts with)</label>
+			<label for="ipstartswith">
+				IP (starts with)
+			</label>
 			<input type="text" name="ipstartswith" id="ipstartswith" value="#ipstartswith#">
-			<label for="sincedays">Days to include*</label>
+			<label for="sincedays">
+				Days to include*
+			</label>
 			<input type="number" name="sincedays" id="sincedays" value="#sincedays#">
-			<label for="pg">page</label>
+			<label for="pg">
+				page
+			</label>
 			<input type="number" name="pg" id="pg" value="#pg#" required>
-			<label for="pagesize">page size</label>
+			<label for="pagesize">
+				page size
+			</label>
 			<input type="number" name="pgsize" id="pgsize" value="#pgsize#" required>
-			<br><input type="submit" value="apply filter">
+			<br>
+			<input type="submit" value="apply filter">
 			<input type="button" id="resetfilter" value="reset">
 		</form>
 		<p>
-			* All IP-based access restrictions except hardblock expire after 180 days.
+			* All IP-based access restrictions except hardblock expire after 180 days. 
 		</p>
 		<cfquery name="rip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
 			Select * from (
@@ -93,67 +103,85 @@
 		<hr>
 		<form name="i" method="post" action="blacklist.cfm">
 			<input type="hidden" name="action" value="ins">
-			<label for="ip">Manually block IP</label>
+			<label for="ip">
+				Manually block IP
+			</label>
 			<input type="text" name="ip" id="ip">
-			<br><input type="submit" value="blacklist">
+			<br>
+			<input type="submit" value="blacklist">
 		</form>
 		<hr>
 		<p>
-			Use the form above (and update the filters or contact someone who can) to stop
-			malicious activity from a single IP. IPs containing "ip starts with" search string are <span class="highlight">highlighted</span>.
+			Use the form above (and update the filters or contact someone who can) to stop malicious activity from a single IP. IPs containing "ip starts with" search string are 
+			<span class="highlight">
+				highlighted
+			</span>
+			. 
 		</p>
 		<p>
-			IPs are generally auto-blacklisted. Users may remove IP restrictions from Arctos.
-			Immediately contact Arctos personnel if unnecessary restrictions are being automatically added.
+			IPs are generally auto-blacklisted. Users may remove IP restrictions from Arctos. Immediately contact Arctos personnel if unnecessary restrictions are being automatically added. 
 		</p>
 		<p>
-			Subnets are automatically blocked with 10 active IP blocks from the subnet. This controls
-			the size of application variables, prevents "learning" attacks,
-			and sends email alerting Arctos personnel to increased suspicious activity.
-			Users may remove this restriction from Arctos.
+			Subnets are automatically blocked with 10 active IP blocks from the subnet. This controls the size of application variables, prevents "learning" attacks, and sends email alerting Arctos personnel to increased suspicious activity. Users may remove this restriction from Arctos. 
 		</p>
 		<p>
-			"Probably malicious" subnets should be hard-blocked using the tools below. These blocks cannot be
-			removed by users, but users may fill in a form asking for removal; this must be evaluated by Arctos personnel. Create and release
-			these restrictions with caution. Hardblocks do not expire.
+			"Probably malicious" subnets should be hard-blocked using the tools below. These blocks cannot be removed by users, but users may fill in a form asking for removal; this must be evaluated by Arctos personnel. Create and release these restrictions with caution. Hardblocks do not expire. 
 		</p>
 		<p>
-			More-malicious subnets should be blocked at the firewall. Send email to TACC. Users from
-			firewall-blocked subnets cannot see Arctos at all. Use with extreme caution.
+			More-malicious subnets should be blocked at the firewall. Send email to TACC. Users from firewall-blocked subnets cannot see Arctos at all. Use with extreme caution. 
 		</p>
 		<p>
-			Please carefully examine the relevant logs and consult with Arctos personnel before doing anything with this form.
+			Please carefully examine the relevant logs and consult with Arctos personnel before doing anything with this form. 
 		</p>
 		<p>
-			One non-released subnet block blocks the entire subnet; "released" are kept as a history but do nothing.
+			One non-released subnet block blocks the entire subnet; "released" are kept as a history but do nothing. 
 		</p>
 		<p>
-			All IPs from a blocked subnet are effectively blocked; releasing individual IPs from a blocked subnet does nothing.
+			All IPs from a blocked subnet are effectively blocked; releasing individual IPs from a blocked subnet does nothing. 
 		</p>
 		<p>
-			Individual IPs (from un-blocked subnets) behave as subnets; one non-released record prevents acceess, while all
-			released records are maintained only as a history.
+			Individual IPs (from un-blocked subnets) behave as subnets; one non-released record prevents acceess, while all released records are maintained only as a history. 
 		</p>
 		<p>
-			IPs and subnets with a great deal of activity should receive extra scrutiny.
+			IPs and subnets with a great deal of activity should receive extra scrutiny. 
 		</p>
-		<span class="likeLink" onclick="prevPage()">Previous Page</span>
-		<span class="likeLink" onclick="nextPage()">Next Page</span>
+		<span class="likeLink" onclick="prevPage()">
+			Previous Page
+		</span>
+		<span class="likeLink" onclick="nextPage()">
+			Next Page
+		</span>
 		<table border id="t" class="sortable">
 			<tr>
-				<th>Subnet/Tools</th>
-				<th>SubnetBlocks</th>
-				<th>IPInfo</th>
+				<th>
+					Subnet/Tools
+				</th>
+				<th>
+					SubnetBlocks
+				</th>
+				<th>
+					IPInfo
+				</th>
 			</tr>
 			<cfloop query="subnetfromip">
 				<tr>
 					<td valign="top">
-						#calc_subnet#
+						#calc_subnet# 
 						<br>
-						<a href="blacklist.cfm?ipstartswith=#calc_subnet#">Show only this subnet</a>
+						<a href="blacklist.cfm?ipstartswith=#calc_subnet#">
+							Show only this subnet
+						</a>
 						<ul>
-							<li><a href="blacklist.cfm?action=UNblockSubnet&subnet=#calc_subnet#">remove all subnet blocks</a></li>
-							<li><a href="blacklist.cfm?action=blockSubnet&subnet=#calc_subnet#">hard-block the subnet</a></li>
+							<li>
+								<a href="blacklist.cfm?action=UNblockSubnet&subnet=#calc_subnet#">
+									remove all subnet blocks
+								</a>
+							</li>
+							<li>
+								<a href="blacklist.cfm?action=blockSubnet&subnet=#calc_subnet#">
+									hard-block the subnet
+								</a>
+							</li>
 						</ul>
 					</td>
 					<cfquery name="tsnd" dbtype="query">
@@ -161,21 +189,37 @@
 					</cfquery>
 					<td valign="top">
 						<cfif tsnd.recordcount is 0>
-							no subnet blocks
+							no subnet blocks 
 						<cfelse>
 							<table border>
 								<tr>
-									<th>subnet-listdate</th>
-									<th>lastdate</th>
-									<th>days_since_block</th>
-									<th>status</th>
+									<th>
+										subnet-listdate
+									</th>
+									<th>
+										lastdate
+									</th>
+									<th>
+										days_since_block
+									</th>
+									<th>
+										status
+									</th>
 								</tr>
 								<cfloop query="#tsnd#">
 									<tr>
-										<td>#INSERT_DATE#</td>
-										<td>#LASTDATE#</td>
-										<td>#days_since_block#</td>
-										<td>#STATUS#</td>
+										<td>
+											#INSERT_DATE#
+										</td>
+										<td>
+											#LASTDATE#
+										</td>
+										<td>
+											#days_since_block#
+										</td>
+										<td>
+											#STATUS#
+										</td>
 									</tr>
 								</cfloop>
 							</table>
@@ -189,17 +233,35 @@
 							<table border>
 								<tr>
 									<td valign="top">
-										IP:
+										IP: 
 										<cfif len(ipstartswith) gt 0 and find(ipstartswith, ip)>
-											<span class="highlight">#ip#</span>
+											<span class="highlight">
+												#ip#
+											</span>
 										<cfelse>
-											#ip#
+											#ip# 
 										</cfif>
 										<ul>
-											<li><a href="blacklist.cfm?action=del&ip=#ip#">release IP</a></li>
-											<li><a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">[ @whatismyipaddress ]</a></li>
-											<li><a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">[ @ipalyzer ]</a></li>
-											<li><a class="external" target="_blank" href="https://gwhois.org/#ip#">[ @gwhois ]</a></li>
+											<li>
+												<a href="blacklist.cfm?action=del&ip=#ip#">
+													release IP
+												</a>
+											</li>
+											<li>
+												<a class="external" target="_blank" href="http://whatismyipaddress.com/ip/#ip#">
+													[ @whatismyipaddress ]
+												</a>
+											</li>
+											<li>
+												<a class="external" target="_blank" href="https://www.ipalyzer.com/#ip#">
+													[ @ipalyzer ]
+												</a>
+											</li>
+											<li>
+												<a class="external" target="_blank" href="https://gwhois.org/#ip#">
+													[ @gwhois ]
+												</a>
+											</li>
 										</ul>
 									</td>
 									<td>
@@ -208,16 +270,29 @@
 										</cfquery>
 										<table border>
 											<tr>
-												<th>listdate</th>
-												<th>lastdate</th>
-												<th>status</th>
+												<th>
+													listdate
+												</th>
+												<th>
+													lastdate
+												</th>
+												<th>
+													status
+												</th>
 											</tr>
 											<cfloop query="#tl#">
 												<tr>
-													<td>#LISTDATE#</td>
-													<td>#LASTDATE#</td>
 													<td>
-														#STATUS# <cfif dsb gte 180> (time released)</cfif>
+														#LISTDATE#
+													</td>
+													<td>
+														#LASTDATE#
+													</td>
+													<td>
+														#STATUS# 
+														<cfif dsb gte 180>
+															(time released)
+														</cfif>
 													</td>
 												</tr>
 											</cfloop>
@@ -242,7 +317,7 @@
 			<br>cgi.Remote_Addr: #cgi.Remote_Addr#
 			<br>request.ipaddress: #request.ipaddress#
 			<br>request.requestingSubnet: #request.requestingSubnet#
-		">
+			">
 		<cfthrow message = "protected IP cannot be blacklisted" errorCode = "127001" extendedInfo="#ee#">
 		<cfabort>
 	</cfif>
@@ -288,5 +363,4 @@
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm" addtoken="false">
 </cfif>
-
 <cfinclude template="/includes/_footer.cfm">
