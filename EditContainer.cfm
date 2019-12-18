@@ -149,7 +149,7 @@
 	<cfoutput>
 		Find containers which are in positions and do not have children. Example: cryovials in positions in boxes which do not hold parts.
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-			<!----select
+			select
 			  tube.barcode tube_barcode,
 			  tube.container_id tube_id,
 			  tube.container_type tube_type,
@@ -168,25 +168,7 @@
 			  tube.container_id not in (select parent_container_id from container) and
 			  position.container_type='position'
 			connect by tube.parent_container_id = prior tube.container_id
-			    start with box.container_id=#container_id#----->
-			    select
-tube.barcode tube_barcode,
-tube.container_id tube_id,
-tube.container_type tube_type,
-tube.label tube_label,
-box.barcode box_barcode,
-box.container_id box_id,
-box.container_type box_type,
-position.label position_label
-from
-container tube
-inner join container position on tube.parent_container_id=position.container_id
-inner join container box on position.parent_container_id=box.container_id
-where
-position.container_type='position' and
-box.container_id=#container_id# and not exists
-	(select parent_container_id from container where container.parent_container_id=tube.container_id)
-
+			    start with box.container_id=#container_id#
 		</cfquery>
 		<table border  id="t" class="sortable">
 			<tr>
