@@ -115,13 +115,15 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 			margin-left:2em;
 		}
 	</style>
+	<!---- || '<span class="gdef">' || description || '</span>'---->
 		<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			 SELECT
 			 	level,
 			 	geology_attribute_hierarchy_id,
 			 	parent_id,
 			 	usable_value_fg,
-		   		attribute_value || ' (' || attribute || ')' || '<span class="gdef">' || description || '</span>' attribute
+		   		attribute_value || ' (' || attribute || ')' attribute,
+		   		description
 			FROM
 				geology_attribute_hierarchy
 			start with parent_id is null
@@ -146,6 +148,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		  	</cfif>
 			<li><span <cfif usable_value_fg is 0>style="color:red"</cfif>
 			>#attribute#</span>
+			<span class="gdef">#description#</span>
 			</li>
 			<cfif cData.currentRow IS cData.recordCount>
 				#repeatString("</ul>",listLen(levelList,","))#
