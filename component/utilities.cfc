@@ -1406,6 +1406,13 @@
 			<cfset result.msg='The Media does not exist at the URL you requested.'>
 		</cfif>
 	</cfif>
+
+
+		<cfif isdefined("debug") and debug is true>
+			<cfdump var=#result#>
+		</cfif>
+
+
 	<cfif result.status is "spiffy">
 		<!---- check for a timely response ---->
 
