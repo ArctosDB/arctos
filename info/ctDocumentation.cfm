@@ -148,7 +148,13 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		  	</cfif>
 			<li><span <cfif usable_value_fg is 0>style="color:red"</cfif>
 			>#attribute#</span>
-			<span class="gdef">#description#</span>
+			<span class="gdef">
+				<cfif left(description,4) is 'http'>
+					<a href="#description#" class="external" target="_blank">#description#</a>
+				<cfelse>
+					#description#
+				</cfif>
+			</span>
 			</li>
 			<cfif cData.currentRow IS cData.recordCount>
 				#repeatString("</ul>",listLen(levelList,","))#
