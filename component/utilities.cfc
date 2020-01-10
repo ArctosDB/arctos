@@ -1416,6 +1416,10 @@
 		</cfif>
 
 		<cfhttp url="#ftgt#" method="head" timeout="3"></cfhttp>
+
+		<cfif isdefined("debug") and debug is true>
+			<cfdump var=#cfhttp#>
+		</cfif>
 		<!---- yay ---->
 		<cfif isdefined("cfhttp.statuscode") and left(cfhttp.statuscode,3) is "200">
 			<cfset result.status='success'>
