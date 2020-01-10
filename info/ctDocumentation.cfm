@@ -14,6 +14,8 @@
 			table_name like 'CT%'
 		UNION
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
+		UNION
+			select 'CTGEOLOGY_ATTRIBUTE2' table_name from dual
 		 order by table_name
 	</cfquery>
 	<b>Code Table Documentation</b>
