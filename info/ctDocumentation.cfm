@@ -14,8 +14,6 @@
 			table_name like 'CT%'
 		UNION
 			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
-		UNION
-			select 'CTGEOLOGY_ATTRIBUTE2' table_name from dual
 		 order by table_name
 	</cfquery>
 	<b>Code Table Documentation</b>
@@ -110,7 +108,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 				<cfset i=i+1>
 			</cfloop>
 		</table>
-	<cfelseif table is "CTGEOLOGY_ATTRIBUTE2">
+	<cfelseif table is "CTGEOLOGY_ATTRIBUTE">
 		<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			 SELECT
 			 	level,
@@ -148,7 +146,7 @@ Documentation for code table <strong>#tableName#</strong> ~ <a href="ctDocumenta
 		   	</cfif>
 		</cfloop>
 	<cfelseif table is "ctcollection_cde">
-	<cfelseif table is "CTGEOLOGY_ATTRIBUTE">
+	<cfelseif table is "CTGEOLOGY_ATTRIBUTE--orig">
 		<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			 SELECT
 			 	level,
