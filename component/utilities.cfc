@@ -1366,7 +1366,7 @@
 </cffunction>
 ---------->
 <!------------------>
-<cffunction name="exitLink" access="remote">
+<cffunction name="exitLink" access="public">
 	<cfargument name="target" required="yes">
 	<!----
 		This is called with the ?open parameter on media exit links
