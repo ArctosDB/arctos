@@ -296,7 +296,7 @@ running only as DLM
 			<!---- make a username bucket. This will create or return an error of some sort. ---->
 			<cfset currentTime = getHttpTimeString( now() ) />
 			<cfset contentType = "text/html" />
-			<cfset bucket="#lcase(d.username)#">
+			<cfset bucket="#replace(lcase(d.username),'_','','all')#">
 			<cfset stringToSignParts = [
 				    "PUT",
 				    "",
@@ -375,7 +375,7 @@ running only as DLM
 					</cfquery>
 					<cfbreak>
 				</cfif>
-				<cfset bucket="#lcase(d.username)#/#dateformat(now(),'YYYY-MM-DD')#">
+				<cfset bucket="#replace(lcase(d.username),'_','','all')#/#dateformat(now(),'YYYY-MM-DD')#">
 				<cfset currentTime = getHttpTimeString( now() ) />
 				<cfset contentType=mimetype>
 				<cfset contentLength=arrayLen( content )>
@@ -407,7 +407,7 @@ running only as DLM
 
 
 				<!---- load thumbnail ---->
-				<cfset bucket="#lcase(d.username)#/#dateformat(now(),'YYYY-MM-DD')#/tn">
+				<cfset bucket="#replace(lcase(d.username),'_','','all')#/#dateformat(now(),'YYYY-MM-DD')#/tn">
 				<cfset currentTime = getHttpTimeString( now() ) />
 				<cfset contentType = "image/jpeg" />
 				<cffile variable="content" action = "readBinary" file="#Application.webDirectory#/temp/#d.zid#/tn/#preview_filename#">
