@@ -820,6 +820,9 @@
 			<cfset ftgt=preview_uri>
 		</cfif>
 		<cfhttp method="head" url="#ftgt#" timeout="1">
+		<cfif isdefined("debug") and debug is true>
+			<cfdump var=#cfhttp#>
+		</cfif>
 		<cfif isdefined("cfhttp.responseheader.status_code") and cfhttp.responseheader.status_code is 200 and
 			cfhttp.Responseheader["Content-Length"] lte 64000>
 			<cfreturn preview_uri>
