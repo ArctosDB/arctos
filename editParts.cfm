@@ -44,7 +44,6 @@
 			}
 			function createClone(i){
 			 	$("#ssinfodiv").html('Creating a clone of ' + $('#part_name' + i).val() + ' (ID=' + $("#partID" + i).val() + ')');
-			 	$("#parent_part_id").val($("#partID" + i).val());
 			 	$("#newPart input[name=part_name]").val($('#part_name' + i).val());
 			 	$("#newPart input[name=lot_count]").val($('#lot_count' + i).val());
 			 	$("#newPart input[name=coll_obj_disposition]").val($('#coll_obj_disposition' + i).val());
