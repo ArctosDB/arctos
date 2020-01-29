@@ -1,4 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+
+<cfsetting requestTimeOut = "360000">
 <cfif not isdefined("session.username") OR len(session.username) is 0>
 	<div class="error">
 		You must be a registered user to download data.
