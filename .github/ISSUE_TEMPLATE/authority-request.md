@@ -2,7 +2,7 @@
 name: Authority request
 about: Request a new code table or other authority value
 title: ''
-labels: ''
+labels: Function-CodeTables
 assignees: ''
 
 ---
