@@ -9,6 +9,12 @@ assignees: ''
 
 Issue Documentation is http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html
 
+**Goal**
+Describe what you're trying to accomplish.
+
+**Context**
+Describe why this new value is necessary and existing values are not.
+
 **Table**
 Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm
 
@@ -35,9 +41,6 @@ For new parts, is the part a tissue?
 
 **Other ID BaseURL**
 For OtherIDs, URL with which to prepend value (resolvable identifiers only)
-
-**Context**
-Describe why this new value is necessary and existing values are not.
 
 **Priority**
 Please assign a priority-label.
