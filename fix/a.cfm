@@ -1,3 +1,34 @@
+		<cfset ageAry=arrayNew(1)>
+
+
+		<cfloop index="i" from="1" to="10">
+			<br>#i#
+			<cfset temp.val=i>
+			<cfset temp.imastruct="imastruct">
+			<cfdump var=#temp#>
+			<cfset arrayAppend(ageAry,temp)>
+
+
+			<cfdump var=#ageAry#>
+		</cfloop>
+
+			<cfdump var=#ageAry#>
+
+
+
+
+
+
+
+
+
+<cfabort>
+
+
+
+
+
+
 <!----<cfinclude template="/includes/_header.cfm">
 ---->
 
