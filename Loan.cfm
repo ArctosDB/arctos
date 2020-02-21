@@ -1876,7 +1876,7 @@ just fooling idiot cfclipse into using the right colors
 		<cfset sql = "#sql# AND PERMIT_NUM = '#PERMIT_NUM#'">
 	</cfif>
 	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
-		<cfset sql = "#sql# AND trans.collection_id = #collection_id#">
+		<cfset sql = "#sql# AND trans.collection_id  in ( #collection_id# )">
 	</cfif>
 	<cfif isdefined("loan_type") AND len(loan_type) gt 0>
 		<cfset sql = "#sql# AND loan_type = '#loan_type#'">
