@@ -21,7 +21,7 @@ select count(*) from locality where (S$LASTDATE is null or round(sysdate-s$lastd
 	<cfset obj = CreateObject("component","component.functions")>
 	<!--- prioritize NULL ---->
 	<cfquery name="d" datasource="uam_god">
-		select LOCALITY_ID from locality where S$LASTDATE is null and rownum<50
+		select LOCALITY_ID from locality where S$LASTDATE is null and rownum<1
 	</cfquery>
 	<cfif d.recordcount lt 1>
 		<!--- everything has something, now refresh ---->
