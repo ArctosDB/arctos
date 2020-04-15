@@ -628,7 +628,7 @@
 						project_agent_role = '#project_agent_role#',
 						agent_position = #agent_position#,
 						project_agent_remarks='#project_agent_remarks#',
-						award_number='#award_number#'
+						award_number=<cfqueryparam cfsqltype="cf_sql_varchar" value="#award_number#" null="#Not Len(Trim(award_number))#">
 					WHERE
 						project_agent_id = #project_agent_id#
 				</cfquery>
@@ -665,7 +665,7 @@
 					 '#new_role#',
 					 #new_agent_position#,
 					 '#new_project_agent_remarks#',
-					 '#new_award_number#'
+					 <cfqueryparam cfsqltype="cf_sql_varchar" value="#new_award_number#" null="#Not Len(Trim(new_award_number))#">
 				 	)
 				 </cfquery>
 			</cfif>
