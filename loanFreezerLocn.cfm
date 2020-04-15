@@ -70,7 +70,7 @@
 				</cfcatch>
 			</cftry>
 			<cfquery name="my_big_list" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
-				create table my_big_list (litem bigint)
+				create table my_big_list (litem number)
 			</cfquery>
 			<cfloop list="#container_id#" index="i">
 				<cfquery name="insmy_big_list" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
