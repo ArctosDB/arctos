@@ -648,8 +648,12 @@
 			<cfset new_agent_id = evaluate("new_agent_id" & n)>
 
 			<cfif len(new_agent_id) gt 0>
+
+				<br>new_agent_id==#new_agent_id#
 				<cfset new_role = evaluate("new_role" & n)>
+				<br>new_role==#new_role#
 				<cfset new_agent_position = evaluate("new_agent_position" & n)>
+				<br>new_agent_position==#new_agent_position#
 				<cfset new_project_agent_remarks = evaluate("new_project_agent_remarks" & n)>
 				<cfset new_award_number = evaluate("new_award_number" & n)>
 
