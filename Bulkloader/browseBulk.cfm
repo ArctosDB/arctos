@@ -16,7 +16,16 @@
 		<cfset enteredby=listqualify(enteredby,"'")>
 	</cfif>
 </cfif>
-
+<cfif len(accn) gt 0>
+	<cfif left(accn,1) neq "'">
+		<cfset accn=listqualify(accn,"'")>
+	</cfif>
+</cfif>
+<cfif len(colln) gt 0>
+	<cfif left(colln,1) neq "'">
+		<cfset colln=listqualify(colln,"'")>
+	</cfif>
+</cfif>
 
 <!----------------------------------------------------------->
 <cfif action is "showExtras">
