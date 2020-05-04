@@ -1,5 +1,5 @@
 ---
-name: Authority request
+name: Code Table Request
 about: Request a new code table or other authority value
 title: ''
 labels: Function-CodeTables
