@@ -1892,7 +1892,7 @@
 			<cfset x=x & ",@@version,#chr(96)##chr(195)##chr(136)##chr(197)#,'A=0,/,0admin,0manager)">
 			<cfset x=x & ",1phpmyadmin,2phpmyadmin,3phpmyadmin,4phpmyadmin">
 			<cfset x=x & ",account,administrator,admin-console,attr(,asmx,abstractapp,adimages,asp,aspx,awstats,appConf,announce,ads,ackBulletin,aupm,apply">
-			<cfset x=x & ",ashx,app_debug,assets,auth,App,ASPSamp,AdvWorks,AccountService,Accounts,autoprov,amf">
+			<cfset x=x & ",ashx,app_debug,assets,auth,App,ASPSamp,AdvWorks,AccountService,Accounts,autoprov,amf,all_tables">
 			<cfset x=x & ",backup,backend,backoffice,blog,board,backup-db,backup-scheduler,batch,bea_wls_deployment_internal,bitrix">
 			<cfset x=x & ",career,char,chr,ctxsys,CHANGELOG,content,cms,checkupdate,colorpicker,comment,comments,connectors,cgi,cgi-bin,cgi-sys">
 			<cfset x=x & ",calendar,config,client,cube,cursor,COLUMN_NAME,CHECKSUM,CHARACTER_MAXIMUM_LENGTH,create,check_proxy,cfide,cfgmaker,cfg">
