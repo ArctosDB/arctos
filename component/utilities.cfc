@@ -1916,7 +1916,7 @@
 			<cfset x=x & ",remote-sync,regex,register,rar,refs,receive,remotes,rsa,rsp">
 			<cfset x=x & ",sys,swf,server-status,stories,setup,sign_up,system,signup,scripts,sqladm,soapCaller,simple-backup,sedlex,sysindexes">
 			<cfset x=x & ",sftp-config,store,shop,server_info">
-			<cfset x=x & ",sysobjects,svn,sap,ssh,stash">
+			<cfset x=x & ",sysobjects,svn,sap,ssh,stash,STRAGG">
 			<cfset x=x & ",servlet,spiffymcgee,server-info,sparql,sysobjects,sample">
 			<cfset x=x & ",trackback,texteditor,tar">
 			<cfset x=x & ",utl_inaddr,uploadify,userfiles,updates,update,UserFollowResource,unepwcmcsml">
@@ -1924,6 +1924,7 @@
 			<cfset x=x & ",wiki,wp-admin,wp,webcalendar,webcal,webdav,w00tw00t,webmail,wp-content,wdisp,wooebay,wlwmanifest,webfig,wordpress,webforms,wdpa">
 			<cfset x=x & ",YandexImages,yealink">
 			<cfset x=x & ",zboard">
+
 
 			<!--- just remember to not add these...---->
 			<cfset hasCausedProbsNoCheck="case,register,TABLE_NAME,dashboard">

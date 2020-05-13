@@ -86,7 +86,7 @@
 		<ul>
 			<li>Green Screen: You are entering data to a new record.</li>
 			<li>Blue Screen: you are editing an unloaded record that you've previously entered.</li>
-			<li>Yellow Screen: A record has been saved but has errors that must be corrected. Fix and save to continue.</li>
+			<li>Pink Screen: A record has been saved but has errors that must be corrected. Fix and save to continue.</li>
 		</ul>
     	<p><a href="/Bulkloader/cloneWithBarcodes.cfm">Clone records by Barcode</a></p>
 		<cfquery name="theirLast" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#">
