@@ -2,8 +2,8 @@
 <cfset fn="arctos_#randRange(1,1000)#">
 <cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.xml">
 <cfset variables.localTabFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.txt">
-<cfset variables.remoteXmlFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.xml">
-<cfset variables.remoteTabFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.txt">
+<cfset variables.remoteXmlFile="#replace(Application.serverRootUrl,'https','http')#/bnhmMaps/tabfiles/#fn#.xml">
+<cfset variables.remoteTabFile="#replace(Application.serverRootUrl,'https','http')#/bnhmMaps/tabfiles/#fn#.txt">
 <cfset variables.encoding="UTF-8">
 <div align="center" id="status">
 	<span style="background-color:green;color:white; font-size:36px; font-weight:bold;">
