@@ -35,8 +35,14 @@
      </h1>
 
      <p>
-     Arctos currently down for maintenance and will
-     be back up shortly. We apologize for the inconvenience.
+  Arctos will be offline Wednesday, May 27th at 5pm through Friday, May 29th at 5pm, Arctos for our move to the new Arctos PostgreSQL.
+     </p>
+<p>
+You will need to create a new password the first time you log in after May 29. Use the Lost Password function to create a new password the first time you log in after the move.
+</p>
+
+<p>
+	We appreciate your feedback. Please use the Arctos GitHub Repository (https://github.com/ArctosDB/arctos/issues) for error reporting and troubleshooting during this time.
      </p>
 
 
