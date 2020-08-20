@@ -679,7 +679,7 @@
 	</cfquery>
 	<cfif tax_pub.recordcount gt 0>
 		<div>
-			Related Publications:
+			<h4>Related Publications</h4>
 			<ul>
 				<cfloop query="tax_pub">
 					<li>
@@ -694,7 +694,7 @@
 	</cfquery>
 	<cfif sidas.c gt 0>
 		<p>
-			Arctos Links:
+			<h4>Arctos Links</h4>
 			<ul>
 				<li>
 					<a href="/SpecimenResults.cfm?scientific_name=#scientific_name.scientific_name#">
