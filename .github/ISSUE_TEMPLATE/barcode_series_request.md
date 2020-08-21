@@ -1,8 +1,8 @@
 ---
 name: Barcode Series Request
 about: Request a new barcode series
-title: ''
-labels: ''
+title: 'Barcode Series Request - '
+labels: Function-ContainerOrBarcode, Help wanted
 assignees: ''
 
 ---
