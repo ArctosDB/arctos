@@ -10,10 +10,10 @@ assignees: mkoo
 New User Github username: 
 
 Please add to the following teams:
-[] Arctos Users
-[] Arctos Code Table Administrators
-[] Documentation
-[] Geo-group
-[] Media
-[] Paleontology
-[] Taxonomy
+[ ] Arctos Users
+[ ] Arctos Code Table Administrators
+[ ] Documentation
+[ ] Geo-group
+[ ] Media
+[ ] Paleontology
+[ ] Taxonomy
