@@ -350,7 +350,7 @@ sho err
 
 
 
-<cfform name="atts" method="post" enctype="multipart/form-data">
+<form name="atts" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="Action" value="getFile">
 			  <input type="file"
 		   name="FiletoUpload"
@@ -359,7 +359,7 @@ sho err
 		class="savBtn"
 		onmouseover="this.className='savBtn btnhov'"
 		onmouseout="this.className='savBtn'">
-  </cfform>
+  </form>
 
 </cfif>
 <!------------------------------------------------------->

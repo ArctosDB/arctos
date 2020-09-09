@@ -457,7 +457,6 @@
 
 									<li><a target="_top" href="##">Data Services</a>
 										<ul>
-											<li><a target="_top" href="/DataServices/agent_splitter.cfm">Agent Deconcatenator</a></li>
 											<li><a target="_top" href="/DataServices/split_agent_namestring.cfm">Agent Namestring Formatter</a></li>
 											<li><a target="_top" href="/DataServices/agentNameSplitter.cfm">Agent Name Splitter</a></li>
 											<li><a target="_top" href="/DataServices/wktomaticifier.cfm">Convert KML to WKT</a></li>
@@ -474,6 +473,12 @@
 											<li><a target="_top" href="/DataServices/taxonNameValidator.cfm">Taxon Name Validator</a></li>
 										</ul>
 									</li>
+									<li><a target="_top" href="##">Data Cleanup</a>
+										<ul>
+											<li><a target="_top" href="/DataServices/agent_splitter.cfm">Agent Deconcatenator</a></li>
+										</ul>
+									</li>
+
 									 <li><a target="_top" href="##">Find Low-Quality Data</a>
 										<ul>
 											<li><a target="_top" href="/Reports/dashboard.cfm">Dashboard</a></li>
