@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
+labels: 'Bug'
 assignees: ''
 
 ---
@@ -37,4 +37,4 @@ If this involves external data, attach the __actual__ data that caused the probl
 Add any other context about the problem here.
 
 **Priority**
-Please assign a priority-label.
+Please assign a priority-label. Unprioritized issues get sent into a black hole of despair.
