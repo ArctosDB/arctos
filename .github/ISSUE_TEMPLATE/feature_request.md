@@ -25,4 +25,4 @@ A clear and concise description of any alternative solutions or features you've 
 Add any other context or screenshots about the feature request here.
 
 **Priority**
-Please assign a priority-label.
+Please assign a priority-label. Unprioritized issues gets sent into a black hole of despair.
