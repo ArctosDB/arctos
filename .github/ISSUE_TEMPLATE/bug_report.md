@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: 'Bug'
+labels: Bug
 assignees: ''
 
 ---
@@ -25,7 +25,7 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-** Data**
+**Data**
 If this involves external data, attach the __actual__ data that caused the problem. Do not attach a transformation or subset. You may ZIP most formats to attach, or request a Box email address for very large files.
 
 **Desktop (please complete the following information):**

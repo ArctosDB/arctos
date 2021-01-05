@@ -40,7 +40,9 @@ For number+units attributes, code table controlling units
 For new parts, is the part a tissue?
 
 **Other ID BaseURL**
-For OtherIDs, URL with which to prepend value (resolvable identifiers only)
+For OtherIDs, provide the following *or* explain why the unresolvable ID type is necessary:
+1. "Base URL" with which to prepend entered values, and
+2. A functional example URL, which should consist of the base URL provided in (1) plus a relevant value.
 
 **Priority**
 Please assign a priority-label.
