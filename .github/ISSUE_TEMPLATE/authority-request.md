@@ -9,6 +9,8 @@ assignees: ''
 
 Issue Documentation is http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html
 
+Code Table Documentation is https://handbook.arctosdb.org/how_to/How-to-Use-Code-Tables.html
+
 **Goal**
 Describe what you're trying to accomplish.
 
@@ -16,7 +18,7 @@ Describe what you're trying to accomplish.
 Describe why this new value is necessary and existing values are not.
 
 **Table**
-Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm
+Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm. Link to the specific table you are requesting changes to here.
 
 **Value**
 Proposed new value
@@ -28,7 +30,7 @@ Clear, complete, non-collection-type-specific definition of the new value.
 If the code table includes a "Collection" column. Ex: Mamm, Herp, ES
 
 **Attribute data type**
-free-text, categorical, number+units
+"Attributes" may apply to catalog records, parts, localities, and collecting events. You must specify a datatype (free-text, categorical, or number+units) if this request involves attributes.
 
 **Attribute value**
 For categorical attributes, code table controlling value
@@ -44,5 +46,8 @@ For OtherIDs, provide the following *or* explain why the unresolvable ID type is
 1. "Base URL" with which to prepend entered values, and
 2. A functional example URL, which should consist of the base URL provided in (1) plus a relevant value.
 
+**ID_References**
+If the request involves https://arctos.database.museum/info/ctDocumentation.cfm?table=ctid_references, the changes must be coordinated with the DBA team for notifications to function.
+
 **Priority**
-Please assign a priority-label.
+Please choose a priority-label to the right.
