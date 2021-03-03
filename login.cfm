@@ -155,6 +155,12 @@
 						where dem=0
 						order by guid_prefix
 					</cfquery>
+					<cfquery name="hasGithub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,session.sessionKey)#" >
+						select get_address (#session.MyAgentId#,'GitHub' as ghadr
+					</cfquery>
+					<cfdump var=#hasGithub#>
+					<cfabort>
+
 					<cfif cnc.recordcount gt 0>
 						<div class="importantNotification">
 							You have successfully logged in - <a href="#gotopage#">click here to continue</a>.
