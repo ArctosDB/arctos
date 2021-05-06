@@ -7,47 +7,51 @@ assignees: ''
 
 ---
 
-Issue Documentation is http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html
+**How to Use This Form**
+This is a template with examples and guidance on how to best communicate with the Arctos Working Group. Please delete this section along with anything in square brackets ```[ ] ``` below before submitting. 
 
-Code Table Documentation is https://handbook.arctosdb.org/how_to/How-to-Use-Code-Tables.html
+[ **Instructions for reference:** ]
+[ Issue Documentation is http://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html ]
+
+[ Code Table Documentation is https://handbook.arctosdb.org/how_to/How-to-Use-Code-Tables.html ]
 
 **Goal**
-Describe what you're trying to accomplish.
+[ Describe what you're trying to accomplish. ]
 
 **Context**
-Describe why this new value is necessary and existing values are not.
+[ Describe why this new value is necessary and existing values are not. ]
 
 **Table**
-Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm. Link to the specific table you are requesting changes to here.
+[ Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm. Link to the specific table you are requesting changes to here. ]
 
 **Value**
-Proposed new value
+[ Proposed new value ]
 
 **Definition**
-Clear, complete, non-collection-type-specific definition of the new value.
+[ Clear, complete, non-collection-type-specific definition of the new value. ]
 
 **Collection type**
-If the code table includes a "Collection" column. Ex: Mamm, Herp, ES
+[ If the code table includes a "Collection" column. Ex: Mamm, Herp, ES ]
 
 **Attribute data type**
-"Attributes" may apply to catalog records, parts, localities, and collecting events. You must specify a datatype (free-text, categorical, or number+units) if this request involves attributes.
+[ "Attributes" may apply to catalog records, parts, localities, and collecting events. You must specify a datatype (free-text, categorical, or number+units) if this request involves attributes. ]
 
 **Attribute value**
-For categorical attributes, code table controlling value
+[ For categorical attributes, code table controlling value  ]
 
 **Attribute units**
-For number+units attributes, code table controlling units
+[  For number+units attributes, code table controlling units  ]
 
 **Part tissue flag**
-For new parts, is the part a tissue?
+[  For new parts, is the part a tissue?  ]
 
 **Other ID BaseURL**
-For OtherIDs, provide the following *or* explain why the unresolvable ID type is necessary:
+[  For OtherIDs, provide the following *or* explain why the unresolvable ID type is necessary:
 1. "Base URL" with which to prepend entered values, and
-2. A functional example URL, which should consist of the base URL provided in (1) plus a relevant value.
+2. A functional example URL, which should consist of the base URL provided in (1) plus a relevant value.  ]
 
 **ID_References**
-If the request involves https://arctos.database.museum/info/ctDocumentation.cfm?table=ctid_references, the changes must be coordinated with the DBA team for notifications to function.
+[  If the request involves https://arctos.database.museum/info/ctDocumentation.cfm?table=ctid_references, the changes must be coordinated with the Database Admin team for notifications to function.  ]
 
 **Priority**
-Please choose a priority-label to the right.
+[  Please choose a priority-label to the right.  ]
