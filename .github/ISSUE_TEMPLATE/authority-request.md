@@ -42,9 +42,6 @@ This is a template with examples and guidance on how to best communicate with th
 **Attribute units**
 [  For number+units attributes, code table controlling units  ]
 
-**Part tissue flag**
-[  For new parts, is the part a tissue?  ]
-
 **Other ID BaseURL**
 [  For OtherIDs, provide the following *or* explain why the unresolvable ID type is necessary:
 1. "Base URL" with which to prepend entered values, and
