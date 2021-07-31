@@ -21,7 +21,16 @@ Please complete to the best of your ability.
  - Reason for outage:
  - Expected behavior during and after the outage:
 
-## Communication
+## Communication before/during outage
+- [ ] Pin this issue
+- [ ] Banner updated @jegelewicz
+- [ ] Email sent to AWG @ewommac
+- [ ] Email sent to Arctos Google Group @ewommac
+- [ ] Tweet @lin-fred
+- [ ] Update to arctosdb.org @mkoo
+
+## Communication after outage
+- [ ] Unpin this issue
 - [ ] Banner updated @jegelewicz
 - [ ] Email sent to AWG @ewommac
 - [ ] Email sent to Arctos Google Group @ewommac
