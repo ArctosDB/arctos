@@ -2,7 +2,7 @@
 name: Error Help Request
 about: Get help deciphering an Arctos Error
 title: Need Help with Arctos Error
-labels: Error Messages, Error Explanation
+labels: Error Explanation, Error Messages
 assignees: ''
 
 ---
