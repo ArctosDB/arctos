@@ -23,11 +23,11 @@ Please complete to the best of your ability.
 
 ## Communication before/during outage
 - [ ] Pin this issue
-- [ ] Banner updated @jegelewicz
-- [ ] Email sent to AWG @ewommac
-- [ ] Email sent to Arctos Google Group @ewommac
-- [ ] Tweet @lin-fred
-- [ ] Update to arctosdb.org @mkoo
+- [ ] Banner updated @jegelewicz 
+- [ ] Email sent to AWG @ewommack 
+- [ ] Email sent to Arctos Google Group @ewommack 
+- [ ] Tweet @lin-fred 
+- [ ] Update to arctosdb.org @mkoo 
 
 ## Communication after outage
 - [ ] Unpin this issue
