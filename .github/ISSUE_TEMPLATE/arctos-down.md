@@ -36,3 +36,4 @@ Please complete to the best of your ability.
 - [ ] Email sent to Arctos Google Group @ewommac
 - [ ] Tweet @lin-fred
 - [ ] Update to arctosdb.org @mkoo
+- [ ] Close this issue when above are complete
