@@ -2,7 +2,7 @@
 name: Arctos Down
 about: Use this template to document communication about outages
 title: 'Arctos Down - '
-labels: Priority-Critical (Arctos is broken)
+labels: Priority-Critical (Arctos is broken), Arctos Down
 assignees: ''
 
 ---
