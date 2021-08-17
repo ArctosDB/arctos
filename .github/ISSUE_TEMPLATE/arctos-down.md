@@ -2,7 +2,7 @@
 name: Arctos Down
 about: Use this template to document communication about outages
 title: 'Arctos Down - '
-labels: Priority-Critical (Arctos is broken), Arctos Down
+labels: Arctos Down, Priority-Critical (Arctos is broken)
 assignees: ''
 
 ---
@@ -27,13 +27,11 @@ Please complete to the best of your ability.
 - [ ] Email sent to AWG @ewommack 
 - [ ] Email sent to Arctos Google Group @ewommack 
 - [ ] Tweet @lin-fred 
-- [ ] Update to arctosdb.org @mkoo 
 
 ## Communication after outage
 - [ ] Unpin this issue
 - [ ] Banner updated @jegelewicz
-- [ ] Email sent to AWG @ewommac
-- [ ] Email sent to Arctos Google Group @ewommac
+- [ ] Email sent to AWG @ewommack
+- [ ] Email sent to Arctos Google Group @ewommack
 - [ ] Tweet @lin-fred
-- [ ] Update to arctosdb.org @mkoo
 - [ ] Close this issue when above are complete
