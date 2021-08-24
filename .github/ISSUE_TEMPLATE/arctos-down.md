@@ -26,12 +26,12 @@ Please complete to the best of your ability.
 - [ ] Banner updated @jegelewicz 
 - [ ] Email sent to AWG @ewommack 
 - [ ] Email sent to Arctos Google Group @ewommack 
-- [ ] Tweet @lin-fred 
+- [ ] Tweet @lin-fred (@mkoo backup)
 
 ## Communication after outage
 - [ ] Unpin this issue
 - [ ] Banner updated @jegelewicz
 - [ ] Email sent to AWG @ewommack
 - [ ] Email sent to Arctos Google Group @ewommack
-- [ ] Tweet @lin-fred
+- [ ] Tweet @lin-fred (@mkoo backup)
 - [ ] Close this issue when above are complete
