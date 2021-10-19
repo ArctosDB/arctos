@@ -5,7 +5,7 @@ Arctos is a collection management system for natural and cultural history museum
 
 Arctos is an ongoing effort to integrate access to specimen and object data, collection-management tools, and external resources on the Web. Nearly all that is known about a cataloged item can be included in Arctos, and, except for some data encumbered for proprietary reasons, data are open to the public.
 
-Access Arctos: [http://arctos.database.museum/](http://arctos.database.museum/home.cfm)
+Access Arctos: [https://arctos.database.museum/](https://arctos.database.museum/home.cfm)
 
 ## Documentation
 
