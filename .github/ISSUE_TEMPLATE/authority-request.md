@@ -24,10 +24,10 @@ This is a template with examples and guidance on how to best communicate with th
 **Table**
 [ Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm. Link to the specific table you are requesting changes to here. ]
 
-**Value**
+**Proposed Value**
 [ Proposed new value ]
 
-**Definition**
+**Proposed Definition**
 [ Clear, complete, non-collection-type-specific definition of the new value. ]
 
 **Collection type**
@@ -41,6 +41,9 @@ This is a template with examples and guidance on how to best communicate with th
 
 **Attribute units**
 [  For number+units attributes, code table controlling units  ]
+
+**Available for Public View**
+[  **Yes | No** to indicate whether the proposed value will be available for public view or available only for logged in operators.  ]
 
 **Other ID BaseURL**
 [  For OtherIDs, provide the following *or* explain why the unresolvable ID type is necessary:
