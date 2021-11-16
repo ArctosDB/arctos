@@ -15,6 +15,8 @@ This is a template with examples and guidance on how to best communicate with th
 
 [ Code Table Documentation is https://handbook.arctosdb.org/how_to/How-to-Use-Code-Tables.html ]
 
+[[Video Tutorial - Submit a Code Table Request](https://youtu.be/t2jHbsRA3lk)]
+
 **Goal**
 [ Describe what you're trying to accomplish. ]
 
