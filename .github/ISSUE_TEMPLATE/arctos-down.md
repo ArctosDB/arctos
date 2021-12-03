@@ -10,10 +10,8 @@ assignees: ''
 Please complete to the best of your ability.
 
 ## Unplanned Outage
- - Date and time outage began:
- - Date and time outage is expected to end:
- - Reason for outage:
- - Expected behavior during and after the outage:
+ - Date and time outage discovered:
+ - Describe the outage (Arctos down or only some part not working?):
 
 ## Planned Outage
  - Date and time outage will begin:
@@ -24,14 +22,14 @@ Please complete to the best of your ability.
 ## Communication before/during outage
 - [ ] Pin this issue
 - [ ] Banner updated @jegelewicz 
-- [ ] Email sent to AWG @ewommack 
-- [ ] Email sent to Arctos Google Group @ewommack 
+- [ ] Email sent to AWG 
+- [ ] Email sent to Arctos Google Group 
 - [ ] Tweet @lin-fred (@mkoo backup)
 
 ## Communication after outage
 - [ ] Unpin this issue
 - [ ] Banner updated @jegelewicz
-- [ ] Email sent to AWG @ewommack
-- [ ] Email sent to Arctos Google Group @ewommack
+- [ ] Email sent to AWG 
+- [ ] Email sent to Arctos Google Group 
 - [ ] Tweet @lin-fred (@mkoo backup)
 - [ ] Close this issue when above are complete
