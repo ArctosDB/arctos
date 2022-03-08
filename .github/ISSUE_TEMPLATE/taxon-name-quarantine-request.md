@@ -13,11 +13,11 @@ Name Quarantine Documentation is at https://arctos.database.museum/info/ctDocume
 
 Information requested | Response 
  -- | -- 
-Name suggested for quarantine | 
-Reason for quarantine | 
-Suggested treatment for all identifications currently using this name | 
-Collections currently using this name in identifications | 
-Collection contacts for above | 
+Name suggested for quarantine | **replace this with the name suggested for quarantine, a link to the Arctos taxon page is also useful**
+Reason for quarantine | **replace this with the reason for quarantine, links to sources are useful**
+Suggested treatment for all identifications currently using this name | **replace this with the suggested treatment for identifications using this name should the period for comment expire with no discussion, in general this will be A {string} = New name {Quarantined name}**
+Collections currently using this name in identifications | **replace this with a comma separated list of GUID Prefixes of collections using the name in identifications which can be found in the "Use of" section of the taxon page**
+Collection contacts for above | **replace this with a comma separated list of Github usernames using @ to notify collection data quality contacts for the collections listed above of the request for quarantine**
 
 This name will be quarantined and existing identifications changed to the suggested treatment following the next Arctos Working Group Issues meeting unless comments here suggest this should not happen or everyone affected agrees to the change before then.
 
