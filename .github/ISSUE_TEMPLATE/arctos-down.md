@@ -10,7 +10,7 @@ assignees: ''
 Please complete to the best of your ability.
 
 ## Unplanned Outage
- - Date and time outage discovered:
+ - Date and time (**please add time zone from which you are reporting**) outage discovered:
  - Describe the outage (Arctos down or only some part not working?):
 
 ## Planned Outage
