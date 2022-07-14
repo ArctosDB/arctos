@@ -19,3 +19,6 @@ This agent should be of lower quality than the agent into which it will be merge
 
 **Reason for merge**
 Please provide the reason you believe that these two agents represent the same person or organization.
+
+
+Please add this issue to the Agents Project
