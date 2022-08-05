@@ -21,15 +21,13 @@ Please complete to the best of your ability.
 
 ## Communication before/during outage
 - [ ] Pin this issue
-- [ ] Banner updated @jegelewicz 
-- [ ] Email sent to AWG 
-- [ ] Email sent to Arctos Google Group 
+- [ ] Banner updated @jegelewicz @mkoo
+- [ ] Email sent to AWG  
 - [ ] Tweet @lin-fred (@mkoo backup)
 
 ## Communication after outage
 - [ ] Unpin this issue
-- [ ] Banner updated @jegelewicz
+- [ ] Banner updated @jegelewicz @mkoo
 - [ ] Email sent to AWG 
-- [ ] Email sent to Arctos Google Group 
 - [ ] Tweet @lin-fred (@mkoo backup)
 - [ ] Close this issue when above are complete
