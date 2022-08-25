@@ -22,3 +22,4 @@ Please provide the reason you believe that these two agents represent the same p
 
 
 Please add this issue to the Agents Project
+@ArctosDB/agents-committee
