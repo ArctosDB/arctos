@@ -27,3 +27,5 @@ Please provide the reason you believe that this agent represents more than one p
 Please list the collections that will be affected and would use the new agent. If possible provide Github usernames for those who might have an interest in the split.
 
 Please add this issue to the Agents Project.
+
+@ArctosDB/agents-committee
