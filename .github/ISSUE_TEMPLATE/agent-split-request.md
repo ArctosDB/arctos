@@ -26,6 +26,9 @@ Please provide the reason you believe that this agent represents more than one p
 **Affected Collections**
 Please list the collections that will be affected and would use the new agent. If possible provide Github usernames for those who might have an interest in the split.
 
+**Agent change tool**
+For any collection that needs to change to the agent created as part of this split, follw the instructions at [How to Batch Update Agents](https://handbook.arctosdb.org/how_to/How-to-Batch-Update-Agents.html)
+
 Please add this issue to the Agents Project.
 
 @ArctosDB/agents-committee
