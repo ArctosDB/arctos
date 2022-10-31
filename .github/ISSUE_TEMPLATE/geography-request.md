@@ -7,13 +7,10 @@ assignees: ''
 
 ---
 
-# ~~Carefully read the documentation at https://handbook.arctosdb.org/documentation/higher-geography.html before submitting a request.~~ (Don't read that, it's out of date.)
+# Carefully read the documentation at https://handbook.arctosdb.org/documentation/higher-geography.html before submitting a request.
 
-# Carefully read The Plan at https://github.com/ArctosDB/arctos/issues/5138 before submitting a request.
+### Explain what geography needs created.
 
-
-### First Step: Explain what geography needs created.
-
-Explain in sufficient detail for us to locate standardized spatial data. A country is usually sufficient.
+Explain in sufficient detail for us to locate standardized spatial data. A country is usually sufficient, GADM maps links can be useful.
 
 We will respond with a CSV template, or request more information.
