@@ -55,5 +55,11 @@ This is a template with examples and guidance on how to best communicate with th
 **ID_References**
 [  If the request involves https://arctos.database.museum/info/ctDocumentation.cfm?table=ctid_references, the changes must be coordinated with the Database Admin team for notifications to function.  ]
 
+**Media Relationships**
+If terms are added to or deleted from the [Media: Relationship Types code table](https://arctos.database.museum/info/ctDocumentation.cfm?table=ctmedia_relationship), please alert the DBA as changes may be required to the Media Metadata Bulkload Tool.
+
+**Taxon Terms**
+If terms are added to or deleted from the [Taxonomy: Term Values code table](https://arctos.database.museum/info/ctDocumentation.cfm?table=cttaxon_term), please alert the DBA as changes may be required to the Classification Bulkload Tool.
+
 **Priority**
 [  Please choose a priority-label to the right.  ]
