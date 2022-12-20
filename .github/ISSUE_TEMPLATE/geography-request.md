@@ -11,6 +11,6 @@ assignees: ''
 
 ### Explain what geography needs created.
 
-Explain in sufficient detail for us to locate standardized spatial data. A country is usually sufficient, GADM maps links can be useful.
+Explain in sufficient detail for us to locate standardized spatial data. For GADM-based data, a country is usually sufficient and appropriate. Please request distinct countries in distinct issues. We will respond with a CSV template and instructions for proceeding, or a request more information if necessary.
 
-We will respond with a CSV template, or request more information.
+If the above does not seem correct, usable, or ideal, please open a request for information Issue (you may use this template). We are happy to discuss specifics or alternates; please bring any potential concerns or problems to our attention *before* assembling data or requesting that we do so.
