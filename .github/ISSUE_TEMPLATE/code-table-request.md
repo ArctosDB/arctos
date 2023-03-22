@@ -1,6 +1,6 @@
 ---
 name: Code Table Request
-about: functional Preview of https://github.com/ArctosDB/internal/issues/251
+about: Request an authority addition, change, or documentation update.
 title: 'Code Table Request - '
 labels: Function-CodeTables
 assignees: ''
