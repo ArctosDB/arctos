@@ -69,7 +69,7 @@ _**Project**: Add the issue to the [Code Table Management Project](https://githu
 
 _**Discussion**: Please reach out to anyone who might be affected by this change. Leave a comment or add this to the Committee agenda if you believe more focused conversation is necessary._
 
-
+@ArctosDB/arctos-code-table-administrators 
 
 ## Approval
 
