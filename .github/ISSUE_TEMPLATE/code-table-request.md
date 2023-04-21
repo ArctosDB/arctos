@@ -35,6 +35,14 @@ _**Proposed Value**: Proposed new value. This should be clear and compatible wit
 _**Proposed Definition**: Clear, complete, non-collection-type-specific **functional** definition of the value. Avoid discipline-specific terminology if possible, include parenthetically if unavoidable._
 
 
+_**Attribute data type** If the request is for an attribute, what values will be allowed?
+free-text, categorical, or number+units depending upon the attribute (TBA)
+
+_**Attribute controlled values** If the values are categorical (to be controlled by a code table), add a link to the appropriate code table. If a new table or set of values is needed, please elaborate.
+
+
+
+_**Attribute units** If numberical values should be accompanied by units, provide a link to the appropriate units table.
 
 
 _**Context**: Describe why this new value is necessary and existing values are not._
