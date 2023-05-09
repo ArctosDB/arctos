@@ -36,13 +36,13 @@ _**Proposed Definition**: Clear, complete, non-collection-type-specific **functi
 
 
 _**Attribute data type** If the request is for an attribute, what values will be allowed?
-free-text, categorical, or number+units depending upon the attribute (TBA)
+free-text, categorical, or number+units depending upon the attribute (TBA)_
 
-_**Attribute controlled values** If the values are categorical (to be controlled by a code table), add a link to the appropriate code table. If a new table or set of values is needed, please elaborate.
+_**Attribute controlled values** If the values are categorical (to be controlled by a code table), add a link to the appropriate code table. If a new table or set of values is needed, please elaborate._
 
 
 
-_**Attribute units** If numberical values should be accompanied by units, provide a link to the appropriate units table.
+_**Attribute units** If numberical values should be accompanied by units, provide a link to the appropriate units table._
 
 
 _**Context**: Describe why this new value is necessary and existing values are not._
@@ -63,7 +63,7 @@ _**Collection type**: Some code tables contain collection-type-specific values. 
 _**Priority**: Please describe the urgency and/or choose a priority-label to the right. You should expect a response within two working days, and may utilize [Arctos Contacts](https://arctosdb.org/contacts/) if you feel response is lacking._
 
 
-
+_**Example Data**: Requests with clarifying sample data are generally much easier to understand and prioritize. Please attach or link to any representative data, in any form or format, which might help clarify the request._
 
 _**Available for Public View**: Most data are by default publicly available. Describe any necessary access restrictions._
 
@@ -83,7 +83,7 @@ _**Discussion**: Please reach out to anyone who might be affected by this change
 
 _All of the following must be checked before this may proceed._
 
-_The [How-To Document](https://handbook.arctosdb.org/how_to/How-To-Manage-Code-Table-Requests.html) should be followed. Pay particular attention to terminology (with emphasis on consistency) and documentation (with emphasis on functionality)._
+_The [How-To Document](https://handbook.arctosdb.org/how_to/How-To-Manage-Code-Table-Requests.html) should be followed. Pay particular attention to terminology (with emphasis on consistency) and documentation (with emphasis on functionality). **No person should act in multiple roles**; the submitter cannot also serve as a Code Table Administrator, for example._
 
 - [ ] Code Table Administrator[1] - check and initial, comment, or thumbs-up to indicate that the request complies with the how-to documentation and has your approval
 - [ ] Code Table Administrator[2] - check and initial, comment, or thumbs-up to indicate that the request complies with the how-to documentation and has your approval
