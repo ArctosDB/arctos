@@ -17,65 +17,70 @@ _Reviewing documentation before proceeding will result in a more enjoyable exper
 * [Code Table Documentation](https://handbook.arctosdb.org/how_to/How-To-Manage-Code-Table-Requests.html)
 * [Video Tutorial - Submit a Code Table Request](https://youtu.be/t2jHbsRA3lk)
 
-
 ------------------------------
 
 ## Initial Request
 
-_**Goal**: Describe what you're trying to accomplish. This is the only necessary step to start this process. The Committee is available to assist with all other steps. Please clearly indicate any uncertainty or desired guidance if you proceed beyond this step._
+### Goal
+_Describe what you're trying to accomplish. This is the only necessary step to start this process. The Committee is available to assist with all other steps. Please clearly indicate any uncertainty or desired guidance if you proceed beyond this step._
+
+
+### Context
+_Describe why this new value is necessary and existing values are not._
+
+
+##Table
+_Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm. Link to the specific table or value. This may involve multiple tables and will control datatype for Attributes. OtherID requests require BaseURL (and example) or explanation. Please ask for assistance if unsure._
 
 
 
-
-_**Proposed Value**: Proposed new value. This should be clear and compatible with similar values in the relevant table and across Arctos._
-
-
+### Proposed Value
+_Proposed new value. This should be clear and compatible with similar values in the relevant table and across Arctos._
 
 
-_**Proposed Definition**: Clear, complete, non-collection-type-specific **functional** definition of the value. Avoid discipline-specific terminology if possible, include parenthetically if unavoidable._
+### Proposed Definition
+_Clear, complete, non-collection-type-specific **functional** definition of the value. Avoid discipline-specific terminology if possible, include parenthetically if unavoidable._
 
 
-_**Attribute data type** If the request is for an attribute, what values will be allowed?
+
+### Collection type
+_Some code tables contain collection-type-specific values. ``collection_cde`` may be found from https://arctos.database.museum/home.cfm_
+
+
+
+### Attribute Extras
+
+#### Attribute data type
+_If the request is for an attribute, what values will be allowed?
 free-text, categorical, or number+units depending upon the attribute (TBA)_
 
-_**Attribute controlled values** If the values are categorical (to be controlled by a code table), add a link to the appropriate code table. If a new table or set of values is needed, please elaborate._
+
+
+#### Attribute controlled values
+_If the values are categorical (to be controlled by a code table), add a link to the appropriate code table. If a new table or set of values is needed, please elaborate._
 
 
 
-_**Attribute units** If numberical values should be accompanied by units, provide a link to the appropriate units table._
+#### Attribute units
+_if numerical values should be accompanied by units, provide a link to the appropriate units table._
 
 
-_**Context**: Describe why this new value is necessary and existing values are not._
+### Priority
+_Please describe the urgency and/or choose a priority-label to the right. You should expect a response within two working days, and may utilize [Arctos Contacts](https://arctosdb.org/contacts/) if you feel response is lacking._
 
 
+### Example Data
+_Requests with clarifying sample data are generally much easier to understand and prioritize. Please attach or link to any representative data, in any form or format, which might help clarify the request._
+
+### Available for Public View
+_Most data are by default publicly available. Describe any necessary access restrictions._
 
 
-_**Table**: Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm. Link to the specific table or value. This may involve multiple tables and will control datatype for Attributes. OtherID requests require BaseURL (and example) or explanation. Please ask for assistance if unsure._
+### Helpful Actions
 
+- [ ] Add the issue to the [Code Table Management Project](https://github.com/ArctosDB/arctos/projects/13#card-31628184).
 
-
-
-_**Collection type**: Some code tables contain collection-type-specific values. ``collection_cde`` may be found from https://arctos.database.museum/home.cfm_
-
-
-
-
-_**Priority**: Please describe the urgency and/or choose a priority-label to the right. You should expect a response within two working days, and may utilize [Arctos Contacts](https://arctosdb.org/contacts/) if you feel response is lacking._
-
-
-_**Example Data**: Requests with clarifying sample data are generally much easier to understand and prioritize. Please attach or link to any representative data, in any form or format, which might help clarify the request._
-
-_**Available for Public View**: Most data are by default publicly available. Describe any necessary access restrictions._
-
-
-
-
-_**Project**: Add the issue to the [Code Table Management Project](https://github.com/ArctosDB/arctos/projects/13#card-31628184)._
-
-
-
-
-_**Discussion**: Please reach out to anyone who might be affected by this change. Leave a comment or add this to the Committee agenda if you believe more focused conversation is necessary._
+- [ ] Please reach out to anyone who might be affected by this change. Leave a comment or add this to the Committee agenda if you believe more focused conversation is necessary.
 
 @ArctosDB/arctos-code-table-administrators 
 
@@ -103,9 +108,9 @@ _If you believe this request should not proceed, explain why here. Suggest any c
 
 _Once all of the Approval Checklist is appropriately checked and there are no Rejection comments, or in special circumstances by decree of the Arctos Working Group, the change may be made._
 
-_Review everything one last time.  Ensure the How-To has been followed. Ensure all checks have been made by appropriate personnel._
+- [ ] Review everything one last time.  Ensure the How-To has been followed. Ensure all checks have been made by appropriate personnel.
 
-_Make changes as described above. Ensure the URL of this Issue is included in the definition._
+- [ ] Add or revise the code table term/definition as described above. Ensure the URL of this Issue is included in the definition.
 
 _Close this Issue._
 
