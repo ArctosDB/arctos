@@ -29,13 +29,14 @@ _Describe what you're trying to accomplish. This is the only necessary step to s
 _Describe why this new value is necessary and existing values are not._
 
 
-##Table
+### Table
 _Code Tables are http://arctos.database.museum/info/ctDocumentation.cfm. Link to the specific table or value. This may involve multiple tables and will control datatype for Attributes. OtherID requests require BaseURL (and example) or explanation. Please ask for assistance if unsure._
 
 
 
 ### Proposed Value
 _Proposed new value. This should be clear and compatible with similar values in the relevant table and across Arctos._
+
 
 
 ### Proposed Definition
@@ -49,7 +50,6 @@ _Some code tables contain collection-type-specific values. ``collection_cde`` ma
 
 
 ### Attribute Extras
-
 #### Attribute data type
 _If the request is for an attribute, what values will be allowed?
 free-text, categorical, or number+units depending upon the attribute (TBA)_
@@ -65,15 +65,20 @@ _If the values are categorical (to be controlled by a code table), add a link to
 _if numerical values should be accompanied by units, provide a link to the appropriate units table._
 
 
+
 ### Priority
 _Please describe the urgency and/or choose a priority-label to the right. You should expect a response within two working days, and may utilize [Arctos Contacts](https://arctosdb.org/contacts/) if you feel response is lacking._
+
 
 
 ### Example Data
 _Requests with clarifying sample data are generally much easier to understand and prioritize. Please attach or link to any representative data, in any form or format, which might help clarify the request._
 
+
+
 ### Available for Public View
 _Most data are by default publicly available. Describe any necessary access restrictions._
+
 
 
 ### Helpful Actions
@@ -85,7 +90,6 @@ _Most data are by default publicly available. Describe any necessary access rest
 @ArctosDB/arctos-code-table-administrators 
 
 ## Approval
-
 _All of the following must be checked before this may proceed._
 
 _The [How-To Document](https://handbook.arctosdb.org/how_to/How-To-Manage-Code-Table-Requests.html) should be followed. Pay particular attention to terminology (with emphasis on consistency) and documentation (with emphasis on functionality). **No person should act in multiple roles**; the submitter cannot also serve as a Code Table Administrator, for example._
@@ -97,7 +101,6 @@ _The [How-To Document](https://handbook.arctosdb.org/how_to/How-To-Manage-Code-T
 
 
 ## Rejection
-
 _If you believe this request should not proceed, explain why here. Suggest any changes that would make the change acceptable, alternate (usually existing) paths to the same goals, etc._
 
 1. _Can a suitable solution be found here? If not, proceed to (2)_
@@ -105,7 +108,6 @@ _If you believe this request should not proceed, explain why here. Suggest any c
 3. _Take the discussion to a monthly Arctos Working Group meeting for final resolution._
 
 ## Implementation
-
 _Once all of the Approval Checklist is appropriately checked and there are no Rejection comments, or in special circumstances by decree of the Arctos Working Group, the change may be made._
 
 - [ ] Review everything one last time.  Ensure the How-To has been followed. Ensure all checks have been made by appropriate personnel.
