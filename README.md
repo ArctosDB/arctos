@@ -13,6 +13,8 @@ Arctos documentation and procedures can be found at [ArctosDB.org/](https://arct
 
 You can also find more instructions on the [Arctos Handbook](https://handbook.arctosdb.org).
 
-## Groups
+## Community
+
+[Code of Conduct](https://arctosdb.org/code-of-conduct/)
 
 Arctos is an ongoing discussion. Visit the Issues in this repo or the [Arctos Discussion Group](http://groups.google.com/group/Arctos) to participate. Or contact us directly: arctoscontact@googlegroups.com
