@@ -112,7 +112,7 @@ _Once all of the Approval Checklist is appropriately checked and there are no Re
 
 - [ ] Review everything one last time.  Ensure the How-To has been followed. Ensure all checks have been made by appropriate personnel.
 
-- [ ] Add or revise the code table term/definition as described above. Ensure the URL of this Issue is included in the definition.
+- [ ] Add or revise the code table term/definition as described above. Ensure the URL of this Issue is included in the definition. URLs should be included *_as text_*, separated by spaced pipes. Do not include HTML in definitions.
 
 _Close this Issue._
 
