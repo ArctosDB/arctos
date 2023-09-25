@@ -65,6 +65,10 @@ _If the values are categorical (to be controlled by a code table), add a link to
 _if numerical values should be accompanied by units, provide a link to the appropriate units table._
 
 
+#### Part preservation attribute affect on "tissueness"
+_if a new part preservation is requested, please add the affect it would have on "tissueness": No Influence, Allows, or Denies_
+
+
 
 ### Priority
 _Please describe the urgency and/or choose a priority-label to the right. You should expect a response within two working days, and may utilize [Arctos Contacts](https://arctosdb.org/contacts/) if you feel response is lacking._
