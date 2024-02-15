@@ -17,4 +17,4 @@ You can also find more instructions on the [Arctos Handbook](https://handbook.ar
 
 [Code of Conduct](https://arctosdb.org/code-of-conduct/)
 
-Arctos is an ongoing discussion. Visit the Issues in this repo or the [Arctos Discussion Group](http://groups.google.com/group/Arctos) to participate. Or contact us directly: arctoscontact@googlegroups.com
+Arctos is an ongoing discussion. Please follow the [Arctos code of conduct](https://arctosdb.org/code-of-conduct/). Comments and filed issues that violate our code of conduct will be removed at the administrators' discretion immediately. Visit the Issues in this repo or the [Arctos Discussion Group](http://groups.google.com/group/Arctos) to participate. Or contact us directly: arctoscontact@googlegroups.com
