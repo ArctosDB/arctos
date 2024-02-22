@@ -15,4 +15,6 @@ If this is a request to upgrade from an existing ColdFusion report in Arctos com
 
 **SQL used in ColdFusion report** - copy the SQl from your old report and paste it here - begin and end it with ``` or it will be invisible. Let us know if there is a prefunction to migrate.
 
+**Example records** - Use search to find a reasonable number of exemplary records for this label, ensure you've included guid_prefix (developers will have different collection access), then select "reload with sharable URL" in the tools menu and provide that link here.
+
 **Priority** - [Please assign a priority so that the DBA knows whether there is any urgency associated with the new template}
