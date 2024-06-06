@@ -26,7 +26,8 @@ The following should be the same as for other institutional collections, if not 
 
 
 - [ ] Once everything is ready, complete the [new collection request form](https://arctos.database.museum/Admin/pre_collection.cfm).
-- [ ] Task lkvoong to create the collection
+- [ ] Transfer the issue to the new collection repository
+- [ ]Task lkvoong to create the collection
 
 After the collection has been created
 - [ ] Create an agent for each new collection, make these divisions of the organization agent, add an aka that is the GUID Prefix, and add their collectionID.
