@@ -31,3 +31,4 @@ The following should be the same as for other institutional collections, if not 
 
 After the collection has been created
 - [ ] Create an agent for each new collection, make these divisions of the organization agent, add an aka that is the GUID Prefix, and add their collectionID.
+ - [ ] Create a data migration project in the [Data migration repo](https://github.com/ArctosDB/data-migration/projects?query=is%3Aopen)
