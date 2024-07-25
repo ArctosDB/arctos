@@ -1,5 +1,5 @@
 ---
-name: Exisiting Institution Requesting a New Collection
+name: Member Institution Requesting a New Collection
 about: Steps required to add a collection for an existing Arctos member institution
 title: "[Arctos Institution Name] request to add a new collection"
 labels: nodev, Priority-Normal (Not urgent)
