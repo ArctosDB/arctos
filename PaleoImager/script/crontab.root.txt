@@ -1,2 +1,0 @@
-30 23 * * * /usr/libexec/locate.updatedb
-15,45 * * * * /ImageScripts/dng.sh
