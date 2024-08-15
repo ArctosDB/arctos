@@ -15,19 +15,19 @@ Please complete to the best of your ability.
 
 ## Planned Outage
  - Date and time outage will begin:
- - Date and time outage is expected to end:
+ - Expected duration of outage:
  - Reason for outage:
  - Expected behavior during and after the outage:
 
 ## Communication before/during outage
 - [ ] Pin this issue
-- [ ] Banner updated @jegelewicz @mkoo
+- [ ] Banner updated @mkoo
 - [ ] Email sent to AWG  
 - [ ] Tweet @lin-fred (@mkoo backup)
 
 ## Communication after outage
 - [ ] Unpin this issue
-- [ ] Banner updated @jegelewicz @mkoo
+- [ ] Banner updated @mkoo
 - [ ] Email sent to AWG 
 - [ ] Tweet @lin-fred (@mkoo backup)
 - [ ] Close this issue when above are complete
