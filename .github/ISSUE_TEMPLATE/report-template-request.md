@@ -3,7 +3,7 @@ name: Report Template Request
 about: A template for requesting new HTML/CSS reports
 title: Arctos Report Template Request
 labels: function-Reports
-assignees: lkvoong, dustymc
+assignees: dustymc, lkvoong
 
 ---
 
