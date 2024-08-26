@@ -11,7 +11,6 @@ Access Arctos: [https://arctos.database.museum/](https://arctos.database.museum/
 You can use one of three templates to file an issue:
 1. __Help Wanted__ - Tell us what you are trying to do
 (Please see our [Handbook](https://handbook.arctosdb.org/) and let us know if it's not covered or needs to be improved)
-- Help in
 
 2. __Bug Report/ Something is broken__ - please include any error messages
 
