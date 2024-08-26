@@ -2,7 +2,7 @@
 .project
 *.gz
 *.xml
-.git
+#.git
 robots.txt
 dustylee@arctos-test.tacc.utexas.edu
 
