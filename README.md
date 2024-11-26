@@ -1,6 +1,7 @@
 # Arctos Community Forum
 
-### Arctos is a collection management system for natural and cultural history museums and collections. This repo functions as the user forum for issues. [Current public code releases are posted here](https://github.com/ArctosDB/arctos-dev). 
+### Arctos is a collection management system for natural and cultural history museums and collections. This repo functions as the [user forum for issues](https://github.com/ArctosDB/arctos/issues). 
+[Current public code releases are posted here](https://github.com/ArctosDB/arctos-dev). 
 
 Arctos is an ongoing effort to integrate access to specimen and object data, collection-management tools, and external resources on the Web. Nearly all that is known about a cataloged item can be included in Arctos, and, except for some data encumbered for proprietary reasons, data are open to the public.
 
