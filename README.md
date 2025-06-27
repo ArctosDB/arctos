@@ -26,6 +26,11 @@ You can use one of three templates to file an issue:
  - feature or otherwise a good idea to make Arctos even better
  - any other collection support request
 
+## Arctos Open Help Desk
+Users may also request individual help from a real person! If you have a question or issue that you’d like to discuss, please use [this form](https://docs.google.com/forms/d/e/1FAIpQLSeNAKEjcUNzsDPxOgJe3IWisJM05wmP1LTXks9RQZxOksp9SQ/viewform) to suggest some virtual meeting times and we will get it set up!
+
+This replaces the regularly scheduled Office Hours sessions that are held twice monthly, and hopefully make it easier for people to participate and have their questions and issues addressed in a timely way.
+
 ## Documentation
 
 Arctos community policy and procedures can be found at [ArctosDB.org/](https://arctosdb.org/).
