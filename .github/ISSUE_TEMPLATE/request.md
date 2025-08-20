@@ -2,11 +2,13 @@
 name: Request
 about: User request for specific change, update or addition
 title: 'Request - '
-labels: 
+labels: ''
 assignees: ''
 
 ---
+
 Help us understand your request (check below):
+
 - [ ] search or data request (help with SQL or provide the specific fields you are trying to retrieve for your collection)
 - [ ] add a new Github user to the Arctos Users team
 - [ ] a new barcode series
@@ -16,6 +18,13 @@ Help us understand your request (check below):
 - [ ] bulkload changes (to Agents, Identifiers, etc that are not already available as a bulkloading tool)
 - [ ] new feature or otherwise a good idea to make Arctos even better
 - [ ] quarantine taxon name and suggested replacement (please supply links)
+- [ ] API key request (see https://handbook.arctosdb.org/documentation/api.html for requirements)
+- [ ] error or bug (please include enough specific information to reproduce)
+- [ ] general inquiry (or email arctoscontact@googlegroups.com)
 - [ ] other
 
 **Describe what you're trying to do** 
+
+**How-To**
+
+See <https://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html> for more information.
