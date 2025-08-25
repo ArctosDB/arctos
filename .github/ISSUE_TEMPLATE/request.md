@@ -27,4 +27,6 @@ Help us understand your request (check below):
 
 **How-To**
 
-See <https://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html> for more information.
+------------
+
+Please review the [Arctos Code of Conduct](https://arctosdb.org/code-of-conduct/) to ensure respectful communication, and see <https://handbook.arctosdb.org/how_to/How-to-Use-Issues-in-Arctos.html> for more information about submitting and managing Issues.
