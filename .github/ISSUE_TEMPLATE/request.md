@@ -21,6 +21,7 @@ Help us understand your request (check below):
 - [ ] API key request (see https://handbook.arctosdb.org/documentation/api.html for requirements)
 - [ ] error or bug (please include enough specific information to reproduce)
 - [ ] general inquiry (or email arctoscontact@googlegroups.com)
+- [ ] access issue (see https://arctosdb.org/faq/)
 - [ ] other
 
 **Describe what you're trying to do** 
