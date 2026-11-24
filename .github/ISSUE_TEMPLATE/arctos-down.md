@@ -23,11 +23,11 @@ Please complete to the best of your ability.
 - [ ] Pin this issue
 - [ ] Banner updated @mkoo
 - [ ] Email sent to AWG  
-- [ ] Tweet @lin-fred (@mkoo backup)
+- [ ] Tweet @wellerjes (@lin-fred) (@mkoo backup)
 
 ## Communication after outage
 - [ ] Unpin this issue
 - [ ] Banner updated @mkoo
 - [ ] Email sent to AWG 
-- [ ] Tweet @lin-fred (@mkoo backup)
+- [ ] Tweet @wellerjes (@lin-fred) (@mkoo backup)
 - [ ] Close this issue when above are complete
